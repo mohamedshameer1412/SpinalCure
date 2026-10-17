@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from spinalcure.decorators import role_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.db.models import Sum, Q
@@ -6,15 +7,16 @@ from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 from spinalcure.utils import SpinalCureExport, log_action
 from .models import Payment, Expense
-from patients.models import PatientReview
+from patients.models import PatientReview, Patient
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
 from .serializers import PaymentSerializer
 from spinalcure.permissions import IsDoctor
 import logging
+from spinalcure.permissions import ReadWritePerm
 from django.views.decorators.http import require_POST
-from spinalcure.decorators import superadmin_required, require_pin_auth
+from spinalcure.decorators import require_pin_auth
 
 logger = logging.getLogger(__name__)
 
@@ -30,20 +32,17 @@ class PaymentViewSet(viewsets.ModelViewSet):
     filterset_fields = ['patient', 'payment_status', 'payment_mode']
     search_fields = ['patient__name', 'notes', 'receipt_number']
     ordering_fields = ['payment_date', 'amount_paid']
-    permission_classes = [IsAuthenticated, IsDoctor]
+    permission_classes = [ReadWritePerm('billing_view', 'billing_edit', 'billing_delete')]
 
 
-@login_required
+@role_required('billing_view')
 def payment_list_view(request):
     """List all payments - admin panel."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to view this page.')
-        return redirect('dashboard')
     
     query = request.GET.get('q', '')
     payments = Payment.objects.all().select_related('patient', 'course_registration', 'event_registration').order_by('-payment_date')
     if query:
-        payments = payments.filter(Q(receipt_number__icontains=query) | Q(patient__name__icontains=query))
+        payments = payments.filter(Q(receipt_number__icontains=query) | Q(patient__in=Patient.search(Patient.objects.all(), query)))
     
     total_collected = payments.aggregate(total=Sum('amount_paid'))['total'] or 0
     
@@ -73,7 +72,7 @@ def payment_list_view(request):
     return render(request, 'payments/payment_list.html', context)
 
 
-@login_required
+@role_required('billing_view')
 def send_invoice_email_view(request, pk):
     """AJAX view to send professional invoice email to client."""
     if request.method != 'POST':
@@ -98,7 +97,7 @@ def send_invoice_email_view(request, pk):
 def payment_pdf_download_view(request, pk):
     """Generate and download a ReportLab PDF receipt for a payment (admin or patient)."""
     # Check authorization: either staff/doctor or the patient who owns the payment
-    is_staff = request.user.is_authenticated and (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff)
+    is_staff = request.user.is_authenticated and request.user.can('billing_view')
     patient_id = request.session.get('patient_id')
     
     if not is_staff and not patient_id:
@@ -128,12 +127,9 @@ def payment_pdf_download_view(request, pk):
         return redirect('payment_invoice', pk=pk)
 
 
-@login_required
+@role_required('billing_view')
 def payment_invoice_view(request, pk):
     """Generate a printable GST invoice for a payment."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to view this page.')
-        return redirect('dashboard')
     
     payment = Payment.objects.select_related('patient', 'clinic', 'course_registration', 'event_registration').get(pk=pk)
     from clinic.models import ClinicProfile
@@ -146,12 +142,9 @@ def payment_invoice_view(request, pk):
     return render(request, 'payments/invoice.html', context)
 
 
-@login_required
+@role_required('expenses_manage')
 def expense_list_view(request):
     """List all expenses - admin panel."""
-    if not (request.user.role == 'superadmin' or request.user.is_superuser):
-        messages.error(request, 'Only admins can view expenses.')
-        return redirect('dashboard')
     
     query = request.GET.get('q', '')
     category = request.GET.get('category', '')
@@ -198,12 +191,9 @@ def expense_list_view(request):
     return render(request, 'payments/expense_list.html', context)
 
 
-@login_required
+@role_required('expenses_manage')
 def expense_create_view(request):
     """Create a new expense record."""
-    if not (request.user.role == 'superadmin' or request.user.is_superuser):
-        messages.error(request, 'Only admins can create expenses.')
-        return redirect('dashboard')
     
     if request.method == 'POST':
         title = request.POST.get('title', '').strip()
@@ -237,13 +227,10 @@ def expense_create_view(request):
     context = {'categories': Expense.CATEGORY_CHOICES}
     return render(request, 'payments/expense_form.html', context)
 
-@login_required
+@role_required('expenses_manage')
 @require_pin_auth('expense_list')
 def expense_edit_view(request, pk):
     """Edit an existing expense record."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'Only admins and authorized staff can edit expenses.')
-        return redirect('dashboard')
     
     expense = get_object_or_404(Expense, pk=pk)
     if request.method == 'POST':
@@ -276,14 +263,11 @@ def expense_edit_view(request, pk):
     }
     return render(request, 'payments/expense_form.html', context)
 
-@login_required
+@role_required('expenses_manage')
 @require_POST
 @require_pin_auth('expense_list')
 def expense_delete_view(request, pk):
     """Delete an expense record."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'Only admins and authorized staff can delete expenses.')
-        return redirect('dashboard')
     
     expense = get_object_or_404(Expense, pk=pk)
     if request.method == 'POST':
@@ -301,12 +285,9 @@ def expense_delete_view(request, pk):
     
     return redirect('expense_list')
 
-@login_required
+@role_required('billing_create')
 def payment_create_view(request):
     """Record a new payment for Patients, Students (Courses), or Participants (Events)."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to perform this action.')
-        return redirect('dashboard')
     
     patient_id = request.GET.get('patient')
     initial_patient = None
@@ -435,13 +416,10 @@ def payment_create_view(request):
     return render(request, 'payments/payment_form.html', context)
 
 
-@login_required
+@role_required('billing_edit')
 @require_pin_auth('payment_list')
 def payment_edit_view(request, pk):
     """Edit an existing payment record."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to perform this action.')
-        return redirect('dashboard')
     
     payment = get_object_or_404(Payment, pk=pk)
     
@@ -533,7 +511,7 @@ def payment_edit_view(request, pk):
     return render(request, 'payments/payment_form.html', context)
 
 
-@login_required
+@role_required('billing_delete')
 @require_POST
 @require_pin_auth('payment-list')
 def payment_delete_view(request, pk):
@@ -573,19 +551,19 @@ def _get_filtered_expenses(request):
 def _expense_mapping(e):
     return [e.title, e.get_category_display(), float(e.amount), e.expense_date.strftime('%Y-%m-%d'), e.paid_to, e.notes]
 
-@login_required
+@role_required('expenses_manage')
 def export_expenses_excel(request):
     expenses, _ = _get_filtered_expenses(request)
     headers = ["Title", "Category", "Amount", "Date", "Paid To", "Notes"]
     return SpinalCureExport.to_excel(expenses, headers, _expense_mapping, "Expenses", "expenses")
 
-@login_required
+@role_required('expenses_manage')
 def export_expenses_csv(request):
     expenses, _ = _get_filtered_expenses(request)
     headers = ["Title", "Category", "Amount", "Date", "Paid To", "Notes"]
     return SpinalCureExport.to_csv(expenses, headers, _expense_mapping, "expenses")
 
-@login_required
+@role_required('expenses_manage')
 def export_expenses_pdf(request):
     expenses, query = _get_filtered_expenses(request)
     headers = ["Title", "Category", "Amount", "Date", "Paid To"]
@@ -594,14 +572,14 @@ def export_expenses_pdf(request):
     title = f"Expense Report {'(Filtered)' if query else ''}"
     return SpinalCureExport.to_pdf(expenses, headers, pdf_mapping, title, "expenses")
 
-@login_required
+@role_required('expenses_manage')
 def export_expenses_copy(request):
     expenses, _ = _get_filtered_expenses(request)
     headers = ["Title", "Category", "Amount", "Date", "Paid To"]
     text = SpinalCureExport.to_text(expenses, headers, _expense_mapping)
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@role_required('expenses_manage')
 def export_expenses_print(request):
     expenses, query = _get_filtered_expenses(request)
     headers = ["Title", "Category", "Amount", "Date", "Paid To"]
@@ -635,7 +613,7 @@ def _get_filtered_payments(request):
     if query:
         payments = payments.filter(
             Q(receipt_number__icontains=query) |
-            Q(patient__name__icontains=query) |
+            Q(patient__in=Patient.search(Patient.objects.all(), query)) |
             Q(manual_payer_name__icontains=query)
         )
     return payments, query
@@ -651,19 +629,19 @@ def _payment_mapping(payment):
         payment.get_payment_status_display()
     ]
 
-@login_required
+@role_required('finance_reports')
 def export_payments_excel(request):
     payments, _ = _get_filtered_payments(request)
     headers = ["Receipt No", "Date", "Payer Name", "Amount Paid", "Total Amount", "Mode", "Status"]
     return SpinalCureExport.to_excel(payments, headers, _payment_mapping, "Payments", "payments")
 
-@login_required
+@role_required('finance_reports')
 def export_payments_csv(request):
     payments, _ = _get_filtered_payments(request)
     headers = ["Receipt No", "Date", "Payer Name", "Amount Paid", "Total Amount", "Mode", "Status"]
     return SpinalCureExport.to_csv(payments, headers, _payment_mapping, "payments")
 
-@login_required
+@role_required('finance_reports')
 def export_payments_pdf(request):
     payments, query = _get_filtered_payments(request)
     headers = ["Receipt No", "Date", "Payer Name", "Amount", "Mode", "Status"]
@@ -679,14 +657,14 @@ def export_payments_pdf(request):
     title = f"Payments Report {'(Filtered)' if query else ''}"
     return SpinalCureExport.to_pdf(payments, headers, pdf_mapping, title, "payments")
 
-@login_required
+@role_required('finance_reports')
 def export_payments_copy(request):
     payments, _ = _get_filtered_payments(request)
     headers = ["Receipt No", "Date", "Payer Name", "Paid", "Total", "Mode", "Status"]
     text = SpinalCureExport.to_text(payments, headers, _payment_mapping)
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@role_required('finance_reports')
 def export_payments_print(request):
     payments, query = _get_filtered_payments(request)
     headers = ["Receipt", "Date", "Payer", "Amount", "Mode", "Status"]

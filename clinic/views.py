@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from spinalcure.decorators import role_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from rest_framework import viewsets
@@ -14,6 +15,8 @@ from .serializers import ClinicProfileSerializer, PractitionerSerializer
 from spinalcure.permissions import IsSuperAdmin, IsDoctor
 import json
 import logging
+from urllib.parse import quote
+from spinalcure.permissions import ReadWritePerm
 from spinalcure.utils import decode_b64uuid
 
 logger = logging.getLogger(__name__)
@@ -241,9 +244,8 @@ def submit_review_ajax(request):
             }, status=400)
 
         # Get or create patient
-        patient, _ = Patient.objects.get_or_create(
-            phone=patient_phone,
-            defaults={'name': patient_name, 'chief_complaint': 'Review submission'}
+        patient = Patient.by_phone(patient_phone) or Patient.objects.create(
+            phone=patient_phone, name=patient_name, chief_complaint='Review submission'
         )
         
         practitioner = get_object_or_404(Practitioner, id=practitioner_id, is_active=True)
@@ -296,7 +298,7 @@ def book_appointment_ajax(request):
             }, status=400)
 
         # Try to find an existing patient by phone
-        patient = Patient.objects.filter(phone=patient_phone).first()
+        patient = Patient.by_phone(patient_phone)
         
         # Update email if patient exists and a new email was provided
         if patient and patient_email and patient.email != patient_email:
@@ -513,14 +515,9 @@ class PractitionerViewSet(viewsets.ModelViewSet):
     """
     queryset = Practitioner.objects.all()
     serializer_class = PractitionerSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [ReadWritePerm(None, 'site_manage')]
     filterset_fields = ['is_active', 'gender']
     search_fields = ['name', 'specialization', 'designation_tag', 'qualifications']
-    
-    def get_permissions(self):
-        if self.request.method == 'GET':
-            return [IsAuthenticatedOrReadOnly()]
-        return [IsAuthenticated, IsDoctor()]
     
     def get_queryset(self):
         # Non-authenticated users only see active practitioners
@@ -536,7 +533,7 @@ from appointments.models import Appointment
 from django.db.models import Q
 from django.urls import reverse
 
-@login_required
+@role_required('patients_view')
 def global_search_ajax(request):
     """Fast AJAX search for top nav bar (Admin only)"""
     query = request.GET.get('q', '').strip()
@@ -546,23 +543,20 @@ def global_search_ajax(request):
     results = []
 
     # Search Patients
-    patients = Patient.objects.filter(
-        Q(name__icontains=query) | 
-        Q(phone__icontains=query) | 
-        Q(email__icontains=query)
-    )[:5]
+    patients = Patient.search(Patient.objects.all(), query)[:5]
+    detail_ok = request.user.can('clinical_view')
     for p in patients:
         results.append({
             'type': 'Patient',
             'title': p.name,
             'subtitle': p.phone,
-            'url': reverse('patient-detail', args=[p.id]),
+            'url': reverse('patient-detail', args=[p.id]) if detail_ok else reverse('patient-list') + '?q=' + quote(p.patient_id_str or p.name),
             'icon': 'bi-person'
         })
 
     # Search Appointments
     appointments = Appointment.objects.filter(
-        Q(patient__name__icontains=query) |
+        Q(patient__in=Patient.search(Patient.objects.all(), query)) |
         Q(reason__icontains=query)
     ).select_related('patient')[:5]
     for a in appointments:

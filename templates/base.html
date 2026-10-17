@@ -263,7 +263,7 @@
                 </div>
                 
                 <!-- Global Quick Search (Enterprise Level) -->
-                {% if request.user.is_staff or request.user.is_superuser %}
+                {% if can.patients_view %}
                 <div class="flex-1 max-w-xl mx-4 lg:mx-8 hidden sm:block" 
                      x-data="{ 
                          query: '', 
@@ -424,7 +424,7 @@
                                 </p>
                                 <p class="text-xs text-gray-500 truncate">{{ request.user.email }}</p>
                             </div>
-                            {% if request.user.is_staff or request.user.is_superuser %}
+                            {% if can.site_manage %}
                             <div class="border-t border-gray-100 mb-1"></div>
                             <a href="{% url 'admin_clinic_setup' %}"
                                 class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 no-underline">
@@ -491,6 +491,7 @@
                 style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;padding:0 12px;margin-bottom:8px;margin-top:16px">
                 Clinical</p>
             <ul style="list-style:none;padding:0;margin:0 0 16px">
+                {% if can.appointments_view %}
                 <li>
                     <a href="{% url 'appointment_calendar' %}"
                         class="sidebar-link {% if 'appointment' in request.resolver_match.url_name|default:'' %}active{% endif %}">
@@ -501,6 +502,8 @@
                         Appointments
                     </a>
                 </li>
+                {% endif %}
+                {% if can.patients_view %}
                 <li>
                     <a href="{% url 'patient-list' %}"
                         class="sidebar-link {% if 'patient' in request.resolver_match.url_name|default:'' and 'review' not in request.resolver_match.url_name|default:'' %}active{% endif %}">
@@ -511,12 +514,14 @@
                         Patients
                     </a>
                 </li>
+                {% endif %}
             </ul>
 
             <p
                 style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;padding:0 12px;margin-bottom:8px;margin-top:16px">
                 Financials</p>
             <ul style="list-style:none;padding:0;margin:0 0 16px">
+                {% if can.billing_view %}
                 <li>
                     <a href="{% url 'payment_list' %}"
                         class="sidebar-link {% if request.resolver_match.url_name == 'payment_list' %}active{% endif %}">
@@ -527,7 +532,8 @@
                         Payments
                     </a>
                 </li>
-                {% if request.user.is_superadmin %}
+                {% endif %}
+                {% if can.expenses_manage %}
                 <li>
                     <a href="{% url 'expense_list' %}"
                         class="sidebar-link {% if 'expense' in request.resolver_match.url_name|default:'' %}active{% endif %}">
@@ -545,6 +551,7 @@
                 style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;padding:0 12px;margin-bottom:8px;margin-top:16px">
                 Education</p>
             <ul style="list-style:none;padding:0;margin:0 0 16px">
+                {% if can.courses_manage %}
                 <li>
                     <a href="{% url 'course_list' %}"
                         class="sidebar-link {% if 'course' in request.resolver_match.url_name|default:'' %}active{% endif %}">
@@ -555,6 +562,8 @@
                         Courses
                     </a>
                 </li>
+                {% endif %}
+                {% if can.events_manage %}
                 <li>
                     <a href="{% url 'event_list' %}"
                         class="sidebar-link {% if 'event' in request.resolver_match.url_name|default:'' %}active{% endif %}">
@@ -565,13 +574,14 @@
                         Events
                     </a>
                 </li>
+                {% endif %}
             </ul>
 
             <p
                 style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;padding:0 12px;margin-bottom:8px;margin-top:16px">
                 Marketing</p>
             <ul style="list-style:none;padding:0;margin:0 0 16px">
-                {% if request.user.is_superadmin %}
+                {% if can.reviews_manage %}
                 <li>
                     <a href="{% url 'patient-reviews' %}"
                         class="sidebar-link {% if 'review' in request.resolver_match.url_name|default:'' %}active{% endif %}">
@@ -604,6 +614,7 @@
                         Clinic Portfolio
                     </a>
                 </li>
+                {% if can.blog_manage %}
                 <li>
                     <a href="{% url 'admin_blog_list' %}"
                         class="sidebar-link {% if 'blog' in request.resolver_match.url_name|default:'' %}active{% endif %}">
@@ -614,9 +625,10 @@
                         Health Articles
                     </a>
                 </li>
+                {% endif %}
             </ul>
 
-            {% if request.user.is_staff or request.user.is_superuser %}
+            {% if can.site_manage %}
             <p
                 style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;padding:0 12px;margin-bottom:8px;margin-top:16px">
                 Settings Area</p>
@@ -651,6 +663,7 @@
                         Clinic Setup
                     </a>
                 </li>
+                {% if can.audit_view %}
                 <li>
                     <a href="{% url 'admin_activity_log' %}"
                         class="sidebar-link {% if request.resolver_match.url_name == 'admin_activity_log' %}active{% endif %}">
@@ -661,6 +674,7 @@
                         Activity Log
                     </a>
                 </li>
+                {% endif %}
             </ul>
             {% endif %}
         </div>

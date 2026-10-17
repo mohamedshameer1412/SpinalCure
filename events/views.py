@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from spinalcure.decorators import role_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
@@ -9,11 +10,13 @@ from datetime import datetime
 from django.views.decorators.http import require_http_methods
 from .models import Event, EventRegistration, EventFeedback
 from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .serializers import EventSerializer
 from spinalcure.permissions import IsDoctor
 import logging
-from spinalcure.decorators import superadmin_required, require_pin_auth
+from spinalcure.permissions import ReadWritePerm
+from spinalcure.decorators import require_pin_auth
 
 logger = logging.getLogger(__name__)
 
@@ -26,14 +29,11 @@ class EventViewSet(viewsets.ModelViewSet):
     """
     queryset = Event.objects.all().order_by('date', 'start_time')
     serializer_class = EventSerializer
-    filter_backends = ['django_filters.rest_framework.DjangoFilterBackend']
+    filter_backends = [DjangoFilterBackend]
     filterset_fields = ['event_type', 'is_published', 'is_online']
     search_fields = ['title', 'description', 'venue']
     
-    def get_permissions(self):
-        if self.request.method == 'GET':
-            return [IsAuthenticatedOrReadOnly()]
-        return [IsAuthenticated, IsDoctor()]
+    permission_classes = [ReadWritePerm(None, 'events_manage')]
     
     def get_queryset(self):
         user = self.request.user
@@ -43,12 +43,9 @@ class EventViewSet(viewsets.ModelViewSet):
         return base_qs.all().order_by('date', 'start_time')
 
 
-@login_required
+@role_required('events_manage')
 def event_list_view(request):
     """List events - admin panel view."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to view this page.')
-        return redirect('dashboard')
     
     query = request.GET.get('q', '')
     events = Event.objects.all().order_by('-date', '-start_time')
@@ -80,12 +77,9 @@ def event_list_view(request):
         
     return render(request, 'events/event_list.html', context)
 
-@login_required
+@role_required('events_manage')
 def event_create_view(request):
     """Create a new event."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to perform this action.')
-        return redirect('dashboard')
     
     if request.method == 'POST':
         try:
@@ -132,13 +126,10 @@ def event_create_view(request):
     return render(request, 'events/event_form.html', context)
 
 
-@login_required
+@role_required('events_manage')
 @require_pin_auth('event_list')
 def event_edit_view(request, pk):
     """Edit an existing event."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to perform this action.')
-        return redirect('dashboard')
     
     event = get_object_or_404(Event, pk=pk)
     
@@ -173,13 +164,10 @@ def event_edit_view(request, pk):
     return render(request, 'events/event_form.html', context)
 
 
-@login_required
+@role_required('events_manage')
 @require_http_methods(["POST"])
 def toggle_event_publish(request, pk):
     """Toggle event publish status."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to perform this action.')
-        return redirect('dashboard')
     
     event = get_object_or_404(Event, pk=pk)
     event.is_published = not event.is_published
@@ -188,13 +176,10 @@ def toggle_event_publish(request, pk):
     messages.success(request, f'Event "{event.title}" {state}.')
     return redirect('event_list')
 
-@login_required
+@role_required('events_manage')
 @require_pin_auth('event_list')
 def event_delete_view(request, pk):
     """Delete an event."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to perform this action.')
-        return redirect('dashboard')
     
     event = get_object_or_404(Event, pk=pk)
     
@@ -212,7 +197,7 @@ def event_delete_view(request, pk):
     return redirect('event_list')
 
 
-@login_required
+@role_required('events_manage')
 def event_registrations_view(request, pk):
     """Admin view to list all registrations for an event."""
     event = get_object_or_404(Event, pk=pk)
@@ -251,7 +236,7 @@ def event_registrations_view(request, pk):
     return render(request, 'events/event_registrations.html', context)
 
 
-@login_required
+@role_required('events_manage')
 def event_feedback_admin_view(request, pk):
     """Admin view to list and publish/unpublish feedback for an event."""
     event = get_object_or_404(Event, pk=pk)
@@ -262,7 +247,7 @@ def event_feedback_admin_view(request, pk):
     })
 
 
-@login_required
+@role_required('events_manage')
 @require_http_methods(["POST"])
 def toggle_event_feedback(request, pk):
     """Toggle the feedback_enabled field for an event."""
@@ -274,7 +259,7 @@ def toggle_event_feedback(request, pk):
     return redirect('event_feedback_admin', pk=pk)
 
 
-@login_required
+@role_required('events_manage')
 @require_http_methods(["POST"])
 def toggle_feedback_publish(request, feedback_pk):
     """Toggle publish/unpublish for a single feedback entry."""
@@ -297,19 +282,19 @@ def _get_filtered_events(request):
 def _event_mapping(e):
     return [e.title, e.get_event_type_display(), e.date.strftime('%Y-%m-%d'), e.venue, f"{e.registrations.count()}/{e.max_participants or '∞'}", float(e.fees)]
 
-@login_required
+@role_required('events_manage')
 def export_events_excel(request):
     events, _ = _get_filtered_events(request)
     headers = ["Title", "Type", "Date", "Venue", "Participants", "Fees"]
     return SpinalCureExport.to_excel(events, headers, _event_mapping, "Events", "events")
 
-@login_required
+@role_required('events_manage')
 def export_events_csv(request):
     events, _ = _get_filtered_events(request)
     headers = ["Title", "Type", "Date", "Venue", "Participants", "Fees"]
     return SpinalCureExport.to_csv(events, headers, _event_mapping, "events")
 
-@login_required
+@role_required('events_manage')
 def export_events_pdf(request):
     events, query = _get_filtered_events(request)
     headers = ["Title", "Type", "Date", "Venue", "Participants", "Fees"]
@@ -318,7 +303,7 @@ def export_events_pdf(request):
     title = f"Events Schedule {'(Filtered)' if query else ''}"
     return SpinalCureExport.to_pdf(events, headers, pdf_mapping, title, "events")
 
-@login_required
+@role_required('events_manage')
 def export_events_copy(request):
     events, _ = _get_filtered_events(request)
     headers = ["Title", "Type", "Date", "Venue", "Participants", "Fees"]
@@ -326,7 +311,7 @@ def export_events_copy(request):
     from django.http import HttpResponse
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@role_required('events_manage')
 def export_events_print(request):
     events, query = _get_filtered_events(request)
     headers = ["Title", "Type", "Date", "Venue", "Participants", "Fees"]
@@ -345,21 +330,21 @@ def export_events_print(request):
 def _registration_mapping(r):
     return [r.full_name, r.email, r.phone, r.get_status_display(), r.created_at.strftime('%Y-%m-%d %H:%M')]
 
-@login_required
+@role_required('events_manage')
 def export_event_registrations_excel(request, pk):
     event = get_object_or_404(Event, pk=pk)
     registrations = event.registrations.all().order_by('-registered_at')
     headers = ["Name", "Email", "Phone", "Status", "Date"]
     return SpinalCureExport.to_excel(registrations, headers, _registration_mapping, f"Reg - {event.title[:20]}", "event_registrations")
 
-@login_required
+@role_required('events_manage')
 def export_event_registrations_csv(request, pk):
     event = get_object_or_404(Event, pk=pk)
     registrations = event.registrations.all().order_by('-registered_at')
     headers = ["Name", "Email", "Phone", "Status", "Date"]
     return SpinalCureExport.to_csv(registrations, headers, _registration_mapping, "event_registrations")
 
-@login_required
+@role_required('events_manage')
 def export_event_registrations_pdf(request, pk):
     event = get_object_or_404(Event, pk=pk)
     registrations = event.registrations.all().order_by('-registered_at')
@@ -367,7 +352,7 @@ def export_event_registrations_pdf(request, pk):
     title = f"Registrations: {event.title}"
     return SpinalCureExport.to_pdf(registrations, headers, _registration_mapping, title, "event_registrations")
 
-@login_required
+@role_required('events_manage')
 def export_event_registrations_copy(request, pk):
     event = get_object_or_404(Event, pk=pk)
     registrations = event.registrations.all().order_by('-registered_at')
@@ -376,7 +361,7 @@ def export_event_registrations_copy(request, pk):
     from django.http import HttpResponse
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@role_required('events_manage')
 def export_event_registrations_print(request, pk):
     event = get_object_or_404(Event, pk=pk)
     registrations = event.registrations.all().order_by('-registered_at')

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from spinalcure.decorators import role_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.db.models import Avg, Sum, Q
@@ -16,13 +17,14 @@ from datetime import datetime
 from django.core.mail import send_mail
 from django.conf import settings
 import logging
-import random
+from django.utils.crypto import salted_hmac, constant_time_compare
+from spinalcure.fields import phone_digest
 import secrets
 from datetime import datetime, date, timedelta
 from django.db.models import Q
 from spinalcure.utils import SpinalCureExport
 import os
-from spinalcure.decorators import superadmin_required, require_pin_auth
+from spinalcure.decorators import require_pin_auth
 from spinalcure.utils import SpinalCureExport, log_action
 logger = logging.getLogger(__name__)
 
@@ -66,23 +68,15 @@ class SessionViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsDoctor]
 
 
-@login_required
+@role_required('patients_view')
 def patient_list_view(request):
     """List all patients - admin panel view with search."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to view this page.')
-        return redirect('dashboard')
     
     query = request.GET.get('q', '')
     patients = Patient.objects.prefetch_related('sessions', 'payments', 'appointments')
     
     if query:
-        patients = patients.filter(
-            Q(name__icontains=query) |
-            Q(phone__icontains=query) |
-            Q(chief_complaint__icontains=query) |
-            Q(medical_history__icontains=query)
-        ).order_by('-registered_date')
+        patients = Patient.search(patients, query).order_by('-registered_date')
     else:
         patients = patients.order_by('-registered_date')
 
@@ -114,9 +108,7 @@ def _get_filtered_patients(request):
     query = request.GET.get('q', '')
     patients = Patient.objects.all().order_by('-registered_date')
     if query:
-        patients = patients.filter(
-            Q(name__icontains=query) | Q(phone__icontains=query) | Q(email__icontains=query)
-        )
+        patients = Patient.search(patients, query)
     return patients, query
 
 def _get_patient_export_rows(patients):
@@ -160,14 +152,14 @@ def _get_patient_export_rows(patients):
         ])
     return rows
 
-@login_required
+@role_required('patients_export')
 def export_patients_excel(request):
     patients, _ = _get_filtered_patients(request)
     headers = ["S.No", "Photo", "Name", "Phone", "Email", "Address", "Gender", "DOB", "Chief Complaint", "Progress", "Registered"]
     rows = _get_patient_export_rows(patients)
     return SpinalCureExport.to_excel(rows, headers, lambda r: r, "Patients", "patients", image_cols=[1])
 
-@login_required
+@role_required('patients_export')
 def export_patients_csv(request):
     patients, _ = _get_filtered_patients(request)
     headers = ["S.No", "Photo URL", "Name", "Phone", "Email", "Address", "Gender", "DOB", "Chief Complaint", "Progress", "Registered"]
@@ -188,7 +180,7 @@ def export_patients_csv(request):
         ])
     return SpinalCureExport.to_csv(rows, headers, lambda r: r, "patients")
 
-@login_required
+@role_required('patients_export')
 def export_patients_pdf(request):
     patients, query = _get_filtered_patients(request)
 
@@ -227,7 +219,7 @@ def export_patients_pdf(request):
         image_cols=[1]   # IMPORTANT: Photo column index is 1
     )
 
-@login_required
+@role_required('patients_export')
 def export_patients_copy(request):
     patients, _ = _get_filtered_patients(request)
     headers = ["S.No", "Name", "Phone", "Email", "Address", "Complaint", "Progress"]
@@ -237,7 +229,7 @@ def export_patients_copy(request):
     text = SpinalCureExport.to_text(rows, headers, lambda r: r)
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@role_required('patients_export')
 def export_patients_print(request):
     patients, query = _get_filtered_patients(request)
     headers = ["S.No", "Photo", "Name", "Phone", "Email", "Address", "Gender", "DOB", "Chief Complaint", "Progress", "Registered"]
@@ -268,12 +260,9 @@ def export_patients_print(request):
 
 
 
-@login_required
+@role_required('clinical_view')
 def patient_detail_view(request, pk):
     """View patient details."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to view this page.')
-        return redirect('dashboard')
     
     patient = get_object_or_404(Patient.objects.prefetch_related('sessions', 'payments', 'appointments', 'treatment_plans'), pk=pk)
     sessions = patient.sessions.all().select_related('treatment_plan').order_by('-session_number')
@@ -302,29 +291,23 @@ def patient_detail_view(request, pk):
     return render(request, 'patients/patient_detail.html', context)
 
 
-@login_required
+@role_required('patients_view')
 def patient_print_card_view(request, pk):
     """Print patient card."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to print this.')
-        return redirect('dashboard')
     
     patient = get_object_or_404(Patient, pk=pk)
     context = {'patient': patient}
     return render(request, 'patients/print/patient_card.html', context)
 
 
-@login_required
+@role_required('reviews_manage')
 def reviews_list_view(request):
     """Admin view for managing all patient reviews."""
-    if not (request.user.role == 'superadmin' or request.user.is_superuser):
-        messages.error(request, 'Only admins can manage reviews.')
-        return redirect('dashboard')
     
     query = request.GET.get('q', '')
     reviews = PatientReview.objects.all().select_related('patient', 'practitioner').order_by('-created_at')
     if query:
-        reviews = reviews.filter(Q(patient__name__icontains=query) | Q(review_text__icontains=query))
+        reviews = reviews.filter(Q(patient__in=Patient.search(Patient.objects.all(), query)) | Q(review_text__icontains=query))
     
     avg_rating = reviews.aggregate(avg=Avg('rating'))['avg'] or 0
     
@@ -347,12 +330,9 @@ def reviews_list_view(request):
     return render(request, 'patients/reviews.html', context)
 
 
-@login_required
+@role_required('reviews_manage')
 def review_toggle_publish(request, pk):
     """Toggle the published status of a review."""
-    if not (request.user.role == 'superadmin' or request.user.is_superuser):
-        messages.error(request, 'Only admins can manage reviews.')
-        return redirect('dashboard')
     
     review = get_object_or_404(PatientReview, pk=pk)
     review.is_published = not review.is_published
@@ -363,12 +343,9 @@ def review_toggle_publish(request, pk):
     return redirect('patient-reviews')
 
 
-@login_required
+@role_required('reviews_manage')
 def review_create_view(request):
     """Add a new review from the admin panel."""
-    if not (request.user.role == 'superadmin' or request.user.is_superuser):
-        messages.error(request, 'Only admins can create reviews.')
-        return redirect('dashboard')
     
     from clinic.models import Practitioner
     
@@ -402,12 +379,9 @@ def review_create_view(request):
     return render(request, 'patients/review_form.html', context)
 
 
-@login_required
+@role_required('patients_create')
 def patient_create_view(request):
     """Create a new patient."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to add patients.')
-        return redirect('patient-list')
     
     if request.method == 'POST':
         try:
@@ -480,13 +454,10 @@ def patient_create_view(request):
     })
 
 
-@login_required
+@role_required('patients_edit')
 @require_pin_auth('patient-list')
 def patient_edit_view(request, pk):
     """Edit an existing patient."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to edit patients.')
-        return redirect('patient-list')
     
     patient = get_object_or_404(Patient, pk=pk)
     
@@ -576,7 +547,7 @@ def patient_edit_view(request, pk):
     })
 
 
-@login_required
+@role_required('patients_delete')
 @require_pin_auth('patient-list')
 def patient_delete_view(request, pk):
     """Delete a patient profile securely."""
@@ -609,7 +580,7 @@ def patient_delete_view(request, pk):
     return redirect('patient-detail', pk=pk)
 
 
-@login_required
+@role_required('reviews_manage')
 def review_delete_view(request, pk):
     review = get_object_or_404(PatientReview, pk=pk)
     if request.method == 'POST':
@@ -618,12 +589,9 @@ def review_delete_view(request, pk):
     return redirect('patient-reviews')
 
 
-@login_required
+@role_required('clinical_edit')
 def session_create_view(request, patient_pk):
     """Add a new treatment session for a specific patient."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to add sessions.')
-        return redirect('dashboard')
         
     patient = get_object_or_404(Patient, pk=patient_pk)
     practitioners = Practitioner.objects.filter(is_active=True).order_by('name')
@@ -688,16 +656,20 @@ def session_create_view(request, patient_pk):
 
 # ─── Session Security Views ───────────────────────────────────────────────────
 
-@login_required
+def _pin_digest(pin):
+    return salted_hmac('session_security_pin', pin).hexdigest()
+
+
+# The PIN only adds superadmin approval; each protected view still checks its own role permission.
+@role_required('dashboard_view')
 @require_POST
 def session_request_pin_view(request):
     """Generate a 4-digit security PIN and email it to the superadmin for approval."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        return JsonResponse({'status': 'error', 'message': 'Permission denied.'}, status=403)
 
-    pin = str(random.randint(1000, 9999))
-    request.session['session_security_pin'] = pin
+    pin = f'{secrets.randbelow(10000):04d}'
+    request.session['session_security_pin'] = _pin_digest(pin)
     request.session['session_security_pin_ts'] = timezone.now().isoformat()
+    request.session['session_security_pin_attempts'] = 0
 
     # Find the superadmin's email
     from accounts.models import CustomUser
@@ -785,7 +757,7 @@ def session_request_pin_view(request):
         return JsonResponse({'status': 'error', 'message': 'Failed to send PIN. Check email settings.'}, status=500)
 
 
-@login_required
+@role_required('dashboard_view')
 @require_POST
 def session_verify_pin_view(request):
     """Validate the submitted PIN and issue a one-time authorization token."""
@@ -803,8 +775,14 @@ def session_verify_pin_view(request):
         del request.session['session_security_pin_ts']
         return JsonResponse({'status': 'expired', 'message': 'PIN has expired. Please request a new one.'}, status=400)
 
-    if submitted_pin != stored_pin:
-        return JsonResponse({'status': 'invalid', 'message': 'Incorrect PIN. Please try again.'}, status=400)
+    if not constant_time_compare(_pin_digest(submitted_pin), stored_pin):
+        attempts = request.session.get('session_security_pin_attempts', 0) + 1
+        request.session['session_security_pin_attempts'] = attempts
+        if attempts >= 5:
+            request.session['session_security_pin'] = None
+            logger.warning('Security PIN locked after %s failed attempts: user=%s', attempts, request.user.pk)
+            return JsonResponse({'status': 'expired', 'message': 'Too many incorrect attempts. Please request a new PIN.'}, status=400)
+        return JsonResponse({'status': 'invalid', 'message': f'Incorrect PIN. {5 - attempts} attempts remaining.'}, status=400)
 
     # PIN is correct — issue a one-time token
     token = secrets.token_urlsafe(24)
@@ -814,12 +792,9 @@ def session_verify_pin_view(request):
     return JsonResponse({'status': 'ok', 'token': token})
 
 
-@login_required
+@role_required('clinical_edit')
 def session_edit_view(request, patient_pk, session_pk):
     """Edit a treatment session — requires prior PIN authorization."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to edit sessions.')
-        return redirect('dashboard')
 
     session = get_object_or_404(Session, pk=session_pk, patient__pk=patient_pk)
     patient = session.patient
@@ -869,7 +844,7 @@ def session_edit_view(request, patient_pk, session_pk):
     return render(request, 'patients/session_edit.html', context)
 
 
-@login_required
+@role_required('clinical_delete')
 @require_POST
 @require_pin_auth('patient-list')
 def session_delete_view(request, patient_pk, session_pk):
@@ -892,25 +867,25 @@ def _get_filtered_reviews(request):
     query = request.GET.get('q', '')
     reviews = PatientReview.objects.select_related('patient', 'practitioner').all().order_by('-created_at')
     if query:
-        reviews = reviews.filter(Q(patient__name__icontains=query) | Q(review_text__icontains=query))
+        reviews = reviews.filter(Q(patient__in=Patient.search(Patient.objects.all(), query)) | Q(review_text__icontains=query))
     return reviews, query
 
 def _review_mapping(r):
     return [r.patient.name, r.practitioner.name if r.practitioner else "General", r.rating, r.review_text, "Published" if r.is_published else "Hidden", r.created_at.strftime('%Y-%m-%d')]
 
-@login_required
+@role_required('reviews_manage')
 def export_reviews_excel(request):
     reviews, _ = _get_filtered_reviews(request)
     headers = ["Patient", "Practitioner", "Rating", "Review", "Status", "Date"]
     return SpinalCureExport.to_excel(reviews, headers, _review_mapping, "Reviews", "reviews")
 
-@login_required
+@role_required('reviews_manage')
 def export_reviews_csv(request):
     reviews, _ = _get_filtered_reviews(request)
     headers = ["Patient", "Practitioner", "Rating", "Review", "Status", "Date"]
     return SpinalCureExport.to_csv(reviews, headers, _review_mapping, "reviews")
 
-@login_required
+@role_required('reviews_manage')
 def export_reviews_pdf(request):
     reviews, query = _get_filtered_reviews(request)
     headers = ["Patient", "Rating", "Review", "Status", "Date"]
@@ -919,7 +894,7 @@ def export_reviews_pdf(request):
     title = f"Patient Reviews {'(Filtered)' if query else ''}"
     return SpinalCureExport.to_pdf(reviews, headers, pdf_mapping, title, "reviews")
 
-@login_required
+@role_required('reviews_manage')
 def export_reviews_copy(request):
     reviews, _ = _get_filtered_reviews(request)
     headers = ["Patient", "Rating", "Review", "Status", "Date"]
@@ -927,7 +902,7 @@ def export_reviews_copy(request):
     from django.http import HttpResponse
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@role_required('reviews_manage')
 def export_reviews_print(request):
     reviews, query = _get_filtered_reviews(request)
     headers = ["Patient", "Rating", "Review", "Status", "Date"]
@@ -945,54 +920,81 @@ def export_reviews_print(request):
 
 # ── Patient Portal (Self-Service) ─────────────────────────────────────────
 
+PORTAL_OTP_MINUTES = 10
+PORTAL_OTP_MAX_ATTEMPTS = 5
+
+
+def _portal_otp_digest(code, nonce):
+    return salted_hmac('portal_otp', f'{nonce}:{code}').hexdigest()
+
+
 def patient_login_view(request):
-    """View for patient to enter phone number for login."""
+    """Patient portal step 1: phone number -> one-time code emailed to the address on file.
+    The response is identical whether or not the number is registered (no enumeration)."""
+    from spinalcure.utils import rate_limited, client_ip
     if 'patient_id' in request.session:
         return redirect('portal_dashboard')
-        
+
     if request.method == 'POST':
         phone = request.POST.get('phone', '').strip()
-        patient = Patient.objects.filter(phone=phone).first()
-        if patient:
-            # Simulate OTP send
-            otp = "123456" # In production, generate random 6 digits and send via Twilio/SMS API
-            print(f"\n[SIMULATED SMS] Send OTP {otp} to {phone} for {patient.name}\n")
-            
-            request.session['portal_auth_phone'] = phone
-            request.session['portal_auth_otp'] = otp
-            return redirect('portal_verify')
-        else:
-            messages.error(request, 'No patient found with this phone number. Please contact the clinic.')
-            
+        if rate_limited(f'portal_login_ip:{client_ip(request)}', 10, 3600) or \
+                rate_limited(f'portal_login_phone:{phone_digest(phone)}', 3, 900):
+            messages.error(request, 'Too many attempts. Please wait a few minutes and try again.')
+            return render(request, 'patients/portal/login.html', status=429)
+
+        patient = Patient.by_phone(phone)
+        nonce = secrets.token_hex(8)
+        code = f'{secrets.randbelow(10**6):06d}'
+        request.session['portal_auth'] = {
+            'pid': str(patient.pk) if patient and patient.email and patient.is_active else None,
+            'digest': _portal_otp_digest(code, nonce), 'nonce': nonce, 'attempts': 0,
+            'expires': (timezone.now() + timedelta(minutes=PORTAL_OTP_MINUTES)).isoformat(),
+        }
+        if request.session['portal_auth']['pid']:
+            try:
+                send_mail(
+                    subject='Your patient portal login code',
+                    message=(f'Your login code is {code}. It expires in {PORTAL_OTP_MINUTES} minutes.\n'
+                             'If you did not request it, you can ignore this email.'),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[patient.email],
+                )
+            except Exception:
+                logger.exception('Portal OTP email failed for patient %s', patient.pk)
+        messages.info(request, 'If this number is registered with an email address, we have sent a login code to it. '
+                               'If you do not receive it, please contact the clinic.')
+        return redirect('portal_verify')
+
     return render(request, 'patients/portal/login.html')
 
 
 def patient_verify_otp_view(request):
-    """View to verify OTP and log patient in."""
+    """Patient portal step 2: verify the emailed code."""
     if 'patient_id' in request.session:
         return redirect('portal_dashboard')
-        
-    phone = request.session.get('portal_auth_phone')
-    expected_otp = request.session.get('portal_auth_otp')
-    
-    if not phone or not expected_otp:
+
+    auth = request.session.get('portal_auth')
+    if not auth:
         return redirect('portal_login')
-        
+
     if request.method == 'POST':
-        entered_otp = request.POST.get('otp', '').strip()
-        if entered_otp == expected_otp:
-            patient = Patient.objects.filter(phone=phone).first()
-            if patient:
-                # Login success
-                request.session['patient_id'] = str(patient.id)
-                # Cleanup temporary auth vars
-                del request.session['portal_auth_phone']
-                del request.session['portal_auth_otp']
-                return redirect('portal_dashboard')
-        
-        messages.error(request, 'Invalid OTP. Please try again.')
-        
-    return render(request, 'patients/portal/verify.html', {'phone': phone})
+        entered = request.POST.get('otp', '').strip()
+        expired = timezone.now() > datetime.fromisoformat(auth['expires'])
+        auth['attempts'] += 1
+        request.session['portal_auth'] = auth
+        if expired or auth['attempts'] > PORTAL_OTP_MAX_ATTEMPTS:
+            del request.session['portal_auth']
+            messages.error(request, 'This code has expired or too many attempts were made. Please request a new code.')
+            return redirect('portal_login')
+        if auth['pid'] and constant_time_compare(_portal_otp_digest(entered, auth['nonce']), auth['digest']):
+            pid = auth['pid']
+            request.session.cycle_key()  # prevent session fixation
+            del request.session['portal_auth']
+            request.session['patient_id'] = pid
+            return redirect('portal_dashboard')
+        messages.error(request, 'Invalid code. Please try again.')
+
+    return render(request, 'patients/portal/verify.html')
 
 
 def patient_logout_view(request):
@@ -1035,7 +1037,7 @@ def patient_dashboard_view(request):
     return render(request, 'patients/portal/dashboard.html', context)
 
 
-@login_required
+@role_required('clinical_view')
 def session_pdf_view(request, session_pk):
     """Generate professional PDF clinical note for a session."""
     from clinic.models import ClinicProfile
@@ -1061,13 +1063,10 @@ def session_pdf_view(request, session_pk):
 # Treatment Plan Views
 # ---------------------------------------------------------------------------
 
-@login_required
+@role_required('clinical_edit')
 @require_POST
 def treatment_plan_create_view(request, patient_pk):
     """Create a new treatment plan for a patient."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to perform this action.')
-        return redirect('dashboard')
         
     patient = get_object_or_404(Patient, pk=patient_pk)
     
@@ -1095,12 +1094,10 @@ def treatment_plan_create_view(request, patient_pk):
         
     return redirect('patient-detail', pk=patient.id)
 
-@login_required
+@role_required('clinical_edit')
 @require_POST
 def treatment_plan_edit_view(request, patient_pk, plan_pk):
     """Edit an existing treatment plan."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        return JsonResponse({'status': 'error', 'message': 'Permission denied.'}, status=403)
         
     plan = get_object_or_404(TreatmentPlan, pk=plan_pk, patient_id=patient_pk)
     
@@ -1117,12 +1114,10 @@ def treatment_plan_edit_view(request, patient_pk, plan_pk):
         
     return redirect('patient-detail', pk=patient_pk)
 
-@login_required
+@role_required('clinical_delete')
 @require_POST
 def treatment_plan_delete_view(request, patient_pk, plan_pk):
     """Delete a treatment plan."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        return JsonResponse({'status': 'error', 'message': 'Permission denied.'}, status=403)
         
     plan = get_object_or_404(TreatmentPlan, pk=plan_pk, patient_id=patient_pk)
     

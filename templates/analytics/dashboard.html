@@ -35,7 +35,7 @@
         </p>
     </div>
 
-    {% if request.user.is_superadmin %}
+    {% if can.finance_reports %}
     <div class="relative overflow-hidden bg-gradient-to-br from-rose-500 to-rose-700 rounded-2xl p-5 text-white shadow-lg">
         <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
         <p class="text-rose-100 text-xs font-semibold uppercase tracking-wide">Expenses Today</p>
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
             labels: plMonths.map(monthLabel),
             datasets: [
                 { label: 'Revenue (₹)', data: plMonths.map(m => revMMap[m] || 0), backgroundColor: '#16a34a', borderRadius: 5 },
-                {% if request.user.is_superadmin %}
+                {% if can.finance_reports %}
                 { label: 'Expenses (₹)', data: plMonths.map(m => expMMap[m] || 0), backgroundColor: '#ef4444', borderRadius: 5 },
                 {% endif %}
             ]

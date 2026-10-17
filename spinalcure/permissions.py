@@ -1,93 +1,59 @@
 """
-Custom permission classes for SpinalCure API.
+DRF permission classes. All role logic lives in accounts.roles.
 """
-from rest_framework.permissions import BasePermission, IsAuthenticated
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS  # noqa: F401 (re-exported)
+
+from accounts.roles import has_perm, PERMISSIONS
+
+
+def ReadWritePerm(read, write, delete=None):
+    """Different perms for safe methods, writes and DELETE. read=None means public reads."""
+    for p in (read, write, delete):
+        if p:
+            PERMISSIONS[p]
+
+    class _ReadWritePerm(BasePermission):
+        message = 'You do not have permission to perform this action.'
+
+        def has_permission(self, request, view):
+            if request.method in SAFE_METHODS:
+                return read is None or has_perm(request.user, read)
+            if request.method == 'DELETE' and delete:
+                return has_perm(request.user, delete)
+            return has_perm(request.user, write)
+
+    return _ReadWritePerm
 
 
 class IsSuperAdmin(BasePermission):
-    """
-    Allows access only to super admin users.
-    """
     message = 'Only Super Admins can access this resource.'
 
     def has_permission(self, request, view):
-        return bool(
-            request.user and
-            request.user.is_authenticated and
-            (request.user.is_superuser or request.user.role == 'superadmin')
-        )
+        u = request.user
+        return bool(u and u.is_authenticated and u.is_active and (u.is_superuser or u.role == 'superadmin'))
 
 
 class IsDoctor(BasePermission):
-    """
-    Allows access to doctors and super admins.
-    """
+    """Clinical access: admins and doctors."""
     message = 'Only Doctors and Admins can access this resource.'
 
     def has_permission(self, request, view):
-        return bool(
-            request.user and
-            request.user.is_authenticated and
-            (request.user.is_superuser or request.user.role in ['superadmin', 'doctor'])
-        )
+        return has_perm(request.user, 'clinical_view')
 
 
 class IsReceptionist(BasePermission):
-    """
-    Allows access to receptionists, doctors, and super admins.
-    """
-    message = 'Only authenticated staff can access this resource.'
+    """Front-desk access: admins, doctors and receptionists."""
+    message = 'Only clinic staff can access this resource.'
 
     def has_permission(self, request, view):
-        return bool(request.user and request.user.is_authenticated)
-
-
-class IsOwnerOrAdmin(BasePermission):
-    """
-    Allows access only if user is the object owner or admin.
-    """
-    def has_object_permission(self, request, view, obj):
-        if hasattr(obj, 'created_by'):
-            return obj.created_by == request.user or request.user.is_superuser
-        return request.user.is_superuser
-
-
-class IsPatientOwnerOrDoctor(BasePermission):
-    """
-    Allows patients to view their own data and doctors to view all.
-    """
-    def has_object_permission(self, request, view, obj):
-        # Doctors and admins can access all
-        if request.user.role in ['superadmin', 'doctor']:
-            return True
-        # Patients can only access their own data
-        if hasattr(obj, 'patient'):
-            return obj.patient.id == request.user.id
-        elif hasattr(obj, 'id'):
-            return obj.id == request.user.id
-        return False
+        return has_perm(request.user, 'patients_view')
 
 
 class IsClinicAdmin(BasePermission):
-    """
-    Allows only clinic admin to modify clinic settings.
-    """
+    message = 'Only clinic administrators can access this resource.'
+
     def has_permission(self, request, view):
-        return bool(
-            request.user and
-            request.user.is_authenticated and
-            request.user.role == 'superadmin'
-        )
+        return has_perm(request.user, 'site_manage')
 
     def has_object_permission(self, request, view, obj):
-        return request.user.role == 'superadmin'
-
-
-class SafeMethodsOnly(BasePermission):
-    """
-    Allows POST only, but blocks PUT/PATCH/DELETE.
-    """
-    def has_permission(self, request, view):
-        if request.method == 'POST':
-            return True
-        return bool(request.user and request.user.is_authenticated and request.user.role == 'superadmin')
+        return has_perm(request.user, 'site_manage')

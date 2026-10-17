@@ -1,23 +1,32 @@
 from django.shortcuts import redirect
 from django.contrib import messages
 from functools import wraps
-from django.conf import settings
 from django.http import JsonResponse
+from django.contrib.auth.views import redirect_to_login
 import logging
 
 logger = logging.getLogger(__name__)
 
-def superadmin_required(view_func):
-    """Decorator: only superadmin / staff can access these management views."""
-    @wraps(view_func)
-    def _wrapped(request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect(settings.LOGIN_URL + f'?next={request.path}')
-        if not (request.user.is_staff or request.user.is_superuser):
-            messages.error(request, 'You do not have permission to access this section.')
-            return redirect('dashboard')
-        return view_func(request, *args, **kwargs)
-    return _wrapped
+def role_required(perm):
+    """Decorator: login plus a permission from accounts.roles.PERMISSIONS, checked server-side."""
+    from accounts.roles import has_perm, PERMISSIONS
+    PERMISSIONS[perm]  # fail at import time on a typo
+
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapped(request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                return redirect_to_login(request.get_full_path())
+            if not has_perm(request.user, perm):
+                logger.warning('Permission denied: user=%s perm=%s path=%s', request.user.pk, perm, request.path)
+                if request.headers.get('x-requested-with') == 'XMLHttpRequest' or 'application/json' in request.headers.get('Accept', ''):
+                    return JsonResponse({'status': 'error', 'message': 'You do not have permission to do this.'}, status=403)
+                messages.error(request, 'You do not have permission to access this section.')
+                return redirect('dashboard')
+            return view_func(request, *args, **kwargs)
+        return _wrapped
+    return decorator
+
 
 def require_pin_auth(redirect_url_name='dashboard'):
     """

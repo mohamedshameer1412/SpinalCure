@@ -4,11 +4,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from datetime import timedelta
-import pyotp
-import qrcode
-from io import BytesIO
-import base64
+import secrets
+from django.utils.crypto import salted_hmac, constant_time_compare
 from spinalcure.validators import validate_phone_number
+from . import roles
 
 
 class CustomUser(AbstractUser):
@@ -16,11 +15,7 @@ class CustomUser(AbstractUser):
     """
     Custom user model with role-based access control and additional fields.
     """
-    ROLE_CHOICES = [
-        ('superadmin', _('Super Admin')),
-        ('doctor', _('Doctor')),
-        ('receptionist', _('Receptionist')),
-    ]
+    ROLE_CHOICES = roles.ROLE_CHOICES
 
     role = models.CharField(
         max_length=20,
@@ -60,20 +55,14 @@ class CustomUser(AbstractUser):
 
     @property
     def is_superadmin(self):
-        """Check if user is super admin."""
-        return self.role == 'superadmin' or self.is_superuser
+        return self.role == roles.SUPERADMIN or self.is_superuser
 
-    @property
-    def is_doctor_role(self):
-        """Check if user is a doctor."""
-        return self.role in ('superadmin', 'doctor') or self.is_staff
+    def can(self, perm):
+        return roles.has_perm(self, perm)
 
     def save(self, *args, **kwargs):
-        """Enforce role-based permissions on save."""
         if self.is_superuser:
-            self.role = 'superadmin'
-        if self.is_staff:
-            self.role = 'doctor'
+            self.role = roles.SUPERADMIN
         super().save(*args, **kwargs)
 
 
@@ -100,17 +89,11 @@ class OTPToken(models.Model):
         default='email',
         verbose_name=_('Delivery Method')
     )
-    otp_secret = models.CharField(
-        max_length=32,
-        unique=True,
-        verbose_name=_('OTP Secret'),
-        help_text=_('Base32 encoded secret for TOTP generation')
-    )
     otp_value = models.CharField(
-        max_length=6,
-        verbose_name=_('Current OTP Value'),
+        max_length=64,
+        verbose_name=_('OTP Hash'),
         editable=False,
-        help_text=_('Current valid OTP code')
+        help_text=_('Keyed hash of the code; the code itself is never stored')
     )
     is_used = models.BooleanField(
         default=False,
@@ -210,29 +193,24 @@ class OTPToken(models.Model):
             expires_at__gt=now
         ).update(expires_at=now)
         
-        # Generate new OTP secret
-        secret = pyotp.random_base32()
-        totp = pyotp.TOTP(secret, interval=settings.OTP_EXPIRY_MINUTES * 60)
-        otp_value = totp.now()
-        
-        # Create OTP token
+        otp_value = f'{secrets.randbelow(10**6):06d}'
         expires_at = now + timedelta(minutes=settings.OTP_EXPIRY_MINUTES)
-        otp_token, created = cls.objects.update_or_create(
+        otp_token = cls.objects.create(
             user=user,
             delivery_method=delivery_method,
-            is_used=False,
-            defaults={
-                'otp_secret': secret,
-                'otp_value': otp_value,
-                'expires_at': expires_at,
-                'failed_attempts': 0,
-                'last_request_at': now,
-                'request_count_today': today_requests + 1,
-            }
+            expires_at=expires_at,
+            last_request_at=now,
+            request_count_today=today_requests + 1,
         )
-        
+        otp_token.otp_value = otp_token._digest(otp_value)
+        otp_token.save(update_fields=['otp_value'])
+        created = True
+
         return otp_token, otp_value, created
     
+    def _digest(self, code):
+        return salted_hmac('accounts.otp', f'{self.pk}:{code}').hexdigest()
+
     @classmethod
     def verify_otp(cls, user, otp_value, delivery_method='email'):
         """
@@ -248,14 +226,10 @@ class OTPToken(models.Model):
         """
         now = timezone.now()
         
-        try:
-            otp_token = cls.objects.get(
-                user=user,
-                delivery_method=delivery_method,
-                is_used=False,
-                expires_at__gt=now  # Not expired
-            )
-        except cls.DoesNotExist:
+        otp_token = cls.objects.filter(
+            user=user, delivery_method=delivery_method, is_used=False, expires_at__gt=now
+        ).order_by('-created_at').first()
+        if otp_token is None:
             return False, None, _('No valid OTP found. Please request a new one.')
         
         # Check if brute force attempt
@@ -264,11 +238,7 @@ class OTPToken(models.Model):
             otp_token.save()
             return False, None, _('Too many failed attempts. OTP has been invalidated. Please request a new one.')
         
-        # Verify OTP
-        totp = pyotp.TOTP(otp_token.otp_secret, interval=otp_token.created_at.second)
-        
-        # Allow previous and next time windows for clock skew (±30 seconds)
-        is_valid = totp.verify(otp_value, valid_window=1)
+        is_valid = constant_time_compare(otp_token._digest(str(otp_value)), otp_token.otp_value)
         
         if not is_valid:
             otp_token.failed_attempts += 1
@@ -278,7 +248,7 @@ class OTPToken(models.Model):
                 return False, None, _('Too many failed attempts. OTP has been invalidated. Please request a new one.')
             
             remaining_attempts = 5 - otp_token.failed_attempts
-            return False, None, _(f'Invalid OTP. {remaining_attempts} attempts remaining.')
+            return False, None, _('Invalid OTP. %(n)s attempts remaining.') % {'n': remaining_attempts}
         
         # OTP is valid
         otp_token.is_used = True

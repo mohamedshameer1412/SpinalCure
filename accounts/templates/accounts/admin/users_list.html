@@ -48,16 +48,8 @@
                         </div>
                     </td>
                     <td class="px-6 py-4">
-                        {% if u.is_superuser %}
                         <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-purple-50 text-purple-600 uppercase tracking-tighter border border-purple-100">Superuser</span>
-                        {% elif u.is_staff %}
-                        <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-blue-50 text-blue-600 uppercase tracking-tighter border border-blue-100">Admin</span>
-                        {% else %}
-                        <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-gray-50 text-gray-600 uppercase tracking-tighter border border-gray-100">Staff</span>
-                        {% endif %}
+                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold {% if u.role == 'superadmin' or u.role == 'owner' %}bg-purple-50 text-purple-600 border-purple-100{% elif u.role == 'clinic_admin' %}bg-blue-50 text-blue-600 border-blue-100{% else %}bg-gray-50 text-gray-600 border-gray-100{% endif %} uppercase tracking-tighter border">{{ u.get_role_display }}</span>
                     </td>
                     <td class="px-6 py-4 text-xs text-gray-500">{{ u.date_joined|date:"d M Y" }}</td>
                     <td class="px-6 py-4">
@@ -75,13 +67,16 @@
                     </td>
                     <td class="px-6 py-4 text-right">
                         <div class="flex items-center justify-end gap-2">
+                            {% if u.pk in manageable_ids %}
                             <a href="{% url 'admin_user_edit' u.pk %}"
                                 class="text-xs font-semibold px-3 py-1.5 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg border border-gray-200 transition-all no-underline">Edit</a>
-                            {% if u != request.user %}
-                            <a href="{% url 'admin_user_toggle' u.pk %}"
-                                class="text-xs font-semibold px-3 py-1.5 {% if u.is_active %}bg-red-50 text-red-600 border-red-100 hover:bg-red-100{% else %}bg-green-50 text-green-600 border-green-100 hover:bg-green-100{% endif %} rounded-lg border transition-all no-underline">
-                                {% if u.is_active %}Disable{% else %}Enable{% endif %}
-                            </a>
+                            <form method="post" action="{% url 'admin_user_toggle' u.pk %}" class="inline">
+                                {% csrf_token %}
+                                <button type="submit"
+                                    class="text-xs font-semibold px-3 py-1.5 {% if u.is_active %}bg-red-50 text-red-600 border-red-100 hover:bg-red-100{% else %}bg-green-50 text-green-600 border-green-100 hover:bg-green-100{% endif %} rounded-lg border transition-all">
+                                    {% if u.is_active %}Disable{% else %}Enable{% endif %}
+                                </button>
+                            </form>
                             {% endif %}
                         </div>
                     </td>

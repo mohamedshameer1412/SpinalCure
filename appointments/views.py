@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from spinalcure.decorators import role_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
@@ -12,7 +13,7 @@ from clinic.models import Practitioner, ClinicProfile
 from patients.models import Patient
 from appointments.models import Appointment, DoctorAvailability
 
-@login_required
+@role_required('appointments_view')
 def appointment_calendar_view(request):
     
     # Export URLs (no filters on main calendar typically, or use defaults)
@@ -45,7 +46,7 @@ def appointment_calendar_view(request):
     }
     return render(request, 'appointments/calendar.html', context)
 
-@login_required
+@role_required('availability_manage')
 def doctor_availability_view(request):
     practitioners = Practitioner.objects.all()
     # If a specific doctor is selected or default to the first one for the UI
@@ -63,12 +64,9 @@ def doctor_availability_view(request):
     }
     return render(request, 'appointments/availability.html', context)
 
-@login_required
+@role_required('appointments_view')
 def appointment_list_view(request):
     """List all appointments with search and filters."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to view this page.')
-        return redirect('dashboard')
     
     query = request.GET.get('q', '')
     status_filter = request.GET.get('status', '')
@@ -79,9 +77,7 @@ def appointment_list_view(request):
     
     if query:
         appointments = appointments.filter(
-            Q(patient__name__icontains=query) | 
-            Q(patient__phone__icontains=query) |
-            Q(patient__email__icontains=query) |
+            Q(patient__in=Patient.search(Patient.objects.all(), query)) |
             Q(reason__icontains=query)
         )
     if status_filter:
@@ -132,9 +128,7 @@ def _get_filtered_appointments(request):
     
     if query:
         appointments = appointments.filter(
-            Q(patient__name__icontains=query) | 
-            Q(patient__phone__icontains=query) |
-            Q(patient__email__icontains=query)
+            Q(patient__in=Patient.search(Patient.objects.all(), query))
         )
     if date_filter:
         appointments = appointments.filter(appointment_date=date_filter)
@@ -152,7 +146,7 @@ def _appointment_mapping(a):
         a.reason
     ]
 
-@login_required
+@role_required('appointments_view')
 def export_appointments_excel(request):
     appointments, _ = _get_filtered_appointments(request)
     headers = ["Patient", "Practitioner", "Phone Number", "Date", "Time","Reason","Status"]
@@ -168,7 +162,7 @@ def export_appointments_excel(request):
         ]
     return SpinalCureExport.to_excel(appointments, headers, copy_mapping, "Appointments", "appointments")
 
-@login_required
+@role_required('appointments_view')
 def export_appointments_csv(request):
     appointments, _ = _get_filtered_appointments(request)
     headers = ["Patient", "Practitioner", "Phone Number", "Date", "Time","Reason","Status"]
@@ -184,7 +178,7 @@ def export_appointments_csv(request):
         ]
     return SpinalCureExport.to_csv(appointments, headers, copy_mapping, "appointments")
 
-@login_required
+@role_required('appointments_view')
 def export_appointments_pdf(request):
     appointments, query = _get_filtered_appointments(request)
     headers = ["Patient", "Practitioner", "Phone Number", "Date", "Time","Reason","Status"]
@@ -201,7 +195,7 @@ def export_appointments_pdf(request):
     title = f"Appointments Report {'(Filtered)' if query else ''}"
     return SpinalCureExport.to_pdf(appointments, headers, pdf_mapping, title, "appointments")
 
-@login_required
+@role_required('appointments_view')
 def export_appointments_copy(request):
     appointments, _ = _get_filtered_appointments(request)
     headers = ["Patient", "Practitioner", "Phone Number", "Date", "Time","Reason","Status"]
@@ -218,7 +212,7 @@ def export_appointments_copy(request):
     text = SpinalCureExport.to_text(appointments, headers, copy_mapping)
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@role_required('appointments_view')
 def export_appointments_print(request):
     appointments, query = _get_filtered_appointments(request)
     headers = ["S.No", "Patient", "Practitioner", "Phone Number", "Date", "Time","Reason","Status"]
@@ -245,7 +239,7 @@ def export_appointments_print(request):
 
 from spinalcure.decorators import require_pin_auth
 
-@login_required
+@role_required('appointments_delete')
 @require_pin_auth('appointments')
 def appointment_delete_view(request, pk):
     """Delete an appointment - requires POST and role check."""
@@ -267,7 +261,7 @@ def appointment_delete_view(request, pk):
     return redirect('appointment_calendar')
 
 
-@login_required
+@role_required('appointments_manage')
 def appointment_check_collision(request):
     """Check if a doctor already has an appointment at a specific time."""
     practitioner_id = request.GET.get('practitioner')

@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from clinic.models import Practitioner
 from spinalcure.validators import validate_phone_number, validate_not_in_future
 from datetime import date, timedelta
-from spinalcure.fields import EncryptedCharField, EncryptedTextField, EncryptedEmailField, EncryptedJSONField
+from spinalcure.fields import EncryptedCharField, EncryptedTextField, EncryptedEmailField, EncryptedJSONField, phone_digest
 
 
 class Patient(models.Model):
@@ -29,6 +29,8 @@ class Patient(models.Model):
         verbose_name=_('Phone'),
         db_index=True
     )
+    # Keyed hash of `phone` for exact lookups (the encrypted column cannot be queried).
+    phone_hash = models.CharField(max_length=64, blank=True, db_index=True, editable=False)
     whatsapp_no = EncryptedCharField(
         max_length=255,
         blank=True,
@@ -90,6 +92,33 @@ class Patient(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.phone})"
+
+    def save(self, *args, **kwargs):
+        self.phone_hash = phone_digest(self.phone)
+        update_fields = kwargs.get('update_fields')
+        if update_fields is not None and 'phone' in update_fields:
+            kwargs['update_fields'] = {*update_fields, 'phone_hash'}
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def search(cls, qs, query):
+        """Filter `qs` by patient ID, reg. no., exact phone or name substring.
+        shortcut: names are encrypted, so name matching decrypts all names in Python;
+        fine for one clinic (tens of thousands of rows), needs a search index beyond that."""
+        q = (query or '').strip().lower()
+        if not q:
+            return qs
+        cond = models.Q(patient_id_str__icontains=q) | models.Q(registration_number__icontains=q)
+        digest = phone_digest(q)
+        if digest:
+            cond |= models.Q(phone_hash=digest)
+        name_ids = [pk for pk, name in cls.objects.values_list('pk', 'name') if q in (name or '').lower()]
+        return qs.filter(cond | models.Q(pk__in=name_ids))
+
+    @classmethod
+    def by_phone(cls, phone):
+        digest = phone_digest(phone)
+        return cls.objects.filter(phone_hash=digest).first() if digest else None
 
     @property
     def completed_sittings(self):

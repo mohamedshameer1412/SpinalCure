@@ -1,3 +1,5 @@
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError as DjangoValidationError
 from rest_framework import serializers
 from spinalcure.utils import B64UUIDField
 from django.contrib.auth import authenticate
@@ -6,10 +8,19 @@ from .models import CustomUser, OTPToken
 
 class UserSerializer(serializers.ModelSerializer):
     id = B64UUIDField(read_only=True)
-class Meta:
+    class Meta:
         model = CustomUser
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'role', 'phone', 'bio', 'photo')
         read_only_fields = ('id', 'role')
+
+
+def _find_user(email, phone):
+    qs = CustomUser.objects.filter(is_active=True)
+    if email:
+        return qs.filter(email__iexact=email).first()
+    if phone:
+        return qs.filter(phone=phone).first()
+    return None
 
 
 class OTPRequestSerializer(serializers.Serializer):
@@ -20,7 +31,7 @@ class OTPRequestSerializer(serializers.Serializer):
     email = serializers.EmailField(required=False, allow_blank=True)
     phone = serializers.CharField(required=False, allow_blank=True, max_length=20)
     delivery_method = serializers.ChoiceField(
-        choices=['email', 'sms'],
+        choices=['email'],  # SMS has no configured provider yet
         default='email',
         help_text=_('Method to deliver OTP: email or SMS')
     )
@@ -35,27 +46,8 @@ class OTPRequestSerializer(serializers.Serializer):
                 _('Either email or phone number is required.')
             )
         
-        # Find user
-        user = None
-        if email:
-            try:
-                user = CustomUser.objects.get(email=email)
-            except CustomUser.DoesNotExist:
-                pass
-        
-        if not user and phone:
-            try:
-                user = CustomUser.objects.get(phone=phone)
-            except CustomUser.DoesNotExist:
-                pass
-        
-        if not user:
-            # For security, don't reveal whether email/phone exists
-            raise serializers.ValidationError(
-                _('No account found with provided email or phone number.')
-            )
-        
-        attrs['user'] = user
+        # None when not found: the view answers identically either way (no account enumeration).
+        attrs['user'] = _find_user(email, phone)
         return attrs
 
 
@@ -71,7 +63,7 @@ class OTPVerifySerializer(serializers.Serializer):
         help_text=_('6-digit OTP code')
     )
     delivery_method = serializers.ChoiceField(
-        choices=['email', 'sms'],
+        choices=['email'],  # SMS has no configured provider yet
         default='email'
     )
     new_password = serializers.CharField(
@@ -99,24 +91,13 @@ class OTPVerifySerializer(serializers.Serializer):
                 'confirm_password': _('Passwords do not match.')
             })
         
-        # Find user
-        user = None
-        if email:
-            try:
-                user = CustomUser.objects.get(email=email)
-            except CustomUser.DoesNotExist:
-                pass
-        
-        if not user and phone:
-            try:
-                user = CustomUser.objects.get(phone=phone)
-            except CustomUser.DoesNotExist:
-                pass
-        
+        user = _find_user(email, phone)
         if not user:
-            raise serializers.ValidationError(
-                _('No account found with provided email or phone number.')
-            )
+            raise serializers.ValidationError({'otp': _('Invalid or expired code.')})
+        try:
+            validate_password(new_password, user)
+        except DjangoValidationError as e:
+            raise serializers.ValidationError({'new_password': list(e.messages)})
         
         # Verify OTP
         success, otp_token, error_message = OTPToken.verify_otp(

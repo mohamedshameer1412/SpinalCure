@@ -17,6 +17,7 @@ class EmailBackend(ModelBackend):
         try:
             user = User.objects.get(email__iexact=email)
         except User.DoesNotExist:
+            User().set_password(password)  # same work as a real check: no timing hint that the email is unknown
             return None
         except User.MultipleObjectsReturned:
             user = User.objects.filter(email__iexact=email).order_by('id').first()

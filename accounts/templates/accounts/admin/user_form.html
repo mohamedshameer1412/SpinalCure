@@ -67,15 +67,16 @@ Add New Staff User
                         placeholder="••••••••">
                     {% endif %}
                 </div>
-                <div class="flex items-center gap-3 pt-6">
-                    {% if edit_user.is_staff %}
-                    <input type="checkbox" name="is_staff" id="is_staff" value="on" checked
-                        class="w-4 h-4 text-green-600 bg-gray-100 border-gray-200 rounded focus:ring-green-500">
-                    {% else %}
-                    <input type="checkbox" name="is_staff" id="is_staff" value="on"
-                        class="w-4 h-4 text-green-600 bg-gray-100 border-gray-200 rounded focus:ring-green-500">
-                    {% endif %}
-                    <label for="is_staff" class="text-sm text-gray-700 font-medium">Administrator Privileges</label>
+                <div>
+                    <label for="role" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
+                        Role <span class="text-red-500">*</span></label>
+                    <select name="role" id="role" required
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+                        {% for code, label in role_options %}
+                        <option value="{{ code }}" {% if edit_user.role == code or not edit_user and code == 'receptionist' %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                    <p class="text-xs text-gray-400 mt-1">You can only assign roles below your own.</p>
                 </div>
             </div>
         </div>

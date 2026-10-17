@@ -12,9 +12,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.SeparateDatabaseAndState(
-            database_operations=[],
-            state_operations=[
                 migrations.AddField(
                     model_name='patient',
                     name='patient_id_str',
@@ -35,20 +32,6 @@ class Migration(migrations.Migration):
                     name='whatsapp_no',
                     field=models.CharField(blank=True, max_length=20, null=True, verbose_name='Whatsapp No'),
                 ),
-            ]
-        ),
-        migrations.SeparateDatabaseAndState(
-            database_operations=[
-                migrations.RunSQL(
-                    sql=[
-                        "DROP TABLE IF EXISTS `patients_acupuncturediagnosis`;",
-                        "CREATE TABLE `patients_acupuncturediagnosis` (`id` char(32) NOT NULL PRIMARY KEY, `diagnosis_data` longtext NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, `patient_id` char(32) NOT NULL UNIQUE);",
-                        "ALTER TABLE `patients_acupuncturediagnosis` ADD CONSTRAINT `patients_acupuncture_patient_id_ba66f245_fk_patients_` FOREIGN KEY (`patient_id`) REFERENCES `patients_patient` (`id`);"
-                    ],
-                    reverse_sql="DROP TABLE IF EXISTS `patients_acupuncturediagnosis`;"
-                )
-            ],
-            state_operations=[
                 migrations.CreateModel(
                     name='AcupunctureDiagnosis',
                     fields=[
@@ -63,6 +46,4 @@ class Migration(migrations.Migration):
                         'verbose_name_plural': 'Acupuncture Diagnoses',
                     },
                 ),
-            ]
-        ),
     ]

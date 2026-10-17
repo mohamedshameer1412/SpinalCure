@@ -58,3 +58,7 @@ INTERNAL_IPS = ['127.0.0.1', 'localhost']
 
 # Silence ratelimit warnings/errors in development since we use LocMemCache
 SILENCED_SYSTEM_CHECKS = ["django_ratelimit.E003", "django_ratelimit.W001"]
+
+# Local-only fallback. This key was committed to git and is public: never use it for real data.
+if not FERNET_KEYS:
+    FERNET_KEYS = ['8mrsr84tmG0jitcuXLSLFjCIVYzAFoJrdeXBueV8UE8=']

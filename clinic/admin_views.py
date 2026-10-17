@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from spinalcure.decorators import role_required
 from django.contrib import messages
 from django.views.decorators.http import require_POST
-from spinalcure.decorators import superadmin_required
 from .models import ClinicProfile, Practitioner, ClinicService, ClinicAboutImage, ClinicTestimonial
 
-@superadmin_required
+@role_required('site_manage')
 def clinic_setup_view(request):
     clinic = ClinicProfile.objects.first()
     if not clinic:
@@ -148,12 +148,12 @@ def clinic_setup_view(request):
         'icon_choices': ICON_CHOICES
     })
 
-@superadmin_required
+@role_required('site_manage')
 def practitioners_list(request):
     practitioners = Practitioner.objects.all().order_by('name')
     return render(request, 'clinic/admin/practitioners_list.html', {'practitioners': practitioners})
 
-@superadmin_required
+@role_required('site_manage')
 def practitioner_create(request):
     if request.method == 'POST':
         try:
@@ -186,7 +186,7 @@ def practitioner_create(request):
             messages.error(request, f'Error creating practitioner: {str(e)}')
     return render(request, 'clinic/admin/practitioner_form.html', {'practitioner': None})
 
-@superadmin_required
+@role_required('site_manage')
 def practitioner_edit(request, pk):
     p = get_object_or_404(Practitioner, pk=pk)
     if request.method == 'POST':
@@ -218,7 +218,7 @@ def practitioner_edit(request, pk):
             messages.error(request, f'Error updating practitioner: {str(e)}')
     return render(request, 'clinic/admin/practitioner_form.html', {'practitioner': p})
 
-@superadmin_required
+@role_required('site_manage')
 def practitioner_delete(request, pk):
     p = get_object_or_404(Practitioner, pk=pk)
     if request.method == 'POST':
@@ -230,7 +230,7 @@ def practitioner_delete(request, pk):
 
 # ── Testimonials CRUD ─────────────────────────────────────────────────────
 
-@superadmin_required
+@role_required('site_manage')
 def testimonials_list(request):
     clinic = ClinicProfile.objects.first()
     testimonials = ClinicTestimonial.objects.filter(clinic=clinic).order_by('display_order', '-created_at') if clinic else []
@@ -240,7 +240,7 @@ def testimonials_list(request):
     })
 
 
-@superadmin_required
+@role_required('site_manage')
 def testimonial_create(request):
     clinic = ClinicProfile.objects.first()
     if not clinic:
@@ -273,7 +273,7 @@ def testimonial_create(request):
     })
 
 
-@superadmin_required
+@role_required('site_manage')
 def testimonial_edit(request, pk):
     t = get_object_or_404(ClinicTestimonial, pk=pk)
     if request.method == 'POST':
@@ -299,7 +299,7 @@ def testimonial_edit(request, pk):
     })
 
 
-@superadmin_required
+@role_required('site_manage')
 def testimonial_delete(request, pk):
     t = get_object_or_404(ClinicTestimonial, pk=pk)
     if request.method == 'POST':
@@ -309,7 +309,7 @@ def testimonial_delete(request, pk):
     return redirect('admin_testimonials')
 
 
-@superadmin_required
+@role_required('site_manage')
 def testimonial_toggle_publish(request, pk):
     """Quick AJAX toggle for published status."""
     from django.http import JsonResponse
@@ -319,7 +319,7 @@ def testimonial_toggle_publish(request, pk):
     return JsonResponse({'status': 'ok', 'is_published': t.is_published})
 
 
-@superadmin_required
+@role_required('audit_revert')
 @require_POST
 def revert_audit_log_view(request, pk):
     """Revert an action recorded in the AuditLog."""
@@ -371,7 +371,7 @@ def revert_audit_log_view(request, pk):
     except Exception as e:
         logger.error(f'Error reverting log {pk}: {e}')
         return JsonResponse({'status': 'error', 'message': f'Error reverting: {str(e)}'}, status=500)
-@superadmin_required
+@role_required('audit_view')
 def activity_log_view(request):
     """View the full CRUD activity log — superadmin only."""
     from .models import AuditLog
@@ -397,7 +397,7 @@ def activity_log_view(request):
 
     # Distinct modules for filter dropdown
     modules = AuditLog.objects.values_list('model_name', flat=True).distinct().order_by('model_name')
-    staff_users = CustomUser.objects.filter(is_staff=True).order_by('first_name', 'email')
+    staff_users = CustomUser.objects.filter(is_active=True).order_by('first_name', 'email')
 
     context = {
         'logs': page_obj,

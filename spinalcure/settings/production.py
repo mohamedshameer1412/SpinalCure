@@ -9,6 +9,10 @@ DEBUG = False
 SECRET_KEY = config('SECRET_KEY')  # Must be set in environment
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 
+from django.core.exceptions import ImproperlyConfigured
+if not FERNET_KEYS:
+    raise ImproperlyConfigured('FERNET_KEYS must be set (patient data encryption key).')
+
 # SSL/HTTPS Settings
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True

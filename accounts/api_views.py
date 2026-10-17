@@ -9,8 +9,10 @@ from django.conf import settings
 from django.views.decorators.http import require_http_methods
 from django.utils.decorators import method_decorator
 import logging
+from django.utils.html import escape
 
-from .models import CustomUser, OTPToken
+from .models import OTPToken
+from spinalcure.utils import rate_limited, client_ip
 from .serializers import (
     UserSerializer,
     OTPRequestSerializer,
@@ -19,6 +21,59 @@ from .serializers import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def send_otp_email(user, otp_value):
+    """
+    Send OTP via email with professional template.
+    """
+    try:
+        subject = f'{settings.SITE_NAME} - Password Reset Code'
+        
+        email_template = f"""
+        <html>
+            <body style="font-family: Arial, sans-serif; color: #333;">
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <h2>Password Reset Request</h2>
+                    
+                    <p>Hello {escape(user.get_full_name() or user.email)},</p>
+                    
+                    <p>You requested to reset your password. Use the OTP code below to proceed:</p>
+                    
+                    <div style="background-color: #f0f0f0; padding: 20px; text-align: center; border-radius: 5px; margin: 20px 0;">
+                        <h1 style="letter-spacing: 5px; color: #007bff;">{otp_value}</h1>
+                    </div>
+                    
+                    <p style="color: #666;">
+                        This code will expire in {settings.OTP_EXPIRY_MINUTES} minutes.
+                    </p>
+                    
+                    <p style="color: #666; font-size: 12px;">
+                        If you did not request this, please ignore this email and contact support immediately.
+                    </p>
+                    
+                    <hr style="margin-top: 30px; border: none; border-top: 1px solid #ddd;">
+                    
+                    <p style="color: #999; font-size: 12px;">
+                        {settings.SITE_NAME} | {settings.SITE_URL}<br>
+                        For support, contact: {settings.DEFAULT_FROM_EMAIL}
+                    </p>
+                </div>
+            </body>
+        </html>
+        """
+        
+        send_mail(
+            subject=subject,
+            message=f'Your OTP is: {otp_value}',
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email],
+            html_message=email_template,
+            fail_silently=False
+        )
+    except Exception as e:
+        logger.error(f'Failed to send OTP email to {user.email}: {str(e)}')
+        raise
 
 
 class OTPAuthViewSet(viewsets.ViewSet):
@@ -44,7 +99,6 @@ class OTPAuthViewSet(viewsets.ViewSet):
         serializer = OTPRequestSerializer(data=request.data)
         
         if not serializer.is_valid():
-            logger.warning(f'OTP request validation failed: {serializer.errors}')
             return Response(
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
@@ -52,7 +106,14 @@ class OTPAuthViewSet(viewsets.ViewSet):
         
         user = serializer.validated_data['user']
         delivery_method = serializer.validated_data.get('delivery_method', 'email')
-        
+        generic = Response({
+            'detail': _('If an account matches, a code has been sent.'),
+            'delivery_method': delivery_method,
+            'expires_in_minutes': settings.OTP_EXPIRY_MINUTES,
+        }, status=status.HTTP_200_OK)
+        if user is None or rate_limited(f'otp_ip:{client_ip(request)}', 10, 3600):
+            return generic
+
         try:
             # Generate OTP with DDoS rate limiting (max 3 per hour)
             otp_token, otp_value, created = OTPToken.generate_otp_token(
@@ -63,24 +124,16 @@ class OTPAuthViewSet(viewsets.ViewSet):
             
             # Send OTP via email or SMS
             if delivery_method == 'email':
-                self._send_otp_email(user, otp_value)
+                send_otp_email(user, otp_value)
             elif delivery_method == 'sms':
                 self._send_otp_sms(user, otp_value)
             
-            logger.info(f'OTP generated for user {user.email} via {delivery_method}')
-            
-            return Response({
-                'detail': _(f'OTP has been sent to your {delivery_method}.'),
-                'delivery_method': delivery_method,
-                'expires_in_minutes': settings.OTP_EXPIRY_MINUTES,
-                'remaining_attempts': 5,  # Hide real attempt count for security
-            }, status=status.HTTP_200_OK)
-            
+            logger.info('OTP generated for user %s via %s', user.pk, delivery_method)
+            return generic
+
         except PermissionError as e:
-            logger.warning(f'OTP request rate limited for user {user.email}: {str(e)}')
-            return Response({
-                'detail': str(e)
-            }, status=status.HTTP_429_TOO_MANY_REQUESTS)
+            logger.warning('OTP request rate limited for user %s', user.pk)
+            return generic
         
         except Exception as e:
             logger.error(f'Error generating OTP for user {user.email}: {str(e)}')
@@ -103,10 +156,11 @@ class OTPAuthViewSet(viewsets.ViewSet):
             "confirm_password": "newpassword123"
         }
         """
+        if rate_limited(f'otp_verify_ip:{client_ip(request)}', 20, 3600):
+            return Response({'detail': _('Too many attempts. Try again later.')}, status=status.HTTP_429_TOO_MANY_REQUESTS)
         serializer = OTPVerifySerializer(data=request.data)
         
         if not serializer.is_valid():
-            logger.warning(f'OTP verification failed: {serializer.errors}')
             return Response(
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
@@ -121,7 +175,7 @@ class OTPAuthViewSet(viewsets.ViewSet):
             user.is_verified = True
             user.save()
             
-            logger.info(f'Password reset successful for user {user.email}')
+            logger.info('Password reset successful for user %s', user.pk)
             
             return Response({
                 'detail': _('Password has been reset successfully. You can now log in with your new password.'),
@@ -133,58 +187,6 @@ class OTPAuthViewSet(viewsets.ViewSet):
             return Response({
                 'detail': _('Failed to reset password. Please try again later.')
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-    def _send_otp_email(self, user, otp_value):
-        """
-        Send OTP via email with professional template.
-        """
-        try:
-            subject = f'{settings.SITE_NAME} - Password Reset Code'
-            
-            email_template = f"""
-            <html>
-                <body style="font-family: Arial, sans-serif; color: #333;">
-                    <div style="max-width: 600px; margin: 0 auto;">
-                        <h2>Password Reset Request</h2>
-                        
-                        <p>Hello {user.get_full_name() or user.email},</p>
-                        
-                        <p>You requested to reset your password. Use the OTP code below to proceed:</p>
-                        
-                        <div style="background-color: #f0f0f0; padding: 20px; text-align: center; border-radius: 5px; margin: 20px 0;">
-                            <h1 style="letter-spacing: 5px; color: #007bff;">{otp_value}</h1>
-                        </div>
-                        
-                        <p style="color: #666;">
-                            This code will expire in {settings.OTP_EXPIRY_MINUTES} minutes.
-                        </p>
-                        
-                        <p style="color: #666; font-size: 12px;">
-                            If you did not request this, please ignore this email and contact support immediately.
-                        </p>
-                        
-                        <hr style="margin-top: 30px; border: none; border-top: 1px solid #ddd;">
-                        
-                        <p style="color: #999; font-size: 12px;">
-                            {settings.SITE_NAME} | {settings.SITE_URL}<br>
-                            For support, contact: {settings.DEFAULT_FROM_EMAIL}
-                        </p>
-                    </div>
-                </body>
-            </html>
-            """
-            
-            send_mail(
-                subject=subject,
-                message=f'Your OTP is: {otp_value}',
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[user.email],
-                html_message=email_template,
-                fail_silently=False
-            )
-        except Exception as e:
-            logger.error(f'Failed to send OTP email to {user.email}: {str(e)}')
-            raise
     
     def _send_otp_sms(self, user, otp_value):
         """

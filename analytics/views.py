@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from spinalcure.decorators import role_required
 from django.shortcuts import render
 from patients.models import Patient, Session
 from payments.models import Payment, Expense
@@ -7,12 +8,12 @@ from django.db.models import Sum, Count, Q, Avg
 from django.db.models.functions import TruncMonth, TruncDate
 from datetime import date, timedelta
 from rest_framework.views import APIView
+from spinalcure.permissions import ReadWritePerm
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 
 
 class DashboardStatsAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [ReadWritePerm('billing_view', 'billing_view')]  # includes revenue figures
 
     def get(self, request):
         today = date.today()
@@ -29,7 +30,7 @@ class DashboardStatsAPIView(APIView):
         })
 
 
-@login_required
+@role_required('dashboard_view')
 def dashboard_view(request):
     today = date.today()
     thirty_days_ago = today - timedelta(days=30)
@@ -138,4 +139,11 @@ def dashboard_view(request):
         'payment_mode_data': list(payment_mode_data),
         'new_patients_monthly': list(new_patients_monthly),
     }
+    # Never send figures to roles that may not see them (hidden template blocks still leak via json_script).
+    if not request.user.can('finance_reports'):
+        context.update(expenses_today=None, expense_chart_data=[], expense_monthly=[])
+    if not request.user.can('billing_view'):
+        context.update(revenue_today=None, pending_dues=None, revenue_chart_data=[], revenue_monthly=[], payment_mode_data=[])
+    if not request.user.can('appointments_view'):
+        context.update(upcoming_appointments=[])
     return render(request, 'analytics/dashboard.html', context)

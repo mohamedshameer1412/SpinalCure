@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
                 'clinic.context_processors.clinic_info',
+                'accounts.context_processors.role_perms',
             ],
             'builtins': [
                 'clinic.templatetags.b64uuid_tags',
@@ -189,6 +190,7 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='SpinalCure <noreply@s
 
 # Site Configuration
 SITE_URL = config('SITE_URL', default='http://127.0.0.1:8000')
+SITE_NAME = config('SITE_NAME', default='SpinalCure')
 
 # Compressor settings
 COMPRESS_ENABLED = True
@@ -305,4 +307,4 @@ OTP_RATE_LIMIT = config('OTP_RATE_LIMIT', default=3, cast=int)
 RATELIMIT_ENABLE = True
 
 # Cryptography
-FERNET_KEY = '8mrsr84tmG0jitcuXLSLFjCIVYzAFoJrdeXBueV8UE8='
+FERNET_KEYS = [k.strip() for k in config('FERNET_KEYS', default='').split(',') if k.strip()]

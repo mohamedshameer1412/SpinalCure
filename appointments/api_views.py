@@ -8,6 +8,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from spinalcure.permissions import IsDoctor
 import logging
+from spinalcure.permissions import ReadWritePerm
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +24,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     filterset_fields = ['patient', 'practitioner', 'status', 'appointment_date']
     search_fields = ['patient__name', 'notes']
     ordering_fields = ['appointment_date', 'created_at']
-    permission_classes = [IsAuthenticated, IsDoctor]
+    permission_classes = [ReadWritePerm('appointments_view', 'appointments_manage', 'appointments_delete')]
     pagination_class = None
 
     def get_queryset(self):

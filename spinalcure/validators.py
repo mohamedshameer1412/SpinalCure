@@ -9,7 +9,7 @@ import re
 
 def validate_phone_number(value):
     """Validate phone number format."""
-    if not re.match(r'^[+]?[0-9]{7,15}$', value.replace(' ', '')):
+    if not re.match(r'^[+]?[0-9]{7,15}$', re.sub(r'[\s().-]', '', value)):
         raise ValidationError(
             _('Phone number must contain 7-15 digits.'),
             code='invalid_phone'

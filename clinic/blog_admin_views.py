@@ -3,13 +3,14 @@ Admin (dashboard) views for Blog management.
 Only superadmins and doctors can write/manage blogs.
 """
 from django.shortcuts import render, redirect, get_object_or_404
+from spinalcure.decorators import role_required
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .blog_models import BlogPost, BlogTag
 from .models import Practitioner
 
 
-@login_required
+@role_required('blog_manage')
 def admin_blog_list(request):
     """List all blog posts (admin panel)."""
     posts = BlogPost.objects.select_related('author').prefetch_related('tags').order_by('-created_at')
@@ -17,12 +18,9 @@ def admin_blog_list(request):
     return render(request, 'clinic/admin/blog_list.html', context)
 
 
-@login_required
+@role_required('blog_manage')
 def admin_blog_create(request):
     """Create a new blog post."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to create blog posts.')
-        return redirect('dashboard')
 
     all_tags = BlogTag.objects.all()
     practitioners = Practitioner.objects.filter(is_active=True).order_by('name')
@@ -71,12 +69,9 @@ def admin_blog_create(request):
     return render(request, 'clinic/admin/blog_form.html', context)
 
 
-@login_required
+@role_required('blog_manage')
 def admin_blog_edit(request, pk):
     """Edit an existing blog post."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to edit blog posts.')
-        return redirect('dashboard')
 
     post = get_object_or_404(BlogPost, pk=pk)
     all_tags = BlogTag.objects.all()
@@ -118,12 +113,9 @@ def admin_blog_edit(request, pk):
     return render(request, 'clinic/admin/blog_form.html', context)
 
 
-@login_required
+@role_required('blog_manage')
 def admin_blog_delete(request, pk):
     """Delete a blog post."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'You do not have permission to delete blog posts.')
-        return redirect('dashboard')
 
     post = get_object_or_404(BlogPost, pk=pk)
     if request.method == 'POST':
@@ -133,12 +125,9 @@ def admin_blog_delete(request, pk):
     return redirect('admin_blog_list')
 
 
-@login_required
+@role_required('blog_manage')
 def admin_tag_list(request):
     """Manage blog tags."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
-        messages.error(request, 'Permission denied.')
-        return redirect('dashboard')
 
     tags = BlogTag.objects.all()
 

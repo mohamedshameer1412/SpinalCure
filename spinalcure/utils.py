@@ -457,3 +457,20 @@ def log_action(request, action, model_name, object_repr, object_id='', changes=N
 
     except Exception as e:
         logger.warning(f'AuditLog failed to record action [{action}] on [{model_name}]: {e}')
+
+
+def rate_limited(key, limit, window_seconds):
+    """Count a hit on `key`; True once it exceeds `limit` within the window (cache-backed, per key)."""
+    from django.core.cache import cache
+    cache_key = f'rl:{key}'
+    if cache.add(cache_key, 1, window_seconds):
+        return limit < 1
+    try:
+        return cache.incr(cache_key) > limit
+    except ValueError:  # expired between add and incr
+        return False
+
+
+def client_ip(request):
+    # REMOTE_ADDR only: X-Forwarded-For is client-controlled unless a trusted proxy rewrites it.
+    return request.META.get('REMOTE_ADDR', '')
