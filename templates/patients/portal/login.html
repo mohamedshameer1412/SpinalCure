@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Login — SpinalCure</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { primary: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' } }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+        <div class="p-8">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-gradient-to-br from-primary-400 to-primary-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg mb-4 text-white text-2xl font-bold">
+                    S
+                </div>
+                <h1 class="text-2xl font-bold text-gray-900">Patient Portal</h1>
+                <p class="text-sm text-gray-500 mt-2">Enter your registered phone number to access your medical records and appointments.</p>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                <div class="mb-6 p-4 rounded-xl text-sm font-semibold flex items-center gap-2
+                    {% if message.tags == 'success' %}bg-green-50 text-green-700
+                    {% else %}bg-red-50 text-red-700{% endif %}">
+                    <i class="bi {% if message.tags == 'success' %}bi-check-circle{% else %}bi-exclamation-circle{% endif %}"></i>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Phone Number</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="bi bi-telephone text-gray-400"></i>
+                        </div>
+                        <input type="tel" name="phone" required placeholder="e.g. 9876543210"
+                            class="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none font-medium">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 px-4 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl shadow-lg shadow-primary-600/30 transition-all active:scale-[0.98]">
+                    Send OTP <i class="bi bi-arrow-right ml-1"></i>
+                </button>
+            </form>
+            
+            <div class="mt-8 text-center">
+                <a href="{% url 'clinic_portfolio' %}" class="text-sm font-semibold text-gray-500 hover:text-primary-600 transition-colors">
+                    <i class="bi bi-arrow-left mr-1"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

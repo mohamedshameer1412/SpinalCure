@@ -1,0 +1,139 @@
+<script>
+    if (typeof window.alpineSelectRegistered === 'undefined') {
+        window.alpineSelectRegistered = true;
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('alpineSelect', (config) => ({
+                open: false,
+                selected: config.selected || '',
+                options: config.options || [],
+                placeholder: config.placeholder || 'Select an option',
+                id: config.id || '',
+                name: config.name || '',
+                required: config.required || false,
+                searchable: config.searchable || false,
+                disabled: config.disabled || false,
+                searchQuery: '',
+                
+                get selectedLabel() {
+                    const opt = this.options.find(o => String(o.value) === String(this.selected));
+                    return opt ? opt.label : this.placeholder;
+                },
+                
+                get filteredOptions() {
+                    if (!this.searchQuery) return this.options;
+                    const query = this.searchQuery.toLowerCase();
+                    return this.options.filter(o => o.label.toLowerCase().includes(query));
+                },
+                
+                toggle() {
+                    if (this.disabled) return;
+                    this.open = !this.open;
+                    if (this.open && this.searchable) {
+                        this.$nextTick(() => {
+                            if(this.$refs.searchInput) this.$refs.searchInput.focus();
+                        });
+                    }
+                },
+                
+                selectOption(option) {
+                    this.selected = option.value;
+                    this.open = false;
+                    this.searchQuery = '';
+                    
+                    this.$nextTick(() => {
+                        const input = document.getElementById(this.id);
+                        if(input) {
+                            input.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    });
+                },
+                
+                init() {
+                    window.addEventListener('update-options-' + this.id, (e) => {
+                        this.options = e.detail;
+                        if (!this.options.find(o => String(o.value) === String(this.selected))) {
+                            this.selected = '';
+                        }
+                    });
+                    
+                    window.addEventListener('disable-' + this.id, (e) => {
+                        this.disabled = true;
+                    });
+                    window.addEventListener('enable-' + this.id, (e) => {
+                        this.disabled = false;
+                    });
+                    
+                    window.addEventListener('reset-' + this.id, (e) => {
+                        this.selected = '';
+                    });
+                }
+            }));
+        });
+    }
+</script>
+
+<div x-data="alpineSelect({
+        selected: '{{ selected|default:'' }}',
+        options: {{ options_json|default:'[]' }},
+        placeholder: '{{ placeholder|default:'Select an option'|escapejs }}',
+        id: '{{ id|escapejs }}',
+        name: '{{ name|escapejs }}',
+        required: {{ required|yesno:'true,false,false' }},
+        searchable: {{ searchable|yesno:'true,false,false' }},
+        disabled: {{ disabled|yesno:'true,false,false' }}
+    })"
+    x-modelable="selected"
+    {% if x_model %}x-model="{{ x_model }}"{% endif %}
+    class="relative w-full text-left"
+    @click.outside="open = false"
+    @keydown.escape.prevent.stop="open = false">
+    
+    <input type="hidden" :name="name" :id="id" x-model="selected" :required="required">
+    
+    <button type="button" @click="toggle()" :disabled="disabled"
+        class="w-full flex items-center justify-between px-4 py-3 bg-white border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+        :class="[
+            open ? 'border-green-500 ring-2 ring-green-500/20' : 'border-gray-200 hover:border-green-400',
+            disabled ? 'bg-gray-50 opacity-60 cursor-not-allowed' : 'cursor-pointer'
+        ]">
+        <span class="block truncate font-medium" :class="selected ? 'text-gray-900' : 'text-gray-400'" x-text="selectedLabel"></span>
+        <i class="bi transition-transform duration-200" :class="[open ? 'bi-chevron-up text-green-500' : 'bi-chevron-down text-gray-400']"></i>
+    </button>
+    
+    <div x-show="open" 
+        x-transition:enter="transition ease-out duration-100"
+        x-transition:enter-start="opacity-0 translate-y-1"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-75"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-1"
+        class="absolute z-[100] w-full mt-2 bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden focus:outline-none" 
+        style="display: none;">
+        
+        <template x-if="searchable">
+            <div class="p-2 border-b border-gray-100 bg-gray-50/50">
+                <div class="relative">
+                    <i class="bi bi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input type="text" x-model="searchQuery" x-ref="searchInput" placeholder="Search..." 
+                        class="w-full pl-9 pr-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-shadow">
+                </div>
+            </div>
+        </template>
+        
+        <ul class="py-1 max-h-60 overflow-y-auto custom-scrollbar">
+            <template x-if="filteredOptions.length === 0">
+                <li class="px-4 py-3 text-sm text-gray-500 text-center italic" x-text="options.length === 0 ? 'No options available' : 'No results found'"></li>
+            </template>
+            <template x-for="(option, index) in filteredOptions" :key="option.value">
+                <li @click="selectOption(option)" 
+                    class="cursor-pointer select-none relative px-4 py-2.5 text-sm transition-colors flex items-center group"
+                    :class="{'bg-green-50 text-green-900 font-bold': selected === option.value, 'text-gray-700 hover:bg-gray-50': selected !== option.value}">
+                    <span class="block truncate flex-1 group-hover:text-gray-900" x-text="option.label"></span>
+                    <span x-show="selected === option.value" class="text-green-600 ml-2">
+                        <i class="bi bi-check2-circle text-lg leading-none"></i>
+                    </span>
+                </li>
+            </template>
+        </ul>
+    </div>
+</div>

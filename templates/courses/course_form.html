@@ -1,0 +1,335 @@
+{% extends 'base.html' %}
+{% load b64uuid_tags %}
+
+{% block title %}{{ title }} - SpinalCure{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block extra_head %}
+<style>
+    /* Premium Input Styling */
+    .premium-input, .premium-textarea, input[type="text"], input[type="number"], input[type="date"], select {
+        width: 100%;
+        padding: 0.875rem 1.25rem;
+        background-color: #ffffff !important;
+        border: 2px solid #e2e8f0 !important;
+        border-radius: 1rem !important;
+        font-size: 0.875rem !important;
+        font-weight: 600 !important; /* Slightly bolder for better legibility */
+        color: #1e293b !important;
+        transition: all 0.2s ease-in-out !important;
+        outline: none !important;
+        box-shadow: none !important;
+        appearance: none !important; /* Reset default browser UI */
+    }
+    
+    .premium-input:hover, .premium-textarea:hover, input[type="text"]:hover, input[type="number"]:hover, input[type="date"]:hover, select:hover {
+        border-color: #cbd5e1 !important;
+        background-color: #f8fafc !important;
+    }
+    
+    .premium-input:focus, .premium-textarea:focus, input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
+        background-color: #ffffff !important;
+        border-color: #22c55e !important;
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.08) !important;
+    }
+
+    .premium-textarea {
+        min-height: 120px;
+        resize: none;
+        line-height: 1.6;
+    }
+
+    /* Label Styling */
+    label {
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 11px !important;
+        font-weight: 800 !important;
+        color: #64748b !important;
+        margin-bottom: 0.5rem;
+        margin-left: 0.25rem;
+    }
+
+    /* Currency Input Integration */
+    .currency-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background-color: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 1rem;
+        transition: all 0.2s ease-in-out;
+    }
+    .currency-wrapper:hover {
+        border-color: #cbd5e1;
+        background-color: #f8fafc;
+    }
+    .currency-wrapper:focus-within {
+        border-color: #22c55e;
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.08);
+        background-color: #ffffff;
+    }
+    .currency-symbol {
+        padding-left: 1.25rem;
+        padding-right: 0.5rem;
+        color: #64748b;
+        font-weight: 700;
+        font-size: 1rem;
+        user-select: none;
+    }
+    .currency-wrapper input {
+        width: 100%;
+        padding: 0.875rem 1.25rem 0.875rem 0;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    /* File Input Styling */
+    /* Hidden actual input, styled label */
+    .premium-file-input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+    .file-upload-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: #f8fafc;
+        border: 2px dashed #e2e8f0;
+        border-radius: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .file-upload-wrapper:hover {
+        border-color: #22c55e;
+        background: #f0fdf4;
+    }
+
+    /* Custom Checkbox */
+    .premium-checkbox {
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 0.375rem;
+        border: 2px solid #e2e8f0;
+        color: #22c55e;
+        transition: all 0.2s;
+    }
+    .premium-checkbox:checked {
+        background-color: #22c55e;
+        border-color: #22c55e;
+    }
+
+    /* Glass Card Effect */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(229, 231, 235, 0.5);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto pb-20">
+    <!-- Breadcrumbs / Back -->
+    <div class="mb-8 flex items-center justify-between">
+        <a href="{% url 'course_list' %}" class="group flex items-center gap-2 text-slate-500 hover:text-green-600 font-bold text-sm transition-all no-underline">
+            <div class="w-8 h-8 rounded-full bg-white border border-slate-100 flex items-center justify-center group-hover:bg-green-50 group-hover:border-green-100 transition-all">
+                <i class="bi bi-arrow-left"></i>
+            </div>
+            Back to Course Management
+        </a>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-8">
+        {% csrf_token %}
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            
+            <!-- Left Column: Primary Content -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Section: Basic Identification -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 glass-card">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-2xl bg-green-50 text-green-600 flex items-center justify-center shadow-inner">
+                            <i class="bi bi-journal-text text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-black text-slate-900 leading-none mb-1 uppercase tracking-tight">Main Identity</h3>
+                            <p class="text-xs text-slate-400 font-medium">Define the core name and public summary of your course.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Course Title *</label>
+                            {{ form.title }}
+                            {% if form.title.errors %}<p class="text-[10px] text-red-500 font-bold ml-1 mt-1">{{ form.title.errors.0 }}</p>{% endif %}
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Card Summary (Short Description) *</label>
+                            {{ form.short_description }}
+                            <p class="text-[10px] text-slate-400 italic ml-1">This appears on the portfolio listing cards.</p>
+                            {% if form.short_description.errors %}<p class="text-[10px] text-red-500 font-bold ml-1 mt-1">{{ form.short_description.errors.0 }}</p>{% endif %}
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">In-Depth Description *</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}<p class="text-[10px] text-red-500 font-bold ml-1 mt-1">{{ form.description.errors.0 }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Academic Details -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 glass-card">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shadow-inner">
+                            <i class="bi bi-mortarboard text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-black text-slate-900 leading-none mb-1 uppercase tracking-tight">Learning & Curriculum</h3>
+                            <p class="text-xs text-slate-400 font-medium">Outline what students will achieve and the topics covered.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Key Learning Outcomes (One per line) *</label>
+                            {{ form.outcomes }}
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Syllabus / Modules *</label>
+                            {{ form.course_content }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Sidebar / Logistics -->
+            <div class="space-y-8">
+                
+                <!-- Card: Setup & Logistics -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 glass-card">
+                    <h4 class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-8 border-b border-slate-50 pb-4">Logistics & Enrollment</h4>
+                    
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Delivery Platform *</label>
+                            {{ form.platform }}
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Course Investment (₹) *</label>
+                            <div class="currency-wrapper">
+                                <span class="currency-symbol">₹</span>
+                                {{ form.fees }}
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Estimated Duration *</label>
+                            {{ form.duration }}
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Owning Clinic</label>
+                            {{ form.clinic }}
+                        </div>
+
+                        <div class="flex items-center gap-3 p-4 bg-green-50/50 rounded-2xl border border-green-100/50 transition-all hover:bg-green-50">
+                            {{ form.is_published }}
+                            <label class="text-xs font-black text-green-800 uppercase tracking-widest cursor-pointer mb-0">Show this course on public site</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: Cover Media -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 glass-card">
+                    <h4 class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 border-b border-slate-50 pb-4">Visual Branding</h4>
+                    
+                    {% if course.image %}
+                    <div class="mb-4 group relative aspect-video rounded-2xl overflow-hidden border border-slate-100 shadow-inner">
+                        <img src="{{ course.image.url }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white text-[10px] font-black uppercase tracking-widest bg-black/40 px-3 py-1.5 rounded-lg backdrop-blur-sm">Current Image</span>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="space-y-4">
+                        <label for="{{ form.image.auto_id }}" class="file-upload-wrapper group">
+                            <i class="bi bi-cloud-arrow-up text-3xl text-slate-300 group-hover:text-green-500 transition-colors mb-2"></i>
+                            <span class="text-xs font-black text-slate-400 group-hover:text-green-600 transition-colors uppercase tracking-widest">{% if course.image %}Update Image{% else %}Upload Cover{% endif %}</span>
+                            <span id="file-name-display" class="text-[10px] text-slate-400 mt-2 font-medium truncate max-w-full italic">Supported: JPG, PNG, WEBP</span>
+                            {{ form.image }}
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Form Action -->
+                <button type="submit" class="w-full py-5 bg-slate-900 text-white font-black uppercase tracking-widest rounded-[1.5rem] hover:bg-green-600 hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-300 flex items-center justify-center gap-3 active:scale-[0.98]">
+                    <i class="bi bi-rocket-takeoff-fill"></i>
+                    {% if course %}Update Program{% else %}Launch Course{% endif %}
+                </button>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle File Input display
+        const fileInput = document.querySelector('.premium-file-input');
+        const fileNameDisplay = document.getElementById('file-name-display');
+        
+        if (fileInput) {
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    fileNameDisplay.textContent = 'Selected: ' + this.files[0].name;
+                    fileNameDisplay.classList.remove('text-slate-400');
+                    fileNameDisplay.classList.add('text-green-600', 'font-black');
+                } else {
+                    fileNameDisplay.textContent = 'Supported: JPG, PNG, WEBP';
+                    fileNameDisplay.classList.add('text-slate-400');
+                    fileNameDisplay.classList.remove('text-green-600', 'font-black');
+                }
+            });
+        }
+
+        // Initialize TomSelect with Premium Options
+        document.querySelectorAll('select.premium-select').forEach((el) => {
+            const settings = {
+                create: false,
+                sortField: { field: "text", direction: "asc" },
+                placeholder: 'Select an option...',
+                onInitialize: function() {
+                    // Match our premium input styling
+                    this.control.classList.add('premium-input');
+                }
+            };
+            new TomSelect(el, settings);
+        });
+    });
+</script>
+{% endblock %}
+{% endblock %}

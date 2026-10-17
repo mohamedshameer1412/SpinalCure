@@ -1,0 +1,60 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Enforce 3-step confirmation for non-superadmin staff when submitting data creation/edit forms
+        const role = "{{ request.user.role|default:'' }}";
+        const isSuperuser = '{{ request.user.is_superuser|yesno:"true,false" }}' === 'true';
+        const isSuperadmin = (role === 'superadmin' || isSuperuser);
+        
+        if (isSuperadmin) return;
+
+        // Apply only to forms that do not explicitly opt-out and are POST requests
+        const forms = document.querySelectorAll('form[method="POST"]:not([data-no-confirm])');
+        
+        forms.forEach(form => {
+            const submitBtns = form.querySelectorAll('button[type="submit"]');
+            
+            submitBtns.forEach(btn => {
+                let currentStep = 0;
+                let originalContent = btn.innerHTML;
+                let originalClasses = btn.className;
+                
+                // Add tracking wrapper
+                btn.addEventListener('click', function(e) {
+                    // Only intercept if the form is valid natively
+                    if (!form.checkValidity()) return;
+                    
+                    if (currentStep === 0) {
+                        e.preventDefault();
+                        currentStep = 1;
+                        btn.innerHTML = '<i class="bi bi-eye"></i> Review Data & Confirm';
+                        // Switch style to warning/yellow
+                        btn.classList.remove('bg-primary-600', 'hover:bg-primary-700');
+                        btn.classList.add('bg-amber-500', 'hover:bg-amber-600', 'text-white', 'shadow-amber-200');
+                        
+                        // Optional scroll to top of form to "review"
+                        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } 
+                    else if (currentStep === 1) {
+                        e.preventDefault();
+                        currentStep = 2;
+                        btn.innerHTML = '<i class="bi bi-check2-all"></i> I Confirm';
+                        // Switch style to success/green
+                        btn.classList.remove('bg-amber-500', 'hover:bg-amber-600', 'shadow-amber-200');
+                        btn.classList.add('bg-green-600', 'hover:bg-green-700', 'shadow-green-200');
+                    }
+                    else if (currentStep === 2) {
+                        currentStep = 3;
+                        btn.innerHTML = '<i class="bi bi-hourglass-split animate-spin"></i> Submitting...';
+                        btn.disabled = true;
+                        
+                        // Set a short timeout and then manually submit the form
+                        // since we disabled the button, native submit might abort
+                        setTimeout(() => {
+                            form.submit();
+                        }, 50);
+                    }
+                });
+            });
+        });
+    });
+</script>

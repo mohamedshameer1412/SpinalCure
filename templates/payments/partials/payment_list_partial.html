@@ -1,0 +1,126 @@
+<div id="payment-list-container">
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Receipt No.</th>
+                    <th scope="col" class="px-6 py-3">Date</th>
+                    <th scope="col" class="px-6 py-3">Payer / Recipient</th>
+                    <th scope="col" class="px-6 py-3">Amount (Paid / Total)</th>
+                    <th scope="col" class="px-6 py-3">Mode</th>
+                    <th scope="col" class="px-6 py-3">Status</th>
+                    <th scope="col" class="px-6 py-3 sr-only">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium text-gray-900">{{ payment.receipt_number }}</td>
+                    <td class="px-6 py-4">{{ payment.payment_date|date:"M d, Y" }}</td>
+                    <td class="px-6 py-4">
+                        {% if payment.payer_type == 'patient' and payment.patient %}
+                        <a href="{% url 'patient-detail' payment.patient.id %}" class="hover:text-primary-600 hover:underline">
+                            <span class="flex items-center gap-1.5 font-medium text-gray-900">
+                                <i class="bi bi-person-heart text-primary-500"></i>
+                                {{ payment.payer_name }}
+                            </span>
+                        </a>
+                        {% elif payment.payer_type == 'student' %}
+                        <span class="flex items-center gap-1.5 font-medium text-gray-900">
+                            <i class="bi bi-mortarboard text-indigo-500"></i>
+                            {{ payment.payer_name }}
+                        </span>
+                        {% if payment.course_registration %}
+                        <p class="text-[10px] text-gray-400 uppercase tracking-tighter">{{ payment.course_registration.batch.course.title }}</p>
+                        {% endif %}
+                        {% elif payment.payer_type == 'participant' %}
+                        <span class="flex items-center gap-1.5 font-medium text-gray-900">
+                            <i class="bi bi-people text-amber-500"></i>
+                            {{ payment.payer_name }}
+                        </span>
+                        {% if payment.event_registration %}
+                        <p class="text-[10px] text-gray-400 uppercase tracking-tighter">{{ payment.event_registration.event.title }}</p>
+                        {% endif %}
+                        {% else %}
+                        {{ payment.payer_name }}
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 font-semibold text-gray-900">₹{{ payment.amount_paid }} <span
+                            class="text-gray-400 font-normal">/ ₹{{ payment.total_amount }}</span></td>
+                    <td class="px-6 py-4">{{ payment.get_payment_mode_display }}</td>
+                    <td class="px-6 py-4">
+                        <span
+                            class="{% if payment.payment_status == 'fully_paid' %}bg-green-100 text-green-800{% elif payment.payment_status == 'partial' %}bg-yellow-100 text-yellow-800{% else %}bg-red-100 text-red-800{% endif %} text-xs font-medium px-2.5 py-0.5 rounded">
+                            {{ payment.get_payment_status_display }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex items-center justify-end gap-3">
+                            <a href="{% url 'payment_invoice' payment.id %}" title="Print Receipt"
+                                class="text-gray-400 hover:text-primary-600 transition-colors">
+                                <i class="bi bi-printer text-lg"></i>
+                            </a>
+                            {% if request.user.role == 'superadmin' or request.user.is_superuser %}
+                            <a href="{% url 'payment_edit' payment.id %}" title="Edit"
+                                class="text-gray-400 hover:text-blue-600 transition-colors">
+                                <i class="bi bi-pencil text-lg"></i>
+                            </a>
+                            <button data-url="{% url 'payment_delete' payment.id %}"
+                                data-receipt="Payment {{ payment.receipt_number|escapejs }}"
+                                onclick="directDelete(this.getAttribute('data-url'), this.getAttribute('data-receipt'))"
+                                title="Delete" class="text-gray-400 hover:text-red-600 transition-colors">
+                                <i class="bi bi-trash text-lg"></i>
+                            </button>
+                            {% else %}
+                            <button data-url="{% url 'payment_edit' payment.id %}"
+                                data-receipt="{{ payment.receipt_number|escapejs }}"
+                                onclick="openSecurityModal('edit', this.getAttribute('data-url'), this.getAttribute('data-receipt'))" title="Edit"
+                                class="text-gray-400 hover:text-blue-600 transition-colors">
+                                <i class="bi bi-pencil text-lg"></i>
+                            </button>
+                            <button data-url="{% url 'payment_delete' payment.id %}"
+                                data-receipt="{{ payment.receipt_number|escapejs }}"
+                                onclick="openSecurityModal('delete', this.getAttribute('data-url'), this.getAttribute('data-receipt'))"
+                                title="Delete" class="text-gray-400 hover:text-red-600 transition-colors">
+                                <i class="bi bi-trash text-lg"></i>
+                            </button>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="px-6 py-8 text-center text-gray-500">No matching payments found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if payments.has_other_pages %}
+    <div class="flex items-center justify-between p-4 bg-white border-t border-gray-100">
+        <span class="text-sm text-gray-500 font-medium">
+            Showing {{ payments.start_index }}-{{ payments.end_index }} of {{ payments.paginator.count }} payments
+        </span>
+        <div class="inline-flex gap-2">
+            {% if payments.has_previous %}
+            <button hx-get="?page={{ payments.previous_page_number }}&q={{ search_query }}"
+                    hx-target="#payment-list-container"
+                    hx-swap="outerHTML"
+                    class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
+                Previous
+            </button>
+            {% endif %}
+            {% if payments.has_next %}
+            <button hx-get="?page={{ payments.next_page_number }}&q={{ search_query }}"
+                    hx-target="#payment-list-container"
+                    hx-swap="outerHTML"
+                    class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
+                Next
+            </button>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>

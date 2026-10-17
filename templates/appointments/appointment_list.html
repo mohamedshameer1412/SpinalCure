@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Appointments List - SpinalCure{% endblock %}
+{% block page_title %}Clinical Appointments{% endblock %}
+
+{% block header_actions %}
+<div class="flex items-center gap-3">
+    <a href="{% url 'appointment_calendar' %}"
+        class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center gap-2">
+        <i class="bi bi-calendar3"></i>
+        Calendar View
+    </a>
+    <a href="{% url 'appointment_calendar' %}"
+        class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center gap-2">
+        <i class="bi bi-plus-circle"></i>
+        New Appointment
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+    <!-- Filters Header -->
+    <div class="p-4 border-b border-gray-100 bg-gray-50">
+        <form method="GET" hx-get="{% url 'appointment_list' %}"
+            hx-trigger="change, keyup changed delay:500ms from:input[name='q']" hx-target="#appointment-table-container"
+            hx-swap="outerHTML" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+            <!-- Search -->
+            <div class="w-full relative">
+                <label class="block mb-2 text-xs font-bold text-gray-500 uppercase tracking-widest">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <i class="bi bi-search text-gray-400"></i>
+                    </div>
+                    <input type="text" name="q" value="{{ filters.q|default:'' }}"
+                        class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-primary-500 focus:border-primary-500"
+                        placeholder="Patient name or reason...">
+                    <!-- HTMX Indicator -->
+                    <div class="htmx-indicator absolute inset-y-0 end-0 flex items-center pe-3">
+                        <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-600"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Filter -->
+            <div class="w-full">
+                <label class="block mb-2 text-xs font-bold text-gray-500 uppercase tracking-widest">Status</label>
+                <select name="status">
+                    <option value="">All Statuses</option>
+                    {% for val, label in status_choices %}
+                    <option value="{{ val }}" {% if filters.status == val %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Practitioner Filter -->
+            <div class="w-full">
+                <label class="block mb-2 text-xs font-bold text-gray-500 uppercase tracking-widest">Practitioner</label>
+                <select name="practitioner">
+                    <option value="">All Practitioners</option>
+                    {% for doc in practitioners %}
+                    <option value="{{ doc.id }}" 
+                    {% if filters.practitioner == doc.id|stringformat:"s" %}selected
+                    {% endif %}>{{ doc.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Date Filter -->
+            <div class="w-full">
+                <label class="block mb-2 text-xs font-bold text-gray-500 uppercase tracking-widest">Date</label>
+                <input type="date" name="date" value="{{ filters.date|default:'' }}"
+                    class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-primary-500 focus:border-primary-500">
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-2">
+                <button type="submit"
+                    class="p-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors shadow-sm focus:ring-4 focus:ring-primary-200">
+                    <i class="bi bi-filter"></i> Apply
+                </button>
+                <a href="{% url 'appointment_list' %}"
+                    class="p-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
+                    title="Clear Filters">
+                    <i class="bi bi-x-lg"></i>
+                </a>
+
+                {% include 'partials/export_dropdown.html' with excel_url=export_appointments_excel_url csv_url=export_appointments_csv_url pdf_url=export_appointments_pdf_url print_url=export_appointments_print_url copy_url=export_appointments_copy_url %}
+            </div>
+        </form>
+    </div>
+
+    <!-- Appointments Table Container -->
+    {% include 'appointments/partials/appointment_list_partial.html' %}
+</div>
+
+</div>
+{% endblock %}

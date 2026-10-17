@@ -1,0 +1,90 @@
+# ── Python ─────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+wheels/
+.eggs/
+MANIFEST
+
+# ── Virtual Environments ───────────────────────────────────────────────────
+venv/
+env/
+.venv/
+.env_backup/
+ENV/
+env.bak/
+venv.bak/
+
+# ── Django ─────────────────────────────────────────────────────────────────
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# ── Environment / Secrets ──────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets.json
+
+# ── IDE & Editor ───────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Testing & Coverage ─────────────────────────────────────────────────────
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# ── Migrations (keep these tracked) — intentionally NOT ignored ────────────
+# (migrations/ directories ARE committed)
+
+# ── Temporary / Build Artifacts ────────────────────────────────────────────
+tmp/
+*.tmp
+*.bak
+*.orig
+
+# ── Node (if any frontend tooling) ────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Celery ─────────────────────────────────────────────────────────────────
+celerybeat-schedule
+celerybeat.pid
+
+# ── Jupyter ────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── OS ─────────────────────────────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride

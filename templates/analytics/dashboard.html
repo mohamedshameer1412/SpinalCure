@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - SpinalCure{% endblock %}
+{% block page_title %}Dashboard Overview{% endblock %}
+
+{% block content %}
+
+{# ── Row 1: 4 Primary Stat Cards ────────────────────────────────────────── #}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+
+    <div class="relative overflow-hidden bg-gradient-to-br from-primary-600 to-primary-800 rounded-2xl p-5 text-white shadow-lg">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
+        <p class="text-primary-100 text-xs font-semibold uppercase tracking-wide">Total Patients</p>
+        <h3 class="text-4xl font-black mt-1">{{ total_patients }}</h3>
+        <p class="text-primary-200 text-xs mt-2 flex items-center gap-1">
+            <i class="bi bi-people-fill"></i> All time registered
+        </p>
+    </div>
+
+    <div class="relative overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-5 text-white shadow-lg">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
+        <p class="text-blue-100 text-xs font-semibold uppercase tracking-wide">Sessions Today</p>
+        <h3 class="text-4xl font-black mt-1">{{ sessions_today }}</h3>
+        <p class="text-blue-200 text-xs mt-2 flex items-center gap-1">
+            <i class="bi bi-clipboard2-pulse"></i> Completed today
+        </p>
+    </div>
+
+    <div class="relative overflow-hidden bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-2xl p-5 text-white shadow-lg">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
+        <p class="text-emerald-100 text-xs font-semibold uppercase tracking-wide">Revenue Today</p>
+        <h3 class="text-4xl font-black mt-1">₹{{ revenue_today }}</h3>
+        <p class="text-emerald-200 text-xs mt-2 flex items-center gap-1">
+            <i class="bi bi-currency-rupee"></i> Collections so far
+        </p>
+    </div>
+
+    {% if request.user.is_superadmin %}
+    <div class="relative overflow-hidden bg-gradient-to-br from-rose-500 to-rose-700 rounded-2xl p-5 text-white shadow-lg">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
+        <p class="text-rose-100 text-xs font-semibold uppercase tracking-wide">Expenses Today</p>
+        <h3 class="text-4xl font-black mt-1">₹{{ expenses_today }}</h3>
+        <p class="text-rose-200 text-xs mt-2 flex items-center gap-1">
+            <i class="bi bi-receipt-cutoff"></i> Outgoing today
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+{# ── Row 2: 3 New Insight Stat Cards ─────────────────────────────────────── #}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600 flex-shrink-0">
+            <i class="bi bi-hourglass-split text-xl"></i>
+        </div>
+        <div>
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Pending Dues</p>
+            <p class="text-2xl font-black text-gray-900">₹{{ pending_dues|floatformat:0 }}</p>
+            <p class="text-xs text-orange-500 mt-0.5">Partial + unpaid payments</p>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center text-red-600 flex-shrink-0">
+            <i class="bi bi-person-x text-xl"></i>
+        </div>
+        <div>
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">No-Show Rate</p>
+            <p class="text-2xl font-black text-gray-900">{{ no_show_rate }}%</p>
+            <p class="text-xs text-red-500 mt-0.5">Of past appointments</p>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 flex-shrink-0">
+            <i class="bi bi-award text-xl"></i>
+        </div>
+        <div>
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Top Doctor This Month</p>
+            <p class="text-lg font-black text-gray-900 leading-tight">{{ top_practitioner_name }}</p>
+            <p class="text-xs text-purple-500 mt-0.5">{{ top_practitioner_sessions }} sessions</p>
+        </div>
+    </div>
+</div>
+
+{# ── Row 3: P&L Chart + Payment Mode Pie ─────────────────────────────────── #}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+        <h2 class="text-base font-bold text-gray-900 mb-1">Monthly P&amp;L — Revenue vs. Expenses</h2>
+        <p class="text-xs text-gray-400 mb-4">Last 6 months comparison</p>
+        <div class="relative h-64 w-full">
+            <canvas id="plChart"></canvas>
+        </div>
+    </div>
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+        <h2 class="text-base font-bold text-gray-900 mb-1">Payment Modes</h2>
+        <p class="text-xs text-gray-400 mb-4">Last 30 days breakdown</p>
+        <div class="relative h-56 w-full">
+            <canvas id="modeChart"></canvas>
+        </div>
+    </div>
+</div>
+
+{# ── Row 4: New Patients Trend + Sessions Monthly ─────────────────────────── #}
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+        <h2 class="text-base font-bold text-gray-900 mb-1">New Patients Trend</h2>
+        <p class="text-xs text-gray-400 mb-4">Last 6 months</p>
+        <div class="relative h-56 w-full">
+            <canvas id="newPatientsChart"></canvas>
+        </div>
+    </div>
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+        <h2 class="text-base font-bold text-gray-900 mb-1">Monthly Sessions</h2>
+        <p class="text-xs text-gray-400 mb-4">Last 12 months</p>
+        <div class="relative h-56 w-full">
+            <canvas id="sessionsChart"></canvas>
+        </div>
+    </div>
+</div>
+
+{# ── Row 5: Revenue (30d) + Upcoming Appointments ────────────────────────── #}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100">
+        <div class="p-4 border-b border-gray-100 flex justify-between items-center">
+            <h2 class="text-base font-bold text-gray-900">Upcoming Appointments</h2>
+            <a href="{% url 'appointment_calendar' %}" class="text-xs text-primary-600 hover:text-primary-700 font-semibold">View all →</a>
+        </div>
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                    <th class="px-5 py-3">Patient</th>
+                    <th class="px-5 py-3">Date &amp; Time</th>
+                    <th class="px-5 py-3">Doctor</th>
+                    <th class="px-5 py-3">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appt in upcoming_appointments %}
+                <tr class="bg-white border-b hover:bg-gray-50 transition-colors">
+                    <td class="px-5 py-3 font-semibold text-gray-900">
+                        {% if appt.patient %}
+                        <a href="{% url 'patient-detail' appt.patient.id %}" class="hover:text-primary-600">{{ appt.patient.name }}</a>
+                        {% else %}
+                        <span class="text-gray-500">{{ appt.guest_name|default:"Guest/Enquiry" }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-5 py-3">{{ appt.appointment_date }} · {{ appt.appointment_time|time:"H:i" }}</td>
+                    <td class="px-5 py-3">{{ appt.practitioner.name|default:"—" }}</td>
+                    <td class="px-5 py-3">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">{{ appt.get_status_display }}</span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4" class="px-5 py-8 text-center text-gray-400">No upcoming appointments.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
+        <div class="p-4 border-b border-gray-100">
+            <h2 class="text-base font-bold text-gray-900">Quick Actions</h2>
+        </div>
+        <div class="p-4 flex flex-col gap-2.5">
+            <a href="{% url 'patient-create' %}"
+                class="flex items-center gap-3 p-3 rounded-xl bg-primary-50 hover:bg-primary-100 text-primary-700 font-semibold text-sm transition-all">
+                <i class="bi bi-person-plus text-lg"></i> Add New Patient
+            </a>
+            <a href="{% url 'appointment_calendar' %}"
+                class="flex items-center gap-3 p-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold text-sm transition-all">
+                <i class="bi bi-calendar-plus text-lg"></i> Book Appointment
+            </a>
+            <a href="{% url 'payment_create' %}"
+                class="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold text-sm transition-all">
+                <i class="bi bi-cash-stack text-lg"></i> Record Payment
+            </a>
+            <a href="{% url 'admin_testimonials' %}"
+                class="flex items-center gap-3 p-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold text-sm transition-all">
+                <i class="bi bi-chat-quote text-lg"></i> Testimonials
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+{{ revenue_chart_data|json_script:"revenue-data" }}
+{{ expense_chart_data|json_script:"expense-data" }}
+{{ sessions_chart_data|json_script:"sessions-data" }}
+{{ revenue_monthly|json_script:"revenue-monthly" }}
+{{ expense_monthly|json_script:"expense-monthly" }}
+{{ payment_mode_data|json_script:"mode-data" }}
+{{ new_patients_monthly|json_script:"newpatients-data" }}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const GRID = '#f3f4f6';
+
+    function monthLabel(isoStr) {
+        const d = new Date(isoStr);
+        return d.toLocaleString('default', { month: 'short' }) + ' ' + d.getFullYear();
+    }
+
+    // ── 1. P&L Chart ──────────────────────────────────────────────────────
+    const revM = JSON.parse(document.getElementById('revenue-monthly').textContent);
+    const expM = JSON.parse(document.getElementById('expense-monthly').textContent);
+    const plMonths = [...new Set([...revM.map(d => d.month), ...expM.map(d => d.month)])].sort();
+    const revMMap = Object.fromEntries(revM.map(d => [d.month, d.total]));
+    const expMMap = Object.fromEntries(expM.map(d => [d.month, d.total]));
+
+    new Chart(document.getElementById('plChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: plMonths.map(monthLabel),
+            datasets: [
+                { label: 'Revenue (₹)', data: plMonths.map(m => revMMap[m] || 0), backgroundColor: '#16a34a', borderRadius: 5 },
+                {% if request.user.is_superadmin %}
+                { label: 'Expenses (₹)', data: plMonths.map(m => expMMap[m] || 0), backgroundColor: '#ef4444', borderRadius: 5 },
+                {% endif %}
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } },
+            scales: { x: { grid: { display: false } }, y: { grid: { color: GRID }, beginAtZero: true } } }
+    });
+
+    // ── 2. Payment Mode Doughnut ───────────────────────────────────────────
+    const modeRaw = JSON.parse(document.getElementById('mode-data').textContent);
+    const modeLabels = { cash: 'Cash', card: 'Card', upi: 'UPI', bank_transfer: 'Bank Transfer', cheque: 'Cheque', other: 'Other' };
+    const modeColors = ['#16a34a', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899', '#6b7280'];
+
+    new Chart(document.getElementById('modeChart').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: modeRaw.map(d => modeLabels[d.payment_mode] || d.payment_mode),
+            datasets: [{ data: modeRaw.map(d => d.count), backgroundColor: modeColors, borderWidth: 2 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } } }
+    });
+
+    // ── 3. New Patients Trend ──────────────────────────────────────────────
+    const npRaw = JSON.parse(document.getElementById('newpatients-data').textContent);
+    new Chart(document.getElementById('newPatientsChart').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: npRaw.map(d => monthLabel(d.month)),
+            datasets: [{ label: 'New Patients', data: npRaw.map(d => d.count),
+                borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.1)',
+                borderWidth: 2, fill: true, tension: 0.4, pointRadius: 4 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { x: { grid: { display: false } }, y: { grid: { color: GRID }, beginAtZero: true } } }
+    });
+
+    // ── 4. Sessions Monthly Bar ────────────────────────────────────────────
+    const sessRaw = JSON.parse(document.getElementById('sessions-data').textContent);
+    new Chart(document.getElementById('sessionsChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: sessRaw.map(d => monthLabel(d.month)),
+            datasets: [{ label: 'Sessions', data: sessRaw.map(d => d.count),
+                backgroundColor: '#3b82f6', borderRadius: 5 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { x: { grid: { display: false } }, y: { grid: { color: GRID }, beginAtZero: true } } }
+    });
+});
+</script>
+{% endblock %}

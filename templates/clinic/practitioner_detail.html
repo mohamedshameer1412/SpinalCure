@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load b64uuid_tags %}
+
+{% block title %}Dr. {{ practitioner.name }} - SpinalCure{% endblock %}
+{% block page_title %}Practitioner Profile{% endblock %}
+
+{% block header_actions %}
+<a href="{% url 'clinic_portfolio' %}"
+    class="text-sm font-medium text-gray-500 hover:text-primary-600 transition-colors">
+    &larr; Back to Clinic Portfolio
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+
+        <!-- Profile Header -->
+        <div class="p-8 border-b border-gray-100 flex flex-col md:flex-row items-center md:items-start gap-8">
+            <div class="h-32 w-32 rounded-full bg-gray-100 overflow-hidden shadow-sm flex-shrink-0">
+                {% if practitioner.photo %}
+                <img src="{{ practitioner.photo.url }}" alt="Dr. {{ practitioner.name }}"
+                    class="h-full w-full object-cover">
+                {% else %}
+                <div
+                    class="h-full w-full flex items-center justify-center text-gray-400 text-4xl font-bold bg-primary-50">
+                    {{ practitioner.name|make_list|first }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="flex-1 text-center md:text-left">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Dr.
+                            {{ practitioner.name }}</h1>
+                        <p class="text-lg font-medium text-primary-600 mt-1">
+                            {{ practitioner.specialization }}</p>
+                    </div>
+                    {% if practitioner.is_active %}
+                    <span
+                        class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full w-fit mx-auto md:mx-0">Active
+                        Practitioner</span>
+                    {% else %}
+                    <span
+                        class="bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full w-fit mx-auto md:mx-0">Inactive</span>
+                    {% endif %}
+                </div>
+
+                <div class="mt-4 flex flex-wrap justify-center md:justify-start gap-4 text-sm text-gray-600">
+                    <div class="flex items-center gap-1">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        <span>{{ practitioner.get_gender_display }}</span>
+                    </div>
+                    {% if practitioner.experience_years %}
+                    <div class="flex items-center gap-1">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        <span>{{ practitioner.experience_years }} Years Experience</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Details -->
+        <div class="p-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Biography / About</h2>
+            <div class="prose max-w-none text-gray-600 mb-8">
+                {{ practitioner.bio|linebreaks }}
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3 block border-b border-gray-100 pb-2">Qualifications
+                    </h3>
+                    <p class="text-gray-600 whitespace-pre-line">
+                        {{ practitioner.qualifications }}</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3 block border-b border-gray-100 pb-2">Skills /
+                        Treatments</h3>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <!-- Simulated parsing of comma separated skills -->
+                        {% for skill in practitioner.skills.split %}
+                        {% if skill|length > 1 %}
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">{{ skill|cut:"," }}</span>
+                        {% endif %}
+                        {% empty %}
+                        <span class="text-gray-500 text-sm">No specific skills listed.</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="mt-8 pt-8 border-t border-gray-100 flex flex-wrap gap-4">
+                <a href="{% url 'doctor_availability' %}?practitioner_id={{ practitioner.id|b64uuid }}"
+                    class="text-primary-600 bg-primary-50 hover:bg-primary-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                    View Availability
+                </a>
+
+                <a href="#"
+                    class="text-white bg-primary-600 hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center transition-colors shadow-sm">
+                    Book Appointment
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

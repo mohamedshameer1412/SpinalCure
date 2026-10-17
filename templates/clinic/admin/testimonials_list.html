@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}Testimonials — SpinalCure Admin{% endblock %}
+{% block page_title %}Testimonials{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+    <div>
+        <p class="text-sm text-gray-500 mt-1">Manage curated testimonials displayed on the public portfolio.</p>
+    </div>
+    <a href="{% url 'admin_testimonial_create' %}"
+        class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white text-sm font-bold rounded-xl hover:bg-primary-700 shadow-md transition-all">
+        <i class="bi bi-plus-lg"></i> Add Testimonial
+    </a>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="mb-4 px-4 py-3 rounded-xl text-sm font-medium
+        {% if message.tags == 'success' %}bg-green-50 text-green-700 border border-green-200
+        {% else %}bg-red-50 text-red-700 border border-red-200{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% if testimonials %}
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+    {% for t in testimonials %}
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex flex-col gap-3 hover:shadow-md transition-all">
+        <!-- Header -->
+        <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-3">
+                {% if t.photo %}
+                <img src="{{ t.photo.url }}" alt="{{ t.patient_name }}"
+                    class="w-12 h-12 rounded-full object-cover border-2 border-primary-100">
+                {% else %}
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-primary-400 to-primary-700 flex items-center justify-center text-white font-bold text-lg">
+                    {{ t.patient_name|slice:":1" }}
+                </div>
+                {% endif %}
+                <div>
+                    <p class="font-bold text-gray-900 text-sm">{{ t.patient_name }}</p>
+                    <p class="text-xs text-gray-500">{{ t.patient_designation|default:"—" }}</p>
+                </div>
+            </div>
+            <!-- Publish Toggle -->
+            <button onclick="togglePublish('{{ t.pk }}')" id="toggle-btn-{{ t.pk }}"
+                class="text-xs font-bold px-3 py-1 rounded-full transition-all {% if t.is_published %}bg-green-100 text-green-700 hover:bg-green-200{% else %}bg-gray-100 text-gray-500 hover:bg-gray-200{% endif %}"
+                data-published="{{ t.is_published|yesno:'true,false' }}">
+                {% if t.is_published %}✓ Published{% else %}Draft{% endif %}
+            </button>
+        </div>
+
+        <!-- Stars -->
+        <div class="flex gap-0.5">
+            {% for i in "12345" %}
+            <i class="bi bi-star{% if forloop.counter <= t.rating %}-fill text-amber-400{% else %} text-gray-200{% endif %} text-sm"></i>
+            {% endfor %}
+        </div>
+
+        <!-- Review -->
+        <p class="text-sm text-gray-600 leading-relaxed line-clamp-3">"{{ t.review_text }}"</p>
+
+        <!-- Meta -->
+        <div class="flex items-center justify-between text-xs text-gray-400 pt-1 border-t border-gray-50">
+            <span class="flex items-center gap-1">
+                <i class="bi bi-tag"></i>
+                {{ t.get_source_display }}
+            </span>
+            <span>Order: {{ t.display_order }}</span>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-2 mt-1">
+            <a href="{% url 'admin_testimonial_edit' t.pk %}"
+                class="flex-1 text-center py-2 text-xs font-bold text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-all">
+                <i class="bi bi-pencil me-1"></i>Edit
+            </a>
+            <form method="POST" action="{% url 'admin_testimonial_delete' t.pk %}" class="flex-1"
+                data-confirm="Delete this testimonial?">
+                {% csrf_token %}
+                <button type="submit"
+                    class="w-full py-2 text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-all">
+                    <i class="bi bi-trash me-1"></i>Delete
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-200">
+    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i class="bi bi-chat-quote text-2xl text-gray-400"></i>
+    </div>
+    <h3 class="text-gray-900 font-bold mb-2">No testimonials yet</h3>
+    <p class="text-sm text-gray-500 mb-5">Add curated testimonials that will appear on your public portfolio.</p>
+    <a href="{% url 'admin_testimonial_create' %}"
+        class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white text-sm font-bold rounded-xl hover:bg-primary-700">
+        <i class="bi bi-plus-lg"></i> Add First Testimonial
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function togglePublish(pk) {
+    const btn = document.getElementById('toggle-btn-' + pk);
+    fetch(`{% url 'admin_testimonials' %}`.replace('/', '/') + `../../admin/testimonials/${pk}/toggle/`, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': '{{ csrf_token }}', 'Content-Type': 'application/json' }
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.is_published) {
+            btn.className = 'text-xs font-bold px-3 py-1 rounded-full transition-all bg-green-100 text-green-700 hover:bg-green-200';
+            btn.textContent = '✓ Published';
+        } else {
+            btn.className = 'text-xs font-bold px-3 py-1 rounded-full transition-all bg-gray-100 text-gray-500 hover:bg-gray-200';
+            btn.textContent = 'Draft';
+        }
+    });
+}
+</script>
+{% endblock %}

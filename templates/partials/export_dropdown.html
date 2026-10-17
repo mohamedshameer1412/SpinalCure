@@ -1,0 +1,90 @@
+<div class="flex gap-2 relative" x-data="{ exportOpen: false }">
+    <button @click="exportOpen = !exportOpen" @click.away="exportOpen = false"
+        class="bg-white text-gray-700 border border-gray-300 px-3 py-2 rounded-lg text-sm hover:bg-gray-50 cursor-pointer flex gap-1.5 items-center transition-all">
+        <i class="bi bi-box-arrow-up text-sm"></i>
+        Export
+        <i class="bi bi-chevron-down text-[10px] ml-1 opacity-50"></i>
+    </button>
+    <div x-show="exportOpen" x-transition
+        class="absolute right-0 top-full mt-2 z-50 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
+        <div class="px-3 py-2 bg-gray-50 border-b border-gray-100">
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Available Formats</span>
+        </div>
+        <ul class="py-1 text-sm text-gray-700">
+            <li>
+                <a href="{{ excel_url }}"
+                    class="flex items-center gap-3 py-2.5 px-4 hover:bg-blue-50 transition-colors">
+                    <i class="bi bi-file-earmark-excel text-green-600"></i>
+                    <span>Excel Spreadsheet</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ csv_url }}" class="flex items-center gap-3 py-2.5 px-4 hover:bg-blue-50 transition-colors">
+                    <i class="bi bi-file-earmark-spreadsheet text-blue-600"></i>
+                    <span>CSV Document</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ pdf_url }}" class="flex items-center gap-3 py-2.5 px-4 hover:bg-blue-50 transition-colors">
+                    <i class="bi bi-file-earmark-pdf text-red-600"></i>
+                    <span>PDF Report (ReportLab)</span>
+                </a>
+            </li>
+            <div class="h-px bg-gray-100 mx-2 my-1"></div>
+            <li>
+                <button onclick="handleExportAction('print', '{{ print_url }}')"
+                    class="w-full flex items-center gap-3 py-2.5 px-4 hover:bg-blue-50 transition-colors text-left">
+                    <i class="bi bi-printer text-gray-600"></i>
+                    <span>Print Records</span>
+                </button>
+            </li>
+            <li>
+                <button onclick="handleExportAction('copy', '{{ copy_url }}')"
+                    class="w-full flex items-center gap-3 py-2.5 px-4 hover:bg-blue-50 transition-colors text-left">
+                    <i class="bi bi-clipboard text-amber-600"></i>
+                    <span>Copy to Clipboard</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    /**
+     * Standardized handler for Print and Copy actions across the system.
+     */
+    function handleExportAction(type, url) {
+        if (type === 'copy') {
+            const btn = event.currentTarget;
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="bi bi-hourglass-split animate-spin text-amber-600"></i> <span>Copying...</span>';
+
+            fetch(url)
+                .then(r => r.text())
+                .then(data => {
+                    navigator.clipboard.writeText(data).then(() => {
+                        btn.innerHTML = '<i class="bi bi-check2 text-green-600"></i> <span class="text-green-600">Copied!</span>';
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                        }, 2000);
+                    });
+                })
+                .catch(err => {
+                    console.error('Copy failed:', err);
+                    alert('Failed to copy data.');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+        } else if (type === 'print') {
+            // Open a new window for printing to avoid messing up the current view
+            const printWindow = window.open(url, '_blank');
+            printWindow.onload = function () {
+                setTimeout(() => {
+                    printWindow.print();
+                }, 500);
+            };
+        }
+    }
+</script>

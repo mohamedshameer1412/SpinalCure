@@ -1,0 +1,115 @@
+<div id="appointment-table-container" class="overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+            <tr>
+                <th scope="col" class="px-6 py-3">Patient</th>
+                <th scope="col" class="px-6 py-3">Practitioner</th>
+                <th scope="col" class="px-6 py-3">Date & Time</th>
+                <th scope="col" class="px-6 py-3">Status</th>
+                <th scope="col" class="px-6 py-3">Reason</th>
+                <th scope="col" class="px-6 py-3 sr-only">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr class="bg-white border-b hover:bg-gray-50">
+                <td class="px-6 py-4">
+                    <a href="{% url 'patient-detail' appointment.patient.id %}" class="font-bold text-gray-900 hover:text-primary-600">
+                        {{ appointment.patient.name }}
+                    </a>
+                    <p class="text-[10px] text-gray-400 font-mono">{{ appointment.patient.phone }}</p>
+                </td>
+                <td class="px-6 py-4">
+                    {% if appointment.practitioner %}
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-primary-50 text-primary-700 border border-primary-100">
+                        {{ appointment.practitioner.name }}
+                    </span>
+                    {% else %}
+                    <span class="text-xs text-gray-400 italic">Not Assigned</span>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4">
+                    <div class="font-medium text-gray-900">{{ appointment.appointment_date|date:"D, M d" }}</div>
+                    <div class="text-xs text-gray-500">{{ appointment.appointment_time|time:"h:i A" }}</div>
+                </td>
+                <td class="px-6 py-4">
+                    <span class="px-2.5 py-1 rounded-lg text-xs font-black uppercase tracking-wider
+                        {% if appointment.status == 'scheduled' %}bg-blue-100 text-blue-800
+                        {% elif appointment.status == 'confirmed' %}bg-indigo-100 text-indigo-800
+                        {% elif appointment.status == 'completed' %}bg-green-100 text-green-800
+                        {% elif appointment.status == 'cancelled' %}bg-red-100 text-red-800
+                        {% elif appointment.status == 'no_show' %}bg-gray-100 text-gray-800
+                        {% elif appointment.status == 'rescheduled' %}bg-amber-100 text-amber-800{% endif %}">
+                        {{ appointment.get_status_display }}
+                    </span>
+                </td>
+                <td class="px-6 py-4 max-w-xs truncate" title="{{ appointment.reason }}">
+                    {{ appointment.reason|default:"—" }}
+                </td>
+                <td class="px-6 py-4 text-right">
+                    <div class="flex items-center justify-end gap-3">
+                        <a href="{% url 'appointment_calendar' %}" class="text-primary-600 font-bold hover:underline">Manage</a>
+                        <button type="button" 
+                                onclick="deleteAppointment('{{ appointment.id }}', `Appointment for {{ appointment.patient.name|escapejs }} on {{ appointment.appointment_date|date:'M d, Y' }}`)"
+                                class="text-red-500 hover:text-red-700 p-1 rounded transition-colors"
+                                title="Delete Appointment">
+                            <i class="bi bi-trash3-fill"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="px-6 py-12 text-center">
+                    <div class="flex flex-col items-center justify-center text-gray-400">
+                        <i class="bi bi-calendar-x text-5xl mb-4"></i>
+                        <p class="text-lg font-bold">No appointments found</p>
+                        <p class="text-sm">Try adjusting your filters or search query.</p>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    {% if appointments.has_other_pages %}
+    <div class="flex items-center justify-between p-4 bg-white border-t border-gray-100">
+        <span class="text-sm text-gray-700">
+            Showing {{ appointments.start_index }} to {{ appointments.end_index }} of {{ appointments.paginator.count }} appointments
+        </span>
+        <div class="inline-flex gap-2">
+            {% if appointments.has_previous %}
+            <button hx-get="?page={{ appointments.previous_page_number }}&q={{ filters.q }}&status={{ filters.status }}&practitioner={{ filters.practitioner }}&date={{ filters.date }}"
+                    hx-target="#appointment-table-container"
+                    hx-swap="outerHTML"
+                    class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                Previous
+            </button>
+            {% endif %}
+            {% if appointments.has_next %}
+            <button hx-get="?page={{ appointments.next_page_number }}&q={{ filters.q }}&status={{ filters.status }}&practitioner={{ filters.practitioner }}&date={{ filters.date }}"
+                    hx-target="#appointment-table-container"
+                    hx-swap="outerHTML"
+                    class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                Next
+            </button>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    function deleteAppointment(appointmentId, itemName) {
+        const role = "{{ request.user.role|default:'' }}";
+        const isSuperadmin = (role === 'superadmin' || '{{ request.user.is_superuser|yesno:"true,false" }}' === 'true');
+        const deleteUrl = `/en/appointments/${appointmentId}/delete/`;
+        
+        if (isSuperadmin) {
+            directDelete(deleteUrl, itemName);
+        } else {
+            openSecurityModal('delete', deleteUrl, itemName);
+        }
+    }
+</script>

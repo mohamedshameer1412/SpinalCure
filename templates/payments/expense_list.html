@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Expenses — SpinalCure{% endblock %}
+{% block page_title %}Expense Management{% endblock %}
+
+{% block header_actions %}
+<a href="{% url 'expense_create' %}"
+    class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-semibold rounded-xl hover:bg-primary-700 transition-all shadow-sm">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+    </svg>
+    Add Expense
+</a>
+{% endblock %}
+
+{% block content %}
+<!-- Summary Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+        <p class="text-sm text-gray-500 font-medium">Total Expenses</p>
+        <p class="text-2xl font-bold text-red-600 mt-1">₹{{ total_expenses|floatformat:2 }}</p>
+    </div>
+    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+        <p class="text-sm text-gray-500 font-medium">This Month</p>
+        <p class="text-2xl font-bold text-orange-500 mt-1">₹{{ monthly_total|floatformat:"2"|default:"0.00" }}</p>
+    </div>
+    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+        <p class="text-sm text-gray-500 font-medium">Total Records</p>
+        <p class="text-2xl font-bold text-gray-800 mt-1" id="total-count">{{ expenses.paginator.count }}</p>
+    </div>
+</div>
+
+<!-- Search & Filters -->
+<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 mb-4 flex flex-col md:flex-row justify-between items-center gap-4">
+    <form method="GET" 
+          hx-get="{% url 'expense_list' %}"
+          hx-trigger="keyup changed delay:500ms from:#search-input, change from:#category-select"
+          hx-target="#expense-list-container"
+          hx-swap="outerHTML"
+          class="flex flex-wrap gap-3 items-center w-full md:w-auto">
+        <div class="relative w-full max-w-sm">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <i class="bi bi-search text-gray-400"></i>
+            </div>
+            <input type="text" name="q" id="search-input" value="{{ search_query|default:'' }}"
+                class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-200 rounded-xl bg-gray-50 focus:ring-primary-500 focus:border-primary-500"
+                placeholder="Search description or title...">
+        </div>
+        <select name="category" id="category-select"
+            class="premium-select text-sm border border-gray-200 rounded-xl px-3 py-2 text-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+            <option value="">All Categories</option>
+            {% for value, label in categories %}
+            <option value="{{ value }}" {% if value == selected_category %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+        <!-- HTMX Indicator -->
+        <div class="htmx-indicator">
+            <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-600"></div>
+        </div>
+        {% if selected_category or search_query %}
+        <a href="{% url 'expense_list' %}" class="text-sm text-gray-500 hover:text-red-600 transition-colors">Clear ✕</a>
+        {% endif %}
+    </form>
+
+    <div class="flex items-center gap-2">
+        {% include 'partials/export_dropdown.html' with excel_url=export_expenses_excel_url csv_url=export_expenses_csv_url pdf_url=export_expenses_pdf_url print_url=export_expenses_print_url copy_url=export_expenses_copy_url %}
+    </div>
+</div>
+
+<!-- Expense Table -->
+<div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+    {% include 'payments/partials/expense_list_partial.html' %}
+</div>
+{% endblock %}

@@ -1,0 +1,272 @@
+<!-- Security PIN Modal -->
+<div id="security-modal" class="fixed inset-0 z-[100] hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+    aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+        <div class="fixed inset-0 transition-opacity bg-gray-900/60 backdrop-blur-sm" aria-hidden="true"
+            onclick="closeSecurityModal()"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        
+        <div id="modal-container"
+            class="inline-block px-8 py-10 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-3xl sm:my-8 sm:max-w-md sm:w-full relative">
+            
+            <!-- Step 1: Confirmation (Custom Confirm) -->
+            <div id="step-confirm" class="">
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-20 h-20 mb-6 rounded-full bg-red-50 text-red-600">
+                        <i class="bi bi-trash3-fill text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-2">Are you sure?</h3>
+                    <p class="text-sm text-gray-500 mb-8 px-4 leading-relaxed">
+                        You are about to permanently delete <span id="confirm-target-name" class="font-bold text-red-600"></span>. This action cannot be undone.
+                    </p>
+                    
+                    <div class="flex flex-col gap-3">
+                        <button onclick="goToSecurity()"
+                            class="w-full py-4 bg-red-600 text-white font-black rounded-2xl shadow-xl shadow-red-100 hover:bg-red-700 transition-all flex items-center justify-center gap-2">
+                            Yes, Delete Record
+                        </button>
+                        <button onclick="closeSecurityModal()"
+                            class="w-full py-4 bg-gray-50 text-gray-500 font-bold rounded-2xl hover:bg-gray-100 transition-all">
+                            No, Keep It
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: PIN Verification -->
+            <div id="step-pin" class="hidden">
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-primary-50 text-primary-600">
+                        <i class="bi bi-shield-lock-fill text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-2">Security Verification</h3>
+                    <p class="text-sm text-gray-500 mb-6 px-4">
+                        A security PIN has been sent to the <strong class="text-gray-900">superadmin's email</strong>. Request the PIN from them to authorize this action.
+                    </p>
+
+                    <form id="pin-form" onsubmit="verifyPinAndProceed(); return false;" class="flex justify-center gap-3 mb-8" id="pin-inputs">
+                        <input type="password" maxlength="1" class="pin-box w-12 h-16 text-2xl font-black text-center bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-primary-500 focus:ring-0 transition-all">
+                        <input type="password" maxlength="1" class="pin-box w-12 h-16 text-2xl font-black text-center bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-primary-500 focus:ring-0 transition-all">
+                        <input type="password" maxlength="1" class="pin-box w-12 h-16 text-2xl font-black text-center bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-primary-500 focus:ring-0 transition-all">
+                        <input type="password" maxlength="1" class="pin-box w-12 h-16 text-2xl font-black text-center bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-primary-500 focus:ring-0 transition-all">
+                    </form>
+
+                    <div id="security-error" class="hidden mb-6 p-4 bg-red-50 text-red-600 text-xs font-bold rounded-xl border border-red-100">
+                        <i class="bi bi-exclamation-triangle-fill mr-2"></i> Incorrect PIN. Please try again.
+                    </div>
+
+                    <div class="flex flex-col gap-3">
+                        <button id="verify-btn" onclick="verifyPinAndProceed()" disabled
+                            class="w-full py-4 bg-primary-600 text-white font-black rounded-2xl shadow-xl shadow-primary-200 disabled:opacity-50 disabled:shadow-none transition-all hover:bg-primary-700">
+                            Verify & Proceed
+                        </button>
+                        <button onclick="closeSecurityModal()"
+                            class="w-full py-3 text-sm font-bold text-gray-400 hover:text-gray-600 transition-colors">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let pendingAction = null;
+    let pendingUrl = null;
+    let pendingName = null;
+
+    function openSecurityModal(action, url, name) {
+        pendingAction = action;
+        pendingUrl = url;
+        pendingName = typeof name === 'number' ? '#' + name : name;
+        
+        const modal = document.getElementById('security-modal');
+        modal.classList.remove('hidden');
+        
+        if (action === 'delete') {
+            // Show custom confirmation first
+            document.getElementById('step-confirm').classList.remove('hidden');
+            document.getElementById('step-pin').classList.add('hidden');
+            document.getElementById('confirm-target-name').textContent = pendingName;
+        } else {
+            // Edit: Go straight to PIN
+            goToSecurity();
+        }
+    }
+
+    function goToSecurity() {
+        document.getElementById('step-confirm').classList.add('hidden');
+        document.getElementById('step-pin').classList.remove('hidden');
+        
+        // Auto-request PIN with context
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
+        const params = new URLSearchParams();
+        
+        let recordType = 'sensitive';
+        if (pendingUrl) {
+            if (pendingUrl.includes('/patients/')) recordType = 'patient';
+            else if (pendingUrl.includes('/payments/') || pendingUrl.includes('/expense')) recordType = 'payment/expense';
+            else if (pendingUrl.includes('/courses/') || pendingUrl.includes('/batches/')) recordType = 'course';
+            else if (pendingUrl.includes('/events/')) recordType = 'event';
+            else if (pendingUrl.includes('/appointments/')) recordType = 'appointment';
+            else if (pendingUrl.includes('/articles/')) recordType = 'article';
+        }
+        
+        if (pendingAction) params.append('action_type', pendingAction);
+        if (pendingName) params.append('target_name', pendingName);
+        params.append('record_type', recordType);
+
+        fetch('{% url "session-request-pin" %}', {
+            method: 'POST',
+            headers: { 
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params
+        });
+
+        setTimeout(() => {
+            const firstBox = document.querySelector('.pin-box');
+            if (firstBox) firstBox.focus();
+        }, 100);
+    }
+
+    function closeSecurityModal() {
+        document.getElementById('security-modal').classList.add('hidden');
+        document.getElementById('security-error').classList.add('hidden');
+        document.querySelectorAll('.pin-box').forEach(i => i.value = '');
+        document.getElementById('verify-btn').disabled = true;
+        pendingAction = null;
+        pendingUrl = null;
+    }
+
+    // PIN Input Handling
+    const pinBoxes = document.querySelectorAll('.pin-box');
+    pinBoxes.forEach((box, index) => {
+        box.addEventListener('input', (e) => {
+            if (e.target.value.length === 1 && index < pinBoxes.length - 1) {
+                pinBoxes[index + 1].focus();
+            }
+            checkPinReady();
+        });
+        box.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                pinBoxes[index - 1].focus();
+            }
+        });
+    });
+
+    function checkPinReady() {
+        const pin = Array.from(pinBoxes).map(b => b.value).join('');
+        document.getElementById('verify-btn').disabled = pin.length !== 4;
+    }
+
+    function verifyPinAndProceed() {
+        const pin = Array.from(pinBoxes).map(b => b.value).join('');
+        const btn = document.getElementById('verify-btn');
+        const error = document.getElementById('security-error');
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="bi bi-arrow-repeat animate-spin mr-2"></i> Verifying...';
+
+        const params = new URLSearchParams();
+        params.append('pin', pin);
+
+        fetch('{% url "session-verify-pin" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': csrftoken,
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            },
+            body: params
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                if (pendingAction === 'delete') {
+                    executeDelete(pendingUrl, data.token);
+                } else {
+                    window.location.href = pendingUrl + (pendingUrl.includes('?') ? '&' : '?') + 'auth_token=' + data.token;
+                }
+            } else {
+                error.classList.remove('hidden');
+                btn.disabled = false;
+                btn.textContent = 'Verify & Proceed';
+                pinBoxes.forEach(i => i.value = '');
+                if (pinBoxes.length > 0) pinBoxes[0].focus();
+            }
+        });
+    }
+
+    function executeDelete(url, token) {
+        const btn = document.getElementById('verify-btn');
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
+        
+        btn.innerHTML = '<i class="bi bi-trash mr-2"></i> Deleting...';
+        
+        const params = new URLSearchParams();
+        if (token) params.append('auth_token', token);
+        
+        fetch(url, { 
+            method: 'POST', 
+            headers: { 
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: params
+        })
+        .then(response => response.json().catch(() => ({ status: response.ok ? 'ok' : 'error', message: 'Failed to parse JSON response.' })))
+        .then(data => {
+            if (data.status === 'ok') {
+                if (data.redirect_url) window.location.href = data.redirect_url;
+                else window.location.reload();
+            } else {
+                const errorMsg = data.message || 'You may not have permission.';
+                alert('Deletion failed: ' + errorMsg);
+                closeSecurityModal();
+            }
+        });
+    }
+
+    // Professional Direct Delete for Superadmins
+    function directDelete(url, name) {
+        pendingAction = 'delete';
+        pendingUrl = url;
+        pendingName = name;
+
+        // Reuse the confirmation step but set it up for direct execution
+        const modal = document.getElementById('security-modal');
+        modal.classList.remove('hidden');
+        document.getElementById('step-confirm').classList.remove('hidden');
+        document.getElementById('step-pin').classList.add('hidden');
+        document.getElementById('confirm-target-name').textContent = name;
+
+        // Change the button action for superadmin
+        const confirmBtn = document.querySelector('#step-confirm button');
+        confirmBtn.onclick = function() {
+            confirmBtn.disabled = true;
+            confirmBtn.innerHTML = '<i class="bi bi-arrow-repeat animate-spin mr-2"></i> Deleting...';
+            
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
+            fetch(url, {
+                method: 'POST',
+                headers: { 
+                    'X-CSRFToken': csrftoken,
+                    'Accept': 'application/json'
+                }
+            }).then(response => response.json().catch(() => ({ status: response.ok ? 'ok' : 'error' })))
+            .then(data => {
+                if (data.status === 'ok') {
+                    if (data.redirect_url) window.location.href = data.redirect_url;
+                    else window.location.reload();
+                } else alert('Deletion failed.');
+            });
+        };
+    }
+</script>

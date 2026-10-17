@@ -1,0 +1,88 @@
+<div id="patient-table-container" class="overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3">Patient Name</th>
+                <th scope="col" class="px-6 py-3">Handled By</th>
+                <th scope="col" class="px-6 py-3">Phone</th>
+                <th scope="col" class="px-6 py-3">Registered Date</th>
+                <th scope="col" class="px-6 py-3">Sessions (Done/Total)</th>
+                <th scope="col" class="px-6 py-3">Progress</th>
+                <th scope="col" class="px-6 py-3 sr-only">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+            <tr class="bg-white border-b hover:bg-gray-50 cursor-pointer"
+                data-url="{% url 'patient-detail' patient.id %}" onclick="window.location.href=this.dataset.url;">
+                <td class="px-6 py-4 font-medium text-gray-900 flex items-center gap-3">
+                    {% if patient.photo %}
+                    <img class="w-8 h-8 rounded-full" src="{{ patient.photo.url }}" alt="Photo">
+                    {% else %}
+                    <div
+                        class="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold">
+                        {{ patient.name|make_list|first }}</div>
+                    {% endif %}
+                    {{ patient.name }}
+                </td>
+                <td class="px-5 py-4">
+                    {% if patient.handled_by %}
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-xs font-semibold text-primary-700 bg-primary-50 px-2 py-0.5 rounded-full border border-primary-100">
+                            {{ patient.handled_by.name }}
+                        </span>
+                    </div>
+                    {% else %}
+                    <span class="text-xs text-gray-400 italic">Not Assigned</span>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4">{{ patient.phone }}</td>
+                <td class="px-6 py-4">{{ patient.registered_date|date:"M d, Y" }}</td>
+                <td class="px-6 py-4 font-semibold text-gray-700">
+                    {{ patient.completed_sittings }} / {{ patient.total_sittings }}</td>
+                <td class="px-6 py-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-primary-600 h-2.5 rounded-full progress-bar"
+                            data-progress="{{ patient.progress_percentage|default:0 }}"
+                            style="width: {{ patient.progress_percentage|default:0 }}%;"></div>
+                    </div>
+                </td>
+                <td class="px-6 py-4 text-right">
+                    <a href="{% url 'patient-detail' patient.id %}"
+                        class="font-medium text-primary-600 hover:underline">View</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="px-6 py-8 text-center text-gray-500">No patients found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Big Data Pagination Logic -->
+    {% if patients.has_other_pages %}
+    <div class="flex items-center justify-between p-4 bg-white border-t border-gray-100">
+        <span class="text-sm text-gray-700">
+            Showing {{ patients.start_index }} to {{ patients.end_index }} of {{ patients.paginator.count }} patients
+        </span>
+        <div class="inline-flex gap-2">
+            {% if patients.has_previous %}
+            <button hx-get="?page={{ patients.previous_page_number }}&q={{ search_query }}"
+                hx-target="#patient-table-container" hx-swap="outerHTML"
+                class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                Previous
+            </button>
+            {% endif %}
+            {% if patients.has_next %}
+            <button hx-get="?page={{ patients.next_page_number }}&q={{ search_query }}"
+                hx-target="#patient-table-container" hx-swap="outerHTML"
+                class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                Next
+            </button>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>

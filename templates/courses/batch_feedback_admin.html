@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load b64uuid_tags %}
+
+{% block title %}Feedback — {{ batch.name }}{% endblock %}
+{% block page_title %}Batch Feedback{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+        <div>
+            <a href="{% url 'batch_list' batch.course.id %}" class="text-slate-500 hover:text-slate-900 font-bold text-sm flex items-center gap-2 mb-2">
+                <i class="bi bi-arrow-left"></i> Back to Batches
+            </a>
+            <h2 class="text-2xl font-black text-slate-900 tracking-tight">{{ batch.name }} <span class="text-slate-300 font-medium">&ndash;</span> {{ batch.course.title }}</h2>
+            <p class="text-slate-500 text-sm font-medium">Manage student reviews and testimonials.</p>
+        </div>
+        
+        <div class="flex items-center gap-2">
+            <form action="{% url 'toggle_batch_feedback' batch.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-sm flex items-center gap-2 
+                    {% if batch.feedback_enabled %}
+                    bg-amber-100 text-amber-700 hover:bg-amber-200 border border-amber-200
+                    {% else %}
+                    bg-slate-100 text-slate-500 hover:bg-slate-200 border border-slate-200
+                    {% endif %}">
+                    <i class="bi bi-{% if batch.feedback_enabled %}unlock-fill text-amber-500{% else %}lock-fill text-slate-400{% endif %}"></i>
+                    {% if batch.feedback_enabled %}Feedback Enabled{% else %}Feedback Disabled{% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6">
+        {% for feedback in feedback_list %}
+        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-8 transition-all hover:border-amber-100 relative overflow-hidden">
+            {% if feedback.is_published %}
+            <div class="absolute top-0 right-0">
+                <div class="bg-green-600 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-bl-xl shadow-sm">Published</div>
+            </div>
+            {% endif %}
+
+            <!-- Left: Student Info -->
+            <div class="md:w-1/4">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-900 font-black text-xl border border-slate-100">
+                        {{ feedback.registration.name|slice:":1"|upper }}
+                    </div>
+                    <div>
+                        <h4 class="font-black text-slate-900 leading-tight">{{ feedback.registration.name }}</h4>
+                        <p class="text-xs text-slate-400 font-bold uppercase tracking-widest">Student</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="flex text-amber-400 text-lg">
+                        {% for i in "12345" %}
+                        {% if forloop.counter <= feedback.rating %}
+                        <i class="bi bi-star-fill"></i>
+                        {% else %}
+                        <i class="bi bi-star text-slate-200"></i>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                        Received: {{ feedback.submitted_at|date:"M j, Y" }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Middle: Content -->
+            <div class="flex-1">
+                <div class="relative">
+                    <i class="bi bi-quote text-slate-100 text-6xl absolute -top-8 -left-4 -z-10"></i>
+                    <p class="text-slate-700 font-medium leading-relaxed italic">
+                        "{{ feedback.comment }}"
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right: Actions -->
+            <div class="md:w-auto flex md:flex-col items-center justify-center gap-3 border-l border-slate-50 pl-8">
+                <form action="{% url 'toggle_course_feedback_publish' feedback.id %}" method="POST" class="w-full">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all shadow-sm border
+                        {% if feedback.is_published %}
+                        bg-slate-900 text-white hover:bg-slate-800 border-slate-900
+                        {% else %}
+                        bg-green-600 text-white hover:bg-green-700 border-green-600
+                        {% endif %}">
+                        {% if feedback.is_published %}Unpublish{% else %}Publish Review{% endif %}
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% empty %}
+        <div class="bg-white rounded-3xl p-20 text-center border border-slate-100 border-dashed">
+            <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                <i class="bi bi-chat-square-dots text-slate-200 text-4xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">No Reviews Yet</h3>
+            <p class="text-slate-500 max-w-sm mx-auto">When students in this batch provide feedback, they will appear here for you to review and publish.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

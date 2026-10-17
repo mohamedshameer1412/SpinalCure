@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% if is_edit %}{% trans "Edit Payment" %}{% else %}{% trans "Record Payment" %}{% endif %} — SpinalCure
+{% endblock %}
+
+{% block page_title %}
+{% if is_edit %}{% trans "Edit Payment Record" %}{% else %}{% trans "New Payment Receipt" %}{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+        <!-- Header -->
+        <div class="px-8 py-6 bg-gradient-to-r from-primary-600 to-primary-700 text-white">
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-white/10 rounded-2xl backdrop-blur-md">
+                    <i class="bi bi-cash-stack text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold">{% if is_edit %}{% trans "Update Payment Information" %}{% else %}{% trans "Record Collection" %}{% endif %}</h2>
+                    <p class="text-primary-100 text-sm opacity-80">
+                        {% if is_edit %}
+                        {% trans "Modifying receipt" %} #{{ payment.receipt_number }}
+                        {% else %}
+                        {% trans "Generate a new payment record for treatment fees" %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <form method="POST" class="p-8 space-y-8" x-data="{ payerType: '{{ payment.payer_type|default:'patient' }}' }">
+            {% csrf_token %}
+            {% if is_edit %}
+            <input type="hidden" name="auth_token" value="{{ auth_token }}">
+            {% endif %}
+
+            <!-- Payer Type Selector -->
+            <div class="space-y-4">
+                <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest">
+                    {% trans "Who is paying?" %}
+                </label>
+                <div class="grid grid-cols-3 gap-3">
+                    <button type="button" @click="payerType = 'patient'" 
+                        :class="payerType === 'patient' ? 'bg-primary-600 text-white border-primary-600 shadow-md shadow-primary-200' : 'bg-gray-50 text-gray-500 border-gray-100 hover:bg-gray-100'"
+                        class="px-4 py-3 rounded-2xl border-2 font-bold text-sm transition-all flex items-center justify-center gap-2">
+                        <i class="bi bi-person-heart"></i>
+                        {% trans "Patient" %}
+                    </button>
+                    <button type="button" @click="payerType = 'student'" 
+                        :class="payerType === 'student' ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-200' : 'bg-gray-50 text-gray-500 border-gray-100 hover:bg-gray-100'"
+                        class="px-4 py-3 rounded-2xl border-2 font-bold text-sm transition-all flex items-center justify-center gap-2">
+                        <i class="bi bi-mortarboard"></i>
+                        {% trans "Student" %}
+                    </button>
+                    <button type="button" @click="payerType = 'participant'" 
+                        :class="payerType === 'participant' ? 'bg-amber-600 text-white border-amber-600 shadow-md shadow-amber-200' : 'bg-gray-50 text-gray-500 border-gray-100 hover:bg-gray-100'"
+                        class="px-4 py-3 rounded-2xl border-2 font-bold text-sm transition-all flex items-center justify-center gap-2">
+                        <i class="bi bi-people"></i>
+                        {% trans "Participant" %}
+                    </button>
+                </div>
+                <input type="hidden" name="payer_type" :value="payerType">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Patient Section -->
+                <div class="col-span-full" x-show="payerType === 'patient'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform -translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0">
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Select Patient" %}
+                    </label>
+                    {% if is_edit %}
+                    <div class="p-4 bg-gray-50 border border-gray-200 rounded-2xl flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold">
+                            {{ payment.patient.name|slice:":1" }}
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900">{{ payment.patient.name }}</p>
+                            <p class="text-xs text-gray-500">{% trans "DOB" %}: {{ payment.patient.date_of_birth }}</p>
+                        </div>
+                        <input type="hidden" name="patient" value="{{ payment.patient.id }}">
+                    </div>
+                    {% else %}
+                    <select name="patient" :required="payerType === 'patient'" data-placeholder="{% trans 'Select Patient' %}">
+                        <option value="">{% trans "Select Patient" %}</option>
+                        {% for p in patients %}
+                        <option value="{{ p.id }}" 
+                        {% if initial_patient and initial_patient.id == p.id %}
+                        selected
+                        {% endif %}>
+                            {{ p.name }} ({{ p.phone|default:'No Phone' }})
+                        </option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+                </div>
+
+                <!-- Student Section -->
+                <div class="col-span-full grid grid-cols-1 md:grid-cols-2 gap-8" x-show="payerType === 'student'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform -translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0">
+                    <div class="col-span-full">
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{% trans "Select Course Batch" %}</label>
+                        <select name="batch" :required="payerType === 'student'" data-placeholder="{% trans 'Select Course Batch' %}">
+                            <option value="">{% trans "Select Course Batch" %}</option>
+                            {% for b in batches %}
+                            <option value="{{ b.id }}" {% if payment.course_registration and payment.course_registration.batch_id == b.id %}selected{% endif %}>{{ b.course.title }} — {{ b.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{% trans "Student Name" %}</label>
+                        <input type="text" name="student_name" :required="payerType === 'student'"
+                            value="{% if is_edit %}{{ payment.payer_name }}{% endif %}"
+                            class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-indigo-500 rounded-2xl text-gray-900 font-medium outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{% trans "Phone Number" %}</label>
+                        <input type="text" name="student_phone" :required="payerType === 'student'"
+                            value="{% if is_edit %}{{ payment.payer_phone }}{% endif %}"
+                            class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-indigo-500 rounded-2xl text-gray-900 font-medium outline-none">
+                    </div>
+                    <div class="col-span-full">
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{% trans "Email (Optional)" %}</label>
+                        <input type="email" name="student_email"
+                            value="{% if is_edit %}{{ payment.course_registration.email|default:'' }}{% endif %}"
+                            class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-indigo-500 rounded-2xl text-gray-900 font-medium outline-none">
+                    </div>
+                </div>
+
+                <!-- Participant Section -->
+                <div class="col-span-full grid grid-cols-1 md:grid-cols-2 gap-8" x-show="payerType === 'participant'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform -translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0">
+                    <div class="col-span-full">
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{% trans "Select Event" %}</label>
+                        <select name="event" :required="payerType === 'participant'" data-placeholder="{% trans 'Select Event' %}">
+                            <option value="">{% trans "Select Event" %}</option>
+                            {% for e in events %}
+                            <option value="{{ e.id }}" {% if payment.event_registration and payment.event_registration.event_id == e.id %}selected{% endif %}>{{ e.title }} ({{ e.date }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{% trans "Participant Name" %}</label>
+                        <input type="text" name="participant_name" :required="payerType === 'participant'"
+                            value="{% if is_edit %}{{ payment.payer_name }}{% endif %}"
+                            class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-amber-500 rounded-2xl text-gray-900 font-medium outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{% trans "Phone Number" %}</label>
+                        <input type="text" name="participant_phone" :required="payerType === 'participant'"
+                            value="{% if is_edit %}{{ payment.payer_phone }}{% endif %}"
+                            class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-amber-500 rounded-2xl text-gray-900 font-medium outline-none">
+                    </div>
+                    <div class="col-span-full">
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{% trans "Email (Optional)" %}</label>
+                        <input type="email" name="participant_email"
+                            value="{% if is_edit %}{{ payment.event_registration.email|default:'' }}{% endif %}"
+                            class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-amber-500 rounded-2xl text-gray-900 font-medium outline-none">
+                    </div>
+                </div>
+
+                <!-- Total Amount -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "New Charges (₹)" %}
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                        <input type="number" name="total_amount" step="0.01" min="0" required
+                            value="{{ payment.total_amount|default:'0.00' }}" placeholder="0.00"
+                            class="w-full pl-10 pr-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-bold transition-all outline-none">
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-1">Leave as 0.00 if paying an existing balance.</p>
+                </div>
+
+                <!-- Amount Paid -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Amount Paid Now (₹)" %}
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-5 top-1/2 -translate-y-1/2 text-green-500 font-bold">₹</span>
+                        <input type="number" name="amount_paid" step="0.01" required
+                            value="{{ payment.amount_paid|default:'' }}" placeholder="0.00"
+                            class="w-full pl-10 pr-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-green-600 font-bold transition-all outline-none">
+                    </div>
+                </div>
+
+                <!-- Payment Mode -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Payment Mode" %}
+                    </label>
+                    <div class="grid grid-cols-2 gap-3">
+                        {% for code, label in payment_modes %}
+                        <label
+                            class="relative flex items-center justify-center p-3 rounded-xl border-2 cursor-pointer transition-all hover:bg-gray-50 peer-checked:bg-primary-50 peer-checked:border-primary-500">
+                            <input type="radio" name="payment_mode" value="{{ code }}" 
+                            {% if is_edit %}
+                            {% if payment.payment_mode == code %}
+                            checked
+                            {% endif %}
+                            {% else %}
+                            {% if code == 'cash' %}
+                            checked
+                            {% endif %}
+                            {% endif %} class="absolute opacity-0">
+                            <span class="text-sm font-bold text-gray-600 uppercase">{{ label }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Date -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Payment Date" %}
+                    </label>
+                    <input type="date" name="payment_date" required
+                        value="{% if is_edit %}{{ payment.payment_date|date:'Y-m-d' }}{% else %}{{ current_date|date:'Y-m-d' }}{% endif %}"
+                        class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-medium transition-all outline-none">
+                </div>
+
+                <!-- Treatment Plan -->
+                {% if treatment_plans %}
+                <div class="col-span-full" id="treatment_plan_field">
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Treatment Plan" %}
+                    </label>
+                    <select name="treatment_plan"
+                        class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-medium transition-all outline-none appearance-none">
+                        <option value="">{% trans "General / No specific plan" %}</option>
+                        {% for plan in treatment_plans %}
+                        <option value="{{ plan.id }}" {% if payment.treatment_plan.id == plan.id %}selected{% endif %}>{{ plan.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+                <!-- Description -->
+                <div class="col-span-full">
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Service Description" %}
+                    </label>
+                    <input type="text" name="description" value="{{ payment.description|default:'' }}"
+                        placeholder="{% trans 'e.g., 5 Sessions of Acupuncture' %}"
+                        class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-medium transition-all outline-none">
+                </div>
+                    
+                <!-- Notes -->
+                <div class="col-span-full">
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Internal Notes" %}
+                    </label>
+                    <textarea name="notes" rows="3" placeholder="{% trans 'Any additional details...' %}"
+                        class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-medium transition-all outline-none resize-none">{{ payment.notes|default:'' }}</textarea>
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="pt-6 border-t border-gray-100 flex flex-col md:flex-row gap-4">
+                <button type="submit"
+                    class="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-primary-200 transition-all flex items-center justify-center gap-2">
+                    <i class="bi bi-check-circle-fill"></i>
+                    {% if is_edit %}{% trans "Save Changes" %}{% else %}{% trans "Confirm & Print Receipt" %}{% endif %}
+                </button>
+                <a href="{% if payment.patient %}{% url 'patient-detail' payment.patient.id %}{% elif initial_patient %}{% url 'patient-detail' initial_patient.id %}{% else %}{% url 'payment_list' %}{% endif %}"
+                    class="px-8 py-4 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-2xl transition-all text-center">
+                    {% trans "Cancel" %}
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    input[type="radio"]:checked+span {
+        color: var(--tw-color-primary-600) !important;
+    }
+
+    label:has(input[type="radio"]:checked) {
+        border-color: #0d9488 !important;
+        background-color: #f0fdfa !important;
+    }
+</style>
+{% endblock %}

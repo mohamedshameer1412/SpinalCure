@@ -1,0 +1,207 @@
+{% if patient.acupuncture_diagnosis and patient.acupuncture_diagnosis.diagnosis_data %}
+<div class="p-8" x-data="{ data: {{ patient.acupuncture_diagnosis.diagnosis_data|safe|default:'{}' }} }">
+    <div class="flex justify-between items-center border-b pb-4 mb-8">
+        <h2 class="text-xl font-bold text-gray-800">Acupuncture Case Sheet</h2>
+        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">TCM Diagnosis</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+        
+        <!-- Sense Organs -->
+        <div>
+            <h3 class="font-bold text-gray-700 text-sm border-b pb-1 mb-3">1. Symptoms in Sense Organs</h3>
+            <div class="flex flex-wrap gap-2">
+                <template x-for="(val, key) in data.sense_organs" :key="key">
+                    <span x-show="val" class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg" x-text="key"></span>
+                </template>
+                <span x-show="!data.sense_organs || !Object.values(data.sense_organs).some(v => v)" class="text-sm text-gray-400 italic">None reported</span>
+            </div>
+        </div>
+
+        <!-- Body Secretions -->
+        <div>
+            <h3 class="font-bold text-gray-700 text-sm border-b pb-1 mb-3">2. Body Secretions</h3>
+            <div class="flex flex-wrap gap-2">
+                <template x-for="(val, key) in data.body_secretions" :key="key">
+                    <span x-show="val" class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg" x-text="key"></span>
+                </template>
+                <span x-show="!data.body_secretions || !Object.values(data.body_secretions).some(v => v)" class="text-sm text-gray-400 italic">None reported</span>
+            </div>
+        </div>
+
+        <!-- Body Area -->
+        <div>
+            <h3 class="font-bold text-gray-700 text-sm border-b pb-1 mb-3">3. Body Area</h3>
+            <div class="flex flex-wrap gap-2">
+                <template x-for="(val, key) in data.body_area" :key="key">
+                    <span x-show="val" class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg" x-text="key"></span>
+                </template>
+                <span x-show="!data.body_area || !Object.values(data.body_area).some(v => v)" class="text-sm text-gray-400 italic">None reported</span>
+            </div>
+        </div>
+
+        <!-- Body Tissue -->
+        <div>
+            <h3 class="font-bold text-gray-700 text-sm border-b pb-1 mb-3">4. Body Tissue</h3>
+            <div class="flex flex-wrap gap-2">
+                <template x-for="(val, key) in data.body_tissue" :key="key">
+                    <span x-show="val" class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg" x-text="key"></span>
+                </template>
+                <span x-show="!data.body_tissue || !Object.values(data.body_tissue).some(v => v)" class="text-sm text-gray-400 italic">None reported</span>
+            </div>
+        </div>
+
+        <!-- Internal Evil -->
+        <div>
+            <h3 class="font-bold text-gray-700 text-sm border-b pb-1 mb-3">5. Internal Evil</h3>
+            <div class="flex flex-wrap gap-2">
+                <template x-for="(val, key) in data.internal_evil" :key="key">
+                    <span x-show="val" class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg" x-text="key"></span>
+                </template>
+                <span x-show="!data.internal_evil || !Object.values(data.internal_evil).some(v => v)" class="text-sm text-gray-400 italic">None reported</span>
+            </div>
+        </div>
+
+        <!-- External Evil -->
+        <div>
+            <h3 class="font-bold text-gray-700 text-sm border-b pb-1 mb-3">6. External Evil</h3>
+            <div class="flex flex-wrap gap-2">
+                <template x-for="(val, key) in data.external_evil" :key="key">
+                    <span x-show="val" class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg" x-text="key"></span>
+                </template>
+                <span x-show="!data.external_evil || !Object.values(data.external_evil).some(v => v)" class="text-sm text-gray-400 italic">None reported</span>
+            </div>
+        </div>
+
+        <!-- Five Seasons -->
+        <div>
+            <h3 class="font-bold text-gray-700 text-sm border-b pb-1 mb-3">7. Five Seasons</h3>
+            <div class="flex flex-wrap gap-2">
+                <template x-for="(val, key) in data.five_seasons" :key="key">
+                    <span x-show="val" class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg" x-text="key"></span>
+                </template>
+                <span x-show="!data.five_seasons || !Object.values(data.five_seasons).some(v => v)" class="text-sm text-gray-400 italic">None reported</span>
+            </div>
+        </div>
+
+        <!-- Colour Diagnosis -->
+        <div>
+            <h3 class="font-bold text-gray-700 text-sm border-b pb-1 mb-3">8. Colour Diagnosis</h3>
+            <div class="flex flex-wrap gap-2">
+                <template x-for="(val, key) in data.colour_diagnosis" :key="key">
+                    <span x-show="val" class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg" x-text="key"></span>
+                </template>
+                <span x-show="!data.colour_diagnosis || !Object.values(data.colour_diagnosis).some(v => v)" class="text-sm text-gray-400 italic">None reported</span>
+            </div>
+        </div>
+
+        <!-- Taste Diagnosis -->
+        <div>
+            <h3 class="font-bold text-gray-700 text-sm border-b pb-1 mb-3">9. Taste Diagnosis</h3>
+            <div class="flex flex-wrap gap-2">
+                <template x-for="(val, key) in data.taste_diagnosis" :key="key">
+                    <span x-show="val" class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg" x-text="key"></span>
+                </template>
+                <span x-show="!data.taste_diagnosis || !Object.values(data.taste_diagnosis).some(v => v)" class="text-sm text-gray-400 italic">None reported</span>
+            </div>
+        </div>
+
+        <!-- Five Stages -->
+        <div>
+            <h3 class="font-bold text-gray-700 text-sm border-b pb-1 mb-3">10. Five Stages of Development</h3>
+            <div class="flex flex-wrap gap-2">
+                <template x-for="(val, key) in data.five_stages" :key="key">
+                    <span x-show="val" class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg" x-text="key"></span>
+                </template>
+                <span x-show="!data.five_stages || !Object.values(data.five_stages).some(v => v)" class="text-sm text-gray-400 italic">None reported</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meridian Pathways / Pulse Reading -->
+    <div class="mt-10">
+        <h3 class="font-bold text-gray-700 text-sm border-b pb-1 mb-4">11. Pathway of the Meridian / Pulse Reading (+ or -)</h3>
+        <div class="overflow-x-auto pb-2">
+            <table class="w-full min-w-[600px] text-sm text-center border-collapse border border-gray-200 bg-white">
+                <thead>
+                    <tr class="bg-gray-50 text-gray-600">
+                        <th class="border border-gray-200 p-3 font-semibold">FIRE</th>
+                        <th class="border border-gray-200 p-3 font-semibold">EARTH</th>
+                        <th class="border border-gray-200 p-3 font-semibold">METAL</th>
+                        <th class="border border-gray-200 p-3 font-semibold">WATER</th>
+                        <th class="border border-gray-200 p-3 font-semibold">WOOD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border border-gray-200 p-3">
+                            <div class="flex justify-around">
+                                <span :class="data.meridian?.H ? 'text-green-600 font-bold' : 'text-gray-400'">H</span>
+                                <span :class="data.meridian?.P ? 'text-green-600 font-bold' : 'text-gray-400'">P</span>
+                            </div>
+                        </td>
+                        <td class="border border-gray-200 p-3 align-middle" rowspan="2">
+                            <div class="flex flex-col gap-2">
+                                <span :class="data.meridian?.SP ? 'text-green-600 font-bold' : 'text-gray-400'">SP</span>
+                                <span :class="data.meridian?.ST ? 'text-green-600 font-bold' : 'text-gray-400'">ST</span>
+                            </div>
+                        </td>
+                        <td class="border border-gray-200 p-3 align-middle" rowspan="2">
+                            <div class="flex flex-col gap-2">
+                                <span :class="data.meridian?.LU ? 'text-green-600 font-bold' : 'text-gray-400'">LU</span>
+                                <span :class="data.meridian?.LI ? 'text-green-600 font-bold' : 'text-gray-400'">LI</span>
+                            </div>
+                        </td>
+                        <td class="border border-gray-200 p-3 align-middle" rowspan="2">
+                            <div class="flex flex-col gap-2">
+                                <span :class="data.meridian?.K ? 'text-green-600 font-bold' : 'text-gray-400'">K</span>
+                                <span :class="data.meridian?.UB ? 'text-green-600 font-bold' : 'text-gray-400'">UB</span>
+                            </div>
+                        </td>
+                        <td class="border border-gray-200 p-3 align-middle" rowspan="2">
+                            <div class="flex flex-col gap-2">
+                                <span :class="data.meridian?.LIV ? 'text-green-600 font-bold' : 'text-gray-400'">LIV</span>
+                                <span :class="data.meridian?.GB ? 'text-green-600 font-bold' : 'text-gray-400'">GB</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-200 p-3">
+                            <div class="flex justify-around">
+                                <span :class="data.meridian?.SI ? 'text-green-600 font-bold' : 'text-gray-400'">SI</span>
+                                <span :class="data.meridian?.TW ? 'text-green-600 font-bold' : 'text-gray-400'">TW</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Additional Laws / Points -->
+    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <h3 class="font-bold text-gray-700 text-sm mb-2">12. Luo Connecting Points</h3>
+            <span :class="data.luo_points ? 'px-3 py-1 bg-green-100 text-green-700 text-sm rounded-lg font-bold inline-block' : 'text-sm text-gray-400 italic'" x-text="data.luo_points || 'None recorded'"></span>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <h3 class="font-bold text-gray-700 text-sm mb-2">13. Mother - Son Law</h3>
+            <span :class="data.mother_son_law ? 'px-3 py-1 bg-green-100 text-green-700 text-sm rounded-lg font-bold inline-block' : 'text-sm text-gray-400 italic'" x-text="data.mother_son_law ? 'A+ B-' : 'None recorded'"></span>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <h3 class="font-bold text-gray-700 text-sm mb-2">14. Kocycle Law</h3>
+            <span :class="data.kocycle_law ? 'px-3 py-1 bg-green-100 text-green-700 text-sm rounded-lg font-bold inline-block' : 'text-sm text-gray-400 italic'" x-text="data.kocycle_law ? 'A+ B- C-' : 'None recorded'"></span>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+            <h3 class="font-bold text-gray-700 text-sm mb-2">15. Recycle Law</h3>
+            <span :class="data.recycle_law ? 'px-3 py-1 bg-green-100 text-green-700 text-sm rounded-lg font-bold inline-block' : 'text-sm text-gray-400 italic'" x-text="data.recycle_law ? 'A+ B- C- D-' : 'None recorded'"></span>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="p-16 text-center text-gray-500">
+    <i class="bi bi-file-earmark-medical text-4xl mb-4 text-gray-300"></i>
+    <p>No TCM Diagnosis Case Sheet available for this patient.</p>
+    <a href="{% url 'patient-edit' patient.id %}" class="inline-block mt-4 text-sm font-semibold text-green-600 hover:text-green-700">Add Diagnosis Details</a>
+</div>
+{% endif %}

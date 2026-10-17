@@ -1,0 +1,62 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Appointment Booking Confirmation - {{ clinic_name }}{% endblock %}
+
+{% block body %}
+    <h1 style="color: #059669; margin-top: 0; font-size: 26px; text-align: center; font-weight: 800;">Appointment Confirmed</h1>
+    
+    <p style="font-size: 16px; color: #4a5568;">Hello <strong>{{ patient_name }}</strong>,</p>
+    
+    <p style="font-size: 16px; color: #4a5568; line-height: 1.6;">Thank you for booking your appointment with us. We're excited to help you on your path to better health.</p>
+    
+    <div style="background-color: #ecfdf5; border-left: 4px solid #059669; padding: 15px 20px; border-radius: 4px; margin: 25px 0;">
+        <strong style="color: #064e3b; font-size: 16px;">✓ Your appointment has been successfully scheduled.</strong>
+    </div>
+    
+    <h3 style="color: #4a5568; font-size: 18px; border-bottom: 2px solid #edf2f7; padding-bottom: 8px; margin-top: 30px;">Booking Details</h3>
+    <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7; color: #718096; font-weight: 600; width: 35%;">Date</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7; color: #2d3748; font-weight: bold; text-align: right;">{{ appointment_date|date:"l, M d, Y" }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7; color: #718096; font-weight: 600;">Time</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7; color: #2d3748; font-weight: bold; text-align: right;">{{ appointment_time }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7; color: #718096; font-weight: 600;">Specialist</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7; color: #2d3748; text-align: right;"><strong>{{ practitioner_name }}</strong><br><span style="font-size: 13px; color: #718096;">{{ specialization }}</span></td>
+            </tr>
+            <tr>
+                <td style="padding: 12px 0; color: #718096; font-weight: 600;">Location</td>
+                <td style="padding: 12px 0; color: #2d3748; text-align: right;">{{ clinic_address|default:"Online/Clinic" }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Google Calendar Integration -->
+    <div style="text-align: center; margin: 35px 0;">
+        <a href="{{ google_calendar_url }}" style="display: inline-block; background-color: #4285F4; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 6px rgba(66, 133, 244, 0.2);">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg" alt="Google Calendar" style="width: 18px; height: 18px; vertical-align: text-bottom; margin-right: 8px; filter: brightness(0) invert(1);"> 
+            Add to Google Calendar
+        </a>
+    </div>
+    
+    <h3 style="color: #4a5568; font-size: 18px; margin-top: 35px;">Important Reminders</h3>
+    <ul style="color: #4a5568; line-height: 1.6; padding-left: 20px;">
+        <li>Please arrive <strong>10 minutes early</strong> to complete any necessary registration.</li>
+        <li>Bring any relevant past medical records or scans.</li>
+        <li>If you need to reschedule or cancel, please inform us at least <strong>24 hours in advance</strong>.</li>
+    </ul>
+    
+    <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 6px; margin: 30px 0; text-align: center;">
+        <strong style="color: #4a5568; display: block; margin-bottom: 5px;">Need Assistance?</strong>
+        <span style="color: #718096;">Contact our front desk directly at:</span><br>
+        <strong style="color: #059669; font-size: 18px; display: inline-block; margin-top: 8px;">{{ clinic_phone }}</strong>
+    </div>
+    
+    <p style="color: #4a5568;">We look forward to seeing you!</p>
+    <p style="color: #4a5568; margin-bottom: 0;">Warm regards,<br><strong style="color: #2d3748;">{{ clinic_name }} Team</strong></p>
+{% endblock %}

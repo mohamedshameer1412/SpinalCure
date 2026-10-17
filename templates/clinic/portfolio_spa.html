@@ -1,0 +1,1305 @@
+{% load b64uuid_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>{{ clinic.name|default:"SpinalCure" }} — Premium Acupuncture Care</title>
+    <meta name="title" content="{{ clinic.name|default:'SpinalCure' }} — Premium Acupuncture Care">
+    <meta name="description"
+        content="{{ clinic.about|default:'Experience the perfect blend of ancient acupuncture wisdom and modern spinal rehabilitation. We help you reclaim a pain-free life.'|truncatewords:30 }}">
+    <meta name="keywords"
+        content="acupuncture, pain relief, spine care, holistic health, wellness, traditional medicine, {{ clinic.name|default:'SpinalCure' }}">
+    <meta name="author" content="{{ clinic.name|default:'SpinalCure' }}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{{ clinic.name|default:'SpinalCure' }} — Premium Acupuncture Care">
+    <meta property="og:description"
+        content="{{ clinic.about|default:'Experience the perfect blend of ancient acupuncture wisdom and modern spinal rehabilitation.'|truncatewords:30 }}">
+    <meta property="og:image"
+        content="{% if clinic.logo %}{{ request.scheme }}://{{ request.get_host }}{{ clinic.logo.url }}{% endif %}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta property="twitter:title" content="{{ clinic.name|default:'SpinalCure' }} — Premium Acupuncture Care">
+    <meta property="twitter:description"
+        content="{{ clinic.about|default:'Experience the perfect blend of ancient acupuncture wisdom and modern spinal rehabilitation.'|truncatewords:30 }}">
+    <meta property="twitter:image"
+        content="{% if clinic.logo %}{{ request.scheme }}://{{ request.get_host }}{{ clinic.logo.url }}{% endif %}">
+        
+    {% if clinic and clinic.logo %}
+    <link rel="icon" href="{{ clinic.logo.url }}">
+    {% else %}
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    {% endif %}
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfdfd;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #166534 0%, #22c55e 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at top right, rgba(34, 197, 94, 0.08), transparent), radial-gradient(circle at bottom left, rgba(22, 101, 52, 0.05), transparent);
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body x-data="{ scritch: false, mobileMenu: false }" @scroll.window="scritch = (window.pageYOffset > 20)">
+
+    <!-- Navigation -->
+    <nav :class="scritch ? 'glass py-3 shadow-sm' : 'bg-transparent py-5'"
+        class="fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2 group">
+                {% if clinic_logo_url %}
+                <img src="{{ clinic_logo_url }}" alt="{{ clinic.name }}"
+                    class="w-10 h-10 rounded-xl object-contain bg-white shadow-sm border border-slate-100 p-0.5 group-hover:scale-110 transition-transform">
+                {% else %}
+                <div
+                    class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-xl flex items-center justify-center text-white font-bold shadow-sm group-hover:scale-110 transition-transform">
+                    {{ clinic.name|default:"S"|slice:":1" }}</div>
+                {% endif %}
+                <span class="text-2xl font-extrabold tracking-tight text-slate-900">
+                    {{ clinic.name|default:"SpinalCure" }}</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                <a href="#about" class="hover:text-green-600 transition-colors">About</a>
+                <a href="#services" class="hover:text-green-600 transition-colors">Services</a>
+                {% if events %}<a href="#events" class="hover:text-green-600 transition-colors">Events</a>{% endif %}
+                {% if courses %}<a href="#courses" class="hover:text-green-600 transition-colors">Courses</a>{% endif %}
+                <a href="#team" class="hover:text-green-600 transition-colors">Team</a>
+                <a href="#testimonials" class="hover:text-green-600 transition-colors">Reviews</a>
+                <a href="{% url 'blog_list' %}" class="hover:text-green-600 transition-colors">Blog</a>
+                <a href="#appointment"
+                    class="px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-green-700 transition-all shadow-md">Book
+                    Session</a>
+            </div>
+
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2">
+                <svg x-show="!mobileMenu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+                <svg x-show="mobileMenu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-transition class="md:hidden glass border-t border-slate-100 p-6 space-y-4">
+            <a href="#about" @click="mobileMenu = false" class="block text-lg font-medium">About</a>
+            <a href="#services" @click="mobileMenu = false" class="block text-lg font-medium">Services</a>
+            {% if events %}<a href="#events" @click="mobileMenu = false" class="block text-lg font-medium">Events</a>{% endif %}
+            {% if courses %}<a href="#courses" @click="mobileMenu = false" class="block text-lg font-medium">Courses</a>{% endif %}
+            <a href="#team" @click="mobileMenu = false" class="block text-lg font-medium">Team</a>
+            <a href="#testimonials" @click="mobileMenu = false" class="block text-lg font-medium">Reviews</a>
+            <a href="#appointment" @click="mobileMenu = false"
+                class="block px-6 py-3 bg-green-600 text-white rounded-xl text-center">Book Session</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex items-center pt-24 pb-8 lg:pt-28 lg:pb-12 hero-gradient overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
+            <div class="relative z-10" x-init="setTimeout(() => { isVisible = true }, 50)" x-data="{ isVisible: false }"
+                :class="isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'"
+                class="transition-all duration-1000">
+                <span
+                    class="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-widest mb-6">Expert
+                    Acupuncture & Recovery</span>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6">
+                    {% if clinic.hero_title %}
+                    {{ clinic.hero_title }}
+                    {% else %}
+                    Professional Care for your <span class="gradient-text">Spine & Health.</span>
+                    {% endif %}
+                </h1>
+                <p class="text-lg text-slate-600 mb-10 leading-relaxed max-w-lg">
+                    {% if clinic.hero_subtitle %}
+                    {{ clinic.hero_subtitle }}
+                    {% else %}
+                    Experience the perfect blend of ancient acupuncture wisdom and modern spinal rehabilitation. We help
+                    you reclaim a pain-free life.
+                    {% endif %}
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#appointment"
+                        class="px-8 py-4 bg-green-600 text-white rounded-2xl font-bold hover:bg-green-700 transition-all shadow-xl shadow-green-200/50 flex items-center gap-2">
+                        Get Started
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    <a href="#services"
+                        class="px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all">Explore
+                        Services</a>
+                </div>
+
+                <div class="mt-12 flex items-center gap-6">
+                    <div class="flex -space-x-3">
+                           {% for i in reviews|slice:":3" %}
+                                {% if i.patient.photo %}
+                                    <img class="w-8 h-8 rounded-full object-cover border-2 border-white"
+                                        src="{{ i.patient.photo.url }}"
+                                        alt="{{ i.patient.name }}">
+                                {% else %}
+                                    <div class="w-8 h-8 rounded-full bg-green-600 text-white 
+                                                flex items-center justify-center font-bold border-2 border-white">
+                                        {{ i.patient.name|first }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                    </div>
+                    <div class="text-sm font-medium text-slate-500">
+                        <span class="font-bold text-slate-900">500+</span> Happy Patients
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -top-20 -right-20 w-64 h-64 bg-green-100 rounded-full blur-3xl opacity-50"></div>
+                <div
+                    class="relative glass rounded-3xl p-4 rotate-3 hover:rotate-0 transition-transform duration-500 max-w-md mx-auto w-full">
+                    <div class="aspect-square lg:aspect-[4/5] bg-slate-100 rounded-2xl overflow-hidden relative">
+                        {% if clinic.hero_carousel_images.exists %}
+                        <div x-data="{
+                                activeSlide: 1,
+                                slides: {{ clinic.hero_carousel_images.count }},
+                                init() {
+                                    if(this.slides > 1) {
+                                        setInterval(() => {
+                                            this.activeSlide = this.activeSlide === this.slides ? 1 : this.activeSlide + 1;
+                                        }, 4000);
+                                    }
+                                }
+                            }" class="w-full h-full relative">
+                            {% for img in clinic.hero_carousel_images.all %}
+                            <div class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                                x-show="activeSlide === {{ forloop.counter }}" {% if not forloop.first %}
+                                style="display: none;" {% endif %}>
+                                <img src="{{ img.image.url }}" class="w-full h-full object-cover"
+                                    alt="Hero Slide {{ forloop.counter }}">
+                            </div>
+                            {% endfor %}
+
+                            <!-- Carousel Indicators -->
+                            {% if clinic.hero_carousel_images.count > 1 %}
+                            <div class="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
+                                <template x-for="i in slides" :key="i">
+                                    <button @click="activeSlide = i"
+                                        class="w-2 h-2 rounded-full transition-all duration-300"
+                                        :class="activeSlide === i ? 'bg-green-600 w-6' : 'bg-green-600/40 hover:bg-green-600/60'"></button>
+                                </template>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% elif clinic.hero_image %}
+                        <img src="{{ clinic.hero_image.url }}" alt="Clinic Hero" class="w-full h-full object-cover">
+                        {% else %}
+                        <div class="absolute inset-0 flex items-center justify-center text-slate-300">
+                            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                                <path
+                                    d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" />
+                            </svg>
+                        </div>
+
+                        {% if clinic.logo %}
+                        <img src="{{ clinic.logo.url }}" alt="Clinic"
+                            class="absolute inset-0 w-full h-full object-cover">
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                    {% comment %} <div
+                        class="absolute -bottom-10 -left-10 glass p-5 rounded-2xl shadow-xl max-w-[200px] animate-bounce">
+                        <p class="text-xs font-bold text-green-600 uppercase tracking-widest mb-1">Clinic Award</p>
+                        <p class="text-sm font-bold text-slate-900">Best Spine Care 2023</p>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- About Section -->
+        <section id="about" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-20 items-center">
+                    <div>
+                        <h2 class="text-sm font-bold text-green-600 uppercase tracking-[0.2em] mb-4">
+                            {% if clinic.about_label %}{{ clinic.about_label }}{% else %}Our Legacy{% endif %}</h2>
+                        <h3 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-8">
+                            {% if clinic.about_title %}{{ clinic.about_title|safe }}{% else %}A Decade of <span
+                                class="text-green-600">Healing</span> Hands and Precision.{% endif %}
+                        </h3>
+                        <p class="text-lg text-slate-600 leading-relaxed mb-10">
+                            {% if clinic.about %}
+                            {{ clinic.about|truncatewords:45 }}...
+                            {% else %}
+                            Founded by experts in traditional medicine, SpinalCure has been the leading sanctuary for
+                            those seeking holistic relief from chronic pain and spinal discomfort.
+                            {% endif %}
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-8 mb-10">
+                            <div>
+                                <p class="text-4xl font-extrabold text-slate-900 mb-1">
+                                    {% if clinic.about_stat1_number %}
+                                    {{ clinic.about_stat1_number }}{% else %}10+
+                                    {% endif %}</p>
+                                <p class="text-sm font-semibold text-slate-500">
+                                    {% if clinic.about_stat1_label %}{{clinic.about_stat1_label }}{% else %}Years
+                                    Experience{% endif %}</p>
+                            </div>
+                            <div>
+                                <p class="text-4xl font-extrabold text-slate-900 mb-1">
+                                    {% if clinic.about_stat2_number%}{{ clinic.about_stat2_number }}{% else %}15k+
+                                    {% endif %}</p>
+                                <p class="text-sm font-semibold text-slate-500">
+                                    {% if clinic.about_stat2_label %}{{clinic.about_stat2_label }}{% else %}Successful
+                                    Sittings{% endif %}</p>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 italic text-slate-600">
+                            "{% if clinic.about_quote %}{{ clinic.about_quote }}{% else %}{% if clinic.tagline %}
+                            {{clinic.tagline }}{% else %}Your health is our priority. We believe in treating the cause,
+                            not just the symptom.{% endif %}{% endif %}"
+                        </div>
+                        <div class="mt-8 flex justify-start">
+                            <a href="{% url 'clinic_about_page' %}"
+                                class="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-green-600/30 group">
+                                Read Full Story
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    {% with about_imgs=clinic.about_images.all|slice:":4" %}
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Left Column: Evens -->
+                        <div class="space-y-4 pt-12 xl:pt-24">
+                            {% for img in about_imgs %}
+                            {% if forloop.counter0|divisibleby:2 %}
+                            <div class="{% cycle 'aspect-square' 'aspect-[4/5]' %} glass rounded-3xl overflow-hidden shadow-lg relative group cursor-pointer"
+                                onclick="openLightbox('{{ img.image.url }}')">
+                                <div class="absolute inset-0 bg-slate-100"></div>
+                                <img src="{{ img.image.url }}"
+                                    class="absolute inset-0 w-full h-full object-cover z-10 hover:scale-105 transition-transform duration-700">
+                                <div
+                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center z-20">
+                                    <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                    </svg>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% empty %}
+                            <div class="aspect-square glass rounded-3xl overflow-hidden shadow-lg relative group">
+                                <div
+                                    class="absolute inset-0 bg-slate-100 flex items-center justify-center text-slate-300">
+                                    <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Right Column: Odds -->
+                        <div class="space-y-4">
+                            {% for img in about_imgs %}
+                            {% if not forloop.counter0|divisibleby:2 %}
+                            <div class="{% cycle 'aspect-[4/5]' 'aspect-square' %} glass rounded-3xl overflow-hidden shadow-lg relative group shadow-green-100/50 cursor-pointer"
+                                onclick="openLightbox('{{ img.image.url }}')">
+                                <div class="absolute inset-0 bg-slate-200"></div>
+                                <img src="{{ img.image.url }}"
+                                    class="absolute inset-0 w-full h-full object-cover z-10 hover:scale-105 transition-transform duration-700">
+                                <div
+                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center z-20">
+                                    <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                    </svg>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endwith %}
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-24 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-sm font-bold text-green-600 uppercase tracking-[0.2em] mb-4 text-center">
+                        {% if clinic.services_label %}{{ clinic.services_label }}{% else %}Our Expertise{% endif %}
+                    </h2>
+                    <h3 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+                        {% if clinic.services_title %}{{ clinic.services_title|safe }}{% else %}World-Class <span
+                            class="text-green-600">Therapies</span>{% endif %}
+                    </h3>
+                    <p class="text-slate-500 max-w-2xl mx-auto">
+                        {% if clinic.services_description %}{{ clinic.services_description }}{% else %}We provide a wide
+                        range of specialized services for pain relief and wellness.{% endif %}
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    {% for service in clinic.services.all %}
+                    <div class="glass p-8 rounded-3xl hover:shadow-2xl transition-all group hover:-translate-y-2">
+                        <div
+                            class="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                            <i
+                                class="bi {% if service.icon %}{{ service.icon }}{% else %}bi-star{% endif %} text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-3">{{ service.title }}</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">{{ service.description }}</p>
+                    </div>
+                    {% empty %}
+                    <div
+                        class="glass p-8 rounded-3xl col-span-3 text-center text-slate-500 border border-dashed border-gray-300">
+                        No services added yet. Add some in the Clinic Setup!
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        {% if events %}
+        <section id="events" class="py-24 bg-white relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-sm font-bold text-green-600 uppercase tracking-[0.2em] mb-4 text-center">
+                        Upcoming Events
+                    </h2>
+                    <h3 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+                        Join Our <span class="text-green-600">Health Community</span>
+                    </h3>
+                    <p class="text-slate-500 max-w-2xl mx-auto">
+                        Workshops, camps, and seminars designed to empower your wellness journey.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {% for event in events %}
+                    <div
+                        class="glass overflow-hidden rounded-[2.5rem] hover:shadow-2xl transition-all group flex flex-col">
+                        <div class="aspect-video relative overflow-hidden">
+                            {% if event.image %}
+                            <img src="{{ event.image.url }}" alt="{{ event.title }}"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            {% else %}
+                            <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-300">
+                                <i class="bi bi-calendar-check text-5xl"></i>
+                            </div>
+                            {% endif %}
+                            <div class="absolute top-4 left-4">
+                                <span
+                                    class="px-4 py-1.5 bg-white/90 backdrop-blur text-green-700 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+                                    {{ event.get_event_type_display }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-8 flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 text-sm text-slate-500 mb-4">
+                                <div class="flex items-center gap-1.5">
+                                    <i class="bi bi-calendar3 text-green-600"></i>
+                                    <span>{{ event.date|date:"M d, Y" }}</span>
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <i class="bi bi-clock text-green-600"></i>
+                                    <span>{{ event.start_time|time:"g:i A" }}</span>
+                                </div>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 mb-4">{{ event.title }}</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3">
+                                {{ event.description }}
+                            </p>
+                            <div class="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span
+                                        class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Fees</span>
+                                    <span class="text-lg font-extrabold text-slate-900">
+                                        {% if event.fees > 0 %}₹{{ event.fees }}{% else %}FREE{% endif %}
+                                    </span>
+                                </div>
+                                <a href="{% url 'event_detail' pk=event.id %}"
+                                    class="px-5 py-2.5 bg-green-600 text-white rounded-xl text-xs font-bold hover:bg-green-700 transition-all shadow-md no-underline flex items-center gap-1.5">
+                                    <i class="bi bi-arrow-right-circle"></i> Know More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Courses Section -->
+        {% if courses %}
+        <section id="courses" class="py-24 bg-slate-50 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-sm font-bold text-green-600 uppercase tracking-[0.2em] mb-4 text-center">
+                        Professional Training
+                    </h2>
+                    <h3 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+                        Master the Art of <span class="text-green-600">Acupuncture</span>
+                    </h3>
+                    <p class="text-slate-500 max-w-2xl mx-auto">
+                        Join our expert-led courses and certifications. We offer batches for both beginners and
+                        experienced practitioners.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {% for course in courses %}
+                    <div
+                        class="bg-white overflow-hidden rounded-[2.5rem] border border-slate-100 hover:shadow-2xl transition-all group flex flex-col">
+                        <div class="aspect-[4/3] relative overflow-hidden">
+                            {% if course.image %}
+                            <img src="{{ course.image.url }}" alt="{{ course.title }}"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            {% else %}
+                            <div class="w-full h-full bg-slate-50 flex items-center justify-center text-slate-200">
+                                <i class="bi bi-journal-check text-6xl"></i>
+                            </div>
+                            {% endif %}
+
+                            <div class="absolute top-4 right-4">
+                                <span
+                                    class="px-4 py-1.5 bg-slate-900/80 backdrop-blur text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">
+                                    {{ course.get_platform_display }}
+                                </span>
+                            </div>
+
+                            {% if course.active_batch %}
+                            <div class="absolute bottom-4 left-4">
+                                <span
+                                    class="px-4 py-1.5 bg-green-500 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg animate-pulse">
+                                    Intake Open
+                                </span>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="p-8 flex-1 flex flex-col">
+                            <h4 class="text-2xl font-black text-slate-900 mb-2 leading-tight">{{ course.title }}</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-2">
+                                {{ course.description }}
+                            </p>
+
+                            <div class="grid grid-cols-2 gap-4 mb-8">
+                                <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                                        Duration</p>
+                                    <p class="text-sm font-bold text-slate-700">{{ course.duration }}</p>
+                                </div>
+                                <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                                        Rating</p>
+                                    <div class="flex items-center gap-1.5">
+                                        <i class="bi bi-star-fill text-amber-400 text-xs"></i>
+                                        <span class="text-sm font-bold text-slate-700">4.9</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span
+                                        class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Investment</span>
+                                    <span class="text-xl font-black text-slate-900">₹{{ course.fees }}</span>
+                                </div>
+                                <a href="{% url 'course_detail' course.id %}"
+                                    class="px-6 py-3 bg-green-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-green-700 transition-all shadow-lg hover:shadow-green-100 flex items-center gap-2">
+                                    Know More <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Team Section -->
+        <section id="team" class="py-24 bg-white overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                    <div class="max-w-2xl">
+                        <h2 class="text-sm font-bold text-green-600 uppercase tracking-[0.2em] mb-4 text-left">
+                            {% if clinic.team_label %}{{ clinic.team_label }}{% else %}The Experts{% endif %}
+                        </h2>
+                        <h3 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+                            {% if clinic.team_title %}{{ clinic.team_title|safe }}{% else %}Meet our <span
+                                class="text-green-600">Specialists</span>{% endif %}
+                        </h3>
+                    </div>
+                    <p class="text-slate-500 max-w-sm">
+                        {% if clinic.team_description %}{{ clinic.team_description }}{% else %}Highly qualified
+                        practitioners dedicated to your recovery journey.{% endif %}
+                    </p>
+                </div>
+
+                <!-- Chief Doctors (Horizontal Cards) -->
+                <div class="space-y-12 mb-20">
+                    {% for p in practitioners %}
+                    {% if p.is_chief %}
+                    <div
+                        class="glass overflow-hidden rounded-[3rem] border border-slate-100/50 shadow-2xl shadow-green-100/30 flex flex-col md:flex-row items-center group">
+                        <div
+                            class="w-full md:w-2/5 aspect-[4/5] md:aspect-auto md:h-[500px] overflow-hidden bg-slate-50 relative">
+                            {% if p.photo %}
+                            <img src="{{ p.photo.url }}" alt="{{ p.name }}"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            {% else %}
+                            <div
+                                class="w-full h-full flex items-center justify-center text-slate-200 font-bold text-9xl uppercase">
+                                {{ p.name|slice:":1" }}</div>
+                            {% endif %}
+                            <!-- Social Icons Overlay -->
+                            <div class="absolute top-6 right-6 flex flex-col gap-3">
+                                {% if p.youtube_url %}<a href="{{ p.youtube_url }}" target="_blank"
+                                    class="w-10 h-10 bg-white/90 backdrop-blur rounded-xl flex items-center justify-center text-slate-600 hover:bg-green-600 hover:text-white transition-all shadow-lg"><i
+                                        class="bi bi-youtube"></i></a>{% endif %}
+                                {% if p.instagram %}<a href="{{ p.instagram }}" target="_blank"
+                                    class="w-10 h-10 bg-white/90 backdrop-blur rounded-xl flex items-center justify-center text-slate-600 hover:bg-green-600 hover:text-white transition-all shadow-lg"><i
+                                        class="bi bi-instagram"></i></a>{% endif %}
+                                {% if p.twitter %}<a href="{{ p.twitter }}" target="_blank"
+                                    class="w-10 h-10 bg-white/90 backdrop-blur rounded-xl flex items-center justify-center text-slate-600 hover:bg-green-600 hover:text-white transition-all shadow-lg"><i
+                                        class="bi bi-twitter-x"></i></a>{% endif %}
+                                {% if p.facebook %}<a href="{{ p.facebook }}" target="_blank"
+                                    class="w-10 h-10 bg-white/90 backdrop-blur rounded-xl flex items-center justify-center text-slate-600 hover:bg-green-600 hover:text-white transition-all shadow-lg"><i
+                                        class="bi bi-facebook"></i></a>{% endif %}
+                            </div>
+                        </div>
+                        <div class="w-full md:w-3/5 p-8 md:p-14">
+                            <span
+                                class="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+                                {{ p.designation_tag|default:"Chief Specialist" }}
+                            </span>
+                            <h4
+                                class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 group-hover:text-green-600 transition-colors">
+                                {{ p.title }} {{ p.name }}
+                            </h4>
+                            <p class="text-lg font-semibold text-slate-600 mb-6 leading-relaxed">
+                                {{ p.specialization }}
+                            </p>
+                            <p class="text-slate-500 text-base leading-relaxed mb-8 line-clamp-4">
+                                {{ p.bio|default:"" }}
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 sm:items-center mt-6">
+                                <a href="{% url 'practitioner_detail' p.id %}"
+                                    class="inline-flex justify-center px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-green-600 transition-all shadow-xl no-underline text-center">View
+                                    Full Profile</a>
+                                <div class="flex items-center gap-3 sm:ml-auto justify-center sm:justify-start">
+                                    <span class="text-xs font-bold text-slate-400 uppercase">Experience:</span>
+                                    <span
+                                        class="bg-slate-50 px-3 py-1 rounded-lg text-slate-900 font-bold border border-slate-100">{{ p.experience_years }}+ Years</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <!-- Regular Practitioners (Vertical Cards) -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
+                    {% for p in practitioners %}
+                    {% if not p.is_chief %}
+                    <div class="group relative bg-white border border-slate-200 shadow-lg rounded-[2.5rem] p-3 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+                        <div class="aspect-[4/5] rounded-[2rem] overflow-hidden bg-slate-100 mb-5 relative shrink-0">
+                            {% if p.photo %}
+                            <img src="{{ p.photo.url }}" alt="{{ p.name }}"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            {% else %}
+                            <div
+                                class="w-full h-full flex items-center justify-center text-slate-300 font-bold text-9xl uppercase">
+                                {{ p.name|slice:":1" }}</div>
+                            {% endif %}
+
+                            <!-- Social Icons & Portfolio Overlay -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
+                                <div class="flex gap-2 mb-4">
+                                    {% if p.youtube_url %}<a href="{{ p.youtube_url }}" target="_blank"
+                                        class="w-10 h-10 bg-white/20 backdrop-blur hover:bg-white text-white hover:text-slate-900 rounded-xl flex items-center justify-center transition-all"><i
+                                            class="bi bi-youtube"></i></a>{% endif %}
+                                    {% if p.instagram %}<a href="{{ p.instagram }}" target="_blank"
+                                        class="w-10 h-10 bg-white/20 backdrop-blur hover:bg-white text-white hover:text-slate-900 rounded-xl flex items-center justify-center transition-all"><i
+                                            class="bi bi-instagram"></i></a>{% endif %}
+                                </div>
+                                <a href="{% url 'practitioner_detail' p.id %}"
+                                    class="w-full py-3.5 bg-white text-slate-900 rounded-xl font-bold text-center hover:bg-green-600 hover:text-white transition-all shadow-xl no-underline">View
+                                    Portfolio</a>
+                            </div>
+
+                            {% if p.designation_tag %}
+                            <div class="absolute top-5 left-5 right-5 flex justify-center">
+                                <span
+                                    class="px-3 py-1.5 bg-white/95 backdrop-blur text-slate-900 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm truncate max-w-full text-center">
+                                    {{ p.designation_tag }}
+                                </span>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="px-3 pb-4 flex-1 flex flex-col">
+                            <p class="text-xs font-bold text-green-600 uppercase mb-2 text-left tracking-wider">
+                                {{ p.specialization|truncatechars:40 }}</p>
+                            <h4 class="text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-green-600 transition-colors">
+                                {{ p.title }} {{ p.name }}</h4>
+                            <p class="text-slate-500 text-sm mt-3 line-clamp-3 leading-relaxed mb-4">{{ p.bio|default:"" }}
+                            </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-24 bg-slate-50 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-sm font-bold text-green-600 uppercase tracking-[0.2em] mb-4 text-center">
+                        {% if clinic.testimonials_label %}{{ clinic.testimonials_label }}{% else %}Testimonials{%endif%}
+                    </h2>
+                    <h3 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+                        {% if clinic.testimonials_title %}
+                        {{ clinic.testimonials_title|safe }}{% else %}Patient
+                        <span class="text-green-600">Success Stories</span>{% endif %}
+                    </h3>
+                    <div class="flex items-center justify-center gap-1 mb-2">
+                        {% for i in rating_range %}
+                        <svg class="w-5 h-5 {% if i <= avg_rating %}text-yellow-400{% else %}text-slate-200{% endif %}"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                            </path>
+                        </svg>
+                        {% endfor %}
+                        <span class="ml-2 font-bold text-slate-900">
+                            {{ avg_rating|floatformat:1 }} / 5.0</span>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 mb-16">
+                    {% for review in reviews %}
+                    <div class="glass p-8 rounded-3xl relative flex flex-col h-full">
+                        <svg class="absolute top-6 right-8 w-10 h-10 text-green-100" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H14.017C13.4647 8 13.017 8.44772 13.017 9V12C13.017 12.5523 12.5693 13 12.017 13H11.017C10.4647 13 10.017 12.5523 10.017 12V9C10.017 7.34315 11.3601 6 13.017 6H19.017C20.6739 6 22.017 7.34315 22.017 9V15C22.017 16.6569 20.6739 18 19.017 18H17.017L17.017 21H14.017ZM3.01693 21L3.01693 18C3.01693 16.8954 3.91236 16 5.01693 16H8.01693C8.56921 16 9.01693 15.5523 9.01693 15V9C9.01693 8.44772 8.56921 8 8.01693 8H3.01693C2.46465 8 2.01693 8.44772 2.01693 9V12C2.01693 12.5523 1.56921 13 1.01693 13H0.0169282C-0.535356 13 -0.983072 12.5523 -0.983072 12V9C-0.983072 7.34315 0.360074 6 2.01693 6H8.01693C9.67378 6 11.0169 7.34315 11.0169 9V15C11.0169 16.6569 9.67378 18 8.01693 18H6.01693L6.01693 21H3.01693Z">
+                            </path>
+                        </svg>
+                        <div class="flex gap-1 mb-4">
+                            {% for i in rating_range %}
+                            <svg class="w-4 h-4 {% if i <= review.rating %}text-yellow-400{% else %}text-slate-200{% endif %}"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                </path>
+                            </svg>
+                            {% endfor %}
+                        </div>
+                        <p class="text-slate-600 italic leading-relaxed">"
+                            {{ review.review_text }}"</p>
+
+                        <div class="flex items-center gap-3 mt-auto pt-4">
+                            {% if review.patient.photo %}
+                            <img class=" w-8 h-8 rounded-full" src="{{ review.patient.photo.url }}" alt="Photo">
+                            {% else %}
+                            <div
+                                class="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold">
+                                {{ review.patient.name|make_list|first }}</div>
+                            {% endif %} <div>
+                                <p class="text-sm font-bold text-slate-900">
+                                    {{ review.patient.name }}</p>
+                                <p class="text-xs text-slate-500">Recovered Patient</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Review Form -->
+                <div class="max-w-xl mx-auto glass p-10 rounded-[2.5rem]"
+                    x-data="{ rating: 5, loading: false, sent: false }">
+                    <h4 class="text-2xl font-bold text-slate-900 mb-6 text-center">Share Your Experience</h4>
+                    <div x-show="!sent">
+                        <form @submit.prevent="
+                            loading = true;
+                            fetch(`{% url 'submit_review_ajax' %}`, { method: 'POST', headers: { 'Content-Type'
+                            : 'application/json' , 'X-CSRFToken' : '{{ csrf_token }}' }, body: JSON.stringify({ name:
+                            $refs.revName.value, phone: $refs.revPhone.value, practitioner_id: $refs.revPract.value,
+                            rating: rating, review: $refs.revText.value }) }).then(r=> r.json()).then(d => {
+                            loading = false;
+                            if(d.status === 'success') sent = true;
+                            else alert(d.message);
+                            })
+                            " class="space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <input x-ref="revName" type="text" placeholder="Your Name" required
+                                    class="w-full px-5 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-green-500 outline-none">
+                                <input x-ref="revPhone" type="tel" placeholder="Phone Number" required
+                                    class="w-full px-5 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-green-500 outline-none">
+                            </div>
+                            <div class="relative" x-data="{ open: false, selected: '', label: 'Select Practitioner' }"
+                                @click.away="open = false">
+                                <input type="text" x-ref="revPract" x-model="selected" required
+                                    class="absolute opacity-0 pointer-events-none w-full h-0 bottom-0">
+                                <button type="button" @click="open = !open"
+                                    class="w-full px-5 py-3 rounded-2xl border border-slate-200 outline-none flex justify-between items-center bg-white transition-all text-left"
+                                    :class="open ? 'ring-2 ring-green-500 border-green-500' : 'focus:ring-2 focus:ring-green-500'">
+                                    <span :class="selected ? 'text-slate-900 font-medium' : 'text-slate-400'"
+                                        x-text="label"></span>
+                                    <svg class="w-5 h-5 text-slate-400 transition-transform duration-200"
+                                        :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+                                <div x-show="open" x-transition.opacity.duration.200ms
+                                    class="absolute z-50 w-full mt-2 bg-white border border-slate-100 rounded-2xl shadow-xl shadow-slate-200/50 overflow-hidden py-2"
+                                    style="display: none;">
+                                    <button type="button"
+                                        @click="selected = ''; label = 'Select Practitioner'; open = false"
+                                        class="w-full text-left px-5 py-3 text-sm text-slate-500 hover:bg-slate-50 transition-colors">
+                                        Select Practitioner
+                                    </button>
+                                    {% for p in practitioners %}
+                                    <button type="button"
+                                        @click="selected = '{{ p.id|b64uuid }}'; label = '{{ p.title }} {{ p.name }}'; open = false"
+                                        class="w-full text-left px-5 py-3 text-slate-900 hover:bg-green-50 hover:text-green-700 transition-colors font-medium flex justify-between items-center group">
+                                        <span>{{ p.title }} {{ p.name }}</span>
+                                        <svg x-show="selected === '{{ p.id|b64uuid }}'" class="w-5 h-5 text-green-600"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </button>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="flex justify-center gap-2 py-2">
+                                <template x-for="i in 5">
+                                    <button type="button" @click="rating = i" class="focus:outline-none">
+                                        <svg class="w-8 h-8 transition-colors"
+                                            :class="i <= rating ? 'text-yellow-400' : 'text-slate-200'"
+                                            fill="currentColor" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </template>
+                            </div>
+                            <textarea x-ref="revText" placeholder="Your Review" rows="3" required
+                                class="w-full px-5 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-green-500 outline-none"></textarea>
+                            <button type="submit" :disabled="loading"
+                                class="w-full py-4 bg-green-600 text-white rounded-2xl font-bold hover:bg-green-700 transition-all flex items-center justify-center gap-2">
+                                <span x-show="!loading">Submit Review</span>
+                                <svg x-show="loading" class="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                    <div x-show="sent" class="text-center py-8">
+                        <div
+                            class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h5 class="text-xl font-bold text-slate-900 mb-2">Review Submitted!</h5>
+                        <p class="text-slate-500">Thank you for your valuable feedback. It will be visible after
+                            approval.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Appointment Section -->
+        <section id="appointment" class="py-24 bg-white relative">
+            <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+                <div>
+                    <h2 class="text-sm font-bold text-green-600 uppercase tracking-[0.2em] mb-4">Reservation</h2>
+                    <h3 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-8">Book your <span
+                            class="text-green-600">Recovery</span> Session today.</h3>
+                    <p class="text-lg text-slate-600 mb-10">Start your journey to a pain-free life with our expert
+                        practitioners.</p>
+
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <div
+                                class="w-12 h-12 bg-slate-100 rounded-2xl flex-shrink-0 flex items-center justify-center text-green-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div class="pt-1">
+                                <p class="text-[11px] font-extrabold text-slate-400 uppercase tracking-widest mb-2">Emergency Call</p>
+                                {% if clinic.phone_list %}
+                                <div class="flex flex-wrap gap-2">
+                                    {% for p in clinic.phone_list %}
+                                    <a href="tel:{{ p|urlencode }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-800 rounded-lg text-sm font-bold transition-colors group">
+                                        <i class="bi bi-telephone-fill text-[10px] opacity-70 group-hover:scale-110 transition-transform"></i>
+                                        {{ p }}
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                <a href="tel:+919446469595" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-800 rounded-lg text-sm font-bold transition-colors group">
+                                    <i class="bi bi-telephone-fill text-[10px] opacity-70 group-hover:scale-110 transition-transform"></i>
+                                    +91 9446469595
+                                </a>
+                                {% endif %}
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div
+                                class="w-12 h-12 bg-slate-100 rounded-2xl flex-shrink-0 flex items-center justify-center text-green-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                    </path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase">Our Location</p>
+                                <p class="text-slate-900 font-semibold">{{ clinic.address|default:"Kerala, India" }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass p-10 rounded-[3rem] shadow-2xl shadow-green-100/50" x-data="bookingForm()">
+                    <form @submit.prevent="submitBooking()" x-show="!booked" class="space-y-6" x-cloak>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2 col-span-1 sm:col-span-2 md:col-span-1">
+                                <label class="text-sm font-bold text-slate-700 ml-2">Full Name</label>
+                                <input x-ref="appName" type="text" required
+                                    class="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none transition-all">
+                            </div>
+                            <div class="space-y-2 col-span-1 sm:col-span-2 md:col-span-1">
+                                <label class="text-sm font-bold text-slate-700 ml-2">Phone Number</label>
+                                <input x-ref="appPhone" type="tel" required
+                                    class="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none transition-all">
+                            </div>
+                            <div class="space-y-2 col-span-1 sm:col-span-2">
+                                <label class="text-sm font-bold text-slate-700 ml-2">Email Address</label>
+                                <input x-ref="appEmail" type="email" required
+                                    class="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none transition-all">
+                            </div>
+
+                            <div class="col-span-1 sm:col-span-2 mt-2 mb-2 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                                    <i class="bi bi-clock-history text-emerald-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-emerald-800 mb-1">Business Hours</h4>
+                                    <div class="text-xs text-emerald-700 space-y-1">
+                                        <p><strong>Physical:</strong> Mon-Thu & Sat (10 AM - 1 PM, 5:30 PM - 8:30 PM) | Fri (6:30 PM - 8:30 PM)</p>
+                                        <p><strong>Online:</strong> Mon-Sat (9 AM - 5 PM)</p>
+                                        <p class="font-bold text-emerald-900">Sunday Closed</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2 col-span-1 sm:col-span-2" @change="fetchSlots()">
+                                <label class="text-sm font-bold text-slate-700 ml-2">Appointment Type</label>
+                                {% include 'components/alpine_select.html' with id="appointmentType" name="appointmentType" x_model="appointmentType" options_json="[{'value':'physical','label':'Physical Consultation (In-Clinic)'},{'value':'online','label':'Online Consultation (Virtual)'}]" placeholder="Select Type" required=True %}
+                            </div>
+
+                            <div class="space-y-2 col-span-1">
+                                <label class="text-sm font-bold text-slate-700 ml-2">Preferred Date</label>
+                                <input x-model="appDate" type="date" :min="minDate" required @change="fetchSlots()"
+                                    class="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none transition-all text-slate-700">
+                            </div>
+
+                            <div class="space-y-2 col-span-1 md:col-span-2">
+                                <label class="text-sm font-bold text-slate-700 ml-2">Preferred Time <span class="text-red-500">*</span></label>
+                                
+                                <div x-show="!appDate" class="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 text-slate-400 text-sm font-medium text-center">
+                                    Please select a date first
+                                </div>
+                                
+                                <div x-show="slotsLoading" class="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 text-slate-500 text-center flex justify-center items-center gap-2">
+                                    <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                    Loading available slots...
+                                </div>
+                                
+                                <div x-show="slotError && !slotsLoading && appDate" class="w-full px-6 py-4 rounded-2xl border border-red-100 bg-red-50 text-red-500 text-center text-sm font-medium" x-text="slotError">
+                                </div>
+
+                                <div x-show="availableSlots.length > 0 && !slotsLoading" class="grid grid-cols-3 sm:grid-cols-4 gap-3 mt-2">
+                                    <template x-for="slot in availableSlots" :key="slot.value">
+                                        <button type="button" @click="selectedTime = slot.value; slotError = ''"
+                                            :class="selectedTime === slot.value ? 'bg-green-600 text-white border-green-600 shadow-md scale-105' : 'bg-white text-slate-600 border-slate-200 hover:border-green-400 hover:text-green-600'"
+                                            class="px-2 py-3 rounded-xl border text-sm font-semibold transition-all duration-200">
+                                            <span x-text="slot.label"></span>
+                                        </button>
+                                    </template>
+                                </div>
+                                
+                                <!-- Hidden input for form submission compatibility -->
+                                <input type="hidden" x-ref="appTime" :value="selectedTime" required>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-slate-700 ml-2">Reason for Visit (optional)</label>
+                            <textarea x-ref="appNotes" rows="3"
+                                class="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none transition-all"></textarea>
+                        </div>
+                        <button type="submit" :disabled="loading"
+                            class="w-full py-5 bg-slate-900 text-white rounded-2xl font-bold hover:bg-green-600 transition-all shadow-xl flex items-center justify-center gap-3">
+                            <span x-show="!loading">Confirm Appointment</span>
+                            <svg x-show="loading" class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </button>
+                    </form>
+                    <div x-show="booked" class="text-center py-12">
+                        <div
+                            class="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h5 class="text-3xl font-extrabold text-slate-900 mb-4">You're all set!</h5>
+                        <p class="text-slate-500 text-lg">Your appointment request has been received. Our team will call
+                            you shortly to confirm the timing.</p>
+                        <button @click="booked = false" class="mt-8 text-green-600 font-bold hover:underline">Book
+                            another session</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section
+            class="h-[500px] w-full bg-slate-200 overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700">
+            {% if clinic.map_iframe_url %}
+            <div class="w-full h-full [&>iframe]:w-full [&>iframe]:h-full [&>iframe]:border-0">
+                {{ clinic.map_iframe_url|safe }}
+            </div>
+            {% else %}
+            <iframe class="w-full h-full border-0"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3408.358215687!2d76.2673!3d10.5276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDMxJzM5LjQiTiA3NsKwMTYnMDIuMyJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin"
+                allowfullscreen="" loading="lazy"></iframe>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-white py-20">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-2 mb-8">
+                    {% if clinic.logo %}
+                    <img src="{{ clinic.logo.url }}" alt="{{ clinic.name }}" class="w-10 h-10 object-contain">
+                    {% else %}
+                    <div
+                        class="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center text-white font-bold">
+                        {{ clinic.name|default:"S"|slice:":1" }}</div>
+                    {% endif %}
+                    <span class="text-2xl font-extrabold tracking-tight">{{ clinic.name|default:"SpinalCure" }}</span>
+                </div>
+                <p class="text-slate-400 max-w-sm leading-relaxed mb-8">
+                    {% if clinic.footer_text %}
+                    {{ clinic.footer_text }}
+                    {% else %}
+                    Expert spinal care and acupuncture treatments in Kerala. We specialize in natural healing and pain
+                    management.
+                    {% endif %}
+                </p>
+                <div class="flex gap-4">
+                    {% if clinic.facebook %}
+                    <a href="{{ clinic.facebook }}" target="_blank"
+                        class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-green-600 hover:border-green-600 transition-all">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    {% endif %}
+                    {% if clinic.twitter %}
+                    <a href="{{ clinic.twitter }}" target="_blank"
+                        class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-green-600 hover:border-green-600 transition-all">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                        </svg>
+                    </a>
+                    {% endif %}
+                    {% if clinic.instagram %}
+                    <a href="{{ clinic.instagram }}" target="_blank"
+                        class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-green-600 hover:border-green-600 transition-all">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                        </svg>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div>
+                <h5 class="font-bold mb-6">Quick Links</h5>
+                <ul class="space-y-4 text-slate-400 text-sm">
+                    <li><a href="#about" class="hover:text-white transition-colors">Our Story</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">Treatments</a></li>
+                    {% if events %}<li><a href="#events" class="hover:text-white transition-colors">Events</a></li>{% endif %}
+                    <li><a href="#team" class="hover:text-white transition-colors">Doctors</a></li>
+                    <li><a href="#appointment" class="hover:text-white transition-colors">Booking</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold mb-6">Legal</h5>
+                <ul class="space-y-4 text-slate-400 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">GST Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 pt-16 mt-16 border-t border-slate-800 text-center text-slate-500 text-sm">
+            <p>&copy; 2026 {{ clinic.name|default:"SpinalCure" }}. Developed with &hearts; for Kerala Health.</p>
+        </div>
+    </footer>
+
+
+
+
+    <!-- Image Lightbox Modal -->
+    <div id="image-lightbox"
+        class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/90 backdrop-blur-sm transition-opacity duration-300 opacity-0"
+        onclick="closeLightbox()">
+        <button type="button"
+            class="absolute top-6 right-6 text-white hover:text-green-400 bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors z-[110]"
+            onclick="closeLightbox()">
+            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        <div class="relative max-w-5xl max-h-[90vh] mx-auto p-4 flex items-center justify-center h-full w-full"
+            onclick="event.stopPropagation()">
+            <img id="lightbox-img" src=""
+                class="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl ring-1 ring-white/20"
+                alt="Fullscreen Preview">
+        </div>
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            const lightbox = document.getElementById('image-lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lightbox.classList.remove('hidden');
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+                lightbox.classList.add('flex');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('image-lightbox');
+            lightbox.classList.add('opacity-0');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+            }, 300);
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === "Escape") {
+                const lightbox = document.getElementById('image-lightbox');
+                if (!lightbox.classList.contains('hidden')) {
+                    closeLightbox();
+                }
+            }
+        });
+    </script>
+    <script>
+        function bookingForm() {
+            return {
+                loading: false,
+                booked: false,
+                appDate: '',
+                minDate: new Date().toISOString().split('T')[0],
+                appointmentType: 'physical',
+                availableSlots: [],
+                selectedTime: '',
+                slotsLoading: false,
+                slotError: '',
+                async fetchSlots() {
+                    const dateStr = this.appDate;
+                    this.selectedTime = '';
+                    this.availableSlots = [];
+                    this.slotError = '';
+                    
+                    if (!dateStr) {
+                        this.slotError = 'Select Date First';
+                        return;
+                    }
+
+                    const selectedDateObj = new Date(dateStr);
+                    if (selectedDateObj.getDay() === 0) {
+                        this.slotError = 'Clinic is closed on Sundays. Please select another date.';
+                        return;
+                    }
+
+                    this.slotsLoading = true;
+                    try {
+                        const url = `/en/appointments/api/available-slots/?date=${dateStr}&type=${this.appointmentType}`;
+                        const res = await fetch(url);
+                        if (!res.ok) throw new Error('API Error');
+                        const data = await res.json();
+
+                        if (data.error) {
+                            this.slotError = data.error;
+                            return;
+                        }
+
+                        if (!data.available_slots || data.available_slots.length === 0) {
+                            this.slotError = 'No slots available for this date.';
+                            return;
+                        }
+
+                        this.availableSlots = data.available_slots.map(slot => {
+                            const [hrStr, minStr] = slot.split(':');
+                            let hr = parseInt(hrStr, 10);
+                            const ampm = hr >= 12 ? 'PM' : 'AM';
+                            hr = hr % 12 || 12;
+                            return { value: slot, label: `${hr}:${minStr} ${ampm}` };
+                        });
+                    } catch (e) {
+                        console.error('Fetch slots error:', e);
+                        this.slotError = 'Error loading slots.';
+                    } finally {
+                        this.slotsLoading = false;
+                    }
+                },
+                async submitBooking() {
+                    if (!this.selectedTime) {
+                        this.slotError = 'Please select a preferred time.';
+                        return;
+                    }
+                    this.loading = true;
+                    try {
+                        const res = await fetch("{% url 'book_appointment_ajax' %}", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            body: JSON.stringify({
+                                name: this.$refs.appName.value,
+                                phone: this.$refs.appPhone.value,
+                                email: this.$refs.appEmail.value,
+                                type: this.appointmentType,
+                                date: this.appDate,
+                                time: this.selectedTime,
+                                notes: this.$refs.appNotes.value
+                            })
+                        });
+                        const data = await res.json();
+                        this.loading = false;
+                        if (data.status === 'success') {
+                            this.booked = true;
+                        } else {
+                            alert(data.message);
+                        }
+                    } catch (e) {
+                        this.loading = false;
+                        alert('An error occurred. Please try again.');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

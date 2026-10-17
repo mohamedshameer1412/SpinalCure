@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% if is_edit %}{% trans "Edit Event" %}{% else %}{% trans "Create Event" %}{% endif %} — SpinalCure
+{% endblock %}
+
+{% block page_title %}
+{% if is_edit %}{% trans "Edit Event Details" %}{% else %}{% trans "New Event" %}{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+        <!-- Header -->
+        <div class="px-8 py-6 bg-gradient-to-r from-primary-600 to-indigo-600 text-white">
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-white/10 rounded-2xl backdrop-blur-md">
+                    <i class="bi bi-calendar-event text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold">{% if is_edit %}{% trans "Update Event Information" %}{% else %}{% trans "Schedule New Event" %}{% endif %}</h2>
+                    <p class="text-primary-100 text-sm opacity-80">
+                        {% if is_edit %}
+                        {% trans "Modifying" %}: {{ event.title }}
+                        {% else %}
+                        {% trans "Create workshops, camps, or community events" %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="p-8 space-y-8">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Title -->
+                <div class="col-span-full">
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Event Title" %}
+                    </label>
+                    <input type="text" name="title" required value="{{ event.title|default:'' }}"
+                        placeholder="{% trans 'e.g., Free Spinal Screening Camp' %}"
+                        class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-bold transition-all outline-none">
+                </div>
+
+                <!-- Event Type -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Event Type" %}
+                    </label>
+                    <select name="event_type" required data-placeholder="{% trans 'Select Event Type' %}">
+                        <option value="">{% trans "Select Event Type" %}</option>
+                        {% for code, label in event_types %}
+                        <option value="{{ code }}" {% if event.event_type == code %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Date -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Date" %}
+                    </label>
+                    <input type="date" name="date" required value="{{ event.date|date:'Y-m-d' }}"
+                        class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-medium transition-all outline-none">
+                </div>
+
+                <!-- Start Time -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Start Time" %}
+                    </label>
+                    <input type="time" name="start_time" required value="{{ event.start_time|time:'H:i' }}"
+                        class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-medium transition-all outline-none">
+                </div>
+
+                <!-- End Time -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "End Time" %}
+                    </label>
+                    <input type="time" name="end_time" required value="{{ event.end_time|time:'H:i' }}"
+                        class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-medium transition-all outline-none">
+                </div>
+
+                <!-- Venue -->
+                <div class="col-span-full">
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Venue / Location" %}
+                    </label>
+                    <input type="text" name="venue" required value="{{ event.venue|default:'' }}"
+                        placeholder="{% trans 'e.g., Clinic Main Hall or Zoom Link' %}"
+                        class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-medium transition-all outline-none">
+                </div>
+
+                <!-- Max Participants & Fees -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Max Participants" %}
+                    </label>
+                    <input type="number" name="max_participants" value="{{ event.max_participants|default:'' }}"
+                        class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-medium transition-all outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Registration Fees (₹)" %}
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                        <input type="number" name="fees" step="0.01" required value="{{ event.fees|default:'0' }}"
+                            class="w-full pl-10 pr-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-bold transition-all outline-none">
+                    </div>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="col-span-full">
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Event Poster / Image" %}
+                    </label>
+                    <div class="flex items-center gap-6 p-6 border-2 border-dashed border-gray-200 rounded-2xl bg-gray-50 hover:bg-white transition-all">
+                        {% if event.image %}
+                        <img src="{{ event.image.url }}" class="w-24 h-24 rounded-xl object-cover shadow-md">
+                        {% else %}
+                        <div class="w-24 h-24 rounded-xl bg-gray-200 flex items-center justify-center text-gray-400">
+                            <i class="bi bi-image text-3xl"></i>
+                        </div>
+                        {% endif %}
+                        <div class="flex-1">
+                            <input type="file" name="image" accept="image/*"
+                                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100">
+                            <p class="mt-2 text-xs text-gray-400">PNG, JPG or WEBP. Max 2MB.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="col-span-full">
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+                        {% trans "Detailed Description" %}
+                    </label>
+                    <textarea name="description" rows="5" placeholder="{% trans 'What is this event about?' %}"
+                        class="w-full px-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-medium transition-all outline-none resize-none">{{ event.description|default:'' }}</textarea>
+                </div>
+
+                <!-- Publish Status -->
+                <div class="col-span-full flex items-center gap-3 p-4 bg-primary-50 rounded-2xl border border-primary-100">
+                    <input type="checkbox" id="is_published" name="is_published" {% if event.is_published %}checked{% endif %}
+                        class="w-5 h-5 text-primary-600 bg-white border-primary-300 rounded focus:ring-primary-500">
+                    <label for="is_published" class="text-sm font-bold text-primary-900">
+                        {% trans "Show this event on public site" %}
+                    </label>
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="pt-6 border-t border-gray-100 flex flex-col md:flex-row gap-4">
+                <button type="submit"
+                    class="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-primary-200 transition-all flex items-center justify-center gap-2">
+                    <i class="bi bi-check-circle-fill"></i>
+                    {% if is_edit %}{% trans "Save Changes" %}{% else %}{% trans "Create Event" %}{% endif %}
+                </button>
+                <a href="{% url 'event_list' %}"
+                    class="px-8 py-4 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-2xl transition-all text-center">
+                    {% trans "Cancel" %}
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

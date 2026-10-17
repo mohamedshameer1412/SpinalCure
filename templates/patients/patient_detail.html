@@ -1,0 +1,781 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ patient.name }} - SpinalCure{% endblock %}
+
+{% block page_title %}Patient Profile{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto space-y-8">
+    <!-- Header Card -->
+    <div class="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 p-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div class="flex items-center gap-6">
+                <!-- Avatar -->
+                {% if patient.photo %}
+                <img class="w-20 h-20 rounded-full" src="{{ patient.photo.url }}" alt="Photo">
+                {% else %}
+                <div
+                    class="w-20 h-20 rounded-2xl bg-primary-600 flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-primary-200">
+                    {{ patient.name|slice:":1" }}
+                </div>
+                {% endif %}
+                <div>
+                    <h1 class="text-3xl font-extrabold text-gray-900 mb-1 tracking-tight">{{ patient.name }}</h1>
+                    <div class="flex items-center gap-4 text-sm font-medium">
+                        <span class="text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                            {{ patient.date_of_birth|date:"M d, Y" }}
+                        </span>
+                        <span class="flex items-center text-primary-600">
+                            <i class="bi bi-gender-ambiguous mr-1.5"></i>
+                            {{ patient.get_gender_display }}
+                        </span>
+                        <span class="text-gray-400">|</span>
+                        <span class="text-gray-600">
+                            {{ patient.age }} Years Old
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                {% if request.user.role == 'superadmin' or request.user.is_superuser %}
+                <a href="{% url 'patient-edit' patient.id %}"
+                    class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 transition-all shadow-sm">
+                    <i class="bi bi-pencil-square mr-2 text-primary-600"></i>
+                    Edit Profile
+                </a>
+                <button data-direct-delete data-url="{% url 'patient-delete' patient.id %}" data-name="{{ patient.name|escapejs }}"
+                    onclick="directDelete(this.dataset.url, this.dataset.name)"
+                    class="inline-flex items-center px-4 py-2.5 bg-red-50 border border-red-100 text-red-600 text-sm font-bold rounded-xl hover:bg-red-100 transition-all shadow-sm">
+                    <i class="bi bi-trash"></i>
+                </button>
+                {% else %}
+                <button data-security-modal data-action="edit" data-url="{% url 'patient-edit' patient.id %}" data-name="{{ patient.name|escapejs }}"
+                    onclick="openSecurityModal('edit', this.dataset.url, this.dataset.name)"
+                    class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 transition-all shadow-sm">
+                    <i class="bi bi-pencil-square mr-2 text-primary-600"></i>
+                    Edit Profile
+                </button>
+                <button data-security-modal data-action="delete" data-url="{% url 'patient-delete' patient.id %}" data-name="{{ patient.name|escapejs }}"
+                    onclick="openSecurityModal('delete', this.dataset.url, this.dataset.name)"
+                    class="inline-flex items-center px-4 py-2.5 bg-red-50 border border-red-100 text-red-600 text-sm font-bold rounded-xl hover:bg-red-100 transition-all shadow-sm">
+                    <i class="bi bi-trash"></i>
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Sidebar: Contact & Vitals -->
+        <div class="space-y-6">
+            <!-- Contact Info -->
+            <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Contact Information</h4>
+                <div class="space-y-5">
+                    {% if patient.patient_id_str %}
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 rounded-lg bg-green-50 text-green-600"><i class="bi bi-person-badge"></i></div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Patient ID</p>
+                            <p class="text-sm text-gray-900 font-medium">
+                                {{ patient.patient_id_str }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if patient.registration_number %}
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 rounded-lg bg-indigo-50 text-indigo-600"><i class="bi bi-upc-scan"></i></div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Regd. No.</p>
+                            <p class="text-sm text-gray-900 font-medium">
+                                {{ patient.registration_number }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 rounded-lg bg-blue-50 text-blue-600"><i class="bi bi-telephone-fill"></i></div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Phone Number</p>
+                            <p class="text-sm text-gray-900 font-medium">
+                                {{ patient.phone }}</p>
+                        </div>
+                    </div>
+                    {% if patient.whatsapp_no %}
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 rounded-lg bg-green-50 text-green-600"><i class="bi bi-whatsapp"></i></div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Whatsapp</p>
+                            <p class="text-sm text-gray-900 font-medium">
+                                {{ patient.whatsapp_no }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 rounded-lg bg-blue-50 text-blue-600"><i class="bi bi-envelope-fill"></i></div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Email</p>
+                            <p class="text-sm text-gray-900 font-medium">
+                                {{ patient.email }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 rounded-lg bg-red-50 text-red-600"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Address</p>
+                            <p class="text-sm text-gray-900 font-medium leading-relaxed">{{ patient.address }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical Summary -->
+            <div
+                class="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-6 text-white shadow-lg shadow-primary-200">
+                <h4 class="text-xs font-bold text-primary-100 uppercase tracking-widest mb-4">Medical Brief</h4>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">Reason For Visit</p>
+                        <p class="text-sm font-medium">{{ patient.reason_for_visit|default:"Not specified" }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">Chief Complaint
+                        </p>
+                        <p class="text-sm font-medium">{{ patient.chief_complaint }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">Medical History
+                        </p>
+                        <p class="text-sm font-medium">{{ patient.medical_history }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">Allergies
+                        </p>
+                        <p class="text-sm font-medium">{{ patient.allergies }}</p>
+                    </div>
+
+                        <div class="grid grid-cols-1 gap-3">
+                            <a href="{% url 'payment_create' %}?patient={{ patient.id }}"
+                                class="bg-white/20 hover:bg-white/30 text-white font-bold py-3 rounded-xl transition-all border border-white/20 text-center text-sm flex items-center justify-center shadow-lg">
+                                <i class="bi bi-wallet2 mr-2"></i>Record Payment
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Main Content: Tabs & History -->
+        <div class="lg:col-span-2 space-y-6" x-data="{ 
+            activePlan: 'all',
+            chartInstance: null,
+            allSessions: [
+                {% for s in sessions reversed %}
+                { 
+                    plan_id: '{{ s.treatment_plan.id|default:'' }}', 
+                    label: 'Day {{ s.session_number }}', 
+                    pain: {{ s.pain_scale|default:0 }}, 
+                    mobility: {{ s.mobility_score|default:0 }} 
+                }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ],
+            initChart() {
+                const ctx = document.getElementById('progressChart').getContext('2d');
+                this.chartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: this.getChartData(),
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: { mode: 'index', intersect: false },
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: {
+                                type: 'linear', display: true, position: 'left', min: 0, max: 10,
+                                title: { display: true, text: 'Pain Scale', font: { size: 10, weight: 'bold' } }
+                            },
+                            y1: {
+                                type: 'linear', display: true, position: 'right', min: 0, max: 5,
+                                grid: { drawOnChartArea: false },
+                                title: { display: true, text: 'Mobility Score', font: { size: 10, weight: 'bold' } }
+                            }
+                        }
+                    }
+                });
+            },
+            getChartData() {
+                const filtered = this.activePlan === 'all' 
+                    ? this.allSessions 
+                    : this.allSessions.filter(s => s.plan_id === this.activePlan);
+                
+                return {
+                    labels: filtered.map(s => s.label),
+                    datasets: [
+                        {
+                            label: 'Pain Scale (0-10)',
+                            data: filtered.map(s => s.pain),
+                            borderColor: '#dc2626',
+                            backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                            borderWidth: 3, tension: 0.4, fill: true, yAxisID: 'y'
+                        },
+                        {
+                            label: 'Mobility Score (1-5)',
+                            data: filtered.map(s => s.mobility),
+                            borderColor: '#16a34a',
+                            backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                            borderWidth: 3, tension: 0.4, fill: true, yAxisID: 'y1'
+                        }
+                    ]
+                };
+            },
+            updateChart() {
+                if (this.chartInstance) {
+                    this.chartInstance.data = this.getChartData();
+                    this.chartInstance.update();
+                }
+            }
+        }"
+        x-init="
+            $nextTick(() => { initChart(); });
+            $watch('activePlan', value => updateChart());
+        ">
+            
+            <!-- Treatment Plan Dropdown Header -->
+            <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm flex flex-col md:flex-row gap-4 justify-between items-center relative">
+                <div class="w-full md:w-1/2 flex flex-col sm:flex-row sm:items-center gap-3">
+                    <label class="text-xs font-bold text-gray-400 uppercase tracking-widest whitespace-nowrap">Treatment Plan:</label>
+                    <div class="relative flex-1 w-full sm:w-64">
+                        {% include 'components/alpine_select.html' with id="plan_select" name="plan" options_json=treatment_plans_json placeholder="All Plans / General" x_model="activePlan" selected="all" %}
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-2 self-end md:self-auto">
+                    {% for plan in treatment_plans %}
+                    <div x-show="activePlan === '{{ plan.id }}'" class="flex items-center gap-2" style="display: none;">
+                        <button onclick="editPlan('{{ plan.id }}', '{{ plan.name|escapejs }}', '{{ plan.chief_complaint|escapejs }}', {{ plan.total_sittings }}, {{ plan.is_active|yesno:'true,false' }})" 
+                            class="px-3 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl font-bold text-xs transition-colors shadow-sm">
+                            <i class="bi bi-pencil-square mr-1"></i> Edit
+                        </button>
+                        <form method="POST" action="{% url 'treatment-plan-delete' patient.id plan.id %}" data-confirm="Delete this plan? Sessions must be moved or deleted first." class="inline m-0">
+                            {% csrf_token %}
+                            <button type="submit" class="px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl font-bold text-xs transition-colors shadow-sm">
+                                <i class="bi bi-trash3 mr-1"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                    {% endfor %}
+                    <button onclick="openPlanModal()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold text-sm shadow-md transition-colors ml-2">
+                        <i class="bi bi-plus-lg mr-1"></i> New Plan
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Total Fee</p>
+                    <p class="text-xl font-black text-gray-900">
+                        ₹{{ total_amount }}
+                    </p>
+                </div>
+                <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Paid Amount</p>
+                    <p class="text-xl font-black text-green-600">
+                        ₹{{ amount_paid }}
+                    </p>
+                </div>
+                <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm col-span-2 md:col-span-1">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Balance</p>
+                    <p class="text-xl font-black text-red-600">
+                        ₹{{ remaining_amount }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tabs Area -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="border-b border-gray-100">
+                    <nav class="flex overflow-x-auto no-scrollbar" id="patient-tabs">
+                        <button onclick="switchTab('sessions')" id="tab-btn-sessions"
+                            class="px-6 py-4 text-sm font-bold border-b-2 border-primary-600 text-primary-600">
+                            Sessions ({{ sessions.count }})
+                        </button>
+                        <button onclick="switchTab('tcm')" id="tab-btn-tcm"
+                            class="px-6 py-4 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-gray-600">
+                            Diagnosis (Case Sheet)
+                        </button>
+                        <button onclick="switchTab('progress')" id="tab-btn-progress"
+                            class="px-6 py-4 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-gray-600">
+                            Treatment Progress
+                        </button>
+                        <button onclick="switchTab('payments')" id="tab-btn-payments"
+                            class="px-6 py-4 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-gray-600">
+                            Payments ({{ payments.count }})
+                        </button>
+                    </nav>
+                </div>
+
+            <div class="bg-white/80 backdrop-blur-xl rounded-[2rem] border border-white shadow-xl shadow-gray-200/50 overflow-hidden min-h-[600px] mb-8 relative">
+                
+                <!-- TCM Diagnosis Tab Content -->
+                <div id="tab-tcm" class="tab-content hidden">
+                    {% include 'patients/partials/tcm_diagnosis_display.html' %}
+                </div>
+
+                <!-- Sessions Tab Content -->
+                <div id="tab-sessions" class="tab-content p-8">
+                    <div class="px-6 py-4 bg-gray-50/50 border-b border-gray-100 flex justify-between items-center">
+                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Session History</h4>
+                        <a href="{% url 'session-create' patient.id %}"
+                            class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-[11px] font-bold rounded-lg shadow-md transition-all">
+                            <i class="bi bi-plus-lg mr-1.5"></i> Add Session
+                        </a>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="text-[11px] text-gray-400 uppercase tracking-wider bg-white">
+                                <tr>
+                                    <th class="px-6 py-4 w-10"></th>
+                                    <th class="px-3 py-4">#</th>
+                                    <th class="px-6 py-4">Date</th>
+                                    <th class="px-6 py-4">Practitioner</th>
+                                    <th class="px-6 py-4">Metrics</th>
+                                    <th class="px-6 py-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-50">
+                                {% for session in sessions %}
+                                <tr class="hover:bg-gray-50/80 cursor-pointer group transition-colors"
+                                    x-show="activePlan === 'all' || activePlan === '{{ session.treatment_plan.id|default:'' }}'"
+                                    onclick="toggleSessionDetails('details-{{ session.id }}')">
+                                    <td class="px-6 py-4">
+                                        <i id="chevron-{{ session.id }}"
+                                            class="bi bi-chevron-right text-gray-300 group-hover:text-primary-600 transition-all"></i>
+                                    </td>
+                                    <td class="px-3 py-4">
+                                        <div class="font-bold text-gray-900">#{{ session.session_number }}</div>
+                                        {% if session.treatment_plan %}
+                                        <div title="{{ session.treatment_plan.name }}" class="text-[10px] font-bold text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full inline-block mt-1 uppercase tracking-wider max-w-[120px] truncate align-bottom">{{ session.treatment_plan.name }}</div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-600 font-medium">
+                                        {{ session.session_date }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-2">
+                                            <div
+                                                class="w-6 h-6 rounded-full bg-primary-50 text-[10px] flex items-center justify-center font-bold text-primary-600">
+                                                {{ session.consulted_by.name|slice:":1" }}
+                                            </div>
+                                            <span class="text-gray-900 font-medium">
+                                                {{ session.consulted_by.name }}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="text-center">
+                                                <p class="text-[9px] font-bold text-red-400 uppercase leading-none mb-1">Pain</p>
+                                                <p class="text-xs font-black text-red-600">{{ session.pain_scale }}<span class="text-[8px] text-gray-400">/10</span></p>
+                                            </div>
+                                            <div class="w-px h-6 bg-gray-100"></div>
+                                            <div class="text-center">
+                                                <p class="text-[9px] font-bold text-green-400 uppercase leading-none mb-1">Mobility</p>
+                                                <p class="text-xs font-black text-green-600">{{ session.mobility_score }}<span class="text-[8px] text-gray-400">/5</span></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-right" onclick="event.stopPropagation()">
+                                        <div class="flex items-center justify-end gap-2 transition-opacity">
+                                            <a href="{% url 'session-pdf' session.id %}" target="_blank"
+                                                onclick="event.stopPropagation()"
+                                                class="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 transition-colors" title="Download PDF">
+                                                <i class="bi bi-file-earmark-pdf"></i>
+                                            </a>
+                                            {% if request.user.role == 'superadmin' or request.user.is_superuser %}
+                                            <a href="{% url 'session-edit' patient.id session.id %}"
+                                                onclick="event.stopPropagation()"
+                                                class="p-1.5 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <button
+                                                data-delete-url="{% url 'session-delete' patient.id session.id %}"
+                                                data-delete-name="Session #{{ session.session_number }}"
+                                                onclick="event.stopPropagation(); directDelete(this.dataset.deleteUrl, this.dataset.deleteName)"
+                                                class="p-1.5 rounded-lg text-red-500 hover:bg-red-50 transition-colors">
+                                                <i class="bi bi-trash3"></i>
+                                            </button>
+                                            {% else %}
+                                            <button
+                                                data-edit-url="{% url 'session-edit' patient.id session.id %}"
+                                                data-label="Session #{{ session.session_number }}"
+                                                onclick="event.stopPropagation(); openSecurityModal('edit', this.dataset.editUrl, this.dataset.label)"
+                                                class="p-1.5 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                            <button
+                                                data-delete-url="{% url 'session-delete' patient.id session.id %}"
+                                                data-label="Session #{{ session.session_number }}"
+                                                onclick="event.stopPropagation(); openSecurityModal('delete', this.dataset.deleteUrl, this.dataset.label)"
+                                                class="p-1.5 rounded-lg text-red-500 hover:bg-red-50 transition-colors">
+                                                <i class="bi bi-trash3"></i>
+                                            </button>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Expandable Row -->
+                                <tr id="details-{{ session.id }}" class="hidden bg-gray-50/50" x-show="activePlan === 'all' || activePlan === '{{ session.treatment_plan.id|default:'' }}'">
+                                    <td colspan="6" class="px-12 py-8">
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                                            <div class="space-y-6">
+                                                <div>
+                                                    <h5
+                                                        class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
+                                                        Timing & Duration</h5>
+                                                    <div
+                                                        class="flex items-center gap-4 text-sm font-medium text-gray-700">
+                                                        <span class="flex items-center">
+                                                            <i class="bi bi-clock mr-2 text-gray-300"></i>
+                                                            {{ session.session_time|default:"--:--" }}
+                                                        </span>
+                                                        <span class="flex items-center">
+                                                            <i class="bi bi-hourglass-split mr-2 text-gray-300"></i>
+                                                            {{ session.duration_minutes }} mins
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h5
+                                                        class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
+                                                        Techniques Used</h5>
+                                                    <p class="text-sm font-medium text-gray-800 leading-relaxed">
+                                                        {{ session.techniques_used|default:"Not specified" }}
+                                                    </p>
+                                                </div>
+                                                {% if session.next_appointment_date %}
+                                                <div
+                                                    class="p-3 bg-primary-50 rounded-xl border border-primary-100 inline-block">
+                                                    <h5
+                                                        class="text-[10px] font-bold text-primary-600 uppercase tracking-widest mb-1">
+                                                        Next Appointment</h5>
+                                                    <p class="text-sm font-bold text-primary-700">
+                                                        <i class="bi bi-calendar-event mr-2"></i>
+                                                        {{ session.next_appointment_date }}
+                                                    </p>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                                <h5
+                                                    class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
+                                                    Medical Notes (Internal)</h5>
+                                                <div
+                                                    class="p-4 bg-white border border-gray-200 rounded-2xl text-sm text-gray-600 italic leading-relaxed shadow-sm">
+                                                    {{ session.practitioner_notes|default:"No notes recorded." }}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h5
+                                                    class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
+                                                    Patient Feedback</h5>
+                                                <div
+                                                    class="p-4 bg-white border border-gray-200 rounded-2xl text-sm text-gray-600 leading-relaxed shadow-sm">
+                                                    {{ session.patient_feedback|default:"No feedback provided." }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6" class="px-6 py-12 text-center text-gray-400 italic">No sessions
+                                        recorded yet.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Treatment Progress Content -->
+                <div id="tab-progress" class="tab-content hidden p-8">
+                    <div class="mb-8 flex justify-between items-center">
+                        <div>
+                            <h4 class="text-lg font-bold text-gray-900">Recovery Trends</h4>
+                            <p class="text-sm text-gray-500">Visualizing pain and mobility metrics over time.</p>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-600"></span>
+                                <span class="text-xs font-bold text-gray-600">Pain Scale</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-green-600"></span>
+                                <span class="text-xs font-bold text-gray-600">Mobility Score</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative h-80 w-full">
+                        <canvas id="progressChart" 
+                            data-labels='[{% for s in sessions reversed %}"Day {{ s.session_number }}"{% if not forloop.last %},{% endif %}{% endfor %}]'
+                            data-pain='[{% for s in sessions reversed %}{{ s.pain_scale }}{% if not forloop.last %},{% endif %}{% endfor %}]'
+                            data-mobility='[{% for s in sessions reversed %}{{ s.mobility_score }}{% if not forloop.last %},{% endif %}{% endfor %}]'>
+                        </canvas>
+                    </div>
+
+                    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-6 bg-red-50 rounded-2xl border border-red-100">
+                            <h5 class="text-xs font-bold text-red-600 uppercase tracking-widest mb-3">Pain Reduction</h5>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-3xl font-black text-red-700">
+                                    {% if sessions.last %}{{ sessions.last.pain_scale }}{% else %}--{% endif %}
+                                    <span class="text-sm font-bold text-red-500">→</span>
+                                    {% if sessions.first %}{{ sessions.first.pain_scale }}{% else %}--{% endif %}
+                                </span>
+                            </div>
+                            <p class="text-xs text-red-500 mt-2 font-medium">Initial vs. Latest session pain levels</p>
+                        </div>
+                        <div class="p-6 bg-green-50 rounded-2xl border border-green-100">
+                            <h5 class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3">Mobility Improvement</h5>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-3xl font-black text-green-700">
+                                    {% if sessions.last %}{{ sessions.last.mobility_score }}{% else %}--{% endif %}
+                                    <span class="text-sm font-bold text-green-500">→</span>
+                                    {% if sessions.first %}{{ sessions.first.mobility_score }}{% else %}--{% endif %}
+                                </span>
+                            </div>
+                            <p class="text-xs text-green-500 mt-2 font-medium">Initial vs. Latest session mobility scores</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payments Content (Hidden by default) -->
+                <div id="tab-payments" class="tab-content hidden">
+                    <div class="px-6 py-4 bg-gray-50/50 border-b border-gray-100 flex justify-between items-center">
+                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Payment History</h4>
+                        {% comment %} <a href="{% url 'payment_create'  %}"
+                            class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-[11px] font-bold rounded-lg shadow-md transition-all">
+                            <i class="bi bi-plus-lg mr-1.5"></i> Add Payment
+                        </a> {% endcomment %}
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="text-[11px] text-gray-400 uppercase tracking-wider bg-white">
+                                <tr>
+                                    <th class="px-6 py-4">Date</th>
+                                    <th class="px-6 py-4">Amount</th>
+                                    <th class="px-6 py-4">Mode</th>
+                                    <th class="px-6 py-4">Status</th>
+                                    <th class="px-6 py-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-50">
+                                {% for p in payments %}
+                                <tr x-show="activePlan === 'all' || activePlan === '{{ p.treatment_plan.id|default:'' }}'">
+                                    <td class="px-6 py-4 text-gray-900 font-medium">
+                                        {{ p.payment_date }}
+                                    </td>
+                                    <td class="px-6 py-4 font-bold text-gray-900">
+                                        ₹{{ p.amount_paid }}
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-600">
+                                        {{ p.get_payment_mode_display }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span
+                                            class="px-2 py-1 rounded-full text-[10px] font-bold uppercase {% if p.payment_status == 'fully_paid' %}bg-green-100 text-green-700{% elif p.payment_status == 'partial' %}bg-yellow-100 text-yellow-700{% else %}bg-red-100 text-red-700{% endif %}">
+                                            {{ p.get_payment_status_display }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <div class="flex items-center justify-end gap-2">
+                                            <a href="{% url 'payment_invoice' p.id %}" title="Invoice"
+                                                class="p-2 text-gray-400 hover:text-primary-600 transition-colors">
+                                                <i class="bi bi-printer"></i>
+                                            </a>
+                                            {% if request.user.role == 'superadmin' or request.user.is_superuser %}
+                                            <a href="{% url 'payment_edit' p.id %}" title="Edit"
+                                                class="p-2 text-gray-400 hover:text-blue-600 transition-colors">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button data-direct-delete data-url="{% url 'payment_delete' p.id %}" data-name="Payment {{ p.receipt_number|escapejs }}"
+                                                onclick="directDelete(this.dataset.url, this.dataset.name)"
+                                                title="Delete"
+                                                class="p-2 text-gray-400 hover:text-red-600 transition-colors">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                            {% else %}
+                                            <button data-security-modal data-action="edit" data-url="{% url 'payment_edit' p.id %}" data-name="{{ p.receipt_number|escapejs }}"
+                                                onclick="openSecurityModal('edit', this.dataset.url, this.dataset.name)"
+                                                title="Edit"
+                                                class="p-2 text-gray-400 hover:text-blue-600 transition-colors">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button
+                                                data-security-modal data-action="delete" data-url="{% url 'payment_delete' p.id %}" data-name="{{ p.receipt_number|escapejs }}"
+                                                onclick="openSecurityModal('delete', this.dataset.url, this.dataset.name)"
+                                                title="Delete"
+                                                class="p-2 text-gray-400 hover:text-red-600 transition-colors">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="px-6 py-12 text-center text-gray-400 italic">No payments
+                                        recorded yet.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<style>
+    .tab-content {
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<script>
+    function toggleSessionDetails(detailsId) {
+        const row = document.getElementById(detailsId);
+        const chevron = document.getElementById(detailsId.replace('details-', 'chevron-'));
+        const allShownRows = document.querySelectorAll('tr[id^="details-"]:not(.hidden)');
+
+        // Hide others
+        allShownRows.forEach(r => {
+            if (r.id !== detailsId) {
+                r.classList.add('hidden');
+                document.getElementById(r.id.replace('details-', 'chevron-')).classList.replace('bi-chevron-down', 'bi-chevron-right');
+            }
+        });
+
+        // Toggle current
+        const isHidden = row.classList.contains('hidden');
+        if (isHidden) {
+            row.classList.remove('hidden');
+            chevron.classList.replace('bi-chevron-right', 'bi-chevron-down');
+        } else {
+            row.classList.add('hidden');
+            chevron.classList.replace('bi-chevron-down', 'bi-chevron-right');
+        }
+    }
+
+    function switchTab(target) {
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+        document.getElementById('tab-' + target).classList.remove('hidden');
+
+        document.querySelectorAll('#patient-tabs button').forEach(b => {
+            b.classList.remove('border-primary-600', 'text-primary-600');
+            b.classList.add('border-transparent', 'text-gray-400');
+        });
+        const activeBtn = document.getElementById('tab-btn-' + target);
+        activeBtn.classList.remove('border-transparent', 'text-gray-400');
+        activeBtn.classList.add('border-primary-600', 'text-primary-600');
+    }
+
+
+    // Initialize event listeners for data attributes
+    document.addEventListener('DOMContentLoaded', function() {
+        // Progress bars
+        document.querySelectorAll('.progress-bar').forEach(bar => {
+            bar.style.width = (bar.dataset.progress || 0) + '%';
+        });
+
+
+    });
+
+    // Treatment Plan Modal Logic
+    function openPlanModal() {
+        document.getElementById('planModalTitle').innerText = 'Create Treatment Plan';
+        document.getElementById('planForm').action = "{% url 'treatment-plan-create' patient.id %}";
+        document.getElementById('planName').value = '';
+        document.getElementById('planChiefComplaint').value = '';
+        document.getElementById('planTotalSittings').value = '0';
+        document.getElementById('planIsActive').checked = true;
+        document.getElementById('planModal').classList.remove('hidden');
+    }
+
+    function editPlan(id, name, complaint, sittings, isActive) {
+        document.getElementById('planModalTitle').innerText = 'Edit Treatment Plan';
+        let editUrl = "{% url 'treatment-plan-edit' patient.id '00000000-0000-0000-0000-000000000000' %}".replace('00000000-0000-0000-0000-000000000000', id);
+        document.getElementById('planForm').action = editUrl;
+        document.getElementById('planName').value = name;
+        document.getElementById('planChiefComplaint').value = complaint;
+        document.getElementById('planTotalSittings').value = sittings;
+        document.getElementById('planIsActive').checked = isActive;
+        document.getElementById('planModal').classList.remove('hidden');
+    }
+
+    function closePlanModal() {
+        document.getElementById('planModal').classList.add('hidden');
+    }
+</script>
+
+<!-- Treatment Plan Modal -->
+<div id="planModal" class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl transform transition-all">
+        <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+            <h3 class="text-lg font-bold text-gray-900" id="planModalTitle">Create Treatment Plan</h3>
+            <button onclick="closePlanModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <form id="planForm" method="POST" action="">
+            {% csrf_token %}
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">Plan Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="planName" name="name" required placeholder="e.g. Lower Back Pain 2026"
+                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 text-sm font-semibold">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">Chief Complaint</label>
+                    <textarea id="planChiefComplaint" name="chief_complaint" rows="3" placeholder="Symptoms, diagnosis, etc."
+                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 text-sm font-semibold"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">Total Sittings <span class="text-red-500">*</span></label>
+                    <input type="number" id="planTotalSittings" name="total_sittings" required min="1"
+                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 text-sm font-semibold">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="planIsActive" name="is_active" class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">
+                    <label for="planIsActive" class="ml-2 text-sm font-bold text-gray-700">Active Plan</label>
+                </div>
+            </div>
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end gap-3">
+                <button type="button" onclick="closePlanModal()" class="px-5 py-2.5 text-sm font-bold text-gray-600 hover:bg-gray-100 rounded-xl transition-all">Cancel</button>
+                <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 rounded-xl transition-all shadow-md">Save Plan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% csrf_token %} <!-- Required for AJAX -->
+{% endblock %}

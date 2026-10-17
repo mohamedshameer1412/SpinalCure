@@ -1,0 +1,24 @@
+{
+    "include": [
+        "D:\\projects\\Deep Aspects\\SpinalCure"
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/__pycache__",
+        "D:\\projects\\Deep Aspects\\SpinalCure\\venv"
+    ],
+    "executionEnvironments": [
+        {
+            "root": "D:\\projects\\Deep Aspects\\SpinalCure",
+            "pythonVersion": "3.13",
+            "extraPaths": [
+                "D:\\projects\\Deep Aspects\\SpinalCure"
+            ]
+        }
+    ],
+    "venv": "venv",
+    "venvPath": "D:\\projects\\Deep Aspects\\SpinalCure",
+    "reportMissingImports": false,
+    "analysisMode": "basic",
+    "typeCheckingMode": "off"
+}

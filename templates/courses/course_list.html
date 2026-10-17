@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load b64uuid_tags %}
+
+{% block title %}Course Management - SpinalCure{% endblock %}
+{% block page_title %}Training Courses{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex flex-wrap justify-between items-center gap-4">
+    <div class="flex flex-wrap items-center gap-3">
+        <form method="GET" 
+              hx-get="{% url 'course_list' %}"
+              hx-trigger="keyup changed delay:500ms"
+              hx-target="#course-list-container"
+              hx-swap="outerHTML"
+              class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <i class="bi bi-search text-gray-400"></i>
+            </div>
+            <input type="text" name="q" value="{{ search_query|default:'' }}"
+                class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-200 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500"
+                placeholder="Search courses...">
+            <!-- HTMX Indicator -->
+            <div class="htmx-indicator absolute inset-y-0 end-0 flex items-center pe-3">
+                <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-600"></div>
+            </div>
+        </form>
+        {% include "partials/export_dropdown.html" with excel_url=export_courses_excel_url csv_url=export_courses_csv_url pdf_url=export_courses_pdf_url copy_url=export_courses_copy_url print_url=export_courses_print_url %}
+        <span class="py-2 px-4 text-xs font-bold text-indigo-700 bg-indigo-50 rounded-lg border border-indigo-100">
+            {{ courses.paginator.count|default:courses.count }} Total
+        </span>
+    </div>
+
+    <a href="{% url 'course_create' %}"
+        class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center inline-flex items-center transition-all shadow-sm">
+        <i class="bi bi-plus-circle me-2"></i>
+        Create Course
+    </a>
+</div>
+
+{% include 'courses/partials/course_list_partial.html' %}
+
+<!-- Delete Confirmation Modal -->
+<div id="delete-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onclick="closeDeleteModal()"></div>
+        <div class="relative bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all w-full max-w-md">
+            <div class="p-8">
+                <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <i class="bi bi-exclamation-triangle text-red-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 text-center mb-2">Delete Course?</h3>
+                <p class="text-slate-500 text-center mb-0">Record: <span id="course-title" class="font-bold text-slate-900"></span></p>
+                <p class="text-slate-500 text-center mb-8 text-sm">Deleting this course will also delete all its batches, registrations, and feedback. This action is permanent.</p>
+                
+                <div class="flex gap-3">
+                    <button type="button" onclick="closeDeleteModal()"
+                        class="flex-1 px-6 py-3 bg-slate-100 text-slate-700 font-bold rounded-2xl hover:bg-slate-200 transition-all text-sm">
+                        Cancel
+                    </button>
+                    <form id="delete-form" method="POST" class="flex-1">
+                        {% csrf_token %}
+                        <button type="submit"
+                            class="w-full px-6 py-3 bg-red-600 text-white font-bold rounded-2xl hover:bg-red-700 transition-all text-sm">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openDeleteModal(pk, title) {
+        const modal = document.getElementById('delete-modal');
+        document.getElementById('course-title').textContent = title;
+        document.getElementById('delete-form').action = `/en/courses/${pk}/delete/`;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+    function closeDeleteModal() {
+        const modal = document.getElementById('delete-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+</script>
+{% endblock %}

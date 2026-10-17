@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load b64uuid_tags %}
+
+{% block title %}Feedback — {{ event.title }}{% endblock %}
+{% block page_title %}Event Feedback{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+    <div>
+        <h2 class="text-xl font-bold text-gray-900">{{ event.title }}</h2>
+        <p class="text-sm text-gray-500 mt-1">
+            <span class="font-semibold {% if event.feedback_enabled %}text-amber-700{% else %}text-gray-500{% endif %}">
+                <i class="bi bi-circle-fill text-xs me-1"></i>
+                Feedback Form {% if event.feedback_enabled %}Open{% else %}Closed{% endif %}
+            </span>
+            &nbsp;·&nbsp;
+            <span class="text-gray-600">{{ feedbacks.count }} submission{{ feedbacks.count|pluralize }}</span>
+        </p>
+    </div>
+    <div class="flex items-center gap-3">
+        <!-- Toggle Feedback Form -->
+        <form method="POST" action="{% url 'toggle_event_feedback' event.id %}">
+            {% csrf_token %}
+            <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg transition-all
+                {% if event.feedback_enabled %}bg-amber-600 hover:bg-amber-700 text-white{% else %}bg-gray-100 hover:bg-amber-100 text-gray-700 hover:text-amber-700{% endif %}">
+                {% if event.feedback_enabled %}
+                <i class="bi bi-toggle-on text-lg"></i> Disable Feedback Form
+                {% else %}
+                <i class="bi bi-toggle-off text-lg"></i> Enable Feedback Form
+                {% endif %}
+            </button>
+        </form>
+        <a href="{% url 'event_list' %}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-all">
+            <i class="bi bi-arrow-left"></i> Back to Events
+        </a>
+    </div>
+</div>
+
+{% if messages %}
+{% for msg in messages %}
+<div class="mb-4 p-4 rounded-xl text-sm font-medium {% if msg.tags == 'success' %}bg-green-50 text-green-800 border border-green-200{% else %}bg-red-50 text-red-800 border border-red-200{% endif %}">
+    {{ msg }}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if event.feedback_enabled %}
+<div class="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-center gap-3">
+    <i class="bi bi-info-circle text-amber-600 text-lg"></i>
+    <p class="text-sm text-amber-800 font-medium">The feedback form is currently <strong>open</strong>. New submissions will appear here. Only <strong>published</strong> feedback is visible to the public.</p>
+</div>
+{% endif %}
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    {% if feedbacks %}
+    <table class="w-full text-sm text-left">
+        <thead class="bg-gray-50 border-b border-gray-100">
+            <tr>
+                <th class="px-6 py-4 font-semibold text-gray-700">#</th>
+                <th class="px-6 py-4 font-semibold text-gray-700">Name</th>
+                <th class="px-6 py-4 font-semibold text-gray-700">Rating</th>
+                <th class="px-6 py-4 font-semibold text-gray-700">Comment</th>
+                <th class="px-6 py-4 font-semibold text-gray-700">Submitted</th>
+                <th class="px-6 py-4 font-semibold text-gray-700 text-center">Status</th>
+                <th class="px-6 py-4 font-semibold text-gray-700 text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-50">
+            {% for fb in feedbacks %}
+            <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-6 py-4 text-gray-400 font-mono text-xs">{{ forloop.counter }}</td>
+                <td class="px-6 py-4 font-semibold text-gray-900">{{ fb.reviewer_name }}</td>
+                <td class="px-6 py-4">
+                    <div class="flex gap-0.5">
+                        {% for i in "12345" %}
+                        <i class="bi bi-star{% if forloop.counter <= fb.rating %}-fill text-amber-400{% else %} text-gray-200{% endif %}"></i>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td class="px-6 py-4 text-gray-600 max-w-xs">
+                    <p class="line-clamp-2">{{ fb.comment }}</p>
+                </td>
+                <td class="px-6 py-4 text-gray-500 whitespace-nowrap">{{ fb.submitted_at|date:"d M Y, g:i A" }}</td>
+                <td class="px-6 py-4 text-center">
+                    {% if fb.is_published %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800">
+                        <i class="bi bi-eye me-1"></i> Published
+                    </span>
+                    {% else %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-100 text-gray-600">
+                        <i class="bi bi-eye-slash me-1"></i> Hidden
+                    </span>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <form method="POST" action="{% url 'toggle_feedback_publish' fb.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all
+                            {% if fb.is_published %}bg-red-50 text-red-700 hover:bg-red-100{% else %}bg-green-50 text-green-700 hover:bg-green-100{% endif %}">
+                            {% if fb.is_published %}
+                            <i class="bi bi-eye-slash"></i> Unpublish
+                            {% else %}
+                            <i class="bi bi-eye"></i> Publish
+                            {% endif %}
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="p-16 text-center">
+        <i class="bi bi-chat-square-heart text-5xl text-gray-300 block mb-4"></i>
+        <h3 class="text-lg font-semibold text-gray-900 mb-1">No Feedback Yet</h3>
+        <p class="text-sm text-gray-500">
+            {% if event.feedback_enabled %}
+            The form is open. Share the event page link with attendees to collect feedback.
+            {% else %}
+            Enable the feedback form above so attendees can share their experience.
+            {% endif %}
+        </p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

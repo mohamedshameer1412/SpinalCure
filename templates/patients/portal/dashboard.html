@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Health Portal — SpinalCure</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Chart.js for Pain Scale -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { primary: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d', 900: '#14532d' } }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+
+    <!-- Topbar -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+                        {{ clinic.name|default:"S"|slice:":1" }}
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold text-gray-900 block leading-tight">{{ clinic.name|default:"SpinalCure" }}</span>
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-primary-600">Patient Portal</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="hidden sm:block text-right">
+                        <p class="text-sm font-bold text-gray-900 leading-none">{{ patient.name }}</p>
+                        <p class="text-xs text-gray-500 mt-1">{{ patient.phone }}</p>
+                    </div>
+                    <a href="{% url 'portal_logout' %}" class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Log Out">
+                        <i class="bi bi-box-arrow-right text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        
+        <!-- Welcome Banner -->
+        <div class="bg-gradient-to-r from-primary-900 to-primary-700 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="relative z-10">
+                <h1 class="text-3xl font-black mb-2">Hello, {{ patient.name.split.0 }}! 👋</h1>
+                <p class="text-primary-100 max-w-xl">Welcome to your personal health portal. Track your upcoming appointments, view treatment progress, and download payment receipts.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Column (Appointments & History) -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Upcoming Appointments -->
+                <section>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold text-gray-900">Upcoming Appointments</h2>
+                    </div>
+                    {% if upcoming_appointments %}
+                    <div class="space-y-4">
+                        {% for appt in upcoming_appointments %}
+                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 rounded-2xl bg-primary-50 text-primary-600 flex flex-col items-center justify-center flex-shrink-0">
+                                    <span class="text-xs font-bold uppercase">{{ appt.appointment_date|date:"M" }}</span>
+                                    <span class="text-xl font-black leading-none">{{ appt.appointment_date|date:"d" }}</span>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-900 text-lg">{{ appt.appointment_time|time:"h:i A" }}</p>
+                                    <p class="text-sm text-gray-500">with {{ appt.practitioner.name|default:"Clinic Doctor" }}</p>
+                                </div>
+                            </div>
+                            <div class="text-right sm:text-left">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold
+                                    {% if appt.status == 'scheduled' %}bg-blue-50 text-blue-700
+                                    {% elif appt.status == 'completed' %}bg-green-50 text-green-700
+                                    {% else %}bg-gray-100 text-gray-700{% endif %}">
+                                    <i class="bi bi-circle-fill text-[8px]"></i>
+                                    {{ appt.get_status_display }}
+                                </span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-dashed border-gray-200 text-center">
+                        <div class="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-3 text-gray-400">
+                            <i class="bi bi-calendar-x text-xl"></i>
+                        </div>
+                        <p class="text-gray-900 font-bold">No upcoming appointments</p>
+                        <p class="text-sm text-gray-500 mt-1">Ready for your next visit?</p>
+                        <a href="{% url 'clinic_portfolio' %}#contact" class="inline-block mt-4 text-primary-600 font-bold hover:text-primary-700 text-sm">Request an Appointment &rarr;</a>
+                    </div>
+                    {% endif %}
+                </section>
+
+                <!-- Treatment Progress / Session History -->
+                <section>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold text-gray-900">Treatment Progress</h2>
+                    </div>
+                    
+                    {% if sessions %}
+                    <!-- Progress Chart -->
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4">
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Pain Scale Trend (0-10)</h3>
+                        <div class="h-48 w-full relative">
+                            <canvas id="painChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Session List -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                        <div class="divide-y divide-gray-100">
+                            {% for session in sessions|slice:":5" %}
+                            <div class="p-5 hover:bg-gray-50 transition-colors">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <p class="font-bold text-gray-900 text-sm">{{ session.session_date }}</p>
+                                        <p class="text-xs text-gray-500">Dr. {{ session.consulted_by.name|default:"—" }}</p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-bold px-2 py-1 bg-red-50 text-red-600 rounded-md" title="Pain Scale">
+                                            Pain: {{ session.pain_scale }}/10
+                                        </span>
+                                    </div>
+                                </div>
+                                {% if session.clinical_notes %}
+                                <p class="text-sm text-gray-600 line-clamp-2 mt-2 bg-gray-50 p-3 rounded-xl border border-gray-100">"{{ session.clinical_notes }}"</p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% if sessions.count > 5 %}
+                        <div class="p-3 bg-gray-50 text-center border-t border-gray-100">
+                            <span class="text-xs font-semibold text-gray-500">Showing last 5 sessions</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-dashed border-gray-200 text-center">
+                        <p class="text-gray-500 text-sm">No treatment history available yet.</p>
+                    </div>
+                    {% endif %}
+                </section>
+
+            </div>
+
+            <!-- Right Column (Invoices & Info) -->
+            <div class="space-y-8">
+                
+                <!-- Patient Info Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Patient Profile</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0"><i class="bi bi-person"></i></div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-semibold">Name</p>
+                                <p class="text-sm font-bold text-gray-900">{{ patient.name }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0"><i class="bi bi-telephone"></i></div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-semibold">Phone</p>
+                                <p class="text-sm font-bold text-gray-900">{{ patient.phone }}</p>
+                            </div>
+                        </div>
+                        {% if patient.date_of_birth %}
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center shrink-0"><i class="bi bi-calendar-heart"></i></div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-semibold">Date of Birth</p>
+                                <p class="text-sm font-bold text-gray-900">{{ patient.date_of_birth }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Payment Invoices -->
+                <section>
+                    <h2 class="text-lg font-bold text-gray-900 mb-4">Payment Receipts</h2>
+                    {% if payments %}
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden divide-y divide-gray-100">
+                        {% for payment in payments %}
+                        <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                            <div>
+                                <p class="font-bold text-gray-900 text-sm">₹{{ payment.amount_paid }}</p>
+                                <p class="text-xs text-gray-500">{{ payment.payment_date|date:"d M Y" }}</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                {% if payment.payment_status == 'paid' %}
+                                <span class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Paid</span>
+                                {% else %}
+                                <span class="bg-orange-100 text-orange-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">{{ payment.payment_status }}</span>
+                                {% endif %}
+                                <a href="{% url 'payment_pdf_download' payment.id %}" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-primary-100 hover:text-primary-700 text-gray-500 flex items-center justify-center transition-colors" title="Download Receipt PDF">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-dashed border-gray-200 text-center">
+                        <p class="text-gray-500 text-sm">No payment records found.</p>
+                    </div>
+                    {% endif %}
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    {% if sessions %}
+    <!-- Chart Script for Pain Scale -->
+    {{ sessions|json_script:"sessions-data" }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Reverse to show chronological order
+            const sessionsDataRaw = [
+                {% for s in sessions %}
+                { date: "{{ s.session_date|date:'M d' }}", pain: {{ s.pain_scale }} }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ].reverse();
+            
+            if(sessionsDataRaw.length > 0) {
+                const ctx = document.getElementById('painChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: sessionsDataRaw.map(s => s.date),
+                        datasets: [{
+                            label: 'Pain Level',
+                            data: sessionsDataRaw.map(s => s.pain),
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3,
+                            pointBackgroundColor: '#ef4444',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { min: 0, max: 10, grid: { color: '#f3f4f6' }, ticks: { stepSize: 2 } },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+    {% endif %}
+</body>
+</html>

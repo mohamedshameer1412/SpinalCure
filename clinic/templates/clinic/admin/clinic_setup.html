@@ -1,0 +1,1312 @@
+{% extends "base.html" %}
+
+{% load b64uuid_tags %}
+
+
+
+{% block title %}Clinic Setup SpinalCure{% endblock %}
+
+{% block page_title %}Clinic Profile Settings{% endblock %}
+
+
+
+{% block content %}
+
+<div class="flex flex-col lg:flex-row gap-8" x-data="{ activeSection: 'general' }">
+
+
+
+    <!-- Sticky Sidebar Navigation -->
+
+    <aside class="lg:w-64 flex-shrink-0">
+
+        <div class="sticky top-24 space-y-1 bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+
+            <h3 class="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Settings Menu</h3>
+
+
+
+            <nav class="space-y-1">
+
+                <a @click="activeSection = 'general'"
+                    :class="activeSection === 'general' ? 'bg-green-50 text-green-700' : 'text-gray-600 hover:bg-gray-50'"
+                    href="#general"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all group">
+
+                    <i class="bi bi-info-circle text-lg"
+                        :class="activeSection === 'general' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'"></i>
+
+                    General Info
+
+                </a>
+
+                <a @click="activeSection = 'billing'"
+                    :class="activeSection === 'billing' ? 'bg-green-50 text-green-700' : 'text-gray-600 hover:bg-gray-50'"
+                    href="#billing"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all group">
+
+                    <i class="bi bi-receipt text-lg"
+                        :class="activeSection === 'billing' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'"></i>
+
+                    Billing & Tax
+
+                </a>
+
+                <a @click="activeSection = 'branding'"
+                    :class="activeSection === 'branding' ? 'bg-green-50 text-green-700' : 'text-gray-600 hover:bg-gray-50'"
+                    href="#branding"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all group">
+
+                    <i class="bi bi-palette text-lg"
+                        :class="activeSection === 'branding' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'"></i>
+
+                    Branding & Hero
+
+                </a>
+
+                <a @click="activeSection = 'about'"
+                    :class="activeSection === 'about' ? 'bg-green-50 text-green-700' : 'text-gray-600 hover:bg-gray-50'"
+                    href="#about"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all group">
+
+                    <i class="bi bi-journal-text text-lg"
+                        :class="activeSection === 'about' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'"></i>
+
+                    About & Legacy
+
+                </a>
+
+                <a @click="activeSection = 'services'"
+                    :class="activeSection === 'services' ? 'bg-green-50 text-green-700' : 'text-gray-600 hover:bg-gray-50'"
+                    href="#services"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all group">
+
+                    <i class="bi bi-grid-3x3-gap text-lg"
+                        :class="activeSection === 'services' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'"></i>
+
+                    Services
+
+                </a>
+
+                <a @click="activeSection = 'social'"
+                    :class="activeSection === 'social' ? 'bg-green-50 text-green-700' : 'text-gray-600 hover:bg-gray-50'"
+                    href="#social"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all group">
+
+                    <i class="bi bi-share text-lg"
+                        :class="activeSection === 'social' ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'"></i>
+
+                    Social & Map
+
+                </a>
+
+            </nav>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- Main Content Area -->
+
+    <div class="flex-1 space-y-12">
+
+
+
+        <!-- 1. General Information -->
+
+        <section id="general" class="scroll-mt-24">
+
+            <form method="POST" class="bg-white rounded-2xl border border-gray-200 shadow-sm">
+
+                {% csrf_token %}
+
+                <input type="hidden" name="section_type" value="general">
+
+
+
+                <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+
+                    <div>
+
+                        <h2 class="text-base font-bold text-gray-800">General Information</h2>
+
+                        <p class="text-xs text-gray-500 mt-1">Core details about SpinalCure clinic.</p>
+
+                    </div>
+
+                    <button type="submit"
+                        class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-green-200">
+
+                        Update General Info
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="p-8">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <div class="md:col-span-2">
+
+                            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Clinic
+
+                                Name *</label>
+
+                            <input type="text" name="name" value="{{ clinic.name|default:'' }}" required
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all">
+
+                        </div>
+
+                        <div>
+
+                            <label
+                                class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Tagline</label>
+
+                            <input type="text" name="tagline" value="{{ clinic.tagline|default:'' }}"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all">
+
+                        </div>
+
+                        <div>
+
+                            <label
+                                class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Registration
+
+                                Number</label>
+
+                            <input type="text" name="registration_number"
+                                value="{{ clinic.registration_number|default:'' }}"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all">
+
+                        </div>
+
+                        <div x-data="{
+                            phones: '{{ clinic.phone|default:'' }}'.split(',').filter(p => p.trim() !== ''),
+                            newPhone: '',
+                            countryCode: '+91',
+                            addPhone() {
+                                if (this.newPhone.trim()) {
+                                    let p = this.newPhone.trim();
+                                    if (!p.startsWith('+')) {
+                                        p = this.countryCode + ' ' + p;
+                                    }
+                                    if (!this.phones.includes(p)) {
+                                        this.phones.push(p);
+                                    }
+                                    this.newPhone = '';
+                                }
+                            },
+                            removePhone(index) {
+                                this.phones.splice(index, 1);
+                            }
+                        }">
+                            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Phone Numbers *</label>
+                            
+                            <!-- Hidden input to submit the actual comma-separated string -->
+                            <input type="hidden" name="phone" :value="phones.join(', ')" required>
+
+                            <!-- Add new phone — single-row compact layout -->
+                            <div class="flex items-center w-full bg-gray-50 border border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-green-500 focus-within:border-green-500 transition-all overflow-hidden mb-3">
+                                <select x-model="countryCode" class="pl-3 pr-1 py-3 bg-transparent border-none outline-none text-gray-700 text-sm font-semibold shrink-0 cursor-pointer focus:ring-0">
+                                    <option value="+91">+91</option>
+                                    <option value="+1">+1</option>
+                                    <option value="+44">+44</option>
+                                    <option value="+971">+971</option>
+                                </select>
+                                <div class="w-px h-5 bg-gray-300 shrink-0 mx-1"></div>
+                                <input type="text" x-model="newPhone" @keydown.enter.prevent="addPhone" placeholder="Phone number"
+                                    class="flex-1 w-full px-2 py-3 bg-transparent border-none outline-none text-gray-900 text-sm placeholder-gray-400 focus:ring-0">
+                                <button type="button" @click="addPhone" class="px-4 py-3 text-green-700 hover:bg-green-100 bg-green-50/50 text-xs font-bold transition-colors shrink-0 border-l border-gray-200 focus:outline-none">
+                                    Add
+                                </button>
+                            </div>
+                            
+                            <!-- Phone Tags -->
+                            <div class="flex flex-wrap gap-2">
+                                <template x-for="(phone, index) in phones" :key="index">
+                                    <div class="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 rounded-lg shadow-sm">
+                                        <span class="text-sm font-semibold text-gray-700" x-text="phone"></span>
+                                        <button type="button" @click="removePhone(index)" class="text-gray-400 hover:text-red-500 transition-colors">
+                                            <i class="bi bi-x-lg text-xs"></i>
+                                        </button>
+                                    </div>
+                                </template>
+                                <div x-show="phones.length === 0" class="text-sm text-gray-400 italic">No phone numbers added yet.</div>
+                            </div>
+                        </div>
+
+                        <div>
+
+                            <label
+                                class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Email</label>
+
+                            <input type="email" name="email" value="{{ clinic.email|default:'' }}"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all">
+
+                        </div>
+
+                        <div class="md:col-span-2">
+
+                            <label
+                                class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Address</label>
+
+                            <textarea name="address" rows="3"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 resize-none transition-all">{{ clinic.address|default:'' }}</textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- 2. GST & Billing -->
+
+        <section id="billing" class="scroll-mt-24">
+
+            <form method="POST" class="bg-white rounded-2xl border border-gray-200 shadow-sm">
+
+                {% csrf_token %}
+
+                <input type="hidden" name="section_type" value="billing">
+
+
+
+                <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+
+                    <div>
+
+                        <h2 class="text-base font-bold text-gray-800">Billing & Tax Configuration</h2>
+
+                        <p class="text-xs text-gray-500 mt-1">Manage GSTIN and default taxation rules.</p>
+
+                    </div>
+
+                    <button type="submit"
+                        class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-green-200">
+
+                        Update Billing
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="p-8">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <div>
+
+                            <label
+                                class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">GSTIN</label>
+
+                            <input type="text" name="gstin" value="{{ clinic.gstin|default:'' }}" maxlength="15"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm font-mono focus:ring-2 focus:ring-green-500 transition-all">
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Default
+
+                                Tax %</label>
+
+                            <div class="relative">
+
+                                <input type="number" name="default_tax_percent"
+                                    value="{{ clinic.default_tax_percent|default:'0' }}" step="0.01" min="0" max="100"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 transition-all">
+
+                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">%</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- 3. Branding & Homepage Hero -->
+
+        <section id="branding" class="scroll-mt-24">
+
+            <form method="POST" enctype="multipart/form-data"
+                class="bg-white rounded-2xl border border-gray-200 shadow-sm">
+
+                {% csrf_token %}
+
+                <input type="hidden" name="section_type" value="branding">
+
+
+
+                <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+
+                    <div>
+
+                        <h2 class="text-base font-bold text-gray-800">Visual Branding & Hero</h2>
+
+                        <p class="text-xs text-gray-500 mt-1">Logo, website hero section, and footer credits.</p>
+
+                    </div>
+
+                    <button type="submit"
+                        class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-green-200">
+
+                        Update Branding
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="p-8 space-y-8">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <div>
+
+                            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Hero
+
+                                Title</label>
+
+                            <input type="text" name="hero_title" value="{{ clinic.hero_title|default:'' }}"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 transition-all">
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Hero
+
+                                Subtitle</label>
+
+                            <input type="text" name="hero_subtitle" value="{{ clinic.hero_subtitle|default:'' }}"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 transition-all">
+
+                        </div>
+
+                        <div class="md:col-span-2">
+
+                            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Footer
+
+                                Text</label>
+
+                            <textarea name="footer_text" rows="2"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500 resize-none transition-all">{{ clinic.footer_text|default:'' }}</textarea>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                        <div>
+
+                            <label class="block text-xs font-bold text-gray-400 mb-4 uppercase tracking-widest">Clinic
+
+                                Logo</label>
+
+                            <div class="space-y-4">
+
+                                <div
+                                    class="relative group h-40 w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center p-4 transition-all hover:border-green-400">
+
+                                    <img id="logo-preview" src="{% if clinic.logo %}{{ clinic.logo.url }}{% endif %}"
+                                        class="max-h-full max-w-full object-contain {% if not clinic.logo %}hidden{% endif %}"
+                                        alt="Logo">
+
+                                    <div id="logo-empty-state"
+                                        class="text-center {% if clinic.logo %}hidden{% endif %}">
+
+                                        <i class="bi bi-cloud-arrow-up text-3xl text-gray-300"></i>
+
+                                        <p class="text-[10px] text-gray-400 font-bold mt-2" id="logo-filename-text">NO
+
+                                            LOGO UPLOADED</p>
+
+                                    </div>
+
+                                    <input type="file" name="logo" accept="image/*"
+                                        onchange="previewImage(this, 'logo-preview', 'logo-empty-state', 'logo-filename-text')"
+                                        class="absolute inset-0 opacity-0 cursor-pointer">
+
+                                </div>
+
+                                <p class="text-[10px] text-gray-400 text-center">Transparent PNG or SVG recommended. Max
+
+                                    2MB.</p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-4 uppercase tracking-widest">Hero
+                                Carousel Images</label>
+
+                            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-2">
+                                {% for img in clinic.hero_carousel_images.all %}
+                                <div class="relative group aspect-video rounded-xl overflow-hidden border border-gray-200 shadow-sm"
+                                    x-data="{ softDelete: false }">
+                                    <img src="{{ img.image.url }}"
+                                        class="w-full h-full object-cover transition-transform group-hover:scale-110"
+                                        :class="softDelete ? 'grayscale opacity-30' : ''">
+                                    <div
+                                        class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <label
+                                            class="cursor-pointer p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg">
+                                            <input type="checkbox" name="delete_hero_image_ids[]"
+                                                value="{{ img.id|b64uuid }}" class="hidden"
+                                                @change="softDelete = $el.checked">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </label>
+                                    </div>
+                                    <div x-show="softDelete"
+                                        class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                        <span
+                                            class="px-2 py-1 bg-red-600/90 backdrop-blur-sm text-[10px] text-white font-bold rounded uppercase shadow-sm">Removed</span>
+                                    </div>
+                                    <div
+                                        class="absolute top-2 left-2 px-2 py-0.5 bg-black/50 backdrop-blur-md rounded text-white text-[10px] font-bold">
+                                        #{{ forloop.counter }}</div>
+                                </div>
+                                {% endfor %}
+
+                                <div
+                                    class="relative group aspect-video rounded-xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center bg-gray-50 hover:bg-green-50 hover:border-green-300 transition-all cursor-pointer">
+                                    <i
+                                        class="bi bi-images text-2xl text-gray-300 group-hover:text-green-500 transition-colors"></i>
+                                    <span
+                                        class="text-[10px] font-bold text-gray-400 group-hover:text-green-600 mt-2 transition-colors">ADD
+                                        PHOTOS</span>
+                                    <input type="file" name="new_hero_images[]" multiple accept="image/*"
+                                        onchange="previewMultipleImages(this, 'hero-new-previews')"
+                                        class="absolute inset-0 opacity-0 cursor-pointer">
+                                </div>
+                            </div>
+
+                            <!-- New Previews for Hero Carousel -->
+                            <div id="hero-new-previews" class="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-4"></div>
+                            <p class="text-[10px] text-gray-400 mt-2">High resolution JPG/WebP preferred. Aspect 16:9.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- 4. About Section & Legacy -->
+
+        <section id="about" class="scroll-mt-24">
+
+            <form method="POST" enctype="multipart/form-data"
+                class="bg-white rounded-2xl border border-gray-200 shadow-sm">
+
+                {% csrf_token %}
+
+                <input type="hidden" name="section_type" value="about">
+
+
+
+                <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+
+                    <div>
+
+                        <h2 class="text-base font-bold text-gray-800">About & Clinic Legacy</h2>
+
+                        <p class="text-xs text-gray-500 mt-1">Full story, impact stats, and photo collection.</p>
+
+                    </div>
+
+                    <button type="submit"
+                        class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-green-200">
+
+                        Update About Section
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="p-8 space-y-8">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <div>
+
+                            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Legay
+
+                                Label</label>
+
+                            <input type="text" name="about_label" value="{{ clinic.about_label|default:'' }}"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500 transition-all">
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Main
+
+                                Title</label>
+
+                            <input type="text" name="about_title" value="{{ clinic.about_title|default:'' }}"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500 transition-all">
+
+                        </div>
+
+
+
+                        <div class="grid grid-cols-2 gap-6 md:col-span-2">
+
+                            <div class="space-y-4">
+
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest">Impact
+
+                                    Stat 1</label>
+
+                                <div class="grid grid-cols-2 gap-3">
+
+                                    <input type="text" name="about_stat1_number"
+                                        value="{{ clinic.about_stat1_number|default:'' }}" placeholder="e.g., 10+"
+                                        class="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+
+                                    <input type="text" name="about_stat1_label"
+                                        value="{{ clinic.about_stat1_label|default:'' }}" placeholder="Label"
+                                        class="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+
+                                </div>
+
+                            </div>
+
+                            <div class="space-y-4">
+
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest">Impact
+
+                                    Stat 2</label>
+
+                                <div class="grid grid-cols-2 gap-3">
+
+                                    <input type="text" name="about_stat2_number"
+                                        value="{{ clinic.about_stat2_number|default:'' }}" placeholder="e.g., 15k+"
+                                        class="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+
+                                    <input type="text" name="about_stat2_label"
+                                        value="{{ clinic.about_stat2_label|default:'' }}" placeholder="Label"
+                                        class="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="md:col-span-2">
+
+                            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Full
+
+                                Story / Description</label>
+
+                            <textarea name="about" rows="6"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500 resize-none transition-all">{{ clinic.about|default:'' }}</textarea>
+
+                        </div>
+
+
+
+                        <div class="md:col-span-2">
+
+                            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Featured
+
+                                Quote</label>
+
+                            <input type="text" name="about_quote" value="{{ clinic.about_quote|default:'' }}"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500 transition-all">
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="pt-6 border-t border-gray-100">
+
+                        <label class="block text-xs font-bold text-gray-400 mb-6 uppercase tracking-widest">Legacy Photo
+
+                            Gallery</label>
+
+
+
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+
+                            {% for img in clinic.about_images.all %}
+
+                            <div class="relative group aspect-square rounded-2xl overflow-hidden border border-gray-100 shadow-sm"
+                                x-data="{ softDelete: false }">
+
+                                <img src="{{ img.image.url }}"
+                                    class="w-full h-full object-cover transition-transform group-hover:scale-110"
+                                    :class="softDelete ? 'grayscale opacity-30' : ''">
+
+                                <div
+                                    class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
+
+                                    <label
+                                        class="cursor-pointer p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors">
+
+                                        <input type="checkbox" name="delete_about_image_ids[]"
+                                            value="{{ img.id|b64uuid }}" class="hidden"
+                                            @change="softDelete = $el.checked">
+
+                                        <i class="bi bi-trash-fill"></i>
+
+                                    </label>
+
+                                </div>
+
+                                <div x-show="softDelete"
+                                    class="absolute inset-0 flex items-center justify-center pointer-events-none">
+
+                                    <span
+                                        class="px-2 py-0.5 bg-red-600 text-[8px] text-white font-bold rounded uppercase">Removed</span>
+
+                                </div>
+
+                            </div>
+
+                            {% endfor %}
+
+
+
+                            <div
+                                class="relative group aspect-square rounded-2xl border-2 border-dashed border-gray-100 flex flex-col items-center justify-center bg-gray-50 hover:bg-green-50 hover:border-green-300 transition-all cursor-pointer">
+
+                                <i class="bi bi-images text-2xl text-gray-300 group-hover:text-green-500"></i>
+
+                                <span class="text-[9px] font-bold text-gray-400 group-hover:text-green-600 mt-2">ADD
+                                    PHOTOS</span>
+
+                                <input type="file" name="new_about_images[]" multiple accept="image/*"
+                                    onchange="previewMultipleImages(this, 'about-new-previews')"
+                                    class="absolute inset-0 opacity-0 cursor-pointer">
+
+                            </div>
+                        </div>
+
+                        <!-- New Previews for About Carousel -->
+                        <div id="about-new-previews" class="grid grid-cols-3 md:grid-cols-4 gap-4 mt-4"></div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- 5. Services Management -->
+
+        <section id="services" class="scroll-mt-24 space-y-6">
+
+
+
+            <!-- Services Header Content -->
+
+            <form method="POST" class="bg-white rounded-2xl border border-gray-200 shadow-sm">
+
+                {% csrf_token %}
+
+                <input type="hidden" name="section_type" value="services_header">
+
+
+
+                <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+
+                    <div>
+
+                        <h2 class="text-base font-bold text-gray-800">Services Header</h2>
+
+                        <p class="text-xs text-gray-500 mt-1">Section top labels and introductory text.</p>
+
+                    </div>
+
+                    <button type="submit"
+                        class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-green-200">
+
+                        Update Header
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <div>
+
+                        <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Top
+
+                            Sub-label</label>
+
+                        <input type="text" name="services_label" value="{{ clinic.services_label|default:'' }}"
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+
+                    </div>
+
+                    <div>
+
+                        <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Main Section
+
+                            Title</label>
+
+                        <input type="text" name="services_title" value="{{ clinic.services_title|default:'' }}"
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+
+                    </div>
+
+                    <div class="md:col-span-2">
+
+                        <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Intro
+
+                            Content</label>
+
+                        <textarea name="services_description" rows="2"
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-green-500 resize-none">{{ clinic.services_description|default:'' }}</textarea>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+
+            <!-- Featured Service Cards -->
+
+            <form method="POST" class="bg-white rounded-2xl border border-gray-200 shadow-sm">
+
+                {% csrf_token %}
+
+                <input type="hidden" name="section_type" value="services_cards">
+
+
+
+                <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+
+                    <div>
+
+                        <h2 class="text-base font-bold text-gray-800">Featured Services</h2>
+
+                        <p class="text-xs text-gray-500 mt-1">Manage the core therapy cards shown on the home page.</p>
+
+                    </div>
+
+                    <div class="flex gap-3">
+
+                        <button type="button" onclick="addService()"
+                            class="px-4 py-2 bg-white text-green-600 border border-green-200 text-xs font-bold rounded-xl hover:bg-green-50 transition-all">
+
+                            + Add New
+
+                        </button>
+
+                        <button type="submit"
+                            class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition-all shadow-md">
+
+                            Save Changes
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="p-8">
+
+                    <div id="services-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                        {% for service in clinic.services.all %}
+
+                        <div
+                            class="service-card p-6 bg-gray-50/50 border border-gray-100 rounded-[2rem] relative group hover:border-green-200 transition-all">
+
+                            <input type="hidden" name="service_id[]" value="{{ service.id|b64uuid }}">
+
+
+
+                            <div class="flex justify-between items-start mb-6">
+
+                                <div
+                                    class="w-12 h-12 bg-white rounded-2xl shadow-sm border border-gray-50 flex items-center justify-center text-green-600 text-2xl">
+
+                                    <i class="bi {{ service.icon|default:'bi-activity' }}"></i>
+
+                                </div>
+
+                                <button type="button" onclick="removeService(this, '{{ service.id|b64uuid }}')"
+                                    class="p-2 text-red-300 hover:text-red-500 transition-colors">
+
+                                    <i class="bi bi-x-circle-fill text-xl"></i>
+
+                                </button>
+
+                            </div>
+
+
+
+                            <input type="text" name="service_title[]" value="{{ service.title }}" required
+                                placeholder="Service Name"
+                                class="w-full bg-transparent border-none focus:ring-0 text-gray-800 font-bold text-lg mb-2 p-0 placeholder-gray-300">
+
+                            <textarea name="service_description[]" required placeholder="Service short description..."
+                                class="w-full bg-transparent border-none focus:ring-0 text-gray-500 text-xs p-0 leading-relaxed h-20 resize-none placeholder-gray-300">{{ service.description }}</textarea>
+
+
+
+                            <div class="mt-4 pt-4 border-t border-gray-100/50 flex items-center gap-3">
+
+                                <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Select
+
+                                    Icon</span>
+
+                                <select name="service_icon[]" onchange="updateIconPreview(this)"
+                                    class="flex-1 bg-transparent border-none text-[10px] font-semibold text-green-600 focus:ring-0 cursor-pointer">
+
+                                    {% for val, name in icon_choices %}
+
+                                    <option value="{{ val }}" {% if service.icon == val %}selected{% endif %}>{{ name }}
+
+                                    </option>
+
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <div id="deleted-services-tracker"></div>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- 6. Social & Location -->
+
+        <section id="social" class="scroll-mt-24">
+
+            <form method="POST" class="bg-white rounded-2xl border border-gray-200 shadow-sm">
+
+                {% csrf_token %}
+
+                <input type="hidden" name="section_type" value="social">
+
+
+
+                <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+
+                    <div>
+
+                        <h2 class="text-base font-bold text-gray-800">Social Connections & Map</h2>
+
+                        <p class="text-xs text-gray-500 mt-1">Google Maps integration and social profile links.</p>
+
+                    </div>
+
+                    <button type="submit"
+                        class="px-5 py-2 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-green-200">
+
+                        Update Connections
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="p-8 space-y-8">
+
+                    <div class="space-y-4">
+
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest">Google Maps
+
+                            Integration</label>
+
+                        <textarea name="map_iframe_url" rows="3"
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[10px] font-mono focus:ring-2 focus:ring-green-500 resize-none"
+                            placeholder="Paste embed <iframe> code URL here...">{{ clinic.map_iframe_url|default:'' }}</textarea>
+
+                        <p class="text-[10px] text-gray-400">Provide the `src` attribute from the Google Maps Share >
+
+                            Embed iframe code.</p>
+
+                    </div>
+
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <div class="relative">
+
+                            <i class="bi bi-facebook absolute left-4 top-1/2 -translate-y-1/2 text-blue-600"></i>
+
+                            <input type="url" name="facebook" value="{{ clinic.facebook|default:'' }}"
+                                placeholder="Facebook Profile URL"
+                                class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500">
+
+                        </div>
+
+                        <div class="relative">
+
+                            <i class="bi bi-instagram absolute left-4 top-1/2 -translate-y-1/2 text-pink-600"></i>
+
+                            <input type="url" name="instagram" value="{{ clinic.instagram|default:'' }}"
+                                placeholder="Instagram Profile URL"
+                                class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-pink-500">
+
+                        </div>
+
+                        <div class="relative">
+
+                            <i class="bi bi-twitter-x absolute left-4 top-1/2 -translate-y-1/2 text-slate-900"></i>
+
+                            <input type="url" name="twitter" value="{{ clinic.twitter|default:'' }}"
+                                placeholder="Twitter / X Profile URL"
+                                class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-slate-900">
+
+                        </div>
+
+                        <div class="relative">
+
+                            <i class="bi bi-youtube absolute left-4 top-1/2 -translate-y-1/2 text-red-600"></i>
+
+                            <input type="url" name="youtube" value="{{ clinic.youtube|default:'' }}"
+                                placeholder="YouTube Channel URL"
+                                class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-red-500">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+
+    </div>
+
+</div>
+
+
+
+<!-- Hidden Template for New Service -->
+
+<template id="service-template">
+
+    <div
+        class="service-card p-6 bg-green-50/20 border-2 border-dashed border-green-200 rounded-[2rem] relative animate-fade-in group">
+
+        <input type="hidden" name="service_id[]" value="">
+
+
+
+        <div class="flex justify-between items-start mb-6">
+
+            <div
+                class="w-12 h-12 bg-white rounded-2xl shadow-sm border border-green-50 flex items-center justify-center text-green-600 text-2xl">
+
+                <i class="bi bi-plus-circle"></i>
+
+            </div>
+
+            <button type="button" onclick="removeService(this, null)"
+                class="p-2 text-red-300 hover:text-red-500 transition-colors">
+
+                <i class="bi bi-x-circle-fill text-xl"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <input type="text" name="service_title[]" value="" required placeholder="Service Name"
+            class="w-full bg-transparent border-none focus:ring-0 text-gray-800 font-bold text-lg mb-2 p-0 placeholder-green-200">
+
+        <textarea name="service_description[]" required placeholder="Describe your service..."
+            class="w-full bg-transparent border-none focus:ring-0 text-gray-500 text-xs p-0 leading-relaxed h-20 resize-none placeholder-green-200"></textarea>
+
+
+
+        <div class="mt-4 pt-4 border-t border-green-100 flex items-center gap-3">
+
+            <span class="text-[9px] font-bold text-green-400 uppercase tracking-widest">Select Icon</span>
+
+            <select name="service_icon[]" onchange="updateIconPreview(this)"
+                class="flex-1 bg-transparent border-none text-[10px] font-semibold text-green-600 focus:ring-0 cursor-pointer">
+
+                <option value="">Choose...</option>
+
+                {% for val, name in icon_choices %}
+
+                <option value="{{ val }}">{{ name }}</option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+    </div>
+
+</template>
+
+
+
+<style>
+    @keyframes fade-in {
+
+        from {
+
+            opacity: 0;
+
+            transform: translateY(10px);
+
+        }
+
+
+
+        to {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+    }
+
+
+
+    .animate-fade-in {
+
+        animation: fade-in 0.4s ease-out;
+
+    }
+
+
+
+    html {
+
+        scroll-behavior: smooth;
+
+    }
+
+
+
+    input:focus,
+
+    textarea:focus,
+
+    select:focus {
+
+        outline: none;
+
+    }
+</style>
+
+
+
+<script>
+
+    function previewImage(input, previewId, emptyStateId, filenameTextId) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.getElementById(previewId);
+                img.src = e.target.result;
+                img.classList.remove('hidden');
+                document.getElementById(emptyStateId).classList.add('hidden');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function previewMultipleImages(input, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = ''; // Clear existing previews
+
+        if (input.files) {
+            Array.from(input.files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const div = document.createElement('div');
+                    div.className = 'relative group aspect-video rounded-xl overflow-hidden border border-green-200 shadow-sm ring-2 ring-green-500/20';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" class="w-full h-full object-cover">
+                        <div class="absolute top-2 left-2 px-2 py-0.5 bg-green-600 rounded text-white text-[10px] font-bold">NEW #${index + 1}</div>
+                    `;
+                    container.appendChild(div);
+                }
+                reader.readAsDataURL(file);
+            });
+        }
+    }
+
+
+
+    function addService() {
+
+        const container = document.getElementById('services-container');
+
+        const template = document.getElementById('service-template').content.cloneNode(true);
+
+        container.appendChild(template);
+
+    }
+
+
+
+    function updateIconPreview(select) {
+
+        const card = select.closest('.service-card');
+
+        const iconDisplay = card.querySelector('.bi');
+
+        if (iconDisplay) {
+
+            iconDisplay.className = 'bi ' + select.value;
+
+            if (!select.value) {
+
+                iconDisplay.className = 'bi bi-plus-circle';
+
+            }
+
+        }
+
+    }
+
+
+
+    function removeService(btn, dbId) {
+        if (dbId) {
+            window.showCustomConfirm('Permanently remove this service? Changes apply on Save.', () => {
+                const tracker = document.getElementById('deleted-services-tracker');
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'delete_service_ids[]';
+                hiddenInput.value = dbId;
+                tracker.appendChild(hiddenInput);
+                btn.closest('.service-card').classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    btn.closest('.service-card').remove();
+                }, 300);
+            });
+        } else {
+            btn.closest('.service-card').remove();
+        }
+    }
+
+
+
+    // Optional: Intersection Observer to update active section in sidebar
+
+    const observerOptions = {
+
+        root: null,
+
+        rootMargin: '-20% 0px -70% 0px',
+
+        threshold: 0
+
+    };
+
+
+
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                const id = entry.target.getAttribute('id');
+
+                // We access the Alpine.js state
+
+                const sidebar = document.querySelector('[x-data]');
+
+                if (sidebar.__x) {
+
+                    sidebar.__x.$data.activeSection = id;
+
+                }
+
+            }
+
+        });
+
+    }, observerOptions);
+
+
+
+    document.querySelectorAll('section[id]').forEach((section) => {
+
+        observer.observe(section);
+
+    });
+
+</script>
+
+{% endblock %}

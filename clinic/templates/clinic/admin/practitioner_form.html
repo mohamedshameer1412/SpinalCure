@@ -1,0 +1,173 @@
+﻿{% extends "base.html" %}
+{% block title %}{% if practitioner %}Edit{% else %}Add{% endif %} Practitioner â€” SpinalCure{% endblock %}
+{% block page_title %}{% if practitioner %}Edit Practitioner{% else %}Add New Practitioner{% endif %}{% endblock %}
+
+{% block header_actions %}
+<a href="{% url 'admin_practitioners' %}"
+    class="text-sm text-gray-400 hover:text-gray-900 flex items-center gap-1.5 transition-colors no-underline">
+    â† Back to Practitioners
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl">
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+            <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">Personal Details</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Full Name
+                        *</label>
+                    <input type="text" name="name" value="{{ practitioner.name|default:'' }}" required
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Title /
+                        Designation</label>
+                    <input type="text" name="title" value="{{ practitioner.title|default:'' }}"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
+                        placeholder="Dr., Prof., etc.">
+                </div>
+                <div>
+                    <label
+                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Gender</label>
+                    <select name="gender"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+                        <option value="">Select</option>
+                        <option value="M" {% if practitioner.gender == 'M' %} selected {% endif %}>Male</option>
+                        <option value="F" {% if practitioner.gender == 'F' %} selected {% endif %}>Female</option>
+                        <option value="O" {% if practitioner.gender == 'O' %} selected {% endif %}>Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Years of
+                        Experience</label>
+                    <input type="number" name="experience_years" value="{{ practitioner.experience_years|default:'0' }}"
+                        min="0"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label
+                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Phone</label>
+                    <input type="text" name="phone" value="{{ practitioner.phone|default:'' }}"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                </div>
+                <div>
+                    <label
+                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Email</label>
+                    <input type="email" name="email" value="{{ practitioner.email|default:'' }}"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Join
+                        Date</label>
+                    <input type="date" name="joined_date" value="{{ practitioner.joined_date|date:'Y-m-d'|default:'' }}"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+                </div>
+
+                <div class="flex items-center gap-3 pt-6">
+                    <input type="checkbox" name="is_chief" id="is_chief" value="on" {% if practitioner.is_chief %}checked{% endif %}
+                        class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500">
+                    <label for="is_chief" class="text-sm text-gray-700 font-medium">
+                        Is Chief Doctor (Top Horizontal Layout)
+                    </label>
+                </div>
+                <div class="flex items-center gap-3 pt-6">
+                    <input type="checkbox" name="is_active" id="is_active" value="on" {% if not practitioner or practitioner.is_active %}checked{% endif %}
+                        class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500">
+                    <label for="is_active" class="text-sm text-gray-700 font-medium">Active (visible on
+                        portfolio)</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+            <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">Profile Tags & Social Links
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div class="sm:col-span-2">
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Designation
+                        Tag (e.g. Chief Acupuncture Doctor)</label>
+                    <input type="text" name="designation_tag" value="{{ practitioner.designation_tag|default:'' }}"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
+                        placeholder="Chief Acupuncture Doctor / Senior Consultant">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">YouTube
+                        URL</label>
+                    <input type="url" name="youtube_url" value="{{ practitioner.youtube_url|default:'' }}"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Instagram
+                        URL</label>
+                    <input type="url" name="instagram" value="{{ practitioner.instagram|default:'' }}"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Twitter
+                        URL</label>
+                    <input type="url" name="twitter" value="{{ practitioner.twitter|default:'' }}"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Facebook
+                        URL</label>
+                    <input type="url" name="facebook" value="{{ practitioner.facebook|default:'' }}"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+            <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">Professional Info</h2>
+            <div class="space-y-4">
+                <div>
+                    <label
+                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Specialization</label>
+                    <input type="text" name="specialization" value="{{ practitioner.specialization|default:'' }}"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
+                        placeholder="Auricular Acupuncture, Scalp Acupuncture, etc.">
+                </div>
+                <div>
+                    <label
+                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Qualifications</label>
+                    <textarea name="qualifications" rows="2"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 resize-none placeholder-gray-400"
+                        placeholder="BAMS, MD (Acupuncture), etc.">{{ practitioner.qualifications|default:'' }}</textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Bio</label>
+                    <textarea name="bio" rows="4"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 resize-none placeholder-gray-400"
+                        placeholder="Brief professional bio...">{{ practitioner.bio|default:'' }}</textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Profile
+                        Photo</label>
+                    {% if practitioner.photo %}
+                    <div class="mb-2 flex items-center gap-2">
+                        <img src="{{ practitioner.photo.url }}"
+                            class="w-12 h-12 object-cover rounded-xl border border-gray-200" alt="Current photo">
+                        <span class="text-xs text-gray-400">Current photo</span>
+                    </div>
+                    {% endif %}
+                    <input type="file" name="photo" accept="image/*"
+                        class="block w-full text-sm text-gray-400 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-green-100 file:text-green-700 hover:file:bg-green-200 cursor-pointer">
+                </div>
+            </div>
+        </div>
+
+        <div class="flex gap-3">
+            <button type="submit"
+                class="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all shadow-md shadow-green-100">
+                {% if practitioner %}Update Practitioner{% else %}Add Practitioner{% endif %}
+            </button>
+            <a href="{% url 'admin_practitioners' %}"
+                class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all no-underline">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

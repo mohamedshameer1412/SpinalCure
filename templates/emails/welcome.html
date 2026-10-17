@@ -1,0 +1,73 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Welcome to SpinalCure - Your Account is Ready{% endblock %}
+
+{% block body %}
+    <h1>Welcome to SpinalCure!</h1>
+    
+    <p>Hello {{ user_name }},</p>
+    
+    <p>Welcome aboard! Your SpinalCure account has been created successfully. We're thrilled to have you as part of our community dedicated to better spinal health and wellness.</p>
+    
+    <div class="success-banner">
+        <strong>✓ Your account is active and ready to use</strong>
+    </div>
+    
+    <h3 style="color: #667eea;">Account Information</h3>
+    <div class="appointment-details">
+        <div class="detail-row">
+            <span class="detail-label">Email:</span>
+            <span class="detail-value">{{ user_email }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Account Type:</span>
+            <span class="detail-value">{{ account_type }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Registered On:</span>
+            <span class="detail-value">{{ registration_date|date:"M d, Y" }}</span>
+        </div>
+    </div>
+    
+    <h3 style="color: #667eea; margin-top: 25px;">What You Can Do Now</h3>
+    <ul>
+        <li>✓ Browse our team of experienced practitioners</li>
+        <li>✓ Book appointments at your convenience</li>
+        <li>✓ View your appointment history and upcoming sessions</li>
+        <li>✓ Manage your health records and medical history</li>
+        <li>✓ Access detailed treatment plans and progress tracking</li>
+        <li>✓ Receive appointment reminders and notifications</li>
+    </ul>
+    
+    <h3 style="color: #667eea;">Getting Started</h3>
+    <p><strong>Step 1: Complete Your Profile</strong><br>
+    Add your medical history and personal information to help us provide better care. <a href="{% block edit_profile %}#{% endblock %}" style="color: #667eea;">Update Your Profile</a></p>
+    
+    <p><strong>Step 2: Book Your First Appointment</strong><br>
+    Browse our practitioners and select a time that works best for you. <a href="{% block book_appointment %}#{% endblock %}" style="color: #667eea;">Book Now</a></p>
+    
+    <p><strong>Step 3: Download Our Mobile App (Optional)</strong><br>
+    Access your appointments and medical records on the go.</p>
+    
+    <h3 style="color: #667eea;">Our Expert Practitioners</h3>
+    <p>SpinalCure is home to a team of highly qualified specialists with years of experience in spinal care, treatment, and rehabilitation. Whether you're seeking preventive care or treatment for a specific condition, we have the expertise to help.</p>
+    
+    <div class="highlight-box">
+        <strong>💬 Any Questions?</strong><br>
+        Our support team is available to help you get the most out of your SpinalCure experience.<br>
+        Email: {% block support_email %}support@spinalcure.com{% endblock %}<br>
+        Phone: {% block support_phone %}Available 24/7{% endblock %}
+    </div>
+    
+    <h3 style="color: #667eea;">Your Privacy & Security</h3>
+    <p>Your health information is sacred to us. All data is encrypted and stored securely in compliance with international healthcare privacy standards. <a href="{% block privacy %}#{% endblock %}" style="color: #667eea;">Read our Privacy Policy</a></p>
+    
+    <h3 style="color: #667eea;">What's Next?</h3>
+    <p style="text-align: center;">
+        <a href="{% block dashboard %}#{% endblock %}" class="cta-button">Access Your Dashboard</a>
+    </p>
+    
+    <p>We're committed to helping you achieve your health goals. Let's start your journey to better spinal health together!</p>
+    <p style="margin-bottom: 5px;">Warm regards,</p>
+    <p style="margin-top: 5px;"><strong>The SpinalCure Team</strong></p>
+{% endblock %}

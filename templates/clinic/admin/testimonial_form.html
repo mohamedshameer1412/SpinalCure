@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block title %}{% if testimonial %}Edit{% else %}Add{% endif %} Testimonial — SpinalCure Admin{% endblock %}
+{% block page_title %}{% if testimonial %}Edit Testimonial{% else %}Add Testimonial{% endif %}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl">
+    <a href="{% url 'admin_testimonials' %}" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-primary-600 mb-6 transition-colors">
+        <i class="bi bi-arrow-left"></i> Back to Testimonials
+    </a>
+
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-4 px-4 py-3 rounded-xl text-sm font-medium
+            {% if message.tags == 'success' %}bg-green-50 text-green-700 border border-green-200
+            {% else %}bg-red-50 text-red-700 border border-red-200{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data"
+        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-6">
+        {% csrf_token %}
+
+        <!-- Personal Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Patient / Client Name *</label>
+                <input type="text" name="patient_name" required
+                    value="{{ testimonial.patient_name|default:'' }}"
+                    placeholder="e.g., Rahul Sharma"
+                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 transition">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Designation / Location</label>
+                <input type="text" name="patient_designation"
+                    value="{{ testimonial.patient_designation|default:'' }}"
+                    placeholder="e.g., Teacher, Chennai"
+                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 transition">
+            </div>
+        </div>
+
+        <!-- Photo Upload -->
+        <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Profile Photo (optional)</label>
+            {% if testimonial and testimonial.photo %}
+            <div class="flex items-center gap-4 mb-3">
+                <img src="{{ testimonial.photo.url }}" alt="{{ testimonial.patient_name }}"
+                    class="w-16 h-16 rounded-full object-cover border-2 border-primary-100">
+                <p class="text-xs text-gray-500">Current photo. Upload a new one to replace it.</p>
+            </div>
+            {% endif %}
+            <input type="file" name="photo" accept="image/*"
+                class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 transition">
+        </div>
+
+        <!-- Star Rating -->
+        <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Rating *</label>
+            <div class="flex gap-2" id="star-picker">
+                {% for i in "12345" %}
+                <label class="cursor-pointer">
+                    <input type="radio" name="rating" value="{{ forloop.counter }}" class="sr-only"
+                        {% if testimonial and testimonial.rating == forloop.counter %}checked
+                        {% elif not testimonial and forloop.counter == 5 %}checked{% endif %}>
+                    <i class="bi bi-star-fill text-2xl transition-colors"
+                        id="star-{{ forloop.counter }}"
+                        style="color: {% if testimonial and forloop.counter <= testimonial.rating %}#f59e0b{% elif not testimonial %}#f59e0b{% else %}#e5e7eb{% endif %}"></i>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Review Text -->
+        <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Testimonial Text *</label>
+            <textarea name="review_text" rows="4" required
+                placeholder="Patient's experience in their words..."
+                class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 transition resize-none">{{ testimonial.review_text|default:'' }}</textarea>
+        </div>
+
+        <!-- Source & Order -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Source</label>
+                <select name="source"
+                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 transition bg-white">
+                    {% for val, label in source_choices %}
+                    <option value="{{ val }}" {% if testimonial and testimonial.source == val %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Display Order</label>
+                <input type="number" name="display_order" min="0"
+                    value="{{ testimonial.display_order|default:'0' }}"
+                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 transition">
+                <p class="text-xs text-gray-400 mt-1">Lower number = shown first</p>
+            </div>
+        </div>
+
+        <!-- Published Toggle -->
+        <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
+            <input type="checkbox" name="is_published" id="is_published"
+                {% if testimonial and testimonial.is_published %}checked{% endif %}
+                class="w-4 h-4 text-primary-600 rounded border-gray-300 focus:ring-primary-500">
+            <label for="is_published" class="text-sm font-semibold text-gray-700 cursor-pointer">
+                Publish immediately
+                <span class="block text-xs font-normal text-gray-400 mt-0.5">Visible on the public portfolio when checked</span>
+            </label>
+        </div>
+
+        <!-- Submit -->
+        <div class="flex gap-3 pt-2">
+            <button type="submit"
+                class="flex-1 py-3 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700 transition-all shadow-md">
+                {% if testimonial %}Update Testimonial{% else %}Add Testimonial{% endif %}
+            </button>
+            <a href="{% url 'admin_testimonials' %}"
+                class="px-6 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all text-center">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Interactive star picker
+const stars = document.querySelectorAll('#star-picker input[type=radio]');
+stars.forEach((radio, i) => {
+    radio.addEventListener('change', () => {
+        document.querySelectorAll('#star-picker i').forEach((star, j) => {
+            star.style.color = j <= i ? '#f59e0b' : '#e5e7eb';
+        });
+    });
+});
+</script>
+{% endblock %}

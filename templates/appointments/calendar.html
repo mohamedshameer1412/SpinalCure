@@ -1,0 +1,1008 @@
+{% extends 'base.html' %}
+
+{% block title %}Appointments Calendar - SpinalCure{% endblock %}
+{% block page_title %}Appointments Calendar{% endblock %}
+
+{% block extra_head %}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+<style>
+    /* ===== CALENDAR SHELL ===== */
+    #cal-shell {
+        display: flex;
+        gap: 0;
+        height: calc(100vh - 130px);
+        min-height: 600px;
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+        border: 1px solid #e5e7eb;
+    }
+
+    /* ===== SIDEBAR ===== */
+    #cal-sidebar {
+        width: 260px;
+        min-width: 260px;
+        background: #f8fafc;
+        border-right: 1px solid #e5e7eb;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0;
+        overflow-y: auto;
+    }
+
+    .sidebar-section { padding: 0 16px 16px; }
+    .sidebar-section-title {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #94a3b8;
+        margin-bottom: 10px;
+    }
+
+    /* Legend dots */
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 8px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #374151;
+        cursor: default;
+    }
+    .legend-dot {
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    /* Filter chips */
+    .filter-chip {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #374151;
+        background: transparent;
+        cursor: pointer;
+        transition: background 0.15s;
+        width: 100%;
+        text-align: left;
+        border: none;
+    }
+    .filter-chip:hover { background: #e2e8f0; }
+    .filter-chip.active { background: #f0fdf4; color: #16a34a; }
+
+    /* Mini stat cards */
+    .stat-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 10px 12px;
+        margin-bottom: 8px;
+    }
+    .stat-card .stat-num { font-size: 20px; font-weight: 900; color: #111827; }
+    .stat-card .stat-lbl { font-size: 10px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ===== MAIN AREA ===== */
+    #cal-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* Custom toolbar */
+    #cal-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        border-bottom: 1px solid #e5e7eb;
+        background: #fff;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    .cal-nav-btns button {
+        background: #f3f4f6;
+        border: none;
+        width: 32px; height: 32px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #374151;
+        transition: background 0.15s;
+    }
+    .cal-nav-btns button:hover { background: #e5e7eb; }
+
+    #cal-title {
+        font-size: 18px;
+        font-weight: 800;
+        color: #111827;
+        min-width: 200px;
+        text-align: center;
+    }
+
+    .view-tabs { display: flex; gap: 4px; background: #f3f4f6; border-radius: 10px; padding: 3px; }
+    .view-tab {
+        padding: 5px 14px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        color: #6b7280;
+        transition: all 0.15s;
+    }
+    .view-tab.active { background: #fff; color: #111827; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .view-tab:hover:not(.active) { color: #374151; }
+
+    #today-btn {
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        background: #fff;
+        border: 1.5px solid #e5e7eb;
+        color: #374151;
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+    #today-btn:hover { background: #f3f4f6; }
+
+    /* ===== FULLCALENDAR OVERRIDES ===== */
+    #cal-body {
+        flex: 1;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .fc { height: 100%; font-family: inherit; }
+    .fc .fc-toolbar { display: none !important; }
+
+    .fc-theme-standard td, .fc-theme-standard th { border-color: #f1f5f9; }
+    .fc-col-header-cell-cushion {
+        font-size: 12px;
+        font-weight: 700;
+        color: #6b7280;
+        padding: 8px 4px;
+        text-decoration: none !important;
+    }
+    .fc-col-header-cell.fc-day-today .fc-col-header-cell-cushion { color: #6366f1; }
+
+    .fc-timegrid-slot { height: 3.5rem !important; }
+    .fc-timegrid-slot-label-cushion { font-size: 11px; color: #94a3b8; font-weight: 600; }
+
+    .fc-daygrid-day-number { font-size: 12px; font-weight: 700; color: #374151; text-decoration: none !important; }
+    .fc-day-today .fc-daygrid-day-number {
+        background: #6366f1;
+        color: #fff;
+        border-radius: 50%;
+        width: 26px; height: 26px;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .fc-day-today { background: rgba(99, 102, 241, 0.03) !important; }
+
+    .fc-event {
+        cursor: pointer;
+        border-radius: 8px !important;
+        border: none !important;
+        padding: 3px 6px !important;
+        transition: filter 0.15s, transform 0.1s;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.12) !important;
+    }
+    .fc-event:hover { filter: brightness(0.9); transform: scale(1.01); }
+    .fc-event-title { font-size: 11px; font-weight: 700; }
+    .fc-daygrid-event { border-radius: 5px !important; }
+
+    .fc-now-indicator-line { border-color: #ef4444 !important; }
+    .fc-now-indicator-arrow { border-top-color: #ef4444 !important; }
+
+    /* Month grid numbers */
+    .fc-daygrid-day.fc-day-today { background: rgba(99, 102, 241, 0.04) !important; }
+
+    /* Scrollbar styling */
+    #cal-body ::-webkit-scrollbar { width: 5px; }
+    #cal-body ::-webkit-scrollbar-track { background: transparent; }
+    #cal-body ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+
+    /* ===== DETAIL PANEL (slide-in) ===== */
+    #detail-panel {
+        position: fixed;
+        top: 0; right: -440px;
+        width: 420px;
+        height: 100vh;
+        background: #fff;
+        z-index: 200;
+        box-shadow: -8px 0 40px rgba(0,0,0,0.12);
+        transition: right 0.3s cubic-bezier(0.4,0,0.2,1);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    #detail-panel.open { right: 0; }
+    #detail-overlay {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.2);
+        z-index: 199;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+    #detail-overlay.open { opacity: 1; pointer-events: all; }
+
+    .panel-header {
+        padding: 20px 24px 16px;
+        border-bottom: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .panel-close {
+        width: 32px; height: 32px;
+        border-radius: 8px;
+        border: none;
+        background: #f3f4f6;
+        color: #6b7280;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 14px;
+        transition: background 0.15s;
+    }
+    .panel-close:hover { background: #e5e7eb; color: #111827; }
+
+    .panel-event-color-bar {
+        height: 4px;
+        border-radius: 0;
+        width: 100%;
+        flex-shrink: 0;
+    }
+
+    .panel-body { padding: 24px; flex: 1; overflow-y: auto; }
+
+    .panel-field { margin-bottom: 20px; }
+    .panel-field-label {
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #94a3b8;
+        margin-bottom: 4px;
+    }
+    .panel-field-value {
+        font-size: 15px;
+        font-weight: 700;
+        color: #111827;
+    }
+    .panel-field-sub {
+        font-size: 12px;
+        color: #6b7280;
+        font-weight: 500;
+        margin-top: 2px;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+
+    .panel-actions {
+        padding: 16px 24px 24px;
+        border-top: 1px solid #f1f5f9;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .panel-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        transition: all 0.15s;
+        text-decoration: none;
+    }
+    .panel-btn-primary { background: #16a34a; color: #fff; }
+    .panel-btn-primary:hover { background: #15803d; color: #fff; }
+    .panel-btn-ghost { background: #f3f4f6; color: #374151; }
+    .panel-btn-ghost:hover { background: #e5e7eb; }
+    .panel-btn-danger { background: #fef2f2; color: #dc2626; }
+    .panel-btn-danger:hover { background: #fee2e2; }
+
+    /* ===== BOOKING MODAL ===== */
+    #bookingModal {
+        position: fixed;
+        inset: 0;
+        z-index: 300;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(4px);
+    }
+    #bookingModal.open { display: flex; }
+
+    .booking-card {
+        background: #fff;
+        border-radius: 24px;
+        width: 100%;
+        max-width: 440px;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+        overflow: hidden;
+        animation: slideUp 0.25s ease;
+    }
+    @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .booking-header {
+        padding: 24px 28px 20px;
+        border-bottom: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .booking-body { padding: 24px 28px 20px; }
+    .booking-footer { padding: 0 28px 24px; }
+
+    .booking-field { margin-bottom: 16px; }
+    .booking-label {
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #6b7280;
+        margin-bottom: 6px;
+        display: block;
+    }
+    .booking-input {
+        width: 100%;
+        padding: 12px 16px;
+        background: #f8fafc;
+        border: 2px solid #f1f5f9;
+        border-radius: 14px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #111827;
+        outline: none;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        box-sizing: border-box;
+    }
+    .booking-input:focus { 
+        border-color: #22c55e; 
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+    }
+
+    #conflict-banner {
+        display: none;
+        padding: 10px 14px;
+        background: #fffbeb;
+        border: 1.5px solid #fbbf24;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #92400e;
+        margin-bottom: 14px;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    #conflict-banner.show { display: flex; }
+
+    #confirmBtn {
+        width: 100%;
+        padding: 14px 20px;
+        background: #16a34a;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 800;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.15s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    #confirmBtn:hover:not(:disabled) { background: #15803d; }
+    #confirmBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+</style>
+{% endblock %}
+
+{% block header_actions %}
+<div class="flex items-center gap-3">
+    <a href="{% url 'appointment_list' %}"
+        class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 font-medium rounded-lg text-sm px-4 py-2.5 inline-flex items-center gap-2">
+        <i class="bi bi-list-ul"></i> List View
+    </a>
+    {% include 'partials/export_dropdown.html' with excel_url=export_appointments_excel_url csv_url=export_appointments_csv_url pdf_url=export_appointments_pdf_url print_url=export_appointments_print_url copy_url=export_appointments_copy_url %}
+    <button type="button" onclick="openBookingModal()"
+        class="text-white bg-green-600 hover:bg-green-700 font-bold rounded-lg text-sm px-5 py-2.5 flex items-center gap-2">
+        <i class="bi bi-plus-lg"></i> Book Appointment
+    </button>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="cal-shell">
+    <!-- SIDEBAR -->
+    <div id="cal-sidebar">
+        <!-- Quick Book -->
+        <div class="sidebar-section">
+            <button onclick="openBookingModal()"
+                class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-bold transition-all shadow-md shadow-green-100 mb-4">
+                <i class="bi bi-plus-circle-fill"></i> New Appointment
+            </button>
+
+            <!-- Stats -->
+            <div class="stat-card">
+                <div class="stat-num" id="stat-today">—</div>
+                <div class="stat-lbl">Today's Appointments</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num" id="stat-total">—</div>
+                <div class="stat-lbl">Total This Week</div>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Status Legend</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#16a34a"></span>Scheduled</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#10b981"></span>Confirmed</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#6b7280"></span>Completed</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#ef4444"></span>Cancelled</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span>No Show</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#3b82f6"></span>Rescheduled</div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Filter by Doctor</div>
+            <button class="filter-chip active" data-doc="" onclick="filterByDoctor(this, '')">
+                <i class="bi bi-people-fill text-green-500"></i> All Doctors
+            </button>
+            {% for dr in practitioners %}
+            <button class="filter-chip" data-doc="{{ dr.id }}" onclick="filterByDoctor(this, '{{ dr.id }}')">
+                <i class="bi bi-person-circle text-gray-400"></i> {{ dr.name }}
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- MAIN CALENDAR -->
+    <div id="cal-main">
+        <!-- Custom Toolbar -->
+        <div id="cal-toolbar">
+            <div class="flex items-center gap-3">
+                <div class="cal-nav-btns flex gap-1">
+                    <button onclick="calNav('prev')" title="Previous"><i class="bi bi-chevron-left"></i></button>
+                    <button onclick="calNav('next')" title="Next"><i class="bi bi-chevron-right"></i></button>
+                </div>
+                <button id="today-btn" onclick="calNav('today')">Today</button>
+                <span id="cal-title">Loading...</span>
+            </div>
+            <div class="view-tabs">
+                <button class="view-tab" onclick="changeView('dayGridMonth', this)">Month</button>
+                <button class="view-tab active" onclick="changeView('timeGridWeek', this)">Week</button>
+                <button class="view-tab" onclick="changeView('timeGridDay', this)">Day</button>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div id="cal-body">
+            <div id="calendar"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== DETAIL OVERLAY ===== -->
+<div id="detail-overlay" onclick="closeDetailPanel()"></div>
+
+<!-- ===== DETAIL PANEL ===== -->
+<div id="detail-panel">
+    <div id="detail-color-bar" class="panel-event-color-bar" style="background:#16a34a"></div>
+    <div class="panel-header">
+        <div>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;margin-bottom:2px">Appointment</div>
+            <div style="font-size:18px;font-weight:900;color:#111827" id="panel-patient-name">—</div>
+        </div>
+        <button class="panel-close" onclick="closeDetailPanel()"><i class="bi bi-x-lg"></i></button>
+    </div>
+
+    <div class="panel-body">
+        <div style="margin-bottom:16px">
+            <span id="panel-status-badge" class="status-badge">—</span>
+        </div>
+
+        <div class="panel-field">
+            <div class="panel-field-label"><i class="bi bi-person-fill mr-1"></i>Patient</div>
+            <div class="panel-field-value" id="panel-patient"></div>
+            <div class="panel-field-sub" id="panel-phone"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+            <div>
+                <div class="panel-field-label"><i class="bi bi-calendar3 mr-1"></i>Date</div>
+                <div class="panel-field-value" id="panel-date"></div>
+            </div>
+            <div>
+                <div class="panel-field-label"><i class="bi bi-clock mr-1"></i>Time</div>
+                <div class="panel-field-value" id="panel-time"></div>
+            </div>
+        </div>
+
+        <div class="panel-field">
+            <div class="panel-field-label"><i class="bi bi-person-badge-fill mr-1"></i>Doctor / Practitioner</div>
+            <div class="panel-field-value" id="panel-doctor"></div>
+        </div>
+
+        <div class="panel-field">
+            <div class="panel-field-label"><i class="bi bi-chat-left-text mr-1"></i>Reason for Visit</div>
+            <div style="font-size:14px;color:#374151;line-height:1.6;font-weight:500" id="panel-reason"></div>
+        </div>
+    </div>
+
+    <div class="panel-actions">
+        <a id="panel-view-patient" href="#" class="panel-btn panel-btn-primary">
+            <i class="bi bi-arrow-up-right-square"></i> View Patient Profile
+        </a>
+        <button id="panel-delete-btn" class="panel-btn panel-btn-danger">
+            <i class="bi bi-trash3-fill"></i> Delete Appointment
+        </button>
+        <button onclick="closeDetailPanel()" class="panel-btn panel-btn-ghost">
+            Close
+        </button>
+    </div>
+</div>
+
+<!-- ===== BOOKING MODAL ===== -->
+<div id="bookingModal">
+    <div class="booking-card">
+        <div class="booking-header">
+            <div>
+                <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;margin-bottom:2px">New Booking</div>
+                <div style="font-size:20px;font-weight:900;color:#111827">Book Appointment</div>
+            </div>
+            <button onclick="closeBookingModal()" style="width:34px;height:34px;border-radius:10px;border:none;background:#f3f4f6;color:#6b7280;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.15s" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <div class="booking-body">
+            <div class="booking-field">
+                <label class="booking-label" for="bk-patient">Patient</label>
+                {% include 'components/alpine_select.html' with id="bk-patient" name="patient" options_json=patients_json placeholder="- Select Patient -" required=True searchable=True %}
+            </div>
+
+            <input type="hidden" id="bk-type" value="physical">
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                <div class="booking-field">
+                    <label class="booking-label" for="bk-date">Date</label>
+                    <input type="date" id="bk-date" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all font-medium text-gray-900" required onchange="fetchAvailableSlots()">
+                </div>
+                <div class="booking-field">
+                    <label class="booking-label" for="bk-time">Time</label>
+                    {% include 'components/alpine_select.html' with id="bk-time" name="time" options_json="[]" placeholder="Select Time" required=True disabled=True %}
+                </div>
+            </div>
+
+            <div class="booking-field">
+                <label class="booking-label" for="bk-doctor">Doctor / Practitioner (Optional for Online)</label>
+                <div onchange="fetchAvailableSlots()">
+                    {% include 'components/alpine_select.html' with id="bk-doctor" name="practitioner" options_json=practitioners_json placeholder="- Any / Select Doctor -" searchable=True %}
+                </div>
+            </div>
+
+            <div class="booking-field">
+                <label class="booking-label" for="bk-reason">Reason for Visit</label>
+                <input type="text" id="bk-reason" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all font-medium text-gray-900" placeholder="e.g. Follow-up, Consultation...">
+            </div>
+
+            <!-- Conflict Banner -->
+            <div id="conflict-banner">
+                <i class="bi bi-exclamation-triangle-fill" style="font-size:16px;flex-shrink:0;margin-top:1px"></i>
+                <div id="conflict-msg">Scheduling conflict detected.</div>
+            </div>
+        </div>
+
+        <div class="booking-footer">
+            <button id="confirmBtn" onclick="confirmBooking()">
+                <i class="bi bi-check-circle-fill"></i> Confirm Booking
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    let calInstance = null;
+    let currentFilterDoc = '';
+    let conflictDetected = false;
+    let confirmStep = 0;
+
+    const isSuperadmin = ('{{ request.user.role|default:"" }}' === 'superadmin' || '{{ request.user.is_superuser|yesno:"true,false" }}' === 'true');
+
+    const STATUS_COLORS = {
+        'scheduled':   '#16a34a', // green
+        'confirmed':   '#10b981',
+        'completed':   '#6b7280',
+        'cancelled':   '#ef4444',
+        'no_show':     '#f59e0b',
+        'rescheduled': '#3b82f6',
+    };
+
+    const STATUS_BADGE = {
+        'scheduled':   { bg:'#f0fdf4', color:'#15803d' }, // green-50, green-700
+        'confirmed':   { bg:'#d1fae5', color:'#065f46' },
+        'completed':   { bg:'#f3f4f6', color:'#374151' },
+        'cancelled':   { bg:'#fee2e2', color:'#991b1b' },
+        'no_show':     { bg:'#fef3c7', color:'#92400e' },
+        'rescheduled': { bg:'#dbeafe', color:'#1e40af' },
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Set minimum date to today for booking
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('bk-date').setAttribute('min', today);
+        
+        const calendarEl = document.getElementById('calendar');
+        calInstance = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            headerToolbar: false,
+            height: '100%',
+            slotMinTime: '08:00:00',
+            slotMaxTime: '21:00:00',
+            slotDuration: '00:15:00',
+            slotLabelInterval: '01:00',
+            expandRows: true,
+            allDaySlot: false,
+            nowIndicator: true,
+            dayMaxEvents: true,
+            datesSet: function(info) {
+                updateToolbarTitle(info.view);
+                updateStats();
+            },
+            events: function(info, successCb, failureCb) {
+                let url = '/en/appointments/api/bookings/';
+                if (currentFilterDoc) url += '?practitioner=' + currentFilterDoc;
+                fetch(url)
+                    .then(r => r.json())
+                    .then(data => successCb(Array.isArray(data) ? data : data.results || []))
+                    .catch(failureCb);
+            },
+            eventDataTransform: function(e) {
+                return {
+                    id: e.id,
+                    title: e.patient_name,
+                    start: e.appointment_date + 'T' + e.appointment_time,
+                    backgroundColor: STATUS_COLORS[e.status] || '#16a34a',
+                    borderColor: 'transparent',
+                    extendedProps: {
+                        patientName: e.patient_name,
+                        patientPhone: e.patient_phone || '—',
+                        reason: e.reason || e.notes || 'No reason provided.',
+                        status: e.status,
+                        practitioner: e.practitioner_name || '—',
+                        rawDate: e.appointment_date,
+                        rawTime: e.appointment_time,
+                        patientPk: e.patient_b64 || e.patient,
+                    }
+                };
+            },
+            eventContent: function(arg) {
+                const p = arg.event.extendedProps;
+                const view = arg.view.type;
+                if (view === 'dayGridMonth') {
+                    return { html: `<div style="padding:2px 5px;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">● ${p.patientName}</div>` };
+                }
+                return { html: `
+                    <div style="padding:4px 6px;line-height:1.3">
+                        <div style="font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.patientName}</div>
+                        <div style="font-size:10px;opacity:0.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.practitioner}</div>
+                    </div>` };
+            },
+            eventClick: function(info) {
+                openDetailPanel(info.event);
+            },
+            dateClick: function(info) {
+                document.getElementById('bk-date').value = info.dateStr.split('T')[0];
+                if (info.dateStr.includes('T')) {
+                    document.getElementById('bk-time').value = info.dateStr.split('T')[1].substring(0, 5);
+                }
+                openBookingModal();
+            }
+        });
+        calInstance.render();
+    });
+
+    // ===== TOOLBAR =====
+    function updateToolbarTitle(view) {
+        document.getElementById('cal-title').textContent = view.title;
+    }
+    function calNav(dir) {
+        if (dir === 'prev') calInstance.prev();
+        else if (dir === 'next') calInstance.next();
+        else calInstance.today();
+        updateToolbarTitle(calInstance.view);
+    }
+    function changeView(viewName, btn) {
+        calInstance.changeView(viewName);
+        updateToolbarTitle(calInstance.view);
+        document.querySelectorAll('.view-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    // ===== FILTER =====
+    function filterByDoctor(btn, docId) {
+        document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilterDoc = docId;
+        calInstance.refetchEvents();
+    }
+
+    // ===== STATS =====
+    function updateStats() {
+        fetch('/en/appointments/api/bookings/')
+            .then(r => r.json())
+            .then(data => {
+                const list = Array.isArray(data) ? data : (data.results || []);
+                const today = new Date().toISOString().split('T')[0];
+                const todayCount = list.filter(a => a.appointment_date === today).length;
+
+                // Week count
+                const now = new Date();
+                const weekStart = new Date(now); weekStart.setDate(now.getDate() - now.getDay());
+                const weekEnd = new Date(now); weekEnd.setDate(now.getDate() + (6 - now.getDay()));
+                const weekCount = list.filter(a => {
+                    const d = new Date(a.appointment_date);
+                    return d >= weekStart && d <= weekEnd;
+                }).length;
+
+                document.getElementById('stat-today').textContent = todayCount;
+                document.getElementById('stat-total').textContent = weekCount;
+            });
+    }
+
+    // ===== DETAIL PANEL =====
+    function openDetailPanel(event) {
+        const p = event.extendedProps;
+        const color = STATUS_COLORS[p.status] || '#16a34a';
+        const badge = STATUS_BADGE[p.status] || { bg:'#f3f4f6', color:'#374151' };
+
+        document.getElementById('detail-color-bar').style.background = color;
+        document.getElementById('panel-patient-name').textContent = p.patientName;
+        document.getElementById('panel-patient').textContent = p.patientName;
+        document.getElementById('panel-phone').textContent = p.patientPhone;
+        document.getElementById('panel-date').textContent = new Date(p.rawDate + 'T00:00').toLocaleDateString('en-GB', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+        document.getElementById('panel-time').textContent = new Date(p.rawDate + 'T' + p.rawTime).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+        document.getElementById('panel-doctor').textContent = p.practitioner;
+        document.getElementById('panel-reason').textContent = p.reason;
+
+        const badge_el = document.getElementById('panel-status-badge');
+        badge_el.textContent = (p.status || '').replace('_', ' ');
+        badge_el.style.background = badge.bg;
+        badge_el.style.color = badge.color;
+
+        const viewPatientBtn = document.getElementById('panel-view-patient');
+        if (p.patientPk) {
+            viewPatientBtn.href = `/en/patients/${p.patientPk}/`;
+            viewPatientBtn.innerHTML = '<i class="bi bi-arrow-up-right-square"></i> View Patient Profile';
+        } else {
+            viewPatientBtn.href = `/en/patients/create/?name=${encodeURIComponent(p.patientName)}&phone=${encodeURIComponent(p.patientPhone)}`;
+            viewPatientBtn.innerHTML = '<i class="bi bi-person-plus-fill"></i> Add Patient Profile';
+        }
+        const deleteUrl = `/en/appointments/${event.id}/delete/`;
+        const itemName = `Appointment for ${p.patientName} on ${p.rawDate}`;
+
+        document.getElementById('panel-delete-btn').onclick = function() {
+            if (isSuperadmin) {
+                directDelete(deleteUrl, itemName);
+            } else {
+                openSecurityModal('delete', deleteUrl, itemName);
+            }
+            closeDetailPanel();
+        };
+
+        document.getElementById('detail-panel').classList.add('open');
+        document.getElementById('detail-overlay').classList.add('open');
+    }
+
+    function closeDetailPanel() {
+        document.getElementById('detail-panel').classList.remove('open');
+        document.getElementById('detail-overlay').classList.remove('open');
+    }
+
+    // ===== BOOKING MODAL =====
+    function openBookingModal() {
+        document.getElementById('bookingModal').classList.add('open');
+        conflictDetected = false;
+        document.getElementById('conflict-banner').classList.remove('show');
+    }
+
+    function closeBookingModal() {
+        document.getElementById('bookingModal').classList.remove('open');
+        resetBookingBtn();
+        conflictDetected = false;
+        confirmStep = 0;
+        document.getElementById('conflict-banner').classList.remove('show');
+        
+        window.dispatchEvent(new Event('reset-bk-patient'));
+        window.dispatchEvent(new Event('reset-bk-doctor'));
+        window.dispatchEvent(new Event('reset-bk-time'));
+        
+        document.getElementById('bk-date').value = '';
+        document.getElementById('bk-type').value = 'physical';
+        document.getElementById('bk-reason').value = '';
+        
+        window.dispatchEvent(new CustomEvent('update-options-bk-time', {detail: []}));
+        window.dispatchEvent(new Event('disable-bk-time'));
+    }
+
+    async function fetchAvailableSlots() {
+        const dateInput = document.getElementById('bk-date');
+        const dateStr = dateInput.value;
+        const docId = document.getElementById('bk-doctor').value;
+
+        if (!dateStr) {
+            window.dispatchEvent(new CustomEvent('update-options-bk-time', {detail: []}));
+            window.dispatchEvent(new Event('disable-bk-time'));
+            return;
+        }
+
+        // Sunday check
+        const dateObj = new Date(dateStr);
+        if (dateObj.getDay() === 0) {
+            alert("The clinic is closed on Sundays. Please select a different date.");
+            dateInput.value = '';
+            window.dispatchEvent(new CustomEvent('update-options-bk-time', {detail: []}));
+            window.dispatchEvent(new Event('disable-bk-time'));
+            return;
+        }
+
+        window.dispatchEvent(new CustomEvent('update-options-bk-time', {detail: []}));
+        window.dispatchEvent(new Event('disable-bk-time'));
+
+        try {
+            let url = `{% url 'api_available_slots' %}?date=${dateStr}`;
+            if (docId) url += `&practitioner=${docId}`;
+
+            const res = await fetch(url);
+            const data = await res.json();
+
+            if (data.error || !data.available_slots || data.available_slots.length === 0) {
+                alert("No slots available for the selected date.");
+                window.dispatchEvent(new CustomEvent('update-options-bk-time', {detail: []}));
+                window.dispatchEvent(new Event('disable-bk-time'));
+                return;
+            }
+
+            let newOptions = [];
+            data.available_slots.forEach(slot => {
+                // Convert 24h slot (e.g., 18:30) to 12h for display
+                const [hrStr, minStr] = slot.split(':');
+                let hr = parseInt(hrStr, 10);
+                const ampm = hr >= 12 ? 'PM' : 'AM';
+                hr = hr % 12 || 12;
+                const displaySlot = `${hr}:${minStr} ${ampm}`;
+                newOptions.push({value: slot, label: displaySlot});
+            });
+
+            window.dispatchEvent(new CustomEvent('update-options-bk-time', {detail: newOptions}));
+            window.dispatchEvent(new Event('enable-bk-time'));
+
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
+    async function confirmBooking() {
+        const patientId = document.getElementById('bk-patient').value;
+        const doctorId = document.getElementById('bk-doctor').value;
+        const typeStr = document.getElementById('bk-type').value;
+        const date = document.getElementById('bk-date').value;
+        const time = document.getElementById('bk-time').value;
+        const reason = document.getElementById('bk-reason').value;
+
+        if (!patientId || !date || !time) {
+            document.getElementById('bk-patient').style.borderColor = !patientId ? '#ef4444' : '';
+            return;
+        }
+
+        const btn = document.getElementById('confirmBtn');
+
+        // Conflict override check
+        if (conflictDetected && confirmStep === 0) {
+            btn.style.background = '#f59e0b';
+            btn.innerHTML = '<i class="bi bi-exclamation-triangle-fill"></i> Conflict! Click again to override';
+            confirmStep = 1;
+            return;
+        }
+
+        // Staff multi-step
+        if (!isSuperadmin && confirmStep <= 1) {
+            if (confirmStep <= 0) {
+                btn.style.background = '#f59e0b';
+                btn.innerHTML = '<i class="bi bi-eye-fill"></i> Review & Confirm';
+                confirmStep = 1;
+                return;
+            } else if (!conflictDetected && confirmStep === 1) {
+                btn.style.background = '#10b981';
+                btn.innerHTML = '<i class="bi bi-check2-all"></i> Yes, Book Now';
+                confirmStep = 2;
+                return;
+            }
+        }
+
+        btn.disabled = true;
+        btn.style.background = '#16a34a';
+        btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Booking...';
+
+        try {
+            const payload = { 
+                patient: patientId, 
+                appointment_type: typeStr,
+                appointment_date: date, 
+                appointment_time: time, 
+                status: 'scheduled', 
+                reason: reason 
+            };
+            if (doctorId) payload.practitioner = doctorId;
+
+            const res = await fetch('/en/appointments/api/bookings/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+                body: JSON.stringify(payload)
+            });
+
+            if (res.ok) {
+                closeBookingModal();
+                calInstance.refetchEvents();
+                updateStats();
+            } else {
+                const errData = await res.json();
+                btn.style.background = '#ef4444';
+                btn.innerHTML = '<i class="bi bi-x-circle-fill"></i> ' + (errData.detail || 'Booking failed. Check availability.');
+                btn.disabled = false;
+                setTimeout(resetBookingBtn, 3000);
+            }
+        } catch(e) {
+            btn.style.background = '#ef4444';
+            btn.innerHTML = '<i class="bi bi-x-circle-fill"></i> Connection error. Retry.';
+            btn.disabled = false;
+            setTimeout(resetBookingBtn, 3000);
+        }
+    }
+
+    function resetBookingBtn() {
+        const btn = document.getElementById('confirmBtn');
+        if (!btn) return;
+        confirmStep = 0;
+        btn.disabled = false;
+        btn.style.background = '#16a34a';
+        btn.innerHTML = '<i class="bi bi-check-circle-fill"></i> Confirm Booking';
+    }
+</script>
+{% endblock %}
