@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -5,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ practitioner.title }} {{ practitioner.name }} — Specialist at {{ clinic.name|default:"SpinalCure" }}
+    <title>{% blocktranslate trimmed with title=practitioner.title name=practitioner.name name_2=clinic.name|default:"SpinalCure" %}{{ title }} {{ name }} — Specialist at {{ name_2 }}{% endblocktranslate %}
     </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
@@ -60,7 +61,7 @@
             </a>
             <a href="{% url 'clinic_portfolio' %}#courses"
                 class="flex items-center gap-2 text-sm text-slate-600 hover:text-green-600 transition-colors no-underline">
-                <i class="bi bi-arrow-left"></i> Back to Courses
+                <i class="bi bi-arrow-left"></i> {% trans "Back to Courses" %}
             </a>
         </div>
     </nav>
@@ -81,10 +82,10 @@
                                 {{ practitioner.name|slice:":1" }}</div>
                             {% endif %}
                             <div class="absolute bottom-6 right-6 glass px-6 py-3 rounded-2xl shadow-xl">
-                                <p class="text-xs font-bold text-green-600 uppercase tracking-widest mb-1">Experience
+                                <p class="text-xs font-bold text-green-600 uppercase tracking-widest mb-1">{% trans "Experience" %}
                                 </p>
                                 <p class="text-lg font-bold text-slate-900">
-                                    {{ practitioner.experience_years|default:"10" }}+ Years</p>
+                                    {% blocktranslate trimmed with experience_years=practitioner.experience_years|default:"10" %}{{ experience_years }}+ Years{% endblocktranslate %}</p>
                             </div>
                         </div>
 
@@ -117,7 +118,7 @@
                             <hr class="border-slate-100">
 
                             <div class="space-y-3">
-                                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Expertise</p>
+                                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">{% trans "Expertise" %}</p>
                                 <div class="flex flex-wrap gap-2">
                                     {% for skill in practitioner.skills.split|slice:":6" %}
                                     <span class="px-4 py-2 bg-slate-100 text-slate-700 text-xs font-bold rounded-xl">{{
@@ -132,7 +133,7 @@
                 <!-- Right: Bio & Stats -->
                 <div class="lg:col-span-2 space-y-16">
                     <section>
-                        <h2 class="text-3xl font-extrabold text-slate-900 mb-6">About the Specialist</h2>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mb-6">{% trans "About the Specialist" %}</h2>
                         <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed text-lg">
                             {{ practitioner.bio|linebreaks }}
                         </div>
@@ -141,21 +142,21 @@
                     <section class="grid sm:grid-cols-3 gap-8">
                         <div class="glass p-8 rounded-3xl">
                             <p class="text-4xl font-extrabold text-green-600 mb-2">500+</p>
-                            <p class="text-sm font-bold text-slate-500 uppercase">Consultations</p>
+                            <p class="text-sm font-bold text-slate-500 uppercase">{% trans "Consultations" %}</p>
                         </div>
                         <div class="glass p-8 rounded-3xl">
                             <p class="text-4xl font-extrabold text-green-600 mb-2">99%</p>
-                            <p class="text-sm font-bold text-slate-500 uppercase">Success Rate</p>
+                            <p class="text-sm font-bold text-slate-500 uppercase">{% trans "Success Rate" %}</p>
                         </div>
                         <div class="glass p-8 rounded-3xl">
                             <p class="text-4xl font-extrabold text-green-600 mb-2">4.9</p>
-                            <p class="text-sm font-bold text-slate-500 uppercase">Avg. Rating</p>
+                            <p class="text-sm font-bold text-slate-500 uppercase">{% trans "Avg. Rating" %}</p>
                         </div>
                     </section>
 
                     <section id="reviews">
                         <div class="flex items-center justify-between mb-8">
-                            <h2 class="text-3xl font-extrabold text-slate-900">Patient Feedbacks</h2>
+                            <h2 class="text-3xl font-extrabold text-slate-900">{% trans "Patient Feedbacks" %}</h2>
                             <div class="flex items-center gap-1">
                                 {% for i in rating_range %}
                                 <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -194,15 +195,13 @@
                                 <p class="text-slate-600 leading-relaxed italic">"{{ review.review_text }}"</p>
                             </div>
                             {% empty %}
-                            <div class="p-12 text-center glass rounded-3xl text-slate-400 font-medium">No public reviews
-                                yet for this specialist.</div>
+                            <div class="p-12 text-center glass rounded-3xl text-slate-400 font-medium">{% trans "No public reviews yet for this specialist." %}</div>
                             {% endfor %}
                         </div>
                     </section>
 
                     <a href="{% url 'clinic_portfolio' %}#appointment"
-                        class="block w-full py-6 bg-slate-900 text-white text-center rounded-3xl font-extrabold text-xl hover:bg-green-600 transition-all shadow-2xl shadow-green-100/50">Book
-                        a Consultation with {{ practitioner.name }}</a>
+                        class="block w-full py-6 bg-slate-900 text-white text-center rounded-3xl font-extrabold text-xl hover:bg-green-600 transition-all shadow-2xl shadow-green-100/50">{% blocktranslate trimmed with name=practitioner.name %}Book a Consultation with {{ name }}{% endblocktranslate %}</a>
                 </div>
             </div>
         </div>
@@ -225,8 +224,7 @@
                     {% if clinic.footer_text %}
                     {{ clinic.footer_text }}
                     {% else %}
-                    Expert spinal care and acupuncture treatments in Kerala. We specialize in natural healing and pain
-                    management.
+                    {% trans "Expert spinal care and acupuncture treatments in Kerala. We specialize in natural healing and pain management." %}
                     {% endif %}
                 </p>
                 <div class="flex gap-4">
@@ -260,31 +258,30 @@
                 </div>
             </div>
             <div>
-                <h5 class="font-bold mb-6">Quick Links</h5>
+                <h5 class="font-bold mb-6">{% trans "Quick Links" %}</h5>
                 <ul class="space-y-4 text-slate-400 text-sm">
-                    <li><a href="{% url 'clinic_portfolio' %}#about" class="hover:text-white transition-colors">Our
-                            Story</a></li>
+                    <li><a href="{% url 'clinic_portfolio' %}#about" class="hover:text-white transition-colors">{% trans "Our Story" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#services"
-                            class="hover:text-white transition-colors">Treatments</a></li>
+                            class="hover:text-white transition-colors">{% trans "Treatments" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#events"
-                            class="hover:text-white transition-colors">Events</a></li>
+                            class="hover:text-white transition-colors">{% trans "Events" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#team"
-                            class="hover:text-white transition-colors">Doctors</a></li>
+                            class="hover:text-white transition-colors">{% trans "Doctors" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#appointment"
-                            class="hover:text-white transition-colors">Booking</a></li>
+                            class="hover:text-white transition-colors">{% trans "Booking" %}</a></li>
                 </ul>
             </div>
             <div>
-                <h5 class="font-bold mb-6">Legal</h5>
+                <h5 class="font-bold mb-6">{% trans "Legal" %}</h5>
                 <ul class="space-y-4 text-slate-400 text-sm">
-                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">GST Compliance</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">{% trans "Privacy Policy" %}</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">{% trans "Terms of Service" %}</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">{% trans "GST Compliance" %}</a></li>
                 </ul>
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-6 pt-16 mt-16 border-t border-slate-800 text-center text-slate-500 text-sm">
-            <p>&copy; 2026 {{ clinic.name|default:"SpinalCure" }}. Developed with &hearts; for Kerala Health.</p>
+            <p>{% blocktranslate trimmed with name=clinic.name|default:"SpinalCure" %}&copy; 2026 {{ name }}. Developed with &hearts; for Kerala Health.{% endblocktranslate %}</p>
         </div>
     </footer>
 

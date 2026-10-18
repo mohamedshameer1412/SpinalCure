@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}Events & Classes - SpinalCure{% endblock %}
-{% block page_title %}Events & Classes{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Events & Classes - SpinalCure" %}{% endblock %}
+{% block page_title %}{% trans "Events & Classes" %}{% endblock %}
 
 {% block content %}
 <div class="mb-6 flex justify-between items-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
@@ -18,7 +19,7 @@
             </div>
             <input type="text" name="q" value="{{ search_query|default:'' }}"
                 class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-200 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500"
-                placeholder="Search event title...">
+                placeholder="{% trans 'Search event title...' %}">
             <!-- HTMX Indicator -->
             <div class="htmx-indicator absolute inset-y-0 end-0 flex items-center pe-3">
                 <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-600"></div>
@@ -31,12 +32,12 @@
     <a href="{% url 'event_create' %}"
         class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center transition-all">
         <i class="bi bi-plus-circle me-2"></i>
-        Create Event
+        {% trans "Create Event" %}
     </a>
 </div>
 
-<div class="mb-5 flex gap-1 border-b border-gray-200 overflow-x-auto" role="tablist" aria-label="Event status">
-    <a href="?" role="tab" aria-selected="{% if not phase %}true{% else %}false{% endif %}" class="px-4 py-2.5 text-sm font-semibold whitespace-nowrap no-underline border-b-2 {% if not phase %}border-green-600 text-green-700{% else %}border-transparent text-gray-500 hover:text-gray-800{% endif %}">All</a>
+<div class="mb-5 flex gap-1 border-b border-gray-200 overflow-x-auto" role="tablist" aria-label="{% trans 'Event status' %}">
+    <a href="?" role="tab" aria-selected="{% if not phase %}true{% else %}false{% endif %}" class="px-4 py-2.5 text-sm font-semibold whitespace-nowrap no-underline border-b-2 {% if not phase %}border-green-600 text-green-700{% else %}border-transparent text-gray-500 hover:text-gray-800{% endif %}">{% trans "All" %}</a>
     {% for p in phases %}
     <a href="?phase={{ p }}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" role="tab" aria-selected="{% if p == phase %}true{% else %}false{% endif %}" class="px-4 py-2.5 text-sm font-semibold whitespace-nowrap no-underline border-b-2 capitalize {% if p == phase %}border-green-600 text-green-700{% else %}border-transparent text-gray-500 hover:text-gray-800{% endif %}">{{ p }}</a>
     {% endfor %}
@@ -48,12 +49,12 @@
 <div id="cancel-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-gray-900/50" role="dialog" aria-modal="true" aria-labelledby="cancel-h">
     <form method="post" id="cancel-form" class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 space-y-4">{% csrf_token %}
         <input type="hidden" name="action" value="cancel">
-        <h3 id="cancel-h" class="text-lg font-bold text-gray-900">Cancel <span id="cancel-title"></span>?</h3>
-        <p class="text-sm text-gray-600">Everyone who is registered or waitlisted will be emailed. This cannot be undone.</p>
-        <label for="cancel-reason" class="block text-sm font-medium">Reason shown to attendees (optional)</label>
+        <h3 id="cancel-h" class="text-lg font-bold text-gray-900">{% trans "Cancel" %} <span id="cancel-title"></span>?</h3>
+        <p class="text-sm text-gray-600">{% trans "Everyone who is registered or waitlisted will be emailed. This cannot be undone." %}</p>
+        <label for="cancel-reason" class="block text-sm font-medium">{% trans "Reason shown to attendees (optional)" %}</label>
         <input id="cancel-reason" name="reason" maxlength="300" class="w-full rounded-xl border-gray-200 text-sm">
-        <div class="flex justify-end gap-2"><button type="button" onclick="document.getElementById('cancel-modal').classList.add('hidden');document.getElementById('cancel-modal').classList.remove('flex')" class="px-4 py-2 rounded-xl border border-gray-200 text-sm font-semibold">Keep event</button>
-            <button class="px-4 py-2 rounded-xl bg-red-600 text-white text-sm font-semibold">Cancel event</button></div>
+        <div class="flex justify-end gap-2"><button type="button" onclick="document.getElementById('cancel-modal').classList.add('hidden');document.getElementById('cancel-modal').classList.remove('flex')" class="px-4 py-2 rounded-xl border border-gray-200 text-sm font-semibold">{% trans "Keep event" %}</button>
+            <button class="px-4 py-2 rounded-xl bg-red-600 text-white text-sm font-semibold">{% trans "Cancel event" %}</button></div>
     </form>
 </div>
 
@@ -65,18 +66,18 @@
             onclick="closeDeleteModal()"></div>
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
         <div
-            class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            class="inline-block align-bottom bg-white rounded-2xl text-start overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="sm:flex sm:items-start">
                     <div
                         class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
                         <i class="bi bi-exclamation-triangle text-red-600"></i>
                     </div>
-                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 class="text-lg leading-6 font-bold text-gray-900" id="modal-title">Delete Event</h3>
+                    <div class="mt-3 text-center sm:mt-0 sm:ms-4 sm:text-start">
+                        <h3 class="text-lg leading-6 font-bold text-gray-900" id="modal-title">{% trans "Delete Event" %}</h3>
                         <div class="mt-2 text-sm text-gray-500">
-                            Are you sure you want to delete event <span id="event-title"
-                                class="font-bold text-gray-900"></span>? This action cannot be undone.
+                            {% trans "Are you sure you want to delete event" %} <span id="event-title"
+                                class="font-bold text-gray-900"></span>{% trans "? This action cannot be undone." %}
                         </div>
                     </div>
                 </div>
@@ -86,12 +87,12 @@
                     {% csrf_token %}
                     <button type="submit"
                         class="w-full inline-flex justify-center rounded-xl border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none sm:text-sm transition-all">
-                        Delete Permanent
+                        {% trans "Delete Permanent" %}
                     </button>
                 </form>
                 <button type="button" onclick="closeDeleteModal()"
                     class="mt-3 w-full inline-flex justify-center rounded-xl border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:text-sm transition-all">
-                    Cancel
+                    {% trans "Cancel" %}
                 </button>
             </div>
         </div>

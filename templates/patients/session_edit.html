@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
-{% block title %}Edit Session #{{ session.session_number }} — SpinalCure{% endblock %}
+{% block title %}{% blocktranslate trimmed with session_number=session.session_number %}Edit Session #{{ session_number }} — SpinalCure{% endblocktranslate %}{% endblock %}
 
-{% block page_title %}Edit Session Record{% endblock %}
+{% block page_title %}{% trans "Edit Session Record" %}{% endblock %}
 
 {% block content %}
 <div class="max-w-4xl mx-auto">
@@ -11,10 +12,10 @@
     <div class="mb-6">
         <a href="{% url 'patient-detail' patient.id %}"
             class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-primary-600 transition-colors">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 me-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            Back to Patient Profile
+            {% trans "Back to Patient Profile" %}
         </a>
     </div>
 
@@ -26,10 +27,9 @@
             </div>
             <div>
                 <div class="flex items-center gap-2">
-                    <h2 class="text-xl font-bold text-gray-900">Edit Session #{{ session.session_number }}</h2>
+                    <h2 class="text-xl font-bold text-gray-900">{% blocktranslate trimmed with session_number=session.session_number %}Edit Session #{{ session_number }}{% endblocktranslate %}</h2>
                     <span
-                        class="px-2 py-0.5 rounded-full bg-primary-100 text-primary-700 text-[10px] font-bold uppercase tracking-wider">PIN
-                        Authorized</span>
+                        class="px-2 py-0.5 rounded-full bg-primary-100 text-primary-700 text-[10px] font-bold uppercase tracking-wider">{% trans "PIN Authorized" %}</span>
                 </div>
                 <p class="text-sm text-gray-500">{{ patient.name }} — {{ session.session_date }}</p>
             </div>
@@ -44,30 +44,28 @@
                 <!-- Session Details -->
                 <div class="space-y-6">
                     <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2">
-                        Session Basics</h3>
+                        {% trans "Session Basics" %}</h3>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label
-                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Session
-                                Date</label>
+                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Session Date" %}</label>
                             <input type="date" name="session_date" value="{{ session.session_date|date:'Y-m-d' }}"
                                 required
                                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 transition-all">
                         </div>
                         <div>
                             <label
-                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Session
-                                Time</label>
+                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Session Time" %}</label>
                             <input type="time" name="session_time" value="{{ session.session_time|default:'' }}"
                                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 transition-all">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Treatment Plan</label>
+                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Treatment Plan" %}</label>
                         <select name="treatment_plan" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 transition-all">
-                            <option value="">-- No specific plan --</option>
+                            <option value="">{% trans "-- No specific plan --" %}</option>
                             {% for plan in treatment_plans %}
                             <option value="{{ plan.id }}" {% if session.treatment_plan_id == plan.id %}selected{% endif %}>{{ plan.name }}</option>
                             {% endfor %}
@@ -76,11 +74,10 @@
 
                     <div>
                         <label
-                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Consulted
-                            By</label>
-                        <select name="consulted_by" data-placeholder="Select Practitioner"
+                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Consulted By" %}</label>
+                        <select name="consulted_by" data-placeholder="{% trans 'Select Practitioner' %}"
                             class="premium-select w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500">
-                            <option value="">Select Practitioner</option>
+                            <option value="">{% trans "Select Practitioner" %}</option>
                             {% for dr in practitioners %}
                             <option value="{{ dr.id }}">
                                 {{ dr.name }}
@@ -94,8 +91,7 @@
 
                     <div>
                         <label
-                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Duration
-                            (Minutes)</label>
+                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Duration (Minutes)" %}</label>
                         <input type="number" name="duration_minutes" value="{{ session.duration_minutes }}" min="5"
                             required
                             class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 transition-all">
@@ -105,32 +101,29 @@
                 <!-- Treatment Details -->
                 <div class="space-y-6">
                     <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2">
-                        Treatment Info</h3>
+                        {% trans "Treatment Info" %}</h3>
 
                     <div>
                         <label
-                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Acupoints
-                            Used</label>
+                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Acupoints Used" %}</label>
                         <textarea name="acupoints_used" rows="2" required
                             class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 placeholder-gray-400"
-                            placeholder="e.g. GB30, BL40, BL23...">{{ session.acupoints_used }}</textarea>
+                            placeholder="{% trans 'e.g. GB30, BL40, BL23...' %}">{{ session.acupoints_used }}</textarea>
                     </div>
 
                     <div>
                         <label
-                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Techniques
-                            Used</label>
+                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Techniques Used" %}</label>
                         <input type="text" name="techniques_used" value="{{ session.techniques_used }}"
                             class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 placeholder-gray-400"
-                            placeholder="e.g. Dry Needling, Tui Na...">
+                            placeholder="{% trans 'e.g. Dry Needling, Tui Na...' %}">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Notes
-                            (Internal)</label>
+                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Notes (Internal)" %}</label>
                         <textarea name="practitioner_notes" rows="2"
                             class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 placeholder-gray-400"
-                            placeholder="Notes...">{{ session.practitioner_notes|default:"" }}</textarea>
+                            placeholder="{% trans 'Notes...' %}">{{ session.practitioner_notes|default:"" }}</textarea>
                     </div>
                 </div>
             </div>
@@ -138,16 +131,14 @@
             <!-- Full Width -->
             <div class="mt-8 space-y-6">
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Patient
-                        Feedback</label>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Patient Feedback" %}</label>
                     <textarea name="patient_feedback" rows="2"
                         class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 placeholder-gray-400"
-                        placeholder="How is the patient feeling after today's session?">{{ session.patient_feedback|default:"" }}</textarea>
+                        placeholder="{% trans 'How is the patient feeling after today\'s session?' %}">{{ session.patient_feedback|default:"" }}</textarea>
                 </div>
                 <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Next
-                            Appointment (Optional)</label>
+                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Next Appointment (Optional)" %}</label>
                         <input type="date" name="next_appointment_date"
                             value="{{ session.next_appointment_date|date:'Y-m-d'|default:'' }}"
                             class="w-full max-w-xs px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 transition-all">
@@ -157,27 +148,27 @@
                     <div class="space-y-6">
                         <div x-data="{ pain: {{ session.pain_scale|default:5 }} }">
                             <div class="flex justify-between items-center mb-1.5">
-                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Pain Scale (0-10)</label>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">{% trans "Pain Scale (0-10)" %}</label>
                                 <span class="text-sm font-bold text-red-600" x-text="pain"></span>
                             </div>
                             <input type="range" name="pain_scale" min="0" max="10" x-model="pain"
                                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600">
                             <div class="flex justify-between text-[10px] text-gray-400 mt-1 uppercase font-bold">
-                                <span>No Pain</span>
-                                <span>Worst Pain</span>
+                                <span>{% trans "No Pain" %}</span>
+                                <span>{% trans "Worst Pain" %}</span>
                             </div>
                         </div>
 
                         <div x-data="{ mobility: {{ session.mobility_score|default:3 }} }">
                             <div class="flex justify-between items-center mb-1.5">
-                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Mobility Score (1-5)</label>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">{% trans "Mobility Score (1-5)" %}</label>
                                 <span class="text-sm font-bold text-green-600" x-text="mobility"></span>
                             </div>
                             <input type="range" name="mobility_score" min="1" max="5" x-model="mobility"
                                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600">
                             <div class="flex justify-between text-[10px] text-gray-400 mt-1 uppercase font-bold">
-                                <span>Immobile</span>
-                                <span>Full Mobility</span>
+                                <span>{% trans "Immobile" %}</span>
+                                <span>{% trans "Full Mobility" %}</span>
                             </div>
                         </div>
                     </div>
@@ -187,10 +178,10 @@
             <!-- Actions -->
             <div class="mt-10 pt-6 border-t border-gray-100 flex items-center justify-end gap-3">
                 <a href="{% url 'patient-detail' patient.id %}"
-                    class="px-6 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Cancel</a>
+                    class="px-6 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">{% trans "Cancel" %}</a>
                 <button type="submit"
                     class="px-10 py-3 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl shadow-lg shadow-primary-200 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
-                    Save Changes
+                    {% trans "Save Changes" %}
                 </button>
             </div>
         </form>

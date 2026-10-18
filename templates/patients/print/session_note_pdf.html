@@ -1,8 +1,9 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Session Note - {{ session.session_number }}</title>
+    <title>{% blocktranslate trimmed with session_number=session.session_number %}Session Note - {{ session_number }}{% endblocktranslate %}</title>
     <style>
         @page {
             size: a4 portrait;
@@ -98,57 +99,56 @@
         <div class="clinic-name">{{ clinic.name|default:"SpinalCure Clinic" }}</div>
         <div class="clinic-info">
             {{ clinic.address|linebreaksbr }}<br>
-            Phone: {{ clinic.phone }} | Email: {{ clinic.email }}
+            {% blocktranslate trimmed with phone=clinic.phone email=clinic.email %}Phone: {{ phone }} | Email: {{ email }}{% endblocktranslate %}
         </div>
     </div>
 
-    <div class="doc-title">Clinical Session Note #{{ session.session_number }}</div>
+    <div class="doc-title">{% blocktranslate trimmed with session_number=session.session_number %}Clinical Session Note #{{ session_number }}{% endblocktranslate %}</div>
 
     <div class="metadata-grid">
-        <div class="meta-row"><span class="meta-label">Patient Name:</span> {{ session.patient.name }}</div>
-        <div class="meta-row"><span class="meta-label">Patient ID:</span> #SC-{{ session.patient.id|stringformat:"10s"|slice:":8" }}</div>
-        <div class="meta-row"><span class="meta-label">Session Date:</span> {{ session.session_date|date:"l, F j, Y" }}</div>
-        <div class="meta-row"><span class="meta-label">Consulting Doctor:</span> {{ session.consulted_by.name }}</div>
-        <div class="meta-row"><span class="meta-label">Duration:</span> {{ session.duration_minutes }} minutes</div>
+        <div class="meta-row"><span class="meta-label">{% trans "Patient Name:" %}</span> {{ session.patient.name }}</div>
+        <div class="meta-row"><span class="meta-label">{% trans "Patient ID:" %}</span> {% blocktranslate trimmed with id=session.patient.id|stringformat:"10s"|slice:":8" %}#SC-{{ id }}{% endblocktranslate %}</div>
+        <div class="meta-row"><span class="meta-label">{% trans "Session Date:" %}</span> {{ session.session_date|date:"l, F j, Y" }}</div>
+        <div class="meta-row"><span class="meta-label">{% trans "Consulting Doctor:" %}</span> {{ session.consulted_by.name }}</div>
+        <div class="meta-row"><span class="meta-label">{% trans "Duration:" %}</span> {% blocktranslate trimmed with duration_minutes=session.duration_minutes %}{{ duration_minutes }} minutes{% endblocktranslate %}</div>
     </div>
 
-    <div class="section-title">Recovery Metrics</div>
+    <div class="section-title">{% trans "Recovery Metrics" %}</div>
     <div class="metrics">
-        <span class="metric-badge"><b>Pain Scale:</b> {{ session.pain_scale }} / 10</span>
-        <span class="metric-badge"><b>Mobility Score:</b> {{ session.mobility_score }} / 5</span>
+        <span class="metric-badge"><b>{% trans "Pain Scale:" %}</b> {{ session.pain_scale }} / 10</span>
+        <span class="metric-badge"><b>{% trans "Mobility Score:" %}</b> {{ session.mobility_score }} / 5</span>
     </div>
 
-    <div class="section-title">Treatment Details</div>
-    <div class="meta-row"><b>Acupoints Used:</b></div>
+    <div class="section-title">{% trans "Treatment Details" %}</div>
+    <div class="meta-row"><b>{% trans "Acupoints Used:" %}</b></div>
     <div class="content-box">
         {{ session.acupoints_used|linebreaks }}
     </div>
     
-    <div class="meta-row" style="margin-top:15px"><b>Techniques Employed:</b></div>
+    <div class="meta-row" style="margin-top:15px"><b>{% trans "Techniques Employed:" %}</b></div>
     <div class="content-box">
         {{ session.techniques_used|default:"Not specified" }}
     </div>
 
-    <div class="section-title">Clinical Notes & Observations</div>
+    <div class="section-title">{% trans "Clinical Notes & Observations" %}</div>
     <div class="content-box">
         {{ session.practitioner_notes|linebreaks|default:"No notes recorded." }}
     </div>
 
-    <div class="section-title">Patient Feedback</div>
+    <div class="section-title">{% trans "Patient Feedback" %}</div>
     <div class="content-box">
         {{ session.patient_feedback|linebreaks|default:"No feedback recorded." }}
     </div>
 
     {% if session.next_appointment_date %}
-    <div class="section-title">Follow-up</div>
+    <div class="section-title">{% trans "Follow-up" %}</div>
     <div class="content-box" style="background: #f0fdf4; border-color: #dcfce7;">
-        <b>Next Scheduled Appointment:</b> {{ session.next_appointment_date|date:"F j, Y" }}
+        <b>{% trans "Next Scheduled Appointment:" %}</b> {{ session.next_appointment_date|date:"F j, Y" }}
     </div>
     {% endif %}
 
     <div class="footer">
-        Generated on {% now "F j, Y, g:i a" %} by SpinalCure HMS. 
-        Highly confidential medical record.
+        {% trans "Generated on" %} {% now "F j, Y, g:i a" %} {% trans "by SpinalCure HMS. Highly confidential medical record." %}
     </div>
 </body>
 </html>

@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 from django.shortcuts import redirect
 from django.contrib import messages
 from functools import wraps
@@ -15,7 +16,7 @@ def superadmin_required(view_func):
             from django.contrib.auth.views import redirect_to_login
             return redirect_to_login(request.get_full_path())
         if not (request.user.is_staff or request.user.is_superuser):
-            messages.error(request, 'You do not have permission to access this section.')
+            messages.error(request, gettext('You do not have permission to access this section.'))
             return redirect('dashboard')
         return view_func(request, *args, **kwargs)
     return _wrapped
@@ -41,8 +42,8 @@ def require_pin_auth(redirect_url_name='dashboard'):
 
                 if not auth_token:
                     if is_ajax:
-                        return JsonResponse({'status': 'error', 'message': 'Security authorization required.'}, status=403)
-                    messages.error(request, 'Security authorization required. Please verify your PIN first.')
+                        return JsonResponse({'status': 'error', 'message': gettext('Security authorization required.')}, status=403)
+                    messages.error(request, gettext('Security authorization required. Please verify your PIN first.'))
                     redirect_to = request.META.get('HTTP_REFERER', redirect_url_name)
                     # Prevent endless loop if referring to itself
                     if redirect_to and request.path in redirect_to:
@@ -67,8 +68,8 @@ def require_pin_auth(redirect_url_name='dashboard'):
 
                 if auth_failed:
                     if is_ajax:
-                        return JsonResponse({'status': 'error', 'message': 'Authorization failed. Please verify your PIN again.'}, status=403)
-                    messages.error(request, 'Authorization failed. Please verify your PIN again.')
+                        return JsonResponse({'status': 'error', 'message': gettext('Authorization failed. Please verify your PIN again.')}, status=403)
+                    messages.error(request, gettext('Authorization failed. Please verify your PIN again.'))
                     
                     redirect_to = request.META.get('HTTP_REFERER', redirect_url_name)
                     if not redirect_to or request.path in redirect_to:

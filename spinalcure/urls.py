@@ -2,6 +2,8 @@ from django.urls import path, include, register_converter
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
+
+from .i18n_views import set_language
 from django.views.generic import RedirectView
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
@@ -35,7 +37,7 @@ api_router.register(r'events', EventViewSet, basename='event')
 
 urlpatterns = [
     # Internationalization
-    path('i18n/', include('django.conf.urls.i18n')),
+    path('i18n/setlang/', set_language, name='set_language'),
     
     # API Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

@@ -1,10 +1,11 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - SpinalCure</title>
+    <title>{% blocktranslate trimmed with title=title %}{{ title }} - SpinalCure{% endblocktranslate %}</title>
     {% if clinic.logo %}
     <link rel="icon" href="{{ clinic.logo.url }}">
     {% endif %}
@@ -125,14 +126,14 @@
             <h1 class="text-2xl font-extrabold tracking-tight text-green-600">{{ title }}</h1>
         </div>
         <div class="meta">
-            <div class="text-sm text-slate-600 font-bold">Generated: {{ now|date:"M d, Y H:i" }}</div>
-            <div class="text-sm text-slate-600 font-bold">User: {{ request.user.username }}</div>
+            <div class="text-sm text-slate-600 font-bold">{% blocktranslate trimmed with now=now|date:"M d, Y H:i" %}Generated: {{ now }}{% endblocktranslate %}</div>
+            <div class="text-sm text-slate-600 font-bold">{% blocktranslate trimmed with username=request.user.username %}User: {{ username }}{% endblocktranslate %}</div>
         </div>
     </div>
 
     {% if query %}
     <div class="filter-info">
-        <strong>Filter applied:</strong> Search query "{{ query }}"
+        <strong>{% trans "Filter applied:" %}</strong> {% blocktranslate trimmed with query=query %}Search query "{{ query }}"{% endblocktranslate %}
     </div>
     {% endif %}
 
@@ -150,7 +151,7 @@
                 {% for cell in row %}
                 <td>
                     {% if photo_col_index is not None and forloop.counter0 == photo_col_index and cell %}
-                        <img src="{{ cell }}" alt="Photo" class="w-10 h-10 rounded-full object-cover border-2 border-slate-200 shadow-sm">
+                        <img src="{{ cell }}" alt="{% trans 'Photo' %}" class="w-10 h-10 rounded-full object-cover border-2 border-slate-200 shadow-sm">
                     {% else %}
                         {{ cell|default:"—" }}
                     {% endif %}
@@ -160,7 +161,7 @@
             {% empty %}
             <tr>
                 <td colspan="{{ headers|length }}" style="text-align: center; color: #64748b; padding: 30px;">
-                    No records found matching criteria.
+                    {% trans "No records found matching criteria." %}
                 </td>
             </tr>
             {% endfor %}
@@ -168,13 +169,13 @@
     </table>
 
     <div class="footer">
-        &copy; 2026 SpinalCure Clinic Management System. Confidental Document.
+        {% trans "&copy; 2026 SpinalCure Clinic Management System. Confidental Document." %}
     </div>
 
     <div class="no-print" style="position: fixed; bottom: 20px; right: 20px;">
         <button onclick="window.print()"
             style="background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <i class="bi bi-printer"></i> Print Now
+            <i class="bi bi-printer"></i> {% trans "Print Now" %}
         </button>
     </div>
 </body>

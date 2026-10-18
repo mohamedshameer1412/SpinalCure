@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load b64uuid_tags %}
 
-{% block title %}{{ title }} - SpinalCure{% endblock %}
+{% block title %}{% blocktranslate trimmed with title=title %}{{ title }} - SpinalCure{% endblocktranslate %}{% endblock %}
 {% block page_title %}{{ title }}{% endblock %}
 
 {% block extra_head %}
@@ -150,7 +151,7 @@
             <div class="w-8 h-8 rounded-full bg-white border border-slate-100 flex items-center justify-center group-hover:bg-green-50 group-hover:border-green-100 transition-all">
                 <i class="bi bi-arrow-left"></i>
             </div>
-            Back to Course Management
+            {% trans "Back to Course Management" %}
         </a>
     </div>
 
@@ -169,29 +170,29 @@
                             <i class="bi bi-journal-text text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-black text-slate-900 leading-none mb-1 uppercase tracking-tight">Main Identity</h3>
-                            <p class="text-xs text-slate-400 font-medium">Define the core name and public summary of your course.</p>
+                            <h3 class="text-lg font-black text-slate-900 leading-none mb-1 uppercase tracking-tight">{% trans "Main Identity" %}</h3>
+                            <p class="text-xs text-slate-400 font-medium">{% trans "Define the core name and public summary of your course." %}</p>
                         </div>
                     </div>
 
                     <div class="space-y-6">
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Course Title *</label>
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Full Course Title *" %}</label>
                             {{ form.title }}
-                            {% if form.title.errors %}<p class="text-[10px] text-red-500 font-bold ml-1 mt-1">{{ form.title.errors.0 }}</p>{% endif %}
+                            {% if form.title.errors %}<p class="text-[10px] text-red-500 font-bold ms-1 mt-1">{{ form.title.errors.0 }}</p>{% endif %}
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Card Summary (Short Description) *</label>
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Card Summary (Short Description) *" %}</label>
                             {{ form.short_description }}
-                            <p class="text-[10px] text-slate-400 italic ml-1">This appears on the portfolio listing cards.</p>
-                            {% if form.short_description.errors %}<p class="text-[10px] text-red-500 font-bold ml-1 mt-1">{{ form.short_description.errors.0 }}</p>{% endif %}
+                            <p class="text-[10px] text-slate-400 italic ms-1">{% trans "This appears on the portfolio listing cards." %}</p>
+                            {% if form.short_description.errors %}<p class="text-[10px] text-red-500 font-bold ms-1 mt-1">{{ form.short_description.errors.0 }}</p>{% endif %}
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">In-Depth Description *</label>
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "In-Depth Description *" %}</label>
                             {{ form.description }}
-                            {% if form.description.errors %}<p class="text-[10px] text-red-500 font-bold ml-1 mt-1">{{ form.description.errors.0 }}</p>{% endif %}
+                            {% if form.description.errors %}<p class="text-[10px] text-red-500 font-bold ms-1 mt-1">{{ form.description.errors.0 }}</p>{% endif %}
                         </div>
                     </div>
                 </div>
@@ -203,19 +204,19 @@
                             <i class="bi bi-mortarboard text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-black text-slate-900 leading-none mb-1 uppercase tracking-tight">Learning & Curriculum</h3>
-                            <p class="text-xs text-slate-400 font-medium">Outline what students will achieve and the topics covered.</p>
+                            <h3 class="text-lg font-black text-slate-900 leading-none mb-1 uppercase tracking-tight">{% trans "Learning & Curriculum" %}</h3>
+                            <p class="text-xs text-slate-400 font-medium">{% trans "Outline what students will achieve and the topics covered." %}</p>
                         </div>
                     </div>
 
                     <div class="space-y-6">
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Key Learning Outcomes (One per line) *</label>
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Key Learning Outcomes (One per line) *" %}</label>
                             {{ form.outcomes }}
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Full Syllabus / Modules *</label>
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Full Syllabus / Modules *" %}</label>
                             {{ form.course_content }}
                         </div>
                     </div>
@@ -228,16 +229,16 @@
                 
                 <!-- Card: Setup & Logistics -->
                 <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 glass-card">
-                    <h4 class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-8 border-b border-slate-50 pb-4">Logistics & Enrollment</h4>
+                    <h4 class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-8 border-b border-slate-50 pb-4">{% trans "Logistics & Enrollment" %}</h4>
                     
                     <div class="space-y-6">
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Delivery Platform *</label>
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Delivery Platform *" %}</label>
                             {{ form.platform }}
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Course Investment (₹) *</label>
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Course Investment (₹) *" %}</label>
                             <div class="currency-wrapper">
                                 <span class="currency-symbol">₹</span>
                                 {{ form.fees }}
@@ -245,31 +246,31 @@
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Estimated Duration *</label>
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Estimated Duration *" %}</label>
                             {{ form.duration }}
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">Owning Clinic</label>
+                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Owning Clinic" %}</label>
                             {{ form.clinic }}
                         </div>
 
                         <div class="flex items-center gap-3 p-4 bg-green-50/50 rounded-2xl border border-green-100/50 transition-all hover:bg-green-50">
                             {{ form.is_published }}
-                            <label class="text-xs font-black text-green-800 uppercase tracking-widest cursor-pointer mb-0">Show this course on public site</label>
+                            <label class="text-xs font-black text-green-800 uppercase tracking-widest cursor-pointer mb-0">{% trans "Show this course on public site" %}</label>
                         </div>
                     </div>
                 </div>
 
                 <!-- Card: Cover Media -->
                 <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 glass-card">
-                    <h4 class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 border-b border-slate-50 pb-4">Visual Branding</h4>
+                    <h4 class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 border-b border-slate-50 pb-4">{% trans "Visual Branding" %}</h4>
                     
                     {% if course.image %}
                     <div class="mb-4 group relative aspect-video rounded-2xl overflow-hidden border border-slate-100 shadow-inner">
                         <img src="{{ course.image.url }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-white text-[10px] font-black uppercase tracking-widest bg-black/40 px-3 py-1.5 rounded-lg backdrop-blur-sm">Current Image</span>
+                            <span class="text-white text-[10px] font-black uppercase tracking-widest bg-black/40 px-3 py-1.5 rounded-lg backdrop-blur-sm">{% trans "Current Image" %}</span>
                         </div>
                     </div>
                     {% endif %}
@@ -277,8 +278,8 @@
                     <div class="space-y-4">
                         <label for="{{ form.image.auto_id }}" class="file-upload-wrapper group">
                             <i class="bi bi-cloud-arrow-up text-3xl text-slate-300 group-hover:text-green-500 transition-colors mb-2"></i>
-                            <span class="text-xs font-black text-slate-400 group-hover:text-green-600 transition-colors uppercase tracking-widest">{% if course.image %}Update Image{% else %}Upload Cover{% endif %}</span>
-                            <span id="file-name-display" class="text-[10px] text-slate-400 mt-2 font-medium truncate max-w-full italic">Supported: JPG, PNG, WEBP</span>
+                            <span class="text-xs font-black text-slate-400 group-hover:text-green-600 transition-colors uppercase tracking-widest">{% if course.image %}{% trans "Update Image" %}{% else %}{% trans "Upload Cover" %}{% endif %}</span>
+                            <span id="file-name-display" class="text-[10px] text-slate-400 mt-2 font-medium truncate max-w-full italic">{% trans "Supported: JPG, PNG, WEBP" %}</span>
                             {{ form.image }}
                         </label>
                     </div>
@@ -287,7 +288,7 @@
                 <!-- Form Action -->
                 <button type="submit" class="w-full py-5 bg-slate-900 text-white font-black uppercase tracking-widest rounded-[1.5rem] hover:bg-green-600 hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-300 flex items-center justify-center gap-3 active:scale-[0.98]">
                     <i class="bi bi-rocket-takeoff-fill"></i>
-                    {% if course %}Update Program{% else %}Launch Course{% endif %}
+                    {% if course %}{% trans "Update Program" %}{% else %}{% trans "Launch Course" %}{% endif %}
                 </button>
 
             </div>

@@ -1,4 +1,5 @@
 """Practitioner availability, leave/holidays and booking rules."""
+from django.utils.translation import gettext
 from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -80,7 +81,7 @@ def availability(request):
 def shift_save(request, practitioner_id):
     pr = _practitioner_or_404(practitioner_id)
     if not _editable(request.user, pr):
-        messages.error(request, 'You can only edit your own schedule.')
+        messages.error(request, gettext('You can only edit your own schedule.'))
         return _back(pr)
     instance = None
     if request.POST.get('shift_id'):
@@ -91,7 +92,7 @@ def shift_save(request, practitioner_id):
         log_action(request, 'update' if instance else 'create', 'Availability',
                    f'{pr.name} {shift.get_day_of_week_display()} {shift.start_time:%H:%M}-{shift.end_time:%H:%M}',
                    object_id=shift.pk)
-        messages.success(request, 'Shift saved.')
+        messages.success(request, gettext('Shift saved.'))
     else:
         messages.error(request, 'Shift not saved: ' + '; '.join(
             f'{(form.fields[f].label if f in form.fields else "") or f}: {" ".join(e)}' for f, e in form.errors.items()
@@ -104,12 +105,12 @@ def shift_save(request, practitioner_id):
 def shift_delete(request, practitioner_id, pk):
     pr = _practitioner_or_404(practitioner_id)
     if not _editable(request.user, pr):
-        messages.error(request, 'You can only edit your own schedule.')
+        messages.error(request, gettext('You can only edit your own schedule.'))
         return _back(pr)
     shift = get_object_or_404(DoctorAvailability, pk=pk, practitioner=pr)
     shift.delete()
     log_action(request, 'delete', 'Availability', f'{pr.name} {shift.get_day_of_week_display()}', object_id=pk)
-    messages.success(request, 'Shift removed. Existing appointments are unchanged.')
+    messages.success(request, gettext('Shift removed. Existing appointments are unchanged.'))
     return _back(pr)
 
 
@@ -119,13 +120,13 @@ def timeoff_save(request, practitioner_id):
     """practitioner_id 'clinic' closes the whole clinic (management only)."""
     if practitioner_id == 'clinic':
         if not _is_management(request.user):
-            messages.error(request, 'Only management can close the whole clinic.')
+            messages.error(request, gettext('Only management can close the whole clinic.'))
             return redirect('doctor_availability')
         pr, target = None, None
     else:
         pr = target = _practitioner_or_404(practitioner_id)
         if not _editable(request.user, pr):
-            messages.error(request, 'You can only edit your own schedule.')
+            messages.error(request, gettext('You can only edit your own schedule.'))
             return _back(pr)
     form = TimeOffForm(request.POST, instance=TimeOff(practitioner=target, created_by=request.user))
     if form.is_valid():
@@ -134,10 +135,9 @@ def timeoff_save(request, practitioner_id):
         clash = 0
         for p in ([target] if target else Practitioner.objects.filter(is_active=True)):
             clash += _affected(p, off.start_date, off.end_date)
-        messages.success(request, 'Time off saved.')
+        messages.success(request, gettext('Time off saved.'))
         if clash:
-            messages.warning(request, f'{clash} existing appointment(s) fall in this period. They were not '
-                                      f'changed. Reschedule or cancel them from the calendar.')
+            messages.warning(request, gettext('%(clash)s existing appointment(s) fall in this period. They were not changed. Reschedule or cancel them from the calendar.') % {'clash': clash})
     else:
         messages.error(request, 'Time off not saved: ' + '; '.join(
             f'{f}: {" ".join(e)}' for f, e in form.errors.items()).replace('__all__: ', ''))
@@ -149,15 +149,15 @@ def timeoff_save(request, practitioner_id):
 def timeoff_delete(request, pk):
     off = get_object_or_404(TimeOff, pk=pk)
     if off.practitioner_id is None and not _is_management(request.user):
-        messages.error(request, 'Only management can remove a clinic closure.')
+        messages.error(request, gettext('Only management can remove a clinic closure.'))
         return redirect('doctor_availability')
     if off.practitioner_id and not _editable(request.user, off.practitioner):
-        messages.error(request, 'You can only edit your own schedule.')
+        messages.error(request, gettext('You can only edit your own schedule.'))
         return redirect('doctor_availability')
     pr = off.practitioner
     off.delete()
     log_action(request, 'delete', 'TimeOff', str(off), object_id=pk)
-    messages.success(request, 'Time off removed.')
+    messages.success(request, gettext('Time off removed.'))
     return _back(pr) if pr else redirect('doctor_availability')
 
 
@@ -165,13 +165,13 @@ def timeoff_delete(request, pk):
 @require_capability('schedule.manage')
 def booking_settings_save(request):
     if not _is_management(request.user):
-        messages.error(request, 'Only management can change booking rules.')
+        messages.error(request, gettext('Only management can change booking rules.'))
         return redirect('doctor_availability')
     form = BookingSettingsForm(request.POST, instance=BookingSettings.get())
     if form.is_valid():
         form.save()
         log_action(request, 'update', 'BookingSettings', 'Booking rules')
-        messages.success(request, 'Booking rules saved.')
+        messages.success(request, gettext('Booking rules saved.'))
     else:
         messages.error(request, 'Booking rules not saved: ' + '; '.join(
             f'{f}: {" ".join(e)}' for f, e in form.errors.items()))

@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 from django.shortcuts import render, get_object_or_404, redirect
 from django_ratelimit.decorators import ratelimit
 from patients.search import patient_q
@@ -103,14 +104,14 @@ def submit_review_ajax(request):
         if not all([patient_name, patient_phone, practitioner_id, rating]):
             return JsonResponse({
                 'status': 'error',
-                'message': 'All fields are required.'
+                'message': gettext('All fields are required.')
             }, status=400)
 
         # Validate rating range
         if rating not in [1, 2, 3, 4, 5]:
             return JsonResponse({
                 'status': 'error',
-                'message': 'Invalid rating value.'
+                'message': gettext('Invalid rating value.')
             }, status=400)
 
         # Get or create patient
@@ -134,13 +135,13 @@ def submit_review_ajax(request):
         
         return JsonResponse({
             'status': 'success',
-            'message': 'Thank you! Your review has been submitted for approval.'
+            'message': gettext('Thank you! Your review has been submitted for approval.')
         })
     except json.JSONDecodeError:
-        return JsonResponse({'status': 'error', 'message': 'Invalid JSON.'}, status=400)
+        return JsonResponse({'status': 'error', 'message': gettext('Invalid JSON.')}, status=400)
     except Exception as e:
         logger.error(f'Error in submit_review_ajax: {str(e)}')
-        return JsonResponse({'status': 'error', 'message': 'An error occurred. Please try again.'}, status=500)
+        return JsonResponse({'status': 'error', 'message': gettext('An error occurred. Please try again.')}, status=500)
 
 
 @require_http_methods(["POST"])
@@ -167,7 +168,7 @@ def book_appointment_ajax(request):
     if not isinstance(data, dict):
         return fail('Invalid request.')
     if str(data.get('website', '')).strip():          # honeypot field: humans never fill it
-        return JsonResponse({'status': 'success', 'message': 'Appointment booked successfully!'})
+        return JsonResponse({'status': 'success', 'message': gettext('Appointment booked successfully!')})
 
     name = str(data.get('name', '')).strip()[:120]
     phone = str(data.get('phone', '')).strip()[:20]

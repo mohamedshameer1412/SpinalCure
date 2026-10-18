@@ -1,37 +1,38 @@
 {% extends "emails/base_email.html" %}
 
-{% block title %}New Appointment Booking — Admin Notification{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "New Appointment Booking — Admin Notification" %}{% endblock %}
 
 {% block body %}
 <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #ffffff; padding: 10px 0;">
     
     <div style="background-color: #ecfdf5; border-left: 4px solid #059669; padding: 16px 24px; border-radius: 6px; margin-bottom: 24px;">
-        <h1 style="font-size: 20px; color: #0f172a; margin: 0 0 8px 0;">New Appointment Booked</h1>
-        <p style="margin: 0; color: #475569; font-size: 15px;">A new appointment has been successfully scheduled via the online portal.</p>
+        <h1 style="font-size: 20px; color: #0f172a; margin: 0 0 8px 0;">{% trans "New Appointment Booked" %}</h1>
+        <p style="margin: 0; color: #475569; font-size: 15px;">{% trans "A new appointment has been successfully scheduled via the online portal." %}</p>
     </div>
 
-    <h3 style="color: #0f172a; font-size: 16px; margin: 0 0 12px 0; text-transform: uppercase; letter-spacing: 0.05em;">Appointment Details</h3>
+    <h3 style="color: #0f172a; font-size: 16px; margin: 0 0 12px 0; text-transform: uppercase; letter-spacing: 0.05em;">{% trans "Appointment Details" %}</h3>
     
     <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e2e8f0; border-radius: 8px; border-collapse: separate; overflow: hidden; margin-bottom: 24px;">
         <tr>
-            <td style="padding: 12px 16px; background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; width: 35%; color: #64748b; font-weight: 500; font-size: 14px;">Patient Name</td>
+            <td style="padding: 12px 16px; background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; width: 35%; color: #64748b; font-weight: 500; font-size: 14px;">{% trans "Patient Name" %}</td>
             <td style="padding: 12px 16px; border-bottom: 1px solid #e2e8f0; color: #0f172a; font-weight: 600; font-size: 14px;">{{ patient_name }}</td>
         </tr>
         <tr>
-            <td style="padding: 12px 16px; background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; color: #64748b; font-weight: 500; font-size: 14px;">Requested Date</td>
+            <td style="padding: 12px 16px; background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; color: #64748b; font-weight: 500; font-size: 14px;">{% trans "Requested Date" %}</td>
             <td style="padding: 12px 16px; border-bottom: 1px solid #e2e8f0; color: #0f172a; font-weight: 600; font-size: 14px;">{{ appointment_date }}</td>
         </tr>
         <tr>
-            <td style="padding: 12px 16px; background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; color: #64748b; font-weight: 500; font-size: 14px;">Requested Time</td>
+            <td style="padding: 12px 16px; background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; color: #64748b; font-weight: 500; font-size: 14px;">{% trans "Requested Time" %}</td>
             <td style="padding: 12px 16px; border-bottom: 1px solid #e2e8f0; color: #0f172a; font-weight: 600; font-size: 14px;">{{ appointment_time }}</td>
         </tr>
         <tr>
-            <td style="padding: 12px 16px; background-color: #f8fafc; border-bottom: {% if reason %}1px solid #e2e8f0{% else %}none{% endif %}; color: #64748b; font-weight: 500; font-size: 14px;">Preferred Doctor</td>
+            <td style="padding: 12px 16px; background-color: #f8fafc; border-bottom: {% if reason %}1px solid #e2e8f0{% else %}none{% endif %}; color: #64748b; font-weight: 500; font-size: 14px;">{% trans "Preferred Doctor" %}</td>
             <td style="padding: 12px 16px; border-bottom: {% if reason %}1px solid #e2e8f0{% else %}none{% endif %}; color: #0f172a; font-weight: 600; font-size: 14px;">{{ practitioner_name }}</td>
         </tr>
         {% if reason %}
         <tr>
-            <td style="padding: 12px 16px; background-color: #f8fafc; color: #64748b; font-weight: 500; font-size: 14px;">Reason</td>
+            <td style="padding: 12px 16px; background-color: #f8fafc; color: #64748b; font-weight: 500; font-size: 14px;">{% trans "Reason" %}</td>
             <td style="padding: 12px 16px; color: #0f172a; font-weight: 500; font-size: 14px;">{{ reason }}</td>
         </tr>
         {% endif %}
@@ -44,11 +45,11 @@
             <center style="color:#ffffff;font-family:sans-serif;font-size:15px;font-weight:bold;">Add to Google Calendar</center>
           </v:roundrect>
         <![endif]-->
-        <a href="{{ google_calendar_url }}" style="background-color: #059669; border: 1px solid #059669; color: #ffffff; display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 600; line-height: 46px; text-align: center; text-decoration: none; width: 240px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); -webkit-text-size-adjust: none; mso-hide: all;">📅 Add to Google Calendar</a>
+        <a href="{{ google_calendar_url }}" style="background-color: #059669; border: 1px solid #059669; color: #ffffff; display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 600; line-height: 46px; text-align: center; text-decoration: none; width: 240px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); -webkit-text-size-adjust: none; mso-hide: all;">{% trans "📅 Add to Google Calendar" %}</a>
     </div>
 
     <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
     
-    <p style="margin: 0; color: #64748b; font-size: 13px; text-align: center;">Booking Reference: <strong style="color: #0f172a;">{{ booking_reference }}</strong><br>Please log in to the admin dashboard to manage this appointment.</p>
+    <p style="margin: 0; color: #64748b; font-size: 13px; text-align: center;">{% trans "Booking Reference:" %} <strong style="color: #0f172a;">{{ booking_reference }}</strong><br>{% trans "Please log in to the admin dashboard to manage this appointment." %}</p>
 </div>
 {% endblock %}

@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -7,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Primary Meta Tags -->
-    <title>Our Story — {{ clinic.name|default:"SpinalCure" }}</title>
+    <title>{% blocktranslate trimmed with name=clinic.name|default:"SpinalCure" %}Our Story — {{ name }}{% endblocktranslate %}</title>
     <meta name="title" content="{{ clinic.name|default:'SpinalCure' }} — Premium Acupuncture Care">
     <meta name="description"
         content="{{ clinic.about|default:'Experience the perfect blend of ancient acupuncture wisdom and modern spinal rehabilitation. We help you reclaim a pain-free life.'|truncatewords:30 }}">
@@ -91,15 +92,14 @@
             </a>
 
             <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-                <a href="{% url 'clinic_portfolio' %}#about" class="hover:text-green-600 transition-colors">About</a>
+                <a href="{% url 'clinic_portfolio' %}#about" class="hover:text-green-600 transition-colors">{% trans "About" %}</a>
                 <a href="{% url 'clinic_portfolio' %}#services"
-                    class="hover:text-green-600 transition-colors">Services</a>
-                <a href="{% url 'clinic_portfolio' %}#team" class="hover:text-green-600 transition-colors">Team</a>
+                    class="hover:text-green-600 transition-colors">{% trans "Services" %}</a>
+                <a href="{% url 'clinic_portfolio' %}#team" class="hover:text-green-600 transition-colors">{% trans "Team" %}</a>
                 <a href="{% url 'clinic_portfolio' %}#testimonials"
-                    class="hover:text-green-600 transition-colors">Reviews</a>
+                    class="hover:text-green-600 transition-colors">{% trans "Reviews" %}</a>
                 <a href="{% url 'clinic_portfolio' %}#appointment"
-                    class="px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-green-700 transition-all shadow-md">Book
-                    Session</a>
+                    class="px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-green-700 transition-all shadow-md">{% trans "Book Session" %}</a>
             </div>
 
             <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2">
@@ -117,15 +117,15 @@
         <!-- Mobile Menu -->
         <div x-show="mobileMenu" x-transition class="md:hidden glass border-t border-slate-100 p-6 space-y-4">
             <a href="{% url 'clinic_portfolio' %}#about" @click="mobileMenu = false"
-                class="block text-lg font-medium">About</a>
+                class="block text-lg font-medium">{% trans "About" %}</a>
             <a href="{% url 'clinic_portfolio' %}#services" @click="mobileMenu = false"
-                class="block text-lg font-medium">Services</a>
+                class="block text-lg font-medium">{% trans "Services" %}</a>
             <a href="{% url 'clinic_portfolio' %}#team" @click="mobileMenu = false"
-                class="block text-lg font-medium">Team</a>
+                class="block text-lg font-medium">{% trans "Team" %}</a>
             <a href="{% url 'clinic_portfolio' %}#testimonials" @click="mobileMenu = false"
-                class="block text-lg font-medium">Reviews</a>
+                class="block text-lg font-medium">{% trans "Reviews" %}</a>
             <a href="{% url 'clinic_portfolio' %}#appointment" @click="mobileMenu = false"
-                class="block px-6 py-3 bg-green-600 text-white rounded-xl text-center">Book Session</a>
+                class="block px-6 py-3 bg-green-600 text-white rounded-xl text-center">{% trans "Book Session" %}</a>
         </div>
     </nav>
 
@@ -134,7 +134,7 @@
         <!-- Hero Section -->
         <section class="relative pt-24 pb-16 overflow-hidden bg-slate-50">
             <div
-                class="absolute top-0 right-0 -mr-32 -mt-32 w-96 h-96 rounded-full bg-green-500/10 blur-3xl shadow-2xl animate-pulse">
+                class="absolute top-0 right-0 -me-32 -mt-32 w-96 h-96 rounded-full bg-green-500/10 blur-3xl shadow-2xl animate-pulse">
             </div>
             <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
                 <a href="{% url 'clinic_portfolio' %}"
@@ -143,14 +143,13 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
-                    Back to Portfolio
+                    {% trans "Back to Portfolio" %}
                 </a>
                 <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
-                    Our <span class="text-green-600">Legacy</span>
+                    {% trans "Our" %} <span class="text-green-600">{% trans "Legacy" %}</span>
                 </h1>
                 <p class="text-xl md:text-2xl text-slate-600 leading-relaxed font-light mx-auto max-w-4xl">
-                    {% if clinic.about_quote %}{{ clinic.about_quote }}{% else %}{% if clinic.tagline %}{{ clinic.tagline }}{% else %}Your health is our priority. We believe in treating the cause, not just
-                    the symptom.{% endif %}{% endif %}
+                    {% if clinic.about_quote %}{{ clinic.about_quote }}{% else %}{% if clinic.tagline %}{{ clinic.tagline }}{% else %}{% trans "Your health is our priority. We believe in treating the cause, not just the symptom." %}{% endif %}{% endif %}
                 </p>
             </div>
         </section>
@@ -162,9 +161,7 @@
                 {% if clinic.about %}
                 {{ clinic.about|linebreaks }}
                 {% else %}
-                Founded by experts in traditional medicine, SpinalCure has been the leading sanctuary for those seeking
-                holistic relief from chronic pain and spinal discomfort. Our practitioners combine centuries of ancient
-                wisdom with modern precision to restore your body's natural harmony.
+                {% trans "Founded by experts in traditional medicine, SpinalCure has been the leading sanctuary for those seeking holistic relief from chronic pain and spinal discomfort. Our practitioners combine centuries of ancient wisdom with modern precision to restore your body's natural harmony." %}
                 {% endif %}
             </div>
         </section>
@@ -173,9 +170,9 @@
         <section class="py-24 bg-slate-50 border-t border-slate-100">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="text-sm font-bold text-green-600 uppercase tracking-[0.2em] mb-4">Inside the Clinic</h2>
-                    <h3 class="text-4xl md:text-5xl font-extrabold text-slate-900">Our <span
-                            class="text-green-600">Gallery</span></h3>
+                    <h2 class="text-sm font-bold text-green-600 uppercase tracking-[0.2em] mb-4">{% trans "Inside the Clinic" %}</h2>
+                    <h3 class="text-4xl md:text-5xl font-extrabold text-slate-900">{% trans "Our" %} <span
+                            class="text-green-600">{% trans "Gallery" %}</span></h3>
                 </div>
 
                 <div class="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
@@ -195,7 +192,7 @@
                     </div>
                     {% empty %}
                     <div class="col-span-full py-20 text-center text-slate-500 glass rounded-3xl">
-                        No images uploaded yet.
+                        {% trans "No images uploaded yet." %}
                     </div>
                     {% endfor %}
                 </div>
@@ -220,8 +217,7 @@
                     {% if clinic.footer_text %}
                     {{ clinic.footer_text }}
                     {% else %}
-                    Expert spinal care and acupuncture treatments in Kerala. We specialize in natural healing and pain
-                    management.
+                    {% trans "Expert spinal care and acupuncture treatments in Kerala. We specialize in natural healing and pain management." %}
                     {% endif %}
                 </p>
                 <div class="flex gap-4">
@@ -255,31 +251,30 @@
                 </div>
             </div>
             <div>
-                <h5 class="font-bold mb-6">Quick Links</h5>
+                <h5 class="font-bold mb-6">{% trans "Quick Links" %}</h5>
                 <ul class="space-y-4 text-slate-400 text-sm">
-                    <li><a href="{% url 'clinic_portfolio' %}#about" class="hover:text-white transition-colors">Our
-                            Story</a></li>
+                    <li><a href="{% url 'clinic_portfolio' %}#about" class="hover:text-white transition-colors">{% trans "Our Story" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#services"
-                            class="hover:text-white transition-colors">Treatments</a></li>
+                            class="hover:text-white transition-colors">{% trans "Treatments" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#events"
-                            class="hover:text-white transition-colors">Events</a></li>
+                            class="hover:text-white transition-colors">{% trans "Events" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#team"
-                            class="hover:text-white transition-colors">Doctors</a></li>
+                            class="hover:text-white transition-colors">{% trans "Doctors" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#appointment"
-                            class="hover:text-white transition-colors">Booking</a></li>
+                            class="hover:text-white transition-colors">{% trans "Booking" %}</a></li>
                 </ul>
             </div>
             <div>
-                <h5 class="font-bold mb-6">Legal</h5>
+                <h5 class="font-bold mb-6">{% trans "Legal" %}</h5>
                 <ul class="space-y-4 text-slate-400 text-sm">
-                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">GST Compliance</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">{% trans "Privacy Policy" %}</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">{% trans "Terms of Service" %}</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">{% trans "GST Compliance" %}</a></li>
                 </ul>
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-6 pt-16 mt-16 border-t border-slate-800 text-center text-slate-500 text-sm">
-            <p>&copy; 2026 {{ clinic.name|default:"SpinalCure" }}. Developed with &hearts; for Kerala Health.</p>
+            <p>{% blocktranslate trimmed with name=clinic.name|default:"SpinalCure" %}&copy; 2026 {{ name }}. Developed with &hearts; for Kerala Health.{% endblocktranslate %}</p>
         </div>
     </footer>
 
@@ -300,7 +295,7 @@
             onclick="event.stopPropagation()">
             <img id="lightbox-img" src=""
                 class="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl ring-1 ring-white/20"
-                alt="Fullscreen Preview">
+                alt="{% trans 'Fullscreen Preview' %}">
         </div>
     </div>
 

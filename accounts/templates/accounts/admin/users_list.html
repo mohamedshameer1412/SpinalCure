@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-{% block title %}System Users — SpinalCure{% endblock %}
-{% block page_title %}Staff Accounts Management{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "System Users — SpinalCure" %}{% endblock %}
+{% block page_title %}{% trans "Staff Accounts Management" %}{% endblock %}
 
 {% block header_actions %}
 <a href="{% url 'admin_user_create' %}"
@@ -8,7 +9,7 @@
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
     </svg>
-    Add New User
+    {% trans "Add New User" %}
 </a>
 {% endblock %}
 
@@ -18,16 +19,16 @@
         <table class="min-w-full divide-y divide-gray-100">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">User
+                    <th class="px-6 py-4 text-start text-xs font-semibold text-gray-500 uppercase tracking-wider">{% trans "User" %}
                     </th>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Role
+                    <th class="px-6 py-4 text-start text-xs font-semibold text-gray-500 uppercase tracking-wider">{% trans "Role" %}
                     </th>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Joined
+                    <th class="px-6 py-4 text-start text-xs font-semibold text-gray-500 uppercase tracking-wider">{% trans "Joined" %}
                     </th>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status
+                    <th class="px-6 py-4 text-start text-xs font-semibold text-gray-500 uppercase tracking-wider">{% trans "Status" %}
                     </th>
-                    <th class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                        Actions</th>
+                    <th class="px-6 py-4 text-end text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        {% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -50,13 +51,13 @@
                     <td class="px-6 py-4">
                         {% if u.is_superuser %}
                         <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-purple-50 text-purple-600 uppercase tracking-tighter border border-purple-100">Superuser</span>
+                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-purple-50 text-purple-600 uppercase tracking-tighter border border-purple-100">{% trans "Superuser" %}</span>
                         {% elif u.is_staff %}
                         <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-blue-50 text-blue-600 uppercase tracking-tighter border border-blue-100">Admin</span>
+                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-blue-50 text-blue-600 uppercase tracking-tighter border border-blue-100">{% trans "Admin" %}</span>
                         {% else %}
                         <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-gray-50 text-gray-600 uppercase tracking-tighter border border-gray-100">Staff</span>
+                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-gray-50 text-gray-600 uppercase tracking-tighter border border-gray-100">{% trans "Staff" %}</span>
                         {% endif %}
                     </td>
                     <td class="px-6 py-4 text-xs text-gray-500">{{ u.date_joined|date:"d M Y" }}</td>
@@ -64,25 +65,25 @@
                         {% if u.is_active %}
                         <span
                             class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[10px] font-bold bg-green-50 text-green-600 uppercase tracking-tighter">
-                            <span class="w-1 h-1 rounded-full bg-green-600"></span> Active
+                            <span class="w-1 h-1 rounded-full bg-green-600"></span> {% trans "Active" %}
                         </span>
                         {% else %}
                         <span
                             class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[10px] font-bold bg-red-50 text-red-600 uppercase tracking-tighter">
-                            <span class="w-1 h-1 rounded-full bg-red-600"></span> Inactive
+                            <span class="w-1 h-1 rounded-full bg-red-600"></span> {% trans "Inactive" %}
                         </span>
                         {% endif %}
                     </td>
-                    <td class="px-6 py-4 text-right">
+                    <td class="px-6 py-4 text-end">
                         <div class="flex items-center justify-end gap-2">
                             <a href="{% url 'admin_user_edit' u.pk %}"
-                                class="text-xs font-semibold px-3 py-1.5 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg border border-gray-200 transition-all no-underline">Edit</a>
+                                class="text-xs font-semibold px-3 py-1.5 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg border border-gray-200 transition-all no-underline">{% trans "Edit" %}</a>
                             {% if u != request.user %}
                             <form method="post" action="{% url 'admin_user_toggle' u.pk %}" class="inline">
                                 {% csrf_token %}
                                 <button type="submit"
                                     class="text-xs font-semibold px-3 py-1.5 {% if u.is_active %}bg-red-50 text-red-600 border-red-100 hover:bg-red-100{% else %}bg-green-50 text-green-600 border-green-100 hover:bg-green-100{% endif %} rounded-lg border transition-all">
-                                    {% if u.is_active %}Disable{% else %}Enable{% endif %}
+                                    {% if u.is_active %}{% trans "Disable" %}{% else %}{% trans "Enable" %}{% endif %}
                                 </button>
                             </form>
                             {% endif %}
@@ -91,7 +92,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="5" class="px-6 py-16 text-center text-gray-400">No staff members found.</td>
+                    <td colspan="5" class="px-6 py-16 text-center text-gray-400">{% trans "No staff members found." %}</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ course.title }} — Training at {% if clinic_info %}{{ clinic_info.name }}{% else %}SpinalCure{% endif %}
+    <title>{% blocktranslate trimmed with title=course.title %}{{ title }} — Training at{% endblocktranslate %} {% if clinic_info %}{{ clinic_info.name }}{% else %}SpinalCure{% endif %}
     </title>
     <meta name="description" content="{{ course.short_description }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -74,7 +74,7 @@
             </a>
             <a href="{% url 'clinic_portfolio' %}#courses"
                 class="flex items-center gap-2 text-sm text-slate-600 hover:text-green-600 transition-colors no-underline">
-                <i class="bi bi-arrow-left"></i> Back to Courses
+                <i class="bi bi-arrow-left"></i> {% trans "Back to Courses" %}
             </a>
         </div>
     </nav>
@@ -105,13 +105,11 @@
                 </div>
                 <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-6">{{ course.title }}</h1>
                 <div class="flex flex-wrap gap-6 text-slate-300 text-sm">
-                    <div class="flex items-center gap-2"><i class="bi bi-star-fill text-amber-400"></i> {{ avg_rating }}
-                        Rating</div>
+                    <div class="flex items-center gap-2"><i class="bi bi-star-fill text-amber-400"></i> {% blocktranslate trimmed with avg_rating=avg_rating %}{{ avg_rating }} Rating{% endblocktranslate %}</div>
                     <div class="flex items-center gap-2"><i class="bi bi-chat-square-text text-green-400"></i>
-                        {{ feedbacks.count }} Reviews</div>
+                        {% blocktranslate trimmed with count=feedbacks.count %}{{ count }} Reviews{% endblocktranslate %}</div>
                     {% if active_batch %}
-                    <div class="flex items-center gap-2"><i class="bi bi-calendar-check text-green-400"></i> Next Batch:
-                        {{ active_batch.start_date|date:"M Y" }}</div>
+                    <div class="flex items-center gap-2"><i class="bi bi-calendar-check text-green-400"></i> {% blocktranslate trimmed with start_date=active_batch.start_date|date:"M Y" %}Next Batch: {{ start_date }}{% endblocktranslate %}</div>
                     {% endif %}
                 </div>
             </div>
@@ -126,7 +124,7 @@
                     <!-- Description -->
                     <div class="fade-in">
                         <h2 class="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
-                            <i class="bi bi-journal-text text-green-600"></i> Course Overview
+                            <i class="bi bi-journal-text text-green-600"></i> {% trans "Course Overview" %}
                         </h2>
                         <div class="prose max-w-none text-slate-600 leading-relaxed whitespace-pre-line">
                             {{ course.description }}
@@ -135,7 +133,7 @@
 
                     <!-- Outcomes -->
                     <div class="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm fade-in">
-                        <h3 class="text-xl font-black text-slate-900 mb-6">What You Will Learn</h3>
+                        <h3 class="text-xl font-black text-slate-900 mb-6">{% trans "What You Will Learn" %}</h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             {% for outcome in course.get_outcomes_list %}
                             <div class="flex items-start gap-3">
@@ -153,7 +151,7 @@
                     <!-- Content / Syllabus -->
                     <div class="fade-in">
                         <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center gap-3">
-                            <i class="bi bi-list-check text-green-600"></i> Curriculum
+                            <i class="bi bi-list-check text-green-600"></i> {% trans "Curriculum" %}
                         </h3>
                         <div class="space-y-4">
                             {% for topic in course.get_content_list %}
@@ -171,7 +169,7 @@
                     <!-- Feedback Section -->
                     <div id="feedback-section" class="pt-12 border-t border-slate-100 fade-in">
                         <h2 class="text-2xl font-black text-slate-900 mb-8 flex items-center gap-3">
-                            <i class="bi bi-chat-quote text-green-600"></i> Student Success Stories
+                            <i class="bi bi-chat-quote text-green-600"></i> {% trans "Student Success Stories" %}
                         </h2>
 
                         {% if feedbacks %}
@@ -200,13 +198,13 @@
                         <div
                             class="text-center py-12 bg-slate-50 rounded-[2rem] border-2 border-dashed border-slate-200 mb-12">
                             <i class="bi bi-chat-square-heart text-4xl text-slate-300 mb-4 block"></i>
-                            <p class="text-slate-500 font-medium">Be the first to share your experience!</p>
+                            <p class="text-slate-500 font-medium">{% trans "Be the first to share your experience!" %}</p>
                         </div>
                         {% endif %}
 
                         <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white">
-                            <h3 class="text-2xl font-black mb-2">Alumni feedback</h3>
-                            <p class="text-slate-400 max-w-md">Reviews come only from registered students. After your batch ends, open the personal link from your registration email to leave a review.</p>
+                            <h3 class="text-2xl font-black mb-2">{% trans "Alumni feedback" %}</h3>
+                            <p class="text-slate-400 max-w-md">{% trans "Reviews come only from registered students. After your batch ends, open the personal link from your registration email to leave a review." %}</p>
                         </div>
                     </div>
 
@@ -223,24 +221,21 @@
                         </div>
 
                         <div class="relative">
-                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Course
-                                Investment</p>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{% trans "Course Investment" %}</p>
                             <div class="flex items-baseline gap-2 mb-8">
                                 <span class="text-5xl font-black text-slate-900">₹{{ course.fees }}</span>
-                                <span class="text-slate-400 text-sm">Total</span>
+                                <span class="text-slate-400 text-sm">{% trans "Total" %}</span>
                             </div>
 
                             {% if active_batch %}
                             <div class="bg-green-50 p-6 rounded-3xl mb-8 border border-green-100">
                                 <div class="flex items-center gap-3 mb-2">
                                     <span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span>
-                                    <span class="text-xs font-black text-green-700 uppercase tracking-widest">Enrollment
-                                        Open</span>
+                                    <span class="text-xs font-black text-green-700 uppercase tracking-widest">{% trans "Enrollment Open" %}</span>
                                 </div>
                                 <p class="text-sm font-bold text-slate-800">
                                     {{ active_batch.name }}</p>
-                                <p class="text-xs text-slate-500 mt-1">Starting
-                                    {{ active_batch.start_date|date:"d M, Y"}}
+                                <p class="text-xs text-slate-500 mt-1">{% blocktranslate trimmed with start_date=active_batch.start_date|date:"d M, Y" %}Starting {{ start_date }}{% endblocktranslate %}
                                 </p>
                             </div>
 
@@ -253,25 +248,24 @@
                                     class="hidden p-4 bg-green-50 border border-green-100 text-green-600 text-xs rounded-2xl font-bold">
                                 </div>
 
-                                <input type="text" id="r-name" placeholder="Full Name *"
+                                <input type="text" id="r-name" placeholder="{% trans 'Full Name *' %}"
                                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all text-sm">
-                                <input type="tel" id="r-phone" placeholder="Phone Number *"
+                                <input type="tel" id="r-phone" placeholder="{% trans 'Phone Number *' %}"
                                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all text-sm">
-                                <input type="email" id="r-email" placeholder="Email Address"
+                                <input type="email" id="r-email" placeholder="{% trans 'Email Address' %}"
                                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all text-sm">
 
                                 <button type="submit" id="r-btn"
                                     class="w-full py-5 bg-slate-900 text-white font-black rounded-2xl hover:bg-slate-800 transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-3 uppercase tracking-widest text-xs mt-6">
-                                    Join Batch <i class="bi bi-arrow-right"></i>
+                                    {% trans "Join Batch" %} <i class="bi bi-arrow-right"></i>
                                 </button>
-                                <p class="text-[10px] text-center text-slate-400 mt-4 leading-relaxed italic">Limited
-                                    seats available. We will call you to confirm your enrollment.</p>
+                                <p class="text-[10px] text-center text-slate-400 mt-4 leading-relaxed italic">{% trans "Limited seats available. We will call you to confirm your enrollment." %}</p>
                             </form>
                             {% else %}
                             <div
                                 class="text-center py-10 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
-                                <p class="text-sm font-bold text-slate-600">No active intake</p>
-                                <p class="text-xs text-slate-400 mt-1">Please check back soon for the next batch.</p>
+                                <p class="text-sm font-bold text-slate-600">{% trans "No active intake" %}</p>
+                                <p class="text-xs text-slate-400 mt-1">{% trans "Please check back soon for the next batch." %}</p>
                             </div>
                             {% endif %}
                         </div>
@@ -281,7 +275,7 @@
                     {% if active_batch and active_batch.schedule_details %}
                     <div class="bg-white rounded-[2rem] p-8 border border-slate-100">
                         <h4 class="font-black text-slate-900 mb-4 flex items-center gap-2">
-                            <i class="bi bi-calendar3 text-green-600"></i> Schedule
+                            <i class="bi bi-calendar3 text-green-600"></i> {% trans "Schedule" %}
                         </h4>
                         <p class="text-sm text-slate-600 leading-relaxed">
                             {{ active_batch.schedule_details }}</p>
@@ -311,8 +305,7 @@
                     {% if clinic.footer_text %}
                     {{ clinic.footer_text }}
                     {% else %}
-                    Expert spinal care and acupuncture treatments in Kerala. We specialize in natural healing and pain
-                    management.
+                    {% trans "Expert spinal care and acupuncture treatments in Kerala. We specialize in natural healing and pain management." %}
                     {% endif %}
                 </p>
                 <div class="flex gap-4">
@@ -346,31 +339,30 @@
                 </div>
             </div>
             <div>
-                <h5 class="font-bold mb-6">Quick Links</h5>
+                <h5 class="font-bold mb-6">{% trans "Quick Links" %}</h5>
                 <ul class="space-y-4 text-slate-400 text-sm">
-                    <li><a href="{% url 'clinic_portfolio' %}#about" class="hover:text-white transition-colors">Our
-                            Story</a></li>
+                    <li><a href="{% url 'clinic_portfolio' %}#about" class="hover:text-white transition-colors">{% trans "Our Story" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#services"
-                            class="hover:text-white transition-colors">Treatments</a></li>
+                            class="hover:text-white transition-colors">{% trans "Treatments" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#events"
-                            class="hover:text-white transition-colors">Events</a></li>
+                            class="hover:text-white transition-colors">{% trans "Events" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#team"
-                            class="hover:text-white transition-colors">Doctors</a></li>
+                            class="hover:text-white transition-colors">{% trans "Doctors" %}</a></li>
                     <li><a href="{% url 'clinic_portfolio' %}#appointment"
-                            class="hover:text-white transition-colors">Booking</a></li>
+                            class="hover:text-white transition-colors">{% trans "Booking" %}</a></li>
                 </ul>
             </div>
             <div>
-                <h5 class="font-bold mb-6">Legal</h5>
+                <h5 class="font-bold mb-6">{% trans "Legal" %}</h5>
                 <ul class="space-y-4 text-slate-400 text-sm">
-                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">GST Compliance</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">{% trans "Privacy Policy" %}</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">{% trans "Terms of Service" %}</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">{% trans "GST Compliance" %}</a></li>
                 </ul>
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-6 pt-16 mt-16 border-t border-slate-800 text-center text-slate-500 text-sm">
-            <p>&copy; 2026 {{ clinic.name|default:"SpinalCure" }}. Developed with &hearts; for Kerala Health.</p>
+            <p>{% blocktranslate trimmed with name=clinic.name|default:"SpinalCure" %}&copy; 2026 {{ name }}. Developed with &hearts; for Kerala Health.{% endblocktranslate %}</p>
         </div>
     </footer>
 

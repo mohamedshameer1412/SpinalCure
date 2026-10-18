@@ -7,6 +7,7 @@ CustomUser accounts; they authenticate through the patient portal session.
 
 `is_staff` (Django admin flag) deliberately grants nothing here.
 """
+from django.utils.translation import gettext
 from functools import wraps
 
 from django.contrib import messages
@@ -62,8 +63,8 @@ def require_capability(capability):
             wants_json = (request.headers.get('x-requested-with') == 'XMLHttpRequest'
                           or 'application/json' in request.headers.get('Accept', ''))
             if wants_json:
-                return JsonResponse({'status': 'error', 'message': 'Permission denied.'}, status=403)
-            messages.error(request, 'You do not have permission to view this page.')
+                return JsonResponse({'status': 'error', 'message': gettext('Permission denied.')}, status=403)
+            messages.error(request, gettext('You do not have permission to view this page.'))
             return redirect('dashboard')
         return wrapper
     return decorator

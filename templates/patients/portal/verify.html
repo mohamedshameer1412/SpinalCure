@@ -1,9 +1,10 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify OTP — SpinalCure</title>
+    <title>{% trans "Verify OTP — SpinalCure" %}</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -26,8 +27,8 @@
                 <div class="w-16 h-16 bg-gradient-to-br from-primary-400 to-primary-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg mb-4 text-white text-2xl font-bold">
                     <i class="bi bi-shield-check"></i>
                 </div>
-                <h1 class="text-2xl font-bold text-gray-900">Verify It's You</h1>
-                <p class="text-sm text-gray-500 mt-2">Enter the 6-digit code emailed to you. It expires in 10 minutes.</p>
+                <h1 class="text-2xl font-bold text-gray-900">{% trans "Verify It's You" %}</h1>
+                <p class="text-sm text-gray-500 mt-2">{% trans "Enter the 6-digit code emailed to you. It expires in 10 minutes." %}</p>
             </div>
 
             {% if messages %}
@@ -44,19 +45,19 @@
             <form method="post" class="space-y-6">
                 {% csrf_token %}
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2 text-center">Enter 6-digit Code</label>
+                    <label class="block text-sm font-bold text-gray-700 mb-2 text-center">{% trans "Enter 6-digit Code" %}</label>
                     <input type="text" name="otp" required maxlength="6" autocomplete="one-time-code" pattern="\d{6}"
                         class="w-full text-center text-3xl tracking-[0.5em] font-black py-4 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none">
                 </div>
 
                 <button type="submit" class="w-full py-3.5 px-4 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl shadow-lg shadow-primary-600/30 transition-all active:scale-[0.98]">
-                    Verify & Login
+                    {% trans "Verify & Login" %}
                 </button>
             </form>
             
             <div class="mt-6 text-center">
                 <a href="{% url 'portal_login' %}" class="text-sm font-semibold text-gray-500 hover:text-primary-600 transition-colors">
-                    Change Phone Number
+                    {% trans "Change Phone Number" %}
                 </a>
             </div>
         </div>

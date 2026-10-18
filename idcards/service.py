@@ -9,6 +9,7 @@ also reachable from admin tooling and tests.
   at read time (IDCard.effective_status), so disabling an account or terminating employment invalidates the card
   immediately without any batch job.
 """
+from django.utils.translation import gettext
 import logging
 import secrets
 
@@ -51,26 +52,26 @@ def issue(holder, actor, *, expires_on=None, supersedes=None, **display_options)
     """Issue a card to `holder` (a StaffProfile)."""
     _require(actor)
     if holder.user.role == 'owner' and not (actor.is_superuser or actor.role in ('superadmin', 'owner', 'clinicadmin')):
-        raise CardError('forbidden', 'Only management can issue an owner card.')
+        raise CardError('forbidden', gettext('Only management can issue an owner card.'))
     allowed = {'show_phone', 'show_email', 'show_emergency_contact', 'show_blood_group', 'show_skills'}
     unknown = set(display_options) - allowed
     if unknown:
-        raise CardError('invalid', f'Unknown card options: {", ".join(sorted(unknown))}')
+        raise CardError('invalid', gettext('Unknown card options: %(value1)s') % {'value1': ", ".join(sorted(unknown))})
     try:
         with transaction.atomic():
             locked = StaffProfile.objects.select_for_update().select_related('user').get(pk=holder.pk)
             if not locked.is_employed:
-                raise CardError('not_employed', 'A card cannot be issued to someone whose account is disabled '
-                                                'or whose employment has ended.')
+                raise CardError('not_employed', gettext('A card cannot be issued to someone whose account is disabled '
+                                                'or whose employment has ended.'))
             if IDCard.objects.filter(holder=locked, status__in=('active', 'deactivated')).exclude(
                     pk=getattr(supersedes, 'pk', None)).exists():
-                raise CardError('exists', 'This person already has a card. Revoke it or use "Reissue".')
+                raise CardError('exists', gettext('This person already has a card. Revoke it or use "Reissue".'))
             card = IDCard(holder=locked, issued_by=actor, expires_on=expires_on, supersedes=supersedes,
                           **display_options)
             card.full_clean(exclude=['holder', 'issued_by', 'supersedes', 'card_type'])
             card.save()
     except IntegrityError:
-        raise CardError('exists', 'This person already has an active card.')
+        raise CardError('exists', gettext('This person already has an active card.'))
     _safely(lambda: notify('idcard_issued', user=card.holder.user, context=_ctx(card),
                            url=reverse('idcard_mine'), dedupe_key=f'idcard:{card.pk}:issued'))
     return card
@@ -102,7 +103,7 @@ def deactivate(card, actor):
     with transaction.atomic():
         card = IDCard.objects.select_for_update().get(pk=card.pk)
         if card.status == 'revoked':
-            raise CardError('revoked', 'A revoked card cannot be changed.')
+            raise CardError('revoked', gettext('A revoked card cannot be changed.'))
         card.status, card.deactivated_at = 'deactivated', timezone.now()
         card.save(update_fields=['status', 'deactivated_at', 'updated_at'])
     return card
@@ -113,9 +114,9 @@ def reactivate(card, actor):
     with transaction.atomic():
         card = IDCard.objects.select_for_update().get(pk=card.pk)
         if card.status == 'revoked':
-            raise CardError('revoked', 'A revoked card cannot be reactivated. Issue a new card instead.')
+            raise CardError('revoked', gettext('A revoked card cannot be reactivated. Issue a new card instead.'))
         if not card.holder.is_employed:
-            raise CardError('not_employed', 'The holder is not currently employed or their account is disabled.')
+            raise CardError('not_employed', gettext('The holder is not currently employed or their account is disabled.'))
         card.status, card.deactivated_at = 'active', None
         card.save(update_fields=['status', 'deactivated_at', 'updated_at'])
     return card

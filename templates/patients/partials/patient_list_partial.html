@@ -1,14 +1,15 @@
+{% load i18n %}
 <div id="patient-table-container" class="overflow-x-auto">
-    <table class="w-full text-sm text-left text-gray-500">
+    <table class="w-full text-sm text-start text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-                <th scope="col" class="px-6 py-3">Patient Name</th>
-                <th scope="col" class="px-6 py-3">Handled By</th>
-                <th scope="col" class="px-6 py-3">Phone</th>
-                <th scope="col" class="px-6 py-3">Registered Date</th>
-                <th scope="col" class="px-6 py-3">Sessions (Done/Total)</th>
-                <th scope="col" class="px-6 py-3">Progress</th>
-                <th scope="col" class="px-6 py-3 sr-only">Action</th>
+                <th scope="col" class="px-6 py-3">{% trans "Patient Name" %}</th>
+                <th scope="col" class="px-6 py-3">{% trans "Handled By" %}</th>
+                <th scope="col" class="px-6 py-3">{% trans "Phone" %}</th>
+                <th scope="col" class="px-6 py-3">{% trans "Registered Date" %}</th>
+                <th scope="col" class="px-6 py-3">{% trans "Sessions (Done/Total)" %}</th>
+                <th scope="col" class="px-6 py-3">{% trans "Progress" %}</th>
+                <th scope="col" class="px-6 py-3 sr-only">{% trans "Action" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -17,7 +18,7 @@
                 data-url="{% url 'patient-detail' patient.id %}" onclick="window.location.href=this.dataset.url;">
                 <td class="px-6 py-4 font-medium text-gray-900 flex items-center gap-3">
                     {% if patient.photo %}
-                    <img class="w-8 h-8 rounded-full" src="{{ patient.photo.url }}" alt="Photo">
+                    <img class="w-8 h-8 rounded-full" src="{{ patient.photo.url }}" alt="{% trans 'Photo' %}">
                     {% else %}
                     <div
                         class="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold">
@@ -34,7 +35,7 @@
                         </span>
                     </div>
                     {% else %}
-                    <span class="text-xs text-gray-400 italic">Not Assigned</span>
+                    <span class="text-xs text-gray-400 italic">{% trans "Not Assigned" %}</span>
                     {% endif %}
                 </td>
                 <td class="px-6 py-4">{{ patient.phone }}</td>
@@ -48,14 +49,14 @@
                             style="width: {{ patient.progress_percentage|default:0 }}%;"></div>
                     </div>
                 </td>
-                <td class="px-6 py-4 text-right">
+                <td class="px-6 py-4 text-end">
                     <a href="{% url 'patient-detail' patient.id %}"
-                        class="font-medium text-primary-600 hover:underline">View</a>
+                        class="font-medium text-primary-600 hover:underline">{% trans "View" %}</a>
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="7" class="px-6 py-8 text-center text-gray-500">No patients found.</td>
+                <td colspan="7" class="px-6 py-8 text-center text-gray-500">{% trans "No patients found." %}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -65,21 +66,21 @@
     {% if patients.has_other_pages %}
     <div class="flex items-center justify-between p-4 bg-white border-t border-gray-100">
         <span class="text-sm text-gray-700">
-            Showing {{ patients.start_index }} to {{ patients.end_index }} of {{ patients.paginator.count }} patients
+            {% blocktranslate trimmed with start_index=patients.start_index end_index=patients.end_index count=patients.paginator.count %}Showing {{ start_index }} to {{ end_index }} of {{ count }} patients{% endblocktranslate %}
         </span>
         <div class="inline-flex gap-2">
             {% if patients.has_previous %}
             <button hx-get="?page={{ patients.previous_page_number }}&q={{ search_query }}"
                 hx-target="#patient-table-container" hx-swap="outerHTML"
                 class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
-                Previous
+                {% trans "Previous" %}
             </button>
             {% endif %}
             {% if patients.has_next %}
             <button hx-get="?page={{ patients.next_page_number }}&q={{ search_query }}"
                 hx-target="#patient-table-container" hx-swap="outerHTML"
                 class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
-                Next
+                {% trans "Next" %}
             </button>
             {% endif %}
         </div>

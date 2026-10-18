@@ -2,6 +2,7 @@
 Event lifecycle rules. Every path (public form, staff UI, API) goes through here so capacity, deadlines,
 waitlist order, status and meeting-link access cannot drift apart.
 """
+from django.utils.translation import gettext
 import hashlib
 import logging
 import re
@@ -66,26 +67,26 @@ def register(event, *, name, phone, email='', notes='', language='en', now=None)
     now = now or timezone.now()
     key = phone_key(phone)
     if len(key) < 7:
-        raise EventError('invalid_phone', 'Please enter a valid phone number.')
+        raise EventError('invalid_phone', gettext('Please enter a valid phone number.'))
     with transaction.atomic():
         ev = Event.objects.select_for_update().get(pk=event.pk)      # serialises concurrent sign-ups
         if ev.status != 'published':
-            raise EventError('closed', 'Registration is not open for this event.')
+            raise EventError('closed', gettext('Registration is not open for this event.'))
         if ev.phase in ('completed', 'cancelled'):
-            raise EventError('ended', 'This event has already ended.')
+            raise EventError('ended', gettext('This event has already ended.'))
         if ev.registration_deadline and now > ev.registration_deadline:
-            raise EventError('deadline', 'Registration for this event has closed.')
+            raise EventError('deadline', gettext('Registration for this event has closed.'))
         dup = Q(phone_key=key)
         if email:
             dup |= Q(email__iexact=email)
         if ev.registrations.filter(dup, status__in=('confirmed', 'waitlisted')).exists():
-            raise EventError('duplicate', 'You are already registered for this event. Check your email for the link.')
+            raise EventError('duplicate', gettext('You are already registered for this event. Check your email for the link.'))
         if ev.max_participants is None or ev.confirmed_count < ev.max_participants:
             status = 'confirmed'
         elif ev.waitlist_enabled:
             status = 'waitlisted'
         else:
-            raise EventError('full', 'This event is full.')
+            raise EventError('full', gettext('This event is full.'))
         reg = EventRegistration.objects.create(
             event=ev, name=name, phone=phone, phone_key=key, email=email, notes=notes, status=status,
             language=language)
@@ -100,7 +101,7 @@ def cancel_registration(reg, by_staff=False):
         if reg.status == 'cancelled':
             return reg
         if not by_staff and ev.phase in ('live', 'completed'):
-            raise EventError('started', 'This event has already started, so it can no longer be cancelled online.')
+            raise EventError('started', gettext('This event has already started, so it can no longer be cancelled online.'))
         was_confirmed = reg.status == 'confirmed'
         reg.status, reg.cancelled_at = 'cancelled', timezone.now()
         reg.save(update_fields=['status', 'cancelled_at'])
@@ -130,7 +131,7 @@ def promote_waitlist(event):
 
 def mark_attended(reg, attended=True):
     if reg.status != 'confirmed':
-        raise EventError('not_confirmed', 'Only confirmed registrations can be marked as attended.')
+        raise EventError('not_confirmed', gettext('Only confirmed registrations can be marked as attended.'))
     reg.attended = attended
     reg.attended_at = timezone.now() if attended else None
     reg.save(update_fields=['attended', 'attended_at'])
@@ -156,7 +157,7 @@ def unpublish(event):
 
 def archive(event):
     if event.status == 'published' and event.phase in ('upcoming', 'live'):
-        raise EventError('active', 'Cancel or unpublish an upcoming event before archiving it.')
+        raise EventError('active', gettext('Cancel or unpublish an upcoming event before archiving it.'))
     event.status = 'archived'
     event.save()
     return event

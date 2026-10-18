@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 from datetime import datetime
 
 from rest_framework import filters, status, viewsets
@@ -59,7 +60,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         ser.is_valid(raise_exception=True)
         d = ser.validated_data
         if not d.get('patient'):
-            return Response({'detail': 'A patient is required.', 'code': 'invalid_contact'}, status=400)
+            return Response({'detail': gettext('A patient is required.'), 'code': 'invalid_contact'}, status=400)
         try:
             appt = sch.book(
                 practitioner=d.get('practitioner'), day=d['appointment_date'], start_time=d['appointment_time'],
@@ -86,7 +87,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
                 if data.get('practitioner'):
                     pr = Practitioner.objects.filter(pk=data['practitioner'], is_active=True).first()
                     if pr is None:
-                        return Response({'detail': 'Unknown practitioner.', 'code': 'unknown_practitioner'}, status=400)
+                        return Response({'detail': gettext('Unknown practitioner.'), 'code': 'unknown_practitioner'}, status=400)
                 if (new_day, new_time, getattr(pr, 'pk', None)) != (
                         appt.appointment_date, appt.appointment_time.replace(second=0, microsecond=0),
                         getattr(appt.practitioner, 'pk', None)):
@@ -101,13 +102,13 @@ class AppointmentViewSet(viewsets.ModelViewSet):
                 elif new_status in actions:
                     appt = actions[new_status](appt, request.user)
                 else:
-                    return Response({'detail': 'Invalid status change.', 'code': 'invalid_transition'}, status=400)
+                    return Response({'detail': gettext('Invalid status change.'), 'code': 'invalid_transition'}, status=400)
             for field in ('reason', 'notes'):
                 if field in data:
                     setattr(appt, field, str(data[field])[:300 if field == 'reason' else 5000])
             appt.save()
         except ValueError:
-            return Response({'detail': 'Invalid date or time.', 'code': 'invalid_time'}, status=400)
+            return Response({'detail': gettext('Invalid date or time.'), 'code': 'invalid_time'}, status=400)
         except sch.SchedulingError as exc:
             return self._error(exc)
         log_api_action(request, 'update', appt)

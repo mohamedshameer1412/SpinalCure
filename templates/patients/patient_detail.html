@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
-{% block title %}{{ patient.name }} - SpinalCure{% endblock %}
+{% block title %}{% blocktranslate trimmed with name=patient.name %}{{ name }} - SpinalCure{% endblocktranslate %}{% endblock %}
 
-{% block page_title %}Patient Profile{% endblock %}
+{% block page_title %}{% trans "Patient Profile" %}{% endblock %}
 
 {% block content %}
 <div class="max-w-6xl mx-auto space-y-8">
@@ -13,7 +14,7 @@
             <div class="flex items-center gap-6">
                 <!-- Avatar -->
                 {% if patient.photo %}
-                <img class="w-20 h-20 rounded-full" src="{{ patient.photo.url }}" alt="Photo">
+                <img class="w-20 h-20 rounded-full" src="{{ patient.photo.url }}" alt="{% trans 'Photo' %}">
                 {% else %}
                 <div
                     class="w-20 h-20 rounded-2xl bg-primary-600 flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-primary-200">
@@ -27,12 +28,12 @@
                             {{ patient.date_of_birth|date:"M d, Y" }}
                         </span>
                         <span class="flex items-center text-primary-600">
-                            <i class="bi bi-gender-ambiguous mr-1.5"></i>
+                            <i class="bi bi-gender-ambiguous me-1.5"></i>
                             {{ patient.get_gender_display }}
                         </span>
                         <span class="text-gray-400">|</span>
                         <span class="text-gray-600">
-                            {{ patient.age }} Years Old
+                            {% blocktranslate trimmed with age=patient.age %}{{ age }} Years Old{% endblocktranslate %}
                         </span>
                     </div>
                 </div>
@@ -42,8 +43,8 @@
                 {% if request.user.role == 'superadmin' or request.user.is_superuser %}
                 <a href="{% url 'patient-edit' patient.id %}"
                     class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 transition-all shadow-sm">
-                    <i class="bi bi-pencil-square mr-2 text-primary-600"></i>
-                    Edit Profile
+                    <i class="bi bi-pencil-square me-2 text-primary-600"></i>
+                    {% trans "Edit Profile" %}
                 </a>
                 <button data-direct-delete data-url="{% url 'patient-delete' patient.id %}" data-name="{{ patient.name|escapejs }}"
                     onclick="directDelete(this.dataset.url, this.dataset.name)"
@@ -54,8 +55,8 @@
                 <button data-security-modal data-action="edit" data-url="{% url 'patient-edit' patient.id %}" data-name="{{ patient.name|escapejs }}"
                     onclick="openSecurityModal('edit', this.dataset.url, this.dataset.name)"
                     class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 transition-all shadow-sm">
-                    <i class="bi bi-pencil-square mr-2 text-primary-600"></i>
-                    Edit Profile
+                    <i class="bi bi-pencil-square me-2 text-primary-600"></i>
+                    {% trans "Edit Profile" %}
                 </button>
                 <button data-security-modal data-action="delete" data-url="{% url 'patient-delete' patient.id %}" data-name="{{ patient.name|escapejs }}"
                     onclick="openSecurityModal('delete', this.dataset.url, this.dataset.name)"
@@ -72,13 +73,13 @@
         <div class="space-y-6">
             <!-- Contact Info -->
             <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Contact Information</h4>
+                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">{% trans "Contact Information" %}</h4>
                 <div class="space-y-5">
                     {% if patient.patient_id_str %}
                     <div class="flex items-start gap-3">
                         <div class="p-2 rounded-lg bg-green-50 text-green-600"><i class="bi bi-person-badge"></i></div>
                         <div>
-                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Patient ID</p>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">{% trans "Patient ID" %}</p>
                             <p class="text-sm text-gray-900 font-medium">
                                 {{ patient.patient_id_str }}</p>
                         </div>
@@ -88,7 +89,7 @@
                     <div class="flex items-start gap-3">
                         <div class="p-2 rounded-lg bg-indigo-50 text-indigo-600"><i class="bi bi-upc-scan"></i></div>
                         <div>
-                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Regd. No.</p>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">{% trans "Regd. No." %}</p>
                             <p class="text-sm text-gray-900 font-medium">
                                 {{ patient.registration_number }}</p>
                         </div>
@@ -97,7 +98,7 @@
                     <div class="flex items-start gap-3">
                         <div class="p-2 rounded-lg bg-blue-50 text-blue-600"><i class="bi bi-telephone-fill"></i></div>
                         <div>
-                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Phone Number</p>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">{% trans "Phone Number" %}</p>
                             <p class="text-sm text-gray-900 font-medium">
                                 {{ patient.phone }}</p>
                         </div>
@@ -106,7 +107,7 @@
                     <div class="flex items-start gap-3">
                         <div class="p-2 rounded-lg bg-green-50 text-green-600"><i class="bi bi-whatsapp"></i></div>
                         <div>
-                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Whatsapp</p>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">{% trans "Whatsapp" %}</p>
                             <p class="text-sm text-gray-900 font-medium">
                                 {{ patient.whatsapp_no }}</p>
                         </div>
@@ -115,7 +116,7 @@
                     <div class="flex items-start gap-3">
                         <div class="p-2 rounded-lg bg-blue-50 text-blue-600"><i class="bi bi-envelope-fill"></i></div>
                         <div>
-                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Email</p>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">{% trans "Email" %}</p>
                             <p class="text-sm text-gray-900 font-medium">
                                 {{ patient.email }}</p>
                         </div>
@@ -123,7 +124,7 @@
                     <div class="flex items-start gap-3">
                         <div class="p-2 rounded-lg bg-red-50 text-red-600"><i class="bi bi-geo-alt-fill"></i></div>
                         <div>
-                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">Address</p>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-tighter">{% trans "Address" %}</p>
                             <p class="text-sm text-gray-900 font-medium leading-relaxed">{{ patient.address }}</p>
                         </div>
                     </div>
@@ -133,24 +134,24 @@
             <!-- Medical Summary -->
             <div
                 class="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-6 text-white shadow-lg shadow-primary-200">
-                <h4 class="text-xs font-bold text-primary-100 uppercase tracking-widest mb-4">Medical Brief</h4>
+                <h4 class="text-xs font-bold text-primary-100 uppercase tracking-widest mb-4">{% trans "Medical Brief" %}</h4>
                 <div class="space-y-4">
                     <div>
-                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">Reason For Visit</p>
+                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">{% trans "Reason For Visit" %}</p>
                         <p class="text-sm font-medium">{{ patient.reason_for_visit|default:"Not specified" }}</p>
                     </div>
                     <div>
-                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">Chief Complaint
+                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">{% trans "Chief Complaint" %}
                         </p>
                         <p class="text-sm font-medium">{{ patient.chief_complaint }}</p>
                     </div>
                     <div>
-                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">Medical History
+                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">{% trans "Medical History" %}
                         </p>
                         <p class="text-sm font-medium">{{ patient.medical_history }}</p>
                     </div>
                     <div>
-                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">Allergies
+                        <p class="text-[10px] text-primary-200 font-bold uppercase tracking-wider mb-1">{% trans "Allergies" %}
                         </p>
                         <p class="text-sm font-medium">{{ patient.allergies }}</p>
                     </div>
@@ -158,7 +159,7 @@
                         <div class="grid grid-cols-1 gap-3">
                             <a href="{% url 'payment_create' %}?patient={{ patient.id }}"
                                 class="bg-white/20 hover:bg-white/30 text-white font-bold py-3 rounded-xl transition-all border border-white/20 text-center text-sm flex items-center justify-center shadow-lg">
-                                <i class="bi bi-wallet2 mr-2"></i>Record Payment
+                                <i class="bi bi-wallet2 me-2"></i>{% trans "Record Payment" %}
                             </a>
                         </div>
                     </div>
@@ -243,7 +244,7 @@
             <!-- Treatment Plan Dropdown Header -->
             <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm flex flex-col md:flex-row gap-4 justify-between items-center relative">
                 <div class="w-full md:w-1/2 flex flex-col sm:flex-row sm:items-center gap-3">
-                    <label class="text-xs font-bold text-gray-400 uppercase tracking-widest whitespace-nowrap">Treatment Plan:</label>
+                    <label class="text-xs font-bold text-gray-400 uppercase tracking-widest whitespace-nowrap">{% trans "Treatment Plan:" %}</label>
                     <div class="relative flex-1 w-full sm:w-64">
                         {% include 'components/alpine_select.html' with id="plan_select" name="plan" options_json=treatment_plans_json placeholder="All Plans / General" x_model="activePlan" selected="all" %}
                     </div>
@@ -254,18 +255,18 @@
                     <div x-show="activePlan === '{{ plan.id }}'" class="flex items-center gap-2" style="display: none;">
                         <button onclick="editPlan('{{ plan.id }}', '{{ plan.name|escapejs }}', '{{ plan.chief_complaint|escapejs }}', {{ plan.total_sittings }}, {{ plan.is_active|yesno:'true,false' }})" 
                             class="px-3 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl font-bold text-xs transition-colors shadow-sm">
-                            <i class="bi bi-pencil-square mr-1"></i> Edit
+                            <i class="bi bi-pencil-square me-1"></i> {% trans "Edit" %}
                         </button>
                         <form method="POST" action="{% url 'treatment-plan-delete' patient.id plan.id %}" data-confirm="Delete this plan? Sessions must be moved or deleted first." class="inline m-0">
                             {% csrf_token %}
                             <button type="submit" class="px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl font-bold text-xs transition-colors shadow-sm">
-                                <i class="bi bi-trash3 mr-1"></i> Delete
+                                <i class="bi bi-trash3 me-1"></i> {% trans "Delete" %}
                             </button>
                         </form>
                     </div>
                     {% endfor %}
-                    <button onclick="openPlanModal()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold text-sm shadow-md transition-colors ml-2">
-                        <i class="bi bi-plus-lg mr-1"></i> New Plan
+                    <button onclick="openPlanModal()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold text-sm shadow-md transition-colors ms-2">
+                        <i class="bi bi-plus-lg me-1"></i> {% trans "New Plan" %}
                     </button>
                 </div>
             </div>
@@ -273,19 +274,19 @@
             <!-- Stats -->
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
-                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Total Fee</p>
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">{% trans "Total Fee" %}</p>
                     <p class="text-xl font-black text-gray-900">
                         ₹{{ total_amount }}
                     </p>
                 </div>
                 <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
-                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Paid Amount</p>
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">{% trans "Paid Amount" %}</p>
                     <p class="text-xl font-black text-green-600">
                         ₹{{ amount_paid }}
                     </p>
                 </div>
                 <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm col-span-2 md:col-span-1">
-                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Balance</p>
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">{% trans "Balance" %}</p>
                     <p class="text-xl font-black text-red-600">
                         ₹{{ remaining_amount }}
                     </p>
@@ -298,19 +299,19 @@
                     <nav class="flex overflow-x-auto no-scrollbar" id="patient-tabs">
                         <button onclick="switchTab('sessions')" id="tab-btn-sessions"
                             class="px-6 py-4 text-sm font-bold border-b-2 border-primary-600 text-primary-600">
-                            Sessions ({{ sessions.count }})
+                            {% blocktranslate trimmed with count=sessions.count %}Sessions ({{ count }}){% endblocktranslate %}
                         </button>
                         <button onclick="switchTab('tcm')" id="tab-btn-tcm"
                             class="px-6 py-4 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-gray-600">
-                            Diagnosis (Case Sheet)
+                            {% trans "Diagnosis (Case Sheet)" %}
                         </button>
                         <button onclick="switchTab('progress')" id="tab-btn-progress"
                             class="px-6 py-4 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-gray-600">
-                            Treatment Progress
+                            {% trans "Treatment Progress" %}
                         </button>
                         <button onclick="switchTab('payments')" id="tab-btn-payments"
                             class="px-6 py-4 text-sm font-bold border-b-2 border-transparent text-gray-400 hover:text-gray-600">
-                            Payments ({{ payments.count }})
+                            {% blocktranslate trimmed with count=payments.count %}Payments ({{ count }}){% endblocktranslate %}
                         </button>
                     </nav>
                 </div>
@@ -325,23 +326,23 @@
                 <!-- Sessions Tab Content -->
                 <div id="tab-sessions" class="tab-content p-8">
                     <div class="px-6 py-4 bg-gray-50/50 border-b border-gray-100 flex justify-between items-center">
-                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Session History</h4>
+                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest">{% trans "Session History" %}</h4>
                         <a href="{% url 'session-create' patient.id %}"
                             class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-[11px] font-bold rounded-lg shadow-md transition-all">
-                            <i class="bi bi-plus-lg mr-1.5"></i> Add Session
+                            <i class="bi bi-plus-lg me-1.5"></i> {% trans "Add Session" %}
                         </a>
                     </div>
 
                     <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left">
+                        <table class="w-full text-sm text-start">
                             <thead class="text-[11px] text-gray-400 uppercase tracking-wider bg-white">
                                 <tr>
                                     <th class="px-6 py-4 w-10"></th>
                                     <th class="px-3 py-4">#</th>
-                                    <th class="px-6 py-4">Date</th>
-                                    <th class="px-6 py-4">Practitioner</th>
-                                    <th class="px-6 py-4">Metrics</th>
-                                    <th class="px-6 py-4 text-right">Actions</th>
+                                    <th class="px-6 py-4">{% trans "Date" %}</th>
+                                    <th class="px-6 py-4">{% trans "Practitioner" %}</th>
+                                    <th class="px-6 py-4">{% trans "Metrics" %}</th>
+                                    <th class="px-6 py-4 text-end">{% trans "Actions" %}</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50">
@@ -376,21 +377,21 @@
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-3">
                                             <div class="text-center">
-                                                <p class="text-[9px] font-bold text-red-400 uppercase leading-none mb-1">Pain</p>
+                                                <p class="text-[9px] font-bold text-red-400 uppercase leading-none mb-1">{% trans "Pain" %}</p>
                                                 <p class="text-xs font-black text-red-600">{{ session.pain_scale }}<span class="text-[8px] text-gray-400">/10</span></p>
                                             </div>
                                             <div class="w-px h-6 bg-gray-100"></div>
                                             <div class="text-center">
-                                                <p class="text-[9px] font-bold text-green-400 uppercase leading-none mb-1">Mobility</p>
+                                                <p class="text-[9px] font-bold text-green-400 uppercase leading-none mb-1">{% trans "Mobility" %}</p>
                                                 <p class="text-xs font-black text-green-600">{{ session.mobility_score }}<span class="text-[8px] text-gray-400">/5</span></p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-right" onclick="event.stopPropagation()">
+                                    <td class="px-6 py-4 text-end" onclick="event.stopPropagation()">
                                         <div class="flex items-center justify-end gap-2 transition-opacity">
                                             <a href="{% url 'session-pdf' session.id %}" target="_blank"
                                                 onclick="event.stopPropagation()"
-                                                class="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 transition-colors" title="Download PDF">
+                                                class="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 transition-colors" title="{% trans 'Download PDF' %}">
                                                 <i class="bi bi-file-earmark-pdf"></i>
                                             </a>
                                             {% if request.user.role == 'superadmin' or request.user.is_superuser %}
@@ -433,23 +434,23 @@
                                                 <div>
                                                     <h5
                                                         class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
-                                                        Timing & Duration</h5>
+                                                        {% trans "Timing & Duration" %}</h5>
                                                     <div
                                                         class="flex items-center gap-4 text-sm font-medium text-gray-700">
                                                         <span class="flex items-center">
-                                                            <i class="bi bi-clock mr-2 text-gray-300"></i>
+                                                            <i class="bi bi-clock me-2 text-gray-300"></i>
                                                             {{ session.session_time|default:"--:--" }}
                                                         </span>
                                                         <span class="flex items-center">
-                                                            <i class="bi bi-hourglass-split mr-2 text-gray-300"></i>
-                                                            {{ session.duration_minutes }} mins
+                                                            <i class="bi bi-hourglass-split me-2 text-gray-300"></i>
+                                                            {% blocktranslate trimmed with duration_minutes=session.duration_minutes %}{{ duration_minutes }} mins{% endblocktranslate %}
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <h5
                                                         class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
-                                                        Techniques Used</h5>
+                                                        {% trans "Techniques Used" %}</h5>
                                                     <p class="text-sm font-medium text-gray-800 leading-relaxed">
                                                         {{ session.techniques_used|default:"Not specified" }}
                                                     </p>
@@ -459,9 +460,9 @@
                                                     class="p-3 bg-primary-50 rounded-xl border border-primary-100 inline-block">
                                                     <h5
                                                         class="text-[10px] font-bold text-primary-600 uppercase tracking-widest mb-1">
-                                                        Next Appointment</h5>
+                                                        {% trans "Next Appointment" %}</h5>
                                                     <p class="text-sm font-bold text-primary-700">
-                                                        <i class="bi bi-calendar-event mr-2"></i>
+                                                        <i class="bi bi-calendar-event me-2"></i>
                                                         {{ session.next_appointment_date }}
                                                     </p>
                                                 </div>
@@ -470,7 +471,7 @@
                                             <div>
                                                 <h5
                                                     class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
-                                                    Medical Notes (Internal)</h5>
+                                                    {% trans "Medical Notes (Internal)" %}</h5>
                                                 <div
                                                     class="p-4 bg-white border border-gray-200 rounded-2xl text-sm text-gray-600 italic leading-relaxed shadow-sm">
                                                     {{ session.practitioner_notes|default:"No notes recorded." }}
@@ -479,7 +480,7 @@
                                             <div>
                                                 <h5
                                                     class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
-                                                    Patient Feedback</h5>
+                                                    {% trans "Patient Feedback" %}</h5>
                                                 <div
                                                     class="p-4 bg-white border border-gray-200 rounded-2xl text-sm text-gray-600 leading-relaxed shadow-sm">
                                                     {{ session.patient_feedback|default:"No feedback provided." }}
@@ -490,8 +491,7 @@
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="6" class="px-6 py-12 text-center text-gray-400 italic">No sessions
-                                        recorded yet.</td>
+                                    <td colspan="6" class="px-6 py-12 text-center text-gray-400 italic">{% trans "No sessions recorded yet." %}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -503,17 +503,17 @@
                 <div id="tab-progress" class="tab-content hidden p-8">
                     <div class="mb-8 flex justify-between items-center">
                         <div>
-                            <h4 class="text-lg font-bold text-gray-900">Recovery Trends</h4>
-                            <p class="text-sm text-gray-500">Visualizing pain and mobility metrics over time.</p>
+                            <h4 class="text-lg font-bold text-gray-900">{% trans "Recovery Trends" %}</h4>
+                            <p class="text-sm text-gray-500">{% trans "Visualizing pain and mobility metrics over time." %}</p>
                         </div>
                         <div class="flex gap-4">
                             <div class="flex items-center gap-2">
                                 <span class="w-3 h-3 rounded-full bg-red-600"></span>
-                                <span class="text-xs font-bold text-gray-600">Pain Scale</span>
+                                <span class="text-xs font-bold text-gray-600">{% trans "Pain Scale" %}</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="w-3 h-3 rounded-full bg-green-600"></span>
-                                <span class="text-xs font-bold text-gray-600">Mobility Score</span>
+                                <span class="text-xs font-bold text-gray-600">{% trans "Mobility Score" %}</span>
                             </div>
                         </div>
                     </div>
@@ -528,7 +528,7 @@
 
                     <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="p-6 bg-red-50 rounded-2xl border border-red-100">
-                            <h5 class="text-xs font-bold text-red-600 uppercase tracking-widest mb-3">Pain Reduction</h5>
+                            <h5 class="text-xs font-bold text-red-600 uppercase tracking-widest mb-3">{% trans "Pain Reduction" %}</h5>
                             <div class="flex items-baseline gap-2">
                                 <span class="text-3xl font-black text-red-700">
                                     {% if sessions.last %}{{ sessions.last.pain_scale }}{% else %}--{% endif %}
@@ -536,10 +536,10 @@
                                     {% if sessions.first %}{{ sessions.first.pain_scale }}{% else %}--{% endif %}
                                 </span>
                             </div>
-                            <p class="text-xs text-red-500 mt-2 font-medium">Initial vs. Latest session pain levels</p>
+                            <p class="text-xs text-red-500 mt-2 font-medium">{% trans "Initial vs. Latest session pain levels" %}</p>
                         </div>
                         <div class="p-6 bg-green-50 rounded-2xl border border-green-100">
-                            <h5 class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3">Mobility Improvement</h5>
+                            <h5 class="text-xs font-bold text-green-600 uppercase tracking-widest mb-3">{% trans "Mobility Improvement" %}</h5>
                             <div class="flex items-baseline gap-2">
                                 <span class="text-3xl font-black text-green-700">
                                     {% if sessions.last %}{{ sessions.last.mobility_score }}{% else %}--{% endif %}
@@ -547,7 +547,7 @@
                                     {% if sessions.first %}{{ sessions.first.mobility_score }}{% else %}--{% endif %}
                                 </span>
                             </div>
-                            <p class="text-xs text-green-500 mt-2 font-medium">Initial vs. Latest session mobility scores</p>
+                            <p class="text-xs text-green-500 mt-2 font-medium">{% trans "Initial vs. Latest session mobility scores" %}</p>
                         </div>
                     </div>
                 </div>
@@ -555,22 +555,22 @@
                 <!-- Payments Content (Hidden by default) -->
                 <div id="tab-payments" class="tab-content hidden">
                     <div class="px-6 py-4 bg-gray-50/50 border-b border-gray-100 flex justify-between items-center">
-                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Payment History</h4>
+                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest">{% trans "Payment History" %}</h4>
                         {% comment %} <a href="{% url 'payment_create'  %}"
                             class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-[11px] font-bold rounded-lg shadow-md transition-all">
-                            <i class="bi bi-plus-lg mr-1.5"></i> Add Payment
+                            <i class="bi bi-plus-lg me-1.5"></i> Add Payment
                         </a> {% endcomment %}
                     </div>
 
                     <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left">
+                        <table class="w-full text-sm text-start">
                             <thead class="text-[11px] text-gray-400 uppercase tracking-wider bg-white">
                                 <tr>
-                                    <th class="px-6 py-4">Date</th>
-                                    <th class="px-6 py-4">Amount</th>
-                                    <th class="px-6 py-4">Mode</th>
-                                    <th class="px-6 py-4">Status</th>
-                                    <th class="px-6 py-4 text-right">Actions</th>
+                                    <th class="px-6 py-4">{% trans "Date" %}</th>
+                                    <th class="px-6 py-4">{% trans "Amount" %}</th>
+                                    <th class="px-6 py-4">{% trans "Mode" %}</th>
+                                    <th class="px-6 py-4">{% trans "Status" %}</th>
+                                    <th class="px-6 py-4 text-end">{% trans "Actions" %}</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50">
@@ -591,34 +591,34 @@
                                             {{ p.get_payment_status_display }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 text-right">
+                                    <td class="px-6 py-4 text-end">
                                         <div class="flex items-center justify-end gap-2">
-                                            <a href="{% url 'payment_invoice' p.id %}" title="Invoice"
+                                            <a href="{% url 'payment_invoice' p.id %}" title="{% trans 'Invoice' %}"
                                                 class="p-2 text-gray-400 hover:text-primary-600 transition-colors">
                                                 <i class="bi bi-printer"></i>
                                             </a>
                                             {% if request.user.role == 'superadmin' or request.user.is_superuser %}
-                                            <a href="{% url 'payment_edit' p.id %}" title="Edit"
+                                            <a href="{% url 'payment_edit' p.id %}" title="{% trans 'Edit' %}"
                                                 class="p-2 text-gray-400 hover:text-blue-600 transition-colors">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
                                             <button data-direct-delete data-url="{% url 'payment_delete' p.id %}" data-name="Payment {{ p.receipt_number|escapejs }}"
                                                 onclick="directDelete(this.dataset.url, this.dataset.name)"
-                                                title="Delete"
+                                                title="{% trans 'Delete' %}"
                                                 class="p-2 text-gray-400 hover:text-red-600 transition-colors">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                             {% else %}
                                             <button data-security-modal data-action="edit" data-url="{% url 'payment_edit' p.id %}" data-name="{{ p.receipt_number|escapejs }}"
                                                 onclick="openSecurityModal('edit', this.dataset.url, this.dataset.name)"
-                                                title="Edit"
+                                                title="{% trans 'Edit' %}"
                                                 class="p-2 text-gray-400 hover:text-blue-600 transition-colors">
                                                 <i class="bi bi-pencil"></i>
                                             </button>
                                             <button
                                                 data-security-modal data-action="delete" data-url="{% url 'payment_delete' p.id %}" data-name="{{ p.receipt_number|escapejs }}"
                                                 onclick="openSecurityModal('delete', this.dataset.url, this.dataset.name)"
-                                                title="Delete"
+                                                title="{% trans 'Delete' %}"
                                                 class="p-2 text-gray-400 hover:text-red-600 transition-colors">
                                                 <i class="bi bi-trash"></i>
                                             </button>
@@ -628,8 +628,7 @@
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="4" class="px-6 py-12 text-center text-gray-400 italic">No payments
-                                        recorded yet.</td>
+                                    <td colspan="4" class="px-6 py-12 text-center text-gray-400 italic">{% trans "No payments recorded yet." %}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -741,7 +740,7 @@
 <div id="planModal" class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl transform transition-all">
         <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-            <h3 class="text-lg font-bold text-gray-900" id="planModalTitle">Create Treatment Plan</h3>
+            <h3 class="text-lg font-bold text-gray-900" id="planModalTitle">{% trans "Create Treatment Plan" %}</h3>
             <button onclick="closePlanModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
                 <i class="bi bi-x-lg"></i>
             </button>
@@ -750,28 +749,28 @@
             {% csrf_token %}
             <div class="p-6 space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">Plan Name <span class="text-red-500">*</span></label>
-                    <input type="text" id="planName" name="name" required placeholder="e.g. Lower Back Pain 2026"
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{% trans "Plan Name" %} <span class="text-red-500">*</span></label>
+                    <input type="text" id="planName" name="name" required placeholder="{% trans 'e.g. Lower Back Pain 2026' %}"
                         class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 text-sm font-semibold">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">Chief Complaint</label>
-                    <textarea id="planChiefComplaint" name="chief_complaint" rows="3" placeholder="Symptoms, diagnosis, etc."
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{% trans "Chief Complaint" %}</label>
+                    <textarea id="planChiefComplaint" name="chief_complaint" rows="3" placeholder="{% trans 'Symptoms, diagnosis, etc.' %}"
                         class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 text-sm font-semibold"></textarea>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">Total Sittings <span class="text-red-500">*</span></label>
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{% trans "Total Sittings" %} <span class="text-red-500">*</span></label>
                     <input type="number" id="planTotalSittings" name="total_sittings" required min="1"
                         class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 text-sm font-semibold">
                 </div>
                 <div class="flex items-center">
                     <input type="checkbox" id="planIsActive" name="is_active" class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">
-                    <label for="planIsActive" class="ml-2 text-sm font-bold text-gray-700">Active Plan</label>
+                    <label for="planIsActive" class="ms-2 text-sm font-bold text-gray-700">{% trans "Active Plan" %}</label>
                 </div>
             </div>
             <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end gap-3">
-                <button type="button" onclick="closePlanModal()" class="px-5 py-2.5 text-sm font-bold text-gray-600 hover:bg-gray-100 rounded-xl transition-all">Cancel</button>
-                <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 rounded-xl transition-all shadow-md">Save Plan</button>
+                <button type="button" onclick="closePlanModal()" class="px-5 py-2.5 text-sm font-bold text-gray-600 hover:bg-gray-100 rounded-xl transition-all">{% trans "Cancel" %}</button>
+                <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 rounded-xl transition-all shadow-md">{% trans "Save Plan" %}</button>
             </div>
         </form>
     </div>

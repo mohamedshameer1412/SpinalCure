@@ -70,7 +70,7 @@
                 <div><label for="rn" class="block text-sm font-medium mb-1">{% translate "Full name" %}</label><input id="rn" x-model="f.name" required autocomplete="name" class="w-full rounded-xl border-gray-200 text-sm"></div>
                 <div><label for="rp" class="block text-sm font-medium mb-1">{% translate "Phone" %}</label><input id="rp" x-model="f.phone" type="tel" required autocomplete="tel" inputmode="tel" dir="ltr" class="w-full rounded-xl border-gray-200 text-sm"></div>
                 <div><label for="re" class="block text-sm font-medium mb-1">{% translate "Email" %} <span class="text-gray-400 font-normal">({% translate "for confirmation" %})</span></label><input id="re" x-model="f.email" type="email" autocomplete="email" dir="ltr" class="w-full rounded-xl border-gray-200 text-sm"></div>
-                <div class="hidden" aria-hidden="true"><label>Website <input tabindex="-1" autocomplete="off" x-model="f.website"></label></div>
+                <div class="hidden" aria-hidden="true"><label>{% trans "Website" %} <input tabindex="-1" autocomplete="off" x-model="f.website"></label></div>
                 <p x-show="error" x-text="error" class="text-sm text-red-700" role="alert"></p>
                 <button :disabled="busy" class="w-full rounded-xl bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-2.5">
                     <span x-show="!busy">{% if waitlist_only %}{% translate "Join waitlist" %}{% else %}{% translate "Register" %}{% endif %}</span><span x-show="busy" x-cloak>{% translate "Please wait…" %}</span></button>

@@ -1,4 +1,5 @@
 """Public event pages. Registrants act through a secret per-registration token, never through guessable ids."""
+from django.utils.translation import gettext
 import json
 import logging
 
@@ -91,7 +92,7 @@ def register_for_event(request, pk):
     except (json.JSONDecodeError, ValueError):
         return fail('Invalid request.')
     if str(data.get('website', '')).strip():                     # honeypot
-        return JsonResponse({'status': 'success', 'outcome': 'confirmed', 'message': 'Registration received.'})
+        return JsonResponse({'status': 'success', 'outcome': 'confirmed', 'message': gettext('Registration received.')})
     name = str(data.get('name', '')).strip()[:200]
     phone = str(data.get('phone', '')).strip()[:20]
     email = str(data.get('email', '')).strip()[:254]
@@ -149,12 +150,12 @@ def registration_manage(request, token):
         try:
             if action == 'cancel':
                 service.cancel_registration(reg)
-                messages.success(request, 'Your registration has been cancelled.')
+                messages.success(request, gettext('Your registration has been cancelled.'))
             elif action == 'feedback':
                 _save_feedback(reg, request.POST)
-                messages.success(request, 'Thank you for your feedback.')
+                messages.success(request, gettext('Thank you for your feedback.'))
             else:
-                messages.error(request, 'Unknown action.')
+                messages.error(request, gettext('Unknown action.'))
         except service.EventError as exc:
             messages.error(request, exc.message)
         return redirect('event_registration_manage', token=token)
@@ -169,14 +170,14 @@ def registration_manage(request, token):
 def _save_feedback(reg, post):
     event = reg.event
     if reg.status != 'confirmed' or not event.feedback_enabled or event.phase != 'completed':
-        raise service.EventError('closed', 'Feedback is not open for this event.')
+        raise service.EventError('closed', gettext('Feedback is not open for this event.'))
     if hasattr(reg, 'feedback'):
-        raise service.EventError('duplicate', 'You have already sent feedback. Thank you!')
+        raise service.EventError('duplicate', gettext('You have already sent feedback. Thank you!'))
     try:
         rating = int(post.get('rating', ''))
         if rating not in range(1, 6):
             raise ValueError
     except ValueError:
-        raise service.EventError('invalid', 'Please choose a rating from 1 to 5.')
+        raise service.EventError('invalid', gettext('Please choose a rating from 1 to 5.'))
     EventFeedback.objects.create(event=event, registration=reg, reviewer_name=reg.name, rating=rating,
                                  comment=post.get('comment', '').strip()[:1000], is_published=False)

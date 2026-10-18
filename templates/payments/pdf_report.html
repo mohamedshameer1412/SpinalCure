@@ -1,9 +1,10 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Payments Report - SpinalCure</title>
+    <title>{% trans "Payments Report - SpinalCure" %}</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -71,19 +72,19 @@
 
 <body>
     <div class="header">
-        <h1>SpinalCure Clinic Platform</h1>
-        <p>Payments Report</p>
+        <h1>{% trans "SpinalCure Clinic Platform" %}</h1>
+        <p>{% trans "Payments Report" %}</p>
     </div>
 
     <table>
         <thead>
             <tr>
-                <th>Receipt No</th>
-                <th>Date</th>
-                <th>Patient Name</th>
-                <th>Status</th>
-                <th>Mode</th>
-                <th class="text-right">Amount Paid</th>
+                <th>{% trans "Receipt No" %}</th>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Patient Name" %}</th>
+                <th>{% trans "Status" %}</th>
+                <th>{% trans "Mode" %}</th>
+                <th class="text-end">{% trans "Amount Paid" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -94,15 +95,15 @@
                 <td>{{ payment.patient.name }}</td>
                 <td>{{ payment.get_payment_status_display }}</td>
                 <td>{{ payment.get_payment_mode_display }}</td>
-                <td class="text-right">₹{{ payment.amount_paid }}</td>
+                <td class="text-end">₹{{ payment.amount_paid }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
     <div class="footer">
-        Generated automatically by SpinalCure on {% now "F j, Y" %}<br>
-        Page <span class="page"></span> of <span class="pages"></span>
+        {% trans "Generated automatically by SpinalCure on" %} {% now "F j, Y" %}<br>
+        {% trans "Page" %} <span class="page"></span> {% trans "of" %} <span class="pages"></span>
     </div>
 </body>
 

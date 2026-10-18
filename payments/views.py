@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 from django.contrib.auth.decorators import login_required
 from spinalcure.rbac import has_capability, capability_rw_permission
 from patients.search import patient_q
@@ -39,7 +40,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
 def payment_list_view(request):
     """List all payments - admin panel."""
     if not has_capability(request.user, 'billing.view'):
-        messages.error(request, 'You do not have permission to view this page.')
+        messages.error(request, gettext('You do not have permission to view this page.'))
         return redirect('dashboard')
     
     query = request.GET.get('q', '')
@@ -79,7 +80,7 @@ def payment_list_view(request):
 def send_invoice_email_view(request, pk):
     """AJAX view to send professional invoice email to client."""
     if request.method != 'POST':
-        return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=405)
+        return JsonResponse({'status': 'error', 'message': gettext('Invalid request method.')}, status=405)
     
     try:
         payment = Payment.objects.get(pk=pk)
@@ -87,11 +88,11 @@ def send_invoice_email_view(request, pk):
         success = send_payment_receipt_email(payment, request)
         
         if success:
-            return JsonResponse({'status': 'success', 'message': 'Email sent successfully.'})
+            return JsonResponse({'status': 'success', 'message': gettext('Email sent successfully.')})
         else:
-            return JsonResponse({'status': 'error', 'message': 'Recipient has no valid email address.'}, status=400)
+            return JsonResponse({'status': 'error', 'message': gettext('Recipient has no valid email address.')}, status=400)
     except Payment.DoesNotExist:
-        return JsonResponse({'status': 'error', 'message': 'Payment record not found.'}, status=404)
+        return JsonResponse({'status': 'error', 'message': gettext('Payment record not found.')}, status=404)
     except Exception as e:
         logger.error(f"Error in send_invoice_email_view: {str(e)}")
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
@@ -112,7 +113,7 @@ def payment_pdf_download_view(request, pk):
     )
 
     if not is_staff and str(payment.patient_id) != patient_id:
-        messages.error(request, 'You do not have permission to download this receipt.')
+        messages.error(request, gettext('You do not have permission to download this receipt.'))
         return redirect('portal_dashboard')
 
     try:
@@ -126,7 +127,7 @@ def payment_pdf_download_view(request, pk):
         return response
     except Exception as e:
         logger.error(f'PDF generation error for payment {pk}: {e}')
-        messages.error(request, f'Could not generate PDF: {e}')
+        messages.error(request, gettext('Could not generate PDF: %(e)s') % {'e': e})
         return redirect('payment_invoice', pk=pk)
 
 
@@ -134,7 +135,7 @@ def payment_pdf_download_view(request, pk):
 def payment_invoice_view(request, pk):
     """Generate a printable GST invoice for a payment."""
     if not has_capability(request.user, 'billing.view'):
-        messages.error(request, 'You do not have permission to view this page.')
+        messages.error(request, gettext('You do not have permission to view this page.'))
         return redirect('dashboard')
     
     payment = Payment.objects.select_related('patient', 'clinic', 'course_registration', 'event_registration').get(pk=pk)
@@ -152,7 +153,7 @@ def payment_invoice_view(request, pk):
 def expense_list_view(request):
     """List all expenses - admin panel."""
     if not (request.user.role == 'superadmin' or request.user.is_superuser):
-        messages.error(request, 'Only admins can view expenses.')
+        messages.error(request, gettext('Only admins can view expenses.'))
         return redirect('dashboard')
     
     query = request.GET.get('q', '')
@@ -204,7 +205,7 @@ def expense_list_view(request):
 def expense_create_view(request):
     """Create a new expense record."""
     if not (request.user.role == 'superadmin' or request.user.is_superuser):
-        messages.error(request, 'Only admins can create expenses.')
+        messages.error(request, gettext('Only admins can create expenses.'))
         return redirect('dashboard')
     
     if request.method == 'POST':
@@ -227,14 +228,14 @@ def expense_create_view(request):
                     created_by=request.user,
                 )
                 log_action(request, 'create', 'Expense', f'{title} (₹{amount})', object_id=expense.id)
-                messages.success(request, f'Expense "{title}" recorded successfully.')
+                messages.success(request, gettext('Expense "%(title)s" recorded successfully.') % {'title': title})
                 logger.info(f'Expense created by {request.user.email}: {title} (₹{amount})')
                 return redirect('expense_list')
             except Exception as e:
-                messages.error(request, f'Error creating expense: {str(e)}')
+                messages.error(request, gettext('Error creating expense: %(value1)s') % {'value1': str(e)})
                 logger.error(f'Error creating expense: {str(e)}')
         else:
-            messages.error(request, 'Please fill in all required fields.')
+            messages.error(request, gettext('Please fill in all required fields.'))
 
     context = {'categories': Expense.CATEGORY_CHOICES}
     return render(request, 'payments/expense_form.html', context)
@@ -244,7 +245,7 @@ def expense_create_view(request):
 def expense_edit_view(request, pk):
     """Edit an existing expense record."""
     if not has_capability(request.user, 'expenses.manage'):
-        messages.error(request, 'Only admins and authorized staff can edit expenses.')
+        messages.error(request, gettext('Only admins and authorized staff can edit expenses.'))
         return redirect('dashboard')
     
     expense = get_object_or_404(Expense, pk=pk)
@@ -266,10 +267,10 @@ def expense_edit_view(request, pk):
                 expense.notes = notes
                 expense.save()
                 log_action(request, 'update', 'Expense', f'{title} (₹{amount})', object_id=pk)
-                messages.success(request, f'Expense "{title}" updated.')
+                messages.success(request, gettext('Expense "%(title)s" updated.') % {'title': title})
                 return redirect('expense_list')
             except Exception as e:
-                messages.error(request, f'Error updating expense: {str(e)}')
+                messages.error(request, gettext('Error updating expense: %(value1)s') % {'value1': str(e)})
     
     context = {
         'expense': expense,
@@ -284,7 +285,7 @@ def expense_edit_view(request, pk):
 def expense_delete_view(request, pk):
     """Delete an expense record."""
     if not has_capability(request.user, 'expenses.manage'):
-        messages.error(request, 'Only admins and authorized staff can delete expenses.')
+        messages.error(request, gettext('Only admins and authorized staff can delete expenses.'))
         return redirect('dashboard')
     
     expense = get_object_or_404(Expense, pk=pk)
@@ -298,7 +299,7 @@ def expense_delete_view(request, pk):
         if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.headers.get('Accept') == 'application/json':
             return JsonResponse({'status': 'ok', 'redirect_url': '/en/payments/expenses/'})
             
-        messages.success(request, f'Expense "{title}" deleted.')
+        messages.success(request, gettext('Expense "%(title)s" deleted.') % {'title': title})
         logger.info(f'Expense deleted by {request.user.email}: {title} (₹{amount})')
     
     return redirect('expense_list')
@@ -307,7 +308,7 @@ def expense_delete_view(request, pk):
 def payment_create_view(request):
     """Record a new payment for Patients, Students (Courses), or Participants (Events)."""
     if not has_capability(request.user, 'billing.manage'):
-        messages.error(request, 'You do not have permission to perform this action.')
+        messages.error(request, gettext('You do not have permission to perform this action.'))
         return redirect('dashboard')
     
     patient_id = request.GET.get('patient')
@@ -409,11 +410,11 @@ def payment_create_view(request):
             from .utils import send_payment_receipt_email
             send_payment_receipt_email(payment)
 
-            messages.success(request, f'Payment of ₹{amount_paid} recorded for {payer_name}. Email receipt sent.')
+            messages.success(request, gettext('Payment of ₹%(amount_paid)s recorded for %(payer_name)s. Email receipt sent.') % {'amount_paid': amount_paid, 'payer_name': payer_name})
             return success_redirect
 
         except Exception as e:
-            messages.error(request, f'Error recording payment: {str(e)}')
+            messages.error(request, gettext('Error recording payment: %(value1)s') % {'value1': str(e)})
 
     from patients.models import Patient, TreatmentPlan
     from courses.models import CourseBatch
@@ -442,7 +443,7 @@ def payment_create_view(request):
 def payment_edit_view(request, pk):
     """Edit an existing payment record."""
     if not has_capability(request.user, 'billing.manage'):
-        messages.error(request, 'You do not have permission to perform this action.')
+        messages.error(request, gettext('You do not have permission to perform this action.'))
         return redirect('dashboard')
     
     payment = get_object_or_404(Payment, pk=pk)
@@ -506,12 +507,12 @@ def payment_edit_view(request, pk):
             payment.save()
             log_action(request, 'update', 'Payment', f'Receipt #{payment.receipt_number}', object_id=pk)
             
-            messages.success(request, 'Payment record updated successfully.')
+            messages.success(request, gettext('Payment record updated successfully.'))
             if payment.patient:
                 return redirect('patient-detail', pk=payment.patient.id)
             return redirect('payment_list')
         except Exception as e:
-            messages.error(request, f'Error updating payment: {str(e)}')
+            messages.error(request, gettext('Error updating payment: %(value1)s') % {'value1': str(e)})
 
     from patients.models import Patient, TreatmentPlan
     from courses.models import CourseBatch
@@ -553,7 +554,7 @@ def payment_delete_view(request, pk):
             from django.urls import reverse
             redirect_url = reverse('patient-detail', kwargs={'pk': patient_id}) if patient_id else reverse('payment_list')
             return JsonResponse({'status': 'ok', 'redirect_url': redirect_url})
-        messages.success(request, f'Payment {receipt} deleted successfully.')
+        messages.success(request, gettext('Payment %(receipt)s deleted successfully.') % {'receipt': receipt})
         if patient_id:
             return redirect('patient-detail', pk=patient_id)
         return redirect('payment_list')

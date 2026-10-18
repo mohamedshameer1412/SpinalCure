@@ -1,13 +1,14 @@
+{% load i18n %}
 <div id="appointment-table-container" class="overflow-x-auto">
-    <table class="w-full text-sm text-left text-gray-500">
+    <table class="w-full text-sm text-start text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-gray-100">
             <tr>
-                <th scope="col" class="px-6 py-3">Patient</th>
-                <th scope="col" class="px-6 py-3">Practitioner</th>
-                <th scope="col" class="px-6 py-3">Date & Time</th>
-                <th scope="col" class="px-6 py-3">Status</th>
-                <th scope="col" class="px-6 py-3">Reason</th>
-                <th scope="col" class="px-6 py-3 sr-only">Action</th>
+                <th scope="col" class="px-6 py-3">{% trans "Patient" %}</th>
+                <th scope="col" class="px-6 py-3">{% trans "Practitioner" %}</th>
+                <th scope="col" class="px-6 py-3">{% trans "Date & Time" %}</th>
+                <th scope="col" class="px-6 py-3">{% trans "Status" %}</th>
+                <th scope="col" class="px-6 py-3">{% trans "Reason" %}</th>
+                <th scope="col" class="px-6 py-3 sr-only">{% trans "Action" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +26,7 @@
                         {{ appointment.practitioner.name }}
                     </span>
                     {% else %}
-                    <span class="text-xs text-gray-400 italic">Not Assigned</span>
+                    <span class="text-xs text-gray-400 italic">{% trans "Not Assigned" %}</span>
                     {% endif %}
                 </td>
                 <td class="px-6 py-4">
@@ -46,13 +47,13 @@
                 <td class="px-6 py-4 max-w-xs truncate" title="{{ appointment.reason }}">
                     {{ appointment.reason|default:"—" }}
                 </td>
-                <td class="px-6 py-4 text-right">
+                <td class="px-6 py-4 text-end">
                     <div class="flex items-center justify-end gap-3">
-                        <a href="{% url 'appointment_calendar' %}" class="text-primary-600 font-bold hover:underline">Manage</a>
+                        <a href="{% url 'appointment_calendar' %}" class="text-primary-600 font-bold hover:underline">{% trans "Manage" %}</a>
                         <button type="button" 
                                 onclick="deleteAppointment('{{ appointment.id }}', `Appointment for {{ appointment.patient.name|escapejs }} on {{ appointment.appointment_date|date:'M d, Y' }}`)"
                                 class="text-red-500 hover:text-red-700 p-1 rounded transition-colors"
-                                title="Delete Appointment">
+                                title="{% trans 'Delete Appointment' %}">
                             <i class="bi bi-trash3-fill"></i>
                         </button>
                     </div>
@@ -63,8 +64,8 @@
                 <td colspan="6" class="px-6 py-12 text-center">
                     <div class="flex flex-col items-center justify-center text-gray-400">
                         <i class="bi bi-calendar-x text-5xl mb-4"></i>
-                        <p class="text-lg font-bold">No appointments found</p>
-                        <p class="text-sm">Try adjusting your filters or search query.</p>
+                        <p class="text-lg font-bold">{% trans "No appointments found" %}</p>
+                        <p class="text-sm">{% trans "Try adjusting your filters or search query." %}</p>
                     </div>
                 </td>
             </tr>
@@ -76,7 +77,7 @@
     {% if appointments.has_other_pages %}
     <div class="flex items-center justify-between p-4 bg-white border-t border-gray-100">
         <span class="text-sm text-gray-700">
-            Showing {{ appointments.start_index }} to {{ appointments.end_index }} of {{ appointments.paginator.count }} appointments
+            {% blocktranslate trimmed with start_index=appointments.start_index end_index=appointments.end_index count=appointments.paginator.count %}Showing {{ start_index }} to {{ end_index }} of {{ count }} appointments{% endblocktranslate %}
         </span>
         <div class="inline-flex gap-2">
             {% if appointments.has_previous %}
@@ -84,7 +85,7 @@
                     hx-target="#appointment-table-container"
                     hx-swap="outerHTML"
                     class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
-                Previous
+                {% trans "Previous" %}
             </button>
             {% endif %}
             {% if appointments.has_next %}
@@ -92,7 +93,7 @@
                     hx-target="#appointment-table-container"
                     hx-swap="outerHTML"
                     class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
-                Next
+                {% trans "Next" %}
             </button>
             {% endif %}
         </div>

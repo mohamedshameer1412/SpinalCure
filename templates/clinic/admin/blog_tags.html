@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}Blog Tags — SpinalCure{% endblock %}
-{% block page_title %}Blog Tags{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Blog Tags — SpinalCure" %}{% endblock %}
+{% block page_title %}{% trans "Blog Tags" %}{% endblock %}
 
 {% block header_actions %}
 <a href="{% url 'admin_blog_list' %}"
     class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-    Back to Posts
+    {% trans "Back to Posts" %}
 </a>
 {% endblock %}
 
@@ -19,17 +20,17 @@
             <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/>
             </svg>
-            Add New Tag
+            {% trans "Add New Tag" %}
         </h2>
         <form method="POST">
             {% csrf_token %}
             <input type="hidden" name="action" value="add">
             <div class="flex gap-3">
-                <input type="text" name="name" required placeholder="e.g. Acupuncture, Back Pain, Nutrition"
+                <input type="text" name="name" required placeholder="{% trans 'e.g. Acupuncture, Back Pain, Nutrition' %}"
                     class="flex-1 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all">
                 <button type="submit"
                     class="px-5 py-2.5 bg-primary-600 text-white text-sm font-semibold rounded-lg hover:bg-primary-700 transition-colors shadow-sm">
-                    Add
+                    {% trans "Add" %}
                 </button>
             </div>
         </form>
@@ -41,21 +42,21 @@
             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
             </svg>
-            Existing Tags ({{ tags.count }})
+            {% blocktranslate trimmed with count=tags.count %}Existing Tags ({{ count }}){% endblocktranslate %}
         </h2>
         {% if tags %}
-        <div class="space-y-2 max-h-80 overflow-y-auto pr-1">
+        <div class="space-y-2 max-h-80 overflow-y-auto pe-1">
             {% for tag in tags %}
             <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-gray-200 transition-colors">
                 <div class="flex items-center gap-2">
                     <span class="px-2.5 py-0.5 text-sm font-semibold rounded-full bg-green-100 text-green-700 border border-green-200">{{ tag.name }}</span>
-                    <span class="text-xs text-gray-400">{{ tag.posts.count }} post{{ tag.posts.count|pluralize }}</span>
+                    <span class="text-xs text-gray-400">{% blocktranslate trimmed with count=tag.posts.count count_2=tag.posts.count|pluralize %}{{ count }} post{{ count_2 }}{% endblocktranslate %}</span>
                 </div>
                 <form method="POST" data-confirm="Delete tag '{{ tag.name }}'?">
                     {% csrf_token %}
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="tag_id" value="{{ tag.pk }}">
-                    <button type="submit" class="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors" title="Delete tag">
+                    <button type="submit" class="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors" title="{% trans 'Delete tag' %}">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                         </svg>
@@ -69,7 +70,7 @@
             <svg class="w-10 h-10 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/>
             </svg>
-            <p class="text-sm">No tags yet</p>
+            <p class="text-sm">{% trans "No tags yet" %}</p>
         </div>
         {% endif %}
     </div>

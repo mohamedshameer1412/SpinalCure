@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views.decorators.http import require_POST
@@ -39,7 +40,7 @@ def clinic_setup_view(request):
             fields = ['name', 'tagline', 'registration_number', 'phone', 'email', 'address']
             for field in fields:
                 setattr(clinic, field, data.get(field, ''))
-            messages.success(request, 'General information updated.')
+            messages.success(request, gettext('General information updated.'))
 
         elif section_type == 'billing':
             clinic.gstin = data.get('gstin', '')
@@ -47,7 +48,7 @@ def clinic_setup_view(request):
                 clinic.default_tax_percent = float(data.get('default_tax_percent', 0) or 0)
             except ValueError:
                 clinic.default_tax_percent = 0
-            messages.success(request, 'Billing & tax information updated.')
+            messages.success(request, gettext('Billing & tax information updated.'))
 
         elif section_type == 'branding':
             clinic.hero_title = data.get('hero_title', '')
@@ -72,7 +73,7 @@ def clinic_setup_view(request):
                     order=clinic.hero_carousel_images.count() + order
                 )
 
-            messages.success(request, 'Branding & hero carousel updated.')
+            messages.success(request, gettext('Branding & hero carousel updated.'))
 
         elif section_type == 'about':
             fields = ['about_label', 'about_title', 'about_stat1_number', 'about_stat1_label',
@@ -88,13 +89,13 @@ def clinic_setup_view(request):
             new_images = request.FILES.getlist('new_about_images[]')
             for img in new_images:
                 ClinicAboutImage.objects.create(clinic=clinic, image=img)
-            messages.success(request, 'About section & legacy updated.')
+            messages.success(request, gettext('About section & legacy updated.'))
 
         elif section_type == 'services_header':
             clinic.services_label = data.get('services_label', '')
             clinic.services_title = data.get('services_title', '')
             clinic.services_description = data.get('services_description', '')
-            messages.success(request, 'Services header updated.')
+            messages.success(request, gettext('Services header updated.'))
 
         elif section_type == 'services_cards':
             # Handle Services dynamically
@@ -126,19 +127,19 @@ def clinic_setup_view(request):
                         pass
                 else:
                     ClinicService.objects.create(clinic=clinic, title=title, description=s_desc, icon=s_icon, order=i)
-            messages.success(request, 'Featured services updated.')
+            messages.success(request, gettext('Featured services updated.'))
 
         elif section_type == 'headers':
             fields = ['team_label', 'team_title', 'testimonials_label', 'testimonials_title']
             for field in fields:
                 setattr(clinic, field, data.get(field, ''))
-            messages.success(request, 'Section headers updated.')
+            messages.success(request, gettext('Section headers updated.'))
 
         elif section_type == 'social':
             fields = ['map_iframe_url', 'facebook', 'instagram', 'twitter', 'youtube']
             for field in fields:
                 setattr(clinic, field, data.get(field, ''))
-            messages.success(request, 'Social & location info updated.')
+            messages.success(request, gettext('Social & location info updated.'))
 
         clinic.save()
         return redirect('admin_clinic_setup')
@@ -180,10 +181,10 @@ def practitioner_create(request):
             if request.POST.get('joined_date'):
                 p.joined_date = request.POST['joined_date']
             p.save()
-            messages.success(request, f'Practitioner {p.name} created.')
+            messages.success(request, gettext('Practitioner %(name)s created.') % {'name': p.name})
             return redirect('admin_practitioners')
         except Exception as e:
-            messages.error(request, f'Error creating practitioner: {str(e)}')
+            messages.error(request, gettext('Error creating practitioner: %(value1)s') % {'value1': str(e)})
     return render(request, 'clinic/admin/practitioner_form.html', {'practitioner': None})
 
 @superadmin_required
@@ -212,10 +213,10 @@ def practitioner_edit(request, pk):
             if request.POST.get('joined_date'):
                 p.joined_date = request.POST['joined_date']
             p.save()
-            messages.success(request, f'Practitioner {p.name} updated.')
+            messages.success(request, gettext('Practitioner %(name)s updated.') % {'name': p.name})
             return redirect('admin_practitioners')
         except Exception as e:
-            messages.error(request, f'Error updating practitioner: {str(e)}')
+            messages.error(request, gettext('Error updating practitioner: %(value1)s') % {'value1': str(e)})
     return render(request, 'clinic/admin/practitioner_form.html', {'practitioner': p})
 
 @superadmin_required
@@ -224,7 +225,7 @@ def practitioner_delete(request, pk):
     if request.method == 'POST':
         name = p.name
         p.delete()
-        messages.success(request, f'Practitioner {name} deleted.')
+        messages.success(request, gettext('Practitioner %(name)s deleted.') % {'name': name})
     return redirect('admin_practitioners')
 
 
@@ -244,7 +245,7 @@ def testimonials_list(request):
 def testimonial_create(request):
     clinic = ClinicProfile.objects.first()
     if not clinic:
-        messages.error(request, 'Please set up the clinic profile first.')
+        messages.error(request, gettext('Please set up the clinic profile first.'))
         return redirect('admin_clinic_setup')
 
     if request.method == 'POST':
@@ -262,10 +263,10 @@ def testimonial_create(request):
             if request.FILES.get('photo'):
                 t.photo = request.FILES['photo']
             t.save()
-            messages.success(request, f'Testimonial from {t.patient_name} added.')
+            messages.success(request, gettext('Testimonial from %(patient_name)s added.') % {'patient_name': t.patient_name})
             return redirect('admin_testimonials')
         except Exception as e:
-            messages.error(request, f'Error saving testimonial: {e}')
+            messages.error(request, gettext('Error saving testimonial: %(e)s') % {'e': e})
 
     return render(request, 'clinic/admin/testimonial_form.html', {
         'testimonial': None,
@@ -288,10 +289,10 @@ def testimonial_edit(request, pk):
             if request.FILES.get('photo'):
                 t.photo = request.FILES['photo']
             t.save()
-            messages.success(request, f'Testimonial from {t.patient_name} updated.')
+            messages.success(request, gettext('Testimonial from %(patient_name)s updated.') % {'patient_name': t.patient_name})
             return redirect('admin_testimonials')
         except Exception as e:
-            messages.error(request, f'Error updating testimonial: {e}')
+            messages.error(request, gettext('Error updating testimonial: %(e)s') % {'e': e})
 
     return render(request, 'clinic/admin/testimonial_form.html', {
         'testimonial': t,
@@ -305,7 +306,7 @@ def testimonial_delete(request, pk):
     if request.method == 'POST':
         name = t.patient_name
         t.delete()
-        messages.success(request, f'Testimonial from {name} deleted.')
+        messages.success(request, gettext('Testimonial from %(name)s deleted.') % {'name': name})
     return redirect('admin_testimonials')
 
 
@@ -334,7 +335,7 @@ def revert_audit_log_view(request, pk):
     log = get_object_or_404(AuditLog, pk=pk)
     
     if log.reverted:
-        return JsonResponse({'status': 'error', 'message': 'Already reverted.'}, status=400)
+        return JsonResponse({'status': 'error', 'message': gettext('Already reverted.')}, status=400)
         
     try:
         if log.action == 'delete' and log.snapshot:
@@ -351,7 +352,7 @@ def revert_audit_log_view(request, pk):
                     break
                     
             if not model_class:
-                return JsonResponse({'status': 'error', 'message': f'Model {log.model_name} not found.'}, status=400)
+                return JsonResponse({'status': 'error', 'message': gettext('Model %(model_name)s not found.') % {'model_name': log.model_name}}, status=400)
                 
             obj = model_class.objects.get(pk=log.object_id)
             for field_name, old_val in log.raw_changes.items():
@@ -359,7 +360,7 @@ def revert_audit_log_view(request, pk):
             obj.save()
             
         else:
-            return JsonResponse({'status': 'error', 'message': 'This action cannot be reverted automatically (missing raw data).'}, status=400)
+            return JsonResponse({'status': 'error', 'message': gettext('This action cannot be reverted automatically (missing raw data).')}, status=400)
             
         log.reverted = True
         log.save(update_fields=['reverted'])
@@ -367,10 +368,10 @@ def revert_audit_log_view(request, pk):
         from spinalcure.utils import log_action
         log_action(request, 'update', log.model_name, f"[REVERTED] {log.object_repr}", object_id=log.object_id, changes={'Revert': {'old': log.action, 'new': 'Reverted'}})
         
-        return JsonResponse({'status': 'success', 'message': 'Action successfully reverted.'})
+        return JsonResponse({'status': 'success', 'message': gettext('Action successfully reverted.')})
     except Exception as e:
         logger.error(f'Error reverting log {pk}: {e}')
-        return JsonResponse({'status': 'error', 'message': f'Error reverting: {str(e)}'}, status=500)
+        return JsonResponse({'status': 'error', 'message': gettext('Error reverting: %(value1)s') % {'value1': str(e)}}, status=500)
 @superadmin_required
 def activity_log_view(request):
     """View the full CRUD activity log — superadmin only."""

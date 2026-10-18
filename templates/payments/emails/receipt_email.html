@@ -1,9 +1,10 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice from {{ clinic.name|default:"SpinalCure" }}</title>
+    <title>{% blocktranslate trimmed with name=clinic.name|default:"SpinalCure" %}Invoice from {{ name }}{% endblocktranslate %}</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8fafc; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         .wrapper { width: 100%; border-collapse: collapse; background-color: #f8fafc; padding: 40px 0; }
@@ -35,40 +36,40 @@
                         <p>{{ clinic.tagline|default:"Premium Healthcare" }}</p>
                     </div>
                     <div class="content">
-                        <h2>Invoice Received</h2>
-                        <p>Hello <strong>{{ payment.payer_name }}</strong>,</p>
-                        <p>Thank you for choosing {{ clinic.name|default:"SpinalCure" }}. We have successfully recorded your payment. Please find the details of your official invoice below.</p>
+                        <h2>{% trans "Invoice Received" %}</h2>
+                        <p>{% trans "Hello" %} <strong>{{ payment.payer_name }}</strong>,</p>
+                        <p>{% blocktranslate trimmed with name=clinic.name|default:"SpinalCure" %}Thank you for choosing {{ name }}. We have successfully recorded your payment. Please find the details of your official invoice below.{% endblocktranslate %}</p>
                         
                         <div class="invoice-box">
                             <div class="invoice-row">
-                                <span class="label">Invoice Number</span>
+                                <span class="label">{% trans "Invoice Number" %}</span>
                                 <span class="value">#{{ payment.receipt_number }}</span>
                             </div>
                             <div class="invoice-row">
-                                <span class="label">Date</span>
+                                <span class="label">{% trans "Date" %}</span>
                                 <span class="value">{{ payment.payment_date|date:"d M Y" }}</span>
                             </div>
                             <div class="invoice-row">
-                                <span class="label">Service</span>
-                                <span class="value text-right">{{ payment.description|default:"Acupuncture Treatment" }}</span>
+                                <span class="label">{% trans "Service" %}</span>
+                                <span class="value text-end">{{ payment.description|default:"Acupuncture Treatment" }}</span>
                             </div>
                             <div class="invoice-row total">
-                                <span class="label">Total Amount</span>
+                                <span class="label">{% trans "Total Amount" %}</span>
                                 <span class="value">₹{{ payment.grand_total|floatformat:2 }}</span>
                             </div>
                         </div>
 
-                        <p>You can view and print your full digital invoice by clicking the button below:</p>
+                        <p>{% trans "You can view and print your full digital invoice by clicking the button below:" %}</p>
                         
                         <div class="btn-container">
-                            <a href="{{ invoice_url }}" class="btn">View Digital Invoice</a>
+                            <a href="{{ invoice_url }}" class="btn">{% trans "View Digital Invoice" %}</a>
                         </div>
                     </div>
                     <div class="footer">
-                        <p class="tagline">Providing quality care for your well-being.</p>
-                        <p>&copy; {% now "Y" %} {{ clinic.name|default:"SpinalCure" }}. All rights reserved.</p>
+                        <p class="tagline">{% trans "Providing quality care for your well-being." %}</p>
+                        <p>{% trans "&copy;" %} {% now "Y" %} {% blocktranslate trimmed with name=clinic.name|default:"SpinalCure" %}{{ name }}. All rights reserved.{% endblocktranslate %}</p>
                         {% if clinic.address %}<p>{{ clinic.address }}</p>{% endif %}
-                        <p>If you have any questions, please contact us at {{ clinic.phone|default:"+91 98765 43210" }}</p>
+                        <p>{% blocktranslate trimmed with phone=clinic.phone|default:"+91 98765 43210" %}If you have any questions, please contact us at {{ phone }}{% endblocktranslate %}</p>
                     </div>
                 </div>
             </td>

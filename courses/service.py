@@ -1,4 +1,5 @@
 """Course-batch registration rules: capacity, waitlist, duplicates, cancellation. Mirrors events.service."""
+from django.utils.translation import gettext
 import logging
 
 from django.db import transaction
@@ -34,14 +35,14 @@ def _notify(kind, reg):
 def register(batch, *, name, phone, email='', notes=''):
     key = phone_key(phone)
     if len(key) < 7:
-        raise EventError('invalid_phone', 'Please enter a valid phone number.')
+        raise EventError('invalid_phone', gettext('Please enter a valid phone number.'))
     with transaction.atomic():
         b = CourseBatch.objects.select_for_update().select_related('course').get(pk=batch.pk)
         if not (b.is_active and b.is_published and b.course.is_published) or b.is_completed:
-            raise EventError('closed', 'Registration is not open for this course.')
+            raise EventError('closed', gettext('Registration is not open for this course.'))
         dup = Q(phone_key=key) | (Q(email__iexact=email) if email else Q(pk__in=[]))
         if b.registrations.filter(dup, status__in=('confirmed', 'waitlisted')).exists():
-            raise EventError('duplicate', 'You are already registered for this intake. Check your email for the link.')
+            raise EventError('duplicate', gettext('You are already registered for this intake. Check your email for the link.'))
         status = 'waitlisted' if b.is_full else 'confirmed'
         reg = CourseRegistration.objects.create(batch=b, name=name, phone=phone, phone_key=key, email=email,
                                                 notes=notes, status=status)
@@ -71,7 +72,7 @@ def cancel_registration(reg, by_staff=False):
         if reg.status == 'cancelled':
             return reg
         if not by_staff and b.start_date <= timezone.localdate():
-            raise EventError('started', 'This batch has already started, so it can no longer be cancelled online.')
+            raise EventError('started', gettext('This batch has already started, so it can no longer be cancelled online.'))
         was_confirmed = reg.status == 'confirmed'
         reg.status, reg.cancelled_at = 'cancelled', timezone.now()
         reg.save(update_fields=['status', 'cancelled_at'])

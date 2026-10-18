@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
-{% block title %}Testimonials — SpinalCure Admin{% endblock %}
-{% block page_title %}Testimonials{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Testimonials — SpinalCure Admin" %}{% endblock %}
+{% block page_title %}{% trans "Testimonials" %}{% endblock %}
 
 {% block content %}
 <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
     <div>
-        <p class="text-sm text-gray-500 mt-1">Manage curated testimonials displayed on the public portfolio.</p>
+        <p class="text-sm text-gray-500 mt-1">{% trans "Manage curated testimonials displayed on the public portfolio." %}</p>
     </div>
     <a href="{% url 'admin_testimonial_create' %}"
         class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white text-sm font-bold rounded-xl hover:bg-primary-700 shadow-md transition-all">
-        <i class="bi bi-plus-lg"></i> Add Testimonial
+        <i class="bi bi-plus-lg"></i> {% trans "Add Testimonial" %}
     </a>
 </div>
 
@@ -47,7 +48,7 @@
             <button onclick="togglePublish('{{ t.pk }}')" id="toggle-btn-{{ t.pk }}"
                 class="text-xs font-bold px-3 py-1 rounded-full transition-all {% if t.is_published %}bg-green-100 text-green-700 hover:bg-green-200{% else %}bg-gray-100 text-gray-500 hover:bg-gray-200{% endif %}"
                 data-published="{{ t.is_published|yesno:'true,false' }}">
-                {% if t.is_published %}✓ Published{% else %}Draft{% endif %}
+                {% if t.is_published %}{% trans "✓ Published" %}{% else %}{% trans "Draft" %}{% endif %}
             </button>
         </div>
 
@@ -67,21 +68,21 @@
                 <i class="bi bi-tag"></i>
                 {{ t.get_source_display }}
             </span>
-            <span>Order: {{ t.display_order }}</span>
+            <span>{% blocktranslate trimmed with display_order=t.display_order %}Order: {{ display_order }}{% endblocktranslate %}</span>
         </div>
 
         <!-- Actions -->
         <div class="flex gap-2 mt-1">
             <a href="{% url 'admin_testimonial_edit' t.pk %}"
                 class="flex-1 text-center py-2 text-xs font-bold text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-all">
-                <i class="bi bi-pencil me-1"></i>Edit
+                <i class="bi bi-pencil me-1"></i>{% trans "Edit" %}
             </a>
             <form method="POST" action="{% url 'admin_testimonial_delete' t.pk %}" class="flex-1"
                 data-confirm="Delete this testimonial?">
                 {% csrf_token %}
                 <button type="submit"
                     class="w-full py-2 text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-all">
-                    <i class="bi bi-trash me-1"></i>Delete
+                    <i class="bi bi-trash me-1"></i>{% trans "Delete" %}
                 </button>
             </form>
         </div>
@@ -93,11 +94,11 @@
     <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
         <i class="bi bi-chat-quote text-2xl text-gray-400"></i>
     </div>
-    <h3 class="text-gray-900 font-bold mb-2">No testimonials yet</h3>
-    <p class="text-sm text-gray-500 mb-5">Add curated testimonials that will appear on your public portfolio.</p>
+    <h3 class="text-gray-900 font-bold mb-2">{% trans "No testimonials yet" %}</h3>
+    <p class="text-sm text-gray-500 mb-5">{% trans "Add curated testimonials that will appear on your public portfolio." %}</p>
     <a href="{% url 'admin_testimonial_create' %}"
         class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white text-sm font-bold rounded-xl hover:bg-primary-700">
-        <i class="bi bi-plus-lg"></i> Add First Testimonial
+        <i class="bi bi-plus-lg"></i> {% trans "Add First Testimonial" %}
     </a>
 </div>
 {% endif %}

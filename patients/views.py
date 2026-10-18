@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 from django.contrib.auth.decorators import login_required
 from spinalcure.rbac import has_capability, require_capability, capability_rw_permission
 from django.shortcuts import render, get_object_or_404, redirect
@@ -74,7 +75,7 @@ class SessionViewSet(viewsets.ModelViewSet):
 def patient_list_view(request):
     """List all patients - admin panel view with search."""
     if not has_capability(request.user, 'patients.view'):
-        messages.error(request, 'You do not have permission to view this page.')
+        messages.error(request, gettext('You do not have permission to view this page.'))
         return redirect('dashboard')
     
     query = request.GET.get('q', '')
@@ -271,7 +272,7 @@ def export_patients_print(request):
 def patient_detail_view(request, pk):
     """View patient details."""
     if not has_capability(request.user, 'patients.view'):
-        messages.error(request, 'You do not have permission to view this page.')
+        messages.error(request, gettext('You do not have permission to view this page.'))
         return redirect('dashboard')
     
     patient = get_object_or_404(Patient.objects.prefetch_related('sessions', 'payments', 'appointments', 'treatment_plans'), pk=pk)
@@ -305,7 +306,7 @@ def patient_detail_view(request, pk):
 def patient_print_card_view(request, pk):
     """Print patient card."""
     if not has_capability(request.user, 'patients.view'):
-        messages.error(request, 'You do not have permission to print this.')
+        messages.error(request, gettext('You do not have permission to print this.'))
         return redirect('dashboard')
     
     patient = get_object_or_404(Patient, pk=pk)
@@ -317,7 +318,7 @@ def patient_print_card_view(request, pk):
 def reviews_list_view(request):
     """Admin view for managing all patient reviews."""
     if not (request.user.role == 'superadmin' or request.user.is_superuser):
-        messages.error(request, 'Only admins can manage reviews.')
+        messages.error(request, gettext('Only admins can manage reviews.'))
         return redirect('dashboard')
     
     query = request.GET.get('q', '')
@@ -351,14 +352,14 @@ def reviews_list_view(request):
 def review_toggle_publish(request, pk):
     """Toggle the published status of a review."""
     if not (request.user.role == 'superadmin' or request.user.is_superuser):
-        messages.error(request, 'Only admins can manage reviews.')
+        messages.error(request, gettext('Only admins can manage reviews.'))
         return redirect('dashboard')
     
     review = get_object_or_404(PatientReview, pk=pk)
     review.is_published = not review.is_published
     review.save()
     status = 'published' if review.is_published else 'unpublished'
-    messages.success(request, f'Review by {review.patient.name} has been {status}.')
+    messages.success(request, gettext('Review by %(name)s has been %(status)s.') % {'name': review.patient.name, 'status': status})
     logger.info(f'Review {pk} was {status} by {request.user.email}')
     return redirect('patient-reviews')
 
@@ -367,7 +368,7 @@ def review_toggle_publish(request, pk):
 def review_create_view(request):
     """Add a new review from the admin panel."""
     if not (request.user.role == 'superadmin' or request.user.is_superuser):
-        messages.error(request, 'Only admins can create reviews.')
+        messages.error(request, gettext('Only admins can create reviews.'))
         return redirect('dashboard')
     
     from clinic.models import Practitioner
@@ -390,7 +391,7 @@ def review_create_view(request):
             is_published=is_published,
         )
         
-        messages.success(request, f'Review for {patient.name} added.')
+        messages.success(request, gettext('Review for %(name)s added.') % {'name': patient.name})
         logger.info(f'New review created for patient {patient_id} by {request.user.email}')
         return redirect('patient-reviews')
     
@@ -406,7 +407,7 @@ def review_create_view(request):
 def patient_create_view(request):
     """Create a new patient."""
     if not has_capability(request.user, 'patients.edit'):
-        messages.error(request, 'You do not have permission to add patients.')
+        messages.error(request, gettext('You do not have permission to add patients.'))
         return redirect('patient-list')
     
     if request.method == 'POST':
@@ -463,10 +464,10 @@ def patient_create_view(request):
                 patient.photo = request.FILES['photo']
                 patient.save()
             log_action(request, 'create', 'Patient', patient.name, object_id=patient.id)
-            messages.success(request, f'Patient {patient.name} registered successfully.')
+            messages.success(request, gettext('Patient %(name)s registered successfully.') % {'name': patient.name})
             return redirect('patient-detail', pk=patient.id)
         except Exception as e:
-            messages.error(request, f'Error creating patient: {str(e)}')
+            messages.error(request, gettext('Error creating patient: %(value1)s') % {'value1': str(e)})
             
     initial_name = request.GET.get('name', '')
     initial_phone = request.GET.get('phone', '')
@@ -485,7 +486,7 @@ def patient_create_view(request):
 def patient_edit_view(request, pk):
     """Edit an existing patient."""
     if not has_capability(request.user, 'patients.edit'):
-        messages.error(request, 'You do not have permission to edit patients.')
+        messages.error(request, gettext('You do not have permission to edit patients.'))
         return redirect('patient-list')
     
     patient = get_object_or_404(Patient, pk=pk)
@@ -562,10 +563,10 @@ def patient_edit_view(request, pk):
                 
             patient.save()
             log_action(request, 'update', 'Patient', patient.name, object_id=patient.id, changes=changes, raw_changes=raw_changes)
-            messages.success(request, f'Patient {patient.name} updated successfully.')
+            messages.success(request, gettext('Patient %(name)s updated successfully.') % {'name': patient.name})
             return redirect('patient-detail', pk=patient.id)
         except Exception as e:
-            messages.error(request, f'Error updating patient: {str(e)}')
+            messages.error(request, gettext('Error updating patient: %(value1)s') % {'value1': str(e)})
             
     practitioners = Practitioner.objects.filter(is_active=True)
     return render(request, 'patients/patient_form.html', {
@@ -603,7 +604,7 @@ def patient_delete_view(request, pk):
         if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.headers.get('Accept') == 'application/json':
             return JsonResponse({'status': 'ok', 'redirect_url': '/en/patients/'})
             
-        messages.success(request, f'Patient {name} has been deleted.')
+        messages.success(request, gettext('Patient %(name)s has been deleted.') % {'name': name})
         return redirect('patient-list')
         
     return redirect('patient-detail', pk=pk)
@@ -614,7 +615,7 @@ def review_delete_view(request, pk):
     review = get_object_or_404(PatientReview, pk=pk)
     if request.method == 'POST':
         review.delete()
-        messages.success(request, 'Review deleted.')
+        messages.success(request, gettext('Review deleted.'))
     return redirect('patient-reviews')
 
 
@@ -622,7 +623,7 @@ def review_delete_view(request, pk):
 def session_create_view(request, patient_pk):
     """Add a new treatment session for a specific patient."""
     if not has_capability(request.user, 'clinical.edit'):
-        messages.error(request, 'You do not have permission to add sessions.')
+        messages.error(request, gettext('You do not have permission to add sessions.'))
         return redirect('dashboard')
         
     patient = get_object_or_404(Patient, pk=patient_pk)
@@ -671,11 +672,11 @@ def session_create_view(request, patient_pk):
             # The session_number is auto-incremented in Session.save()
             session.save()
             
-            messages.success(request, f'Session #{session.session_number} recorded successfully.')
+            messages.success(request, gettext('Session #%(session_number)s recorded successfully.') % {'session_number': session.session_number})
             return redirect('patient-detail', pk=patient.id)
             
         except Exception as e:
-            messages.error(request, f'Error creating session: {str(e)}')
+            messages.error(request, gettext('Error creating session: %(value1)s') % {'value1': str(e)})
             
     treatment_plans = patient.treatment_plans.filter(is_active=True).order_by('-created_at')
     context = {
@@ -693,7 +694,7 @@ def session_create_view(request, patient_pk):
 def session_request_pin_view(request):
     """Generate a 4-digit security PIN and email it to the superadmin for approval."""
     if not has_capability(request.user, 'clinical.edit'):
-        return JsonResponse({'status': 'error', 'message': 'Permission denied.'}, status=403)
+        return JsonResponse({'status': 'error', 'message': gettext('Permission denied.')}, status=403)
 
     pin = str(random.randint(1000, 9999))
     request.session['session_security_pin'] = pin
@@ -782,7 +783,7 @@ def session_request_pin_view(request):
         return JsonResponse({'status': 'sent', 'email': masked})
     except Exception as e:
         logger.error(f'Failed to send admin authorization PIN: {e}')
-        return JsonResponse({'status': 'error', 'message': 'Failed to send PIN. Check email settings.'}, status=500)
+        return JsonResponse({'status': 'error', 'message': gettext('Failed to send PIN. Check email settings.')}, status=500)
 
 
 @login_required
@@ -794,17 +795,17 @@ def session_verify_pin_view(request):
     stored_ts_str = request.session.get('session_security_pin_ts')
 
     if not stored_pin or not stored_ts_str:
-        return JsonResponse({'status': 'error', 'message': 'No PIN was requested. Please request a new PIN.'}, status=400)
+        return JsonResponse({'status': 'error', 'message': gettext('No PIN was requested. Please request a new PIN.')}, status=400)
 
     # Check expiry (5 minutes)
     stored_ts = datetime.fromisoformat(stored_ts_str)
     if timezone.now() - stored_ts > timedelta(minutes=5):
         del request.session['session_security_pin']
         del request.session['session_security_pin_ts']
-        return JsonResponse({'status': 'expired', 'message': 'PIN has expired. Please request a new one.'}, status=400)
+        return JsonResponse({'status': 'expired', 'message': gettext('PIN has expired. Please request a new one.')}, status=400)
 
     if submitted_pin != stored_pin:
-        return JsonResponse({'status': 'invalid', 'message': 'Incorrect PIN. Please try again.'}, status=400)
+        return JsonResponse({'status': 'invalid', 'message': gettext('Incorrect PIN. Please try again.')}, status=400)
 
     # PIN is correct — issue a one-time token
     token = secrets.token_urlsafe(24)
@@ -818,7 +819,7 @@ def session_verify_pin_view(request):
 def session_edit_view(request, patient_pk, session_pk):
     """Edit a treatment session — requires prior PIN authorization."""
     if not has_capability(request.user, 'clinical.edit'):
-        messages.error(request, 'You do not have permission to edit sessions.')
+        messages.error(request, gettext('You do not have permission to edit sessions.'))
         return redirect('dashboard')
 
     session = get_object_or_404(Session, pk=session_pk, patient__pk=patient_pk)
@@ -850,11 +851,11 @@ def session_edit_view(request, patient_pk, session_pk):
             session.save()
             log_action(request, 'update', 'Session', f'Session #{session.session_number} — {session.patient.name}', object_id=session_pk)
             logger.info(f'Session {session_pk} edited by {request.user.email}')
-            messages.success(request, f'Session #{session.session_number} updated successfully.')
+            messages.success(request, gettext('Session #%(session_number)s updated successfully.') % {'session_number': session.session_number})
             return redirect('patient-detail', pk=patient.id)
 
         except Exception as e:
-            messages.error(request, f'Error updating session: {str(e)}')
+            messages.error(request, gettext('Error updating session: %(value1)s') % {'value1': str(e)})
 
     btn_token = request.GET.get('auth_token', '')
     treatment_plans = patient.treatment_plans.filter(is_active=True).order_by('-created_at')
@@ -883,9 +884,9 @@ def session_delete_view(request, patient_pk, session_pk):
     logger.info(f'Session #{session_num} for patient {patient_pk} deleted by {request.user.email}')
     
     if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.headers.get('Accept') == 'application/json':
-        return JsonResponse({'status': 'ok', 'message': f'Session #{session_num} deleted.'})
+        return JsonResponse({'status': 'ok', 'message': gettext('Session #%(session_num)s deleted.') % {'session_num': session_num}})
         
-    messages.success(request, f'Session #{session_num} has been permanently deleted.')
+    messages.success(request, gettext('Session #%(session_num)s has been permanently deleted.') % {'session_num': session_num})
     return redirect('patient-detail', pk=patient.id)
 
 def _get_filtered_reviews(request):
@@ -954,10 +955,10 @@ def patient_login_view(request):
     if request.method == 'POST':
         from . import portal_auth
         if not portal_auth.request_code(request, request.POST.get('phone', '').strip()):
-            messages.error(request, 'Too many attempts. Please try again later.')
+            messages.error(request, gettext('Too many attempts. Please try again later.'))
             return render(request, 'patients/portal/login.html', status=429)
         # Identical outcome whether or not the number is registered.
-        messages.info(request, 'If this number is registered and has an email on file, a code has been sent.')
+        messages.info(request, gettext('If this number is registered and has an email on file, a code has been sent.'))
         return redirect('portal_verify')
 
     return render(request, 'patients/portal/login.html')
@@ -975,7 +976,7 @@ def patient_verify_otp_view(request):
     if request.method == 'POST':
         if portal_auth.verify_code(request, request.POST.get('otp', '')):
             return redirect('portal_dashboard')
-        messages.error(request, 'Invalid or expired code. Please try again.')
+        messages.error(request, gettext('Invalid or expired code. Please try again.'))
         if not portal_auth.pending_login(request):
             return redirect('portal_login')
 
@@ -1041,7 +1042,7 @@ def session_pdf_view(request, session_pk):
         response['Content-Disposition'] = f'inline; filename="{filename}"'
         return response
     
-    messages.error(request, "Failed to generate PDF. Please contact support.")
+    messages.error(request, gettext("Failed to generate PDF. Please contact support."))
     return redirect('patient-detail', pk=session.patient.id)
 
 # ---------------------------------------------------------------------------
@@ -1053,7 +1054,7 @@ def session_pdf_view(request, session_pk):
 def treatment_plan_create_view(request, patient_pk):
     """Create a new treatment plan for a patient."""
     if not has_capability(request.user, 'clinical.edit'):
-        messages.error(request, 'You do not have permission to perform this action.')
+        messages.error(request, gettext('You do not have permission to perform this action.'))
         return redirect('dashboard')
         
     patient = get_object_or_404(Patient, pk=patient_pk)
@@ -1076,9 +1077,9 @@ def treatment_plan_create_view(request, patient_pk):
         # if is_active:
         #    TreatmentPlan.objects.filter(patient=patient).exclude(pk=plan.pk).update(is_active=False)
             
-        messages.success(request, f"Treatment plan '{name}' created successfully.")
+        messages.success(request, gettext("Treatment plan '%(name)s' created successfully.") % {'name': name})
     except Exception as e:
-        messages.error(request, f"Error creating treatment plan: {str(e)}")
+        messages.error(request, gettext('Error creating treatment plan: %(value1)s') % {'value1': str(e)})
         
     return redirect('patient-detail', pk=patient.id)
 
@@ -1087,7 +1088,7 @@ def treatment_plan_create_view(request, patient_pk):
 def treatment_plan_edit_view(request, patient_pk, plan_pk):
     """Edit an existing treatment plan."""
     if not has_capability(request.user, 'clinical.edit'):
-        return JsonResponse({'status': 'error', 'message': 'Permission denied.'}, status=403)
+        return JsonResponse({'status': 'error', 'message': gettext('Permission denied.')}, status=403)
         
     plan = get_object_or_404(TreatmentPlan, pk=plan_pk, patient_id=patient_pk)
     
@@ -1098,9 +1099,9 @@ def treatment_plan_edit_view(request, patient_pk, plan_pk):
         plan.is_active = request.POST.get('is_active') == 'on'
         plan.save()
         
-        messages.success(request, f"Treatment plan '{plan.name}' updated successfully.")
+        messages.success(request, gettext("Treatment plan '%(name)s' updated successfully.") % {'name': plan.name})
     except Exception as e:
-        messages.error(request, f"Error updating treatment plan: {str(e)}")
+        messages.error(request, gettext('Error updating treatment plan: %(value1)s') % {'value1': str(e)})
         
     return redirect('patient-detail', pk=patient_pk)
 
@@ -1109,15 +1110,15 @@ def treatment_plan_edit_view(request, patient_pk, plan_pk):
 def treatment_plan_delete_view(request, patient_pk, plan_pk):
     """Delete a treatment plan."""
     if not has_capability(request.user, 'clinical.edit'):
-        return JsonResponse({'status': 'error', 'message': 'Permission denied.'}, status=403)
+        return JsonResponse({'status': 'error', 'message': gettext('Permission denied.')}, status=403)
         
     plan = get_object_or_404(TreatmentPlan, pk=plan_pk, patient_id=patient_pk)
     
     # Check if there are sessions linked
     if plan.sessions.exists():
-        messages.error(request, f"Cannot delete plan '{plan.name}' because it has sessions attached. Move or delete them first.")
+        messages.error(request, gettext("Cannot delete plan '%(name)s' because it has sessions attached. Move or delete them first.") % {'name': plan.name})
     else:
         plan.delete()
-        messages.success(request, f"Treatment plan deleted successfully.")
+        messages.success(request, gettext('Treatment plan deleted successfully.'))
         
     return redirect('patient-detail', pk=patient_pk)

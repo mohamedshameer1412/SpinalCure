@@ -1,6 +1,7 @@
+{% load i18n %}
 <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm mt-6" x-data="tcmDiagnosis()">
     <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5 flex justify-between items-center">
-        <span>Acupuncture Case Sheet (TCM Diagnosis)</span>
+        <span>{% trans "Acupuncture Case Sheet (TCM Diagnosis)" %}</span>
     </h2>
     
     <input type="hidden" name="diagnosis_data" :value="JSON.stringify(data)">
@@ -12,7 +13,7 @@
             
             <!-- 1. Symptoms in Sense Organs -->
             <div>
-                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">1. Symptoms in Sense Organs</h3>
+                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">{% trans "1. Symptoms in Sense Organs" %}</h3>
                 <div class="flex flex-wrap gap-4">
                     <template x-for="item in ['Tongue', 'Mouth', 'Nose', 'Ear', 'Eyes']" :key="item">
                         <label class="flex items-center gap-2 cursor-pointer">
@@ -25,7 +26,7 @@
 
             <!-- 2. Body Secretions -->
             <div>
-                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">2. Body Secretions</h3>
+                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">{% trans "2. Body Secretions" %}</h3>
                 <div class="flex flex-wrap gap-4">
                     <template x-for="item in ['Sweating', 'Saliva', 'Phlegm', 'Urine', 'Tears']" :key="item">
                         <label class="flex items-center gap-2 cursor-pointer">
@@ -38,7 +39,7 @@
 
             <!-- 3. Body Area -->
             <div>
-                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">3. Body Area</h3>
+                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">{% trans "3. Body Area" %}</h3>
                 <div class="flex flex-wrap gap-4">
                     <template x-for="item in ['Umbilical', 'Pelvic', 'Cervical', 'Abdomen', 'Head']" :key="item">
                         <label class="flex items-center gap-2 cursor-pointer">
@@ -51,7 +52,7 @@
 
             <!-- 4. Body Tissue -->
             <div>
-                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">4. Body Tissue</h3>
+                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">{% trans "4. Body Tissue" %}</h3>
                 <div class="flex flex-wrap gap-4 mb-3">
                     <template x-for="item in ['Blood Vessels', 'Muscles', 'Skin', 'Tendons']" :key="item">
                         <label class="flex items-center gap-2 cursor-pointer">
@@ -72,7 +73,7 @@
 
             <!-- 5. Internal Evil -->
             <div>
-                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">5. Internal Evil</h3>
+                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">{% trans "5. Internal Evil" %}</h3>
                 <div class="flex flex-wrap gap-4">
                     <template x-for="item in ['Joy', 'Sad', 'Sorrow', 'Fear', 'Angry']" :key="item">
                         <label class="flex items-center gap-2 cursor-pointer">
@@ -90,7 +91,7 @@
 
             <!-- 6. External Evil -->
             <div>
-                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">6. External Evil</h3>
+                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">{% trans "6. External Evil" %}</h3>
                 <div class="flex flex-wrap gap-4">
                     <template x-for="item in ['Heat', 'Humidity', 'Dryness', 'Cold', 'Wind']" :key="item">
                         <label class="flex items-center gap-2 cursor-pointer">
@@ -103,7 +104,7 @@
 
             <!-- 7. Five Seasons -->
             <div>
-                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">7. Five Seasons</h3>
+                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">{% trans "7. Five Seasons" %}</h3>
                 <div class="flex flex-wrap gap-4">
                     <template x-for="item in ['Summer', 'Late Summer', 'Winter', 'Autumn', 'Spring']" :key="item">
                         <label class="flex items-center gap-2 cursor-pointer">
@@ -116,7 +117,7 @@
 
             <!-- 8. Colour Diagnosis -->
             <div>
-                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">8. Colour Diagnosis</h3>
+                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">{% trans "8. Colour Diagnosis" %}</h3>
                 <div class="flex flex-wrap gap-4">
                     <template x-for="item in ['Red', 'Yellow', 'White', 'Black', 'Green']" :key="item">
                         <label class="flex items-center gap-2 cursor-pointer">
@@ -129,7 +130,7 @@
 
             <!-- 9. Taste Diagnosis -->
             <div>
-                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">9. Taste Diagnosis</h3>
+                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">{% trans "9. Taste Diagnosis" %}</h3>
                 <div class="flex flex-wrap gap-4">
                     <template x-for="item in ['Bitter', 'Sweet', 'Pungent', 'Salty', 'Sour']" :key="item">
                         <label class="flex items-center gap-2 cursor-pointer">
@@ -142,7 +143,7 @@
 
             <!-- 10. Five Stages of Development -->
             <div>
-                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">10. Five Stages of Development</h3>
+                <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">{% trans "10. Five Stages of Development" %}</h3>
                 <div class="flex flex-wrap gap-4">
                     <template x-for="item in ['Growth', 'Transformation', 'Harvest', 'Storage', 'Birth']" :key="item">
                         <label class="flex items-center gap-2 cursor-pointer">
@@ -160,56 +161,56 @@
     <!-- Pulse Reading and Meridian Tables -->
     <div class="mt-8 space-y-6">
         <div>
-            <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">11. Pathway of the Meridian / Pulse Reading</h3>
+            <h3 class="font-bold text-gray-800 mb-3 border-b pb-1">{% trans "11. Pathway of the Meridian / Pulse Reading" %}</h3>
             <div class="overflow-x-auto pb-2">
                 <table class="w-full min-w-[600px] text-sm text-center border-collapse border border-gray-300">
                     <thead>
                         <tr class="bg-gray-100">
-                            <th class="border border-gray-300 p-2 w-1/5">FIRE</th>
-                            <th class="border border-gray-300 p-2 w-1/5">EARTH</th>
-                            <th class="border border-gray-300 p-2 w-1/5">METAL</th>
-                            <th class="border border-gray-300 p-2 w-1/5">WATER</th>
-                            <th class="border border-gray-300 p-2 w-1/5">WOOD</th>
+                            <th class="border border-gray-300 p-2 w-1/5">{% trans "FIRE" %}</th>
+                            <th class="border border-gray-300 p-2 w-1/5">{% trans "EARTH" %}</th>
+                            <th class="border border-gray-300 p-2 w-1/5">{% trans "METAL" %}</th>
+                            <th class="border border-gray-300 p-2 w-1/5">{% trans "WATER" %}</th>
+                            <th class="border border-gray-300 p-2 w-1/5">{% trans "WOOD" %}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="border border-gray-300 p-0">
                                 <div class="grid grid-cols-2 h-full">
-                                    <div class="border-r p-2 flex items-center justify-center gap-1"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.H"> H</div>
+                                    <div class="border-e p-2 flex items-center justify-center gap-1"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.H"> H</div>
                                     <div class="p-2 flex items-center justify-center gap-1"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.P"> P</div>
                                 </div>
                             </td>
                             <td class="border border-gray-300 p-2 align-middle font-bold" rowspan="2">
                                 <div class="flex flex-col items-center gap-2">
-                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.SP"> SP</label>
-                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.ST"> ST</label>
+                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.SP"> {% trans "SP" %}</label>
+                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.ST"> {% trans "ST" %}</label>
                                 </div>
                             </td>
                             <td class="border border-gray-300 p-2 align-middle font-bold" rowspan="2">
                                 <div class="flex flex-col items-center gap-2">
-                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.LU"> LU</label>
-                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.LI"> LI</label>
+                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.LU"> {% trans "LU" %}</label>
+                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.LI"> {% trans "LI" %}</label>
                                 </div>
                             </td>
                             <td class="border border-gray-300 p-2 align-middle font-bold" rowspan="2">
                                 <div class="flex flex-col items-center gap-2">
                                     <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.K"> K</label>
-                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.UB"> UB</label>
+                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.UB"> {% trans "UB" %}</label>
                                 </div>
                             </td>
                             <td class="border border-gray-300 p-2 align-middle font-bold" rowspan="2">
                                 <div class="flex flex-col items-center gap-2">
-                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.LIV"> LIV</label>
-                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.GB"> GB</label>
+                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.LIV"> {% trans "LIV" %}</label>
+                                    <label class="flex gap-2 items-center cursor-pointer"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.GB"> {% trans "GB" %}</label>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td class="border border-gray-300 p-0 border-t">
                                 <div class="grid grid-cols-2 h-full">
-                                    <div class="border-r p-2 flex items-center justify-center gap-1"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.SI"> SI</div>
-                                    <div class="p-2 flex items-center justify-center gap-1"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.TW"> TW</div>
+                                    <div class="border-e p-2 flex items-center justify-center gap-1"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.SI"> {% trans "SI" %}</div>
+                                    <div class="p-2 flex items-center justify-center gap-1"><input type="checkbox" class="rounded text-green-600" x-model="data.meridian.TW"> {% trans "TW" %}</div>
                                 </div>
                             </td>
                         </tr>
@@ -221,22 +222,22 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <!-- 12. Luo Connecting Points -->
             <div class="bg-gray-50 border border-gray-100 rounded-xl p-4">
-                <h3 class="font-bold text-gray-800 mb-3 text-xs uppercase tracking-wider border-b pb-2">12. Luo - Connecting Points</h3>
+                <h3 class="font-bold text-gray-800 mb-3 text-xs uppercase tracking-wider border-b pb-2">{% trans "12. Luo - Connecting Points" %}</h3>
                 <div class="flex flex-col gap-3">
                     <label class="flex items-center gap-2 cursor-pointer">
                         <input type="radio" name="luo_points" value="Y- Ya+" class="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500" x-model="data.luo_points">
-                        <span class="text-sm font-medium text-gray-700">Y- Ya+</span>
+                        <span class="text-sm font-medium text-gray-700">{% trans "Y- Ya+" %}</span>
                     </label>
                     <label class="flex items-center gap-2 cursor-pointer">
                         <input type="radio" name="luo_points" value="Y+ Ya-" class="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500" x-model="data.luo_points">
-                        <span class="text-sm font-medium text-gray-700">Y+ Ya-</span>
+                        <span class="text-sm font-medium text-gray-700">{% trans "Y+ Ya-" %}</span>
                     </label>
                 </div>
             </div>
             
             <!-- 13. Mother - Son Law -->
             <div class="bg-gray-50 border border-gray-100 rounded-xl p-4">
-                <h3 class="font-bold text-gray-800 mb-3 text-xs uppercase tracking-wider border-b pb-2">13. Mother - Son Law</h3>
+                <h3 class="font-bold text-gray-800 mb-3 text-xs uppercase tracking-wider border-b pb-2">{% trans "13. Mother - Son Law" %}</h3>
                 <label class="flex items-center gap-2 cursor-pointer">
                     <input type="checkbox" class="w-4 h-4 text-green-600 rounded border-gray-300 focus:ring-green-500" x-model="data.mother_son_law">
                     <span class="text-sm font-medium text-gray-700">A+ B-</span>
@@ -245,7 +246,7 @@
             
             <!-- 14. Kocycle Law -->
             <div class="bg-gray-50 border border-gray-100 rounded-xl p-4">
-                <h3 class="font-bold text-gray-800 mb-3 text-xs uppercase tracking-wider border-b pb-2">14. Kocycle Law</h3>
+                <h3 class="font-bold text-gray-800 mb-3 text-xs uppercase tracking-wider border-b pb-2">{% trans "14. Kocycle Law" %}</h3>
                 <label class="flex items-center gap-2 cursor-pointer">
                     <input type="checkbox" class="w-4 h-4 text-green-600 rounded border-gray-300 focus:ring-green-500" x-model="data.kocycle_law">
                     <span class="text-sm font-medium text-gray-700">A+ B- C-</span>
@@ -254,7 +255,7 @@
 
             <!-- 15. Recycle Law -->
             <div class="bg-gray-50 border border-gray-100 rounded-xl p-4">
-                <h3 class="font-bold text-gray-800 mb-3 text-xs uppercase tracking-wider border-b pb-2">15. Recycle Law</h3>
+                <h3 class="font-bold text-gray-800 mb-3 text-xs uppercase tracking-wider border-b pb-2">{% trans "15. Recycle Law" %}</h3>
                 <label class="flex items-center gap-2 cursor-pointer">
                     <input type="checkbox" class="w-4 h-4 text-green-600 rounded border-gray-300 focus:ring-green-500" x-model="data.recycle_law">
                     <span class="text-sm font-medium text-gray-700">A+ B- C- D-</span>

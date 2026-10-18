@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Practitioners — SpinalCure{% endblock %}
-{% block page_title %}Practitioners Management{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Practitioners — SpinalCure" %}{% endblock %}
+{% block page_title %}{% trans "Practitioners Management" %}{% endblock %}
 
 {% block header_actions %}
 <a href="{% url 'admin_practitioner_create' %}"
@@ -8,7 +9,7 @@
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
     </svg>
-    Add Practitioner
+    {% trans "Add Practitioner" %}
 </a>
 {% endblock %}
 
@@ -31,25 +32,25 @@
                     <h3 class="font-semibold text-gray-900 text-sm">{{ p.title }} {{ p.name }}</h3>
                     {% if p.is_active %}
                     <span
-                        class="text-[10px] font-bold bg-green-50 text-green-600 px-2 py-0.5 rounded-full uppercase tracking-tighter">Active</span>
+                        class="text-[10px] font-bold bg-green-50 text-green-600 px-2 py-0.5 rounded-full uppercase tracking-tighter">{% trans "Active" %}</span>
                     {% else %}
                     <span
-                        class="text-[10px] font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full uppercase tracking-tighter">Inactive</span>
+                        class="text-[10px] font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full uppercase tracking-tighter">{% trans "Inactive" %}</span>
                     {% endif %}
                 </div>
                 <p class="text-xs text-gray-500 mt-1 truncate">{{ p.specialization|default:"Specialization not set" }}
                 </p>
-                <p class="text-[11px] text-gray-400 mt-0.5">{{ p.experience_years }} years experience</p>
+                <p class="text-[11px] text-gray-400 mt-0.5">{% blocktranslate trimmed with experience_years=p.experience_years %}{{ experience_years }} years experience{% endblocktranslate %}</p>
             </div>
         </div>
         <div class="flex gap-2 mt-5 pt-4 border-t border-gray-50">
             <a href="{% url 'admin_practitioner_edit' p.pk %}"
-                class="flex-1 text-center text-xs font-semibold py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg transition-all border border-gray-200">Edit</a>
+                class="flex-1 text-center text-xs font-semibold py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg transition-all border border-gray-200">{% trans "Edit" %}</a>
                 <form method="post" action="{% url 'admin_practitioner_delete' p.pk %}" class="inline-block"
                 data-confirm="Are you sure you want to delete {{ p.title }} {{ p.name }}?">
                 {% csrf_token %}
                 <button type="submit"
-                    class="px-3 py-2 text-xs font-semibold bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-all border border-red-100">Delete</button>
+                    class="px-3 py-2 text-xs font-semibold bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-all border border-red-100">{% trans "Delete" %}</button>
             </form>
         </div>
     </div>
@@ -63,9 +64,8 @@
                 d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
     </div>
-    <p class="text-gray-500 font-medium">No practitioners added yet</p>
-    <a href="{% url 'admin_practitioner_create' %}" class="mt-3 inline-block text-sm text-green-600 hover:underline">Add
-        your first practitioner →</a>
+    <p class="text-gray-500 font-medium">{% trans "No practitioners added yet" %}</p>
+    <a href="{% url 'admin_practitioner_create' %}" class="mt-3 inline-block text-sm text-green-600 hover:underline">{% trans "Add your first practitioner →" %}</a>
 </div>
 {% endif %}
 {% endblock %}

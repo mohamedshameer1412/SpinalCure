@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 from datetime import datetime
 import logging
 
@@ -68,7 +69,7 @@ class EventViewSet(viewsets.ModelViewSet):
 def _need(request, capability):
     if has_capability(request.user, capability):
         return None
-    messages.error(request, 'You do not have permission to perform this action.')
+    messages.error(request, gettext('You do not have permission to perform this action.'))
     return redirect('dashboard')
 
 
@@ -123,7 +124,7 @@ def event_create_view(request):
         event.clinic = ClinicProfile.objects.first()
         event.save()
         log_action(request, 'create', 'Event', event.title, object_id=event.id)
-        messages.success(request, f'Event "{event.title}" saved as a draft. Publish it when you are ready.')
+        messages.success(request, gettext('Event "%(title)s" saved as a draft. Publish it when you are ready.') % {'title': event.title})
         return redirect('event_registrations', pk=event.pk)
     return render(request, 'events/event_form.html', {'form': form, 'is_edit': False})
 
@@ -155,18 +156,18 @@ def event_status(request, pk):
     try:
         if action == 'publish':
             service.publish(event)
-            messages.success(request, f'"{event.title}" is now published.')
+            messages.success(request, gettext('"%(title)s" is now published.') % {'title': event.title})
         elif action == 'unpublish':
             service.unpublish(event)
-            messages.success(request, f'"{event.title}" is now a draft and hidden from the public site.')
+            messages.success(request, gettext('"%(title)s" is now a draft and hidden from the public site.') % {'title': event.title})
         elif action == 'cancel':
             service.cancel_event(event, request.POST.get('reason', ''))
-            messages.success(request, f'"{event.title}" was cancelled and registrants were notified.')
+            messages.success(request, gettext('"%(title)s" was cancelled and registrants were notified.') % {'title': event.title})
         elif action == 'archive':
             service.archive(event)
-            messages.success(request, f'"{event.title}" was archived.')
+            messages.success(request, gettext('"%(title)s" was archived.') % {'title': event.title})
         else:
-            messages.error(request, 'Unknown action.')
+            messages.error(request, gettext('Unknown action.'))
             return redirect('event_list')
     except service.EventError as exc:
         messages.error(request, exc.message)
@@ -207,7 +208,7 @@ def event_delete_view(request, pk):
         log_action(request, 'delete', 'Event', title, object_id=event_id)
         if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.headers.get('Accept') == 'application/json':
             return JsonResponse({'status': 'ok', 'redirect_url': reverse('event_list')})
-        messages.success(request, f'Event "{title}" deleted.')
+        messages.success(request, gettext('Event "%(title)s" deleted.') % {'title': title})
     return redirect('event_list')
 
 
@@ -256,16 +257,16 @@ def registration_action(request, pk, reg_pk):
             service.mark_attended(reg, action == 'attended')
         elif action == 'cancel':
             service.cancel_registration(reg, by_staff=True)
-            messages.success(request, f'Cancelled {reg.name}\'s registration.')
+            messages.success(request, gettext("Cancelled %(name)s's registration.") % {'name': reg.name})
         elif action == 'promote' and reg.status == 'waitlisted':
             if event.is_full:
-                raise service.EventError('full', 'No seat is free. Raise the capacity or cancel a registration first.')
+                raise service.EventError('full', gettext('No seat is free. Raise the capacity or cancel a registration first.'))
             reg.status, reg.promoted_at = 'confirmed', timezone.now()
             reg.save(update_fields=['status', 'promoted_at'])
             service._notify_reg('event_promoted', reg)
-            messages.success(request, f'{reg.name} was moved from the waitlist.')
+            messages.success(request, gettext('%(name)s was moved from the waitlist.') % {'name': reg.name})
         else:
-            messages.error(request, 'That action is not available for this registration.')
+            messages.error(request, gettext('That action is not available for this registration.'))
     except service.EventError as exc:
         messages.error(request, exc.message)
     log_action(request, 'update', 'EventRegistration', f'{reg.name} / {event.title}', object_id=reg.pk,
@@ -286,7 +287,7 @@ def toggle_event_feedback(request, pk):
     event = get_object_or_404(Event, pk=pk)
     event.feedback_enabled = not event.feedback_enabled
     event.save(update_fields=['feedback_enabled'])
-    messages.success(request, f'Feedback form {"enabled" if event.feedback_enabled else "disabled"} for "{event.title}".')
+    messages.success(request, gettext('Feedback form %(value1)s for "%(title)s".') % {'value1': "enabled" if event.feedback_enabled else "disabled", 'title': event.title})
     return redirect('event_feedback_admin', pk=pk)
 
 
@@ -296,7 +297,7 @@ def toggle_feedback_publish(request, feedback_pk):
     feedback = get_object_or_404(EventFeedback, pk=feedback_pk)
     feedback.is_published = not feedback.is_published
     feedback.save(update_fields=['is_published'])
-    messages.success(request, f'Feedback by {feedback.reviewer_name} {"published" if feedback.is_published else "unpublished"}.')
+    messages.success(request, gettext('Feedback by %(reviewer_name)s %(value3)s.') % {'reviewer_name': feedback.reviewer_name, 'value3': "published" if feedback.is_published else "unpublished"})
     return redirect('event_feedback_admin', pk=feedback.event_id)
 
 

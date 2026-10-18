@@ -2,6 +2,7 @@
 Admin (dashboard) views for Blog management.
 Only superadmins and doctors can write/manage blogs.
 """
+from django.utils.translation import gettext
 from spinalcure.rbac import has_capability
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -22,7 +23,7 @@ def admin_blog_list(request):
 def admin_blog_create(request):
     """Create a new blog post."""
     if not has_capability(request.user, 'website.manage'):
-        messages.error(request, 'You do not have permission to create blog posts.')
+        messages.error(request, gettext('You do not have permission to create blog posts.'))
         return redirect('dashboard')
 
     all_tags = BlogTag.objects.all()
@@ -39,7 +40,7 @@ def admin_blog_create(request):
         tag_ids = request.POST.getlist('tags')
 
         if not title or not content:
-            messages.error(request, 'Title and Content are required.')
+            messages.error(request, gettext('Title and Content are required.'))
         else:
             post = BlogPost(
                 title=title,
@@ -61,7 +62,7 @@ def admin_blog_create(request):
             if tag_ids:
                 post.tags.set(BlogTag.objects.filter(pk__in=tag_ids))
 
-            messages.success(request, f'Blog post "{title}" created successfully.')
+            messages.success(request, gettext('Blog post "%(title)s" created successfully.') % {'title': title})
             return redirect('admin_blog_list')
 
     context = {
@@ -76,7 +77,7 @@ def admin_blog_create(request):
 def admin_blog_edit(request, pk):
     """Edit an existing blog post."""
     if not has_capability(request.user, 'website.manage'):
-        messages.error(request, 'You do not have permission to edit blog posts.')
+        messages.error(request, gettext('You do not have permission to edit blog posts.'))
         return redirect('dashboard')
 
     post = get_object_or_404(BlogPost, pk=pk)
@@ -102,11 +103,11 @@ def admin_blog_edit(request, pk):
             post.cover_image = request.FILES['cover_image']
 
         if not post.title or not post.content:
-            messages.error(request, 'Title and Content are required.')
+            messages.error(request, gettext('Title and Content are required.'))
         else:
             post.save()
             post.tags.set(BlogTag.objects.filter(pk__in=tag_ids))
-            messages.success(request, f'Blog post "{post.title}" updated.')
+            messages.success(request, gettext('Blog post "%(title)s" updated.') % {'title': post.title})
             return redirect('admin_blog_list')
 
     context = {
@@ -123,14 +124,14 @@ def admin_blog_edit(request, pk):
 def admin_blog_delete(request, pk):
     """Delete a blog post."""
     if not has_capability(request.user, 'website.manage'):
-        messages.error(request, 'You do not have permission to delete blog posts.')
+        messages.error(request, gettext('You do not have permission to delete blog posts.'))
         return redirect('dashboard')
 
     post = get_object_or_404(BlogPost, pk=pk)
     if request.method == 'POST':
         title = post.title
         post.delete()
-        messages.success(request, f'Blog post "{title}" deleted.')
+        messages.success(request, gettext('Blog post "%(title)s" deleted.') % {'title': title})
     return redirect('admin_blog_list')
 
 
@@ -138,7 +139,7 @@ def admin_blog_delete(request, pk):
 def admin_tag_list(request):
     """Manage blog tags."""
     if not has_capability(request.user, 'website.manage'):
-        messages.error(request, 'Permission denied.')
+        messages.error(request, gettext('Permission denied.'))
         return redirect('dashboard')
 
     tags = BlogTag.objects.all()
@@ -150,14 +151,14 @@ def admin_tag_list(request):
             if name:
                 tag, created = BlogTag.objects.get_or_create(name=name)
                 if created:
-                    messages.success(request, f'Tag "{name}" created.')
+                    messages.success(request, gettext('Tag "%(name)s" created.') % {'name': name})
                 else:
-                    messages.warning(request, f'Tag "{name}" already exists.')
+                    messages.warning(request, gettext('Tag "%(name)s" already exists.') % {'name': name})
         elif action == 'delete':
             tag_id = request.POST.get('tag_id')
             tag = get_object_or_404(BlogTag, pk=tag_id)
             tag.delete()
-            messages.success(request, 'Tag deleted.')
+            messages.success(request, gettext('Tag deleted.'))
         return redirect('admin_blog_tags')
 
     context = {'tags': tags}

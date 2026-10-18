@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 import json
 import logging
 
@@ -67,24 +68,24 @@ def registration_manage(request, token):
         try:
             if action == 'cancel':
                 service.cancel_registration(reg)
-                messages.success(request, 'Your registration has been cancelled.')
+                messages.success(request, gettext('Your registration has been cancelled.'))
             elif action == 'feedback':
                 if reg.status != 'confirmed' or not batch.feedback_enabled or not batch.is_completed:
-                    raise EventError('closed', 'Feedback is not open for this batch.')
+                    raise EventError('closed', gettext('Feedback is not open for this batch.'))
                 if hasattr(reg, 'feedback'):
-                    raise EventError('duplicate', 'You have already sent feedback. Thank you!')
+                    raise EventError('duplicate', gettext('You have already sent feedback. Thank you!'))
                 try:
                     rating = int(request.POST.get('rating', ''))
                     if rating not in range(1, 6):
                         raise ValueError
                 except ValueError:
-                    raise EventError('invalid', 'Please choose a rating from 1 to 5.')
+                    raise EventError('invalid', gettext('Please choose a rating from 1 to 5.'))
                 CourseFeedback.objects.create(course=batch.course, batch=batch, registration=reg,
                                               reviewer_name=reg.name, rating=rating,
                                               comment=request.POST.get('comment', '').strip()[:1000], is_published=False)
-                messages.success(request, 'Thank you for your feedback.')
+                messages.success(request, gettext('Thank you for your feedback.'))
             else:
-                messages.error(request, 'Unknown action.')
+                messages.error(request, gettext('Unknown action.'))
         except EventError as exc:
             messages.error(request, exc.message)
         return redirect('course_registration_manage', token=token)

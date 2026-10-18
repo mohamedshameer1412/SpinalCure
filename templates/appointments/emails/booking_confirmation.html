@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 
@@ -61,45 +62,44 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>SpinalCure Clinic</h2>
-            <p>New Appointment Confirmation</p>
+            <h2>{% trans "SpinalCure Clinic" %}</h2>
+            <p>{% trans "New Appointment Confirmation" %}</p>
         </div>
 
-        <p>Hello Admin,</p>
-        <p>A new appointment has been successfully booked in the system. Here are the details:</p>
+        <p>{% trans "Hello Admin," %}</p>
+        <p>{% trans "A new appointment has been successfully booked in the system. Here are the details:" %}</p>
 
         <div class="details">
             <table>
                 <tr>
-                    <th>Patient:</th>
+                    <th>{% trans "Patient:" %}</th>
                     <td><strong>{{ appointment.patient.name }}</strong></td>
                 </tr>
                 <tr>
-                    <th>Date:</th>
+                    <th>{% trans "Date:" %}</th>
                     <td>{{ appointment.appointment_date|date:"F j, Y" }}</td>
                 </tr>
                 <tr>
-                    <th>Time:</th>
+                    <th>{% trans "Time:" %}</th>
                     <td>{{ appointment.appointment_time|time:"h:i A" }}</td>
                 </tr>
                 <tr>
-                    <th>Doctor:</th>
+                    <th>{% trans "Doctor:" %}</th>
                     <td>{{ appointment.practitioner.name|default:"Any Available" }}</td>
                 </tr>
                 <tr>
-                    <th>Status:</th>
+                    <th>{% trans "Status:" %}</th>
                     <td><span style="color: #0284c7; font-weight: bold;">{{ appointment.get_status_display }}</span>
                     </td>
                 </tr>
             </table>
         </div>
 
-        <p>You can manage this appointment in the <a href="{{ settings.SITE_URL }}/appointments/">SpinalCure
-                Dashboard</a>.</p>
+        <p>{% trans "You can manage this appointment in the" %} <a href="{{ settings.SITE_URL }}/appointments/">{% trans "SpinalCure Dashboard" %}</a>.</p>
 
         <div class="footer">
-            This is an automated message from your SpinalCure platform.<br>
-            Please do not reply to this email.
+            {% trans "This is an automated message from your SpinalCure platform." %}<br>
+            {% trans "Please do not reply to this email." %}
         </div>
     </div>
 </body>

@@ -1,75 +1,75 @@
 {% extends "emails/base_email.html" %}
 
-{% block title %}Appointment Reminder - {{ appointment_date|date:"M d, Y" }}{% endblock %}
+{% load i18n %}
+{% block title %}{% blocktranslate trimmed with appointment_date=appointment_date|date:"M d, Y" %}Appointment Reminder - {{ appointment_date }}{% endblocktranslate %}{% endblock %}
 
 {% block body %}
-    <h1>Appointment Reminder</h1>
+    <h1>{% trans "Appointment Reminder" %}</h1>
     
-    <p>Hello {{ patient_name }},</p>
+    <p>{% blocktranslate trimmed with patient_name=patient_name %}Hello {{ patient_name }},{% endblocktranslate %}</p>
     
-    <p>We wanted to remind you about your upcoming appointment with us tomorrow.</p>
+    <p>{% trans "We wanted to remind you about your upcoming appointment with us tomorrow." %}</p>
     
     <div class="highlight-box">
-        <strong>📅 Your Appointment is Tomorrow</strong><br>
-        {{ appointment_date|date:"dddd, MMMM d, Y" }} at {{ appointment_time }}
+        <strong>{% trans "📅 Your Appointment is Tomorrow" %}</strong><br>
+        {% blocktranslate trimmed with appointment_date=appointment_date|date:"dddd, MMMM d, Y" appointment_time=appointment_time %}{{ appointment_date }} at {{ appointment_time }}{% endblocktranslate %}
     </div>
     
-    <h3 style="color: #667eea;">Appointment Information</h3>
+    <h3 style="color: #667eea;">{% trans "Appointment Information" %}</h3>
     <div class="appointment-details">
         <div class="detail-row">
-            <span class="detail-label">Time:</span>
+            <span class="detail-label">{% trans "Time:" %}</span>
             <span class="detail-value"><strong>{{ appointment_time }}</strong></span>
         </div>
         <div class="detail-row">
-            <span class="detail-label">With:</span>
+            <span class="detail-label">{% trans "With:" %}</span>
             <span class="detail-value">{{ practitioner_name }}<br><small>{{ specialization }}</small></span>
         </div>
         <div class="detail-row">
-            <span class="detail-label">Location:</span>
+            <span class="detail-label">{% trans "Location:" %}</span>
             <span class="detail-value">{{ clinic_address }}<br><small>{{ clinic_phone }}</small></span>
         </div>
         <div class="detail-row">
-            <span class="detail-label">Reference #:</span>
+            <span class="detail-label">{% trans "Reference #:" %}</span>
             <span class="detail-value"><code style="background: #f0f0f0; padding: 5px 10px; border-radius: 3px;">{{ booking_reference }}</code></span>
         </div>
     </div>
     
-    <h3 style="color: #667eea; margin-top: 25px;">Getting Here</h3>
+    <h3 style="color: #667eea; margin-top: 25px;">{% trans "Getting Here" %}</h3>
     <p>
         📍 <strong>{{ clinic_name }}</strong><br>
         {{ clinic_full_address }}<br>
-        Parking: {{ parking_info }}<br>
-        <small>{% if parking_cost %}Note: {{ parking_cost }}{% endif %}</small>
+        {% blocktranslate trimmed with parking_info=parking_info %}Parking: {{ parking_info }}{% endblocktranslate %}<br>
+        <small>{% if parking_cost %}{% blocktranslate trimmed with parking_cost=parking_cost %}Note: {{ parking_cost }}{% endblocktranslate %}{% endif %}</small>
     </p>
     
-    <h3 style="color: #667eea;">Quick Reminders</h3>
+    <h3 style="color: #667eea;">{% trans "Quick Reminders" %}</h3>
     <ul>
-        <li><strong>Arrive 10-15 minutes early</strong> for check-in</li>
-        <li><strong>Bring valid ID</strong> and insurance card if applicable</li>
-        <li><strong>Wear comfortable clothing</strong> that allows easy movement</li>
-        <li><strong>List your current medications</strong> and supplements</li>
-        <li><strong>Note any new symptoms or concerns</strong> to discuss</li>
+        <li><strong>{% trans "Arrive 10-15 minutes early" %}</strong> {% trans "for check-in" %}</li>
+        <li><strong>{% trans "Bring valid ID" %}</strong> {% trans "and insurance card if applicable" %}</li>
+        <li><strong>{% trans "Wear comfortable clothing" %}</strong> {% trans "that allows easy movement" %}</li>
+        <li><strong>{% trans "List your current medications" %}</strong> {% trans "and supplements" %}</li>
+        <li><strong>{% trans "Note any new symptoms or concerns" %}</strong> {% trans "to discuss" %}</li>
     </ul>
     
-    <h3 style="color: #667eea;">Weather & Travel</h3>
+    <h3 style="color: #667eea;">{% trans "Weather & Travel" %}</h3>
     <p style="color: #666; font-size: 14px;">
-        Please check the weather and traffic conditions in your area before traveling. 
-        Plan accordingly to ensure you arrive on time.
+        {% trans "Please check the weather and traffic conditions in your area before traveling. Plan accordingly to ensure you arrive on time." %}
     </p>
     
-    <h3 style="color: #667eea;">Need to Reschedule?</h3>
-    <p>If you're unable to attend, please let us know as soon as possible so we can offer the slot to another patient.</p>
+    <h3 style="color: #667eea;">{% trans "Need to Reschedule?" %}</h3>
+    <p>{% trans "If you're unable to attend, please let us know as soon as possible so we can offer the slot to another patient." %}</p>
     <p style="text-align: center;">
-        <a href="{% block reschedule_link %}#{% endblock %}" class="cta-button">Reschedule Appointment</a>
+        <a href="{% block reschedule_link %}#{% endblock %}" class="cta-button">{% trans "Reschedule Appointment" %}</a>
     </p>
     
     <div class="highlight-box">
-        <strong>💬 Quick Answers</strong><br>
-        <strong>Q: Can I cancel my appointment?</strong> Yes, contact us at least 24 hours before your appointment.<br>
-        <strong>Q: Should I fast before my appointment?</strong> No fasting required unless specifically instructed.<br>
-        <strong>Q: What if I'm running late?</strong> Please call us immediately at {{ clinic_phone }}
+        <strong>{% trans "💬 Quick Answers" %}</strong><br>
+        <strong>{% trans "Q: Can I cancel my appointment?" %}</strong> {% trans "Yes, contact us at least 24 hours before your appointment." %}<br>
+        <strong>{% trans "Q: Should I fast before my appointment?" %}</strong> {% trans "No fasting required unless specifically instructed." %}<br>
+        <strong>{% trans "Q: What if I'm running late?" %}</strong> {% blocktranslate trimmed with clinic_phone=clinic_phone %}Please call us immediately at {{ clinic_phone }}{% endblocktranslate %}
     </div>
     
-    <p>We're looking forward to seeing you tomorrow and continuing your journey to better spinal health!</p>
-    <p>Best regards,<br><strong>SpinalCure Team</strong></p>
+    <p>{% trans "We're looking forward to seeing you tomorrow and continuing your journey to better spinal health!" %}</p>
+    <p>{% trans "Best regards," %}<br><strong>{% trans "SpinalCure Team" %}</strong></p>
 {% endblock %}

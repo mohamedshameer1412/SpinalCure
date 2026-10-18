@@ -1,3 +1,4 @@
+{% load i18n %}
 <!-- Security PIN Modal -->
 <div id="security-modal" class="fixed inset-0 z-[100] hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog"
     aria-modal="true">
@@ -7,7 +8,7 @@
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
         
         <div id="modal-container"
-            class="inline-block px-8 py-10 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-3xl sm:my-8 sm:max-w-md sm:w-full relative">
+            class="inline-block px-8 py-10 overflow-hidden text-start align-middle transition-all transform bg-white shadow-2xl rounded-3xl sm:my-8 sm:max-w-md sm:w-full relative">
             
             <!-- Step 1: Confirmation (Custom Confirm) -->
             <div id="step-confirm" class="">
@@ -15,19 +16,19 @@
                     <div class="inline-flex items-center justify-center w-20 h-20 mb-6 rounded-full bg-red-50 text-red-600">
                         <i class="bi bi-trash3-fill text-3xl"></i>
                     </div>
-                    <h3 class="text-2xl font-black text-gray-900 mb-2">Are you sure?</h3>
+                    <h3 class="text-2xl font-black text-gray-900 mb-2">{% trans "Are you sure?" %}</h3>
                     <p class="text-sm text-gray-500 mb-8 px-4 leading-relaxed">
-                        You are about to permanently delete <span id="confirm-target-name" class="font-bold text-red-600"></span>. This action cannot be undone.
+                        {% trans "You are about to permanently delete" %} <span id="confirm-target-name" class="font-bold text-red-600"></span>{% trans ". This action cannot be undone." %}
                     </p>
                     
                     <div class="flex flex-col gap-3">
                         <button onclick="goToSecurity()"
                             class="w-full py-4 bg-red-600 text-white font-black rounded-2xl shadow-xl shadow-red-100 hover:bg-red-700 transition-all flex items-center justify-center gap-2">
-                            Yes, Delete Record
+                            {% trans "Yes, Delete Record" %}
                         </button>
                         <button onclick="closeSecurityModal()"
                             class="w-full py-4 bg-gray-50 text-gray-500 font-bold rounded-2xl hover:bg-gray-100 transition-all">
-                            No, Keep It
+                            {% trans "No, Keep It" %}
                         </button>
                     </div>
                 </div>
@@ -39,9 +40,9 @@
                     <div class="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-primary-50 text-primary-600">
                         <i class="bi bi-shield-lock-fill text-2xl"></i>
                     </div>
-                    <h3 class="text-2xl font-black text-gray-900 mb-2">Security Verification</h3>
+                    <h3 class="text-2xl font-black text-gray-900 mb-2">{% trans "Security Verification" %}</h3>
                     <p class="text-sm text-gray-500 mb-6 px-4">
-                        A security PIN has been sent to the <strong class="text-gray-900">superadmin's email</strong>. Request the PIN from them to authorize this action.
+                        {% trans "A security PIN has been sent to the" %} <strong class="text-gray-900">{% trans "superadmin's email" %}</strong>{% trans ". Request the PIN from them to authorize this action." %}
                     </p>
 
                     <form id="pin-form" onsubmit="verifyPinAndProceed(); return false;" class="flex justify-center gap-3 mb-8" id="pin-inputs">
@@ -52,17 +53,17 @@
                     </form>
 
                     <div id="security-error" class="hidden mb-6 p-4 bg-red-50 text-red-600 text-xs font-bold rounded-xl border border-red-100">
-                        <i class="bi bi-exclamation-triangle-fill mr-2"></i> Incorrect PIN. Please try again.
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> {% trans "Incorrect PIN. Please try again." %}
                     </div>
 
                     <div class="flex flex-col gap-3">
                         <button id="verify-btn" onclick="verifyPinAndProceed()" disabled
                             class="w-full py-4 bg-primary-600 text-white font-black rounded-2xl shadow-xl shadow-primary-200 disabled:opacity-50 disabled:shadow-none transition-all hover:bg-primary-700">
-                            Verify & Proceed
+                            {% trans "Verify & Proceed" %}
                         </button>
                         <button onclick="closeSecurityModal()"
                             class="w-full py-3 text-sm font-bold text-gray-400 hover:text-gray-600 transition-colors">
-                            Cancel
+                            {% trans "Cancel" %}
                         </button>
                     </div>
                 </div>
@@ -169,7 +170,7 @@
         const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
 
         btn.disabled = true;
-        btn.innerHTML = '<i class="bi bi-arrow-repeat animate-spin mr-2"></i> Verifying...';
+        btn.innerHTML = '<i class="bi bi-arrow-repeat animate-spin me-2"></i> Verifying...';
 
         const params = new URLSearchParams();
         params.append('pin', pin);
@@ -206,7 +207,7 @@
         const btn = document.getElementById('verify-btn');
         const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
         
-        btn.innerHTML = '<i class="bi bi-trash mr-2"></i> Deleting...';
+        btn.innerHTML = '<i class="bi bi-trash me-2"></i> Deleting...';
         
         const params = new URLSearchParams();
         if (token) params.append('auth_token', token);
@@ -251,7 +252,7 @@
         const confirmBtn = document.querySelector('#step-confirm button');
         confirmBtn.onclick = function() {
             confirmBtn.disabled = true;
-            confirmBtn.innerHTML = '<i class="bi bi-arrow-repeat animate-spin mr-2"></i> Deleting...';
+            confirmBtn.innerHTML = '<i class="bi bi-arrow-repeat animate-spin me-2"></i> Deleting...';
             
             const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
             fetch(url, {

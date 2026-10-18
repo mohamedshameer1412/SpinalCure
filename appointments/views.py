@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 from django.contrib.auth.decorators import login_required
 from django_ratelimit.decorators import ratelimit
 from spinalcure.rbac import has_capability
@@ -52,7 +53,7 @@ def appointment_calendar_view(request):
 def appointment_list_view(request):
     """List all appointments with search and filters."""
     if not has_capability(request.user, 'appointments.manage'):
-        messages.error(request, 'You do not have permission to view this page.')
+        messages.error(request, gettext('You do not have permission to view this page.'))
         return redirect('dashboard')
     
     query = request.GET.get('q', '')
@@ -240,9 +241,9 @@ def appointment_delete_view(request, pk):
         log_action(request, 'delete', 'Appointment', f'Appointment for {patient_name} on {date}', object_id=appointment_id)
         
         if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.headers.get('Accept') == 'application/json':
-            return JsonResponse({'status': 'ok', 'message': f'Appointment for {patient_name} deleted.'})
+            return JsonResponse({'status': 'ok', 'message': gettext('Appointment for %(patient_name)s deleted.') % {'patient_name': patient_name}})
             
-        messages.success(request, f'Appointment for {patient_name} on {date} deleted.')
+        messages.success(request, gettext('Appointment for %(patient_name)s on %(date)s deleted.') % {'patient_name': patient_name, 'date': date})
         return redirect('appointment_calendar')
     
     return redirect('appointment_calendar')
@@ -274,7 +275,7 @@ def appointment_check_collision(request):
     if conflict:
         return JsonResponse({
             'conflict': True,
-            'message': f'Dr. {conflict.practitioner.name} is already booked for {conflict.patient.name} at this time.'
+            'message': gettext('Dr. %(name)s is already booked for %(name2)s at this time.') % {'name': conflict.practitioner.name, 'name2': conflict.patient.name}
         })
 
     return JsonResponse({'conflict': False})
@@ -293,16 +294,16 @@ def get_available_slots(request):
     try:
         day = datetime.strptime(request.GET.get('date', ''), '%Y-%m-%d').date()
     except ValueError:
-        return JsonResponse({'error': 'Invalid or missing date. Use YYYY-MM-DD.'}, status=400)
+        return JsonResponse({'error': gettext('Invalid or missing date. Use YYYY-MM-DD.')}, status=400)
     appt_type = request.GET.get('type', 'physical')
     if appt_type not in ('physical', 'online'):
-        return JsonResponse({'error': 'Invalid appointment type.'}, status=400)
+        return JsonResponse({'error': gettext('Invalid appointment type.')}, status=400)
     try:
         duration = int(request.GET['duration']) if request.GET.get('duration') else None
     except ValueError:
-        return JsonResponse({'error': 'Invalid duration.'}, status=400)
+        return JsonResponse({'error': gettext('Invalid duration.')}, status=400)
     if duration is not None and not (5 <= duration <= 480):
-        return JsonResponse({'error': 'Duration must be between 5 and 480 minutes.'}, status=400)
+        return JsonResponse({'error': gettext('Duration must be between 5 and 480 minutes.')}, status=400)
 
     exclude = None
     if request.GET.get('exclude') and request.user.is_authenticated:
@@ -312,11 +313,11 @@ def get_available_slots(request):
     if request.GET.get('practitioner'):
         practitioner_id = parse_uuid_param(request.GET['practitioner'])
         if practitioner_id is None:
-            return JsonResponse({'error': 'Unknown practitioner.'}, status=404)
+            return JsonResponse({'error': gettext('Unknown practitioner.')}, status=404)
         qs = qs.filter(pk=practitioner_id)
     practitioners = list(qs)
     if request.GET.get('practitioner') and not practitioners:
-        return JsonResponse({'error': 'Unknown practitioner.'}, status=404)
+        return JsonResponse({'error': gettext('Unknown practitioner.')}, status=404)
 
     seen, slots = set(), []
     for pr in practitioners:

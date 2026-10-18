@@ -1,15 +1,16 @@
+{% load i18n %}
 <div id="payment-list-container">
     <div class="overflow-x-auto">
-        <table class="w-full text-sm text-left text-gray-500">
+        <table class="w-full text-sm text-start text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3">Receipt No.</th>
-                    <th scope="col" class="px-6 py-3">Date</th>
-                    <th scope="col" class="px-6 py-3">Payer / Recipient</th>
-                    <th scope="col" class="px-6 py-3">Amount (Paid / Total)</th>
-                    <th scope="col" class="px-6 py-3">Mode</th>
-                    <th scope="col" class="px-6 py-3">Status</th>
-                    <th scope="col" class="px-6 py-3 sr-only">Action</th>
+                    <th scope="col" class="px-6 py-3">{% trans "Receipt No." %}</th>
+                    <th scope="col" class="px-6 py-3">{% trans "Date" %}</th>
+                    <th scope="col" class="px-6 py-3">{% trans "Payer / Recipient" %}</th>
+                    <th scope="col" class="px-6 py-3">{% trans "Amount (Paid / Total)" %}</th>
+                    <th scope="col" class="px-6 py-3">{% trans "Mode" %}</th>
+                    <th scope="col" class="px-6 py-3">{% trans "Status" %}</th>
+                    <th scope="col" class="px-6 py-3 sr-only">{% trans "Action" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,34 +55,34 @@
                             {{ payment.get_payment_status_display }}
                         </span>
                     </td>
-                    <td class="px-6 py-4 text-right">
+                    <td class="px-6 py-4 text-end">
                         <div class="flex items-center justify-end gap-3">
-                            <a href="{% url 'payment_invoice' payment.id %}" title="Print Receipt"
+                            <a href="{% url 'payment_invoice' payment.id %}" title="{% trans 'Print Receipt' %}"
                                 class="text-gray-400 hover:text-primary-600 transition-colors">
                                 <i class="bi bi-printer text-lg"></i>
                             </a>
                             {% if request.user.role == 'superadmin' or request.user.is_superuser %}
-                            <a href="{% url 'payment_edit' payment.id %}" title="Edit"
+                            <a href="{% url 'payment_edit' payment.id %}" title="{% trans 'Edit' %}"
                                 class="text-gray-400 hover:text-blue-600 transition-colors">
                                 <i class="bi bi-pencil text-lg"></i>
                             </a>
                             <button data-url="{% url 'payment_delete' payment.id %}"
                                 data-receipt="Payment {{ payment.receipt_number|escapejs }}"
                                 onclick="directDelete(this.getAttribute('data-url'), this.getAttribute('data-receipt'))"
-                                title="Delete" class="text-gray-400 hover:text-red-600 transition-colors">
+                                title="{% trans 'Delete' %}" class="text-gray-400 hover:text-red-600 transition-colors">
                                 <i class="bi bi-trash text-lg"></i>
                             </button>
                             {% else %}
                             <button data-url="{% url 'payment_edit' payment.id %}"
                                 data-receipt="{{ payment.receipt_number|escapejs }}"
-                                onclick="openSecurityModal('edit', this.getAttribute('data-url'), this.getAttribute('data-receipt'))" title="Edit"
+                                onclick="openSecurityModal('edit', this.getAttribute('data-url'), this.getAttribute('data-receipt'))" title="{% trans 'Edit' %}"
                                 class="text-gray-400 hover:text-blue-600 transition-colors">
                                 <i class="bi bi-pencil text-lg"></i>
                             </button>
                             <button data-url="{% url 'payment_delete' payment.id %}"
                                 data-receipt="{{ payment.receipt_number|escapejs }}"
                                 onclick="openSecurityModal('delete', this.getAttribute('data-url'), this.getAttribute('data-receipt'))"
-                                title="Delete" class="text-gray-400 hover:text-red-600 transition-colors">
+                                title="{% trans 'Delete' %}" class="text-gray-400 hover:text-red-600 transition-colors">
                                 <i class="bi bi-trash text-lg"></i>
                             </button>
                             {% endif %}
@@ -90,7 +91,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="7" class="px-6 py-8 text-center text-gray-500">No matching payments found.</td>
+                    <td colspan="7" class="px-6 py-8 text-center text-gray-500">{% trans "No matching payments found." %}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -101,7 +102,7 @@
     {% if payments.has_other_pages %}
     <div class="flex items-center justify-between p-4 bg-white border-t border-gray-100">
         <span class="text-sm text-gray-500 font-medium">
-            Showing {{ payments.start_index }}-{{ payments.end_index }} of {{ payments.paginator.count }} payments
+            {% blocktranslate trimmed with start_index=payments.start_index end_index=payments.end_index count=payments.paginator.count %}Showing {{ start_index }}-{{ end_index }} of {{ count }} payments{% endblocktranslate %}
         </span>
         <div class="inline-flex gap-2">
             {% if payments.has_previous %}
@@ -109,7 +110,7 @@
                     hx-target="#payment-list-container"
                     hx-swap="outerHTML"
                     class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
-                Previous
+                {% trans "Previous" %}
             </button>
             {% endif %}
             {% if payments.has_next %}
@@ -117,7 +118,7 @@
                     hx-target="#payment-list-container"
                     hx-swap="outerHTML"
                     class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
-                Next
+                {% trans "Next" %}
             </button>
             {% endif %}
         </div>

@@ -1,33 +1,34 @@
 {% extends "emails/base_email.html" %}
 
-{% block title %}SpinalCure — Authorization Request{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "SpinalCure — Authorization Request" %}{% endblock %}
 
 {% block body %}
     <h1>
-        Authorization Request
+        {% trans "Authorization Request" %}
     </h1>
     
-    <p>A staff member is requesting your approval to <strong>{{ action_type|lower }}</strong> a <strong>{{ record_type|default:"sensitive"|title }}</strong> record. Please review the details below:</p>
+    <p>{% trans "A staff member is requesting your approval to" %} <strong>{{ action_type|lower }}</strong> a <strong>{{ record_type|default:"sensitive"|title }}</strong> {% trans "record. Please review the details below:" %}</p>
 
     <div class="appointment-details">
         <div class="detail-row">
-            <span class="detail-label">Staff Member</span>
+            <span class="detail-label">{% trans "Staff Member" %}</span>
             <span class="detail-value"><strong>{{ staff_name }}</strong> <span style="color: #64748b; font-size: 13px;">({{ staff_role }})</span></span>
         </div>
         <div class="detail-row">
-            <span class="detail-label">Email</span>
+            <span class="detail-label">{% trans "Email" %}</span>
             <span class="detail-value">{{ staff_email }}</span>
         </div>
         <div class="detail-row">
-            <span class="detail-label">Requested At</span>
+            <span class="detail-label">{% trans "Requested At" %}</span>
             <span class="detail-value">{{ requested_at }}</span>
         </div>
         <div class="detail-row">
-            <span class="detail-label">Target Record</span>
+            <span class="detail-label">{% trans "Target Record" %}</span>
             <span class="detail-value"><strong>{{ target_name }}</strong></span>
         </div>
         <div class="detail-row">
-            <span class="detail-label">Action Type</span>
+            <span class="detail-label">{% trans "Action Type" %}</span>
             <span class="detail-value">
                 <span style="display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; 
                     {% if action_type == 'Delete' or action_type == 'Deleting' %}background-color: #fee2e2; color: #ef4444;
@@ -38,17 +39,16 @@
         </div>
     </div>
 
-    <p style="margin-top: 30px;">Your authorization PIN is:</p>
+    <p style="margin-top: 30px;">{% trans "Your authorization PIN is:" %}</p>
     
     <div class="code-display" style="background-color: #f8fafc; border: 2px dashed #059669; margin: 15px 0; padding: 20px;">
-        <div style="font-size: 14px; color: #64748b; margin-bottom: 10px;">Double-click the PIN below to copy:</div>
+        <div style="font-size: 14px; color: #64748b; margin-bottom: 10px;">{% trans "Double-click the PIN below to copy:" %}</div>
         <div style="font-size: 42px; color: #059669; font-weight: 900; letter-spacing: 2px; font-family: monospace;">{{ pin }}</div>
-        <div class="expiry-info" style="margin-top: 15px;">Valid for 5 minutes</div>
+        <div class="expiry-info" style="margin-top: 15px;">{% trans "Valid for 5 minutes" %}</div>
     </div>
 
     <div class="highlight-box" style="background-color: #fffbeb; border-left-color: #f59e0b;">
-        <strong style="color: #b45309;">Security Warning:</strong><br>
-        Share this PIN with the staff member <strong>ONLY</strong> if you approve this action. 
-        If you did NOT expect this request, please investigate immediately.
+        <strong style="color: #b45309;">{% trans "Security Warning:" %}</strong><br>
+        {% trans "Share this PIN with the staff member" %} <strong>{% trans "ONLY" %}</strong> {% trans "if you approve this action. If you did NOT expect this request, please investigate immediately." %}
     </div>
 {% endblock %}

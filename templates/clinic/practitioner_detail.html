@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load b64uuid_tags %}
 
-{% block title %}Dr. {{ practitioner.name }} - SpinalCure{% endblock %}
-{% block page_title %}Practitioner Profile{% endblock %}
+{% block title %}{% blocktranslate trimmed with name=practitioner.name %}Dr. {{ name }} - SpinalCure{% endblocktranslate %}{% endblock %}
+{% block page_title %}{% trans "Practitioner Profile" %}{% endblock %}
 
 {% block header_actions %}
 <a href="{% url 'clinic_portfolio' %}"
     class="text-sm font-medium text-gray-500 hover:text-primary-600 transition-colors">
-    &larr; Back to Clinic Portfolio
+    {% trans "&larr; Back to Clinic Portfolio" %}
 </a>
 {% endblock %}
 
@@ -29,21 +30,19 @@
                 {% endif %}
             </div>
 
-            <div class="flex-1 text-center md:text-left">
+            <div class="flex-1 text-center md:text-start">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-900">Dr.
-                            {{ practitioner.name }}</h1>
+                        <h1 class="text-3xl font-bold text-gray-900">{% blocktranslate trimmed with name=practitioner.name %}Dr. {{ name }}{% endblocktranslate %}</h1>
                         <p class="text-lg font-medium text-primary-600 mt-1">
                             {{ practitioner.specialization }}</p>
                     </div>
                     {% if practitioner.is_active %}
                     <span
-                        class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full w-fit mx-auto md:mx-0">Active
-                        Practitioner</span>
+                        class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full w-fit mx-auto md:mx-0">{% trans "Active Practitioner" %}</span>
                     {% else %}
                     <span
-                        class="bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full w-fit mx-auto md:mx-0">Inactive</span>
+                        class="bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full w-fit mx-auto md:mx-0">{% trans "Inactive" %}</span>
                     {% endif %}
                 </div>
 
@@ -62,7 +61,7 @@
                                 d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
                             </path>
                         </svg>
-                        <span>{{ practitioner.experience_years }} Years Experience</span>
+                        <span>{% blocktranslate trimmed with experience_years=practitioner.experience_years %}{{ experience_years }} Years Experience{% endblocktranslate %}</span>
                     </div>
                     {% endif %}
                 </div>
@@ -71,21 +70,20 @@
 
         <!-- Profile Details -->
         <div class="p-8">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">Biography / About</h2>
+            <h2 class="text-xl font-bold text-gray-900 mb-4">{% trans "Biography / About" %}</h2>
             <div class="prose max-w-none text-gray-600 mb-8">
                 {{ practitioner.bio|linebreaks }}
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-3 block border-b border-gray-100 pb-2">Qualifications
+                    <h3 class="text-lg font-bold text-gray-900 mb-3 block border-b border-gray-100 pb-2">{% trans "Qualifications" %}
                     </h3>
                     <p class="text-gray-600 whitespace-pre-line">
                         {{ practitioner.qualifications }}</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-3 block border-b border-gray-100 pb-2">Skills /
-                        Treatments</h3>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3 block border-b border-gray-100 pb-2">{% trans "Skills / Treatments" %}</h3>
                     <div class="flex flex-wrap gap-2 mt-2">
                         <!-- Simulated parsing of comma separated skills -->
                         {% for skill in practitioner.skills.split %}
@@ -93,7 +91,7 @@
                         <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">{{ skill|cut:"," }}</span>
                         {% endif %}
                         {% empty %}
-                        <span class="text-gray-500 text-sm">No specific skills listed.</span>
+                        <span class="text-gray-500 text-sm">{% trans "No specific skills listed." %}</span>
                         {% endfor %}
                     </div>
                 </div>
@@ -103,17 +101,17 @@
             <div class="mt-8 pt-8 border-t border-gray-100 flex flex-wrap gap-4">
                 <a href="{% url 'doctor_availability' %}?practitioner_id={{ practitioner.id|b64uuid }}"
                     class="text-primary-600 bg-primary-50 hover:bg-primary-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center transition-colors">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
                         </path>
                     </svg>
-                    View Availability
+                    {% trans "View Availability" %}
                 </a>
 
                 <a href="#"
                     class="text-white bg-primary-600 hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center transition-colors shadow-sm">
-                    Book Appointment
+                    {% trans "Book Appointment" %}
                 </a>
             </div>
         </div>

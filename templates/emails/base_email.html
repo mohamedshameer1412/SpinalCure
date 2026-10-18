@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -227,24 +228,24 @@
                 
                 <div style="display: inline-block; text-align: left; margin: 0 auto; color: #cbd5e1;">
                     <div style="margin-bottom: 6px;">
-                        <span style="color: #38bdf8; font-weight: bold; width: 45px; display: inline-block;">TEL</span> 
+                        <span style="color: #38bdf8; font-weight: bold; width: 45px; display: inline-block;">{% trans "TEL" %}</span> 
                         {% block phone %}{{ clinic.phone|default:"Available 24/7" }}{% endblock %}
                     </div>
                     <div style="margin-bottom: 6px;">
-                        <span style="color: #38bdf8; font-weight: bold; width: 45px; display: inline-block;">MAIL</span> 
+                        <span style="color: #38bdf8; font-weight: bold; width: 45px; display: inline-block;">{% trans "MAIL" %}</span> 
                         <a href="mailto:{% block email %}{{ clinic.email|default:'support@spinalcure.com' }}{% endblock %}" style="color: #cbd5e1; text-decoration: none;">
                             {% block email_text %}{{ clinic.email|default:"support@spinalcure.com" }}{% endblock %}
                         </a>
                     </div>
                     <div>
-                        <span style="color: #38bdf8; font-weight: bold; width: 45px; display: inline-block; vertical-align: top;">ADD</span> 
+                        <span style="color: #38bdf8; font-weight: bold; width: 45px; display: inline-block; vertical-align: top;">{% trans "ADD" %}</span> 
                         <span style="display: inline-block; max-width: 250px;">{% block address %}{{ clinic.address|default:"123 Health Street, Medical District" }}{% endblock %}</span>
                     </div>
                 </div>
             </div>
             
-            <p>© {% now "Y" %} {{ clinic.name|default:"SpinalCure" }}. All rights reserved.<br>
-            This is an automated email. Please do not reply directly.</p>
+            <p>© {% now "Y" %} {% blocktranslate trimmed with name=clinic.name|default:"SpinalCure" %}{{ name }}. All rights reserved.{% endblocktranslate %}<br>
+            {% trans "This is an automated email. Please do not reply directly." %}</p>
         </div>
     </div>
 </body>

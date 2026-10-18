@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% block title %}{% if is_edit %}{% translate "Edit event" %}{% else %}{% translate "New event" %}{% endif %} — SpinalCure{% endblock %}
+{% block title %}{% if is_edit %}{% translate "Edit event" %}{% else %}{% translate "New event" %}{% endif %} {% trans "— SpinalCure" %}{% endblock %}
 {% block page_title %}{% if is_edit %}{% translate "Edit event" %}{% else %}{% translate "New event" %}{% endif %}{% endblock %}
 {% block header_actions %}<a href="{% url 'event_list' %}" class="text-sm text-gray-500 hover:text-gray-900 no-underline">← {% translate "Back to events" %}</a>{% endblock %}
 
@@ -23,7 +23,7 @@
         <div><label for="{{ form.presenter.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.presenter.label }}</label>{{ form.presenter }}</div>
         <div class="sm:col-span-2"><label for="{{ form.description.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.description.label }}</label>{{ form.description }}</div>
         <div><label for="{{ form.language.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.language.label }}</label>{{ form.language }}</div>
-        <div><label for="{{ form.image.id_for_label }}" class="block text-sm font-medium mb-1">{% translate "Cover image" %}</label>{{ form.image }}<p class="text-xs text-gray-500 mt-1">JPEG, PNG or WebP, up to 5 MB.</p></div>
+        <div><label for="{{ form.image.id_for_label }}" class="block text-sm font-medium mb-1">{% translate "Cover image" %}</label>{{ form.image }}<p class="text-xs text-gray-500 mt-1">{% trans "JPEG, PNG or WebP, up to 5 MB." %}</p></div>
     </section>
 
     <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 grid sm:grid-cols-3 gap-5">

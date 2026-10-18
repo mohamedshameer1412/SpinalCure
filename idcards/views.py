@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 import hashlib
 import hmac
 import logging
@@ -98,7 +99,7 @@ def issue(request):
                 raise
         else:
             log_action(request, 'create', 'IDCard', f'{card.display_id} / {card.holder.employee_id}', object_id=card.pk)
-            messages.success(request, f'ID card issued to {card.holder.user.get_full_name() or card.holder.employee_id}.')
+            messages.success(request, gettext('ID card issued to %(value1)s.') % {'value1': card.holder.user.get_full_name() or card.holder.employee_id})
             return redirect('idcard_detail', pk=card.pk)
     return render(request, 'idcards/issue.html', {'form': form})
 
@@ -139,29 +140,29 @@ def action(request, pk):
     try:
         if act == 'deactivate':
             service.deactivate(card, request.user)
-            messages.success(request, 'Card deactivated. It no longer verifies; you can reactivate it later.')
+            messages.success(request, gettext('Card deactivated. It no longer verifies; you can reactivate it later.'))
         elif act == 'reactivate':
             service.reactivate(card, request.user)
-            messages.success(request, 'Card reactivated.')
+            messages.success(request, gettext('Card reactivated.'))
         elif act == 'revoke':
             service.revoke(card, request.user, request.POST.get('reason', ''))
-            messages.success(request, 'Card revoked permanently.')
+            messages.success(request, gettext('Card revoked permanently.'))
         elif act == 'reissue':
             new = service.reissue(card, request.user, reason=request.POST.get('reason', 'Reissued') or 'Reissued')
-            messages.success(request, 'New card issued. The previous card was revoked.')
+            messages.success(request, gettext('New card issued. The previous card was revoked.'))
             log_action(request, 'create', 'IDCard', f'{new.display_id} (reissue)', object_id=new.pk)
             return redirect('idcard_detail', pk=new.pk)
         elif act == 'share_on':
             service.set_sharing(card, request.user, True)
-            messages.success(request, 'Public sharing enabled.')
+            messages.success(request, gettext('Public sharing enabled.'))
         elif act == 'share_off':
             service.set_sharing(card, request.user, False)
-            messages.success(request, 'Public sharing disabled.')
+            messages.success(request, gettext('Public sharing disabled.'))
         elif act == 'share_rotate':
             service.rotate_share_token(card, request.user)
-            messages.success(request, 'Share link replaced. The old link no longer works.')
+            messages.success(request, gettext('Share link replaced. The old link no longer works.'))
         else:
-            messages.error(request, 'Unknown action.')
+            messages.error(request, gettext('Unknown action.'))
             return redirect('idcard_detail', pk=pk)
     except service.CardError as exc:
         messages.error(request, exc.message)
@@ -176,7 +177,7 @@ def branding(request):
     if request.method == 'POST' and form.is_valid():
         form.save()
         log_action(request, 'update', 'IDCardBranding', 'Card branding')
-        messages.success(request, 'Card branding saved.')
+        messages.success(request, gettext('Card branding saved.'))
         return redirect('idcard_branding')
     sample = IDCard.objects.select_related('holder__user').first()
     return render(request, 'idcards/branding.html', {

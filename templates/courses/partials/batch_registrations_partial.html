@@ -1,15 +1,14 @@
+{% load i18n %}
 <div id="batch-registrations-container" class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
     <div class="overflow-x-auto">
-        <table class="w-full text-left">
+        <table class="w-full text-start">
             <thead>
                 <tr class="bg-slate-50/50 border-b border-slate-100">
-                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Student
-                        Details</th>
-                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Contact Info
+                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">{% trans "Student Details" %}</th>
+                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">{% trans "Contact Info" %}
                     </th>
-                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Reg. Date</th>
-                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Feedback
-                        Status</th>
+                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">{% trans "Reg. Date" %}</th>
+                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">{% trans "Feedback Status" %}</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-50">
@@ -40,10 +39,10 @@
                         {% if reg.feedback %}
                         <span
                             class="inline-flex items-center gap-1.5 text-green-700 bg-green-50 text-[10px] font-black px-2 py-1 rounded-lg uppercase tracking-wider border border-green-100">
-                            <i class="bi bi-check-circle-fill"></i> Feedback Given
+                            <i class="bi bi-check-circle-fill"></i> {% trans "Feedback Given" %}
                         </span>
                         {% else %}
-                        <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">No feedback</span>
+                        <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">{% trans "No feedback" %}</span>
                         {% endif %}
                     </td>
                 </tr>
@@ -51,7 +50,7 @@
                 <tr>
                     <td colspan="4" class="px-6 py-20 text-center">
                         <i class="bi bi-people text-slate-200 text-4xl mb-4 block"></i>
-                        <p class="text-slate-500 font-bold">No students found matching your search.</p>
+                        <p class="text-slate-500 font-bold">{% trans "No students found matching your search." %}</p>
                     </td>
                 </tr>
                 {% endfor %}
@@ -63,22 +62,21 @@
     {% if registrations.has_other_pages %}
     <div class="flex items-center justify-between p-4 bg-white border-t border-slate-50">
         <span class="text-sm text-slate-500 font-medium">
-            Showing {{ registrations.start_index }}-{{ registrations.end_index }} of {{ registrations.paginator.count }}
-            registrations
+            {% blocktranslate trimmed with start_index=registrations.start_index end_index=registrations.end_index count=registrations.paginator.count %}Showing {{ start_index }}-{{ end_index }} of {{ count }} registrations{% endblocktranslate %}
         </span>
         <div class="inline-flex gap-2">
             {% if registrations.has_previous %}
             <button hx-get="?page={{ registrations.previous_page_number }}&q={{ search_query }}"
                 hx-target="#batch-registrations-container" hx-swap="outerHTML"
                 class="px-4 py-2 text-sm font-bold text-slate-700 bg-slate-50 rounded-xl hover:bg-slate-100 transition-all">
-                Previous
+                {% trans "Previous" %}
             </button>
             {% endif %}
             {% if registrations.has_next %}
             <button hx-get="?page={{ registrations.next_page_number }}&q={{ search_query }}"
                 hx-target="#batch-registrations-container" hx-swap="outerHTML"
                 class="px-4 py-2 text-sm font-bold text-slate-700 bg-slate-50 rounded-xl hover:bg-slate-100 transition-all">
-                Next
+                {% trans "Next" %}
             </button>
             {% endif %}
         </div>

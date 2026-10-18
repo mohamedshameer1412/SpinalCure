@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}Dashboard - SpinalCure{% endblock %}
-{% block page_title %}Dashboard Overview{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Dashboard - SpinalCure" %}{% endblock %}
+{% block page_title %}{% trans "Dashboard Overview" %}{% endblock %}
 
 {% block content %}
 
@@ -10,38 +11,38 @@
 
     <div class="relative overflow-hidden bg-gradient-to-br from-primary-600 to-primary-800 rounded-2xl p-5 text-white shadow-lg">
         <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
-        <p class="text-primary-100 text-xs font-semibold uppercase tracking-wide">Total Patients</p>
+        <p class="text-primary-100 text-xs font-semibold uppercase tracking-wide">{% trans "Total Patients" %}</p>
         <h3 class="text-4xl font-black mt-1">{{ total_patients }}</h3>
         <p class="text-primary-200 text-xs mt-2 flex items-center gap-1">
-            <i class="bi bi-people-fill"></i> All time registered
+            <i class="bi bi-people-fill"></i> {% trans "All time registered" %}
         </p>
     </div>
 
     <div class="relative overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-5 text-white shadow-lg">
         <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
-        <p class="text-blue-100 text-xs font-semibold uppercase tracking-wide">Sessions Today</p>
+        <p class="text-blue-100 text-xs font-semibold uppercase tracking-wide">{% trans "Sessions Today" %}</p>
         <h3 class="text-4xl font-black mt-1">{{ sessions_today }}</h3>
         <p class="text-blue-200 text-xs mt-2 flex items-center gap-1">
-            <i class="bi bi-clipboard2-pulse"></i> Completed today
+            <i class="bi bi-clipboard2-pulse"></i> {% trans "Completed today" %}
         </p>
     </div>
 
     <div class="relative overflow-hidden bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-2xl p-5 text-white shadow-lg">
         <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
-        <p class="text-emerald-100 text-xs font-semibold uppercase tracking-wide">Revenue Today</p>
+        <p class="text-emerald-100 text-xs font-semibold uppercase tracking-wide">{% trans "Revenue Today" %}</p>
         <h3 class="text-4xl font-black mt-1">₹{{ revenue_today }}</h3>
         <p class="text-emerald-200 text-xs mt-2 flex items-center gap-1">
-            <i class="bi bi-currency-rupee"></i> Collections so far
+            <i class="bi bi-currency-rupee"></i> {% trans "Collections so far" %}
         </p>
     </div>
 
     {% if request.user.is_superadmin %}
     <div class="relative overflow-hidden bg-gradient-to-br from-rose-500 to-rose-700 rounded-2xl p-5 text-white shadow-lg">
         <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
-        <p class="text-rose-100 text-xs font-semibold uppercase tracking-wide">Expenses Today</p>
+        <p class="text-rose-100 text-xs font-semibold uppercase tracking-wide">{% trans "Expenses Today" %}</p>
         <h3 class="text-4xl font-black mt-1">₹{{ expenses_today }}</h3>
         <p class="text-rose-200 text-xs mt-2 flex items-center gap-1">
-            <i class="bi bi-receipt-cutoff"></i> Outgoing today
+            <i class="bi bi-receipt-cutoff"></i> {% trans "Outgoing today" %}
         </p>
     </div>
     {% endif %}
@@ -54,9 +55,9 @@
             <i class="bi bi-hourglass-split text-xl"></i>
         </div>
         <div>
-            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Pending Dues</p>
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">{% trans "Pending Dues" %}</p>
             <p class="text-2xl font-black text-gray-900">₹{{ pending_dues|floatformat:0 }}</p>
-            <p class="text-xs text-orange-500 mt-0.5">Partial + unpaid payments</p>
+            <p class="text-xs text-orange-500 mt-0.5">{% trans "Partial + unpaid payments" %}</p>
         </div>
     </div>
 
@@ -65,9 +66,9 @@
             <i class="bi bi-person-x text-xl"></i>
         </div>
         <div>
-            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">No-Show Rate</p>
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">{% trans "No-Show Rate" %}</p>
             <p class="text-2xl font-black text-gray-900">{{ no_show_rate }}%</p>
-            <p class="text-xs text-red-500 mt-0.5">Of past appointments</p>
+            <p class="text-xs text-red-500 mt-0.5">{% trans "Of past appointments" %}</p>
         </div>
     </div>
 
@@ -76,9 +77,9 @@
             <i class="bi bi-award text-xl"></i>
         </div>
         <div>
-            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Top Doctor This Month</p>
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">{% trans "Top Doctor This Month" %}</p>
             <p class="text-lg font-black text-gray-900 leading-tight">{{ top_practitioner_name }}</p>
-            <p class="text-xs text-purple-500 mt-0.5">{{ top_practitioner_sessions }} sessions</p>
+            <p class="text-xs text-purple-500 mt-0.5">{% blocktranslate trimmed with top_practitioner_sessions=top_practitioner_sessions %}{{ top_practitioner_sessions }} sessions{% endblocktranslate %}</p>
         </div>
     </div>
 </div>
@@ -86,15 +87,15 @@
 {# ── Row 3: P&L Chart + Payment Mode Pie ─────────────────────────────────── #}
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
     <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-        <h2 class="text-base font-bold text-gray-900 mb-1">Monthly P&amp;L — Revenue vs. Expenses</h2>
-        <p class="text-xs text-gray-400 mb-4">Last 6 months comparison</p>
+        <h2 class="text-base font-bold text-gray-900 mb-1">{% trans "Monthly P&amp;L — Revenue vs. Expenses" %}</h2>
+        <p class="text-xs text-gray-400 mb-4">{% trans "Last 6 months comparison" %}</p>
         <div class="relative h-64 w-full">
             <canvas id="plChart"></canvas>
         </div>
     </div>
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-        <h2 class="text-base font-bold text-gray-900 mb-1">Payment Modes</h2>
-        <p class="text-xs text-gray-400 mb-4">Last 30 days breakdown</p>
+        <h2 class="text-base font-bold text-gray-900 mb-1">{% trans "Payment Modes" %}</h2>
+        <p class="text-xs text-gray-400 mb-4">{% trans "Last 30 days breakdown" %}</p>
         <div class="relative h-56 w-full">
             <canvas id="modeChart"></canvas>
         </div>
@@ -104,15 +105,15 @@
 {# ── Row 4: New Patients Trend + Sessions Monthly ─────────────────────────── #}
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-        <h2 class="text-base font-bold text-gray-900 mb-1">New Patients Trend</h2>
-        <p class="text-xs text-gray-400 mb-4">Last 6 months</p>
+        <h2 class="text-base font-bold text-gray-900 mb-1">{% trans "New Patients Trend" %}</h2>
+        <p class="text-xs text-gray-400 mb-4">{% trans "Last 6 months" %}</p>
         <div class="relative h-56 w-full">
             <canvas id="newPatientsChart"></canvas>
         </div>
     </div>
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-        <h2 class="text-base font-bold text-gray-900 mb-1">Monthly Sessions</h2>
-        <p class="text-xs text-gray-400 mb-4">Last 12 months</p>
+        <h2 class="text-base font-bold text-gray-900 mb-1">{% trans "Monthly Sessions" %}</h2>
+        <p class="text-xs text-gray-400 mb-4">{% trans "Last 12 months" %}</p>
         <div class="relative h-56 w-full">
             <canvas id="sessionsChart"></canvas>
         </div>
@@ -123,16 +124,16 @@
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
     <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100">
         <div class="p-4 border-b border-gray-100 flex justify-between items-center">
-            <h2 class="text-base font-bold text-gray-900">Upcoming Appointments</h2>
-            <a href="{% url 'appointment_calendar' %}" class="text-xs text-primary-600 hover:text-primary-700 font-semibold">View all →</a>
+            <h2 class="text-base font-bold text-gray-900">{% trans "Upcoming Appointments" %}</h2>
+            <a href="{% url 'appointment_calendar' %}" class="text-xs text-primary-600 hover:text-primary-700 font-semibold">{% trans "View all →" %}</a>
         </div>
-        <table class="w-full text-sm text-left text-gray-500">
+        <table class="w-full text-sm text-start text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
-                    <th class="px-5 py-3">Patient</th>
-                    <th class="px-5 py-3">Date &amp; Time</th>
-                    <th class="px-5 py-3">Doctor</th>
-                    <th class="px-5 py-3">Status</th>
+                    <th class="px-5 py-3">{% trans "Patient" %}</th>
+                    <th class="px-5 py-3">{% trans "Date &amp; Time" %}</th>
+                    <th class="px-5 py-3">{% trans "Doctor" %}</th>
+                    <th class="px-5 py-3">{% trans "Status" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -152,7 +153,7 @@
                     </td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="4" class="px-5 py-8 text-center text-gray-400">No upcoming appointments.</td></tr>
+                <tr><td colspan="4" class="px-5 py-8 text-center text-gray-400">{% trans "No upcoming appointments." %}</td></tr>
                 {% endfor %}
             </tbody>
         </table>
@@ -160,24 +161,24 @@
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
         <div class="p-4 border-b border-gray-100">
-            <h2 class="text-base font-bold text-gray-900">Quick Actions</h2>
+            <h2 class="text-base font-bold text-gray-900">{% trans "Quick Actions" %}</h2>
         </div>
         <div class="p-4 flex flex-col gap-2.5">
             <a href="{% url 'patient-create' %}"
                 class="flex items-center gap-3 p-3 rounded-xl bg-primary-50 hover:bg-primary-100 text-primary-700 font-semibold text-sm transition-all">
-                <i class="bi bi-person-plus text-lg"></i> Add New Patient
+                <i class="bi bi-person-plus text-lg"></i> {% trans "Add New Patient" %}
             </a>
             <a href="{% url 'appointment_calendar' %}"
                 class="flex items-center gap-3 p-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold text-sm transition-all">
-                <i class="bi bi-calendar-plus text-lg"></i> Book Appointment
+                <i class="bi bi-calendar-plus text-lg"></i> {% trans "Book Appointment" %}
             </a>
             <a href="{% url 'payment_create' %}"
                 class="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold text-sm transition-all">
-                <i class="bi bi-cash-stack text-lg"></i> Record Payment
+                <i class="bi bi-cash-stack text-lg"></i> {% trans "Record Payment" %}
             </a>
             <a href="{% url 'admin_testimonials' %}"
                 class="flex items-center gap-3 p-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold text-sm transition-all">
-                <i class="bi bi-chat-quote text-lg"></i> Testimonials
+                <i class="bi bi-chat-quote text-lg"></i> {% trans "Testimonials" %}
             </a>
         </div>
     </div>

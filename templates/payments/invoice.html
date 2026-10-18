@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -5,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice #{{ payment.receipt_number }} — SpinalCure</title>
+    <title>{% blocktranslate trimmed with receipt_number=payment.receipt_number %}Invoice #{{ receipt_number }} — SpinalCure{% endblocktranslate %}</title>
     <!-- Tailwind CSS v3 CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -248,26 +249,26 @@
             <a href="{% url 'payment_list' %}"
                 class="btn-transition inline-flex items-center gap-2 px-5 py-2.5 bg-white text-slate-700 text-sm font-bold rounded-2xl border border-slate-200 hover:bg-slate-50 hover:shadow-sm">
                 <i class="bi bi-arrow-left"></i>
-                Back to List
+                {% trans "Back to List" %}
             </a>
         </div>
             <!-- Send Email Button -->
             <button id="send-email-btn" onclick="sendInvoiceEmail()"
                 class="btn-transition inline-flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white text-sm font-bold rounded-2xl hover:bg-slate-800 hover:shadow-lg shadow-md active:scale-95">
                 <i class="bi bi-envelope"></i>
-                <span>Send to Client</span>
+                <span>{% trans "Send to Client" %}</span>
             </button>
             <!-- Download PDF Button -->
             <a href="{% url 'payment_pdf_download' payment.id %}"
                 class="btn-transition inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white text-sm font-bold rounded-2xl hover:bg-blue-700 hover:shadow-lg shadow-md active:scale-95">
                 <i class="bi bi-file-earmark-pdf"></i>
-                Download PDF
+                {% trans "Download PDF" %}
             </a>
             <!-- Print Button -->
             <button onclick="window.print()"
                 class="btn-transition inline-flex items-center gap-2 px-6 py-2.5 bg-primary-600 text-white text-sm font-bold rounded-2xl hover:bg-primary-700 hover:shadow-lg shadow-md active:scale-95">
                 <i class="bi bi-printer"></i>
-                Print Invoice
+                {% trans "Print Invoice" %}
             </button>
         </div>
     </div>
@@ -302,15 +303,14 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col items-end text-right">
+            <div class="flex flex-col items-end text-end">
                 <div class="bg-primary-50 px-5 py-2 rounded-2xl mb-4 border border-primary-100/50">
-                    <span class="text-primary-700 font-black text-xs uppercase tracking-[0.2em] heading-font">Official
-                        Invoice</span>
+                    <span class="text-primary-700 font-black text-xs uppercase tracking-[0.2em] heading-font">{% trans "Official Invoice" %}</span>
                 </div>
                 <h2 class="text-5xl font-black text-slate-900 heading-font tracking-tighter">
                     #{{ payment.receipt_number|slice:"-6:"|default:payment.receipt_number }}</h2>
                 <div class="mt-4 space-y-1">
-                    <p class="text-[0.65rem] font-bold text-slate-400 uppercase tracking-widest">Date of Issue</p>
+                    <p class="text-[0.65rem] font-bold text-slate-400 uppercase tracking-widest">{% trans "Date of Issue" %}</p>
                     <p class="text-base font-black text-slate-800">
                         {{ payment.payment_date|date:"d M Y" }}</p>
                 </div>
@@ -323,10 +323,10 @@
                 <div>
                     <div class="flex items-center gap-2 mb-4">
                         <div class="w-1.5 h-6 bg-primary-500 rounded-full"></div>
-                        <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.15em] heading-font">Billed To
+                        <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.15em] heading-font">{% trans "Billed To" %}
                         </h3>
                     </div>
-                    <div class="pl-3">
+                    <div class="ps-3">
                         <p class="text-xl font-black text-slate-900 heading-font mb-1">
                             {{ payment.payer_name }}</p>
                         <p class="text-sm font-semibold text-slate-600 flex items-center gap-2"><i
@@ -341,13 +341,12 @@
                             {{ payment.payer_address|default:"Patient record address" }}</p>
                     </div>
                 </div>
-                <div class="flex flex-col md:items-end md:text-right">
+                <div class="flex flex-col md:items-end md:text-end">
                     <div class="flex items-center gap-2 mb-4 md:flex-row-reverse">
                         <div class="w-1.5 h-6 bg-slate-300 rounded-full"></div>
-                        <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.15em] heading-font">Payment
-                            Summary</h3>
+                        <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.15em] heading-font">{% trans "Payment Summary" %}</h3>
                     </div>
-                    <div class="pl-3 md:pr-3">
+                    <div class="ps-3 md:pe-3">
                         <div class="flex items-center md:flex-row-reverse gap-3 mb-2">
                             <span class="inline-flex items-center px-4 py-1.5 rounded-xl text-[0.65rem] font-black uppercase tracking-widest heading-font
                                 {% if payment.payment_status == 'fully_paid' %}bg-green-100 text-green-700
@@ -355,11 +354,10 @@
                                 {% else %}bg-rose-100 text-rose-700{% endif %}">
                                 {{ payment.get_payment_status_display }}
                             </span>
-                            <span class="text-xs font-bold text-slate-500 italic">via 
-                                {{ payment.get_payment_mode_display }}</span>
+                            <span class="text-xs font-bold text-slate-500 italic">{% blocktranslate trimmed with get_payment_mode_display=payment.get_payment_mode_display %}via {{ get_payment_mode_display }}{% endblocktranslate %}</span>
                         </div>
                         <p class="text-xs font-medium text-slate-400 leading-relaxed max-w-xs">
-                            Collected by: <span class="font-bold text-slate-600">
+                            {% trans "Collected by:" %} <span class="font-bold text-slate-600">
                                 {{ payment.collected_by.get_full_name|default:payment.collected_by.username }}</span>
                         </p>
                     </div>
@@ -370,14 +368,14 @@
         <!-- Line Items Table -->
         <div class="px-10 py-10">
             <div class="overflow-hidden rounded-3xl border border-slate-100 shadow-sm bg-white">
-                <table class="w-full text-left border-collapse">
+                <table class="w-full text-start border-collapse">
                     <thead>
                         <tr class="bg-slate-900 text-white">
                             <th class="px-8 py-5 text-[0.65rem] font-black uppercase tracking-[0.2em] heading-font">
-                                Description of Service</th>
+                                {% trans "Description of Service" %}</th>
                             <th
-                                class="px-8 py-5 text-right text-[0.65rem] font-black uppercase tracking-[0.2em] heading-font">
-                                Amount (INR)</th>
+                                class="px-8 py-5 text-end text-[0.65rem] font-black uppercase tracking-[0.2em] heading-font">
+                                {% trans "Amount (INR)" %}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
@@ -385,10 +383,9 @@
                             <td class="px-8 py-7">
                                 <p class="text-base font-bold text-slate-800 mb-1">
                                     {{ payment.description|default:"Specialized Acupuncture Treatment" }}</p>
-                                <p class="text-xs font-medium text-slate-400 italic">Clinical consultation and treatment
-                                    session included.</p>
+                                <p class="text-xs font-medium text-slate-400 italic">{% trans "Clinical consultation and treatment session included." %}</p>
                             </td>
-                            <td class="px-8 py-7 text-right">
+                            <td class="px-8 py-7 text-end">
                                 <span class="text-lg font-black text-slate-900 heading-font">
                                     ₹{{ payment.subtotal|floatformat:2 }}</span>
                             </td>
@@ -404,23 +401,20 @@
                     <div class="p-6 bg-slate-50 rounded-[2rem] border border-slate-100 inline-block min-w-[300px]">
                         <h4
                             class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                            <i class="bi bi-bank2"></i> Payment Information
+                            <i class="bi bi-bank2"></i> {% trans "Payment Information" %}
                         </h4>
                         <div class="space-y-3">
                             {% if clinic.bank_name %}
                             <div class="flex flex-col">
-                                <span class="text-[0.6rem] font-bold text-slate-400 uppercase tracking-tighter">Bank
-                                    Transfer</span>
+                                <span class="text-[0.6rem] font-bold text-slate-400 uppercase tracking-tighter">{% trans "Bank Transfer" %}</span>
                                 <span class="text-sm font-black text-slate-700 line-clamp-1">{{ clinic.bank_name }}</span>
                                 <span class="text-xs font-medium text-slate-500 italic">
-                                    A/C: {{ clinic.bank_account }} |
-                                    IFSC: {{ clinic.bank_ifsc }}</span>
+                                    {% blocktranslate trimmed with bank_account=clinic.bank_account bank_ifsc=clinic.bank_ifsc %}A/C: {{ bank_account }} | IFSC: {{ bank_ifsc }}{% endblocktranslate %}</span>
                             </div>
                             {% endif %}
                             {% if clinic.upi_id %}
                             <div class="flex flex-col">
-                                <span class="text-[0.6rem] font-bold text-slate-400 uppercase tracking-tighter">Digital
-                                    (UPI)</span>
+                                <span class="text-[0.6rem] font-bold text-slate-400 uppercase tracking-tighter">{% trans "Digital (UPI)" %}</span>
                                 <div class="flex items-center gap-2">
                                     <i class="bi bi-qr-code-scan text-primary-500"></i>
                                     <span class="text-sm font-black text-slate-800">
@@ -437,15 +431,14 @@
                     <!-- Compact totals for print -->
                     <div class="w-full space-y-4">
                         <div class="flex justify-between items-center px-4">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Subtotal</span>
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">{% trans "Subtotal" %}</span>
                             <span class="text-base font-bold text-slate-700">
                                 ₹{{ payment.subtotal|floatformat:2}}</span>
                         </div>
                         {% if payment.tax_type != 'none' and payment.tax_percent > 0 %}
                         <div class="flex justify-between items-center px-4">
                             <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                GST ({{  payment.tax_percent }}% 
-                                {{ payment.get_tax_type_display }})</span>
+                                {% blocktranslate trimmed with tax_percent=payment.tax_percent get_tax_type_display=payment.get_tax_type_display %}GST ({{ tax_percent }}% {{ get_tax_type_display }}){% endblocktranslate %}</span>
                             <span class="text-base font-bold text-slate-700">
                                 ₹{{ payment.tax_amount|floatformat:2}}</span>
                         </div>
@@ -456,21 +449,20 @@
                         <div
                             class="flex justify-between items-center bg-primary-600 p-6 rounded-[2rem] shadow-xl shadow-primary-900/10 amount-due-print">
                             <span
-                                class="text-xs font-black text-white/70 uppercase tracking-[0.2em] heading-font">Amount
-                                Due</span>
+                                class="text-xs font-black text-white/70 uppercase tracking-[0.2em] heading-font">{% trans "Amount Due" %}</span>
                             <span class="text-3xl font-black text-white heading-font">
                                 ₹{{ payment.grand_total|floatformat:2 }}</span>
                         </div>
 
                         <div class="pt-4 px-4 space-y-2">
                             <div class="flex justify-between items-center text-xs font-bold">
-                                <span class="text-slate-400 uppercase">Already Paid</span>
+                                <span class="text-slate-400 uppercase">{% trans "Already Paid" %}</span>
                                 <span class="text-green-600 font-black italic">
                                     ₹{{ payment.amount_paid|floatformat:2 }}</span>
                             </div>
                             {% if payment.balance > 0 %}
                             <div class="flex justify-between items-center text-xs font-bold">
-                                <span class="text-slate-400 uppercase">Outstanding</span>
+                                <span class="text-slate-400 uppercase">{% trans "Outstanding" %}</span>
                                 <span
                                     class="text-rose-600 font-black underline decoration-rose-200 underline-offset-4">
                                     ₹{{ payment.balance|floatformat:2 }}</span>
@@ -487,18 +479,16 @@
             <!-- Decorative circle -->
             <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl"></div>
 
-            <p class="text-white/80 text-sm font-bold tracking-tight mb-2 relative z-10">We appreciate your trust in us
-                for your wellness journey.</p>
-            <p class="text-white/40 text-[0.65rem] font-medium uppercase tracking-[0.2em] relative z-10">This is an
-                enterprise computer-generated document — Professional Care Guaranteed</p>
+            <p class="text-white/80 text-sm font-bold tracking-tight mb-2 relative z-10">{% trans "We appreciate your trust in us for your wellness journey." %}</p>
+            <p class="text-white/40 text-[0.65rem] font-medium uppercase tracking-[0.2em] relative z-10">{% trans "This is an enterprise computer-generated document — Professional Care Guaranteed" %}</p>
 
             <div
                 class="mt-8 pt-8 border-t border-white/5 flex flex-wrap justify-between items-center gap-4 relative z-10">
                 <div class="flex items-center gap-2 text-white/30 text-[0.6rem] font-bold uppercase tracking-widest">
                     <i class="bi bi-shield-check text-primary-500"></i>
-                    <span>Authorized by SpinalCure</span>
+                    <span>{% trans "Authorized by SpinalCure" %}</span>
                 </div>
-                <span class="text-[0.6rem] text-white/20 italic">Generated by SpinalCure Healthcare Suite</span>
+                <span class="text-[0.6rem] text-white/20 italic">{% trans "Generated by SpinalCure Healthcare Suite" %}</span>
             </div>
         </div>
     </div>

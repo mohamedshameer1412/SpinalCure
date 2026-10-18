@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}Add Review - SpinalCure{% endblock %}
-{% block page_title %}Add Patient Review{% endblock %}
+{% block title %}{% trans "Add Review - SpinalCure" %}{% endblock %}
+{% block page_title %}{% trans "Add Patient Review" %}{% endblock %}
 
 {% block header_actions %}
 <a href="{% url 'patient-reviews' %}"
     class="text-sm text-gray-400 hover:text-gray-900 flex items-center gap-1.5 transition-colors no-underline">
-    <i class="bi bi-arrow-left"></i> Back to Reviews
+    <i class="bi bi-arrow-left"></i> {% trans "Back to Reviews" %}
 </a>
 {% endblock %}
 
@@ -20,10 +20,10 @@
             <div class="space-y-4">
                 <!-- Patient Selection -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Patient</label>
-                    <select name="patient" required data-placeholder="Select Patient"
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Patient" %}</label>
+                    <select name="patient" required data-placeholder="{% trans 'Select Patient' %}"
                         class="premium-select w-full px-4 py-3 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white text-gray-900 rounded-xl text-sm transition-all outline-none">
-                        <option value="">Select Patient</option>
+                        <option value="">{% trans "Select Patient" %}</option>
                         {% for p in patients %}
                         <option value="{{ p.id }}">{{ p.name }} ({{ p.phone }})</option>
                         {% endfor %}
@@ -32,20 +32,20 @@
 
                 <!-- Practitioner Selection -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Practitioner (Optional)</label>
-                    <select name="practitioner" data-placeholder="Select Practitioner"
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Practitioner (Optional)" %}</label>
+                    <select name="practitioner" data-placeholder="{% trans 'Select Practitioner' %}"
                         class="premium-select w-full px-4 py-3 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white text-gray-900 rounded-xl text-sm transition-all outline-none">
-                        <option value="">Select Practitioner</option>
+                        <option value="">{% trans "Select Practitioner" %}</option>
                         {% for dr in practitioners %}
                         <option value="{{ dr.id }}">{{ dr.name }}</option>
                         {% endfor %}
                     </select>
-                    <p class="mt-1.5 text-[10px] text-gray-400 italic">Link this review to a specific doctor.</p>
+                    <p class="mt-1.5 text-[10px] text-gray-400 italic">{% trans "Link this review to a specific doctor." %}</p>
                 </div>
 
                 <!-- Rating -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Rating</label>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Rating" %}</label>
                     <div class="grid grid-cols-5 gap-3">
                         {% for i in "54321"|make_list %}
                         <label class="relative cursor-pointer group">
@@ -60,10 +60,10 @@
 
                 <!-- Review Text -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Review Text</label>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Review Text" %}</label>
                     <textarea name="review_text" rows="5" required
                         class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 placeholder-gray-400"
-                        placeholder="Write the patient's feedback here..."></textarea>
+                        placeholder="{% trans 'Write the patient\'s feedback here...' %}"></textarea>
                 </div>
 
                 <!-- Publish Status -->
@@ -71,7 +71,7 @@
                     <div class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" name="is_published" id="is_published" class="sr-only peer">
                         <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
-                        <label for="is_published" class="ms-3 text-sm font-medium text-gray-700">Publish to portfolio immediately</label>
+                        <label for="is_published" class="ms-3 text-sm font-medium text-gray-700">{% trans "Publish to portfolio immediately" %}</label>
                     </div>
                 </div>
             </div>
@@ -79,10 +79,10 @@
             <!-- Submit -->
             <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-100">
                 <a href="{% url 'patient-reviews' %}"
-                    class="px-6 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Cancel</a>
+                    class="px-6 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">{% trans "Cancel" %}</a>
                 <button type="submit"
                     class="px-10 py-3 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl shadow-lg shadow-primary-200 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
-                    Save Review
+                    {% trans "Save Review" %}
                 </button>
             </div>
         </form>

@@ -13,6 +13,7 @@ reschedule() so the same rules apply everywhere:
   * the check is repeated inside a transaction holding a lock on the practitioner row, so two
     simultaneous requests for the same slot cannot both succeed.
 """
+from django.utils.translation import gettext
 import logging
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
@@ -148,37 +149,37 @@ def _diagnose(practitioner, day, start_dt, end_dt, appointment_type, exclude, no
     """Most specific reason a requested slot is not bookable."""
     today = timezone.localtime(now, _tz()).date()
     if start_dt < now:
-        return SchedulingError('past', 'That time is in the past.')
+        return SchedulingError('past', gettext('That time is in the past.'))
     if enforce_notice and start_dt < now + timedelta(minutes=cfg.min_notice_minutes):
-        return SchedulingError('too_soon', f'Bookings need at least {cfg.min_notice_minutes} minutes notice.')
+        return SchedulingError('too_soon', gettext('Bookings need at least %(min_notice_minutes)s minutes notice.') % {'min_notice_minutes': cfg.min_notice_minutes})
     if enforce_notice and day > today + timedelta(days=cfg.max_advance_days):
-        return SchedulingError('too_far', f'Bookings open up to {cfg.max_advance_days} days ahead.')
+        return SchedulingError('too_far', gettext('Bookings open up to %(max_advance_days)s days ahead.') % {'max_advance_days': cfg.max_advance_days})
     if any(_overlaps(start_dt, end_dt, b0, b1) for (b0, b1) in blocked_intervals(practitioner, day)):
-        return SchedulingError('blocked', 'The practitioner is not available on that date (leave or closure).')
+        return SchedulingError('blocked', gettext('The practitioner is not available on that date (leave or closure).'))
     shifts = shifts_for(practitioner, day, appointment_type)
     if not shifts:
-        return SchedulingError('closed', 'The practitioner does not work on that day.')
+        return SchedulingError('closed', gettext('The practitioner does not work on that day.'))
     inside = [s for s in shifts if _aware(day, s.start_time) <= start_dt and end_dt <= _aware(day, s.end_time)]
     if not inside:
-        return SchedulingError('outside_hours', 'That time is outside working hours.')
+        return SchedulingError('outside_hours', gettext('That time is outside working hours.'))
     if any(s.break_start and _overlaps(start_dt, end_dt, _aware(day, s.break_start), _aware(day, s.break_end))
            for s in inside):
-        return SchedulingError('outside_hours', 'That time falls in a break.')
+        return SchedulingError('outside_hours', gettext('That time falls in a break.'))
     if any(_overlaps(start_dt, end_dt, a.starts_at, a.ends_at) for a in live_appointments(practitioner, day, exclude)):
-        return SchedulingError('conflict', 'That slot has just been taken. Please choose another time.')
-    return SchedulingError('unavailable', 'That slot is not available.')
+        return SchedulingError('conflict', gettext('That slot has just been taken. Please choose another time.'))
+    return SchedulingError('unavailable', gettext('That slot is not available.'))
 
 
 def validate_slot(practitioner, day, start_time, appointment_type='physical', duration=None, exclude=None,
                   now=None, enforce_notice=True, enforce_hours=True):
     """Return the matching Slot or raise SchedulingError. Reads fresh data every call."""
     if practitioner is None:
-        raise SchedulingError('no_practitioner', 'Choose a practitioner.')
+        raise SchedulingError('no_practitioner', gettext('Choose a practitioner.'))
     cfg, now = BookingSettings.get(), _now(now)
     if start_time is None or day is None:
-        raise SchedulingError('invalid_time', 'Choose a date and time.')
+        raise SchedulingError('invalid_time', gettext('Choose a date and time.'))
     if duration is not None and not (5 <= duration <= 480):
-        raise SchedulingError('invalid_time', 'Duration must be between 5 and 480 minutes.')
+        raise SchedulingError('invalid_time', gettext('Duration must be between 5 and 480 minutes.'))
     start_dt = _aware(day, start_time)
     length = timedelta(minutes=duration or cfg.default_duration_minutes)
 
@@ -192,11 +193,11 @@ def validate_slot(practitioner, day, start_time, appointment_type='physical', du
     # Staff override of working hours (walk-ins): still no past times, leave/closure or double booking.
     end_dt = start_dt + length
     if start_dt < now - timedelta(minutes=5):
-        raise SchedulingError('past', 'That time is in the past.')
+        raise SchedulingError('past', gettext('That time is in the past.'))
     if any(_overlaps(start_dt, end_dt, b0, b1) for (b0, b1) in blocked_intervals(practitioner, day)):
-        raise SchedulingError('blocked', 'The practitioner is not available on that date (leave or closure).')
+        raise SchedulingError('blocked', gettext('The practitioner is not available on that date (leave or closure).'))
     if any(_overlaps(start_dt, end_dt, a.starts_at, a.ends_at) for a in live_appointments(practitioner, day, exclude)):
-        raise SchedulingError('conflict', 'That slot has just been taken. Please choose another time.')
+        raise SchedulingError('conflict', gettext('That slot has just been taken. Please choose another time.'))
     return Slot(start_dt, end_dt, practitioner.pk)
 
 
@@ -216,7 +217,7 @@ def pick_practitioner(day, start_time, appointment_type='physical', duration=Non
         except SchedulingError as exc:
             errors.append(exc)
     if not errors:
-        raise SchedulingError('unavailable', 'No practitioner is available at that time.')
+        raise SchedulingError('unavailable', gettext('No practitioner is available at that time.'))
     raise min(errors, key=lambda e: _ERROR_PRIORITY.index(e.code) if e.code in _ERROR_PRIORITY else 99)
 
 
@@ -245,9 +246,9 @@ def book(*, practitioner=None, day, start_time, appointment_type='physical', dur
     """Create an appointment. Raises SchedulingError; never leaves a half-created booking."""
     cfg, now = BookingSettings.get(), _now(now)
     if patient is None and not (guest_name and (guest_phone or guest_email)):
-        raise SchedulingError('invalid_contact', 'A patient, or a name and phone/email, is required.')
+        raise SchedulingError('invalid_contact', gettext('A patient, or a name and phone/email, is required.'))
     if source == 'public' and not cfg.allow_public_booking:
-        raise SchedulingError('closed', 'Online booking is currently unavailable. Please call the clinic.')
+        raise SchedulingError('closed', gettext('Online booking is currently unavailable. Please call the clinic.'))
     if request_key:
         prior = Appointment.objects.filter(request_key=request_key).first()
         if prior:
@@ -267,7 +268,7 @@ def book(*, practitioner=None, day, start_time, appointment_type='physical', dur
                     _contact_filters(patient, guest_phone, guest_email),
                     status__in=('scheduled', 'confirmed'), appointment_date__gte=now.date()).count()
                 if upcoming >= cfg.max_active_per_contact:
-                    raise SchedulingError('limit', 'You already have the maximum number of upcoming appointments.')
+                    raise SchedulingError('limit', gettext('You already have the maximum number of upcoming appointments.'))
             appt = Appointment.objects.create(
                 patient=patient, practitioner=practitioner, appointment_date=day,
                 appointment_time=slot.time, duration_minutes=int((slot.end - slot.start).total_seconds() // 60),
@@ -279,7 +280,7 @@ def book(*, practitioner=None, day, start_time, appointment_type='physical', dur
                 confirmed_at=now if status == 'confirmed' else None)
     except IntegrityError:
         # The unique constraint caught a same-start race that slipped past the lock.
-        raise SchedulingError('conflict', 'That slot has just been taken. Please choose another time.')
+        raise SchedulingError('conflict', gettext('That slot has just been taken. Please choose another time.'))
     _announce_booked(appt, actor)
     return appt
 
@@ -337,13 +338,13 @@ def confirm(appt, actor=None):
 
 def complete(appt, actor=None):
     if appt.starts_at > timezone.now():
-        raise SchedulingError('too_early', 'An appointment cannot be completed before it starts.')
+        raise SchedulingError('too_early', gettext('An appointment cannot be completed before it starts.'))
     return _transition(appt, 'completed', actor)
 
 
 def mark_no_show(appt, actor=None):
     if appt.starts_at > timezone.now():
-        raise SchedulingError('too_early', 'An appointment cannot be a no-show before it starts.')
+        raise SchedulingError('too_early', gettext('An appointment cannot be a no-show before it starts.'))
     appt = _transition(appt, 'no_show', actor)
     if appt.patient_id or appt.guest_email:
         _safely(lambda: notify('appointment_missed', context=_ctx(appt), url=_manage_path(appt),
@@ -355,8 +356,7 @@ def _transition(appt, new_status, actor=None, **extra):
     with transaction.atomic():
         fresh = Appointment.objects.select_for_update().get(pk=appt.pk)
         if not fresh.can_transition(new_status):
-            raise SchedulingError('invalid_transition', f'A {fresh.status.replace("_", " ")} appointment '
-                                                        f'cannot become {new_status.replace("_", " ")}.')
+            raise SchedulingError('invalid_transition', gettext('A %(value1)s appointment cannot become %(value3)s.') % {'value1': fresh.status.replace("_", " "), 'value3': new_status.replace("_", " ")})
         fresh.status = new_status
         if new_status == 'confirmed':
             fresh.confirmed_at = timezone.now()
@@ -373,8 +373,7 @@ def cancel(appt, actor=None, reason='', by_patient=False, now=None):
     now = _now(now)
     cfg = BookingSettings.get()
     if by_patient and appt.starts_at - now < timedelta(hours=cfg.cancel_cutoff_hours):
-        raise SchedulingError('too_late', f'Appointments can only be cancelled online up to '
-                                          f'{cfg.cancel_cutoff_hours} hours before. Please call the clinic.')
+        raise SchedulingError('too_late', gettext('Appointments can only be cancelled online up to %(cancel_cutoff_hours)s hours before. Please call the clinic.') % {'cancel_cutoff_hours': cfg.cancel_cutoff_hours})
     appt = _transition(appt, 'cancelled', actor, cancelled_at=now, cancel_reason=(reason or '')[:300],
                        cancelled_by=actor if getattr(actor, 'is_authenticated', False) else None)
     if appt.patient_id or appt.guest_email:
@@ -389,8 +388,7 @@ def reschedule(appt, *, day, start_time, practitioner=None, actor=None, by_patie
     now = _now(now)
     cfg = BookingSettings.get()
     if by_patient and appt.starts_at - now < timedelta(hours=cfg.cancel_cutoff_hours):
-        raise SchedulingError('too_late', f'Appointments can only be changed online up to '
-                                          f'{cfg.cancel_cutoff_hours} hours before. Please call the clinic.')
+        raise SchedulingError('too_late', gettext('Appointments can only be changed online up to %(cancel_cutoff_hours)s hours before. Please call the clinic.') % {'cancel_cutoff_hours': cfg.cancel_cutoff_hours})
     practitioner = practitioner or appt.practitioner
     if practitioner is None:
         practitioner = pick_practitioner(day, start_time, appt.appointment_type, appt.duration_minutes, now)
@@ -402,7 +400,7 @@ def reschedule(appt, *, day, start_time, practitioner=None, actor=None, by_patie
             _lock(practitioner)
             old = Appointment.objects.select_for_update().get(pk=appt.pk)
             if not old.can_transition('rescheduled'):
-                raise SchedulingError('invalid_transition', 'This appointment can no longer be rescheduled.')
+                raise SchedulingError('invalid_transition', gettext('This appointment can no longer be rescheduled.'))
             slot = validate_slot(practitioner, day, start_time, old.appointment_type, old.duration_minutes,
                                  exclude=old, now=now, enforce_notice=enforce_notice, enforce_hours=enforce_hours)
             old.status = 'rescheduled'
@@ -414,7 +412,7 @@ def reschedule(appt, *, day, start_time, practitioner=None, actor=None, by_patie
                 appointment_type=old.appointment_type, status='scheduled', reason=old.reason, notes=old.notes,
                 booked_via=old.booked_via, rescheduled_from=old)
     except IntegrityError:
-        raise SchedulingError('conflict', 'That slot has just been taken. Please choose another time.')
+        raise SchedulingError('conflict', gettext('That slot has just been taken. Please choose another time.'))
     if new.patient_id or new.guest_email:
         _safely(lambda: notify('appointment_rescheduled', context=_ctx(new), url=_manage_path(new),
                                dedupe_key=f'appt:{new.pk}:rescheduled', **_recipient(new)))

@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load b64uuid_tags %}
 
-{% block title %}{% if patient %}Edit{% else %}Add{% endif %} Patient - SpinalCure{% endblock %}
-{% block page_title %}{% if patient %}Edit Patient{% else %}Add New Patient{% endif %}{% endblock %}
+{% block title %}{% if patient %}{% trans "Edit" %}{% else %}{% trans "Add" %}{% endif %} {% trans "Patient - SpinalCure" %}{% endblock %}
+{% block page_title %}{% if patient %}{% trans "Edit Patient" %}{% else %}{% trans "Add New Patient" %}{% endif %}{% endblock %}
 
 {% block header_actions %}
 <a href="{% if patient %}{% url 'patient-detail' patient.id %}{% else %}{% url 'patient-list' %}{% endif %}"
     class="text-sm text-gray-400 hover:text-gray-900 flex items-center gap-1.5 transition-colors no-underline">
-    <i class="bi bi-arrow-left"></i> Back
+    <i class="bi bi-arrow-left"></i> {% trans "Back" %}
 </a>
 {% endblock %}
 
@@ -22,17 +23,17 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Basic Information -->
             <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-                <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">Basic Information</h2>
+                <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">{% trans "Basic Information" %}</h2>
                 <div class="space-y-4">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Patient ID (Optional)</label>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Patient ID (Optional)" %}</label>
                             <input type="text" name="patient_id_str" value="{{ patient.patient_id_str|default:'' }}"
                                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
-                                placeholder="PT-001">
+                                placeholder="{% trans 'PT-001' %}">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Regd. No.</label>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Regd. No." %}</label>
                             <input type="text" name="registration_number" value="{{ patient.registration_number|default:'' }}"
                                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
                                 placeholder="R-2026-X">
@@ -40,41 +41,39 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Full
-                            Name</label>
+                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Full Name" %}</label>
                         <input type="text" name="name" value="{{ patient.name|default:initial_name }}" required
                             class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
-                            placeholder="Patient's Full Name">
+                            placeholder="{% trans 'Patient\'s Full Name' %}">
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label
-                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Phone</label>
+                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Phone" %}</label>
                             <input type="text" name="phone" value="{{ patient.phone|default:initial_phone }}" required
                                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
                                 placeholder="+91...">
                         </div>
                         <div>
-                            <select name="gender" data-placeholder="Select Gender">
-                                <option value="">Select Gender</option>
-                                <option value="M">Male</option>
-                                <option value="F">Female</option>
-                                <option value="O">Other</option>
+                            <select name="gender" data-placeholder="{% trans 'Select Gender' %}">
+                                <option value="">{% trans "Select Gender" %}</option>
+                                <option value="M">{% trans "Male" %}</option>
+                                <option value="F">{% trans "Female" %}</option>
+                                <option value="O">{% trans "Other" %}</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Email
-                                (Optional)</label>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Email (Optional)" %}</label>
                             <input type="email" name="email" value="{{ patient.email|default:'' }}"
                                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
-                                placeholder="email@example.com">
+                                placeholder="{% trans 'email@example.com' %}">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Whatsapp No</label>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Whatsapp No" %}</label>
                             <input type="text" name="whatsapp_no" value="{{ patient.whatsapp_no|default:'' }}"
                                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
                                 placeholder="+91...">
@@ -82,8 +81,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Date of
-                            Birth</label>
+                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Date of Birth" %}</label>
                         <input type="date" name="date_of_birth"
                             value="{{ patient.date_of_birth|date:'Y-m-d'|default:'' }}"
                             class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
@@ -91,22 +89,22 @@
 
                     <div>
                         <label
-                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Address</label>
+                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Address" %}</label>
                         <textarea name="address" rows="3" required
                             class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
-                            placeholder="Full Address">{{ patient.address|default:'' }}</textarea>
+                            placeholder="{% trans 'Full Address' %}">{{ patient.address|default:'' }}</textarea>
                     </div>
 
                     <div>
                         <label
-                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Photo</label>
+                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Photo" %}</label>
                         {% if patient.photo %}
                         <div class="mb-2">
                             <img src="{{ patient.photo.url }}" class="w-16 h-16 rounded-lg object-cover border">
                         </div>
                         {% endif %}
                         <input type="file" name="photo" accept="image/*"
-                            class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
+                            class="w-full text-xs text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
                     </div>
                 </div>
             </div>
@@ -115,25 +113,24 @@
             <div class="space-y-6">
                 <!-- Attender Info -->
                 <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-                    <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">Attender Details</h2>
+                    <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">{% trans "Attender Details" %}</h2>
                     <div class="space-y-4">
                         <div>
                             <label
-                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Attender
-                                Name</label>
+                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Attender Name" %}</label>
                             <input type="text" name="attender_name" value="{{ patient.attender_name|default:'' }}"
                                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label
-                                    class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Phone</label>
+                                    class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Phone" %}</label>
                                 <input type="text" name="attender_phone" value="{{ patient.attender_phone|default:'' }}"
                                     class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
                             </div>
                             <div>
                                 <label
-                                    class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Relation</label>
+                                    class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Relation" %}</label>
                                 <input type="text" name="attender_relation"
                                     value="{{ patient.attender_relation|default:'' }}"
                                     class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
@@ -144,15 +141,14 @@
 
                 <!-- Case Details -->
                 <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-                    <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">Medical Case Details
+                    <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">{% trans "Medical Case Details" %}
                     </h2>
                     <div class="space-y-4">
                         <div>
                             <label
-                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Primary
-                                Doctor (Handled By)</label>
-                            <select name="handled_by" required data-placeholder="Select Practitioner">
-                                <option value="">Select Practitioner</option>
+                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Primary Doctor (Handled By)" %}</label>
+                            <select name="handled_by" required data-placeholder="{% trans 'Select Practitioner' %}">
+                                <option value="">{% trans "Select Practitioner" %}</option>
                                 {% for dr in practitioners %}
                                 <option value="{{ dr.id }}">
                                     {{ dr.name }}
@@ -162,23 +158,21 @@
                         </div>
                         <div>
                             <label
-                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Reason For Visit</label>
+                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Reason For Visit" %}</label>
                             <textarea name="reason_for_visit" rows="2"
                                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
-                                placeholder="Why is the patient visiting?">{{ patient.reason_for_visit|default:'' }}</textarea>
+                                placeholder="{% trans 'Why is the patient visiting?' %}">{{ patient.reason_for_visit|default:'' }}</textarea>
                         </div>
                         <div>
                             <label
-                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Chief
-                                Complaint (Diagnosis)</label>
+                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Chief Complaint (Diagnosis)" %}</label>
                             <textarea name="chief_complaint" rows="3" required
                                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
-                                placeholder="Main health issue...">{{ patient.chief_complaint|default:'' }}</textarea>
+                                placeholder="{% trans 'Main health issue...' %}">{{ patient.chief_complaint|default:'' }}</textarea>
                         </div>
                         <div>
                             <label
-                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Total
-                                Sittings Planned</label>
+                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Total Sittings Planned" %}</label>
                             <input type="number" name="total_sittings" value="{{ patient.total_sittings|default:'0' }}"
                                 min="0"
                                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
@@ -190,37 +184,34 @@
 
         <!-- Full Width Sections -->
         <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-            <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">Additional Information</h2>
+            <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">{% trans "Additional Information" %}</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Medical
-                        History</label>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Medical History" %}</label>
                     <textarea name="medical_history" rows="4"
                         class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
-                        placeholder="Past surgeries, conditions...">
+                        placeholder="{% trans 'Past surgeries, conditions...' %}">
                         {{ patient.medical_history|default:'' }}</textarea>
                 </div>
                 <div>
                     <label
-                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Allergies</label>
+                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Allergies" %}</label>
                     <textarea name="allergies" rows="4"
                         class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
-                        placeholder="Food, drug allergies...">{{ patient.allergies|default:'' }}</textarea>
+                        placeholder="{% trans 'Food, drug allergies...' %}">{{ patient.allergies|default:'' }}</textarea>
                 </div>
             </div>
             <div class="mt-6">
-                <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Internal
-                    Notes</label>
+                <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Internal Notes" %}</label>
                 <textarea name="notes" rows="2"
                     class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
-                    placeholder="Doctor's private notes...">{{ patient.notes|default:'' }}</textarea>
+                    placeholder="{% trans 'Doctor\'s private notes...' %}">{{ patient.notes|default:'' }}</textarea>
             </div>
 
             <div class="flex items-center gap-3 mt-6">
                 <input type="checkbox" name="is_active" id="is_active"
                     class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500">
-                <label for="is_active" class="text-sm text-gray-700 font-medium">Active (Is undergoing
-                    treatment)</label>
+                <label for="is_active" class="text-sm text-gray-700 font-medium">{% trans "Active (Is undergoing treatment)" %}</label>
             </div>
         </div>
 
@@ -229,10 +220,10 @@
         <!-- Submit -->
         <div class="flex items-center justify-end gap-3 pt-4">
             <a href="{% if patient %}{% url 'patient-detail' patient.id %}{% else %}{% url 'patient-list' %}{% endif %}"
-                class="px-6 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Cancel</a>
+                class="px-6 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">{% trans "Cancel" %}</a>
             <button type="submit"
                 class="px-10 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg shadow-green-200 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
-                {% if patient %}Update Patient Profile{% else %}Register Patient{% endif %}
+                {% if patient %}{% trans "Update Patient Profile" %}{% else %}{% trans "Register Patient" %}{% endif %}
             </button>
         </div>
 </div>

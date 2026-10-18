@@ -1,10 +1,11 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research & Insights — {{ clinic.name|default:"SpinalCure" }}</title>
+    <title>{% blocktranslate trimmed with name=clinic.name|default:"SpinalCure" %}Research & Insights — {{ name }}{% endblocktranslate %}</title>
     <meta name="description" content="{% if selected_tag %}Articles tagged {{ selected_tag.name }}{% else %}Expert research, insights and health guides from the specialists at {{ clinic.name|default:'SpinalCure' }}{% endif %}">
     <meta name="robots" content="index, follow">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -42,12 +43,12 @@
                 <span class="text-xl font-extrabold tracking-tight text-slate-900">{{ clinic.name|default:"SpinalCure" }}</span>
             </a>
             <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
-                <a href="{% url 'clinic_portfolio' %}#about" class="hover:text-green-600 transition-colors">About</a>
-                <a href="{% url 'clinic_portfolio' %}#services" class="hover:text-green-600 transition-colors">Services</a>
-                <a href="{% url 'clinic_portfolio' %}#team" class="hover:text-green-600 transition-colors">Team</a>
-                <a href="{% url 'blog_list' %}" class="text-green-600 font-bold border-b-2 border-green-500 pb-0.5">Blog</a>
+                <a href="{% url 'clinic_portfolio' %}#about" class="hover:text-green-600 transition-colors">{% trans "About" %}</a>
+                <a href="{% url 'clinic_portfolio' %}#services" class="hover:text-green-600 transition-colors">{% trans "Services" %}</a>
+                <a href="{% url 'clinic_portfolio' %}#team" class="hover:text-green-600 transition-colors">{% trans "Team" %}</a>
+                <a href="{% url 'blog_list' %}" class="text-green-600 font-bold border-b-2 border-green-500 pb-0.5">{% trans "Blog" %}</a>
                 <a href="{% url 'clinic_portfolio' %}#appointment"
-                    class="px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-green-700 transition-all shadow-md">Book Session</a>
+                    class="px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-green-700 transition-all shadow-md">{% trans "Book Session" %}</a>
             </div>
             <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2">
                 <svg x-show="!mobileMenu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -56,11 +57,11 @@
         </div>
         <!-- Mobile Menu -->
         <div x-show="mobileMenu" x-cloak x-transition class="md:hidden glass border-t border-slate-100 px-6 py-4 space-y-3 text-sm font-semibold text-slate-700">
-            <a href="{% url 'clinic_portfolio' %}#about" class="block hover:text-green-600">About</a>
-            <a href="{% url 'clinic_portfolio' %}#services" class="block hover:text-green-600">Services</a>
-            <a href="{% url 'clinic_portfolio' %}#team" class="block hover:text-green-600">Team</a>
-            <a href="{% url 'blog_list' %}" class="block text-green-600 font-bold">Blog</a>
-            <a href="{% url 'clinic_portfolio' %}#appointment" class="block px-4 py-2 bg-slate-900 text-white rounded-full text-center">Book Session</a>
+            <a href="{% url 'clinic_portfolio' %}#about" class="block hover:text-green-600">{% trans "About" %}</a>
+            <a href="{% url 'clinic_portfolio' %}#services" class="block hover:text-green-600">{% trans "Services" %}</a>
+            <a href="{% url 'clinic_portfolio' %}#team" class="block hover:text-green-600">{% trans "Team" %}</a>
+            <a href="{% url 'blog_list' %}" class="block text-green-600 font-bold">{% trans "Blog" %}</a>
+            <a href="{% url 'clinic_portfolio' %}#appointment" class="block px-4 py-2 bg-slate-900 text-white rounded-full text-center">{% trans "Book Session" %}</a>
         </div>
     </nav>
 
@@ -69,13 +70,13 @@
         <div class="absolute inset-0 opacity-10" style="background-image:radial-gradient(circle at 20% 50%,rgba(34,197,94,0.6),transparent 50%),radial-gradient(circle at 80% 20%,rgba(22,101,52,0.4),transparent 50%)"></div>
         <div class="max-w-7xl mx-auto px-6 text-center relative">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/15 border border-green-500/30 text-green-400 text-sm font-semibold mb-6">
-                <i class="bi bi-journal-richtext"></i> Research & Insights
+                <i class="bi bi-journal-richtext"></i> {% trans "Research & Insights" %}
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">
-                Expert <span class="gradient-text">Health Articles</span>
+                {% trans "Expert" %} <span class="gradient-text">{% trans "Health Articles" %}</span>
             </h1>
             <p class="text-slate-300 text-lg max-w-2xl mx-auto">
-                Evidence-based research, patient guides, and clinical insights by our specialist doctors.
+                {% trans "Evidence-based research, patient guides, and clinical insights by our specialist doctors." %}
             </p>
         </div>
     </section>
@@ -86,7 +87,7 @@
             <!-- Tag filters -->
             <a href="{% url 'blog_list' %}"
                 class="tag-pill px-3 py-1 rounded-full text-sm font-medium border transition-colors {% if not selected_tag and not selected_author %}bg-green-600 text-white border-green-600{% else %}bg-white text-slate-600 border-slate-200 hover:border-green-400 hover:text-green-600{% endif %}">
-                All Posts
+                {% trans "All Posts" %}
             </a>
             {% for tag in all_tags %}
             <a href="{% url 'blog_list' %}?tag={{ tag.slug }}"
@@ -97,9 +98,9 @@
 
             <!-- Author filter (dropdown) -->
             {% if all_authors %}
-            <div class="ml-auto">
+            <div class="ms-auto">
                 <select onchange="window.location.href=this.value" class="text-sm border border-slate-200 rounded-full px-3 py-1.5 text-slate-600 focus:outline-none focus:ring-2 focus:ring-green-400 cursor-pointer">
-                    <option value="{% url 'blog_list' %}{% if selected_tag %}?tag={{ selected_tag.slug }}{% endif %}">All Authors</option>
+                    <option value="{% url 'blog_list' %}{% if selected_tag %}?tag={{ selected_tag.slug }}{% endif %}">{% trans "All Authors" %}</option>
                     {% for author in all_authors %}
                     <option value="{% url 'blog_list' %}?author={{ author.pk }}" {% if selected_author.pk == author.pk %}selected{% endif %}>
                         {{ author.name }}
@@ -168,7 +169,7 @@
                             <span class="text-xs font-semibold text-slate-700">{{ post.display_author }}</span>
                         </div>
                         <div class="flex items-center gap-3 text-xs text-slate-400">
-                            <span><i class="bi bi-clock mr-1"></i>{{ post.read_time_minutes }} min read</span>
+                            <span><i class="bi bi-clock me-1"></i>{% blocktranslate trimmed with read_time_minutes=post.read_time_minutes %}{{ read_time_minutes }} min read{% endblocktranslate %}</span>
                             {% if post.published_at %}
                             <span>{{ post.published_at|date:"M d, Y" }}</span>
                             {% endif %}
@@ -185,14 +186,14 @@
             <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
                 <i class="bi bi-journal-text text-4xl text-green-400"></i>
             </div>
-            <h3 class="text-2xl font-bold text-slate-800 mb-2">No articles yet</h3>
+            <h3 class="text-2xl font-bold text-slate-800 mb-2">{% trans "No articles yet" %}</h3>
             <p class="text-slate-500 mb-6">
-                {% if selected_tag %}No articles found for "{{ selected_tag.name }}". Try a different tag.
-                {% elif selected_author %}No articles from {{ selected_author.name }} yet.
-                {% else %}Our specialists are preparing research content. Check back soon!{% endif %}
+                {% if selected_tag %}{% blocktranslate trimmed with name=selected_tag.name %}No articles found for "{{ name }}". Try a different tag.{% endblocktranslate %}
+                {% elif selected_author %}{% blocktranslate trimmed with name=selected_author.name %}No articles from {{ name }} yet.{% endblocktranslate %}
+                {% else %}{% trans "Our specialists are preparing research content. Check back soon!" %}{% endif %}
             </p>
             <a href="{% url 'blog_list' %}" class="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-full font-semibold hover:bg-green-700 transition-colors">
-                View All Articles
+                {% trans "View All Articles" %}
             </a>
         </div>
         {% endif %}
@@ -210,8 +211,8 @@
                 {% endif %}
                 <span class="font-bold text-white">{{ clinic.name|default:"SpinalCure" }}</span>
             </div>
-            <p class="text-sm text-slate-500">© {{ clinic.name|default:"SpinalCure" }} {% now "Y" %}. All rights reserved.</p>
-            <a href="{% url 'clinic_portfolio' %}" class="text-sm text-green-400 hover:text-green-300 font-semibold transition-colors">← Back to Portfolio</a>
+            <p class="text-sm text-slate-500">© {{ clinic.name|default:"SpinalCure" }} {% now "Y" %}{% trans ". All rights reserved." %}</p>
+            <a href="{% url 'clinic_portfolio' %}" class="text-sm text-green-400 hover:text-green-300 font-semibold transition-colors">{% trans "← Back to Portfolio" %}</a>
         </div>
     </footer>
 </body>

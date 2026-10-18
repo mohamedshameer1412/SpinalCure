@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}Clinic Portfolio - SpinalCure{% endblock %}
-{% block page_title %}Clinic Portfolio{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Clinic Portfolio - SpinalCure" %}{% endblock %}
+{% block page_title %}{% trans "Clinic Portfolio" %}{% endblock %}
 
 {% block content %}
 <div class="max-w-6xl mx-auto">
@@ -21,7 +22,7 @@
                     {{ clinic.name|make_list|first }}
                     {% endif %}
                 </div>
-                <div class="ml-6 pb-2">
+                <div class="ms-6 pb-2">
                     <h1 class="text-3xl font-bold text-gray-900">{{ clinic.name }}</h1>
                     <p class="text-lg text-gray-500 mt-1">{{ clinic.tagline }}</p>
                 </div>
@@ -35,7 +36,7 @@
         <!-- About Section (Left Column) -->
         <div class="lg:col-span-2 space-y-8">
             <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">About the Clinic</h2>
+                <h2 class="text-xl font-bold text-gray-900 mb-4">{% trans "About the Clinic" %}</h2>
                 <div class="prose max-w-none text-gray-600">
                     {{ clinic.about|linebreaks }}
                 </div>
@@ -44,7 +45,7 @@
             <!-- Team / Practitioners -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-gray-900">Our Practitioners</h2>
+                    <h2 class="text-xl font-bold text-gray-900">{% trans "Our Practitioners" %}</h2>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -61,16 +62,15 @@
                             </div>
                             {% endif %}
                         </div>
-                        <h3 class="text-lg font-bold text-gray-900">Dr. {{ doc.name }}</h3>
+                        <h3 class="text-lg font-bold text-gray-900">{% blocktranslate trimmed with name=doc.name %}Dr. {{ name }}{% endblocktranslate %}</h3>
                         <p class="text-sm font-medium text-primary-600 mb-2">{{ doc.specialization }}</p>
                         <p class="text-sm text-gray-500 line-clamp-2 mb-4">{{ doc.bio }}</p>
 
                         <a href="{% url 'practitioner_detail' doc.id %}"
-                            class="mt-auto px-4 py-2 text-sm font-medium text-primary-600 bg-primary-50 hover:bg-primary-100 rounded-lg w-full transition-colors">View
-                            Profile</a>
+                            class="mt-auto px-4 py-2 text-sm font-medium text-primary-600 bg-primary-50 hover:bg-primary-100 rounded-lg w-full transition-colors">{% trans "View Profile" %}</a>
                     </div>
                     {% empty %}
-                    <p class="text-gray-500 text-sm col-span-2 text-center py-4">No active practitioners found.</p>
+                    <p class="text-gray-500 text-sm col-span-2 text-center py-4">{% trans "No active practitioners found." %}</p>
                     {% endfor %}
                 </div>
             </div>
@@ -79,7 +79,7 @@
         <!-- Contact Info & Quick Links (Right Column) -->
         <div class="space-y-6">
             <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Contact Information</h3>
+                <h3 class="text-lg font-bold text-gray-900 mb-4">{% trans "Contact Information" %}</h3>
                 <ul class="space-y-4 text-sm text-gray-600">
                     <li class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
@@ -126,19 +126,19 @@
 
                 {% if clinic.facebook_link or clinic.instagram_link or clinic.twitter_link %}
                 <div class="mt-6 pt-6 border-t border-gray-100">
-                    <h4 class="text-sm font-semibold text-gray-900 mb-3">Social Media</h4>
+                    <h4 class="text-sm font-semibold text-gray-900 mb-3">{% trans "Social Media" %}</h4>
                     <div class="flex gap-4">
                         {% if clinic.facebook_link %}
                         <a href="{{ clinic.facebook_link }}" target="_blank"
-                            class="text-gray-400 hover:text-blue-600">Facebook</a>
+                            class="text-gray-400 hover:text-blue-600">{% trans "Facebook" %}</a>
                         {% endif %}
                         {% if clinic.instagram_link %}
                         <a href="{{ clinic.instagram_link }}" target="_blank"
-                            class="text-gray-400 hover:text-pink-600">Instagram</a>
+                            class="text-gray-400 hover:text-pink-600">{% trans "Instagram" %}</a>
                         {% endif %}
                         {% if clinic.twitter_link %}
                         <a href="{{ clinic.twitter_link }}" target="_blank"
-                            class="text-gray-400 hover:text-blue-400">Twitter</a>
+                            class="text-gray-400 hover:text-blue-400">{% trans "Twitter" %}</a>
                         {% endif %}
                     </div>
                 </div>
@@ -147,11 +147,10 @@
 
             <!-- Quick Action -->
             <div class="bg-primary-50 rounded-lg p-6 border border-primary-100">
-                <h3 class="text-lg font-bold text-primary-900 mb-2">Manage Profile</h3>
-                <p class="text-sm text-primary-700 mb-4">Keep your clinic's public-facing details up to date.</p>
+                <h3 class="text-lg font-bold text-primary-900 mb-2">{% trans "Manage Profile" %}</h3>
+                <p class="text-sm text-primary-700 mb-4">{% trans "Keep your clinic's public-facing details up to date." %}</p>
                 <button
-                    class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">Edit
-                    Clinic Details</button>
+                    class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg text-sm transition-colors">{% trans "Edit Clinic Details" %}</button>
             </div>
         </div>
 
@@ -164,11 +163,10 @@
                 d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
             </path>
         </svg>
-        <h2 class="text-xl font-bold text-gray-900 mb-2">No Clinic Profile Found</h2>
-        <p class="text-gray-500 mb-6">You haven't set up the public portfolio for your clinic yet.</p>
+        <h2 class="text-xl font-bold text-gray-900 mb-2">{% trans "No Clinic Profile Found" %}</h2>
+        <p class="text-gray-500 mb-6">{% trans "You haven't set up the public portfolio for your clinic yet." %}</p>
         <button
-            class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2.5 px-6 rounded-lg transition-colors">Create
-            Profile</button>
+            class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2.5 px-6 rounded-lg transition-colors">{% trans "Create Profile" %}</button>
     </div>
     {% endif %}
 </div>

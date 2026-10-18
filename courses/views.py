@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 from django.contrib.auth.decorators import login_required
 from spinalcure.rbac import has_capability
 from django.shortcuts import render, get_object_or_404, redirect
@@ -59,7 +60,7 @@ def course_create_view(request):
     if form.is_valid():
         course = form.save()
         log_action(request, 'create', 'Course', course.title, object_id=course.id)
-        messages.success(request, f'Course "{course.title}" created successfully.')
+        messages.success(request, gettext('Course "%(title)s" created successfully.') % {'title': course.title})
         return redirect('course_list')
     return render(request, 'courses/course_form.html', {'form': form, 'title': 'Create Course'})
 
@@ -68,14 +69,14 @@ def course_create_view(request):
 @require_pin_auth('course_list')
 def course_edit_view(request, pk):
     if not has_capability(request.user, 'events.manage'):
-        messages.error(request, 'Permission denied.')
+        messages.error(request, gettext('Permission denied.'))
         return redirect('course_list')
     course = get_object_or_404(Course, pk=pk)
     form = CourseForm(request.POST or None, request.FILES or None, instance=course)
     if form.is_valid():
         form.save()
         log_action(request, 'update', 'Course', course.title, object_id=pk)
-        messages.success(request, f'Course "{course.title}" updated.')
+        messages.success(request, gettext('Course "%(title)s" updated.') % {'title': course.title})
         return redirect('course_list')
     return render(request, 'courses/course_form.html', {'form': form, 'title': 'Edit Course', 'course': course})
 
@@ -84,13 +85,13 @@ def course_edit_view(request, pk):
 @require_http_methods(["POST"])
 def toggle_course_publish(request, pk):
     if not has_capability(request.user, 'events.manage'):
-        messages.error(request, 'Permission denied.')
+        messages.error(request, gettext('Permission denied.'))
         return redirect('course_list')
     course = get_object_or_404(Course, pk=pk)
     course.is_published = not course.is_published
     course.save(update_fields=['is_published'])
     state = 'published' if course.is_published else 'hidden'
-    messages.success(request, f'Course "{course.title}" {state}.')
+    messages.success(request, gettext('Course "%(title)s" %(state)s.') % {'title': course.title, 'state': state})
     return redirect('course_list')
 
 
@@ -99,14 +100,14 @@ def toggle_course_publish(request, pk):
 @require_pin_auth('course_list')
 def course_delete_view(request, pk):
     if not has_capability(request.user, 'events.manage'):
-        messages.error(request, 'Permission denied.')
+        messages.error(request, gettext('Permission denied.'))
         return redirect('course_list')
     course = get_object_or_404(Course, pk=pk)
     title = course.title
     course_id = course.id
     course.delete()
     log_action(request, 'delete', 'Course', title, object_id=course_id)
-    messages.success(request, f'Course "{title}" deleted.')
+    messages.success(request, gettext('Course "%(title)s" deleted.') % {'title': title})
     return redirect('course_list')
 
 
@@ -130,7 +131,7 @@ def batch_create_view(request, course_pk):
         if batch.is_active:
             course.batches.filter(is_active=True).update(is_active=False)
         batch.save()
-        messages.success(request, f'Batch "{batch.name}" created.')
+        messages.success(request, gettext('Batch "%(name)s" created.') % {'name': batch.name})
         return redirect('batch_list', course_pk=course.pk)
     return render(request, 'courses/batch_form.html', {
         'form': form, 'course': course, 'title': 'Add Batch'
@@ -141,7 +142,7 @@ def batch_create_view(request, course_pk):
 @require_pin_auth('course_list')
 def batch_edit_view(request, pk):
     if not has_capability(request.user, 'events.manage'):
-        messages.error(request, 'Permission denied.')
+        messages.error(request, gettext('Permission denied.'))
         return redirect('course_list')
     batch = get_object_or_404(CourseBatch, pk=pk)
     form = CourseBatchForm(request.POST or None, instance=batch)
@@ -150,7 +151,7 @@ def batch_edit_view(request, pk):
         if b.is_active:
             batch.course.batches.exclude(pk=pk).filter(is_active=True).update(is_active=False)
         b.save()
-        messages.success(request, f'Batch "{batch.name}" updated.')
+        messages.success(request, gettext('Batch "%(name)s" updated.') % {'name': batch.name})
         return redirect('batch_list', course_pk=batch.course.pk)
     return render(request, 'courses/batch_form.html', {
         'form': form, 'course': batch.course, 'title': 'Edit Batch', 'batch': batch
@@ -162,13 +163,13 @@ def batch_edit_view(request, pk):
 @require_pin_auth('course_list')
 def batch_delete_view(request, pk):
     if not has_capability(request.user, 'events.manage'):
-        messages.error(request, 'Permission denied.')
+        messages.error(request, gettext('Permission denied.'))
         return redirect('course_list')
     batch = get_object_or_404(CourseBatch, pk=pk)
     course_pk = batch.course.pk
     name = batch.name
     batch.delete()
-    messages.success(request, f'Batch "{name}" deleted.')
+    messages.success(request, gettext('Batch "%(name)s" deleted.') % {'name': name})
     return redirect('batch_list', course_pk=course_pk)
 
 
@@ -227,7 +228,7 @@ def toggle_batch_feedback(request, pk):
     batch.feedback_enabled = not batch.feedback_enabled
     batch.save(update_fields=['feedback_enabled'])
     state = 'enabled' if batch.feedback_enabled else 'disabled'
-    messages.success(request, f'Feedback form {state} for batch "{batch.name}".')
+    messages.success(request, gettext('Feedback form %(state)s for batch "%(name)s".') % {'state': state, 'name': batch.name})
     return redirect('batch_feedback_admin', pk=pk)
 
 
@@ -238,7 +239,7 @@ def toggle_course_feedback_publish(request, feedback_pk):
     fb.is_published = not fb.is_published
     fb.save(update_fields=['is_published'])
     state = 'published' if fb.is_published else 'unpublished'
-    messages.success(request, f'Feedback by {fb.reviewer_name} {state}.')
+    messages.success(request, gettext('Feedback by %(reviewer_name)s %(state)s.') % {'reviewer_name': fb.reviewer_name, 'state': state})
     return redirect('batch_feedback_admin', pk=fb.batch.pk)
 
 # ── Export Logic ──
