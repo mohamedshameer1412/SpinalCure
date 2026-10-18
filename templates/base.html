@@ -265,7 +265,7 @@
                 </div>
                 
                 <!-- Global Quick Search (Enterprise Level) -->
-                {% if request.user.is_staff or request.user.is_superuser %}
+                {% if request.user|can:'patients.view' %}
                 <div class="flex-1 max-w-xl mx-4 lg:mx-8 hidden sm:block" 
                      x-data="{ 
                          query: '', 
@@ -434,7 +434,7 @@
                                 </p>
                                 <p class="text-xs text-gray-500 truncate">{{ request.user.email }}</p>
                             </div>
-                            {% if request.user.is_staff or request.user.is_superuser %}
+                            {% if request.user|can:'users.manage' %}
                             <div class="border-t border-gray-100 mb-1"></div>
                             <a href="{% url 'admin_clinic_setup' %}"
                                 class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 no-underline">
@@ -501,7 +501,7 @@
                 style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;padding:0 12px;margin-bottom:8px;margin-top:16px">
                 {% trans "Clinical" %}</p>
             <ul style="list-style:none;padding:0;margin:0 0 16px">
-                <li>
+                {% if request.user|can:'appointments.manage' %}<li>
                     <a href="{% url 'appointment_calendar' %}"
                         class="sidebar-link {% if 'appointment' in request.resolver_match.url_name|default:'' %}active{% endif %}">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -510,8 +510,14 @@
                         </svg>
                         {% trans "Appointments" %}
                     </a>
-                </li>
-                <li>
+                </li>{% endif %}
+                {% if request.user|can:'schedule.manage' %}<li>
+                    <a href="{% url 'doctor_availability' %}" class="sidebar-link {% if request.resolver_match.url_name == 'doctor_availability' %}active{% endif %}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        {% trans "Availability" %}
+                    </a>
+                </li>{% endif %}
+                {% if request.user|can:'patients.view' %}<li>
                     <a href="{% url 'patient-list' %}"
                         class="sidebar-link {% if 'patient' in request.resolver_match.url_name|default:'' and 'review' not in request.resolver_match.url_name|default:'' %}active{% endif %}">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -520,14 +526,14 @@
                         </svg>
                         {% trans "Patients" %}
                     </a>
-                </li>
+                </li>{% endif %}
             </ul>
 
             <p
                 style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;padding:0 12px;margin-bottom:8px;margin-top:16px">
                 {% trans "Financials" %}</p>
             <ul style="list-style:none;padding:0;margin:0 0 16px">
-                <li>
+                {% if request.user|can:'billing.view' %}<li>
                     <a href="{% url 'payment_list' %}"
                         class="sidebar-link {% if request.resolver_match.url_name == 'payment_list' %}active{% endif %}">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -536,8 +542,8 @@
                         </svg>
                         {% trans "Payments" %}
                     </a>
-                </li>
-                {% if request.user.is_superadmin %}
+                </li>{% endif %}
+                {% if request.user|can:'expenses.manage' %}
                 <li>
                     <a href="{% url 'expense_list' %}"
                         class="sidebar-link {% if 'expense' in request.resolver_match.url_name|default:'' %}active{% endif %}">
@@ -555,7 +561,7 @@
                 style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;padding:0 12px;margin-bottom:8px;margin-top:16px">
                 {% trans "Education" %}</p>
             <ul style="list-style:none;padding:0;margin:0 0 16px">
-                <li>
+                {% if request.user|can:'events.registrations' %}<li>
                     <a href="{% url 'course_list' %}"
                         class="sidebar-link {% if 'course' in request.resolver_match.url_name|default:'' %}active{% endif %}">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -564,8 +570,8 @@
                         </svg>
                         {% trans "Courses" %}
                     </a>
-                </li>
-                <li>
+                </li>{% endif %}
+                {% if request.user|can:'events.registrations' %}<li>
                     <a href="{% url 'event_list' %}"
                         class="sidebar-link {% if 'event' in request.resolver_match.url_name|default:'' %}active{% endif %}">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -574,14 +580,14 @@
                         </svg>
                         {% trans "Events" %}
                     </a>
-                </li>
+                </li>{% endif %}
             </ul>
 
             <p
                 style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;padding:0 12px;margin-bottom:8px;margin-top:16px">
                 {% trans "Marketing" %}</p>
             <ul style="list-style:none;padding:0;margin:0 0 16px">
-                {% if request.user.is_superadmin %}
+                {% if request.user|can:'reviews.manage' %}
                 <li>
                     <a href="{% url 'patient-reviews' %}"
                         class="sidebar-link {% if 'review' in request.resolver_match.url_name|default:'' %}active{% endif %}">
@@ -626,7 +632,31 @@
                 </li>
             </ul>
 
-            {% if request.user.is_staff or request.user.is_superuser %}
+            <p
+                style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;padding:0 12px;margin-bottom:8px;margin-top:16px">
+                {% trans "Workspace" %}</p>
+            <ul style="list-style:none;padding:0;margin:0 0 16px">
+                <li>
+                    <a href="{% url 'notification_center' %}" class="sidebar-link {% if request.resolver_match.url_name == 'notification_center' %}active{% endif %}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2c0 .5-.2 1-.6 1.4L4 17h5m6 0a3 3 0 11-6 0"/></svg>
+                        {% trans "Notifications" %}
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'idcard_mine' %}" class="sidebar-link {% if request.resolver_match.url_name == 'idcard_mine' %}active{% endif %}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 3h2"/></svg>
+                        {% trans "My ID card" %}
+                    </a>
+                </li>
+                {% if request.user|can:'idcards.manage' %}<li>
+                    <a href="{% url 'idcard_dashboard' %}" class="sidebar-link {% if 'idcard' in request.resolver_match.url_name|default:'' and request.resolver_match.url_name != 'idcard_mine' %}active{% endif %}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 3h2"/></svg>
+                        {% trans "ID cards" %}
+                    </a>
+                </li>{% endif %}
+            </ul>
+
+            {% if request.user|can:'audit.view' %}
             <p
                 style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;padding:0 12px;margin-bottom:8px;margin-top:16px">
                 {% trans "Settings Area" %}</p>

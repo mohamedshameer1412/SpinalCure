@@ -1,16 +1,21 @@
 """
 Django settings for SpinalCure project.
-Environment-specific settings are imported based on DJANGO_ENV.
+Environment-specific settings are imported based on DJANGO_ENV (default: production, so a deployment that
+forgets to set it never runs with DEBUG on). Set DJANGO_ENV=development for local work.
+
+When DJANGO_SETTINGS_MODULE names a submodule explicitly (e.g. spinalcure.settings.test) this package
+must not pull in any environment, otherwise importing the submodule would load production settings first.
 """
 import os
-from .base import *
 
-# Load environment-specific settings
-_env = os.getenv('DJANGO_ENV', 'development').lower()
+if os.environ.get('DJANGO_SETTINGS_MODULE', 'spinalcure.settings') == 'spinalcure.settings':
+    from .base import *
 
-if _env == 'production':
-    from .production import *
-elif _env == 'staging':
-    from .staging import *
-else:
-    from .development import *
+    _env = os.getenv('DJANGO_ENV', 'production').lower()
+
+    if _env == 'production':
+        from .production import *
+    elif _env == 'staging':
+        from .staging import *
+    else:
+        from .development import *

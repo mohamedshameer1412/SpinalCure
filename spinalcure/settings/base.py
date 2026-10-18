@@ -330,3 +330,15 @@ LEAKED_DEV_FERNET_KEY = '8mrsr84tmG0jitcuXLSLFjCIVYzAFoJrdeXBueV8UE8='
 NOTIFY_SMS_BACKEND = config('NOTIFY_SMS_BACKEND', default='')
 NOTIFY_WHATSAPP_BACKEND = config('NOTIFY_WHATSAPP_BACKEND', default='')
 NOTIFY_SEND_ON_COMMIT = True
+
+
+def production_cache_settings():
+    """Redis when CACHE_LOCATION is configured; otherwise a shared database cache so rate limits and
+    throttles hold across worker processes without extra infrastructure (run `createcachetable` once)."""
+    location = config('CACHE_LOCATION', default='')
+    if location:
+        return {'default': {
+            'BACKEND': 'django_redis.cache.RedisCache', 'LOCATION': location,
+            'OPTIONS': {'CLIENT_CLASS': 'django_redis.client.DefaultClient', 'SOCKET_CONNECT_TIMEOUT': 5,
+                        'SOCKET_TIMEOUT': 5, 'IGNORE_EXCEPTIONS': True}}}, True
+    return {'default': {'BACKEND': 'django.core.cache.backends.db.DatabaseCache', 'LOCATION': 'django_cache'}}, False

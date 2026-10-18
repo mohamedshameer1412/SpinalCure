@@ -13,6 +13,7 @@ Pillow>=10.1.0
 openpyxl==3.11.0
 python-docx==0.8.11
 reportlab>=4.0
+xhtml2pdf>=0.2.16
 
 # Frontend & Styling
 django-tailwind==3.6.0
@@ -36,6 +37,9 @@ qrcode==7.4.2
 
 # Logging & Monitoring
 python-json-logger==2.0.7
+
+# Internationalisation tooling (scripts/i18n_*.py; .mo files are committed)
+polib>=1.2.0
 
 # Email
 django-anymail==10.2

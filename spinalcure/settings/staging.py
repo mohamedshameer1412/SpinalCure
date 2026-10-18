@@ -25,15 +25,7 @@ LOGGING['loggers']['django']['level'] = 'INFO'
 LOGGING['loggers']['spinalcure']['level'] = 'INFO'
 
 # Cache - Redis
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': config('CACHE_LOCATION', default='redis://127.0.0.1:6379/1'),
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
-}
+CACHES, _USES_REDIS = production_cache_settings()
 
 # Session configuration
 SESSION_CACHE_ALIAS = 'default'

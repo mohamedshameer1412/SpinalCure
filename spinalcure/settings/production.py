@@ -19,13 +19,6 @@ SECURE_HSTS_SECONDS = 31536000  # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_SECURITY_POLICY = {
-    'default-src': ("'self'",),
-    'script-src': ("'self'", "cdn.jsdelivr.net", "cdn.tailwindcss.com"),
-    'style-src': ("'self'", "'unsafe-inline'", "cdn.tailwindcss.com", "fonts.googleapis.com"),
-    'font-src': ("'self'", "fonts.gstatic.com"),
-    'img-src': ("'self'", "data:"),
-}
 
 # CORS - production domains only
 CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='https://yourdomain.com').split(',')
@@ -48,24 +41,10 @@ LOGGING['loggers']['spinalcure']['level'] = 'INFO'
 # Email errors to admins
 ADMINS = [('Admin', config('ADMIN_EMAIL', default='admin@spinalcure.com'))]
 
-# Cache - Redis required for production
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': config('CACHE_LOCATION', default='redis://127.0.0.1:6379/1'),
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            'SOCKET_CONNECT_TIMEOUT': 5,
-            'SOCKET_TIMEOUT': 5,
-            'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
-            'IGNORE_EXCEPTIONS': True,
-        }
-    }
-}
-
-# Session configuration
-SESSION_CACHE_ALIAS = 'default'
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# Cache: Redis if CACHE_LOCATION is set, else the database cache (see base.production_cache_settings)
+CACHES, _USES_REDIS = production_cache_settings()
+SILENCED_SYSTEM_CHECKS = ['django_ratelimit.E003', 'django_ratelimit.W001']
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db' if _USES_REDIS else 'django.contrib.sessions.backends.db'
 
 # Static files - CDN ready
 STATIC_URL = '/static/'
