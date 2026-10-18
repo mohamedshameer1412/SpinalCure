@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'clinic/_public_head.html' %}
+    <title>Events, workshops &amp; webinars · {{ clinic.name|default:"SpinalCure" }}</title>
+    <meta name="description" content="Upcoming events, workshops and webinars at {{ clinic.name|default:'SpinalCure' }}.">
+</head>
+<body class="bg-slate-50 text-slate-900">
+<main class="max-w-6xl mx-auto px-4 py-10">
+    <a href="{% url 'clinic_portfolio' %}" class="text-sm text-green-700 font-semibold"><i class="bi bi-arrow-left"></i> {{ clinic.name|default:"Home" }}</a>
+    <h1 class="text-3xl font-extrabold mt-2">Events &amp; webinars</h1>
+    <nav class="mt-6 flex flex-wrap gap-2" aria-label="Event status">
+        <a href="?tab=upcoming&q={{ q|urlencode }}" class="px-4 py-2 rounded-full text-sm font-semibold {% if tab == 'upcoming' %}bg-green-600 text-white{% else %}bg-white border border-slate-200{% endif %}" {% if tab == 'upcoming' %}aria-current="page"{% endif %}>Upcoming</a>
+        <a href="?tab=live&q={{ q|urlencode }}" class="px-4 py-2 rounded-full text-sm font-semibold {% if tab == 'live' %}bg-green-600 text-white{% else %}bg-white border border-slate-200{% endif %}" {% if tab == 'live' %}aria-current="page"{% endif %}>Live now</a>
+        <a href="?tab=completed&q={{ q|urlencode }}" class="px-4 py-2 rounded-full text-sm font-semibold {% if tab == 'completed' %}bg-green-600 text-white{% else %}bg-white border border-slate-200{% endif %}" {% if tab == 'completed' %}aria-current="page"{% endif %}>Past</a>
+        <a href="?tab=cancelled&q={{ q|urlencode }}" class="px-4 py-2 rounded-full text-sm font-semibold {% if tab == 'cancelled' %}bg-green-600 text-white{% else %}bg-white border border-slate-200{% endif %}" {% if tab == 'cancelled' %}aria-current="page"{% endif %}>Cancelled</a>
+        <form method="get" class="ml-auto flex gap-2" role="search">
+            <input type="hidden" name="tab" value="{{ tab }}">
+            <label for="q" class="sr-only">Search events</label>
+            <input id="q" name="q" value="{{ q }}" placeholder="Search events" class="px-4 py-2 rounded-full border border-slate-200 text-sm">
+        </form>
+    </nav>
+    <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {% for e in page %}
+        <article class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+            {% if e.image %}<img src="{{ e.image.url }}" alt="" class="h-40 w-full object-cover">{% endif %}
+            <div class="p-5 flex-1 flex flex-col">
+                <p class="text-xs font-bold uppercase tracking-widest text-green-700">{{ e.get_event_type_display }}{% if e.is_online %} · Online{% endif %}</p>
+                <h2 class="text-lg font-bold mt-1"><a href="{% url 'event_detail' e.id %}" class="hover:underline">{{ e.title }}</a></h2>
+                <p class="text-sm text-slate-600 mt-1">{{ e.date|date:"D, d M Y" }} · {{ e.start_time|time:"h:i A" }} IST</p>
+                {% if e.phase == 'live' %}<span class="mt-2 self-start px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">LIVE</span>{% endif %}
+                {% if e.is_cancelled %}<span class="mt-2 self-start px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold">Cancelled</span>{% endif %}
+                {% if tab == 'upcoming' %}
+                <p class="text-xs text-slate-500 mt-2 countdown" data-start="{{ e.starts_at|date:'c' }}"></p>
+                {% if e.max_participants %}<p class="text-xs text-slate-500">{% if e.seats_left %}{{ e.seats_left }} seats left{% else %}Full{% if e.waitlist_enabled %} · join the waitlist{% endif %}{% endif %}</p>{% endif %}
+                {% endif %}
+                <a href="{% url 'event_detail' e.id %}" class="mt-auto pt-4 text-sm font-semibold text-green-700">{% if tab == 'upcoming' %}Details &amp; registration{% else %}Details{% endif %} <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </article>
+        {% empty %}
+        <p class="col-span-full text-center text-slate-500 py-16">No {{ tab }} events{% if q %} matching "{{ q }}"{% endif %}.</p>
+        {% endfor %}
+    </div>
+    {% if page.has_other_pages %}
+    <nav class="mt-8 flex justify-between text-sm" aria-label="Pagination">
+        {% if page.has_previous %}<a href="?tab={{ tab }}&q={{ q|urlencode }}&page={{ page.previous_page_number }}" class="text-green-700 font-semibold">Previous</a>{% else %}<span></span>{% endif %}
+        <span class="text-slate-500">Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
+        {% if page.has_next %}<a href="?tab={{ tab }}&q={{ q|urlencode }}&page={{ page.next_page_number }}" class="text-green-700 font-semibold">Next</a>{% else %}<span></span>{% endif %}
+    </nav>
+    {% endif %}
+</main>
+<script>
+    document.querySelectorAll('.countdown').forEach(el => {
+        const start = new Date(el.dataset.start);
+        const tick = () => {
+            const ms = start - new Date();
+            if (ms <= 0) { el.textContent = 'Starting now'; return; }
+            const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60;
+            el.textContent = 'Starts in ' + (d ? d + 'd ' : '') + h + 'h ' + m + 'm';
+        };
+        tick(); setInterval(tick, 60000);
+    });
+</script>
+</body>
+</html>

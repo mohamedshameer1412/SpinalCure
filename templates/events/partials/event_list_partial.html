@@ -80,6 +80,22 @@
                             {% if event.feedback_enabled %}<span class="ml-1 bg-amber-300 text-amber-900 text-xs font-bold rounded-full px-1.5 py-0.5">Open</span>{% endif %}
                         </a>
                     </div>
+                    <!-- Lifecycle -->
+                    <div class="flex flex-wrap items-center gap-2 text-xs">
+                        <span class="px-2 py-0.5 rounded font-bold {% if event.phase == 'live' %}bg-red-100 text-red-700{% elif event.phase == 'cancelled' %}bg-gray-200 text-gray-700{% elif event.phase == 'completed' %}bg-slate-100 text-slate-600{% elif event.phase == 'draft' %}bg-amber-100 text-amber-800{% else %}bg-green-100 text-green-800{% endif %}">{{ event.phase|capfirst }}</span>
+                        {% if event.is_archived %}<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-bold">Archived</span>{% endif %}
+                        {% if event.max_participants %}<span class="text-gray-500">{{ event.confirmed_count }}/{{ event.max_participants }} seats</span>{% endif %}
+                        {% if not event.is_cancelled and event.phase != 'completed' %}
+                        <form method="post" action="{% url 'event_lifecycle' event.id %}" class="inline" onsubmit="const r = prompt('Reason for cancelling (sent to registrants):'); if (r === null) return false; this.reason.value = r; return true;">
+                            {% csrf_token %}<input type="hidden" name="action" value="cancel"><input type="hidden" name="reason">
+                            <button type="submit" class="text-red-700 font-semibold hover:underline">Cancel event</button>
+                        </form>
+                        {% endif %}
+                        <form method="post" action="{% url 'event_lifecycle' event.id %}" class="inline">
+                            {% csrf_token %}<input type="hidden" name="action" value="{% if event.is_archived %}unarchive{% else %}archive{% endif %}">
+                            <button type="submit" class="text-gray-600 font-semibold hover:underline">{% if event.is_archived %}Unarchive{% else %}Archive{% endif %}</button>
+                        </form>
+                    </div>
                     <!-- Edit + Delete row -->
                     <div class="flex items-center justify-between gap-3">
                         <span class="text-lg font-bold text-gray-900">

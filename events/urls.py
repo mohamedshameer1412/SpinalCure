@@ -1,3 +1,4 @@
+from . import views
 """
 Events URLs.
 Note: Events API viewset routing is handled in spinalcure/urls.py
@@ -30,6 +31,8 @@ urlpatterns = [
     path('<b64uuid:pk>/toggle-publish/', toggle_event_publish, name='toggle_event_publish'),
     # Admin - Registrations & Feedback
     path('<b64uuid:pk>/registrations/', event_registrations_view, name='event_registrations'),
+    path('<b64uuid:pk>/lifecycle/', views.event_lifecycle_view, name='event_lifecycle'),
+    path('registrations/<b64uuid:pk>/update/', views.registration_update_view, name='event_registration_update'),
     path('<b64uuid:pk>/feedback/', event_feedback_admin_view, name='event_feedback_admin'),
     path('<b64uuid:pk>/toggle-feedback/', toggle_event_feedback, name='toggle_event_feedback'),
     path('feedback/<b64uuid:feedback_pk>/toggle-publish/', toggle_feedback_publish, name='toggle_feedback_publish'),

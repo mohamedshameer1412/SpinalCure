@@ -167,7 +167,7 @@ def batch_registrations_view(request, pk):
 
     if query:
         registrations = registrations.filter(
-            Q(full_name__icontains=query) |
+            Q(name__icontains=query) |
             Q(email__icontains=query) |
             Q(phone__icontains=query)
         )

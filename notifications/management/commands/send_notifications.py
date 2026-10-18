@@ -55,5 +55,23 @@ class Command(BaseCommand):
                              reverse('appointment_calendar'), dedupe_key=f'followup:{s.pk}', email=False)
                 followups += 1
 
+        event_reminders = 0
+        from events.models import EventRegistration
+        from notifications.services import queue_email
+        regs = EventRegistration.objects.filter(
+            status='confirmed', event__is_published=True, event__is_cancelled=False,
+            event__date__range=(now.date(), (now + timedelta(hours=hours)).date()),
+        ).exclude(email='').select_related('event')
+        for r in regs:
+            e = r.event
+            if now < e.starts_at <= now + timedelta(hours=hours):
+                link = f'{settings.SITE_URL}{reverse("event_registration_manage", args=[r.access_token])}'
+                queue_email(r.email, 'event_registration', f'Reminder: {e.title}',
+                            f'"{e.title}" starts {e.starts_at:%a %d %b, %I:%M %p} IST.\n'
+                            f'{"Join from your registration page: " if e.is_online else "Venue: " + e.venue + chr(10) + "Your registration: "}{link}',
+                            dedupe_key=f'evremind:{r.pk}:{e.date}:{e.start_time}')
+                event_reminders += 1
+
         retried = retry_failed()
-        self.stdout.write(f'reminders={reminders} missed_flagged={missed} followups={followups} emails_retried_ok={retried}')
+        self.stdout.write(f'reminders={reminders} event_reminders={event_reminders} missed_flagged={missed} '
+                          f'followups={followups} emails_retried_ok={retried}')

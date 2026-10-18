@@ -1,3 +1,7 @@
+from django.utils import timezone
+from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from spinalcure.decorators import role_required
 from django.http import JsonResponse
@@ -51,7 +55,7 @@ def clinic_portfolio_view(request):
         avg_rating = total_rating / reviews.count()
 
     # Fetch published events
-    events = Event.objects.filter(is_published=True).order_by('date', 'start_time')
+    events = Event.objects.filter(is_published=True, is_cancelled=False, is_archived=False, date__gte=timezone.localdate()).order_by('date', 'start_time')
 
     # Fetch published courses
     from courses.models import Course
@@ -114,26 +118,110 @@ def event_detail_view(request, pk):
 
 @require_http_methods(["POST"])
 def register_for_event_ajax(request, pk):
-    """AJAX endpoint for event registration."""
+    """Public event registration: capacity, waitlist, deadline and duplicates enforced server-side."""
+    from events.registration import register, RegistrationError
+    from spinalcure.utils import rate_limited, client_ip
+    if rate_limited(f'event_register:{client_ip(request)}', 10, 3600):
+        return JsonResponse({'status': 'error', 'message': 'Too many attempts. Please try again later.'}, status=429)
+    event = get_object_or_404(Event, pk=pk, is_published=True)
     try:
-        event = get_object_or_404(Event, pk=pk, is_published=True)
         data = json.loads(request.body)
-        name = data.get('name', '').strip()
-        phone = data.get('phone', '').strip()
-        email = data.get('email', '').strip()
-        notes = data.get('notes', '').strip()
-        if not name or not phone:
-            return JsonResponse({'status': 'error', 'message': 'Name and phone are required.'}, status=400)
-        EventRegistration.objects.create(
-            event=event, name=name, phone=phone, email=email, notes=notes
-        )
-        logger.info(f'New registration for event {event.title} by {name}')
-        return JsonResponse({'status': 'success', 'message': 'Registration successful! We will be in touch.'})
     except json.JSONDecodeError:
         return JsonResponse({'status': 'error', 'message': 'Invalid request.'}, status=400)
-    except Exception as e:
-        logger.error(f'Event registration error: {str(e)}')
-        return JsonResponse({'status': 'error', 'message': 'An error occurred. Please try again.'}, status=500)
+    name, phone = str(data.get('name', '')).strip()[:200], str(data.get('phone', '')).strip()
+    email, notes = str(data.get('email', '')).strip(), str(data.get('notes', '')).strip()[:1000]
+    if not name or not phone:
+        return JsonResponse({'status': 'error', 'message': 'Name and phone are required.'}, status=400)
+    try:
+        validate_phone_number(phone)
+        if email:
+            from django.core.validators import validate_email
+            validate_email(email)
+    except ValidationError:
+        return JsonResponse({'status': 'error', 'message': 'Please enter a valid phone number and email.'}, status=400)
+    try:
+        reg = register(request, event.pk, name, phone, email, notes)
+    except RegistrationError as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=409)
+    msg = ('You are registered! ' if reg.status == 'confirmed' else 'The event is full, so you are on the waitlist. ')
+    msg += 'A confirmation email with your registration link has been sent.' if email else 'Please save your registration link.'
+    return JsonResponse({'status': 'success', 'registration_status': reg.status, 'message': msg,
+                         'manage_url': reverse('event_registration_manage', args=[reg.access_token])})
+
+
+def event_registration_manage_view(request, token):
+    """Registrant's private page: status, cancel, calendar file and (when live) the meeting link."""
+    from events.models import EventRegistration
+    from events.registration import cancel
+    reg = get_object_or_404(EventRegistration.objects.select_related('event'), access_token=token)
+    if request.method == 'POST' and request.POST.get('action') == 'cancel':
+        cancel(request, reg)
+        messages.success(request, 'Your registration has been cancelled.')
+        return redirect('event_registration_manage', token=token)
+    from django.utils import timezone
+    from datetime import timedelta
+    e = reg.event
+    can_join = (e.is_online and e.meeting_link and reg.status == 'confirmed' and not e.is_cancelled
+                and e.starts_at - timedelta(minutes=30) <= timezone.now() <= e.ends_at)
+    resp = render(request, 'clinic/event_registration.html', {'reg': reg, 'event': e, 'can_join': can_join,
+                                                               'clinic': ClinicProfile.objects.first()})
+    resp['X-Robots-Tag'] = 'noindex'
+    resp['Referrer-Policy'] = 'no-referrer'
+    return resp
+
+
+def event_join_view(request, token):
+    """Redirect confirmed registrants to the private meeting link, only from 30 minutes before start until the end."""
+    from events.models import EventRegistration
+    from django.utils import timezone
+    from datetime import timedelta
+    reg = get_object_or_404(EventRegistration.objects.select_related('event'), access_token=token)
+    e = reg.event
+    if not (e.is_online and e.meeting_link and reg.status == 'confirmed' and not e.is_cancelled):
+        messages.error(request, 'The meeting link is only available to confirmed registrants of active online events.')
+    elif not (e.starts_at - timedelta(minutes=30) <= timezone.now() <= e.ends_at):
+        messages.info(request, 'The meeting link opens 30 minutes before the start time.')
+    else:
+        if reg.attended is None:
+            reg.attended = True
+            reg.save(update_fields=['attended'])
+        return redirect(e.meeting_link)
+    return redirect('event_registration_manage', token=token)
+
+
+def event_ics_view(request, pk):
+    from events.registration import ics
+    event = get_object_or_404(Event, pk=pk, is_published=True)
+    resp = HttpResponse(ics(event, request.build_absolute_uri(reverse('event_detail', args=[pk]))), content_type='text/calendar; charset=utf-8')
+    resp['Content-Disposition'] = 'attachment; filename="event.ics"'
+    return resp
+
+
+def public_event_list_view(request):
+    """Public listing with upcoming / live / completed / cancelled tabs, search and pagination."""
+    from django.core.paginator import Paginator
+    from django.utils import timezone
+    tab = request.GET.get('tab', 'upcoming')
+    q = request.GET.get('q', '').strip()
+    events = Event.objects.filter(is_published=True, is_archived=False)
+    if q:
+        events = events.filter(Q(title__icontains=q) | Q(description__icontains=q) | Q(presenter__icontains=q))
+    if request.GET.get('type'):
+        events = events.filter(event_type=request.GET['type'])
+    today = timezone.localdate()
+    if tab == 'cancelled':
+        events = events.filter(is_cancelled=True).order_by('-date')
+    else:
+        events = events.filter(is_cancelled=False)
+        if tab == 'completed':
+            events = events.filter(date__lte=today).order_by('-date', '-start_time')
+        else:
+            events = events.filter(date__gte=today).order_by('date', 'start_time')
+        events = [e for e in events if e.phase == tab] if tab in ('live', 'completed', 'upcoming') else events
+    page = Paginator(events, 12).get_page(request.GET.get('page'))
+    return render(request, 'clinic/event_list.html', {'page': page, 'tab': tab, 'q': q,
+                                                      'types': Event._meta.get_field('event_type').choices,
+                                                      'clinic': ClinicProfile.objects.first()})
 
 
 @require_http_methods(["POST"])
@@ -405,17 +493,23 @@ def register_for_course_ajax(request, pk):
         if not name or not phone:
             return JsonResponse({'status': 'error', 'message': 'Name and phone are required.'}, status=400)
             
-        # Check if already registered for THIS batch
-        if CourseRegistration.objects.filter(batch=active_batch, phone=phone).exists():
-            return JsonResponse({'status': 'error', 'message': 'You are already registered for this intake.'}, status=409)
-            
-        CourseRegistration.objects.create(
-            batch=active_batch,
-            name=name,
-            phone=phone,
-            email=email
-        )
-        
+        from django.db import transaction
+        from courses.models import CourseBatch
+        with transaction.atomic():
+            batch = CourseBatch.objects.select_for_update().get(pk=active_batch.pk)  # serialise seat checks
+            if CourseRegistration.objects.filter(batch=batch, phone=phone).exclude(status='cancelled').exists():
+                return JsonResponse({'status': 'error', 'message': 'You are already registered for this intake.'}, status=409)
+            taken = CourseRegistration.objects.filter(batch=batch, status='confirmed').count()
+            status = 'waitlisted' if batch.max_participants and taken >= batch.max_participants else 'confirmed'
+            CourseRegistration.objects.create(batch=batch, name=name[:200], phone=phone, email=email, status=status)
+        if email:
+            from notifications.services import queue_email
+            queue_email(email, 'event_registration', f'{course.title}: registration {"received" if status == "confirmed" else "waitlisted"}',
+                        f'Thank you, {name}. You are {"registered" if status == "confirmed" else "on the waitlist"} for '
+                        f'{course.title} ({batch.name}, starting {batch.start_date:%d %b %Y}). We will contact you with details.')
+        if status == 'waitlisted':
+            return JsonResponse({'status': 'success', 'registration_status': status,
+                                 'message': f'{batch.name} is full, so you are on the waitlist. We will contact you if a seat opens.'})
         logger.info(f'New student {name} registered for course {course.title} (Batch: {active_batch.name})')
         return JsonResponse({'status': 'success', 'message': f'Successfully registered for {active_batch.name}! We will contact you shortly.'})
         

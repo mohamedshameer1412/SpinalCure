@@ -163,6 +163,8 @@ class CourseRegistration(models.Model):
     email = models.EmailField(blank=True, verbose_name=_('Email'))
     notes = models.TextField(blank=True, verbose_name=_('Notes / Questions'))
     registered_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Registered At'))
+    status = models.CharField(max_length=12, default='confirmed', db_index=True, choices=[
+        ('confirmed', _('Confirmed')), ('waitlisted', _('Waitlisted')), ('cancelled', _('Cancelled'))])
 
     class Meta:
         verbose_name = _('Course Registration')

@@ -1,3 +1,4 @@
+from . import views
 from django.urls import path
 from .views import (clinic_portfolio_view, practitioner_detail_view,
                     submit_review_ajax, book_appointment_ajax, clinic_about_page_view,
@@ -25,7 +26,11 @@ urlpatterns = [
     path('ajax/book-appointment/', book_appointment_ajax, name='book_appointment_ajax'),
 
     # ── Public Event Detail ───────────────────────────────────────────
+    path('events/', views.public_event_list_view, name='public_event_list'),
     path('events/<b64uuid:pk>/', event_detail_view, name='event_detail'),
+    path('events/<b64uuid:pk>/calendar.ics', views.event_ics_view, name='event_ics'),
+    path('events/registration/<str:token>/', views.event_registration_manage_view, name='event_registration_manage'),
+    path('events/registration/<str:token>/join/', views.event_join_view, name='event_join'),
     path('events/<b64uuid:pk>/register/', register_for_event_ajax, name='event_register_ajax'),
     path('events/<b64uuid:pk>/verify-registration/', verify_event_registration_ajax, name='event_verify_registration_ajax'),
     path('events/<b64uuid:pk>/feedback/', submit_event_feedback_ajax, name='event_feedback_ajax'),

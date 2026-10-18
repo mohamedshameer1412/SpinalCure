@@ -93,6 +93,14 @@ class Event(models.Model):
         default=False,
         verbose_name=_('Registration Required')
     )
+    presenter = models.CharField(max_length=200, blank=True, verbose_name=_('Presenter / Speaker'))
+    language = models.CharField(max_length=5, blank=True, verbose_name=_('Language'),
+                                choices=[('en', 'English'), ('ta', 'தமிழ்'), ('hi', 'हिन्दी'), ('ar', 'العربية')])
+    registration_deadline = models.DateTimeField(null=True, blank=True, verbose_name=_('Registration closes'))
+    waitlist_enabled = models.BooleanField(default=True, verbose_name=_('Waitlist when full'))
+    is_cancelled = models.BooleanField(default=False, db_index=True, verbose_name=_('Cancelled'))
+    cancel_reason = models.CharField(max_length=300, blank=True)
+    is_archived = models.BooleanField(default=False, db_index=True, verbose_name=_('Archived'))
     fees = models.DecimalField(
         max_digits=8,
         decimal_places=2,
@@ -111,6 +119,50 @@ class Event(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.get_event_type_display()}) — {self.date}"
+
+    # Times are clinic-local (settings.TIME_ZONE, Asia/Kolkata).
+    @property
+    def starts_at(self):
+        from datetime import datetime
+        from django.utils import timezone
+        return timezone.make_aware(datetime.combine(self.date, self.start_time))
+
+    @property
+    def ends_at(self):
+        from datetime import datetime
+        from django.utils import timezone
+        return timezone.make_aware(datetime.combine(self.date, self.end_time))
+
+    @property
+    def phase(self):
+        """draft | cancelled | upcoming | live | completed (archived events keep their phase)."""
+        from django.utils import timezone
+        if self.is_cancelled:
+            return 'cancelled'
+        if not self.is_published:
+            return 'draft'
+        now = timezone.now()
+        if now < self.starts_at:
+            return 'upcoming'
+        return 'live' if now <= self.ends_at else 'completed'
+
+    @property
+    def confirmed_count(self):
+        return self.registrations.filter(status='confirmed').count()
+
+    @property
+    def seats_left(self):
+        if not self.max_participants:
+            return None
+        return max(0, self.max_participants - self.confirmed_count)
+
+    def registration_closed_reason(self):
+        from django.utils import timezone
+        if self.phase != 'upcoming':
+            return 'Registration is closed for this event.'
+        if self.registration_deadline and timezone.now() > self.registration_deadline:
+            return 'The registration deadline has passed.'
+        return None
 
     @property
     def is_upcoming(self):
@@ -162,11 +214,22 @@ class EventRegistration(models.Model):
     email = models.EmailField(blank=True, verbose_name=_('Email'))
     notes = models.TextField(blank=True, verbose_name=_('Notes / Message'))
     registered_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Registered At'))
+    status = models.CharField(max_length=12, default='confirmed', db_index=True, choices=[
+        ('confirmed', _('Confirmed')), ('waitlisted', _('Waitlisted')), ('cancelled', _('Cancelled'))])
+    attended = models.BooleanField(null=True, blank=True, verbose_name=_('Attended'))
+    # Private link for the registrant (status, cancel, join). Never shown publicly.
+    access_token = models.CharField(max_length=40, unique=True, null=True, editable=False)
 
     class Meta:
         verbose_name = _('Event Registration')
         verbose_name_plural = _('Event Registrations')
         ordering = ['-registered_at']
+
+    def save(self, *args, **kwargs):
+        if not self.access_token:
+            import secrets
+            self.access_token = secrets.token_urlsafe(24)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name} — {self.event.title}"

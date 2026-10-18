@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from spinalcure.decorators import role_required
 from django.shortcuts import render, get_object_or_404, redirect
@@ -77,51 +78,55 @@ def event_list_view(request):
         
     return render(request, 'events/event_list.html', context)
 
+def _apply_event_fields(event, post, files):
+    """Copy form fields onto the event and validate with the model rules. Raises ValidationError."""
+    from django.utils.dateparse import parse_datetime
+    from django.utils import timezone as tz
+    event.title = post.get('title', '').strip()
+    event.event_type = post.get('event_type')
+    event.description = post.get('description', '')
+    event.date = post.get('date')
+    event.start_time = post.get('start_time')
+    event.end_time = post.get('end_time')
+    event.is_online = post.get('is_online') == 'on'
+    event.venue = post.get('venue', '').strip() if not event.is_online else (post.get('venue', '').strip() or 'Online')
+    event.meeting_link = post.get('meeting_link', '').strip() if event.is_online else ''
+    event.presenter = post.get('presenter', '').strip()[:200]
+    event.language = post.get('language', '') if post.get('language') in ('en', 'ta', 'hi', 'ar') else ''
+    event.max_participants = post.get('max_participants') or None
+    event.fees = post.get('fees') or 0
+    event.is_published = post.get('is_published') == 'on'
+    event.waitlist_enabled = post.get('waitlist_enabled') == 'on'
+    deadline = parse_datetime(post.get('registration_deadline') or '')
+    event.registration_deadline = tz.make_aware(deadline) if deadline and tz.is_naive(deadline) else deadline
+    if files.get('image'):
+        event.image = files['image']
+    event.full_clean(exclude=['organizer', 'clinic'])
+
+
 @role_required('events_manage')
 def event_create_view(request):
     """Create a new event."""
     
     if request.method == 'POST':
         try:
-            title = request.POST.get('title')
-            event_type = request.POST.get('event_type')
-            description = request.POST.get('description', '')
-            date = request.POST.get('date')
-            start_time = request.POST.get('start_time')
-            end_time = request.POST.get('end_time')
-            venue = request.POST.get('venue')
-            max_participants = request.POST.get('max_participants')
-            fees = request.POST.get('fees', 0)
-            is_published = request.POST.get('is_published') == 'on'
-            image = request.FILES.get('image')
-
             from clinic.models import ClinicProfile
-            clinic = ClinicProfile.objects.first()
-
-            event = Event.objects.create(
-                title=title,
-                event_type=event_type,
-                description=description,
-                date=date,
-                start_time=start_time,
-                end_time=end_time,
-                venue=venue,
-                max_participants=max_participants,
-                fees=fees,
-                is_published=is_published,
-                image=image,
-                organizer=request.user,
-                clinic=clinic
-            )
+            event = Event(organizer=request.user, clinic=ClinicProfile.objects.first())
+            _apply_event_fields(event, request.POST, request.FILES)
+            event.save()
+            title = event.title
             log_action(request, 'create', 'Event', title, object_id=event.id)
             messages.success(request, f'Event "{title}" created successfully.')
             return redirect('event_list')
+        except ValidationError as e:
+            messages.error(request, ' '.join(e.messages))
         except Exception as e:
             messages.error(request, f'Error creating event: {str(e)}')
 
     context = {
         'event_types': Event.EVENT_TYPE_CHOICES,
-        'current_date': None, # Can pass current date if needed
+        'event_languages': Event._meta.get_field('language').choices,
+        'event': Event(**{k: request.POST.get(k) for k in ('title', 'description', 'venue', 'presenter')}) if request.method == 'POST' else None,
     }
     return render(request, 'events/event_form.html', context)
 
@@ -135,30 +140,27 @@ def event_edit_view(request, pk):
     
     if request.method == 'POST':
         try:
-            event.title = request.POST.get('title')
-            event.event_type = request.POST.get('event_type')
-            event.description = request.POST.get('description', '')
-            event.date = request.POST.get('date')
-            event.start_time = request.POST.get('start_time')
-            event.end_time = request.POST.get('end_time')
-            event.venue = request.POST.get('venue')
-            event.max_participants = request.POST.get('max_participants')
-            event.fees = request.POST.get('fees', 0)
-            event.is_published = request.POST.get('is_published') == 'on'
-            
-            if request.FILES.get('image'):
-                event.image = request.FILES.get('image')
-            
+            before = (str(event.date), str(event.start_time), str(event.end_time), event.venue, event.is_online, event.meeting_link)
+            _apply_event_fields(event, request.POST, request.FILES)
             event.save()
+            after = (str(event.date), str(event.start_time), str(event.end_time), event.venue, event.is_online, event.meeting_link)
+            if before != after:
+                from .registration import notify_change
+                n = notify_change(request, event, 'date, time, venue or link')
+                if n:
+                    messages.info(request, f'{n} registrant(s) were emailed about the change.')
             log_action(request, 'update', 'Event', event.title, object_id=pk)
             messages.success(request, f'Event "{event.title}" updated successfully.')
             return redirect('event_list')
+        except ValidationError as e:
+            messages.error(request, ' '.join(e.messages))
         except Exception as e:
             messages.error(request, f'Error updating event: {str(e)}')
 
     context = {
         'event': event,
         'event_types': Event.EVENT_TYPE_CHOICES,
+        'event_languages': Event._meta.get_field('language').choices,
         'is_edit': True
     }
     return render(request, 'events/event_form.html', context)
@@ -206,7 +208,7 @@ def event_registrations_view(request, pk):
 
     if query:
         registrations = registrations.filter(
-            Q(full_name__icontains=query) |
+            Q(name__icontains=query) |
             Q(email__icontains=query) |
             Q(phone__icontains=query)
         )
@@ -374,3 +376,41 @@ def export_event_registrations_print(request, pk):
         'now': datetime.now(),
     }
     return render(request, 'exports/print_template.html', context)
+
+
+@role_required('events_manage')
+@require_http_methods(["POST"])
+def event_lifecycle_view(request, pk):
+    """Cancel (notifies registrants), archive or unarchive an event."""
+    from .registration import notify_change
+    event = get_object_or_404(Event, pk=pk)
+    action = request.POST.get('action')
+    if action == 'cancel' and not event.is_cancelled:
+        event.is_cancelled, event.cancel_reason = True, request.POST.get('reason', '').strip()[:300]
+        event.save(update_fields=['is_cancelled', 'cancel_reason'])
+        n = notify_change(request, event, 'cancelled')
+        messages.success(request, f'Event cancelled. {n} registrant(s) emailed.')
+    elif action in ('archive', 'unarchive'):
+        event.is_archived = action == 'archive'
+        event.save(update_fields=['is_archived'])
+        messages.success(request, f'Event {action}d.')
+    log_action(request, 'update', 'Event', f'{event.title}: {action}', object_id=pk)
+    return redirect('event_list')
+
+
+@role_required('events_manage')
+@require_http_methods(["POST"])
+def registration_update_view(request, pk):
+    """Staff: mark attendance or cancel a registration (cancelling promotes the waitlist)."""
+    from .models import EventRegistration
+    from .registration import cancel
+    reg = get_object_or_404(EventRegistration, pk=pk)
+    action = request.POST.get('action')
+    if action in ('attended', 'absent'):
+        reg.attended = action == 'attended'
+        reg.save(update_fields=['attended'])
+    elif action == 'cancel':
+        promoted = cancel(request, reg)
+        if promoted:
+            messages.info(request, f'{promoted.name} was moved from the waitlist and emailed.')
+    return redirect('event_registrations', pk=reg.event_id)

@@ -10,6 +10,8 @@
                     <th class="px-6 py-4 font-semibold text-gray-700">Email</th>
                     <th class="px-6 py-4 font-semibold text-gray-700">Notes</th>
                     <th class="px-6 py-4 font-semibold text-gray-700">Registered At</th>
+                    <th class="px-6 py-4 font-semibold text-gray-700">Status</th>
+                    <th class="px-6 py-4 font-semibold text-gray-700">Attendance</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-50">
@@ -29,6 +31,23 @@
                     </td>
                     <td class="px-6 py-4 text-gray-500 max-w-xs truncate">{{ reg.notes|default:"—" }}</td>
                     <td class="px-6 py-4 text-gray-500 whitespace-nowrap">{{ reg.registered_at|date:"d M Y, g:i A" }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-0.5 rounded text-xs font-semibold {% if reg.status == 'confirmed' %}bg-green-100 text-green-800{% elif reg.status == 'waitlisted' %}bg-amber-100 text-amber-800{% else %}bg-gray-100 text-gray-600{% endif %}">{{ reg.get_status_display }}</span>
+                        {% if reg.status != 'cancelled' %}
+                        <form method="post" action="{% url 'event_registration_update' reg.id %}" class="inline" onsubmit="return confirm('Cancel this registration?')">
+                            {% csrf_token %}<button type="submit" name="action" value="cancel" class="ml-2 text-xs text-red-700 hover:underline">Cancel</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {% if reg.status == 'confirmed' %}
+                        <form method="post" action="{% url 'event_registration_update' reg.id %}" class="inline-flex gap-1">
+                            {% csrf_token %}
+                            <button type="submit" name="action" value="attended" aria-pressed="{% if reg.attended %}true{% else %}false{% endif %}" class="px-2 py-1 rounded text-xs font-semibold {% if reg.attended %}bg-green-600 text-white{% else %}bg-gray-100 text-gray-700{% endif %}">Present</button>
+                            <button type="submit" name="action" value="absent" aria-pressed="{% if reg.attended == False %}true{% else %}false{% endif %}" class="px-2 py-1 rounded text-xs font-semibold {% if reg.attended == False %}bg-red-600 text-white{% else %}bg-gray-100 text-gray-700{% endif %}">Absent</button>
+                        </form>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
