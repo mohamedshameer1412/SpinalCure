@@ -41,3 +41,11 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 # Rate limiting
 RATELIMIT_ENABLE = True
+
+
+# Encryption keys must come from the environment and must not be the key that was leaked in git.
+from django.core.exceptions import ImproperlyConfigured as _ImproperlyConfigured
+if not FERNET_KEYS or LEAKED_DEV_FERNET_KEY in FERNET_KEYS:
+    raise _ImproperlyConfigured(
+        'FERNET_KEYS must be set to freshly generated key(s); the repository default key is compromised.'
+    )

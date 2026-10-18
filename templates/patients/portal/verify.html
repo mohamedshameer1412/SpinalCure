@@ -27,18 +27,15 @@
                     <i class="bi bi-shield-check"></i>
                 </div>
                 <h1 class="text-2xl font-bold text-gray-900">Verify It's You</h1>
-                <p class="text-sm text-gray-500 mt-2">We've sent a 6-digit code to <strong class="text-gray-900">{{ phone }}</strong></p>
-                <div class="mt-2 text-xs text-orange-600 bg-orange-50 inline-block px-3 py-1 rounded-full font-bold">
-                    [DEMO MODE] Code is "123456"
-                </div>
+                <p class="text-sm text-gray-500 mt-2">Enter the 6-digit code emailed to you. It expires in 10 minutes.</p>
             </div>
 
             {% if messages %}
                 {% for message in messages %}
                 <div class="mb-6 p-4 rounded-xl text-sm font-semibold flex items-center gap-2
-                    {% if message.tags == 'success' %}bg-green-50 text-green-700
+                    {% if message.tags == 'success' or message.tags == 'info' %}bg-green-50 text-green-700
                     {% else %}bg-red-50 text-red-700{% endif %}">
-                    <i class="bi {% if message.tags == 'success' %}bi-check-circle{% else %}bi-exclamation-circle{% endif %}"></i>
+                    <i class="bi {% if message.tags == 'success' or message.tags == 'info' %}bi-check-circle{% else %}bi-exclamation-circle{% endif %}"></i>
                     {{ message }}
                 </div>
                 {% endfor %}

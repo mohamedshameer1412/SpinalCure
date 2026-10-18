@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from patients.search import patient_q
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from rest_framework import viewsets
@@ -546,11 +547,7 @@ def global_search_ajax(request):
     results = []
 
     # Search Patients
-    patients = Patient.objects.filter(
-        Q(name__icontains=query) | 
-        Q(phone__icontains=query) | 
-        Q(email__icontains=query)
-    )[:5]
+    patients = Patient.objects.filter(patient_q(query, '', ('name', 'phone', 'email')))[:5]
     for p in patients:
         results.append({
             'type': 'Patient',
@@ -562,7 +559,7 @@ def global_search_ajax(request):
 
     # Search Appointments
     appointments = Appointment.objects.filter(
-        Q(patient__name__icontains=query) |
+        patient_q(query, 'patient__', ('name',)) |
         Q(reason__icontains=query)
     ).select_related('patient')[:5]
     for a in appointments:

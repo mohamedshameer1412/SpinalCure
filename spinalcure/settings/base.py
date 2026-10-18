@@ -313,4 +313,10 @@ OTP_RATE_LIMIT = config('OTP_RATE_LIMIT', default=3, cast=int)
 RATELIMIT_ENABLE = True
 
 # Cryptography
-FERNET_KEY = '8mrsr84tmG0jitcuXLSLFjCIVYzAFoJrdeXBueV8UE8='
+# Comma-separated Fernet keys. The FIRST key encrypts; all keys can decrypt, which
+# allows rotation (prepend the new key, run `manage.py reencrypt_data`, drop the old one).
+# Generate: python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+FERNET_KEYS = [k.strip() for k in config('FERNET_KEYS', default='').split(',') if k.strip()]
+# This key was committed to git and must be treated as compromised. It is accepted ONLY
+# by development/test settings so local setups keep working; staging/production refuse it.
+LEAKED_DEV_FERNET_KEY = '8mrsr84tmG0jitcuXLSLFjCIVYzAFoJrdeXBueV8UE8='

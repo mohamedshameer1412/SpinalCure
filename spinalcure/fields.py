@@ -1,10 +1,12 @@
 import json
 from django.db import models
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, MultiFernet
 from django.conf import settings
 
+
 def get_fernet():
-    return Fernet(settings.FERNET_KEY.encode('utf-8'))
+    """Encrypt with the first configured key; decrypt with any (supports key rotation)."""
+    return MultiFernet([Fernet(k.encode('utf-8')) for k in settings.FERNET_KEYS])
 
 class EncryptedCharField(models.CharField):
     def get_internal_type(self):

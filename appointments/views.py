@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from patients.search import patient_q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
@@ -79,9 +80,7 @@ def appointment_list_view(request):
     
     if query:
         appointments = appointments.filter(
-            Q(patient__name__icontains=query) | 
-            Q(patient__phone__icontains=query) |
-            Q(patient__email__icontains=query) |
+            patient_q(query, 'patient__', ('name', 'phone', 'email')) |
             Q(reason__icontains=query)
         )
     if status_filter:
@@ -132,9 +131,7 @@ def _get_filtered_appointments(request):
     
     if query:
         appointments = appointments.filter(
-            Q(patient__name__icontains=query) | 
-            Q(patient__phone__icontains=query) |
-            Q(patient__email__icontains=query)
+            patient_q(query, 'patient__', ('name', 'phone', 'email'))
         )
     if date_filter:
         appointments = appointments.filter(appointment_date=date_filter)

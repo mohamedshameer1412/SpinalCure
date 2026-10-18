@@ -77,12 +77,8 @@ def patient_list_view(request):
     patients = Patient.objects.prefetch_related('sessions', 'payments', 'appointments')
     
     if query:
-        patients = patients.filter(
-            Q(name__icontains=query) |
-            Q(phone__icontains=query) |
-            Q(chief_complaint__icontains=query) |
-            Q(medical_history__icontains=query)
-        ).order_by('-registered_date')
+        from .search import patient_q
+        patients = patients.filter(patient_q(query)).order_by('-registered_date')
     else:
         patients = patients.order_by('-registered_date')
 
@@ -114,9 +110,8 @@ def _get_filtered_patients(request):
     query = request.GET.get('q', '')
     patients = Patient.objects.all().order_by('-registered_date')
     if query:
-        patients = patients.filter(
-            Q(name__icontains=query) | Q(phone__icontains=query) | Q(email__icontains=query)
-        )
+        from .search import patient_q
+        patients = patients.filter(patient_q(query))
     return patients, query
 
 def _get_patient_export_rows(patients):
@@ -324,7 +319,8 @@ def reviews_list_view(request):
     query = request.GET.get('q', '')
     reviews = PatientReview.objects.all().select_related('patient', 'practitioner').order_by('-created_at')
     if query:
-        reviews = reviews.filter(Q(patient__name__icontains=query) | Q(review_text__icontains=query))
+        from .search import patient_q
+        reviews = reviews.filter(patient_q(query, 'patient__', ('name',)) | Q(review_text__icontains=query))
     
     avg_rating = reviews.aggregate(avg=Avg('rating'))['avg'] or 0
     
@@ -892,7 +888,8 @@ def _get_filtered_reviews(request):
     query = request.GET.get('q', '')
     reviews = PatientReview.objects.select_related('patient', 'practitioner').all().order_by('-created_at')
     if query:
-        reviews = reviews.filter(Q(patient__name__icontains=query) | Q(review_text__icontains=query))
+        from .search import patient_q
+        reviews = reviews.filter(patient_q(query, 'patient__', ('name',)) | Q(review_text__icontains=query))
     return reviews, query
 
 def _review_mapping(r):
@@ -946,53 +943,39 @@ def export_reviews_print(request):
 # ── Patient Portal (Self-Service) ─────────────────────────────────────────
 
 def patient_login_view(request):
-    """View for patient to enter phone number for login."""
+    """Patient enters their phone number; a one-time code is emailed if the record exists."""
     if 'patient_id' in request.session:
         return redirect('portal_dashboard')
-        
+
     if request.method == 'POST':
-        phone = request.POST.get('phone', '').strip()
-        patient = Patient.objects.filter(phone=phone).first()
-        if patient:
-            # Simulate OTP send
-            otp = "123456" # In production, generate random 6 digits and send via Twilio/SMS API
-            print(f"\n[SIMULATED SMS] Send OTP {otp} to {phone} for {patient.name}\n")
-            
-            request.session['portal_auth_phone'] = phone
-            request.session['portal_auth_otp'] = otp
-            return redirect('portal_verify')
-        else:
-            messages.error(request, 'No patient found with this phone number. Please contact the clinic.')
-            
+        from . import portal_auth
+        if not portal_auth.request_code(request, request.POST.get('phone', '').strip()):
+            messages.error(request, 'Too many attempts. Please try again later.')
+            return render(request, 'patients/portal/login.html', status=429)
+        # Identical outcome whether or not the number is registered.
+        messages.info(request, 'If this number is registered and has an email on file, a code has been sent.')
+        return redirect('portal_verify')
+
     return render(request, 'patients/portal/login.html')
 
 
 def patient_verify_otp_view(request):
-    """View to verify OTP and log patient in."""
+    """Verify the emailed one-time code and start the patient session."""
     if 'patient_id' in request.session:
         return redirect('portal_dashboard')
-        
-    phone = request.session.get('portal_auth_phone')
-    expected_otp = request.session.get('portal_auth_otp')
-    
-    if not phone or not expected_otp:
+
+    from . import portal_auth
+    if not portal_auth.pending_login(request):
         return redirect('portal_login')
-        
+
     if request.method == 'POST':
-        entered_otp = request.POST.get('otp', '').strip()
-        if entered_otp == expected_otp:
-            patient = Patient.objects.filter(phone=phone).first()
-            if patient:
-                # Login success
-                request.session['patient_id'] = str(patient.id)
-                # Cleanup temporary auth vars
-                del request.session['portal_auth_phone']
-                del request.session['portal_auth_otp']
-                return redirect('portal_dashboard')
-        
-        messages.error(request, 'Invalid OTP. Please try again.')
-        
-    return render(request, 'patients/portal/verify.html', {'phone': phone})
+        if portal_auth.verify_code(request, request.POST.get('otp', '')):
+            return redirect('portal_dashboard')
+        messages.error(request, 'Invalid or expired code. Please try again.')
+        if not portal_auth.pending_login(request):
+            return redirect('portal_login')
+
+    return render(request, 'patients/portal/verify.html')
 
 
 def patient_logout_view(request):

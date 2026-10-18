@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from patients.search import patient_q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.db.models import Sum, Q
@@ -43,7 +44,7 @@ def payment_list_view(request):
     query = request.GET.get('q', '')
     payments = Payment.objects.all().select_related('patient', 'course_registration', 'event_registration').order_by('-payment_date')
     if query:
-        payments = payments.filter(Q(receipt_number__icontains=query) | Q(patient__name__icontains=query))
+        payments = payments.filter(Q(receipt_number__icontains=query) | patient_q(query, 'patient__', ('name',)))
     
     total_collected = payments.aggregate(total=Sum('amount_paid'))['total'] or 0
     
@@ -635,7 +636,7 @@ def _get_filtered_payments(request):
     if query:
         payments = payments.filter(
             Q(receipt_number__icontains=query) |
-            Q(patient__name__icontains=query) |
+            patient_q(query, 'patient__', ('name',)) |
             Q(manual_payer_name__icontains=query)
         )
     return payments, query

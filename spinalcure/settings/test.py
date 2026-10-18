@@ -10,3 +10,8 @@ DATABASES = {
 CACHES = {'default': {'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'}}
 EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
 PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher']
+
+
+# Local convenience only: fall back to the (compromised) repository key so dev data keeps decrypting.
+if not FERNET_KEYS:
+    FERNET_KEYS = [LEAKED_DEV_FERNET_KEY]

@@ -29,6 +29,10 @@ class Patient(models.Model):
         verbose_name=_('Phone'),
         db_index=True
     )
+    phone_index = models.CharField(
+        max_length=64, blank=True, default='', db_index=True, editable=False,
+        help_text='Keyed hash of the normalised phone number, used for exact lookups.'
+    )
     whatsapp_no = EncryptedCharField(
         max_length=255,
         blank=True,
@@ -87,6 +91,14 @@ class Patient(models.Model):
             models.Index(fields=['email']),
             models.Index(fields=['is_active']),
         ]
+
+    def save(self, *args, **kwargs):
+        from spinalcure.blind_index import phone_index
+        self.phone_index = phone_index(self.phone)
+        update_fields = kwargs.get('update_fields')
+        if update_fields is not None and 'phone' in update_fields:
+            kwargs['update_fields'] = list(update_fields) + ['phone_index']
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name} ({self.phone})"

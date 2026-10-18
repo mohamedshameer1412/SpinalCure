@@ -33,9 +33,9 @@
             {% if messages %}
                 {% for message in messages %}
                 <div class="mb-6 p-4 rounded-xl text-sm font-semibold flex items-center gap-2
-                    {% if message.tags == 'success' %}bg-green-50 text-green-700
+                    {% if message.tags == 'success' or message.tags == 'info' %}bg-green-50 text-green-700
                     {% else %}bg-red-50 text-red-700{% endif %}">
-                    <i class="bi {% if message.tags == 'success' %}bi-check-circle{% else %}bi-exclamation-circle{% endif %}"></i>
+                    <i class="bi {% if message.tags == 'success' or message.tags == 'info' %}bi-check-circle{% else %}bi-exclamation-circle{% endif %}"></i>
                     {{ message }}
                 </div>
                 {% endfor %}
