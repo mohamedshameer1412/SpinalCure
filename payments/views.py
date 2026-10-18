@@ -8,7 +8,8 @@ from django.db.models import Sum, Q
 from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 from spinalcure.utils import SpinalCureExport, log_action
-from .models import Payment, Expense
+from .models import Payment, Expense, PaymentRefund
+from .refunds import refund_payment, RefundError
 from patients.models import PatientReview
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
@@ -145,8 +146,66 @@ def payment_invoice_view(request, pk):
     context = {
         'payment': payment,
         'clinic': clinic,
+        'refunds': payment.refunds.select_related('refunded_by'),
+        'refund_modes': Payment.PAYMENT_MODE_CHOICES,
     }
     return render(request, 'payments/invoice.html', context)
+
+
+@login_required
+@require_POST
+def payment_refund_view(request, pk):
+    if not has_capability(request.user, 'billing.refund'):
+        messages.error(request, gettext('You do not have permission to issue refunds.'))
+        return redirect('payment_invoice', pk=pk)
+    payment = get_object_or_404(Payment, pk=pk)
+    try:
+        refund = refund_payment(payment.pk, request.POST.get('amount'), request.POST.get('reason'), request.user,
+                                request.POST.get('mode', 'cash'))
+    except RefundError as e:
+        messages.error(request, str(e))
+    else:
+        log_action(request, 'create', 'PaymentRefund', f'Refund ₹{refund.amount} on {payment.receipt_number}',
+                   object_id=refund.id)
+        messages.success(request, gettext('Refund of ₹%(amount)s recorded.') % {'amount': refund.amount})
+    return redirect('payment_invoice', pk=pk)
+
+
+@login_required
+def payments_report_view(request):
+    """Collections, GST, refunds and outstanding dues for a date range (default: this month)."""
+    if not has_capability(request.user, 'reports.view'):
+        messages.error(request, gettext('You do not have permission to view this page.'))
+        return redirect('dashboard')
+    from datetime import date, datetime
+    from decimal import Decimal
+    today = date.today()
+
+    def _d(name, default):
+        try:
+            return datetime.strptime(request.GET.get(name, ''), '%Y-%m-%d').date()
+        except ValueError:
+            return default
+    start, end = _d('from', today.replace(day=1)), _d('to', today)
+    if start > end:
+        start, end = end, start
+    payments = list(Payment.objects.filter(payment_date__range=(start, end)).select_related('patient'))
+    by_mode = {}
+    for p in payments:
+        by_mode[p.get_payment_mode_display()] = by_mode.get(p.get_payment_mode_display(), Decimal('0')) + p.amount_paid
+    billed = sum((p.grand_total for p in payments), Decimal('0'))
+    collected = sum((p.amount_paid for p in payments), Decimal('0'))
+    gst = sum((p.tax_amount for p in payments), Decimal('0'))
+    refunds = PaymentRefund.objects.filter(created_at__date__range=(start, end))
+    refunded = refunds.aggregate(t=Sum('amount'))['t'] or Decimal('0')
+    expenses = Expense.objects.filter(expense_date__range=(start, end)).aggregate(t=Sum('amount'))['t'] or Decimal('0')
+    outstanding = sum((p.balance for p in payments if p.balance > 0), Decimal('0'))
+    return render(request, 'payments/report.html', {
+        'start': start, 'end': end, 'count': len(payments), 'billed': billed, 'collected': collected,
+        'gst': gst, 'refunded': refunded, 'net': collected - refunded, 'expenses': expenses,
+        'outstanding': outstanding, 'profit': collected - refunded - expenses,
+        'by_mode': sorted(by_mode.items(), key=lambda kv: -kv[1]), 'refund_rows': refunds.select_related('payment')[:50],
+    })
 
 
 @login_required
@@ -538,9 +597,12 @@ def payment_edit_view(request, pk):
 
 @login_required
 @require_POST
-@require_pin_auth('payment-list')
+@require_pin_auth('payment_list')
 def payment_delete_view(request, pk):
-    """Delete a payment record."""
+    """Delete a payment record (management only; a refund is the normal way to reverse money)."""
+    if not has_capability(request.user, 'billing.refund'):
+        messages.error(request, gettext('You do not have permission to delete payments.'))
+        return redirect('payment_list')
     payment = get_object_or_404(Payment, pk=pk)
     patient_id = payment.patient.id if payment.patient else None
     

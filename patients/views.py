@@ -279,7 +279,7 @@ def patient_detail_view(request, pk):
     sessions = patient.sessions.all().select_related('treatment_plan').order_by('-session_number')
     treatment_plans = patient.treatment_plans.all().order_by('-created_at')
     payments = patient.payments.all().order_by('-payment_date')
-    total_amount = payments.aggregate(total=Sum('total_amount'))['total'] or 0
+    total_amount = sum((p.grand_total for p in payments), 0)      # includes GST on tax-exclusive payments
     amount_paid = payments.aggregate(paid=Sum('amount_paid'))['paid'] or 0
     remaining_amount = total_amount - amount_paid
     

@@ -204,9 +204,23 @@ class Payment(models.Model):
         return ""
 
     @property
+    def refunded_total(self):
+        total = self.refunds.aggregate(t=models.Sum('amount'))['t']
+        return total or Decimal('0')
+
+    @property
+    def net_paid(self):
+        """Cash actually retained after refunds."""
+        return self.amount_paid - self.refunded_total
+
+    @property
+    def refundable(self):
+        return self.amount_paid - self.refunded_total
+
+    @property
     def balance(self):
         """How much still needs to be paid."""
-        return self.total_amount - self.amount_paid
+        return self.grand_total - self.amount_paid
 
     @property
     def subtotal(self):
@@ -238,7 +252,7 @@ class Payment(models.Model):
 
     def clean(self):
         """Validate payment data."""
-        if self.amount_paid > self.total_amount:
+        if self.amount_paid > self.grand_total:
             raise ValidationError(
                 {'amount_paid': _('Amount paid cannot exceed total amount.')}
             )
@@ -249,7 +263,7 @@ class Payment(models.Model):
         self.full_clean()
         
         # Auto-set status based on payment
-        if self.amount_paid >= self.total_amount:
+        if self.amount_paid >= self.grand_total:
             self.payment_status = 'fully_paid'
         elif self.amount_paid > 0:
             self.payment_status = 'partial'
@@ -342,3 +356,20 @@ class Expense(models.Model):
         if self.expense_date > date.today():
             raise ValidationError({'expense_date': _('Expense date cannot be in the future.')})
 
+
+
+class PaymentRefund(models.Model):
+    """A refund against a payment. Append-only: refunds are never edited, so the money trail stays auditable."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, related_name='refunds')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[validate_positive_amount])
+    reason = models.CharField(max_length=300, verbose_name=_('Reason'))
+    mode = models.CharField(max_length=20, choices=Payment.PAYMENT_MODE_CHOICES, default='cash')
+    refunded_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name='+')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'Refund {self.amount} on {self.payment.receipt_number}'

@@ -46,9 +46,8 @@ def dashboard_view(request):
     ).select_related('patient', 'practitioner').order_by('appointment_date', 'appointment_time')[:5]
 
     # ── New Stats: Pending Dues ────────────────────────────────────────────
-    pending_dues = Payment.objects.filter(
-        payment_status__in=['partial', 'unpaid']
-    ).aggregate(total=Sum('total_amount') - Sum('amount_paid'))['total'] or 0
+    # GST-exclusive payments owe total + tax, so the balance is computed on the model, not in SQL.
+    pending_dues = sum((p.balance for p in Payment.objects.filter(payment_status__in=['partial', 'unpaid'])), 0)
 
     # ── New Stats: No-Show Rate ────────────────────────────────────────────
     total_past_appts = Appointment.objects.filter(

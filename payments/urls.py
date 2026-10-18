@@ -6,7 +6,7 @@ from .views import (
     expense_list_view, expense_create_view, expense_edit_view, expense_delete_view,
     export_expenses_excel, export_expenses_csv, export_expenses_pdf, export_expenses_copy, export_expenses_print,
     export_payments_excel, export_payments_csv, export_payments_pdf, export_payments_copy, export_payments_print,
-    payment_create_view, payment_edit_view, payment_delete_view
+    payment_create_view, payment_edit_view, payment_delete_view, payment_refund_view, payments_report_view
 )
 
 router = DefaultRouter()
@@ -14,6 +14,8 @@ router.register(r'', PaymentViewSet, basename='api-payment')
 
 urlpatterns = [
     path('', payment_list_view, name='payment_list'),
+    path('report/', payments_report_view, name='payments_report'),
+    path('<b64uuid:pk>/refund/', payment_refund_view, name='payment_refund'),
     path('<b64uuid:pk>/invoice/', payment_invoice_view, name='payment_invoice'),
     path('<b64uuid:pk>/download-receipt/', payment_pdf_download_view, name='payment_pdf_download'),
     path('<b64uuid:pk>/send-email/', send_invoice_email_view, name='send_invoice_email'),

@@ -47,3 +47,15 @@ def test_gst_inclusive(patient):
 def test_no_tax(patient):
     p = make(patient, '500', '1', tax_type='none', tax_percent=Decimal('18'))
     assert p.tax_amount == 0 and p.grand_total == Decimal('500')
+
+
+def test_exclusive_gst_balance_and_status_use_grand_total(patient):
+    p = make(patient, '1000', '1000', tax_type='exclusive', tax_percent=Decimal('18'))
+    assert p.payment_status == 'partial' and p.balance == Decimal('180.00')
+    p2 = make(patient, '1000', '1180', tax_type='exclusive', tax_percent=Decimal('18'))
+    assert p2.payment_status == 'fully_paid' and p2.balance == 0
+
+
+def test_cannot_pay_more_than_grand_total(patient):
+    with pytest.raises(ValidationError):
+        make(patient, '1000', '1181', tax_type='exclusive', tax_percent=Decimal('18'))

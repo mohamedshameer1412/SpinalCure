@@ -237,6 +237,10 @@ def generate_receipt_pdf(payment) -> bytes:
     if payment.payment_status == "partial":
         tot_rows.append(tot_row("Amount Paid", f"₹{payment.amount_paid:,.2f}"))
         tot_rows.append(tot_row("Balance Due", f"₹{payment.balance:,.2f}", bold=True))
+    refunded = payment.refunded_total
+    if refunded:
+        tot_rows.append(tot_row("Refunded", f"-₹{refunded:,.2f}"))
+        tot_rows.append(tot_row("Net Paid", f"₹{payment.net_paid:,.2f}", bold=True))
 
     tot_table = Table(tot_rows, colWidths=[usable_w * 0.45, usable_w * 0.30, usable_w * 0.25])
     tot_table.setStyle(TableStyle([
