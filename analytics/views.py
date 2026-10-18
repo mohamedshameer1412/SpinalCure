@@ -10,9 +10,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
+from spinalcure.rbac import capability_permission, has_capability
+
 
 class DashboardStatsAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, capability_permission('billing.view')]
 
     def get(self, request):
         today = date.today()
@@ -31,6 +33,10 @@ class DashboardStatsAPIView(APIView):
 
 @login_required
 def dashboard_view(request):
+    # Revenue, dues and patient counts are for roles with billing access; other roles (e.g. staff) get a minimal home.
+    if not has_capability(request.user, 'billing.view'):
+        return render(request, 'analytics/home_minimal.html')
+    can_expenses = has_capability(request.user, 'expenses.manage')
     today = date.today()
     thirty_days_ago = today - timedelta(days=30)
     six_months_ago = today - timedelta(days=180)
@@ -115,7 +121,11 @@ def dashboard_view(request):
         .annotate(count=Count('id')) \
         .order_by('month')
 
+    if not can_expenses:                       # expense figures never reach the page for roles without access
+        expenses_today, expense_chart_data, expense_monthly = None, [], []
+
     context = {
+        'can_expenses': can_expenses,
         # Quick stats
         'total_patients': total_patients,
         'sessions_today': sessions_today,
