@@ -82,7 +82,7 @@ def main():
     ap.add_argument('--fail-on', nargs='*', default=[])
     args = ap.parse_args()
     files = sorted(p for d in ('templates', 'accounts', 'clinic', 'patients', 'appointments', 'payments', 'events', 'courses',
-                               'analytics', 'notifications', 'idcards', 'theme') for p in (ROOT / d).rglob('*.html'))
+                               'analytics', 'notifications', 'idcards', 'theme') for p in (ROOT / d).rglob('*.html') if 'node_modules' not in p.parts)
     total = 0
     rows = []
     for f in files:

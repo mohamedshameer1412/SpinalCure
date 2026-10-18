@@ -42,3 +42,20 @@ def test_set_language_rejects_unknown_code():
     c.post('/i18n/setlang/', {'language': 'xx', 'next': '/en/'})
     u.refresh_from_db()
     assert u.language == 'en'
+
+
+@pytest.mark.parametrize('lang', ['ta', 'hi', 'ar'])
+def test_catalogue_is_complete_and_compiled_mo_is_current(lang):
+    """Every extracted string has a translation, and the committed .mo (what production loads, since there is
+    no msgfmt there) contains all of them."""
+    from pathlib import Path
+    import polib
+    root = Path(__file__).resolve().parents[2] / 'locale' / lang / 'LC_MESSAGES'
+    po = polib.pofile(str(root / 'django.po'))
+    mo = polib.mofile(str(root / 'django.mo'))
+    live = [e for e in po if not e.obsolete]
+    missing = [e.msgid for e in live if not (e.msgstr or any(e.msgstr_plural.values()))]
+    assert not missing, missing[:10]
+    compiled = {e.msgid for e in mo}
+    stale = [e.msgid for e in live if e.msgid not in compiled]
+    assert not stale, f'run scripts/i18n_compile.py ({len(stale)} strings missing from .mo)'

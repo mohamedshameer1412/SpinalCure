@@ -13,22 +13,22 @@ msgstr ""
 #: events/views.py:162
 #, python-format
 msgid "\"%(title)s\" is now a draft and hidden from the public site."
-msgstr ""
+msgstr "\"%(title)s\" أصبحت الآن مسودة ومخفية عن الموقع العام."
 
 #: events/views.py:159
 #, python-format
 msgid "\"%(title)s\" is now published."
-msgstr ""
+msgstr "تم نشر \"%(title)s\" الآن."
 
 #: events/views.py:168
 #, python-format
 msgid "\"%(title)s\" was archived."
-msgstr ""
+msgstr "تمت أرشفة \"%(title)s\"."
 
 #: events/views.py:165
 #, python-format
 msgid "\"%(title)s\" was cancelled and registrants were notified."
-msgstr ""
+msgstr "تم إلغاء \"%(title)s\" وإبلاغ المسجّلين."
 
 #: templates/courses/batch_list.html:149
 msgid "\"Batch:"
@@ -60,6 +60,8 @@ msgid ""
 "%(clash)s existing appointment(s) fall in this period. They were not "
 "changed. Reschedule or cancel them from the calendar."
 msgstr ""
+"يقع %(clash)s موعد قائم ضمن هذه الفترة. لم يتم تغييرها. أعد جدولتها أو "
+"ألغِها من التقويم."
 
 #: templates/emails/booking_confirmation.html:62
 #, python-format
@@ -161,7 +163,7 @@ msgstr "%(name)s - SpinalCure"
 #: events/views.py:267
 #, python-format
 msgid "%(name)s was moved from the waitlist."
-msgstr ""
+msgstr "تم نقل %(name)s من قائمة الانتظار."
 
 #: templates/clinic/portfolio_spa.html:12
 #, python-format
@@ -188,7 +190,7 @@ msgstr "قراءة %(read_time_minutes)s دقيقة"
 #: patients/portal_auth.py:80
 #, python-format
 msgid "%(site)s patient portal sign-in code"
-msgstr ""
+msgstr "رمز تسجيل الدخول إلى بوابة المريض في %(site)s"
 
 #: notifications/messages.py:93
 #, python-format
@@ -411,7 +413,7 @@ msgstr "؟ لا يمكن التراجع عن هذا الإجراء."
 #: appointments/scheduling.py:359
 #, python-format
 msgid "A %(value1)s appointment cannot become %(value3)s."
-msgstr ""
+msgstr "لا يمكن أن يصبح الموعد %(value1)s موعداً %(value3)s."
 
 #: idcards/service.py:64
 msgid ""
@@ -436,11 +438,11 @@ msgstr "تمت جدولة موعد جديد بنجاح عبر البوابة ا�
 
 #: appointments/api_views.py:63
 msgid "A patient is required."
-msgstr ""
+msgstr "يلزم تحديد مريض."
 
 #: appointments/scheduling.py:249
 msgid "A patient, or a name and phone/email, is required."
-msgstr ""
+msgstr "يلزم تحديد مريض، أو اسم مع هاتف/بريد إلكتروني."
 
 #: notifications/messages.py:49
 #, python-format
@@ -471,7 +473,7 @@ msgstr "توفر مقعد: %(event)s"
 
 #: payments/refunds.py:23
 msgid "A reason is required for a refund."
-msgstr ""
+msgstr "يلزم ذكر سبب للاسترداد."
 
 #: idcards/service.py:106
 msgid "A revoked card cannot be changed."
@@ -950,7 +952,7 @@ msgstr "المبلغ المستحق"
 
 #: spinalcure/validators.py:60
 msgid "Amount must be greater than 0."
-msgstr ""
+msgstr "يجب أن يكون المبلغ أكبر من 0."
 
 #: payments/models.py:117 templates/payments/pdf_report.html:87
 msgid "Amount Paid"
@@ -970,11 +972,11 @@ msgstr "المبلغ المتبقي:"
 
 #: appointments/scheduling.py:347
 msgid "An appointment cannot be a no-show before it starts."
-msgstr ""
+msgstr "لا يمكن اعتبار الموعد 'لم يحضر' قبل أن يبدأ."
 
 #: appointments/scheduling.py:341
 msgid "An appointment cannot be completed before it starts."
-msgstr ""
+msgstr "لا يمكن إكمال الموعد قبل أن يبدأ."
 
 #: clinic/views.py:144
 msgid "An error occurred. Please try again."
@@ -1054,12 +1056,12 @@ msgstr "تفاصيل الموعد"
 #: appointments/views.py:244
 #, python-format
 msgid "Appointment for %(patient_name)s deleted."
-msgstr ""
+msgstr "تم حذف موعد %(patient_name)s."
 
 #: appointments/views.py:246
 #, python-format
 msgid "Appointment for %(patient_name)s on %(date)s deleted."
-msgstr ""
+msgstr "تم حذف موعد %(patient_name)s بتاريخ %(date)s."
 
 #: templates/emails/appointment_reminder.html:18
 msgid "Appointment Information"
@@ -1109,6 +1111,8 @@ msgid ""
 "Appointments can only be cancelled online up to %(cancel_cutoff_hours)s "
 "hours before. Please call the clinic."
 msgstr ""
+"يمكن إلغاء المواعيد عبر الإنترنت حتى %(cancel_cutoff_hours)s ساعة قبل الموعد"
+" فقط. يرجى الاتصال بالعيادة."
 
 #: appointments/scheduling.py:391
 #, python-format
@@ -1116,6 +1120,8 @@ msgid ""
 "Appointments can only be changed online up to %(cancel_cutoff_hours)s hours "
 "before. Please call the clinic."
 msgstr ""
+"يمكن تغيير المواعيد عبر الإنترنت حتى %(cancel_cutoff_hours)s ساعة قبل الموعد"
+" فقط. يرجى الاتصال بالعيادة."
 
 #: templates/appointments/appointment_list.html:4
 msgid "Appointments List - SpinalCure"
@@ -1123,7 +1129,7 @@ msgstr "قائمة المواعيد - SpinalCure"
 
 #: spinalcure/settings/base.py:123
 msgid "Arabic"
-msgstr ""
+msgstr "العربية"
 
 #: templates/events/partials/event_list_partial.html:92
 msgid "Archive"
@@ -1224,7 +1230,7 @@ msgstr "تجاوز اسم الكاتب"
 
 #: spinalcure/decorators.py:72 spinalcure/decorators.py:71
 msgid "Authorization failed. Please verify your PIN again."
-msgstr ""
+msgstr "فشل التفويض. يرجى التحقق من الرمز السري مرة أخرى."
 
 #: templates/emails/auth_request.html:8
 msgid "Authorization Request"
@@ -1381,17 +1387,17 @@ msgstr "الدفعة"
 #: courses/views.py:134
 #, python-format
 msgid "Batch \"%(name)s\" created."
-msgstr ""
+msgstr "تم إنشاء الدفعة \"%(name)s\"."
 
 #: courses/views.py:172
 #, python-format
 msgid "Batch \"%(name)s\" deleted."
-msgstr ""
+msgstr "تم حذف الدفعة \"%(name)s\"."
 
 #: courses/views.py:154
 #, python-format
 msgid "Batch \"%(name)s\" updated."
-msgstr ""
+msgstr "تم تحديث الدفعة \"%(name)s\"."
 
 #: templates/courses/batch_feedback_admin.html:6
 msgid "Batch Feedback"
@@ -1555,7 +1561,7 @@ msgstr "قواعد الحجز والتذكيرات"
 
 #: appointments/schedule_views.py:174
 msgid "Booking rules saved."
-msgstr ""
+msgstr "تم حفظ قواعد الحجز."
 
 #: appointments/models.py:145 appointments/models.py:146
 msgid "Booking settings"
@@ -1564,12 +1570,12 @@ msgstr "إعدادات الحجز"
 #: appointments/scheduling.py:154
 #, python-format
 msgid "Bookings need at least %(min_notice_minutes)s minutes notice."
-msgstr ""
+msgstr "تتطلب الحجوزات إشعاراً مسبقاً لا يقل عن %(min_notice_minutes)s دقيقة."
 
 #: appointments/scheduling.py:156
 #, python-format
 msgid "Bookings open up to %(max_advance_days)s days ahead."
-msgstr ""
+msgstr "الحجز متاح حتى %(max_advance_days)s يوماً مسبقاً."
 
 #: idcards/templates/idcards/dashboard.html:6
 msgid "Branding"
@@ -1660,7 +1666,7 @@ msgstr "إلغاء تسجيلي"
 
 #: events/service.py:160
 msgid "Cancel or unpublish an upcoming event before archiving it."
-msgstr ""
+msgstr "ألغِ الفعالية القادمة أو أوقف نشرها قبل أرشفتها."
 
 #: appointments/models.py:177 courses/models.py:171 events/models.py:89
 #: events/models.py:245
@@ -1674,7 +1680,7 @@ msgstr "ملغاة"
 #: events/views.py:260
 #, python-format
 msgid "Cancelled %(name)s's registration."
-msgstr ""
+msgstr "تم إلغاء تسجيل %(name)s."
 
 #: events/models.py:221
 msgid "Cannot create an event in the past."
@@ -1686,6 +1692,7 @@ msgid ""
 "Cannot delete plan '%(name)s' because it has sessions attached. Move or "
 "delete them first."
 msgstr ""
+"لا يمكن حذف الخطة '%(name)s' لأنها مرتبطة بجلسات. انقلها أو احذفها أولاً."
 
 #: events/models.py:228
 msgid "Capacity must be at least 1."
@@ -1823,15 +1830,15 @@ msgstr "الشكوى الرئيسية / المشكلة"
 
 #: appointments/scheduling.py:180
 msgid "Choose a date and time."
-msgstr ""
+msgstr "اختر التاريخ والوقت."
 
 #: appointments/scheduling.py:177
 msgid "Choose a practitioner."
-msgstr ""
+msgstr "اختر ممارساً."
 
 #: payments/refunds.py:25
 msgid "Choose a valid refund mode."
-msgstr ""
+msgstr "اختر طريقة استرداد صالحة."
 
 #: notifications/templates/notifications/preferences.html:15
 msgid "Choose how you want to be told about each event"
@@ -2095,7 +2102,7 @@ msgstr "تعذّر إنشاء الملف. حاول مرة أخرى أو استخ
 #: payments/views.py:131
 #, python-format
 msgid "Could not generate PDF: %(e)s"
-msgstr ""
+msgstr "تعذر إنشاء PDF: %(e)s"
 
 #: notifications/templates/notifications/_bell.html:22
 msgid "Could not load notifications."
@@ -2116,22 +2123,22 @@ msgstr "الدورة"
 #: courses/views.py:94
 #, python-format
 msgid "Course \"%(title)s\" %(state)s."
-msgstr ""
+msgstr "الدورة \"%(title)s\" %(state)s."
 
 #: courses/views.py:63
 #, python-format
 msgid "Course \"%(title)s\" created successfully."
-msgstr ""
+msgstr "تم إنشاء الدورة \"%(title)s\" بنجاح."
 
 #: courses/views.py:110
 #, python-format
 msgid "Course \"%(title)s\" deleted."
-msgstr ""
+msgstr "تم حذف الدورة \"%(title)s\"."
 
 #: courses/views.py:79
 #, python-format
 msgid "Course \"%(title)s\" updated."
-msgstr ""
+msgstr "تم تحديث الدورة \"%(title)s\"."
 
 #: courses/models.py:136
 msgid "Course Batch"
@@ -2349,11 +2356,11 @@ msgstr "التاريخ &amp; الوقت"
 
 #: spinalcure/validators.py:42
 msgid "Date cannot be in the future."
-msgstr ""
+msgstr "لا يمكن أن يكون التاريخ في المستقبل."
 
 #: spinalcure/validators.py:33
 msgid "Date cannot be in the past."
-msgstr ""
+msgstr "لا يمكن أن يكون التاريخ في الماضي."
 
 #: patients/models.py:56 templates/patients/patient_form.html:84
 #: templates/patients/portal/dashboard.html:180
@@ -2654,7 +2661,7 @@ msgstr "د. %(name)s - SpinalCure"
 #: appointments/views.py:278
 #, python-format
 msgid "Dr. %(name)s is already booked for %(name2)s at this time."
-msgstr ""
+msgstr "الدكتور %(name)s محجوز بالفعل لـ %(name2)s في هذا الوقت."
 
 #: clinic/templates/clinic/admin/practitioner_form.html:29
 msgid "Dr., Prof., etc."
@@ -2681,7 +2688,7 @@ msgstr "المدة (بالدقائق)"
 
 #: appointments/scheduling.py:182 appointments/views.py:306
 msgid "Duration must be between 5 and 480 minutes."
-msgstr ""
+msgstr "يجب أن تكون المدة بين 5 و480 دقيقة."
 
 #: templates/patients/print/session_note_pdf.html:113
 msgid "Duration:"
@@ -2882,7 +2889,7 @@ msgstr "إشعارات البريد الإلكتروني"
 
 #: payments/views.py:92
 msgid "Email sent successfully."
-msgstr ""
+msgstr "تم إرسال البريد الإلكتروني بنجاح."
 
 #: accounts/models.py:56
 msgid "Email Verified"
@@ -2972,7 +2979,7 @@ msgstr "التفاعل"
 
 #: spinalcure/settings/base.py:122
 msgid "English"
-msgstr ""
+msgstr "الإنجليزية"
 
 #: templates/clinic/course_detail.html:233
 msgid "Enrollment Open"
@@ -2988,11 +2995,11 @@ msgstr "أدخل الرمز المكوّن من 6 أرقام"
 
 #: spinalcure/validators.py:107
 msgid "Enter a valid email address."
-msgstr ""
+msgstr "أدخل عنوان بريد إلكتروني صالحاً."
 
 #: payments/refunds.py:18
 msgid "Enter a valid refund amount."
-msgstr ""
+msgstr "أدخل مبلغ استرداد صالحاً."
 
 #: templates/patients/portal/verify.html:22
 msgid "Enter the 6-digit code emailed to you. It expires in 10 minutes."
@@ -3016,12 +3023,12 @@ msgstr "المعدات والأدوات"
 #: payments/views.py:294
 #, python-format
 msgid "Error creating expense: %(value1)s"
-msgstr ""
+msgstr "خطأ في إنشاء المصروف: %(value1)s"
 
 #: patients/views.py:470
 #, python-format
 msgid "Error creating patient: %(value1)s"
-msgstr ""
+msgstr "خطأ في إنشاء المريض: %(value1)s"
 
 #: clinic/admin_views.py:187
 #, python-format
@@ -3031,17 +3038,17 @@ msgstr "خطأ في إنشاء الممارس: %(value1)s"
 #: patients/views.py:679
 #, python-format
 msgid "Error creating session: %(value1)s"
-msgstr ""
+msgstr "خطأ في إنشاء الجلسة: %(value1)s"
 
 #: patients/views.py:1082
 #, python-format
 msgid "Error creating treatment plan: %(value1)s"
-msgstr ""
+msgstr "خطأ في إنشاء خطة العلاج: %(value1)s"
 
 #: payments/views.py:476
 #, python-format
 msgid "Error recording payment: %(value1)s"
-msgstr ""
+msgstr "خطأ في تسجيل الدفعة: %(value1)s"
 
 #: clinic/admin_views.py:374
 #, python-format
@@ -3056,17 +3063,17 @@ msgstr "خطأ في حفظ الشهادة: %(e)s"
 #: payments/views.py:332
 #, python-format
 msgid "Error updating expense: %(value1)s"
-msgstr ""
+msgstr "خطأ في تحديث المصروف: %(value1)s"
 
 #: patients/views.py:569
 #, python-format
 msgid "Error updating patient: %(value1)s"
-msgstr ""
+msgstr "خطأ في تحديث المريض: %(value1)s"
 
 #: payments/views.py:574
 #, python-format
 msgid "Error updating payment: %(value1)s"
-msgstr ""
+msgstr "خطأ في تحديث الدفعة: %(value1)s"
 
 #: clinic/admin_views.py:219
 #, python-format
@@ -3076,7 +3083,7 @@ msgstr "خطأ في تحديث الممارس: %(value1)s"
 #: patients/views.py:858
 #, python-format
 msgid "Error updating session: %(value1)s"
-msgstr ""
+msgstr "خطأ في تحديث الجلسة: %(value1)s"
 
 #: clinic/admin_views.py:295
 #, python-format
@@ -3086,7 +3093,7 @@ msgstr "خطأ في تحديث الشهادة: %(e)s"
 #: patients/views.py:1104
 #, python-format
 msgid "Error updating treatment plan: %(value1)s"
-msgstr ""
+msgstr "خطأ في تحديث خطة العلاج: %(value1)s"
 
 #: templates/base.html:310
 msgid "ESC"
@@ -3108,12 +3115,12 @@ msgstr "الفعالية"
 #: events/views.py:211
 #, python-format
 msgid "Event \"%(title)s\" deleted."
-msgstr ""
+msgstr "تم حذف الفعالية \"%(title)s\"."
 
 #: events/views.py:127
 #, python-format
 msgid "Event \"%(title)s\" saved as a draft. Publish it when you are ready."
-msgstr ""
+msgstr "تم حفظ الفعالية \"%(title)s\" كمسودة. انشرها عندما تكون جاهزاً."
 
 #: clinic/models.py:305
 msgid "Event Attendee"
@@ -3217,17 +3224,17 @@ msgstr "مصروف"
 #: payments/views.py:361
 #, python-format
 msgid "Expense \"%(title)s\" deleted."
-msgstr ""
+msgstr "تم حذف المصروف \"%(title)s\"."
 
 #: payments/views.py:290
 #, python-format
 msgid "Expense \"%(title)s\" recorded successfully."
-msgstr ""
+msgstr "تم تسجيل المصروف \"%(title)s\" بنجاح."
 
 #: payments/views.py:329
 #, python-format
 msgid "Expense \"%(title)s\" updated."
-msgstr ""
+msgstr "تم تحديث المصروف \"%(title)s\"."
 
 #: payments/models.py:357
 msgid "Expense date cannot be in the future."
@@ -3343,7 +3350,7 @@ msgstr "فشل"
 
 #: patients/views.py:1045
 msgid "Failed to generate PDF. Please contact support."
-msgstr ""
+msgstr "فشل إنشاء PDF. يرجى التواصل مع الدعم."
 
 #: accounts/api_views.py:137
 msgid "Failed to reset password. Please try again later."
@@ -3355,7 +3362,7 @@ msgstr "تعذّر إرسال OTP. يرجى المحاولة لاحقًا."
 
 #: patients/views.py:786
 msgid "Failed to send PIN. Check email settings."
-msgstr ""
+msgstr "فشل إرسال الرمز السري. تحقق من إعدادات البريد."
 
 #: accounts/models.py:130
 msgid "Failed Verification Attempts"
@@ -3385,12 +3392,12 @@ msgstr "الملاحظات"
 #: courses/views.py:242
 #, python-format
 msgid "Feedback by %(reviewer_name)s %(state)s."
-msgstr ""
+msgstr "ملاحظات %(reviewer_name)s %(state)s."
 
 #: events/views.py:300
 #, python-format
 msgid "Feedback by %(reviewer_name)s %(value3)s."
-msgstr ""
+msgstr "ملاحظات %(reviewer_name)s %(value3)s."
 
 #: templates/courses/batch_feedback_admin.html:29
 msgid "Feedback Disabled"
@@ -3407,12 +3414,12 @@ msgstr "نموذج الملاحظات"
 #: courses/views.py:231
 #, python-format
 msgid "Feedback form %(state)s for batch \"%(name)s\"."
-msgstr ""
+msgstr "نموذج الملاحظات %(state)s للدفعة \"%(name)s\"."
 
 #: events/views.py:290
 #, python-format
 msgid "Feedback form %(value1)s for \"%(title)s\"."
-msgstr ""
+msgstr "نموذج الملاحظات %(value1)s لـ \"%(title)s\"."
 
 #: courses/models.py:130 events/models.py:116
 msgid "Feedback Form Enabled"
@@ -3424,11 +3431,11 @@ msgstr "تم تقديم الملاحظات"
 
 #: courses/public_views.py:74
 msgid "Feedback is not open for this batch."
-msgstr ""
+msgstr "الملاحظات غير مفتوحة لهذه الدفعة."
 
 #: events/public_views.py:173
 msgid "Feedback is not open for this event."
-msgstr ""
+msgstr "الملاحظات غير مفتوحة لهذه الفعالية."
 
 #: templates/events/event_feedback_admin.html:51
 msgid "feedback is visible to the public."
@@ -3579,7 +3586,7 @@ msgstr "العنوان الكامل للدورة *"
 
 #: courses/models.py:26
 msgid "Full Description"
-msgstr ""
+msgstr "الوصف الكامل"
 
 #: templates/patients/session_edit.html:171
 #: templates/patients/session_form.html:159
@@ -3619,7 +3626,7 @@ msgstr "معاينة بملء الشاشة"
 
 #: payments/models.py:27
 msgid "Fully Paid"
-msgstr ""
+msgstr "مدفوع بالكامل"
 
 #: templates/clinic/about_page.html:173
 msgid "Gallery"
@@ -3725,15 +3732,15 @@ msgstr "GSTIN"
 
 #: appointments/models.py:201
 msgid "Guest Email"
-msgstr ""
+msgstr "بريد الضيف"
 
 #: appointments/models.py:199
 msgid "Guest Name"
-msgstr ""
+msgstr "اسم الضيف"
 
 #: appointments/models.py:200
 msgid "Guest Phone"
-msgstr ""
+msgstr "هاتف الضيف"
 
 #: notifications/models.py:19
 msgid "Guest recipient with no account."
@@ -3749,7 +3756,7 @@ msgstr "تولّى الحالة"
 
 #: patients/models.py:86
 msgid "Handled By (Doctor)"
-msgstr ""
+msgstr "المسؤول (الطبيب)"
 
 #: templates/clinic/portfolio_spa.html:274
 msgid "Hands and Precision."
@@ -3778,7 +3785,7 @@ msgstr "مقالات صحية — SpinalCure"
 
 #: events/models.py:23
 msgid "Health Camp"
-msgstr ""
+msgstr "مخيم صحي"
 
 #: templates/clinic/portfolio_spa.html:426
 msgid "Health Community"
@@ -3848,7 +3855,7 @@ msgstr "ممارسون عالو التأهيل مكرّسون لرحلة تعا�
 
 #: spinalcure/settings/base.py:124
 msgid "Hindi"
-msgstr ""
+msgstr "الهندية"
 
 #: idcards/templates/idcards/detail.html:62
 msgid "History"
@@ -3856,7 +3863,7 @@ msgstr "السجل"
 
 #: appointments/models.py:94
 msgid "Holiday / closure"
-msgstr ""
+msgstr "عطلة / إغلاق"
 
 #: templates/public_base.html:34
 msgid "Home"
@@ -3935,7 +3942,7 @@ msgstr "المعرّف: %(object_id)s"
 
 #: appointments/models.py:257
 msgid "Idempotency key: a retried request cannot create a second booking."
-msgstr ""
+msgstr "مفتاح منع التكرار: لا يمكن لطلب أُعيد إرساله أن ينشئ حجزاً ثانياً."
 
 #: accounts/api_views.py:58
 msgid "If an account exists, a verification code has been sent."
@@ -3944,7 +3951,7 @@ msgstr "إذا كان الحساب موجودًا، فقد تم إرسال رم�
 #: patients/views.py:961
 msgid ""
 "If this number is registered and has an email on file, a code has been sent."
-msgstr ""
+msgstr "إذا كان هذا الرقم مسجلاً ولديه بريد إلكتروني محفوظ، فقد تم إرسال رمز."
 
 #: templates/emails/auth_request.html:52
 msgid ""
@@ -3980,7 +3987,7 @@ msgstr "رمز IFSC"
 
 #: events/forms.py:41
 msgid "Image must be 5 MB or smaller."
-msgstr ""
+msgstr "يجب ألا يتجاوز حجم الصورة 5 ميغابايت."
 
 #: templates/patients/session_edit.html:170
 #: templates/patients/session_form.html:158
@@ -4018,11 +4025,11 @@ msgstr "وصف تفصيلي *"
 
 #: appointments/models.py:47
 msgid "In-person and online"
-msgstr ""
+msgstr "حضوري وعبر الإنترنت"
 
 #: appointments/models.py:47
 msgid "In-person only"
-msgstr ""
+msgstr "حضوري فقط"
 
 #: accounts/templates/accounts/admin/users_list.html:73
 #: clinic/templates/clinic/admin/practitioners_list.html:38
@@ -4032,7 +4039,7 @@ msgstr "غير نشط"
 
 #: patients/views.py:808 templates/partials/security_modal.html:56
 msgid "Incorrect PIN. Please try again."
-msgstr ""
+msgstr "الرمز السري غير صحيح. حاول مرة أخرى."
 
 #: templates/emails/audit_log_notification.html:91
 msgid "Information:"
@@ -4065,7 +4072,7 @@ msgstr "رابط Instagram"
 
 #: payments/models.py:298
 msgid "Insurance"
-msgstr ""
+msgstr "التأمين"
 
 #: templates/clinic/portfolio_spa.html:530
 msgid "Intake Open"
@@ -4082,7 +4089,7 @@ msgstr "ملاحظات داخلية"
 
 #: appointments/models.py:104
 msgid "Internal only; never shown to patients."
-msgstr ""
+msgstr "للاستخدام الداخلي فقط؛ لا يُعرض للمرضى أبداً."
 
 #: clinic/templates/clinic/admin/clinic_setup.html:766
 msgid "Intro Content"
@@ -4090,19 +4097,19 @@ msgstr "محتوى المقدمة"
 
 #: appointments/views.py:300
 msgid "Invalid appointment type."
-msgstr ""
+msgstr "نوع موعد غير صالح."
 
 #: appointments/api_views.py:111
 msgid "Invalid date or time."
-msgstr ""
+msgstr "تاريخ أو وقت غير صالح."
 
 #: appointments/public_views.py:61
 msgid "Invalid date."
-msgstr ""
+msgstr "تاريخ غير صالح."
 
 #: appointments/views.py:304
 msgid "Invalid duration."
-msgstr ""
+msgstr "مدة غير صالحة."
 
 #: templates/accounts/login.html:79
 msgid "Invalid email or password. Please try again."
@@ -4110,11 +4117,11 @@ msgstr "البريد الإلكتروني أو كلمة المرور غير صح
 
 #: spinalcure/validators.py:78
 msgid "Invalid GST Identification Number format."
-msgstr ""
+msgstr "تنسيق رقم تعريف GST غير صالح."
 
 #: spinalcure/validators.py:87
 msgid "Invalid IFSC Code format."
-msgstr ""
+msgstr "تنسيق رمز IFSC غير صالح."
 
 #: clinic/views.py:141
 msgid "Invalid JSON."
@@ -4122,7 +4129,7 @@ msgstr "JSON غير صالح."
 
 #: patients/views.py:979
 msgid "Invalid or expired code. Please try again."
-msgstr ""
+msgstr "رمز غير صالح أو منتهي الصلاحية. حاول مرة أخرى."
 
 #: accounts/serializers.py:115
 msgid "Invalid or expired OTP."
@@ -4130,7 +4137,7 @@ msgstr "رمز OTP غير صالح أو منتهي الصلاحية."
 
 #: appointments/views.py:297
 msgid "Invalid or missing date. Use YYYY-MM-DD."
-msgstr ""
+msgstr "تاريخ غير صالح أو مفقود. استخدم YYYY-MM-DD."
 
 #: accounts/models.py:290
 #, python-format
@@ -4143,15 +4150,15 @@ msgstr "قيمة تقييم غير صالحة."
 
 #: payments/views.py:84
 msgid "Invalid request method."
-msgstr ""
+msgstr "طريقة طلب غير صالحة."
 
 #: appointments/api_views.py:105
 msgid "Invalid status change."
-msgstr ""
+msgstr "تغيير حالة غير صالح."
 
 #: spinalcure/validators.py:96
 msgid "Invalid UPI ID format."
-msgstr ""
+msgstr "تنسيق معرّف UPI غير صالح."
 
 #: templates/clinic/portfolio_spa.html:561
 msgid "Investment"
@@ -4190,7 +4197,7 @@ msgstr "عنوان IP"
 
 #: patients/models.py:162
 msgid "Is Active"
-msgstr ""
+msgstr "نشط"
 
 #: clinic/models.py:213
 msgid "Is Chief Doctor"
@@ -4279,7 +4286,7 @@ msgstr "تاريخ الانضمام"
 
 #: events/models.py:88
 msgid "Joining instructions"
-msgstr ""
+msgstr "تعليمات الانضمام"
 
 #: templates/events/registration_manage.html:20
 msgid "Joining online"
@@ -4386,11 +4393,11 @@ msgstr "التعلم والمنهج"
 
 #: courses/models.py:28
 msgid "Learning Outcomes"
-msgstr ""
+msgstr "نتائج التعلم"
 
 #: appointments/models.py:94 templates/appointments/availability.html:73
 msgid "Leave"
-msgstr ""
+msgstr "إجازة"
 
 #: templates/payments/payment_form.html:174
 msgid "Leave as 0.00 if paying an existing balance."
@@ -4406,7 +4413,7 @@ msgstr "اتركه فارغًا إذا لا توجد مدة انتهاء."
 
 #: appointments/models.py:102
 msgid "Leave empty for the whole day."
-msgstr ""
+msgstr "اتركه فارغاً لليوم بأكمله."
 
 #: templates/events/event_form.html:51
 msgid "Leave empty for unlimited."
@@ -4414,7 +4421,7 @@ msgstr "اتركه فارغًا لعدد غير محدود."
 
 #: appointments/models.py:98
 msgid "Leave empty to close the whole clinic."
-msgstr ""
+msgstr "اتركه فارغاً لإغلاق العيادة بالكامل."
 
 #: templates/clinic/about_page.html:147
 msgid "Legacy"
@@ -4450,7 +4457,7 @@ msgstr "تم نسخ الرابط إلى الحافظة"
 
 #: payments/models.py:66
 msgid "Link this payment to a specific treatment plan"
-msgstr ""
+msgstr "اربط هذه الدفعة بخطة علاج محددة"
 
 #: templates/patients/review_form.html:43
 msgid "Link this review to a specific doctor."
@@ -4647,7 +4654,7 @@ msgstr "التسويق"
 
 #: payments/models.py:295
 msgid "Marketing & Advertising"
-msgstr ""
+msgstr "التسويق والإعلان"
 
 #: templates/clinic/portfolio_spa.html:498
 msgid "Master the Art of"
@@ -4659,7 +4666,7 @@ msgstr "الحد الأقصى"
 
 #: appointments/models.py:53
 msgid "Max appointments in this shift"
-msgstr ""
+msgstr "الحد الأقصى للمواعيد في هذه الوردية"
 
 #: templates/courses/batch_form.html:138
 msgid "Max Capacity (Seats)"
@@ -4667,15 +4674,15 @@ msgstr "الطاقة القصوى (المقاعد)"
 
 #: events/models.py:107
 msgid "Max Participants"
-msgstr ""
+msgstr "الحد الأقصى للمشاركين"
 
 #: courses/models.py:122
 msgid "Max Seats"
-msgstr ""
+msgstr "الحد الأقصى للمقاعد"
 
 #: appointments/models.py:135
 msgid "Max upcoming public bookings per phone/email"
-msgstr ""
+msgstr "الحد الأقصى للحجوزات العامة القادمة لكل هاتف/بريد"
 
 #: templates/patients/patient_detail.html:137
 msgid "Medical Brief"
@@ -4688,7 +4695,7 @@ msgstr "تفاصيل الحالة الطبية"
 #: patients/models.py:72 templates/patients/patient_detail.html:149
 #: templates/patients/patient_form.html:190
 msgid "Medical History"
-msgstr ""
+msgstr "التاريخ الطبي"
 
 #: templates/patients/patient_detail.html:474
 msgid "Medical Notes (Internal)"
@@ -4696,7 +4703,7 @@ msgstr "ملاحظات طبية (داخلية)"
 
 #: payments/models.py:293
 msgid "Medical Supplies"
-msgstr ""
+msgstr "المستلزمات الطبية"
 
 #: templates/clinic/portfolio_spa.html:586
 msgid "Meet our"
@@ -4704,23 +4711,23 @@ msgstr "تعرّف على"
 
 #: events/models.py:21
 msgid "Meeting"
-msgstr ""
+msgstr "اجتماع"
 
 #: events/models.py:81
 msgid "Meeting Link"
-msgstr ""
+msgstr "رابط الاجتماع"
 
 #: events/forms.py:50
 msgid "Meeting links must start with https://"
-msgstr ""
+msgstr "يجب أن تبدأ روابط الاجتماعات بـ https://"
 
 #: events/models.py:87
 msgid "Meeting passcode"
-msgstr ""
+msgstr "رمز مرور الاجتماع"
 
 #: events/models.py:84
 msgid "Meeting provider"
-msgstr ""
+msgstr "مزوّد الاجتماع"
 
 #: clinic/blog_models.py:80
 msgid "Meta Description"
@@ -4753,7 +4760,7 @@ msgstr "دقيقة لكل فترة"
 
 #: appointments/models.py:129
 msgid "Minimum notice (mins)"
-msgstr ""
+msgstr "الحد الأدنى للإشعار المسبق (بالدقائق)"
 
 #: templates/patients/patient_detail.html:385
 msgid "Mobility"
@@ -4770,7 +4777,7 @@ msgstr "درجة الحركة"
 #: patients/models.py:228 templates/patients/session_edit.html:164
 #: templates/patients/session_form.html:152
 msgid "Mobility Score (1-5)"
-msgstr ""
+msgstr "درجة الحركة (1-5)"
 
 #: templates/patients/print/session_note_pdf.html:119
 msgid "Mobility Score:"
@@ -4818,7 +4825,7 @@ msgstr ""
 
 #: appointments/models.py:22
 msgid "Monday"
-msgstr ""
+msgstr "الإثنين"
 
 #: templates/appointments/calendar.html:507
 msgid "Month"
@@ -4838,11 +4845,11 @@ msgstr "نقل الموعد"
 
 #: appointments/forms.py:55
 msgid "Must be between 5 and 480 minutes."
-msgstr ""
+msgstr "يجب أن تكون بين 5 و480 دقيقة."
 
 #: payments/models.py:118
 msgid "Must be less than or equal to total amount"
-msgstr ""
+msgstr "يجب أن يكون أقل من أو يساوي المبلغ الإجمالي"
 
 #: templates/patients/portal/dashboard.html:8
 msgid "My Health Portal — SpinalCure"
@@ -4857,7 +4864,7 @@ msgstr "بطاقة هويتي"
 #: templates/events/event_feedback_admin.html:61
 #: templates/events/partials/event_registrations_partial.html:9
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 #: idcards/templates/idcards/issue.html:15
 msgid ""
@@ -4971,7 +4978,7 @@ msgstr "التالي"
 
 #: patients/models.py:235 templates/patients/patient_detail.html:463
 msgid "Next Appointment"
-msgstr ""
+msgstr "الموعد التالي"
 
 #: templates/patients/session_edit.html:141
 #: templates/patients/session_form.html:130
@@ -4980,7 +4987,7 @@ msgstr "الموعد التالي (اختياري)"
 
 #: patients/models.py:261
 msgid "Next appointment must be after session date."
-msgstr ""
+msgstr "يجب أن يكون الموعد التالي بعد تاريخ الجلسة."
 
 #: templates/clinic/course_detail.html:111
 #, python-format
@@ -5131,11 +5138,11 @@ msgstr "لم تتم إضافة أرقام هواتف بعد."
 
 #: patients/views.py:798
 msgid "No PIN was requested. Please request a new PIN."
-msgstr ""
+msgstr "لم يُطلب أي رمز سري. يرجى طلب رمز جديد."
 
 #: appointments/scheduling.py:220
 msgid "No practitioner is available at that time."
-msgstr ""
+msgstr "لا يوجد ممارس متاح في ذلك الوقت."
 
 #: templates/appointments/availability.html:29
 msgid "No practitioner profile is linked to your account"
@@ -5171,7 +5178,7 @@ msgstr "لا توجد تقييمات بعد."
 
 #: events/views.py:263
 msgid "No seat is free. Raise the capacity or cancel a registration first."
-msgstr ""
+msgstr "لا يوجد مقعد شاغر. ارفع الطاقة الاستيعابية أو ألغِ تسجيلاً أولاً."
 
 #: templates/clinic/portfolio_spa.html:410
 msgid "No services added yet. Add some in the Clinic Setup!"
@@ -5183,7 +5190,7 @@ msgstr "لم تُسجَّل أي جلسات بعد."
 
 #: appointments/models.py:178 templates/appointments/calendar.html:477
 msgid "No Show"
-msgstr ""
+msgstr "لم يحضر"
 
 #: templates/clinic/practitioner_detail.html:94
 msgid "No specific skills listed."
@@ -5211,7 +5218,7 @@ msgstr "لا توجد وسوم بعد."
 
 #: payments/models.py:32
 msgid "No Tax"
-msgstr ""
+msgstr "بدون ضريبة"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:205
 msgid "No TCM Diagnosis Case Sheet available for this patient."
@@ -5267,7 +5274,7 @@ msgstr "غير معيّن"
 
 #: events/models.py:85
 msgid "Not specified"
-msgstr ""
+msgstr "غير محدد"
 
 #: templates/appointments/availability.html:62
 msgid "Not working"
@@ -5285,7 +5292,7 @@ msgstr "ملاحظة: %(parking_cost)s"
 #: appointments/models.py:235 payments/models.py:333
 #: templates/payments/expense_form.html:52
 msgid "Notes"
-msgstr ""
+msgstr "ملاحظات"
 
 #: templates/patients/session_edit.html:123
 #: templates/patients/session_form.html:111
@@ -5294,11 +5301,11 @@ msgstr "ملاحظات (داخلية)"
 
 #: events/models.py:243
 msgid "Notes / Message"
-msgstr ""
+msgstr "ملاحظات / رسالة"
 
 #: courses/models.py:169
 msgid "Notes / Questions"
-msgstr ""
+msgstr "ملاحظات / أسئلة"
 
 #: templates/patients/session_edit.html:126
 msgid "Notes..."
@@ -5366,11 +5373,11 @@ msgstr "في إجازة"
 
 #: courses/models.py:208
 msgid "One feedback per student per course."
-msgstr ""
+msgstr "ملاحظة واحدة لكل طالب في كل دورة."
 
 #: courses/models.py:29
 msgid "One outcome per line. Displayed as a bullet list."
-msgstr ""
+msgstr "نتيجة واحدة في كل سطر. تُعرض كقائمة نقطية."
 
 #: templates/clinic/event_detail.html:19
 #: templates/events/partials/event_list_partial.html:60
@@ -5380,19 +5387,19 @@ msgstr "عبر الإنترنت"
 
 #: appointments/scheduling.py:251
 msgid "Online booking is currently unavailable. Please call the clinic."
-msgstr ""
+msgstr "الحجز عبر الإنترنت غير متاح حالياً. يرجى الاتصال بالعيادة."
 
 #: appointments/models.py:184
 msgid "Online Call / Enquiry"
-msgstr ""
+msgstr "مكالمة / استفسار عبر الإنترنت"
 
 #: events/models.py:77
 msgid "Online Event"
-msgstr ""
+msgstr "فعالية عبر الإنترنت"
 
 #: appointments/models.py:47
 msgid "Online only"
-msgstr ""
+msgstr "عبر الإنترنت فقط"
 
 #: templates/events/public_list.html:17
 msgid "Online or in person"
@@ -5420,39 +5427,39 @@ msgstr "لا يمكن لغير مدير النظام تعديل مدير نظا�
 
 #: payments/views.py:347
 msgid "Only admins and authorized staff can delete expenses."
-msgstr ""
+msgstr "يمكن للمشرفين والموظفين المخوّلين فقط حذف المصروفات."
 
 #: payments/views.py:307
 msgid "Only admins and authorized staff can edit expenses."
-msgstr ""
+msgstr "يمكن للمشرفين والموظفين المخوّلين فقط تعديل المصروفات."
 
 #: payments/views.py:267
 msgid "Only admins can create expenses."
-msgstr ""
+msgstr "يمكن للمشرفين فقط إنشاء المصروفات."
 
 #: patients/views.py:371
 msgid "Only admins can create reviews."
-msgstr ""
+msgstr "يمكن للمشرفين فقط إنشاء التقييمات."
 
 #: patients/views.py:321 patients/views.py:355
 msgid "Only admins can manage reviews."
-msgstr ""
+msgstr "يمكن للمشرفين فقط إدارة التقييمات."
 
 #: payments/views.py:215
 msgid "Only admins can view expenses."
-msgstr ""
+msgstr "يمكن للمشرفين فقط عرض المصروفات."
 
 #: events/service.py:134
 msgid "Only confirmed registrations can be marked as attended."
-msgstr ""
+msgstr "لا يمكن وضع علامة الحضور إلا على التسجيلات المؤكدة."
 
 #: appointments/schedule_views.py:168
 msgid "Only management can change booking rules."
-msgstr ""
+msgstr "يمكن للإدارة فقط تغيير قواعد الحجز."
 
 #: appointments/schedule_views.py:123
 msgid "Only management can close the whole clinic."
-msgstr ""
+msgstr "يمكن للإدارة فقط إغلاق العيادة بالكامل."
 
 #: idcards/service.py:55
 msgid "Only management can issue an owner card."
@@ -5460,7 +5467,7 @@ msgstr "لا يمكن لغير الإدارة إصدار بطاقة مالك."
 
 #: appointments/schedule_views.py:152
 msgid "Only management can remove a clinic closure."
-msgstr ""
+msgstr "يمكن للإدارة فقط إزالة إغلاق العيادة."
 
 #: notifications/templates/notifications/email.html:10
 #: templates/courses/batch_list.html:81
@@ -5492,12 +5499,12 @@ msgstr "المؤسسة"
 
 #: events/models.py:34
 msgid "Organizer"
-msgstr ""
+msgstr "المنظّم"
 
 #: appointments/models.py:94 clinic/models.py:169
 #: clinic/templates/clinic/admin/practitioner_form.html:39 events/models.py:25
 msgid "Other"
-msgstr ""
+msgstr "أخرى"
 
 #: accounts/models.py:113
 msgid "OTP Secret"
@@ -5629,7 +5636,7 @@ msgstr "المبلغ المدفوع"
 #: payments/models.py:326 templates/payments/expense_form.html:46
 #: templates/payments/partials/expense_list_partial.html:10
 msgid "Paid To"
-msgstr ""
+msgstr "المدفوع إليه"
 
 #: templates/patients/patient_detail.html:380
 msgid "Pain"
@@ -5647,7 +5654,7 @@ msgstr "مقياس الألم"
 #: patients/models.py:223 templates/patients/session_edit.html:151
 #: templates/patients/session_form.html:139
 msgid "Pain Scale (0-10)"
-msgstr ""
+msgstr "مقياس الألم (0-10)"
 
 #: templates/patients/portal/dashboard.html:112
 msgid "Pain Scale Trend (0-10)"
@@ -5669,7 +5676,7 @@ msgstr "مواقف السيارات: %(parking_info)s"
 
 #: payments/models.py:28
 msgid "Partial"
-msgstr ""
+msgstr "جزئي"
 
 #: templates/analytics/dashboard.html:60
 msgid "Partial + unpaid payments"
@@ -5723,22 +5730,22 @@ msgstr "العمليات الجراحية والحالات السابقة..."
 #: appointments/models.py:193 patients/models.py:92 patients/models.py:155
 #: patients/models.py:188
 msgid "Patient"
-msgstr ""
+msgstr "المريض"
 
 #: patients/views.py:607
 #, python-format
 msgid "Patient %(name)s has been deleted."
-msgstr ""
+msgstr "تم حذف المريض %(name)s."
 
 #: patients/views.py:467
 #, python-format
 msgid "Patient %(name)s registered successfully."
-msgstr ""
+msgstr "تم تسجيل المريض %(name)s بنجاح."
 
 #: patients/views.py:566
 #, python-format
 msgid "Patient %(name)s updated successfully."
-msgstr ""
+msgstr "تم تحديث المريض %(name)s بنجاح."
 
 #: templates/patients/patient_form.html:5
 msgid "Patient - SpinalCure"
@@ -5759,13 +5766,13 @@ msgstr "بطاقة المريض - %(name)s - SpinalCure"
 
 #: patients/models.py:142
 msgid "Patient email cannot be same as attender name."
-msgstr ""
+msgstr "لا يمكن أن يكون بريد المريض مطابقاً لاسم المرافق."
 
 #: patients/models.py:233 templates/patients/patient_detail.html:483
 #: templates/patients/print/session_note_pdf.html:138
 #: templates/patients/session_edit.html:134
 msgid "Patient Feedback"
-msgstr ""
+msgstr "ملاحظات المريض"
 
 #: templates/clinic/practitioner_portfolio.html:157
 msgid "Patient Feedbacks"
@@ -5774,7 +5781,7 @@ msgstr "ملاحظات المرضى"
 #: patients/models.py:19 templates/patients/patient_detail.html:82
 #: templates/patients/print/patient_card.html:72
 msgid "Patient ID"
-msgstr ""
+msgstr "رقم المريض"
 
 #: templates/patients/patient_form.html:30
 msgid "Patient ID (Optional)"
@@ -5808,7 +5815,7 @@ msgstr "صورة المريض"
 
 #: appointments/models.py:240
 msgid "Patient portal"
-msgstr ""
+msgstr "بوابة المريض"
 
 #: templates/patients/portal/dashboard.html:27
 #: templates/patients/portal/login.html:21
@@ -5822,11 +5829,11 @@ msgstr "ملف المريض"
 
 #: patients/models.py:301
 msgid "Patient Review"
-msgstr ""
+msgstr "تقييم المريض"
 
 #: patients/models.py:302
 msgid "Patient Reviews"
-msgstr ""
+msgstr "تقييمات المرضى"
 
 #: templates/patients/reviews.html:4
 msgid "Patient Reviews — SpinalCure"
@@ -5847,7 +5854,7 @@ msgstr "المريض:"
 #: patients/models.py:93 templates/base.html:504
 #: templates/patients/patient_list.html:5
 msgid "Patients"
-msgstr ""
+msgstr "المرضى"
 
 #: templates/patients/patient_list.html:4
 msgid "Patients - SpinalCure"
@@ -5855,7 +5862,7 @@ msgstr "المرضى - SpinalCure"
 
 #: appointments/models.py:133
 msgid "Patients may cancel/reschedule until (hours before)"
-msgstr ""
+msgstr "يمكن للمرضى الإلغاء/إعادة الجدولة حتى (ساعات قبل الموعد)"
 
 #: templates/payments/partials/payment_list_partial.html:9
 msgid "Payer / Recipient"
@@ -5863,28 +5870,28 @@ msgstr "الدافع / المستلم"
 
 #: payments/models.py:87
 msgid "Payer Name (Manual)"
-msgstr ""
+msgstr "اسم الدافع (يدوي)"
 
 #: payments/models.py:88
 msgid "Payer Phone (Manual)"
-msgstr ""
+msgstr "هاتف الدافع (يدوي)"
 
 #: payments/models.py:56
 msgid "Payer Type"
-msgstr ""
+msgstr "نوع الدافع"
 
 #: payments/models.py:166
 msgid "Payment"
-msgstr ""
+msgstr "الدفعة"
 
 #: payments/views.py:619
 #, python-format
 msgid "Payment %(receipt)s deleted successfully."
-msgstr ""
+msgstr "تم حذف الدفعة %(receipt)s بنجاح."
 
 #: payments/models.py:136 templates/payments/payment_form.html:218
 msgid "Payment Date"
-msgstr ""
+msgstr "تاريخ الدفع"
 
 #: notifications/messages.py:48
 msgid "Payment failed"
@@ -5904,7 +5911,7 @@ msgstr "طريقة الدفع:"
 
 #: payments/models.py:124 templates/payments/payment_form.html:193
 msgid "Payment Mode"
-msgstr ""
+msgstr "طريقة الدفع"
 
 #: templates/analytics/dashboard.html:97 templates/payments/report.html:29
 msgid "Payment Modes"
@@ -5915,6 +5922,8 @@ msgstr "طرق الدفع"
 msgid ""
 "Payment of ₹%(amount_paid)s recorded for %(payer_name)s. Email receipt sent."
 msgstr ""
+"تم تسجيل دفعة بقيمة ₹%(amount_paid)s لـ %(payer_name)s. تم إرسال الإيصال "
+"بالبريد."
 
 #: templates/emails/payment_receipt.html:7
 msgid "Payment Receipt"
@@ -5939,11 +5948,11 @@ msgstr "الدفعة المستلمة:"
 
 #: payments/views.py:96
 msgid "Payment record not found."
-msgstr ""
+msgstr "لم يتم العثور على سجل الدفع."
 
 #: payments/views.py:569
 msgid "Payment record updated successfully."
-msgstr ""
+msgstr "تم تحديث سجل الدفع بنجاح."
 
 #: templates/emails/payment_receipt.html:43
 #: templates/payments/invoice.html:343
@@ -5952,7 +5961,7 @@ msgstr "ملخص الدفع"
 
 #: payments/models.py:167 templates/base.html:520
 msgid "Payments"
-msgstr ""
+msgstr "المدفوعات"
 
 #: templates/payments/payment_list.html:5
 msgid "Payments & Billing"
@@ -6023,7 +6032,7 @@ msgstr "رقم الهاتف"
 #: templates/clinic/portfolio_spa.html:795
 #: templates/clinic/portfolio_spa.html:945
 msgid "Phone Number"
-msgstr ""
+msgstr "رقم الهاتف"
 
 #: templates/clinic/course_detail.html:252
 msgid "Phone Number *"
@@ -6031,7 +6040,7 @@ msgstr "رقم الهاتف *"
 
 #: spinalcure/validators.py:15
 msgid "Phone number must contain 7-15 digits."
-msgstr ""
+msgstr "يجب أن يحتوي رقم الهاتف على 7-15 رقماً."
 
 #: clinic/templates/clinic/admin/clinic_setup.html:205
 msgid "Phone Numbers *"
@@ -6054,7 +6063,7 @@ msgstr "الصورة"
 
 #: appointments/models.py:183
 msgid "Physical Visit"
-msgstr ""
+msgstr "زيارة حضورية"
 
 #: templates/clinic/portfolio_spa.html:962
 msgid "Physical:"
@@ -6066,7 +6075,7 @@ msgstr "تم التفويض بالرمز السري"
 
 #: patients/views.py:805
 msgid "PIN has expired. Please request a new one."
-msgstr ""
+msgstr "انتهت صلاحية الرمز السري. يرجى طلب رمز جديد."
 
 #: templates/clinic/event_detail.html:43
 msgid "Places"
@@ -6074,7 +6083,7 @@ msgstr "المقاعد"
 
 #: patients/models.py:159 templates/patients/patient_detail.html:752
 msgid "Plan Name"
-msgstr ""
+msgstr "اسم الخطة"
 
 #: templates/courses/batch_list.html:49
 msgid "Planned"
@@ -6082,7 +6091,7 @@ msgstr "مخطط"
 
 #: courses/models.py:37
 msgid "Platform"
-msgstr ""
+msgstr "المنصة"
 
 #: templates/emails/booking_confirmation.html:50
 msgid "Please arrive"
@@ -6111,11 +6120,11 @@ msgstr ""
 
 #: courses/public_views.py:82 events/public_views.py:181
 msgid "Please choose a rating from 1 to 5."
-msgstr ""
+msgstr "يرجى اختيار تقييم من 1 إلى 5."
 
 #: appointments/public_views.py:43
 msgid "Please choose a valid date and time."
-msgstr ""
+msgstr "يرجى اختيار تاريخ ووقت صالحين."
 
 #: templates/appointments/emails/booking_confirmation.html:102
 msgid "Please do not reply to this email."
@@ -6123,7 +6132,7 @@ msgstr "يرجى عدم الرد على هذا البريد الإلكتروني
 
 #: courses/service.py:38 events/service.py:70
 msgid "Please enter a valid phone number."
-msgstr ""
+msgstr "يرجى إدخال رقم هاتف صالح."
 
 #: templates/clinic/event_detail.html:98
 msgid "Please enter your name and phone number."
@@ -6131,7 +6140,7 @@ msgstr "يرجى إدخال اسمك ورقم هاتفك."
 
 #: payments/views.py:297
 msgid "Please fill in all required fields."
-msgstr ""
+msgstr "يرجى ملء جميع الحقول المطلوبة."
 
 #: accounts/templates/accounts/admin/user_form.html:23
 #: templates/events/event_form.html:13
@@ -6161,7 +6170,7 @@ msgstr "الملف التعريفي"
 #: appointments/models.py:208 clinic/models.py:234 patients/models.py:284
 #: templates/appointments/appointment_list.html:59
 msgid "Practitioner"
-msgstr ""
+msgstr "الممارس"
 
 #: clinic/admin_views.py:184
 #, python-format
@@ -6184,7 +6193,7 @@ msgstr "الممارس (اختياري)"
 
 #: patients/models.py:234
 msgid "Practitioner Notes"
-msgstr ""
+msgstr "ملاحظات الممارس"
 
 #: templates/clinic/practitioner_detail.html:6
 msgid "Practitioner Profile"
@@ -6238,7 +6247,7 @@ msgstr "يقدّمها %(name)s"
 
 #: events/models.py:94
 msgid "Presenter / speaker"
-msgstr ""
+msgstr "المقدّم / المتحدث"
 
 #: templates/clinic/admin/blog_form.html:87
 msgid "Preview"
@@ -6300,7 +6309,7 @@ msgstr "سياسة الخصوصية"
 
 #: events/models.py:82
 msgid "Private: shown only to confirmed registrants shortly before the event."
-msgstr ""
+msgstr "خاص: يظهر فقط للمسجّلين المؤكَّدين قبيل الفعالية."
 
 #: templates/clinic/portfolio_spa.html:155
 msgid "Professional Care for your"
@@ -6370,7 +6379,7 @@ msgstr "تم تفعيل المشاركة العامة."
 
 #: appointments/models.py:240
 msgid "Public website"
-msgstr ""
+msgstr "الموقع العام"
 
 #: templates/events/event_feedback_admin.html:104
 #: templates/events/partials/event_list_partial.html:86
@@ -6413,7 +6422,7 @@ msgstr "وقت النشر"
 
 #: patients/models.py:295
 msgid "Published on Portfolio"
-msgstr ""
+msgstr "منشور في الملف التعريفي"
 
 #: templates/emails/appointment_reminder.html:68
 msgid "Q: Can I cancel my appointment?"
@@ -6510,12 +6519,12 @@ msgstr "السبب (اختياري)"
 #: appointments/models.py:234 templates/appointments/calendar.html:562
 #: templates/appointments/calendar.html:620
 msgid "Reason for Visit"
-msgstr ""
+msgstr "سبب الزيارة"
 
 #: patients/models.py:50 templates/patients/patient_detail.html:140
 #: templates/patients/patient_form.html:161
 msgid "Reason For Visit"
-msgstr ""
+msgstr "سبب الزيارة"
 
 #: templates/clinic/portfolio_spa.html:1011
 msgid "Reason for Visit (optional)"
@@ -6532,7 +6541,7 @@ msgstr "رقم الإيصال"
 #: payments/models.py:144
 #: templates/payments/partials/payment_list_partial.html:7
 msgid "Receipt No."
-msgstr ""
+msgstr "رقم الإيصال"
 
 #: templates/emails/payment_receipt.html:18
 msgid "Receipt Number"
@@ -6540,7 +6549,7 @@ msgstr "رقم الإيصال"
 
 #: payments/models.py:331
 msgid "Receipt Photo"
-msgstr ""
+msgstr "صورة الإيصال"
 
 #: templates/courses/batch_feedback_admin.html:67
 #, python-format
@@ -6557,7 +6566,7 @@ msgstr "موظف استقبال"
 
 #: payments/views.py:94
 msgid "Recipient has no valid email address."
-msgstr ""
+msgstr "ليس لدى المستلم عنوان بريد إلكتروني صالح."
 
 #: clinic/blog_models.py:48
 msgid "Recommended size: 1200 x 630 px"
@@ -6647,17 +6656,17 @@ msgstr "الرقم المرجعي:"
 
 #: payments/refunds.py:21
 msgid "Refund amount must be greater than zero."
-msgstr ""
+msgstr "يجب أن يكون مبلغ الاسترداد أكبر من الصفر."
 
 #: payments/refunds.py:29
 #, python-format
 msgid "Refund exceeds the refundable amount (₹%(max)s)."
-msgstr ""
+msgstr "الاسترداد يتجاوز المبلغ القابل للاسترداد (₹%(max)s)."
 
 #: payments/views.py:170
 #, python-format
 msgid "Refund of ₹%(amount)s recorded."
-msgstr ""
+msgstr "تم تسجيل استرداد بقيمة ₹%(amount)s."
 
 #: templates/payments/invoice.html:461
 msgid "Refunded"
@@ -6675,7 +6684,7 @@ msgstr "تاريخ التسجيل"
 #: patients/models.py:20 templates/patients/patient_detail.html:92
 #: templates/patients/patient_form.html:36
 msgid "Regd. No."
-msgstr ""
+msgstr "رقم التسجيل"
 
 #: templates/clinic/event_detail.html:56 templates/clinic/event_detail.html:76
 msgid "Register"
@@ -6695,7 +6704,7 @@ msgstr "مسجّل"
 
 #: courses/models.py:170 events/models.py:244
 msgid "Registered At"
-msgstr ""
+msgstr "وقت التسجيل"
 
 #: templates/patients/partials/patient_list_partial.html:9
 msgid "Registered Date"
@@ -6713,7 +6722,7 @@ msgstr "تاريخ التسجيل: %(registered_date)s"
 #: courses/models.py:207 events/models.py:281
 #: templates/events/event_form.html:50
 msgid "Registration"
-msgstr ""
+msgstr "التسجيل"
 
 #: notifications/messages.py:66 notifications/messages.py:84
 #, python-format
@@ -6722,7 +6731,7 @@ msgstr "تم تأكيد التسجيل: %(event)s"
 
 #: events/models.py:99
 msgid "Registration deadline"
-msgstr ""
+msgstr "الموعد النهائي للتسجيل"
 
 #: templates/clinic/event_detail.html:104
 msgid "Registration failed. Please try again."
@@ -6730,15 +6739,15 @@ msgstr "فشل التسجيل. يرجى المحاولة مرة أخرى."
 
 #: events/service.py:78 templates/clinic/event_detail.html:59
 msgid "Registration for this event has closed."
-msgstr ""
+msgstr "أُغلق التسجيل في هذه الفعالية."
 
 #: courses/service.py:42
 msgid "Registration is not open for this course."
-msgstr ""
+msgstr "التسجيل غير مفتوح لهذه الدورة."
 
 #: events/service.py:74
 msgid "Registration is not open for this event."
-msgstr ""
+msgstr "التسجيل غير مفتوح لهذه الفعالية."
 
 #: clinic/templates/clinic/admin/clinic_setup.html:177
 msgid "Registration Number"
@@ -6746,11 +6755,11 @@ msgstr "رقم التسجيل"
 
 #: events/public_views.py:95
 msgid "Registration received."
-msgstr ""
+msgstr "تم استلام التسجيل."
 
 #: events/models.py:122
 msgid "Registration Required"
-msgstr ""
+msgstr "التسجيل مطلوب"
 
 #: templates/events/partials/event_list_partial.html:73
 msgid "Registrations"
@@ -6785,11 +6794,11 @@ msgstr "مقالات ذات صلة"
 
 #: patients/models.py:68 templates/patients/patient_form.html:133
 msgid "Relation"
-msgstr ""
+msgstr "صلة القرابة"
 
 #: appointments/models.py:238
 msgid "Reminder Sent"
-msgstr ""
+msgstr "تم إرسال التذكير"
 
 #: notifications/messages.py:34
 #, python-format
@@ -6802,7 +6811,7 @@ msgstr ""
 
 #: events/models.py:102
 msgid "Reminders (minutes before, comma-separated)"
-msgstr ""
+msgstr "التذكيرات (دقائق قبل الموعد، مفصولة بفواصل)"
 
 #: templates/appointments/availability.html:82
 #: templates/appointments/availability.html:98
@@ -6820,11 +6829,11 @@ msgstr "تمت الإزالة"
 
 #: payments/models.py:290
 msgid "Rent / Lease"
-msgstr ""
+msgstr "الإيجار / التأجير"
 
 #: payments/models.py:296
 msgid "Repairs & Maintenance"
-msgstr ""
+msgstr "الإصلاحات والصيانة"
 
 #: templates/clinic/admin/blog_form.html:83
 msgid "Replace"
@@ -6860,7 +6869,7 @@ msgstr "إعادة جدولة الموعد"
 
 #: appointments/models.py:179 templates/appointments/calendar.html:478
 msgid "Rescheduled"
-msgstr ""
+msgstr "أُعيدت جدولته"
 
 #: templates/clinic/blog_list.html:73
 msgid "Research & Insights"
@@ -6905,21 +6914,21 @@ msgstr "تم التراجع"
 
 #: patients/models.py:292 templates/base.html:721
 msgid "Review"
-msgstr ""
+msgstr "التقييم"
 
 #: patients/views.py:362
 #, python-format
 msgid "Review by %(name)s has been %(status)s."
-msgstr ""
+msgstr "تقييم %(name)s تم %(status)s."
 
 #: patients/views.py:618
 msgid "Review deleted."
-msgstr ""
+msgstr "تم حذف التقييم."
 
 #: patients/views.py:394
 #, python-format
 msgid "Review for %(name)s added."
-msgstr ""
+msgstr "تمت إضافة تقييم لـ %(name)s."
 
 #: templates/clinic/portfolio_spa.html:872
 msgid "Review Submitted!"
@@ -6973,11 +6982,11 @@ msgstr "الدور"
 
 #: payments/models.py:291
 msgid "Salaries & Wages"
-msgstr ""
+msgstr "الرواتب والأجور"
 
 #: appointments/models.py:23
 msgid "Saturday"
-msgstr ""
+msgstr "السبت"
 
 #: templates/appointments/availability.html:154
 msgid "Save"
@@ -7045,11 +7054,11 @@ msgstr "الجدول"
 
 #: courses/models.py:118
 msgid "Schedule Details"
-msgstr ""
+msgstr "تفاصيل الجدول"
 
 #: appointments/models.py:174 templates/appointments/calendar.html:473
 msgid "Scheduled"
-msgstr ""
+msgstr "مجدول"
 
 #: templates/appointments/calendar.html:632
 msgid "Scheduling conflict detected."
@@ -7124,11 +7133,11 @@ msgstr "بحث..."
 
 #: appointments/models.py:254
 msgid "Secret for the self-service cancel/reschedule link."
-msgstr ""
+msgstr "السر الخاص برابط الإلغاء/إعادة الجدولة الذاتي."
 
 #: events/models.py:250
 msgid "Secret in the registrant's links: join, cancel, feedback."
-msgstr ""
+msgstr "السر في روابط المسجّل: الانضمام، الإلغاء، الملاحظات."
 
 #: clinic/admin_views.py:136
 msgid "Section headers updated."
@@ -7140,11 +7149,11 @@ msgstr "التسميات العلوية للقسم والنص التمهيدي."
 
 #: spinalcure/decorators.py:45
 msgid "Security authorization required."
-msgstr ""
+msgstr "يلزم تفويض أمني."
 
 #: spinalcure/decorators.py:46
 msgid "Security authorization required. Please verify your PIN first."
-msgstr ""
+msgstr "يلزم تفويض أمني. يرجى التحقق من الرمز السري أولاً."
 
 #: templates/partials/security_modal.html:43
 msgid "Security Verification"
@@ -7205,7 +7214,7 @@ msgstr "اختر الممارس"
 
 #: events/models.py:22
 msgid "Seminar"
-msgstr ""
+msgstr "ندوة"
 
 #: templates/courses/registration_manage.html:23
 #: templates/events/registration_manage.html:39
@@ -7218,7 +7227,7 @@ msgstr "إرسال رمز التحقق"
 
 #: appointments/models.py:138
 msgid "Send reminders this many minutes before (comma-separated)"
-msgstr ""
+msgstr "إرسال التذكيرات قبل هذا العدد من الدقائق (مفصولة بفواصل)"
 
 #: templates/payments/invoice.html:233
 msgid "Send to Client"
@@ -7292,31 +7301,31 @@ msgstr "عنوان الخدمات"
 
 #: patients/models.py:239
 msgid "Session"
-msgstr ""
+msgstr "الجلسة"
 
 #: patients/models.py:207
 msgid "Session #"
-msgstr ""
+msgstr "جلسة #"
 
 #: patients/views.py:887
 #, python-format
 msgid "Session #%(session_num)s deleted."
-msgstr ""
+msgstr "تم حذف الجلسة #%(session_num)s."
 
 #: patients/views.py:889
 #, python-format
 msgid "Session #%(session_num)s has been permanently deleted."
-msgstr ""
+msgstr "تم حذف الجلسة #%(session_num)s نهائياً."
 
 #: patients/views.py:675
 #, python-format
 msgid "Session #%(session_number)s recorded successfully."
-msgstr ""
+msgstr "تم تسجيل الجلسة #%(session_number)s بنجاح."
 
 #: patients/views.py:854
 #, python-format
 msgid "Session #%(session_number)s updated successfully."
-msgstr ""
+msgstr "تم تحديث الجلسة #%(session_number)s بنجاح."
 
 #: templates/patients/session_edit.html:47
 #: templates/patients/session_form.html:41
@@ -7326,7 +7335,7 @@ msgstr "أساسيات الجلسة"
 #: patients/models.py:209 templates/patients/session_edit.html:52
 #: templates/patients/session_form.html:46
 msgid "Session Date"
-msgstr ""
+msgstr "تاريخ الجلسة"
 
 #: templates/patients/print/session_note_pdf.html:111
 msgid "Session Date:"
@@ -7344,7 +7353,7 @@ msgstr "ملاحظة الجلسة - %(session_number)s"
 #: patients/models.py:213 templates/patients/session_edit.html:59
 #: templates/patients/session_form.html:52
 msgid "Session Time"
-msgstr ""
+msgstr "وقت الجلسة"
 
 #: templates/clinic/portfolio_spa.html:885
 msgid "Session today."
@@ -7352,7 +7361,7 @@ msgstr "جلسة اليوم."
 
 #: patients/models.py:240
 msgid "Sessions"
-msgstr ""
+msgstr "الجلسات"
 
 #: templates/patients/patient_detail.html:302
 #, python-format
@@ -7369,11 +7378,11 @@ msgstr "جلسات اليوم"
 
 #: appointments/models.py:72
 msgid "Set both break start and break end, or neither."
-msgstr ""
+msgstr "حدّد بداية الاستراحة ونهايتها معاً، أو لا تحدّد أياً منهما."
 
 #: appointments/models.py:122
 msgid "Set both times, or leave both empty for a full day."
-msgstr ""
+msgstr "حدّد الوقتين معاً، أو اتركهما فارغين ليوم كامل."
 
 #: templates/accounts/settings.html:4
 msgid "Settings - SpinalCure"
@@ -7425,15 +7434,15 @@ msgstr "الوردية نشطة"
 
 #: appointments/schedule_views.py:113
 msgid "Shift removed. Existing appointments are unchanged."
-msgstr ""
+msgstr "تمت إزالة الوردية. المواعيد القائمة لم تتغير."
 
 #: appointments/schedule_views.py:95
 msgid "Shift saved."
-msgstr ""
+msgstr "تم حفظ الوردية."
 
 #: courses/models.py:23
 msgid "Short Description"
-msgstr ""
+msgstr "وصف قصير"
 
 #: clinic/blog_models.py:40
 msgid "Short summary shown on the blog listing card (max 500 chars)."
@@ -7551,15 +7560,15 @@ msgstr "تم التخطي"
 
 #: appointments/models.py:42
 msgid "Slot Duration (mins)"
-msgstr ""
+msgstr "مدة الموعد (بالدقائق)"
 
 #: appointments/models.py:77
 msgid "Slot duration must be between 5 and 480 minutes."
-msgstr ""
+msgstr "يجب أن تكون مدة الموعد بين 5 و480 دقيقة."
 
 #: courses/models.py:21
 msgid "Slug"
-msgstr ""
+msgstr "المعرّف النصي"
 
 #: templates/clinic/admin/blog_form.html:36
 msgid "SMART SEO ENABLED"
@@ -7575,7 +7584,7 @@ msgstr "لم يتم إعداد SMS وWhatsApp لهذه العيادة."
 
 #: patients/models.py:36
 msgid "SMS notifications (opt-in)"
-msgstr ""
+msgstr "إشعارات SMS (اختيارية)"
 
 #: clinic/models.py:411
 msgid "Snapshot"
@@ -7698,15 +7707,15 @@ msgstr "موظف"
 
 #: courses/models.py:115
 msgid "Start Date"
-msgstr ""
+msgstr "تاريخ البدء"
 
 #: appointments/models.py:37 events/models.py:68
 msgid "Start Time"
-msgstr ""
+msgstr "وقت البدء"
 
 #: spinalcure/validators.py:51
 msgid "Start time must be before end time."
-msgstr ""
+msgstr "يجب أن يكون وقت البدء قبل وقت الانتهاء."
 
 #: templates/base.html:351
 msgid "Start typing to search across your clinic."
@@ -7820,7 +7829,7 @@ msgstr "تم الإرسال"
 
 #: courses/models.py:216 events/models.py:297
 msgid "Submitted At"
-msgstr ""
+msgstr "وقت الإرسال"
 
 #: templates/payments/invoice.html:430
 msgid "Subtotal"
@@ -7844,7 +7853,7 @@ msgstr "جلسات ناجحة"
 
 #: appointments/models.py:23
 msgid "Sunday"
-msgstr ""
+msgstr "الأحد"
 
 #: templates/clinic/portfolio_spa.html:964
 msgid "Sunday Closed"
@@ -7923,7 +7932,7 @@ msgstr "الوسوم:"
 
 #: spinalcure/settings/base.py:125
 msgid "Tamil"
-msgstr ""
+msgstr "التاميلية"
 
 #: templates/emails/auth_request.html:27
 msgid "Target Record"
@@ -7931,7 +7940,7 @@ msgstr "السجل المستهدف"
 
 #: payments/models.py:162
 msgid "Tax %"
-msgstr ""
+msgstr "الضريبة %"
 
 #: templates/emails/payment_receipt.html:51
 #, python-format
@@ -7944,19 +7953,19 @@ msgstr "الامتثال الضريبي"
 
 #: payments/models.py:34
 msgid "Tax Exclusive"
-msgstr ""
+msgstr "غير شامل الضريبة"
 
 #: payments/models.py:33
 msgid "Tax Inclusive"
-msgstr ""
+msgstr "شامل الضريبة"
 
 #: payments/models.py:155
 msgid "Tax Type"
-msgstr ""
+msgstr "نوع الضريبة"
 
 #: payments/models.py:299
 msgid "Taxes & Fees"
-msgstr ""
+msgstr "الضرائب والرسوم"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:6
 msgid "TCM Diagnosis"
@@ -7991,7 +8000,7 @@ msgstr "التقنيات المستخدمة:"
 #: templates/patients/session_edit.html:116
 #: templates/patients/session_form.html:104
 msgid "Techniques Used"
-msgstr ""
+msgstr "التقنيات المستخدمة"
 
 #: idcards/render.py:213
 msgid "Tel"
@@ -8085,7 +8094,7 @@ msgstr "شكراً لتعاملك معنا!"
 
 #: courses/public_views.py:86 events/public_views.py:156
 msgid "Thank you for your feedback."
-msgstr ""
+msgstr "شكراً لملاحظاتك."
 
 #: templates/emails/payment_receipt.html:11
 msgid ""
@@ -8104,7 +8113,7 @@ msgstr "شكراً لك! تم إرسال تقييمك للموافقة."
 
 #: events/views.py:269
 msgid "That action is not available for this registration."
-msgstr ""
+msgstr "هذا الإجراء غير متاح لهذا التسجيل."
 
 #: templates/emails/appointment_reminder.html:50
 msgid "that allows easy movement"
@@ -8113,27 +8122,27 @@ msgstr "تسمح بسهولة الحركة"
 #: appointments/scheduling.py:169 appointments/scheduling.py:200
 #: appointments/scheduling.py:283 appointments/scheduling.py:415
 msgid "That slot has just been taken. Please choose another time."
-msgstr ""
+msgstr "تم حجز هذا الموعد للتو. يرجى اختيار وقت آخر."
 
 #: appointments/scheduling.py:170
 msgid "That slot is not available."
-msgstr ""
+msgstr "هذا الموعد غير متاح."
 
 #: appointments/scheduling.py:167
 msgid "That time falls in a break."
-msgstr ""
+msgstr "هذا الوقت يقع ضمن فترة استراحة."
 
 #: appointments/scheduling.py:152 appointments/scheduling.py:196
 msgid "That time is in the past."
-msgstr ""
+msgstr "هذا الوقت في الماضي."
 
 #: appointments/scheduling.py:164
 msgid "That time is outside working hours."
-msgstr ""
+msgstr "هذا الوقت خارج ساعات العمل."
 
 #: courses/models.py:127
 msgid "The active batch is open for new registrations."
-msgstr ""
+msgstr "الدفعة النشطة مفتوحة للتسجيلات الجديدة."
 
 #: notifications/messages.py:40
 #, python-format
@@ -8144,11 +8153,11 @@ msgstr "لم يتم تحديد موعد %(who)s في %(date)s الساعة %(tim
 
 #: appointments/models.py:75
 msgid "The break must fall inside the shift."
-msgstr ""
+msgstr "يجب أن تقع الاستراحة ضمن الوردية."
 
 #: events/models.py:223
 msgid "The deadline must be before the event starts."
-msgstr ""
+msgstr "يجب أن يكون الموعد النهائي قبل بدء الفعالية."
 
 #: templates/clinic/portfolio_spa.html:583
 msgid "The Experts"
@@ -8191,15 +8200,15 @@ msgstr "يؤخذ اسم المؤسسة والشعار والعنوان من إع
 
 #: appointments/scheduling.py:161
 msgid "The practitioner does not work on that day."
-msgstr ""
+msgstr "الممارس لا يعمل في ذلك اليوم."
 
 #: appointments/scheduling.py:158 appointments/scheduling.py:198
 msgid "The practitioner is not available on that date (leave or closure)."
-msgstr ""
+msgstr "الممارس غير متاح في ذلك التاريخ (إجازة أو إغلاق)."
 
 #: events/models.py:284
 msgid "The registration this feedback belongs to."
-msgstr ""
+msgstr "التسجيل الذي تنتمي إليه هذه الملاحظات."
 
 #: templates/emails/welcome.html:73
 msgid "The SpinalCure Team"
@@ -8219,12 +8228,12 @@ msgstr "يظهر هذا في بطاقات قائمة الملف التعريفي
 
 #: appointments/scheduling.py:403
 msgid "This appointment can no longer be rescheduled."
-msgstr ""
+msgstr "لم يعد بالإمكان إعادة جدولة هذا الموعد."
 
 #: courses/service.py:75
 msgid ""
 "This batch has already started, so it can no longer be cancelled online."
-msgstr ""
+msgstr "بدأت هذه الدفعة بالفعل، لذا لا يمكن إلغاؤها عبر الإنترنت."
 
 #: idcards/templates/idcards/verify.html:30
 msgid "This card has been revoked"
@@ -8262,12 +8271,12 @@ msgstr "تنتهي صلاحية هذا الرمز خلال %(expiry_minutes)s د
 
 #: events/service.py:76
 msgid "This event has already ended."
-msgstr ""
+msgstr "انتهت هذه الفعالية بالفعل."
 
 #: events/service.py:104
 msgid ""
 "This event has already started, so it can no longer be cancelled online."
-msgstr ""
+msgstr "بدأت هذه الفعالية بالفعل، لذا لا يمكن إلغاؤها عبر الإنترنت."
 
 #: templates/clinic/event_detail.html:59
 msgid "This event has ended."
@@ -8275,7 +8284,7 @@ msgstr "انتهت هذه الفعالية."
 
 #: events/service.py:89 templates/clinic/event_detail.html:59
 msgid "This event is full."
-msgstr ""
+msgstr "هذه الفعالية مكتملة."
 
 #: templates/clinic/event_detail.html:69
 msgid ""
@@ -8343,33 +8352,33 @@ msgstr ""
 
 #: appointments/models.py:89
 msgid "This shift overlaps another shift on the same day."
-msgstr ""
+msgstr "تتداخل هذه الوردية مع وردية أخرى في اليوم نفسه."
 
 #: appointments/models.py:23
 msgid "Thursday"
-msgstr ""
+msgstr "الخميس"
 
 #: appointments/models.py:215 templates/appointments/calendar.html:551
 #: templates/appointments/calendar.html:607
 #: templates/appointments/manage.html:30
 msgid "Time"
-msgstr ""
+msgstr "الوقت"
 
 #: appointments/models.py:111 appointments/models.py:112
 msgid "Time off"
-msgstr ""
+msgstr "وقت الإجازة"
 
 #: appointments/schedule_views.py:160
 msgid "Time off removed."
-msgstr ""
+msgstr "تمت إزالة وقت الإجازة."
 
 #: appointments/schedule_views.py:138
 msgid "Time off saved."
-msgstr ""
+msgstr "تم حفظ وقت الإجازة."
 
 #: events/forms.py:30 events/models.py:95
 msgid "Time zone"
-msgstr ""
+msgstr "المنطقة الزمنية"
 
 #: templates/appointments/emails/booking_confirmation.html:83
 #: templates/emails/appointment_reminder.html:21
@@ -8405,7 +8414,7 @@ msgstr "العنوان والكاتب"
 
 #: payments/models.py:305 templates/payments/expense_form.html:15
 msgid "Title / Description"
-msgstr ""
+msgstr "العنوان / الوصف"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:26
 msgid "Title / Designation"
@@ -8450,7 +8459,7 @@ msgstr "تبديل الظهور"
 
 #: patients/views.py:958
 msgid "Too many attempts. Please try again later."
-msgstr ""
+msgstr "محاولات كثيرة جداً. يرجى المحاولة لاحقاً."
 
 #: accounts/models.py:276 accounts/models.py:287
 msgid ""
@@ -8480,7 +8489,7 @@ msgstr "الإجمالي"
 
 #: payments/models.py:110 templates/payments/emails/receipt_email.html:57
 msgid "Total Amount"
-msgstr ""
+msgstr "المبلغ الإجمالي"
 
 #: templates/payments/expense_list.html:21 templates/payments/report.html:22
 msgid "Total Expenses"
@@ -8508,11 +8517,11 @@ msgstr "إجمالي التقييمات"
 
 #: patients/models.py:161 templates/patients/patient_detail.html:762
 msgid "Total Sittings"
-msgstr ""
+msgstr "إجمالي الجلسات"
 
 #: patients/models.py:76 templates/patients/patient_form.html:175
 msgid "Total Sittings Planned"
-msgstr ""
+msgstr "إجمالي الجلسات المخططة"
 
 #: templates/appointments/calendar.html:467
 msgid "Total This Week"
@@ -8536,7 +8545,7 @@ msgstr "يوصى بـ PNG شفاف أو SVG. الحد الأقصى 2MB."
 
 #: payments/models.py:297
 msgid "Transport"
-msgstr ""
+msgstr "النقل"
 
 #: templates/patients/reviews.html:120
 #, python-format
@@ -8560,21 +8569,21 @@ msgstr "معلومات العلاج"
 #: templates/patients/session_edit.html:66
 #: templates/patients/session_form.html:59
 msgid "Treatment Plan"
-msgstr ""
+msgstr "خطة العلاج"
 
 #: patients/views.py:1080
 #, python-format
 msgid "Treatment plan '%(name)s' created successfully."
-msgstr ""
+msgstr "تم إنشاء خطة العلاج '%(name)s' بنجاح."
 
 #: patients/views.py:1102
 #, python-format
 msgid "Treatment plan '%(name)s' updated successfully."
-msgstr ""
+msgstr "تم تحديث خطة العلاج '%(name)s' بنجاح."
 
 #: patients/views.py:1122
 msgid "Treatment plan deleted successfully."
-msgstr ""
+msgstr "تم حذف خطة العلاج بنجاح."
 
 #: templates/patients/patient_detail.html:247
 msgid "Treatment Plan:"
@@ -8610,7 +8619,7 @@ msgstr "جرّب مسح البحث أو عامل تصفية الحالة."
 
 #: appointments/models.py:22
 msgid "Tuesday"
-msgstr ""
+msgstr "الثلاثاء"
 
 #: idcards/templates/idcards/detail.html:55
 msgid "Turn off"
@@ -8642,7 +8651,7 @@ msgstr "رابط Twitter"
 #: idcards/templates/idcards/detail.html:22
 #: templates/appointments/manage.html:32
 msgid "Type"
-msgstr ""
+msgstr "النوع"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:159
 #: templates/patients/partials/tcm_diagnosis_form.html:199
@@ -8656,7 +8665,7 @@ msgstr "التراجع عن الحضور"
 #: appointments/public_views.py:41 courses/public_views.py:88
 #: events/public_views.py:158 events/views.py:170
 msgid "Unknown action."
-msgstr ""
+msgstr "إجراء غير معروف."
 
 #: idcards/service.py:59
 #, python-format
@@ -8665,20 +8674,20 @@ msgstr "خيارات بطاقة غير معروفة: %(value1)s"
 
 #: payments/models.py:183
 msgid "Unknown Payer"
-msgstr ""
+msgstr "دافع غير معروف"
 
 #: appointments/api_views.py:90 appointments/views.py:320
 #: appointments/views.py:316
 msgid "Unknown practitioner."
-msgstr ""
+msgstr "ممارس غير معروف."
 
 #: events/models.py:219
 msgid "Unknown time zone."
-msgstr ""
+msgstr "منطقة زمنية غير معروفة."
 
 #: payments/models.py:29
 msgid "Unpaid"
-msgstr ""
+msgstr "غير مدفوع"
 
 #: templates/courses/batch_feedback_admin.html:92
 #: templates/events/event_feedback_admin.html:102
@@ -8776,7 +8785,7 @@ msgstr "حدّث ملفك الشخصي"
 
 #: payments/models.py:21
 msgid "UPI"
-msgstr ""
+msgstr "UPI"
 
 #: clinic/models.py:145
 msgid "UPI ID"
@@ -8788,7 +8797,7 @@ msgstr "رفع"
 
 #: events/forms.py:44
 msgid "Upload a JPEG, PNG or WebP image."
-msgstr ""
+msgstr "ارفع صورة بصيغة JPEG أو PNG أو WebP."
 
 #: templates/courses/course_form.html:281
 msgid "Upload Cover"
@@ -8804,7 +8813,7 @@ msgstr "استخدم هذا إذا لم يكن الكاتب ممارساً في 
 
 #: appointments/models.py:165 events/models.py:226
 msgid "Use whole numbers of minutes separated by commas."
-msgstr ""
+msgstr "استخدم أعداداً صحيحة من الدقائق مفصولة بفواصل."
 
 #: accounts/models.py:125
 msgid "Used"
@@ -8845,7 +8854,7 @@ msgstr "المستخدمون"
 
 #: payments/models.py:294
 msgid "Utilities (Electric/Water)"
-msgstr ""
+msgstr "المرافق (كهرباء/ماء)"
 
 #: templates/emails/auth_request.html:47
 msgid "Valid for 5 minutes"
@@ -8861,7 +8870,7 @@ msgstr "صالحة حتى"
 
 #: spinalcure/validators.py:69
 msgid "Value must be between 0 and 100."
-msgstr ""
+msgstr "يجب أن تكون القيمة بين 0 و100."
 
 #: templates/payments/expense_form.html:49
 msgid "Vendor / Person name"
@@ -8869,11 +8878,11 @@ msgstr "اسم المورّد / الشخص"
 
 #: events/models.py:73
 msgid "Venue"
-msgstr ""
+msgstr "المكان"
 
 #: events/models.py:215
 msgid "Venue is required for in-person events."
-msgstr ""
+msgstr "المكان مطلوب للفعاليات الحضورية."
 
 #: idcards/templates/idcards/share.html:11
 #: idcards/templates/idcards/share.html:15
@@ -8986,12 +8995,12 @@ msgstr "قائمة الانتظار"
 
 #: events/models.py:100
 msgid "Waitlist when full"
-msgstr ""
+msgstr "قائمة الانتظار عند الامتلاء"
 
 #: courses/models.py:171 events/models.py:245
 #: templates/events/event_registrations.html:31
 msgid "Waitlisted"
-msgstr ""
+msgstr "في قائمة الانتظار"
 
 #: templates/events/event_registrations.html:18
 msgid "waitlisted"
@@ -9103,7 +9112,7 @@ msgstr "الطقس والسفر"
 
 #: events/models.py:24
 msgid "Webinar"
-msgstr ""
+msgstr "ندوة عبر الإنترنت"
 
 #: clinic/models.py:42 templates/clinic/event_detail.html:73
 #: templates/clinic/portfolio_spa.html:1014
@@ -9112,7 +9121,7 @@ msgstr "الموقع الإلكتروني"
 
 #: appointments/models.py:22
 msgid "Wednesday"
-msgstr ""
+msgstr "الأربعاء"
 
 #: templates/appointments/calendar.html:508
 msgid "Week"
@@ -9178,11 +9187,11 @@ msgstr "WhatsApp"
 
 #: patients/models.py:46 templates/patients/patient_form.html:76
 msgid "Whatsapp No"
-msgstr ""
+msgstr "رقم WhatsApp"
 
 #: patients/models.py:37
 msgid "WhatsApp notifications (opt-in)"
-msgstr ""
+msgstr "إشعارات WhatsApp (اختيارية)"
 
 #: notifications/templates/notifications/deliveries.html:12
 #: templates/clinic/event_detail.html:36
@@ -9213,7 +9222,7 @@ msgstr "ما إذا تم التحقق من رمز OTP هذا بنجاح"
 
 #: courses/models.py:202
 msgid "Which batch the reviewer attended."
-msgstr ""
+msgstr "الدفعة التي حضرها المقيّم."
 
 #: templates/payments/payment_form.html:43
 msgid "Who is paying?"
@@ -9251,7 +9260,7 @@ msgstr "ساعات العمل"
 
 #: events/models.py:20
 msgid "Workshop"
-msgstr ""
+msgstr "ورشة عمل"
 
 #: templates/clinic/portfolio_spa.html:429
 msgid ""
@@ -9320,7 +9329,7 @@ msgstr "نعم، احذف السجل"
 
 #: appointments/scheduling.py:271
 msgid "You already have the maximum number of upcoming appointments."
-msgstr ""
+msgstr "لديك بالفعل الحد الأقصى من المواعيد القادمة."
 
 #: templates/components/confirm_modal.html:16
 msgid "You are about to delete this item."
@@ -9333,12 +9342,12 @@ msgstr "أنت على وشك الحذف نهائيًا:"
 #: events/service.py:83
 msgid ""
 "You are already registered for this event. Check your email for the link."
-msgstr ""
+msgstr "أنت مسجّل بالفعل في هذه الفعالية. تحقق من بريدك للحصول على الرابط."
 
 #: courses/service.py:45
 msgid ""
 "You are already registered for this intake. Check your email for the link."
-msgstr ""
+msgstr "أنت مسجّل بالفعل في هذه الدفعة. تحقق من بريدك للحصول على الرابط."
 
 #: notifications/templates/notifications/_bell.html:20
 msgid "You are offline. Showing the last loaded notifications."
@@ -9366,7 +9375,7 @@ msgstr "يمكنك إدارة هذا الموعد في"
 #: appointments/schedule_views.py:84 appointments/schedule_views.py:108
 #: appointments/schedule_views.py:155 appointments/schedule_views.py:129
 msgid "You can only edit your own schedule."
-msgstr ""
+msgstr "يمكنك تعديل جدولك الخاص فقط."
 
 #: templates/payments/emails/receipt_email.html:62
 msgid ""
@@ -9392,15 +9401,15 @@ msgstr ""
 
 #: spinalcure/decorators.py:19
 msgid "You do not have permission to access this section."
-msgstr ""
+msgstr "ليست لديك صلاحية الوصول إلى هذا القسم."
 
 #: patients/views.py:410
 msgid "You do not have permission to add patients."
-msgstr ""
+msgstr "ليست لديك صلاحية إضافة مرضى."
 
 #: patients/views.py:626
 msgid "You do not have permission to add sessions."
-msgstr ""
+msgstr "ليست لديك صلاحية إضافة جلسات."
 
 #: clinic/blog_admin_views.py:26
 msgid "You do not have permission to create blog posts."
@@ -9412,11 +9421,11 @@ msgstr "ليست لديك صلاحية حذف منشورات المدونة."
 
 #: payments/views.py:604
 msgid "You do not have permission to delete payments."
-msgstr ""
+msgstr "ليست لديك صلاحية حذف الدفعات."
 
 #: payments/views.py:117
 msgid "You do not have permission to download this receipt."
-msgstr ""
+msgstr "ليست لديك صلاحية تنزيل هذا الإيصال."
 
 #: clinic/blog_admin_views.py:80
 msgid "You do not have permission to edit blog posts."
@@ -9424,29 +9433,29 @@ msgstr "ليست لديك صلاحية تعديل منشورات المدونة.
 
 #: patients/views.py:489
 msgid "You do not have permission to edit patients."
-msgstr ""
+msgstr "ليست لديك صلاحية تعديل المرضى."
 
 #: patients/views.py:822
 msgid "You do not have permission to edit sessions."
-msgstr ""
+msgstr "ليست لديك صلاحية تعديل الجلسات."
 
 #: payments/views.py:159
 msgid "You do not have permission to issue refunds."
-msgstr ""
+msgstr "ليست لديك صلاحية إصدار استردادات."
 
 #: events/views.py:72 patients/views.py:1057 payments/views.py:370
 #: payments/views.py:505
 msgid "You do not have permission to perform this action."
-msgstr ""
+msgstr "ليست لديك صلاحية تنفيذ هذا الإجراء."
 
 #: patients/views.py:309
 msgid "You do not have permission to print this."
-msgstr ""
+msgstr "ليست لديك صلاحية طباعة هذا."
 
 #: appointments/views.py:56 patients/views.py:78 patients/views.py:275
 #: payments/views.py:44
 msgid "You do not have permission to view this page."
-msgstr ""
+msgstr "ليست لديك صلاحية عرض هذه الصفحة."
 
 #: idcards/templates/idcards/mine.html:9
 msgid "You don't have an ID card yet"
@@ -9454,7 +9463,7 @@ msgstr "ليس لديك بطاقة هوية بعد"
 
 #: courses/public_views.py:76 events/public_views.py:175
 msgid "You have already sent feedback. Thank you!"
-msgstr ""
+msgstr "لقد أرسلت ملاحظاتك بالفعل. شكراً لك!"
 
 #: notifications/messages.py:57
 #, python-format
@@ -9489,11 +9498,11 @@ msgstr "موعدك"
 
 #: appointments/public_views.py:33
 msgid "Your appointment has been cancelled."
-msgstr ""
+msgstr "تم إلغاء موعدك."
 
 #: appointments/public_views.py:38
 msgid "Your appointment has been moved."
-msgstr ""
+msgstr "تم نقل موعدك."
 
 #: notifications/messages.py:28
 #, python-format
@@ -9576,7 +9585,7 @@ msgstr "تسجيلك"
 
 #: courses/public_views.py:71 events/public_views.py:153
 msgid "Your registration has been cancelled."
-msgstr ""
+msgstr "تم إلغاء تسجيلك."
 
 #: templates/clinic/portfolio_spa.html:849
 msgid "Your Review"
@@ -9588,6 +9597,8 @@ msgid ""
 "Your sign-in code is %(code)s. It expires in %(m)d minutes. If you did not "
 "request it, ignore this email."
 msgstr ""
+"رمز تسجيل الدخول الخاص بك هو %(code)s. تنتهي صلاحيته خلال %(m)d دقيقة. إذا "
+"لم تطلبه فتجاهل هذا البريد."
 
 #: clinic/templates/clinic/admin/clinic_setup.html:986
 msgid "YouTube Channel URL"
