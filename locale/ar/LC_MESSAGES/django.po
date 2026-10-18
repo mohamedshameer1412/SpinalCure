@@ -52,7 +52,7 @@ msgstr ""
 #: templates/clinic/course_detail.html:108
 #, python-format
 msgid "%(avg_rating)s Rating"
-msgstr ""
+msgstr "تقييم %(avg_rating)s"
 
 #: appointments/schedule_views.py:140
 #, python-format
@@ -69,12 +69,12 @@ msgstr ""
 #: templates/clinic/admin/blog_tags.html:53
 #, python-format
 msgid "%(count)s post%(count_2)s"
-msgstr ""
+msgstr "%(count)s منشور%(count_2)s"
 
 #: templates/clinic/course_detail.html:110
 #, python-format
 msgid "%(count)s Reviews"
-msgstr ""
+msgstr "%(count)s تقييم"
 
 #: templates/courses/batch_registrations.html:40
 #, python-format
@@ -140,18 +140,18 @@ msgstr ""
 #: templates/clinic/practitioner_detail.html:64
 #, python-format
 msgid "%(experience_years)s Years Experience"
-msgstr ""
+msgstr "خبرة %(experience_years)s سنة"
 
 #: templates/clinic/portfolio_spa.html:650
 #: templates/clinic/practitioner_portfolio.html:88
 #, python-format
 msgid "%(experience_years)s+ Years"
-msgstr ""
+msgstr "%(experience_years)s+ سنة"
 
 #: templates/clinic/event_detail.html:43
 #, python-format
 msgid "%(n)s left"
-msgstr ""
+msgstr "تبقّى %(n)s"
 
 #: templates/patients/patient_detail.html:5
 #, python-format
@@ -166,7 +166,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:12
 #, python-format
 msgid "%(name)s — Premium Acupuncture Care"
-msgstr ""
+msgstr "%(name)s — رعاية متميزة بالوخز بالإبر"
 
 #: templates/emails/base_email.html:247
 #: templates/payments/emails/receipt_email.html:70
@@ -178,12 +178,12 @@ msgstr ""
 #: templates/clinic/blog_detail.html:206
 #, python-format
 msgid "%(read_time_minutes)s min"
-msgstr ""
+msgstr "%(read_time_minutes)s دقيقة"
 
 #: templates/clinic/blog_detail.html:136 templates/clinic/blog_list.html:172
 #, python-format
 msgid "%(read_time_minutes)s min read"
-msgstr ""
+msgstr "قراءة %(read_time_minutes)s دقيقة"
 
 #: patients/portal_auth.py:80
 #, python-format
@@ -203,7 +203,7 @@ msgstr "بطاقة هوية %(t)s في %(org)s"
 #: templates/clinic/practitioner_portfolio.html:9
 #, python-format
 msgid "%(title)s %(name)s — Specialist at %(name_2)s"
-msgstr ""
+msgstr "%(title)s %(name)s — أخصائي في %(name_2)s"
 
 #: templates/courses/batch_form.html:5 templates/courses/course_form.html:5
 #: templates/exports/print_template.html:8
@@ -214,7 +214,7 @@ msgstr ""
 #: templates/clinic/course_detail.html:8
 #, python-format
 msgid "%(title)s — Training at"
-msgstr ""
+msgstr "%(title)s — تدريب في"
 
 #: templates/analytics/dashboard.html:82
 #, python-format
@@ -246,7 +246,7 @@ msgstr "&copy;"
 #: templates/clinic/practitioner_portfolio.html:284
 #, python-format
 msgid "&copy; 2026 %(name)s. Developed with &hearts; for Kerala Health."
-msgstr ""
+msgstr "&copy; 2026 %(name)s. تم تطويره بـ &hearts; من أجل صحة كيرالا."
 
 #: templates/exports/print_template.html:172
 msgid "&copy; 2026 SpinalCure Clinic Management System. Confidental Document."
@@ -254,7 +254,7 @@ msgstr ""
 
 #: templates/clinic/practitioner_detail.html:11
 msgid "&larr; Back to Clinic Portfolio"
-msgstr ""
+msgstr "→ العودة إلى ملف العيادة"
 
 #: templates/events/event_feedback_admin.html:17
 msgid "&nbsp;·&nbsp;"
@@ -285,11 +285,11 @@ msgstr "-- بدون خطة محددة --"
 
 #: templates/clinic/blog_detail.html:227 templates/clinic/blog_list.html:214
 msgid ". All rights reserved."
-msgstr ""
+msgstr ". جميع الحقوق محفوظة."
 
 #: templates/events/event_feedback_admin.html:51
 msgid ". New submissions will appear here. Only"
-msgstr ""
+msgstr ". ستظهر الإرسالات الجديدة هنا. فقط"
 
 #: templates/partials/security_modal.html:45
 msgid ". Request the PIN from them to authorize this action."
@@ -310,7 +310,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:13
 #: templates/patients/partials/tcm_diagnosis_form.html:16
 msgid "1. Symptoms in Sense Organs"
-msgstr ""
+msgstr "1. الأعراض في الحواس"
 
 #: templates/emails/booking_confirmation.html:50
 msgid "10 minutes early"
@@ -319,38 +319,38 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:112
 #: templates/patients/partials/tcm_diagnosis_form.html:146
 msgid "10. Five Stages of Development"
-msgstr ""
+msgstr "10. مراحل التطور الخمس"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:164
 msgid "11. Pathway of the Meridian / Pulse Reading"
-msgstr ""
+msgstr "11. مسار الميريديان / قراءة النبض"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:124
 msgid "11. Pathway of the Meridian / Pulse Reading (+ or -)"
-msgstr ""
+msgstr "11. مسار الميريديان / قراءة النبض (+ أو -)"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:225
 msgid "12. Luo - Connecting Points"
-msgstr ""
+msgstr "12. لو - نقاط الربط"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:185
 msgid "12. Luo Connecting Points"
-msgstr ""
+msgstr "12. نقاط ربط لو"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:189
 #: templates/patients/partials/tcm_diagnosis_form.html:240
 msgid "13. Mother - Son Law"
-msgstr ""
+msgstr "13. قانون الأم - الابن"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:193
 #: templates/patients/partials/tcm_diagnosis_form.html:249
 msgid "14. Kocycle Law"
-msgstr ""
+msgstr "14. قانون كوسايكل"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:197
 #: templates/patients/partials/tcm_diagnosis_form.html:258
 msgid "15. Recycle Law"
-msgstr ""
+msgstr "15. قانون إعادة الدورة"
 
 #: patients/models.py:229
 msgid "1: Immobile, 5: Full mobility"
@@ -359,7 +359,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:24
 #: templates/patients/partials/tcm_diagnosis_form.html:29
 msgid "2. Body Secretions"
-msgstr ""
+msgstr "2. إفرازات الجسم"
 
 #: templates/emails/booking_confirmation.html:52
 msgid "24 hours in advance"
@@ -368,17 +368,17 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:35
 #: templates/patients/partials/tcm_diagnosis_form.html:42
 msgid "3. Body Area"
-msgstr ""
+msgstr "3. منطقة الجسم"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:46
 #: templates/patients/partials/tcm_diagnosis_form.html:55
 msgid "4. Body Tissue"
-msgstr ""
+msgstr "4. أنسجة الجسم"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:57
 #: templates/patients/partials/tcm_diagnosis_form.html:76
 msgid "5. Internal Evil"
-msgstr ""
+msgstr "5. العامل الداخلي المسبب للمرض"
 
 #: accounts/serializers.py:68
 msgid "6-digit OTP code"
@@ -387,22 +387,22 @@ msgstr "رمز OTP من 6 أرقام"
 #: templates/patients/partials/tcm_diagnosis_display.html:68
 #: templates/patients/partials/tcm_diagnosis_form.html:94
 msgid "6. External Evil"
-msgstr ""
+msgstr "6. العامل الخارجي المسبب للمرض"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:79
 #: templates/patients/partials/tcm_diagnosis_form.html:107
 msgid "7. Five Seasons"
-msgstr ""
+msgstr "7. الفصول الخمسة"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:90
 #: templates/patients/partials/tcm_diagnosis_form.html:120
 msgid "8. Colour Diagnosis"
-msgstr ""
+msgstr "8. التشخيص باللون"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:101
 #: templates/patients/partials/tcm_diagnosis_form.html:133
 msgid "9. Taste Diagnosis"
-msgstr ""
+msgstr "9. التشخيص بالتذوق"
 
 #: templates/events/event_list.html:80
 msgid "? This action cannot be undone."
@@ -533,11 +533,11 @@ msgstr ""
 
 #: templates/clinic/blog_detail.html:176
 msgid "About the Author"
-msgstr ""
+msgstr "عن الكاتب"
 
 #: templates/clinic/portfolio.html:39
 msgid "About the Clinic"
-msgstr ""
+msgstr "عن العيادة"
 
 #: idcards/render.py:212
 msgid "About the organisation"
@@ -545,7 +545,7 @@ msgstr "عن المؤسسة"
 
 #: templates/clinic/practitioner_portfolio.html:136
 msgid "About the Specialist"
-msgstr ""
+msgstr "عن الأخصائي"
 
 #: clinic/models.py:91
 msgid "About Title"
@@ -633,7 +633,7 @@ msgstr "الخطة النشطة"
 
 #: templates/clinic/practitioner_detail.html:42
 msgid "Active Practitioner"
-msgstr ""
+msgstr "ممارس نشط"
 
 #: clinic/templates/clinic/admin/activity_log.html:17 templates/base.html:663
 msgid "Activity Log"
@@ -658,7 +658,7 @@ msgstr "نقاط الوخز المستخدمة:"
 
 #: templates/clinic/portfolio_spa.html:500
 msgid "Acupuncture"
-msgstr ""
+msgstr "الوخز بالإبر"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:5
 msgid "Acupuncture Case Sheet"
@@ -666,7 +666,7 @@ msgstr "ورقة حالة الوخز بالإبر"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:4
 msgid "Acupuncture Case Sheet (TCM Diagnosis)"
-msgstr ""
+msgstr "ورقة حالة الوخز بالإبر (تشخيص الطب الصيني التقليدي)"
 
 #: templates/accounts/login.html:64
 #: templates/patients/print/patient_card.html:69
@@ -698,7 +698,7 @@ msgstr "إضافة إغلاق"
 
 #: templates/clinic/admin/testimonials_list.html:98
 msgid "Add curated testimonials that will appear on your public portfolio."
-msgstr ""
+msgstr "أضف شهادات مختارة تظهر في ملفك العام."
 
 #: templates/patients/partials/tcm_diagnosis_display.html:206
 msgid "Add Diagnosis Details"
@@ -714,7 +714,7 @@ msgstr "إضافة مصروف — SpinalCure"
 
 #: templates/clinic/admin/testimonials_list.html:101
 msgid "Add First Testimonial"
-msgstr ""
+msgstr "أضف أول شهادة"
 
 #: templates/appointments/availability.html:74
 msgid "Add leave"
@@ -740,7 +740,7 @@ msgstr "إضافة مستخدم موظف جديد"
 
 #: templates/clinic/admin/blog_tags.html:23
 msgid "Add New Tag"
-msgstr ""
+msgstr "إضافة وسم جديد"
 
 #: accounts/templates/accounts/admin/users_list.html:12
 msgid "Add New User"
@@ -781,7 +781,7 @@ msgstr "إضافة وردية"
 #: templates/clinic/admin/testimonial_form.html:118
 #: templates/clinic/admin/testimonials_list.html:13
 msgid "Add Testimonial"
-msgstr ""
+msgstr "إضافة شهادة"
 
 #: templates/patients/reviews.html:152
 msgid "Add the first review →"
@@ -798,7 +798,7 @@ msgstr "إضافة وقت راحة"
 #: templates/clinic/event_detail.html:46
 #: templates/events/registration_manage.html:15
 msgid "Add to calendar"
-msgstr ""
+msgstr "إضافة إلى التقويم"
 
 #: templates/emails/booking_confirmation.html:44
 msgid "Add to Google Calendar"
@@ -856,7 +856,7 @@ msgstr ""
 
 #: templates/clinic/blog_list.html:103
 msgid "All Authors"
-msgstr ""
+msgstr "جميع الكتّاب"
 
 #: idcards/templates/idcards/detail.html:5
 msgid "All cards"
@@ -880,7 +880,7 @@ msgstr ""
 
 #: templates/clinic/blog_list.html:90
 msgid "All Posts"
-msgstr ""
+msgstr "جميع المنشورات"
 
 #: templates/appointments/appointment_list.html:61
 msgid "All Practitioners"
@@ -921,7 +921,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:206
 msgid "Alumni feedback"
-msgstr ""
+msgstr "ملاحظات الخريجين"
 
 #: templates/patients/patient_detail.html:570
 #: templates/payments/partials/expense_list_partial.html:12
@@ -1144,11 +1144,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:33
 msgid "Article Content"
-msgstr ""
+msgstr "محتوى المقال"
 
 #: templates/clinic/admin/blog_form.html:24
 msgid "Article Title"
-msgstr ""
+msgstr "عنوان المقال"
 
 #: templates/appointments/availability.html:30
 msgid "Ask an administrator to add a practitioner with your email address."
@@ -1172,7 +1172,7 @@ msgstr "حضر"
 
 #: templates/clinic/event_detail.html:49
 msgid "Attendee feedback"
-msgstr ""
+msgstr "ملاحظات الحاضرين"
 
 #: templates/patients/patient_form.html:116
 msgid "Attender Details"
@@ -1266,7 +1266,7 @@ msgstr "متوسط التقييم"
 
 #: templates/clinic/practitioner_portfolio.html:153
 msgid "Avg. Rating"
-msgstr ""
+msgstr "متوسط التقييم"
 
 #: idcards/templates/idcards/branding.html:5
 #: idcards/templates/idcards/issue.html:5
@@ -1291,7 +1291,7 @@ msgstr ""
 #: templates/clinic/practitioner_portfolio.html:64
 #: templates/courses/batch_list.html:15
 msgid "Back to Courses"
-msgstr ""
+msgstr "العودة إلى الدورات"
 
 #: templates/events/event_feedback_admin.html:35
 msgid "Back to Events"
@@ -1321,12 +1321,12 @@ msgstr "العودة إلى ملف المريض"
 
 #: templates/clinic/about_page.html:146
 msgid "Back to Portfolio"
-msgstr ""
+msgstr "العودة إلى الملف التعريفي"
 
 #: templates/clinic/admin/blog_form.html:10
 #: templates/clinic/admin/blog_tags.html:10
 msgid "Back to Posts"
-msgstr ""
+msgstr "العودة إلى المنشورات"
 
 #: templates/patients/review_form.html:10
 msgid "Back to Reviews"
@@ -1334,7 +1334,7 @@ msgstr "العودة إلى التقييمات"
 
 #: templates/clinic/admin/testimonial_form.html:9
 msgid "Back to Testimonials"
-msgstr ""
+msgstr "العودة إلى الشهادات"
 
 #: templates/patients/patient_detail.html:289
 msgid "Balance"
@@ -1406,7 +1406,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:201
 msgid "Be the first to share your experience!"
-msgstr ""
+msgstr "كن أول من يشارك تجربته!"
 
 #: templates/emails/appointment_reminder.html:74
 #: templates/emails/password_reset.html:35
@@ -1445,7 +1445,7 @@ msgstr "نبذة تعريفية"
 
 #: templates/clinic/practitioner_detail.html:73
 msgid "Biography / About"
-msgstr ""
+msgstr "السيرة الذاتية / نبذة"
 
 #: templates/accounts/settings.html:53
 msgid "Biography / Notes"
@@ -1454,7 +1454,7 @@ msgstr "نبذة / ملاحظات"
 #: templates/clinic/blog_detail.html:66 templates/clinic/blog_list.html:49
 #: templates/clinic/blog_list.html:63 templates/clinic/portfolio_spa.html:115
 msgid "Blog"
-msgstr ""
+msgstr "المدونة"
 
 #: clinic/blog_models.py:88
 msgid "Blog Post"
@@ -1489,7 +1489,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_tags.html:3
 msgid "Blog Tags — SpinalCure"
-msgstr ""
+msgstr "وسوم المدونة — SpinalCure"
 
 #: idcards/render.py:212
 msgid "Blood group"
@@ -1498,11 +1498,11 @@ msgstr "فصيلة الدم"
 #: templates/clinic/practitioner_portfolio.html:204
 #, python-format
 msgid "Book a Consultation with %(name)s"
-msgstr ""
+msgstr "احجز استشارة مع %(name)s"
 
 #: templates/clinic/portfolio_spa.html:1040
 msgid "Book another session"
-msgstr ""
+msgstr "احجز جلسة أخرى"
 
 #: templates/analytics/dashboard.html:173
 #: templates/appointments/calendar.html:444
@@ -1522,7 +1522,7 @@ msgstr ""
 #: templates/clinic/about_page.html:102 templates/clinic/about_page.html:128
 #: templates/clinic/blog_detail.html:68 templates/clinic/blog_list.html:51
 msgid "Book Session"
-msgstr ""
+msgstr "حجز جلسة"
 
 #: templates/clinic/portfolio_spa.html:886
 msgid "Book your"
@@ -1533,7 +1533,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:1118
 #: templates/clinic/practitioner_portfolio.html:271
 msgid "Booking"
-msgstr ""
+msgstr "الحجز"
 
 #: templates/emails/booking_confirmation.html:17
 msgid "Booking Details"
@@ -1615,7 +1615,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:962
 msgid "Business Hours"
-msgstr ""
+msgstr "ساعات العمل"
 
 #: templates/emails/audit_log_notification.html:22
 msgid ""
@@ -1624,7 +1624,7 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:151
 msgid "by SpinalCure HMS. Highly confidential medical record."
-msgstr ""
+msgstr "بواسطة SpinalCure HMS. سجل طبي شديد السرية."
 
 #: templates/appointments/appointment_list.html:12
 msgid "Calendar View"
@@ -1858,7 +1858,7 @@ msgstr "مدير العيادة"
 
 #: templates/clinic/portfolio_spa.html:239
 msgid "Clinic Hero"
-msgstr ""
+msgstr "قسم الواجهة الرئيسية للعيادة"
 
 #: templates/appointments/availability.html:90
 msgid "Clinic holidays & closures"
@@ -1882,7 +1882,7 @@ msgstr "التعريف بالعيادة"
 
 #: templates/clinic/portfolio.html:4
 msgid "Clinic Portfolio - SpinalCure"
-msgstr ""
+msgstr "الملف التعريفي للعيادة - SpinalCure"
 
 #: clinic/models.py:149
 msgid "Clinic Profile"
@@ -2003,7 +2003,7 @@ msgstr "تأكيد وطباعة الإيصال"
 
 #: templates/clinic/portfolio_spa.html:1020
 msgid "Confirm Appointment"
-msgstr ""
+msgstr "تأكيد الموعد"
 
 #: templates/appointments/calendar.html:638
 msgid "Confirm Booking"
@@ -2024,7 +2024,7 @@ msgstr "مؤكد"
 
 #: templates/clinic/practitioner_portfolio.html:145
 msgid "Consultations"
-msgstr ""
+msgstr "الاستشارات"
 
 #: patients/models.py:205 templates/patients/session_edit.html:77
 #: templates/patients/session_form.html:70
@@ -2046,7 +2046,7 @@ msgstr ""
 #: templates/clinic/portfolio.html:82
 #: templates/patients/patient_detail.html:76
 msgid "Contact Information"
-msgstr ""
+msgstr "معلومات الاتصال"
 
 #: templates/emails/booking_confirmation.html:57
 msgid "Contact our front desk directly at:"
@@ -2095,7 +2095,7 @@ msgstr "تعذّر تحميل الأوقات. يرجى المحاولة مرة �
 
 #: templates/clinic/event_detail.html:105
 msgid "Could not reach the server. Check your connection and try again."
-msgstr ""
+msgstr "تعذر الوصول إلى الخادم. تحقق من اتصالك وحاول مرة أخرى."
 
 #: courses/models.py:64 courses/models.py:109 courses/models.py:197
 msgid "Course"
@@ -2147,7 +2147,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:224
 msgid "Course Investment"
-msgstr ""
+msgstr "رسوم الدورة"
 
 #: templates/courses/course_form.html:241
 msgid "Course Investment (₹) *"
@@ -2159,7 +2159,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:127
 msgid "Course Overview"
-msgstr ""
+msgstr "نظرة عامة على الدورة"
 
 #: courses/models.py:179 payments/models.py:75
 msgid "Course Registration"
@@ -2181,7 +2181,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_list.html:29
 msgid "Cover"
-msgstr ""
+msgstr "الغلاف"
 
 #: clinic/blog_models.py:47 courses/models.py:48
 #: templates/clinic/admin/blog_form.html:71
@@ -2190,7 +2190,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:83
 msgid "cover image"
-msgstr ""
+msgstr "صورة الغلاف"
 
 #: templates/events/event_form.html:26
 msgid "Cover image"
@@ -2215,11 +2215,11 @@ msgstr "إنشاء فعالية"
 
 #: templates/clinic/admin/blog_form.html:129
 msgid "Create one"
-msgstr ""
+msgstr "أنشئ واحداً"
 
 #: templates/clinic/portfolio.html:169
 msgid "Create Profile"
-msgstr ""
+msgstr "إنشاء الملف الشخصي"
 
 #: templates/events/event_form.html:44
 msgid ""
@@ -2242,7 +2242,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_list.html:136
 msgid "Create your first research article or health guide."
-msgstr ""
+msgstr "أنشئ أول مقال بحثي أو دليل صحي لك."
 
 #: templates/emails/password_reset.html:28
 msgid "Create your new password (minimum 8 characters)"
@@ -2270,11 +2270,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:74
 msgid "Current cover"
-msgstr ""
+msgstr "الغلاف الحالي"
 
 #: templates/clinic/admin/blog_form.html:76
 msgid "Current cover image"
-msgstr ""
+msgstr "صورة الغلاف الحالية"
 
 #: templates/courses/course_form.html:273
 msgid "Current Image"
@@ -2291,7 +2291,7 @@ msgstr ""
 
 #: templates/clinic/admin/testimonial_form.html:51
 msgid "Current photo. Upload a new one to replace it."
-msgstr ""
+msgstr "الصورة الحالية. ارفع صورة جديدة لاستبدالها."
 
 #: accounts/models.py:120
 msgid "Current valid OTP code"
@@ -2299,11 +2299,11 @@ msgstr "رمز OTP الصالح حاليًا"
 
 #: templates/clinic/course_detail.html:154
 msgid "Curriculum"
-msgstr ""
+msgstr "المنهج"
 
 #: templates/clinic/event_detail.html:32
 msgid "d"
-msgstr ""
+msgstr "ي"
 
 #: accounts/models.py:214
 msgid "Daily OTP request limit exceeded. Try again tomorrow."
@@ -2405,7 +2405,7 @@ msgstr "حذف نهائي"
 
 #: templates/clinic/admin/blog_tags.html:59
 msgid "Delete tag"
-msgstr ""
+msgstr "حذف الوسم"
 
 #: templates/emails/audit_log_notification.html:61
 msgid "Deleted Data"
@@ -2593,7 +2593,7 @@ msgstr "doctor@spinalcure.com"
 #: templates/clinic/portfolio_spa.html:1117
 #: templates/clinic/practitioner_portfolio.html:269
 msgid "Doctors"
-msgstr ""
+msgstr "الأطباء"
 
 #: templates/emails/auth_request.html:45
 msgid "Double-click the PIN below to copy:"
@@ -2626,12 +2626,12 @@ msgstr "تنزيل الإيصال PDF"
 #: templates/patients/portal/dashboard.html:135
 #, python-format
 msgid "Dr. %(name)s"
-msgstr ""
+msgstr "د. %(name)s"
 
 #: templates/clinic/practitioner_detail.html:5
 #, python-format
 msgid "Dr. %(name)s - SpinalCure"
-msgstr ""
+msgstr "د. %(name)s - SpinalCure"
 
 #: appointments/views.py:278
 #, python-format
@@ -2683,16 +2683,16 @@ msgstr ""
 
 #: templates/clinic/admin/blog_tags.html:29
 msgid "e.g. Acupuncture, Back Pain, Nutrition"
-msgstr ""
+msgstr "مثال: الوخز بالإبر، ألم الظهر، التغذية"
 
 #: templates/clinic/admin/blog_form.html:108
 msgid "e.g. Dr. Priya Sharma"
-msgstr ""
+msgstr "مثال: د. بريا شارما"
 
 #: templates/patients/session_edit.html:119
 #: templates/patients/session_form.html:107
 msgid "e.g. Dry Needling, Tui Na..."
-msgstr ""
+msgstr "مثال: الإبر الجافة، تويْ نا..."
 
 #: courses/models.py:119
 msgid "e.g. Every Saturday 10AM–1PM"
@@ -2705,15 +2705,15 @@ msgstr "مثال: متابعة، استشارة..."
 #: templates/patients/session_edit.html:111
 #: templates/patients/session_form.html:99
 msgid "e.g. GB30, BL40, BL23..."
-msgstr ""
+msgstr "e.g. GB30, BL40, BL23..."
 
 #: templates/clinic/admin/blog_form.html:26
 msgid "e.g. How Acupuncture Relieves Chronic Back Pain"
-msgstr ""
+msgstr "مثال: كيف يخفف الوخز بالإبر ألم الظهر المزمن"
 
 #: templates/patients/patient_detail.html:753
 msgid "e.g. Lower Back Pain 2026"
-msgstr ""
+msgstr "مثال: ألم أسفل الظهر 2026"
 
 #: clinic/models.py:383
 msgid "e.g. Patient, Payment, Session, Course, Event, Appointment"
@@ -2733,16 +2733,16 @@ msgstr "مثال: إيجار العيادة الشهري"
 
 #: templates/clinic/admin/testimonial_form.html:32
 msgid "e.g., Rahul Sharma"
-msgstr ""
+msgstr "مثال: راهول شارما"
 
 #: templates/clinic/admin/testimonial_form.html:39
 msgid "e.g., Teacher, Chennai"
-msgstr ""
+msgstr "مثال: معلم، تشيناي"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:130
 #: templates/patients/partials/tcm_diagnosis_form.html:170
 msgid "EARTH"
-msgstr ""
+msgstr "الأرض"
 
 #: accounts/templates/accounts/admin/users_list.html:80
 #: clinic/templates/clinic/admin/practitioner_form.html:3
@@ -2753,7 +2753,7 @@ msgstr "تعديل"
 
 #: templates/clinic/portfolio.html:153
 msgid "Edit Clinic Details"
-msgstr ""
+msgstr "تعديل تفاصيل العيادة"
 
 #: templates/courses/partials/course_list_partial.html:78
 #: templates/courses/partials/course_list_partial.html:94
@@ -2778,7 +2778,7 @@ msgstr "تعديل سجل الدفع"
 
 #: templates/clinic/admin/blog_form.html:3
 msgid "Edit Post"
-msgstr ""
+msgstr "تعديل المنشور"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:4
 msgid "Edit Practitioner"
@@ -2809,7 +2809,7 @@ msgstr "تعديل الوردية"
 
 #: templates/clinic/admin/testimonial_form.html:4
 msgid "Edit Testimonial"
-msgstr ""
+msgstr "تعديل الشهادة"
 
 #: accounts/templates/accounts/admin/user_form.html:3
 msgid "Edit User"
@@ -2823,7 +2823,7 @@ msgstr "تعديل المستخدم: %(username)s"
 #: templates/clinic/admin/blog_form.html:4
 #, python-format
 msgid "Edit: %(title)s"
-msgstr ""
+msgstr "تعديل: %(title)s"
 
 #: templates/base.html:548
 msgid "Education"
@@ -2884,7 +2884,7 @@ msgstr "الطوارئ / المرافق"
 
 #: templates/clinic/portfolio_spa.html:901
 msgid "Emergency Call"
-msgstr ""
+msgstr "اتصال طوارئ"
 
 #: idcards/render.py:212
 msgid "Emergency contact"
@@ -2958,7 +2958,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:234
 msgid "Enrollment Open"
-msgstr ""
+msgstr "التسجيل مفتوح"
 
 #: templates/courses/batch_form.html:156
 msgid "Enrollment Status"
@@ -3173,7 +3173,7 @@ msgstr ""
 msgid ""
 "Evidence-based research, patient guides, and clinical insights by our "
 "specialist doctors."
-msgstr ""
+msgstr "أبحاث قائمة على الأدلة وأدلة للمرضى ورؤى سريرية من أطبائنا المتخصصين."
 
 #: templates/partials/export_dropdown.html:19
 msgid "Excel Spreadsheet"
@@ -3186,7 +3186,7 @@ msgstr ""
 #: templates/clinic/admin/blog_tags.html:45
 #, python-format
 msgid "Existing Tags (%(count)s)"
-msgstr ""
+msgstr "الوسوم الحالية (%(count)s)"
 
 #: payments/models.py:329
 msgid "Expense"
@@ -3233,25 +3233,27 @@ msgstr "المصروفات — SpinalCure"
 
 #: templates/clinic/practitioner_portfolio.html:85
 msgid "Experience"
-msgstr ""
+msgstr "الخبرة"
 
 #: templates/clinic/portfolio_spa.html:164
 msgid ""
 "Experience the perfect blend of ancient acupuncture wisdom and modern spinal"
 " rehabilitation. We help you reclaim a pain-free life."
 msgstr ""
+"اختبر المزيج المثالي بين حكمة الوخز بالإبر القديمة وإعادة تأهيل العمود "
+"الفقري الحديثة. نساعدك على استعادة حياة بلا ألم."
 
 #: templates/clinic/portfolio_spa.html:648
 msgid "Experience:"
-msgstr ""
+msgstr "الخبرة:"
 
 #: templates/clinic/blog_list.html:76
 msgid "Expert"
-msgstr ""
+msgstr "خبير"
 
 #: templates/clinic/portfolio_spa.html:152
 msgid "Expert Acupuncture & Recovery"
-msgstr ""
+msgstr "وخز بالإبر وتعافٍ على يد خبراء"
 
 #: templates/clinic/about_page.html:220
 #: templates/clinic/course_detail.html:308
@@ -3261,10 +3263,12 @@ msgid ""
 "Expert spinal care and acupuncture treatments in Kerala. We specialize in "
 "natural healing and pain management."
 msgstr ""
+"رعاية متخصصة للعمود الفقري وعلاجات الوخز بالإبر في كيرالا. نتخصص في الشفاء "
+"الطبيعي وإدارة الألم."
 
 #: templates/clinic/practitioner_portfolio.html:121
 msgid "Expertise"
-msgstr ""
+msgstr "الخبرات"
 
 #: idcards/render.py:181
 msgid "Expired"
@@ -3288,7 +3292,7 @@ msgstr "لا يمكن أن يسبق تاريخ الانتهاء تاريخ ال�
 
 #: templates/clinic/portfolio_spa.html:177
 msgid "Explore Services"
-msgstr ""
+msgstr "استكشف الخدمات"
 
 #: templates/partials/export_dropdown.html:6
 msgid "Export"
@@ -3300,7 +3304,7 @@ msgstr ""
 
 #: templates/clinic/portfolio.html:133
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:956
 msgid "Facebook Profile URL"
@@ -3349,7 +3353,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:41
 msgid "Fee"
-msgstr ""
+msgstr "الرسوم"
 
 #: templates/courses/batch_list.html:74
 #: templates/events/partials/event_list_partial.html:79
@@ -3424,7 +3428,7 @@ msgstr "الملاحظات — %(title)s"
 
 #: templates/clinic/portfolio_spa.html:473
 msgid "Fees"
-msgstr ""
+msgstr "الرسوم"
 
 #: events/models.py:128
 msgid "Fees (₹)"
@@ -3461,7 +3465,7 @@ msgstr "المالية"
 #: templates/patients/partials/tcm_diagnosis_display.html:129
 #: templates/patients/partials/tcm_diagnosis_form.html:169
 msgid "FIRE"
-msgstr ""
+msgstr "النار"
 
 #: accounts/templates/accounts/admin/user_form.html:42
 #: templates/accounts/settings.html:32
@@ -3494,7 +3498,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:72
 msgid "for confirmation"
-msgstr ""
+msgstr "للتأكيد"
 
 #: templates/events/public_list.html:16
 msgid "Format"
@@ -3520,11 +3524,11 @@ msgstr ""
 #: templates/events/partials/event_list_partial.html:98
 #: templates/events/public_list.html:52
 msgid "Free"
-msgstr ""
+msgstr "مجاني"
 
 #: templates/clinic/portfolio_spa.html:475
 msgid "FREE"
-msgstr ""
+msgstr "مجاني"
 
 #: appointments/models.py:23
 msgid "Friday"
@@ -3532,7 +3536,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:43 templates/events/public_list.html:46
 msgid "Full"
-msgstr ""
+msgstr "ممتلئ"
 
 #: templates/patients/patient_form.html:95
 msgid "Full Address"
@@ -3558,7 +3562,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:70
 msgid "Full name"
-msgstr ""
+msgstr "الاسم الكامل"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:21
 #: templates/clinic/course_detail.html:251
@@ -3580,7 +3584,7 @@ msgstr ""
 #: templates/clinic/about_page.html:298
 #: templates/clinic/portfolio_spa.html:1153
 msgid "Fullscreen Preview"
-msgstr ""
+msgstr "معاينة بملء الشاشة"
 
 #: payments/models.py:27
 msgid "Fully Paid"
@@ -3588,12 +3592,12 @@ msgstr ""
 
 #: templates/clinic/about_page.html:175
 msgid "Gallery"
-msgstr ""
+msgstr "المعرض"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:165
 #: templates/patients/partials/tcm_diagnosis_form.html:205
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:33
 msgid "Gender"
@@ -3638,7 +3642,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:170
 msgid "Get Started"
-msgstr ""
+msgstr "ابدأ الآن"
 
 #: templates/emails/appointment_reminder.html:38
 msgid "Getting Here"
@@ -3682,7 +3686,7 @@ msgstr "GST (%(tax_percent)s%% %(get_tax_type_display)s)"
 #: templates/clinic/portfolio_spa.html:1126
 #: templates/clinic/practitioner_portfolio.html:279
 msgid "GST Compliance"
-msgstr ""
+msgstr "الامتثال لضريبة GST"
 
 #: clinic/models.py:121
 msgid "GSTIN"
@@ -3706,7 +3710,7 @@ msgstr "مستلم ضيف بدون حساب."
 
 #: templates/clinic/event_detail.html:32
 msgid "h"
-msgstr ""
+msgstr "س"
 
 #: templates/patients/partials/patient_list_partial.html:7
 msgid "Handled By"
@@ -3726,11 +3730,11 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:196
 msgid "Happy Patients"
-msgstr ""
+msgstr "مرضى سعداء"
 
 #: templates/clinic/portfolio_spa.html:276
 msgid "Healing"
-msgstr ""
+msgstr "الشفاء"
 
 #: templates/base.html:616 templates/clinic/admin/blog_list.html:4
 #: templates/clinic/blog_list.html:76
@@ -3739,7 +3743,7 @@ msgstr "مقالات صحية"
 
 #: templates/clinic/admin/blog_list.html:3
 msgid "Health Articles — SpinalCure"
-msgstr ""
+msgstr "مقالات صحية — SpinalCure"
 
 #: events/models.py:23
 msgid "Health Camp"
@@ -3747,7 +3751,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:428
 msgid "Health Community"
-msgstr ""
+msgstr "مجتمع الصحة"
 
 #: templates/emails/booking_confirmation.html:9
 #: templates/payments/emails/receipt_email.html:40
@@ -3809,7 +3813,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:593
 msgid "Highly qualified practitioners dedicated to your recovery journey."
-msgstr ""
+msgstr "ممارسون عالو التأهيل مكرّسون لرحلة تعافيك."
 
 #: spinalcure/settings/base.py:124
 msgid "Hindi"
@@ -3825,12 +3829,12 @@ msgstr ""
 
 #: templates/public_base.html:36
 msgid "Home"
-msgstr ""
+msgstr "الرئيسية"
 
 #: templates/patients/session_edit.html:137
 #: templates/patients/session_form.html:125
 msgid "How is the patient feeling after today's session?"
-msgstr ""
+msgstr "كيف يشعر المريض بعد جلسة اليوم؟"
 
 #: templates/events/registration_manage.html:33
 msgid "How was it?"
@@ -3947,7 +3951,7 @@ msgstr ""
 #: templates/patients/session_edit.html:170
 #: templates/patients/session_form.html:158
 msgid "Immobile"
-msgstr ""
+msgstr "غير قادر على الحركة"
 
 #: accounts/models.py:330
 msgid "Immutable. OWN-#### for owners, STF-#### for everyone else."
@@ -3968,7 +3972,7 @@ msgstr ""
 #: templates/clinic/event_detail.html:19 templates/events/public_list.html:19
 #: templates/events/public_list.html:43
 msgid "In person"
-msgstr ""
+msgstr "حضورياً"
 
 #: notifications/templates/notifications/preferences.html:18
 msgid "In-app"
@@ -4002,19 +4006,19 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:550
 msgid "Initial vs. Latest session mobility scores"
-msgstr ""
+msgstr "درجات الحركة في الجلسة الأولى مقابل الأحدث"
 
 #: templates/patients/patient_detail.html:539
 msgid "Initial vs. Latest session pain levels"
-msgstr ""
+msgstr "مستويات الألم في الجلسة الأولى مقابل الأحدث"
 
 #: templates/clinic/about_page.html:173
 msgid "Inside the Clinic"
-msgstr ""
+msgstr "داخل العيادة"
 
 #: templates/clinic/portfolio.html:137
 msgid "Instagram"
-msgstr ""
+msgstr "Instagram"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:966
 msgid "Instagram Profile URL"
@@ -4031,7 +4035,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:532
 msgid "Intake Open"
-msgstr ""
+msgstr "باب القبول مفتوح"
 
 #: clinic/models.py:303
 msgid "Internal / Direct"
@@ -4040,7 +4044,7 @@ msgstr ""
 #: templates/patients/patient_form.html:205
 #: templates/payments/payment_form.html:254
 msgid "Internal Notes"
-msgstr ""
+msgstr "ملاحظات داخلية"
 
 #: appointments/models.py:104
 msgid "Internal only; never shown to patients."
@@ -4117,11 +4121,11 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:563
 msgid "Investment"
-msgstr ""
+msgstr "الاستثمار"
 
 #: templates/patients/patient_detail.html:596
 msgid "Invoice"
-msgstr ""
+msgstr "فاتورة"
 
 #: templates/payments/invoice.html:9
 #, python-format
@@ -4197,7 +4201,7 @@ msgstr "لن تجتاز التحقق. تواصل مع المسؤول."
 
 #: templates/clinic/course_detail.html:260
 msgid "Join Batch"
-msgstr ""
+msgstr "انضم إلى الدفعة"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:61
 msgid "Join Date"
@@ -4216,10 +4220,12 @@ msgid ""
 "Join our expert-led courses and certifications. We offer batches for both "
 "beginners and experienced practitioners."
 msgstr ""
+"انضم إلى دوراتنا وشهاداتنا التي يقودها خبراء. نقدّم دفعات للمبتدئين "
+"والممارسين ذوي الخبرة."
 
 #: templates/clinic/event_detail.html:76
 msgid "Join waitlist"
-msgstr ""
+msgstr "انضم إلى قائمة الانتظار"
 
 #: accounts/templates/accounts/admin/users_list.html:26 idcards/render.py:210
 msgid "Joined"
@@ -4274,7 +4280,7 @@ msgstr ""
 
 #: templates/clinic/portfolio.html:151
 msgid "Keep your clinic's public-facing details up to date."
-msgstr ""
+msgstr "أبقِ تفاصيل عيادتك المعروضة للعامة محدّثة."
 
 #: templates/courses/course_form.html:214
 msgid "Key Learning Outcomes (One per line) *"
@@ -4283,7 +4289,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:480
 #: templates/clinic/portfolio_spa.html:568
 msgid "Know More"
-msgstr ""
+msgstr "اعرف المزيد"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:580
 #: clinic/templates/clinic/admin/clinic_setup.html:598
@@ -4385,7 +4391,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:1122
 #: templates/clinic/practitioner_portfolio.html:275
 msgid "Legal"
-msgstr ""
+msgstr "قانوني"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:549
 msgid "Legay Label"
@@ -4394,7 +4400,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:153
 #: templates/patients/partials/tcm_diagnosis_form.html:193
 msgid "LI"
-msgstr ""
+msgstr "LI"
 
 #: templates/clinic/course_detail.html:262
 msgid "Limited seats available. We will call you to confirm your enrollment."
@@ -4410,7 +4416,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:43
 msgid "Link this review to a specific doctor."
-msgstr ""
+msgstr "اربط هذا التقييم بطبيب محدد."
 
 #: templates/appointments/calendar.html:439
 msgid "List View"
@@ -4423,7 +4429,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:164
 #: templates/patients/partials/tcm_diagnosis_form.html:204
 msgid "LIV"
-msgstr ""
+msgstr "LIV"
 
 #: templates/courses/partials/course_list_partial.html:26
 #: templates/events/partials/event_list_partial.html:30
@@ -4433,11 +4439,11 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:20 templates/events/public_list.html:30
 msgid "Live now"
-msgstr ""
+msgstr "مباشر الآن"
 
 #: templates/clinic/portfolio_spa.html:991
 msgid "Loading available slots..."
-msgstr ""
+msgstr "جارٍ تحميل المواعيد المتاحة..."
 
 #: templates/appointments/calendar.html:504
 msgid "Loading..."
@@ -4465,7 +4471,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:44
 msgid "Log Out"
-msgstr ""
+msgstr "تسجيل الخروج"
 
 #: templates/accounts/login.html:8
 msgid "Login — SpinalCure"
@@ -4485,16 +4491,16 @@ msgstr ""
 
 #: templates/clinic/admin/testimonial_form.html:99
 msgid "Lower number = shown first"
-msgstr ""
+msgstr "الرقم الأقل = يظهر أولاً"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:152
 #: templates/patients/partials/tcm_diagnosis_form.html:192
 msgid "LU"
-msgstr ""
+msgstr "LU"
 
 #: templates/clinic/event_detail.html:32
 msgid "m"
-msgstr ""
+msgstr "د"
 
 #: templates/emails/base_email.html:235
 msgid "MAIL"
@@ -4502,11 +4508,11 @@ msgstr ""
 
 #: templates/public_base.html:35
 msgid "Main"
-msgstr ""
+msgstr "الرئيسية"
 
 #: templates/patients/patient_form.html:171
 msgid "Main health issue..."
-msgstr ""
+msgstr "المشكلة الصحية الرئيسية..."
 
 #: templates/courses/course_form.html:173
 msgid "Main Identity"
@@ -4546,7 +4552,7 @@ msgstr ""
 
 #: templates/clinic/admin/testimonials_list.html:9
 msgid "Manage curated testimonials displayed on the public portfolio."
-msgstr ""
+msgstr "إدارة الشهادات المختارة المعروضة في الملف العام."
 
 #: clinic/templates/clinic/admin/clinic_setup.html:288
 msgid "Manage GSTIN and default taxation rules."
@@ -4554,7 +4560,7 @@ msgstr ""
 
 #: templates/clinic/portfolio.html:150
 msgid "Manage Profile"
-msgstr ""
+msgstr "إدارة الملف الشخصي"
 
 #: templates/courses/batch_feedback_admin.html:16
 msgid "Manage student reviews and testimonials."
@@ -4562,11 +4568,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:118
 msgid "Manage tags"
-msgstr ""
+msgstr "إدارة الوسوم"
 
 #: templates/clinic/admin/blog_list.html:12
 msgid "Manage Tags"
-msgstr ""
+msgstr "إدارة الوسوم"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:795
 msgid "Manage the core therapy cards shown on the home page."
@@ -4578,7 +4584,7 @@ msgstr "إدارة موعدك"
 
 #: templates/clinic/admin/blog_form.html:106
 msgid "Manual Author Name"
-msgstr ""
+msgstr "اسم الكاتب (يدوي)"
 
 #: notifications/templates/notifications/_bell.html:19
 #: notifications/templates/notifications/center.html:7
@@ -4635,11 +4641,11 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:137
 msgid "Medical Brief"
-msgstr ""
+msgstr "ملخص طبي"
 
 #: templates/patients/patient_form.html:144
 msgid "Medical Case Details"
-msgstr ""
+msgstr "تفاصيل الحالة الطبية"
 
 #: patients/models.py:72 templates/patients/patient_detail.html:149
 #: templates/patients/patient_form.html:190
@@ -4648,7 +4654,7 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:474
 msgid "Medical Notes (Internal)"
-msgstr ""
+msgstr "ملاحظات طبية (داخلية)"
 
 #: payments/models.py:279
 msgid "Medical Supplies"
@@ -4685,7 +4691,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:131
 #: templates/patients/partials/tcm_diagnosis_form.html:171
 msgid "METAL"
-msgstr ""
+msgstr "المعدن"
 
 #: accounts/serializers.py:26
 msgid "Method to deliver OTP: email or SMS"
@@ -4693,7 +4699,7 @@ msgstr "طريقة إرسال OTP: بريد إلكتروني أو SMS"
 
 #: templates/patients/patient_detail.html:344
 msgid "Metrics"
-msgstr ""
+msgstr "المقاييس"
 
 #: templates/appointments/manage.html:29 templates/clinic/event_detail.html:37
 msgid "min"
@@ -4713,15 +4719,15 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:385
 msgid "Mobility"
-msgstr ""
+msgstr "الحركة"
 
 #: templates/patients/patient_detail.html:542
 msgid "Mobility Improvement"
-msgstr ""
+msgstr "تحسّن الحركة"
 
 #: templates/patients/patient_detail.html:516
 msgid "Mobility Score"
-msgstr ""
+msgstr "درجة الحركة"
 
 #: patients/models.py:228 templates/patients/session_edit.html:164
 #: templates/patients/session_form.html:152
@@ -4730,13 +4736,13 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:119
 msgid "Mobility Score:"
-msgstr ""
+msgstr "درجة الحركة:"
 
 #: templates/patients/patient_detail.html:571
 #: templates/payments/partials/payment_list_partial.html:11
 #: templates/payments/pdf_report.html:86
 msgid "Mode"
-msgstr ""
+msgstr "الطريقة"
 
 #: clinic/admin_views.py:355
 #, python-format
@@ -4749,7 +4755,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:103
 msgid "Modify Override"
-msgstr ""
+msgstr "تعديل التجاوز"
 
 #: templates/payments/payment_form.html:25
 msgid "Modifying receipt"
@@ -4762,12 +4768,14 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:965
 msgid "Mon-Sat (9 AM - 5 PM)"
-msgstr ""
+msgstr "الإثنين-السبت (9 ص - 5 م)"
 
 #: templates/clinic/portfolio_spa.html:964
 msgid ""
 "Mon-Thu & Sat (10 AM - 1 PM, 5:30 PM - 8:30 PM) | Fri (6:30 PM - 8:30 PM)"
 msgstr ""
+"الإثنين-الخميس والسبت (10 ص - 1 م، 5:30 م - 8:30 م) | الجمعة (6:30 م - 8:30 "
+"م)"
 
 #: appointments/models.py:22
 msgid "Monday"
@@ -4799,7 +4807,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:7
 msgid "My Health Portal — SpinalCure"
-msgstr ""
+msgstr "بوابتي الصحية — SpinalCure"
 
 #: idcards/templates/idcards/mine.html:3 idcards/templates/idcards/mine.html:4
 msgid "My ID card"
@@ -4858,7 +4866,7 @@ msgstr "موعد جديد: %(who)s"
 #: templates/clinic/admin/blog_form.html:3
 #: templates/clinic/admin/blog_form.html:4
 msgid "New Blog Post"
-msgstr ""
+msgstr "منشور مدونة جديد"
 
 #: templates/appointments/calendar.html:585
 msgid "New Booking"
@@ -4898,11 +4906,11 @@ msgstr "إيصال دفع جديد"
 
 #: templates/patients/patient_detail.html:269
 msgid "New Plan"
-msgstr ""
+msgstr "خطة جديدة"
 
 #: templates/clinic/admin/blog_list.html:19
 msgid "New Post"
-msgstr ""
+msgstr "منشور جديد"
 
 #: templates/emails/audit_log_notification.html:64
 msgid "New Value"
@@ -4922,7 +4930,7 @@ msgstr ""
 #: templates/patients/session_edit.html:141
 #: templates/patients/session_form.html:130
 msgid "Next Appointment (Optional)"
-msgstr ""
+msgstr "الموعد التالي (اختياري)"
 
 #: patients/models.py:261
 msgid "Next appointment must be after session date."
@@ -4931,11 +4939,11 @@ msgstr ""
 #: templates/clinic/course_detail.html:112
 #, python-format
 msgid "Next Batch: %(start_date)s"
-msgstr ""
+msgstr "الدفعة القادمة: %(start_date)s"
 
 #: templates/patients/print/session_note_pdf.html:146
 msgid "Next Scheduled Appointment:"
-msgstr ""
+msgstr "الموعد المحدد التالي:"
 
 #: templates/emails/password_reset.html:23
 msgid "Next Steps:"
@@ -4947,11 +4955,11 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:267
 msgid "No active intake"
-msgstr ""
+msgstr "لا يوجد قبول نشط"
 
 #: templates/clinic/portfolio.html:73
 msgid "No active practitioners found."
-msgstr ""
+msgstr "لم يتم العثور على ممارسين نشطين."
 
 #: clinic/templates/clinic/admin/activity_log.html:200
 msgid "No Activity Yet"
@@ -4964,16 +4972,16 @@ msgstr "لم يتم العثور على مواعيد"
 #: templates/clinic/blog_list.html:191
 #, python-format
 msgid "No articles found for \"%(name)s\". Try a different tag."
-msgstr ""
+msgstr "لا توجد مقالات لـ \"%(name)s\". جرّب وسماً آخر."
 
 #: templates/clinic/blog_list.html:192
 #, python-format
 msgid "No articles from %(name)s yet."
-msgstr ""
+msgstr "لا توجد مقالات من %(name)s بعد."
 
 #: templates/clinic/blog_list.html:189
 msgid "No articles yet"
-msgstr ""
+msgstr "لا توجد مقالات بعد"
 
 #: templates/courses/batch_list.html:123
 msgid "No Batches Yet"
@@ -4981,7 +4989,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_list.html:135
 msgid "No blog posts yet"
-msgstr ""
+msgstr "لا توجد منشورات مدونة بعد"
 
 #: idcards/templates/idcards/dashboard.html:12
 #: idcards/templates/idcards/dashboard.html:37
@@ -4990,7 +4998,7 @@ msgstr "لا توجد بطاقة"
 
 #: templates/clinic/portfolio.html:166
 msgid "No Clinic Profile Found"
-msgstr ""
+msgstr "لم يتم العثور على ملف للعيادة"
 
 #: templates/appointments/availability.html:100
 msgid "No closures scheduled."
@@ -5030,7 +5038,7 @@ msgstr ""
 
 #: templates/clinic/about_page.html:195
 msgid "No images uploaded yet."
-msgstr ""
+msgstr "لم يتم رفع أي صور بعد."
 
 #: templates/appointments/availability.html:84
 msgid "No leave scheduled."
@@ -5051,19 +5059,19 @@ msgstr "لا توجد دفعات مطابقة."
 #: templates/patients/session_edit.html:157
 #: templates/patients/session_form.html:145
 msgid "No Pain"
-msgstr ""
+msgstr "لا ألم"
 
 #: templates/patients/partials/patient_list_partial.html:59
 msgid "No patients found."
-msgstr ""
+msgstr "لم يتم العثور على مرضى."
 
 #: templates/patients/portal/dashboard.html:223
 msgid "No payment records found."
-msgstr ""
+msgstr "لم يتم العثور على سجلات دفع."
 
 #: templates/patients/patient_detail.html:631
 msgid "No payments recorded yet."
-msgstr ""
+msgstr "لم تُسجَّل أي دفعات بعد."
 
 #: idcards/templates/idcards/dashboard.html:41
 msgid "No people match. Add owners and staff under Staff Management first."
@@ -5092,7 +5100,7 @@ msgstr ""
 
 #: templates/clinic/practitioner_portfolio.html:198
 msgid "No public reviews yet for this specialist."
-msgstr ""
+msgstr "لا توجد تقييمات عامة لهذا الأخصائي بعد."
 
 #: templates/exports/print_template.html:164
 msgid "No records found matching criteria."
@@ -5112,7 +5120,7 @@ msgstr ""
 
 #: templates/patients/reviews.html:151
 msgid "No reviews yet."
-msgstr ""
+msgstr "لا توجد تقييمات بعد."
 
 #: events/views.py:263
 msgid "No seat is free. Raise the capacity or cancel a registration first."
@@ -5120,11 +5128,11 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:412
 msgid "No services added yet. Add some in the Clinic Setup!"
-msgstr ""
+msgstr "لم تتم إضافة خدمات بعد. أضف بعضها من إعداد العيادة!"
 
 #: templates/patients/patient_detail.html:494
 msgid "No sessions recorded yet."
-msgstr ""
+msgstr "لم تُسجَّل أي جلسات بعد."
 
 #: appointments/models.py:178 templates/appointments/calendar.html:477
 msgid "No Show"
@@ -5132,7 +5140,7 @@ msgstr ""
 
 #: templates/clinic/practitioner_detail.html:94
 msgid "No specific skills listed."
-msgstr ""
+msgstr "لا توجد مهارات محددة."
 
 #: accounts/templates/accounts/admin/users_list.html:95
 msgid "No staff members found."
@@ -5148,11 +5156,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_tags.html:73
 msgid "No tags yet"
-msgstr ""
+msgstr "لا توجد وسوم بعد"
 
 #: templates/clinic/admin/blog_form.html:129
 msgid "No tags yet."
-msgstr ""
+msgstr "لا توجد وسوم بعد."
 
 #: payments/models.py:32
 msgid "No Tax"
@@ -5160,11 +5168,11 @@ msgstr ""
 
 #: templates/patients/partials/tcm_diagnosis_display.html:205
 msgid "No TCM Diagnosis Case Sheet available for this patient."
-msgstr ""
+msgstr "لا توجد ورقة حالة تشخيص الطب الصيني التقليدي لهذا المريض."
 
 #: templates/clinic/admin/testimonials_list.html:97
 msgid "No testimonials yet"
-msgstr ""
+msgstr "لا توجد شهادات بعد"
 
 #: templates/appointments/manage.html:43
 msgid "No times available on this date."
@@ -5172,11 +5180,11 @@ msgstr "لا توجد أوقات متاحة في هذا التاريخ."
 
 #: templates/patients/portal/dashboard.html:157
 msgid "No treatment history available yet."
-msgstr ""
+msgstr "لا يوجد سجل علاج متاح بعد."
 
 #: templates/patients/portal/dashboard.html:105
 msgid "No upcoming appointments"
-msgstr ""
+msgstr "لا توجد مواعيد قادمة"
 
 #: templates/analytics/dashboard.html:156
 msgid "No upcoming appointments."
@@ -5203,7 +5211,7 @@ msgstr "لم يسجّل أحد بعد."
 #: templates/patients/partials/tcm_diagnosis_display.html:40
 #: templates/patients/partials/tcm_diagnosis_display.html:51
 msgid "None reported"
-msgstr ""
+msgstr "لم يتم الإبلاغ عن شيء"
 
 #: templates/appointments/partials/appointment_list_partial.html:29
 #: templates/patients/partials/patient_list_partial.html:38
@@ -5235,7 +5243,7 @@ msgstr ""
 #: templates/patients/session_edit.html:123
 #: templates/patients/session_form.html:111
 msgid "Notes (Internal)"
-msgstr ""
+msgstr "ملاحظات (داخلية)"
 
 #: events/models.py:243
 msgid "Notes / Message"
@@ -5247,7 +5255,7 @@ msgstr ""
 
 #: templates/patients/session_edit.html:126
 msgid "Notes..."
-msgstr ""
+msgstr "ملاحظات..."
 
 #: notifications/templates/notifications/_list.html:40
 msgid "Nothing here"
@@ -5321,7 +5329,7 @@ msgstr ""
 #: templates/events/partials/event_list_partial.html:60
 #: templates/events/public_list.html:18 templates/events/public_list.html:43
 msgid "Online"
-msgstr ""
+msgstr "عبر الإنترنت"
 
 #: appointments/scheduling.py:251
 msgid "Online booking is currently unavailable. Please call the clinic."
@@ -5345,11 +5353,11 @@ msgstr "عبر الإنترنت أو حضورياً"
 
 #: templates/clinic/event_detail.html:39
 msgid "Online — joining details are sent to registered attendees"
-msgstr ""
+msgstr "عبر الإنترنت — تُرسل تفاصيل الانضمام إلى الحاضرين المسجّلين"
 
 #: templates/clinic/portfolio_spa.html:965
 msgid "Online:"
-msgstr ""
+msgstr "عبر الإنترنت:"
 
 #: templates/emails/auth_request.html:52
 msgid "ONLY"
@@ -5429,7 +5437,7 @@ msgstr ""
 #: templates/clinic/admin/testimonials_list.html:71
 #, python-format
 msgid "Order: %(display_order)s"
-msgstr ""
+msgstr "الترتيب: %(display_order)s"
 
 #: idcards/templates/idcards/verify.html:37
 msgid "Organisation"
@@ -5466,35 +5474,35 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:387
 msgid "Our Expertise"
-msgstr ""
+msgstr "خبراتنا"
 
 #: templates/clinic/portfolio_spa.html:273
 msgid "Our Legacy"
-msgstr ""
+msgstr "إرثنا"
 
 #: templates/clinic/portfolio_spa.html:931
 msgid "Our Location"
-msgstr ""
+msgstr "موقعنا"
 
 #: templates/clinic/portfolio.html:48
 msgid "Our Practitioners"
-msgstr ""
+msgstr "ممارسونا"
 
 #: templates/clinic/blog_list.html:193
 msgid "Our specialists are preparing research content. Check back soon!"
-msgstr ""
+msgstr "يعدّ أخصائيونا محتوى بحثياً. عد قريباً!"
 
 #: templates/clinic/about_page.html:256
 #: templates/clinic/course_detail.html:344
 #: templates/clinic/portfolio_spa.html:1114
 #: templates/clinic/practitioner_portfolio.html:263
 msgid "Our Story"
-msgstr ""
+msgstr "قصتنا"
 
 #: templates/clinic/about_page.html:11
 #, python-format
 msgid "Our Story — %(name)s"
-msgstr ""
+msgstr "قصتنا — %(name)s"
 
 #: templates/emails/welcome.html:58
 msgid ""
@@ -5512,7 +5520,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:103
 msgid "Outside Author?"
-msgstr ""
+msgstr "كاتب خارجي؟"
 
 #: templates/payments/invoice.html:465
 msgid "Outstanding"
@@ -5564,11 +5572,11 @@ msgstr "ترقيم الصفحات"
 
 #: templates/patients/portal/dashboard.html:210
 msgid "Paid"
-msgstr ""
+msgstr "مدفوع"
 
 #: templates/patients/patient_detail.html:283
 msgid "Paid Amount"
-msgstr ""
+msgstr "المبلغ المدفوع"
 
 #: payments/models.py:312 templates/payments/expense_form.html:46
 #: templates/payments/partials/expense_list_partial.html:10
@@ -5577,16 +5585,16 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:380
 msgid "Pain"
-msgstr ""
+msgstr "الألم"
 
 #: templates/patients/patient_detail.html:531
 msgid "Pain Reduction"
-msgstr ""
+msgstr "انخفاض الألم"
 
 #: templates/patients/patient_detail.html:512
 #: templates/patients/portal/dashboard.html:138
 msgid "Pain Scale"
-msgstr ""
+msgstr "مقياس الألم"
 
 #: patients/models.py:223 templates/patients/session_edit.html:151
 #: templates/patients/session_form.html:139
@@ -5595,16 +5603,16 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:121
 msgid "Pain Scale Trend (0-10)"
-msgstr ""
+msgstr "اتجاه مقياس الألم (0-10)"
 
 #: templates/patients/print/session_note_pdf.html:118
 msgid "Pain Scale:"
-msgstr ""
+msgstr "مقياس الألم:"
 
 #: templates/patients/portal/dashboard.html:139
 #, python-format
 msgid "Pain: %(pain_scale)s/10"
-msgstr ""
+msgstr "الألم: %(pain_scale)s/10"
 
 #: templates/emails/appointment_reminder.html:42
 #, python-format
@@ -5662,7 +5670,7 @@ msgstr "السابقة"
 
 #: templates/patients/patient_form.html:193
 msgid "Past surgeries, conditions..."
-msgstr ""
+msgstr "العمليات الجراحية والحالات السابقة..."
 
 #: appointments/models.py:193 patients/models.py:92 patients/models.py:155
 #: patients/models.py:188
@@ -5686,7 +5694,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:5
 msgid "Patient - SpinalCure"
-msgstr ""
+msgstr "المريض - SpinalCure"
 
 #: clinic/models.py:317
 msgid "Patient / Client Name"
@@ -5694,12 +5702,12 @@ msgstr ""
 
 #: templates/clinic/admin/testimonial_form.html:29
 msgid "Patient / Client Name *"
-msgstr ""
+msgstr "اسم المريض / العميل *"
 
 #: templates/patients/print/patient_card.html:9
 #, python-format
 msgid "Patient Card - %(name)s - SpinalCure"
-msgstr ""
+msgstr "بطاقة المريض - %(name)s - SpinalCure"
 
 #: patients/models.py:142
 msgid "Patient email cannot be same as attender name."
@@ -5722,15 +5730,15 @@ msgstr ""
 
 #: templates/patients/patient_form.html:30
 msgid "Patient ID (Optional)"
-msgstr ""
+msgstr "رقم المريض (اختياري)"
 
 #: templates/patients/print/session_note_pdf.html:110
 msgid "Patient ID:"
-msgstr ""
+msgstr "رقم المريض:"
 
 #: templates/patients/portal/login.html:7
 msgid "Patient Login — SpinalCure"
-msgstr ""
+msgstr "تسجيل دخول المريض — SpinalCure"
 
 #: templates/emails/admin_booking_notify.html:18
 #: templates/patients/partials/patient_list_partial.html:6
@@ -5744,11 +5752,11 @@ msgstr "اسم المريض أو السبب..."
 
 #: templates/patients/print/session_note_pdf.html:109
 msgid "Patient Name:"
-msgstr ""
+msgstr "اسم المريض:"
 
 #: templates/patients/print/patient_card.html:83
 msgid "Patient Photo"
-msgstr ""
+msgstr "صورة المريض"
 
 #: appointments/models.py:240
 msgid "Patient portal"
@@ -5757,12 +5765,12 @@ msgstr ""
 #: templates/patients/portal/dashboard.html:36
 #: templates/patients/portal/login.html:30
 msgid "Patient Portal"
-msgstr ""
+msgstr "بوابة المريض"
 
 #: templates/patients/patient_detail.html:7
 #: templates/patients/portal/dashboard.html:169
 msgid "Patient Profile"
-msgstr ""
+msgstr "ملف المريض"
 
 #: patients/models.py:301
 msgid "Patient Review"
@@ -5774,7 +5782,7 @@ msgstr ""
 
 #: templates/patients/reviews.html:4
 msgid "Patient Reviews — SpinalCure"
-msgstr ""
+msgstr "تقييمات المرضى — SpinalCure"
 
 #: templates/clinic/admin/testimonial_form.html:79
 msgid "Patient's experience in their words..."
@@ -5782,7 +5790,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:47
 msgid "Patient's Full Name"
-msgstr ""
+msgstr "الاسم الكامل للمريض"
 
 #: templates/appointments/emails/booking_confirmation.html:75
 msgid "Patient:"
@@ -5795,7 +5803,7 @@ msgstr ""
 
 #: templates/patients/patient_list.html:4
 msgid "Patients - SpinalCure"
-msgstr ""
+msgstr "المرضى - SpinalCure"
 
 #: appointments/models.py:133
 msgid "Patients may cancel/reschedule until (hours before)"
@@ -5836,7 +5844,7 @@ msgstr "فشل الدفع"
 
 #: templates/patients/patient_detail.html:558
 msgid "Payment History"
-msgstr ""
+msgstr "سجل المدفوعات"
 
 #: templates/payments/invoice.html:404
 msgid "Payment Information"
@@ -5871,7 +5879,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:199
 msgid "Payment Receipts"
-msgstr ""
+msgstr "إيصالات الدفع"
 
 #: notifications/messages.py:45
 msgid "Payment received"
@@ -5905,7 +5913,7 @@ msgstr "المدفوعات والفوترة"
 #: templates/patients/patient_detail.html:314
 #, python-format
 msgid "Payments (%(count)s)"
-msgstr ""
+msgstr "المدفوعات (%(count)s)"
 
 #: templates/payments/payment_list.html:4
 msgid "Payments - SpinalCure"
@@ -5987,7 +5995,7 @@ msgstr ""
 #: templates/patients/print/session_note_pdf.html:102
 #, python-format
 msgid "Phone: %(phone)s | Email: %(email)s"
-msgstr ""
+msgstr "الهاتف: %(phone)s | البريد: %(email)s"
 
 #: clinic/models.py:325 patients/models.py:58
 #: templates/clinic/portfolio_spa.html:763
@@ -6005,7 +6013,7 @@ msgstr ""
 
 #: templates/patients/session_edit.html:32
 msgid "PIN Authorized"
-msgstr ""
+msgstr "تم التفويض بالرمز السري"
 
 #: patients/views.py:805
 msgid "PIN has expired. Please request a new one."
@@ -6033,7 +6041,7 @@ msgstr ""
 
 #: templates/patients/print/patient_card.html:147
 msgid "Please bring this card for all future visits"
-msgstr ""
+msgstr "يرجى إحضار هذه البطاقة في جميع الزيارات القادمة"
 
 #: templates/emails/appointment_reminder.html:70
 #, python-format
@@ -6121,7 +6129,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:35
 msgid "Practitioner (Optional)"
-msgstr ""
+msgstr "الممارس (اختياري)"
 
 #: patients/models.py:234
 msgid "Practitioner Notes"
@@ -6202,11 +6210,11 @@ msgstr ""
 
 #: templates/patients/print/patient_card.html:105
 msgid "Primary Address"
-msgstr ""
+msgstr "العنوان الرئيسي"
 
 #: templates/patients/patient_form.html:149
 msgid "Primary Doctor (Handled By)"
-msgstr ""
+msgstr "الطبيب الرئيسي (المسؤول)"
 
 #: idcards/templates/idcards/_card.html:39
 msgid "Print"
@@ -6214,7 +6222,7 @@ msgstr "طباعة"
 
 #: templates/patients/print/patient_card.html:58
 msgid "Print Card"
-msgstr ""
+msgstr "طباعة البطاقة"
 
 #: templates/payments/invoice.html:271
 msgid "Print Invoice"
@@ -6274,7 +6282,7 @@ msgstr "تم تحديث الملف الشخصي بنجاح!"
 
 #: templates/patients/partials/patient_list_partial.html:11
 msgid "Progress"
-msgstr ""
+msgstr "التقدم"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:943
 msgid ""
@@ -6287,7 +6295,7 @@ msgstr "نقدّم رعاية عالية الجودة من أجل عافيتك."
 
 #: templates/patients/patient_form.html:33
 msgid "PT-001"
-msgstr ""
+msgstr "PT-001"
 
 #: templates/courses/batch_form.html:177
 msgid "Public Display"
@@ -6333,7 +6341,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:74
 msgid "Publish to portfolio immediately"
-msgstr ""
+msgstr "النشر في الملف التعريفي فوراً"
 
 #: clinic/blog_models.py:30 clinic/models.py:337 courses/models.py:51
 #: courses/models.py:133
@@ -6426,7 +6434,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:106
 msgid "Ready for your next visit?"
-msgstr ""
+msgstr "هل أنت مستعد لزيارتك القادمة؟"
 
 #: idcards/templates/idcards/detail.html:41
 #: idcards/templates/idcards/detail.html:45
@@ -6533,7 +6541,7 @@ msgstr "تسجيل دفعة جديدة"
 
 #: templates/patients/session_form.html:5
 msgid "Record New Session — SpinalCure"
-msgstr ""
+msgstr "تسجيل جلسة جديدة — SpinalCure"
 
 #: templates/analytics/dashboard.html:177
 #: templates/patients/patient_detail.html:162
@@ -6543,11 +6551,11 @@ msgstr "تسجيل دفعة"
 
 #: templates/patients/session_form.html:172
 msgid "Record Session"
-msgstr ""
+msgstr "تسجيل الجلسة"
 
 #: templates/patients/session_form.html:7
 msgid "Record Treatment Session"
-msgstr ""
+msgstr "تسجيل جلسة علاج"
 
 #: templates/emails/audit_log_notification.html:34
 msgid "Record Type"
@@ -6571,11 +6579,11 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:116
 msgid "Recovery Metrics"
-msgstr ""
+msgstr "مقاييس التعافي"
 
 #: templates/patients/patient_detail.html:506
 msgid "Recovery Trends"
-msgstr ""
+msgstr "اتجاهات التعافي"
 
 #: templates/emails/appointment_reminder.html:33
 msgid "Reference #:"
@@ -6600,7 +6608,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:226
 msgid "Register Patient"
-msgstr ""
+msgstr "تسجيل مريض"
 
 #: templates/events/partials/event_registrations_partial.html:12
 msgid "Registered"
@@ -6612,7 +6620,7 @@ msgstr ""
 
 #: templates/patients/partials/patient_list_partial.html:9
 msgid "Registered Date"
-msgstr ""
+msgstr "تاريخ التسجيل"
 
 #: templates/emails/welcome.html:28
 msgid "Registered On:"
@@ -6621,7 +6629,7 @@ msgstr ""
 #: templates/patients/print/patient_card.html:98
 #, python-format
 msgid "Registered: %(registered_date)s"
-msgstr ""
+msgstr "تاريخ التسجيل: %(registered_date)s"
 
 #: courses/models.py:207 events/models.py:281
 #: templates/events/event_form.html:50
@@ -6749,7 +6757,7 @@ msgstr "استبدال الرابط"
 
 #: templates/patients/portal/dashboard.html:107
 msgid "Request an Appointment &rarr;"
-msgstr ""
+msgstr "اطلب موعداً ←"
 
 #: accounts/models.py:145
 msgid "Request Count (Today)"
@@ -6840,7 +6848,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:63
 msgid "Review Text"
-msgstr ""
+msgstr "نص التقييم"
 
 #: templates/base.html:584 templates/clinic/about_page.html:100
 #: templates/clinic/about_page.html:126
@@ -6850,7 +6858,7 @@ msgstr "المراجعات"
 
 #: templates/patients/reviews.html:5
 msgid "Reviews & Ratings"
-msgstr ""
+msgstr "التقييمات والمراجعات"
 
 #: templates/clinic/course_detail.html:207
 msgid ""
@@ -6919,7 +6927,7 @@ msgstr "حفظ المصروف"
 
 #: templates/patients/patient_detail.html:773
 msgid "Save Plan"
-msgstr ""
+msgstr "حفظ الخطة"
 
 #: notifications/templates/notifications/preferences.html:38
 msgid "Save preferences"
@@ -6927,7 +6935,7 @@ msgstr "حفظ التفضيلات"
 
 #: templates/patients/review_form.html:85
 msgid "Save Review"
-msgstr ""
+msgstr "حفظ التقييم"
 
 #: templates/appointments/availability.html:116
 msgid "Save rules"
@@ -6996,7 +7004,7 @@ msgstr "ابحث عن المرضى بالاسم أو الهاتف أو رقم ا
 
 #: templates/patients/patient_list.html:31
 msgid "Search for patients..."
-msgstr ""
+msgstr "ابحث عن المرضى..."
 
 #: idcards/templates/idcards/dashboard.html:18
 msgid "Search name, ID, designation…"
@@ -7008,7 +7016,7 @@ msgstr "ابحث بالاسم أو الهاتف أو البريد"
 
 #: templates/patients/reviews.html:30
 msgid "Search patient name or feedback..."
-msgstr ""
+msgstr "ابحث باسم المريض أو الملاحظات..."
 
 #: templates/base.html:294
 msgid "Search patients, appointments, etc..."
@@ -7087,7 +7095,7 @@ msgstr "اختر الفعالية"
 #: templates/patients/patient_form.html:59
 #: templates/patients/patient_form.html:60
 msgid "Select Gender"
-msgstr ""
+msgstr "اختر الجنس"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:865
 #: clinic/templates/clinic/admin/clinic_setup.html:1048
@@ -7099,7 +7107,7 @@ msgstr ""
 #: templates/payments/payment_form.html:72
 #: templates/payments/payment_form.html:87
 msgid "Select Patient"
-msgstr ""
+msgstr "اختر المريض"
 
 #: templates/clinic/admin/blog_form.html:94
 msgid "Select practitioner"
@@ -7123,7 +7131,7 @@ msgstr ""
 
 #: templates/patients/portal/login.html:59
 msgid "Send OTP"
-msgstr ""
+msgstr "إرسال رمز التحقق"
 
 #: appointments/models.py:138
 msgid "Send reminders this many minutes before (comma-separated)"
@@ -7228,7 +7236,7 @@ msgstr ""
 #: templates/patients/session_edit.html:47
 #: templates/patients/session_form.html:41
 msgid "Session Basics"
-msgstr ""
+msgstr "أساسيات الجلسة"
 
 #: patients/models.py:209 templates/patients/session_edit.html:52
 #: templates/patients/session_form.html:46
@@ -7237,16 +7245,16 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:111
 msgid "Session Date:"
-msgstr ""
+msgstr "تاريخ الجلسة:"
 
 #: templates/patients/patient_detail.html:329
 msgid "Session History"
-msgstr ""
+msgstr "سجل الجلسات"
 
 #: templates/patients/print/session_note_pdf.html:6
 #, python-format
 msgid "Session Note - %(session_number)s"
-msgstr ""
+msgstr "ملاحظة الجلسة - %(session_number)s"
 
 #: patients/models.py:213 templates/patients/session_edit.html:59
 #: templates/patients/session_form.html:52
@@ -7264,11 +7272,11 @@ msgstr ""
 #: templates/patients/patient_detail.html:302
 #, python-format
 msgid "Sessions (%(count)s)"
-msgstr ""
+msgstr "الجلسات (%(count)s)"
 
 #: templates/patients/partials/patient_list_partial.html:10
 msgid "Sessions (Done/Total)"
-msgstr ""
+msgstr "الجلسات (المكتملة/الإجمالي)"
 
 #: templates/analytics/dashboard.html:23
 msgid "Sessions Today"
@@ -7383,7 +7391,7 @@ msgstr "عرض %(start_index)s إلى %(end_index)s من %(count)s موعدًا"
 #: templates/patients/partials/patient_list_partial.html:69
 #, python-format
 msgid "Showing %(start_index)s to %(end_index)s of %(count)s patients"
-msgstr ""
+msgstr "عرض %(start_index)s إلى %(end_index)s من أصل %(count)s مريض"
 
 #: templates/courses/partials/course_list_partial.html:121
 #, python-format
@@ -7417,7 +7425,7 @@ msgstr "عرض %(start_index)s–%(end_index)s من أصل %(count)s"
 
 #: templates/patients/portal/dashboard.html:151
 msgid "Showing last 5 sessions"
-msgstr ""
+msgstr "عرض آخر 5 جلسات"
 
 #: clinic/blog_models.py:81
 msgid "Shown in Google search results (max 160 chars)."
@@ -7426,7 +7434,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:172
 #: templates/patients/partials/tcm_diagnosis_form.html:212
 msgid "SI"
-msgstr ""
+msgstr "SI"
 
 #: templates/accounts/login.html:128
 msgid "Sign in to Dashboard"
@@ -7450,7 +7458,7 @@ msgstr ""
 
 #: templates/public_base.html:28
 msgid "Skip to content"
-msgstr ""
+msgstr "تخطَّ إلى المحتوى"
 
 #: notifications/models.py:66
 msgid "Skipped"
@@ -7511,7 +7519,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:146
 #: templates/patients/partials/tcm_diagnosis_form.html:186
 msgid "SP"
-msgstr ""
+msgstr "SP"
 
 #: templates/emails/booking_confirmation.html:30
 msgid "Specialist"
@@ -7574,7 +7582,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:147
 #: templates/patients/partials/tcm_diagnosis_form.html:187
 msgid "ST"
-msgstr ""
+msgstr "ST"
 
 #: accounts/models.py:25 accounts/templates/accounts/admin/users_list.html:60
 #: appointments/models.py:240 idcards/models.py:55
@@ -7780,7 +7788,7 @@ msgstr "موقوف"
 
 #: templates/patients/patient_detail.html:758
 msgid "Symptoms, diagnosis, etc."
-msgstr ""
+msgstr "الأعراض، التشخيص، إلخ."
 
 #: templates/courses/batch_form.html:188
 msgid "Synchronize Batch Details"
@@ -7864,7 +7872,7 @@ msgstr ""
 
 #: templates/patients/partials/tcm_diagnosis_display.html:6
 msgid "TCM Diagnosis"
-msgstr ""
+msgstr "تشخيص الطب الصيني التقليدي"
 
 #: templates/clinic/about_page.html:98 templates/clinic/about_page.html:124
 #: templates/clinic/blog_detail.html:65 templates/clinic/blog_list.html:48
@@ -7889,7 +7897,7 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:128
 msgid "Techniques Employed:"
-msgstr ""
+msgstr "التقنيات المستخدمة:"
 
 #: patients/models.py:217 templates/patients/patient_detail.html:453
 #: templates/patients/session_edit.html:116
@@ -8292,7 +8300,7 @@ msgstr "وقت انتهاء صلاحية OTP"
 
 #: templates/patients/patient_detail.html:437
 msgid "Timing & Duration"
-msgstr ""
+msgstr "التوقيت والمدة"
 
 #: clinic/blog_models.py:34 courses/models.py:20 events/models.py:47
 #: templates/payments/partials/expense_list_partial.html:8
@@ -8384,7 +8392,7 @@ msgstr "إجمالي المصروفات"
 
 #: templates/patients/patient_detail.html:277
 msgid "Total Fee"
-msgstr ""
+msgstr "إجمالي الرسوم"
 
 #: templates/analytics/dashboard.html:14
 msgid "Total Patients"
@@ -8400,7 +8408,7 @@ msgstr ""
 
 #: templates/patients/reviews.html:58
 msgid "Total Reviews"
-msgstr ""
+msgstr "إجمالي التقييمات"
 
 #: patients/models.py:161 templates/patients/patient_detail.html:762
 msgid "Total Sittings"
@@ -8437,11 +8445,11 @@ msgstr ""
 #: templates/patients/reviews.html:120
 #, python-format
 msgid "Treated by %(name)s"
-msgstr ""
+msgstr "عالجه %(name)s"
 
 #: templates/patients/print/session_note_pdf.html:122
 msgid "Treatment Details"
-msgstr ""
+msgstr "تفاصيل العلاج"
 
 #: notifications/messages.py:42
 msgid "Treatment follow-up due"
@@ -8450,7 +8458,7 @@ msgstr "حان موعد متابعة العلاج"
 #: templates/patients/session_edit.html:104
 #: templates/patients/session_form.html:92
 msgid "Treatment Info"
-msgstr ""
+msgstr "معلومات العلاج"
 
 #: patients/models.py:195 payments/models.py:63
 #: templates/patients/session_edit.html:66
@@ -8474,12 +8482,12 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:247
 msgid "Treatment Plan:"
-msgstr ""
+msgstr "خطة العلاج:"
 
 #: templates/patients/patient_detail.html:310
 #: templates/patients/portal/dashboard.html:115
 msgid "Treatment Progress"
-msgstr ""
+msgstr "تقدم العلاج"
 
 #: templates/clinic/about_page.html:258
 #: templates/clinic/course_detail.html:346
@@ -8519,7 +8527,7 @@ msgstr "تشغيل المشاركة"
 #: templates/patients/partials/tcm_diagnosis_display.html:173
 #: templates/patients/partials/tcm_diagnosis_form.html:213
 msgid "TW"
-msgstr ""
+msgstr "TW"
 
 #: templates/clinic/portfolio.html:141
 msgid "Twitter"
@@ -8543,7 +8551,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:159
 #: templates/patients/partials/tcm_diagnosis_form.html:199
 msgid "UB"
-msgstr ""
+msgstr "UB"
 
 #: templates/events/partials/event_registrations_partial.html:31
 msgid "Undo attended"
@@ -8640,7 +8648,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:226
 msgid "Update Patient Profile"
-msgstr ""
+msgstr "تحديث ملف المريض"
 
 #: templates/payments/payment_form.html:22
 msgid "Update Payment Information"
@@ -8779,7 +8787,7 @@ msgstr "بطاقة هوية %(t)s موثّقة"
 
 #: templates/patients/portal/verify.html:54
 msgid "Verify & Login"
-msgstr ""
+msgstr "تحقق وسجّل الدخول"
 
 #: templates/partials/security_modal.html:62
 msgid "Verify & Proceed"
@@ -8787,11 +8795,11 @@ msgstr "تحقق ومتابعة"
 
 #: templates/patients/portal/verify.html:30
 msgid "Verify It's You"
-msgstr ""
+msgstr "تأكد أنه أنت"
 
 #: templates/patients/portal/verify.html:7
 msgid "Verify OTP — SpinalCure"
-msgstr ""
+msgstr "التحقق من الرمز — SpinalCure"
 
 #: idcards/templates/idcards/share.html:28
 msgid "Verify this card"
@@ -8874,7 +8882,7 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:507
 msgid "Visualizing pain and mobility metrics over time."
-msgstr ""
+msgstr "عرض مرئي لمقاييس الألم والحركة عبر الزمن."
 
 #: templates/events/public_list.html:46
 msgid "Waitlist"
@@ -8918,7 +8926,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:132
 #: templates/patients/partials/tcm_diagnosis_form.html:172
 msgid "WATER"
-msgstr ""
+msgstr "الماء"
 
 #: templates/payments/invoice.html:482
 msgid "We appreciate your trust in us for your wellness journey."
@@ -9039,6 +9047,8 @@ msgid ""
 "Welcome to your personal health portal. Track your upcoming appointments, "
 "view treatment progress, and download payment receipts."
 msgstr ""
+"مرحباً بك في بوابتك الصحية الشخصية. تابع مواعيدك القادمة، واطّلع على تقدم "
+"العلاج، ونزّل إيصالات الدفع."
 
 #: templates/base.html:327
 msgid "What are you looking for?"
@@ -9062,7 +9072,7 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:110
 msgid "Whatsapp"
-msgstr ""
+msgstr "WhatsApp"
 
 #: patients/models.py:46 templates/patients/patient_form.html:76
 msgid "Whatsapp No"
@@ -9109,7 +9119,7 @@ msgstr "من الذي يدفع؟"
 
 #: templates/patients/patient_form.html:164
 msgid "Why is the patient visiting?"
-msgstr ""
+msgstr "ما سبب زيارة المريض؟"
 
 #: templates/appointments/manage.html:30
 msgid "With"
@@ -9118,7 +9128,7 @@ msgstr "مع"
 #: templates/patients/portal/dashboard.html:85
 #, python-format
 msgid "with %(name)s"
-msgstr ""
+msgstr "مع %(name)s"
 
 #: templates/emails/appointment_reminder.html:25
 msgid "With:"
@@ -9127,7 +9137,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:133
 #: templates/patients/partials/tcm_diagnosis_form.html:173
 msgid "WOOD"
-msgstr ""
+msgstr "الخشب"
 
 #: templates/clinic/admin/blog_form.html:43
 msgid "Word count: 0"
@@ -9153,7 +9163,7 @@ msgstr ""
 #: templates/patients/session_edit.html:158
 #: templates/patients/session_form.html:146
 msgid "Worst Pain"
-msgstr ""
+msgstr "أشد ألم"
 
 #: templates/clinic/admin/blog_list.html:140
 msgid "Write First Post"
@@ -9161,7 +9171,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:66
 msgid "Write the patient's feedback here..."
-msgstr ""
+msgstr "اكتب ملاحظات المريض هنا..."
 
 #: templates/clinic/admin/blog_form.html:41
 msgid "Write your article here. You can use standard text or HTML..."
@@ -9169,11 +9179,11 @@ msgstr ""
 
 #: templates/patients/partials/tcm_diagnosis_form.html:233
 msgid "Y+ Ya-"
-msgstr ""
+msgstr "Y+ Ya-"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:229
 msgid "Y- Ya+"
-msgstr ""
+msgstr "Y- Ya+"
 
 #: clinic/models.py:161
 msgid "Year cannot be in the future."
@@ -9504,11 +9514,11 @@ msgstr "→ العودة إلى المستخدمين"
 
 #: templates/patients/reviews.html:99
 msgid "○ Draft"
-msgstr ""
+msgstr "○ مسودة"
 
 #: templates/patients/reviews.html:99
 msgid "● Published"
-msgstr ""
+msgstr "● منشور"
 
 #: templates/emails/payment_receipt.html:69
 msgid "⚠️ Balance Due"

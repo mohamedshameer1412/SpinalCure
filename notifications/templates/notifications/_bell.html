@@ -1,5 +1,4 @@
 {% load i18n static %}
-<script defer src="{% static 'js/notifications.js' %}"></script>
 <div class="relative" x-data="notifBell({ summaryUrl: '{% url 'notification_summary' %}', markAllUrl: '{% url 'notification_mark_all_read' %}', preferencesUrl: '{% url 'notification_preferences' %}', csrf: '{{ csrf_token }}', unread: {{ notif_unread|default:0 }} })" @keydown.escape.window="open = false">
     <button type="button" @click="open = !open; if (open) refresh()" @click.away="open = false"
         class="relative p-2 text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"

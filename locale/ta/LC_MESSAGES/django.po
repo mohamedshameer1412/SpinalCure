@@ -52,7 +52,7 @@ msgstr ""
 #: templates/clinic/course_detail.html:108
 #, python-format
 msgid "%(avg_rating)s Rating"
-msgstr ""
+msgstr "%(avg_rating)s மதிப்பீடு"
 
 #: appointments/schedule_views.py:140
 #, python-format
@@ -69,12 +69,12 @@ msgstr ""
 #: templates/clinic/admin/blog_tags.html:53
 #, python-format
 msgid "%(count)s post%(count_2)s"
-msgstr ""
+msgstr "%(count)s இடுகை%(count_2)s"
 
 #: templates/clinic/course_detail.html:110
 #, python-format
 msgid "%(count)s Reviews"
-msgstr ""
+msgstr "%(count)s மதிப்பாய்வுகள்"
 
 #: templates/courses/batch_registrations.html:40
 #, python-format
@@ -142,18 +142,18 @@ msgstr ""
 #: templates/clinic/practitioner_detail.html:64
 #, python-format
 msgid "%(experience_years)s Years Experience"
-msgstr ""
+msgstr "%(experience_years)s ஆண்டு அனுபவம்"
 
 #: templates/clinic/portfolio_spa.html:650
 #: templates/clinic/practitioner_portfolio.html:88
 #, python-format
 msgid "%(experience_years)s+ Years"
-msgstr ""
+msgstr "%(experience_years)s+ ஆண்டுகள்"
 
 #: templates/clinic/event_detail.html:43
 #, python-format
 msgid "%(n)s left"
-msgstr ""
+msgstr "%(n)s மீதமுள்ளது"
 
 #: templates/patients/patient_detail.html:5
 #, python-format
@@ -168,7 +168,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:12
 #, python-format
 msgid "%(name)s — Premium Acupuncture Care"
-msgstr ""
+msgstr "%(name)s — உயர்தர அக்குபஞ்சர் பராமரிப்பு"
 
 #: templates/emails/base_email.html:247
 #: templates/payments/emails/receipt_email.html:70
@@ -180,12 +180,12 @@ msgstr ""
 #: templates/clinic/blog_detail.html:206
 #, python-format
 msgid "%(read_time_minutes)s min"
-msgstr ""
+msgstr "%(read_time_minutes)s நிமிடம்"
 
 #: templates/clinic/blog_detail.html:136 templates/clinic/blog_list.html:172
 #, python-format
 msgid "%(read_time_minutes)s min read"
-msgstr ""
+msgstr "%(read_time_minutes)s நிமிட வாசிப்பு"
 
 #: patients/portal_auth.py:80
 #, python-format
@@ -205,7 +205,7 @@ msgstr "%(org)s இல் %(t)s அடையாள அட்டை"
 #: templates/clinic/practitioner_portfolio.html:9
 #, python-format
 msgid "%(title)s %(name)s — Specialist at %(name_2)s"
-msgstr ""
+msgstr "%(title)s %(name)s — %(name_2)s இல் நிபுணர்"
 
 #: templates/courses/batch_form.html:5 templates/courses/course_form.html:5
 #: templates/exports/print_template.html:8
@@ -216,7 +216,7 @@ msgstr ""
 #: templates/clinic/course_detail.html:8
 #, python-format
 msgid "%(title)s — Training at"
-msgstr ""
+msgstr "%(title)s — பயிற்சி:"
 
 #: templates/analytics/dashboard.html:82
 #, python-format
@@ -252,6 +252,7 @@ msgstr "&copy;"
 #, python-format
 msgid "&copy; 2026 %(name)s. Developed with &hearts; for Kerala Health."
 msgstr ""
+"&copy; 2026 %(name)s. கேரள ஆரோக்கியத்திற்காக &hearts; உடன் உருவாக்கப்பட்டது."
 
 #: templates/exports/print_template.html:172
 msgid "&copy; 2026 SpinalCure Clinic Management System. Confidental Document."
@@ -259,7 +260,7 @@ msgstr ""
 
 #: templates/clinic/practitioner_detail.html:11
 msgid "&larr; Back to Clinic Portfolio"
-msgstr ""
+msgstr "&larr; கிளினிக் போர்ட்ஃபோலியோவுக்குத் திரும்பு"
 
 #: templates/events/event_feedback_admin.html:17
 msgid "&nbsp;·&nbsp;"
@@ -290,11 +291,11 @@ msgstr "-- குறிப்பிட்ட திட்டம் இல்ல�
 
 #: templates/clinic/blog_detail.html:227 templates/clinic/blog_list.html:214
 msgid ". All rights reserved."
-msgstr ""
+msgstr ". அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை."
 
 #: templates/events/event_feedback_admin.html:51
 msgid ". New submissions will appear here. Only"
-msgstr ""
+msgstr ". புதிய சமர்ப்பிப்புகள் இங்கே தோன்றும். மட்டும்"
 
 #: templates/partials/security_modal.html:45
 msgid ". Request the PIN from them to authorize this action."
@@ -315,7 +316,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:13
 #: templates/patients/partials/tcm_diagnosis_form.html:16
 msgid "1. Symptoms in Sense Organs"
-msgstr ""
+msgstr "1. புலன் உறுப்புகளில் அறிகுறிகள்"
 
 #: templates/emails/booking_confirmation.html:50
 msgid "10 minutes early"
@@ -324,38 +325,38 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:112
 #: templates/patients/partials/tcm_diagnosis_form.html:146
 msgid "10. Five Stages of Development"
-msgstr ""
+msgstr "10. வளர்ச்சியின் ஐந்து நிலைகள்"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:164
 msgid "11. Pathway of the Meridian / Pulse Reading"
-msgstr ""
+msgstr "11. மெரிடியன் பாதை / நாடி பரிசோதனை"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:124
 msgid "11. Pathway of the Meridian / Pulse Reading (+ or -)"
-msgstr ""
+msgstr "11. மெரிடியன் பாதை / நாடி பரிசோதனை (+ அல்லது -)"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:225
 msgid "12. Luo - Connecting Points"
-msgstr ""
+msgstr "12. லுவோ - இணைப்பு புள்ளிகள்"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:185
 msgid "12. Luo Connecting Points"
-msgstr ""
+msgstr "12. லுவோ இணைப்பு புள்ளிகள்"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:189
 #: templates/patients/partials/tcm_diagnosis_form.html:240
 msgid "13. Mother - Son Law"
-msgstr ""
+msgstr "13. தாய் - மகன் விதி"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:193
 #: templates/patients/partials/tcm_diagnosis_form.html:249
 msgid "14. Kocycle Law"
-msgstr ""
+msgstr "14. கோசைக்கிள் விதி"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:197
 #: templates/patients/partials/tcm_diagnosis_form.html:258
 msgid "15. Recycle Law"
-msgstr ""
+msgstr "15. ரீசைக்கிள் விதி"
 
 #: patients/models.py:229
 msgid "1: Immobile, 5: Full mobility"
@@ -364,7 +365,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:24
 #: templates/patients/partials/tcm_diagnosis_form.html:29
 msgid "2. Body Secretions"
-msgstr ""
+msgstr "2. உடல் சுரப்புகள்"
 
 #: templates/emails/booking_confirmation.html:52
 msgid "24 hours in advance"
@@ -373,17 +374,17 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:35
 #: templates/patients/partials/tcm_diagnosis_form.html:42
 msgid "3. Body Area"
-msgstr ""
+msgstr "3. உடல் பகுதி"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:46
 #: templates/patients/partials/tcm_diagnosis_form.html:55
 msgid "4. Body Tissue"
-msgstr ""
+msgstr "4. உடல் திசு"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:57
 #: templates/patients/partials/tcm_diagnosis_form.html:76
 msgid "5. Internal Evil"
-msgstr ""
+msgstr "5. அகத் தீய காரணி"
 
 #: accounts/serializers.py:68
 msgid "6-digit OTP code"
@@ -392,22 +393,22 @@ msgstr "6 இலக்க OTP குறியீடு"
 #: templates/patients/partials/tcm_diagnosis_display.html:68
 #: templates/patients/partials/tcm_diagnosis_form.html:94
 msgid "6. External Evil"
-msgstr ""
+msgstr "6. புறத் தீய காரணி"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:79
 #: templates/patients/partials/tcm_diagnosis_form.html:107
 msgid "7. Five Seasons"
-msgstr ""
+msgstr "7. ஐந்து பருவங்கள்"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:90
 #: templates/patients/partials/tcm_diagnosis_form.html:120
 msgid "8. Colour Diagnosis"
-msgstr ""
+msgstr "8. நிற நோயறிதல்"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:101
 #: templates/patients/partials/tcm_diagnosis_form.html:133
 msgid "9. Taste Diagnosis"
-msgstr ""
+msgstr "9. சுவை நோயறிதல்"
 
 #: templates/events/event_list.html:80
 msgid "? This action cannot be undone."
@@ -544,11 +545,11 @@ msgstr ""
 
 #: templates/clinic/blog_detail.html:176
 msgid "About the Author"
-msgstr ""
+msgstr "ஆசிரியர் பற்றி"
 
 #: templates/clinic/portfolio.html:39
 msgid "About the Clinic"
-msgstr ""
+msgstr "கிளினிக் பற்றி"
 
 #: idcards/render.py:212
 msgid "About the organisation"
@@ -556,7 +557,7 @@ msgstr "நிறுவனம் பற்றி"
 
 #: templates/clinic/practitioner_portfolio.html:136
 msgid "About the Specialist"
-msgstr ""
+msgstr "நிபுணர் பற்றி"
 
 #: clinic/models.py:91
 msgid "About Title"
@@ -644,7 +645,7 @@ msgstr "செயலில் உள்ள திட்டம்"
 
 #: templates/clinic/practitioner_detail.html:42
 msgid "Active Practitioner"
-msgstr ""
+msgstr "செயலில் உள்ள மருத்துவர்"
 
 #: clinic/templates/clinic/admin/activity_log.html:17 templates/base.html:663
 msgid "Activity Log"
@@ -669,7 +670,7 @@ msgstr "பயன்படுத்திய அக்குபுள்ளி�
 
 #: templates/clinic/portfolio_spa.html:500
 msgid "Acupuncture"
-msgstr ""
+msgstr "அக்குபஞ்சர்"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:5
 msgid "Acupuncture Case Sheet"
@@ -677,7 +678,7 @@ msgstr "அக்குபஞ்சர் வழக்குத் தாள்"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:4
 msgid "Acupuncture Case Sheet (TCM Diagnosis)"
-msgstr ""
+msgstr "அக்குபஞ்சர் வழக்குத் தாள் (TCM நோயறிதல்)"
 
 #: templates/accounts/login.html:64
 #: templates/patients/print/patient_card.html:69
@@ -710,6 +711,8 @@ msgstr "மூடலைச் சேர்"
 #: templates/clinic/admin/testimonials_list.html:98
 msgid "Add curated testimonials that will appear on your public portfolio."
 msgstr ""
+"உங்கள் பொது போர்ட்ஃபோலியோவில் தோன்றும் தேர்ந்தெடுக்கப்பட்ட சான்றுகளைச் "
+"சேர்க்கவும்."
 
 #: templates/patients/partials/tcm_diagnosis_display.html:206
 msgid "Add Diagnosis Details"
@@ -725,7 +728,7 @@ msgstr "செலவைச் சேர் — SpinalCure"
 
 #: templates/clinic/admin/testimonials_list.html:101
 msgid "Add First Testimonial"
-msgstr ""
+msgstr "முதல் சான்றைச் சேர்"
 
 #: templates/appointments/availability.html:74
 msgid "Add leave"
@@ -751,7 +754,7 @@ msgstr "புதிய பணியாளர் பயனரைச் சேர
 
 #: templates/clinic/admin/blog_tags.html:23
 msgid "Add New Tag"
-msgstr ""
+msgstr "புதிய குறிச்சொல்லைச் சேர்"
 
 #: accounts/templates/accounts/admin/users_list.html:12
 msgid "Add New User"
@@ -792,7 +795,7 @@ msgstr "பணிநேரத்தைச் சேர்"
 #: templates/clinic/admin/testimonial_form.html:118
 #: templates/clinic/admin/testimonials_list.html:13
 msgid "Add Testimonial"
-msgstr ""
+msgstr "சான்றைச் சேர்"
 
 #: templates/patients/reviews.html:152
 msgid "Add the first review →"
@@ -809,7 +812,7 @@ msgstr "விடுப்பு நேரத்தைச் சேர்"
 #: templates/clinic/event_detail.html:46
 #: templates/events/registration_manage.html:15
 msgid "Add to calendar"
-msgstr ""
+msgstr "நாட்காட்டியில் சேர்"
 
 #: templates/emails/booking_confirmation.html:44
 msgid "Add to Google Calendar"
@@ -867,7 +870,7 @@ msgstr ""
 
 #: templates/clinic/blog_list.html:103
 msgid "All Authors"
-msgstr ""
+msgstr "அனைத்து ஆசிரியர்கள்"
 
 #: idcards/templates/idcards/detail.html:5
 msgid "All cards"
@@ -891,7 +894,7 @@ msgstr ""
 
 #: templates/clinic/blog_list.html:90
 msgid "All Posts"
-msgstr ""
+msgstr "அனைத்து இடுகைகள்"
 
 #: templates/appointments/appointment_list.html:61
 msgid "All Practitioners"
@@ -932,7 +935,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:206
 msgid "Alumni feedback"
-msgstr ""
+msgstr "முன்னாள் மாணவர் கருத்துகள்"
 
 #: templates/patients/patient_detail.html:570
 #: templates/payments/partials/expense_list_partial.html:12
@@ -1155,11 +1158,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:33
 msgid "Article Content"
-msgstr ""
+msgstr "கட்டுரை உள்ளடக்கம்"
 
 #: templates/clinic/admin/blog_form.html:24
 msgid "Article Title"
-msgstr ""
+msgstr "கட்டுரைத் தலைப்பு"
 
 #: templates/appointments/availability.html:30
 msgid "Ask an administrator to add a practitioner with your email address."
@@ -1185,7 +1188,7 @@ msgstr "கலந்துகொண்டார்"
 
 #: templates/clinic/event_detail.html:49
 msgid "Attendee feedback"
-msgstr ""
+msgstr "பங்கேற்பாளர் கருத்துகள்"
 
 #: templates/patients/patient_form.html:116
 msgid "Attender Details"
@@ -1279,7 +1282,7 @@ msgstr "சராசரி மதிப்பீடு"
 
 #: templates/clinic/practitioner_portfolio.html:153
 msgid "Avg. Rating"
-msgstr ""
+msgstr "சராசரி மதிப்பீடு"
 
 #: idcards/templates/idcards/branding.html:5
 #: idcards/templates/idcards/issue.html:5
@@ -1304,7 +1307,7 @@ msgstr ""
 #: templates/clinic/practitioner_portfolio.html:64
 #: templates/courses/batch_list.html:15
 msgid "Back to Courses"
-msgstr ""
+msgstr "பாடநெறிகளுக்குத் திரும்பு"
 
 #: templates/events/event_feedback_admin.html:35
 msgid "Back to Events"
@@ -1334,12 +1337,12 @@ msgstr "நோயாளி சுயவிவரத்துக்குத் �
 
 #: templates/clinic/about_page.html:146
 msgid "Back to Portfolio"
-msgstr ""
+msgstr "போர்ட்ஃபோலியோவுக்குத் திரும்பு"
 
 #: templates/clinic/admin/blog_form.html:10
 #: templates/clinic/admin/blog_tags.html:10
 msgid "Back to Posts"
-msgstr ""
+msgstr "இடுகைகளுக்குத் திரும்பு"
 
 #: templates/patients/review_form.html:10
 msgid "Back to Reviews"
@@ -1347,7 +1350,7 @@ msgstr "மதிப்பாய்வுகளுக்குத் திர�
 
 #: templates/clinic/admin/testimonial_form.html:9
 msgid "Back to Testimonials"
-msgstr ""
+msgstr "சான்றுகளுக்குத் திரும்பு"
 
 #: templates/patients/patient_detail.html:289
 msgid "Balance"
@@ -1419,7 +1422,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:201
 msgid "Be the first to share your experience!"
-msgstr ""
+msgstr "உங்கள் அனுபவத்தை முதலில் பகிருங்கள்!"
 
 #: templates/emails/appointment_reminder.html:74
 #: templates/emails/password_reset.html:35
@@ -1458,7 +1461,7 @@ msgstr "சுயவிவரம்"
 
 #: templates/clinic/practitioner_detail.html:73
 msgid "Biography / About"
-msgstr ""
+msgstr "வாழ்க்கை வரலாறு / பற்றி"
 
 #: templates/accounts/settings.html:53
 msgid "Biography / Notes"
@@ -1467,7 +1470,7 @@ msgstr "சுயவிவரம் / குறிப்புகள்"
 #: templates/clinic/blog_detail.html:66 templates/clinic/blog_list.html:49
 #: templates/clinic/blog_list.html:63 templates/clinic/portfolio_spa.html:115
 msgid "Blog"
-msgstr ""
+msgstr "வலைப்பதிவு"
 
 #: clinic/blog_models.py:88
 msgid "Blog Post"
@@ -1502,7 +1505,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_tags.html:3
 msgid "Blog Tags — SpinalCure"
-msgstr ""
+msgstr "வலைப்பதிவு குறிச்சொற்கள் — SpinalCure"
 
 #: idcards/render.py:212
 msgid "Blood group"
@@ -1511,11 +1514,11 @@ msgstr "இரத்த வகை"
 #: templates/clinic/practitioner_portfolio.html:204
 #, python-format
 msgid "Book a Consultation with %(name)s"
-msgstr ""
+msgstr "%(name)s உடன் ஆலோசனையை முன்பதிவு செய்யுங்கள்"
 
 #: templates/clinic/portfolio_spa.html:1040
 msgid "Book another session"
-msgstr ""
+msgstr "மற்றொரு அமர்வை முன்பதிவு செய்"
 
 #: templates/analytics/dashboard.html:173
 #: templates/appointments/calendar.html:444
@@ -1535,7 +1538,7 @@ msgstr ""
 #: templates/clinic/about_page.html:102 templates/clinic/about_page.html:128
 #: templates/clinic/blog_detail.html:68 templates/clinic/blog_list.html:51
 msgid "Book Session"
-msgstr ""
+msgstr "அமர்வை முன்பதிவு செய்"
 
 #: templates/clinic/portfolio_spa.html:886
 msgid "Book your"
@@ -1546,7 +1549,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:1118
 #: templates/clinic/practitioner_portfolio.html:271
 msgid "Booking"
-msgstr ""
+msgstr "முன்பதிவு"
 
 #: templates/emails/booking_confirmation.html:17
 msgid "Booking Details"
@@ -1628,7 +1631,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:962
 msgid "Business Hours"
-msgstr ""
+msgstr "வணிக நேரம்"
 
 #: templates/emails/audit_log_notification.html:22
 msgid ""
@@ -1637,7 +1640,7 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:151
 msgid "by SpinalCure HMS. Highly confidential medical record."
-msgstr ""
+msgstr "SpinalCure HMS மூலம். மிகவும் ரகசியமான மருத்துவப் பதிவு."
 
 #: templates/appointments/appointment_list.html:12
 msgid "Calendar View"
@@ -1875,7 +1878,7 @@ msgstr "கிளினிக் நிர்வாகி"
 
 #: templates/clinic/portfolio_spa.html:239
 msgid "Clinic Hero"
-msgstr ""
+msgstr "கிளினிக் முகப்புப் பகுதி"
 
 #: templates/appointments/availability.html:90
 msgid "Clinic holidays & closures"
@@ -1899,7 +1902,7 @@ msgstr "கிளினிக் அறிமுகம்"
 
 #: templates/clinic/portfolio.html:4
 msgid "Clinic Portfolio - SpinalCure"
-msgstr ""
+msgstr "கிளினிக் போர்ட்ஃபோலியோ - SpinalCure"
 
 #: clinic/models.py:149
 msgid "Clinic Profile"
@@ -2020,7 +2023,7 @@ msgstr "உறுதிசெய்து ரசீதை அச்சிடு"
 
 #: templates/clinic/portfolio_spa.html:1020
 msgid "Confirm Appointment"
-msgstr ""
+msgstr "சந்திப்பை உறுதிசெய்"
 
 #: templates/appointments/calendar.html:638
 msgid "Confirm Booking"
@@ -2041,7 +2044,7 @@ msgstr "உறுதிசெய்யப்பட்டது"
 
 #: templates/clinic/practitioner_portfolio.html:145
 msgid "Consultations"
-msgstr ""
+msgstr "ஆலோசனைகள்"
 
 #: patients/models.py:205 templates/patients/session_edit.html:77
 #: templates/patients/session_form.html:70
@@ -2063,7 +2066,7 @@ msgstr ""
 #: templates/clinic/portfolio.html:82
 #: templates/patients/patient_detail.html:76
 msgid "Contact Information"
-msgstr ""
+msgstr "தொடர்புத் தகவல்"
 
 #: templates/emails/booking_confirmation.html:57
 msgid "Contact our front desk directly at:"
@@ -2114,7 +2117,7 @@ msgstr "நேரங்களை ஏற்ற முடியவில்லை.
 
 #: templates/clinic/event_detail.html:105
 msgid "Could not reach the server. Check your connection and try again."
-msgstr ""
+msgstr "சேவையகத்தை அடைய முடியவில்லை. இணைப்பைச் சரிபார்த்து மீண்டும் முயலவும்."
 
 #: courses/models.py:64 courses/models.py:109 courses/models.py:197
 msgid "Course"
@@ -2166,7 +2169,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:224
 msgid "Course Investment"
-msgstr ""
+msgstr "பாடநெறிக் கட்டணம்"
 
 #: templates/courses/course_form.html:241
 msgid "Course Investment (₹) *"
@@ -2178,7 +2181,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:127
 msgid "Course Overview"
-msgstr ""
+msgstr "பாடநெறி மேலோட்டம்"
 
 #: courses/models.py:179 payments/models.py:75
 msgid "Course Registration"
@@ -2200,7 +2203,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_list.html:29
 msgid "Cover"
-msgstr ""
+msgstr "அட்டைப்படம்"
 
 #: clinic/blog_models.py:47 courses/models.py:48
 #: templates/clinic/admin/blog_form.html:71
@@ -2209,7 +2212,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:83
 msgid "cover image"
-msgstr ""
+msgstr "அட்டைப் படம்"
 
 #: templates/events/event_form.html:26
 msgid "Cover image"
@@ -2234,11 +2237,11 @@ msgstr "நிகழ்வை உருவாக்கு"
 
 #: templates/clinic/admin/blog_form.html:129
 msgid "Create one"
-msgstr ""
+msgstr "ஒன்றை உருவாக்கு"
 
 #: templates/clinic/portfolio.html:169
 msgid "Create Profile"
-msgstr ""
+msgstr "சுயவிவரத்தை உருவாக்கு"
 
 #: templates/events/event_form.html:44
 msgid ""
@@ -2263,6 +2266,7 @@ msgstr ""
 #: templates/clinic/admin/blog_list.html:136
 msgid "Create your first research article or health guide."
 msgstr ""
+"உங்கள் முதல் ஆராய்ச்சிக் கட்டுரை அல்லது ஆரோக்கிய வழிகாட்டியை உருவாக்குங்கள்."
 
 #: templates/emails/password_reset.html:28
 msgid "Create your new password (minimum 8 characters)"
@@ -2290,11 +2294,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:74
 msgid "Current cover"
-msgstr ""
+msgstr "தற்போதைய அட்டைப்படம்"
 
 #: templates/clinic/admin/blog_form.html:76
 msgid "Current cover image"
-msgstr ""
+msgstr "தற்போதைய அட்டைப் படம்"
 
 #: templates/courses/course_form.html:273
 msgid "Current Image"
@@ -2311,7 +2315,7 @@ msgstr ""
 
 #: templates/clinic/admin/testimonial_form.html:51
 msgid "Current photo. Upload a new one to replace it."
-msgstr ""
+msgstr "தற்போதைய புகைப்படம். மாற்ற புதியதைப் பதிவேற்றவும்."
 
 #: accounts/models.py:120
 msgid "Current valid OTP code"
@@ -2319,11 +2323,11 @@ msgstr "தற்போது செல்லுபடியாகும் OTP 
 
 #: templates/clinic/course_detail.html:154
 msgid "Curriculum"
-msgstr ""
+msgstr "பாடத்திட்டம்"
 
 #: templates/clinic/event_detail.html:32
 msgid "d"
-msgstr ""
+msgstr "நா"
 
 #: accounts/models.py:214
 msgid "Daily OTP request limit exceeded. Try again tomorrow."
@@ -2425,7 +2429,7 @@ msgstr "நிரந்தரமாக நீக்கு"
 
 #: templates/clinic/admin/blog_tags.html:59
 msgid "Delete tag"
-msgstr ""
+msgstr "குறிச்சொல்லை நீக்கு"
 
 #: templates/emails/audit_log_notification.html:61
 msgid "Deleted Data"
@@ -2616,7 +2620,7 @@ msgstr "doctor@spinalcure.com"
 #: templates/clinic/portfolio_spa.html:1117
 #: templates/clinic/practitioner_portfolio.html:269
 msgid "Doctors"
-msgstr ""
+msgstr "மருத்துவர்கள்"
 
 #: templates/emails/auth_request.html:45
 msgid "Double-click the PIN below to copy:"
@@ -2649,12 +2653,12 @@ msgstr "ரசீது PDF ஐப் பதிவிறக்கு"
 #: templates/patients/portal/dashboard.html:135
 #, python-format
 msgid "Dr. %(name)s"
-msgstr ""
+msgstr "டாக்டர் %(name)s"
 
 #: templates/clinic/practitioner_detail.html:5
 #, python-format
 msgid "Dr. %(name)s - SpinalCure"
-msgstr ""
+msgstr "டாக்டர் %(name)s - SpinalCure"
 
 #: appointments/views.py:278
 #, python-format
@@ -2706,16 +2710,16 @@ msgstr ""
 
 #: templates/clinic/admin/blog_tags.html:29
 msgid "e.g. Acupuncture, Back Pain, Nutrition"
-msgstr ""
+msgstr "எ.கா., அக்குபஞ்சர், முதுகு வலி, ஊட்டச்சத்து"
 
 #: templates/clinic/admin/blog_form.html:108
 msgid "e.g. Dr. Priya Sharma"
-msgstr ""
+msgstr "எ.கா., டாக்டர் பிரியா ஷர்மா"
 
 #: templates/patients/session_edit.html:119
 #: templates/patients/session_form.html:107
 msgid "e.g. Dry Needling, Tui Na..."
-msgstr ""
+msgstr "எ.கா., உலர் ஊசி சிகிச்சை, துய் நா..."
 
 #: courses/models.py:119
 msgid "e.g. Every Saturday 10AM–1PM"
@@ -2728,15 +2732,15 @@ msgstr "எ.கா. தொடர் சிகிச்சை, ஆலோசனை
 #: templates/patients/session_edit.html:111
 #: templates/patients/session_form.html:99
 msgid "e.g. GB30, BL40, BL23..."
-msgstr ""
+msgstr "e.g. GB30, BL40, BL23..."
 
 #: templates/clinic/admin/blog_form.html:26
 msgid "e.g. How Acupuncture Relieves Chronic Back Pain"
-msgstr ""
+msgstr "எ.கா., நாள்பட்ட முதுகு வலியை அக்குபஞ்சர் எப்படித் தணிக்கிறது"
 
 #: templates/patients/patient_detail.html:753
 msgid "e.g. Lower Back Pain 2026"
-msgstr ""
+msgstr "எ.கா., கீழ் முதுகு வலி 2026"
 
 #: clinic/models.py:383
 msgid "e.g. Patient, Payment, Session, Course, Event, Appointment"
@@ -2756,16 +2760,16 @@ msgstr "எ.கா., மாதாந்திர கிளினிக் வா
 
 #: templates/clinic/admin/testimonial_form.html:32
 msgid "e.g., Rahul Sharma"
-msgstr ""
+msgstr "எ.கா., ராகுல் ஷர்மா"
 
 #: templates/clinic/admin/testimonial_form.html:39
 msgid "e.g., Teacher, Chennai"
-msgstr ""
+msgstr "எ.கா., ஆசிரியர், சென்னை"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:130
 #: templates/patients/partials/tcm_diagnosis_form.html:170
 msgid "EARTH"
-msgstr ""
+msgstr "நிலம்"
 
 #: accounts/templates/accounts/admin/users_list.html:80
 #: clinic/templates/clinic/admin/practitioner_form.html:3
@@ -2776,7 +2780,7 @@ msgstr "திருத்து"
 
 #: templates/clinic/portfolio.html:153
 msgid "Edit Clinic Details"
-msgstr ""
+msgstr "கிளினிக் விவரங்களைத் திருத்து"
 
 #: templates/courses/partials/course_list_partial.html:78
 #: templates/courses/partials/course_list_partial.html:94
@@ -2801,7 +2805,7 @@ msgstr "கட்டணப் பதிவைத் திருத்து"
 
 #: templates/clinic/admin/blog_form.html:3
 msgid "Edit Post"
-msgstr ""
+msgstr "இடுகையைத் திருத்து"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:4
 msgid "Edit Practitioner"
@@ -2832,7 +2836,7 @@ msgstr "பணிநேரத்தைத் திருத்து"
 
 #: templates/clinic/admin/testimonial_form.html:4
 msgid "Edit Testimonial"
-msgstr ""
+msgstr "சான்றைத் திருத்து"
 
 #: accounts/templates/accounts/admin/user_form.html:3
 msgid "Edit User"
@@ -2846,7 +2850,7 @@ msgstr "பயனரைத் திருத்து: %(username)s"
 #: templates/clinic/admin/blog_form.html:4
 #, python-format
 msgid "Edit: %(title)s"
-msgstr ""
+msgstr "திருத்து: %(title)s"
 
 #: templates/base.html:548
 msgid "Education"
@@ -2907,7 +2911,7 @@ msgstr "அவசரம் / உடன் வந்தவர்"
 
 #: templates/clinic/portfolio_spa.html:901
 msgid "Emergency Call"
-msgstr ""
+msgstr "அவசர அழைப்பு"
 
 #: idcards/render.py:212
 msgid "Emergency contact"
@@ -2983,7 +2987,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:234
 msgid "Enrollment Open"
-msgstr ""
+msgstr "சேர்க்கை திறந்துள்ளது"
 
 #: templates/courses/batch_form.html:156
 msgid "Enrollment Status"
@@ -3202,6 +3206,8 @@ msgid ""
 "Evidence-based research, patient guides, and clinical insights by our "
 "specialist doctors."
 msgstr ""
+"எங்கள் சிறப்பு மருத்துவர்களின் ஆதாரம் சார்ந்த ஆராய்ச்சி, நோயாளி வழிகாட்டிகள்"
+" மற்றும் மருத்துவ நுண்ணறிவுகள்."
 
 #: templates/partials/export_dropdown.html:19
 msgid "Excel Spreadsheet"
@@ -3214,7 +3220,7 @@ msgstr ""
 #: templates/clinic/admin/blog_tags.html:45
 #, python-format
 msgid "Existing Tags (%(count)s)"
-msgstr ""
+msgstr "இருக்கும் குறிச்சொற்கள் (%(count)s)"
 
 #: payments/models.py:329
 msgid "Expense"
@@ -3261,25 +3267,27 @@ msgstr "செலவுகள் — SpinalCure"
 
 #: templates/clinic/practitioner_portfolio.html:85
 msgid "Experience"
-msgstr ""
+msgstr "அனுபவம்"
 
 #: templates/clinic/portfolio_spa.html:164
 msgid ""
 "Experience the perfect blend of ancient acupuncture wisdom and modern spinal"
 " rehabilitation. We help you reclaim a pain-free life."
 msgstr ""
+"பண்டைய அக்குபஞ்சர் ஞானமும் நவீன முதுகெலும்பு மறுவாழ்வும் இணைந்த சிறந்த "
+"கலவையை அனுபவியுங்கள். வலியற்ற வாழ்வை மீண்டும் பெற நாங்கள் உதவுகிறோம்."
 
 #: templates/clinic/portfolio_spa.html:648
 msgid "Experience:"
-msgstr ""
+msgstr "அனுபவம்:"
 
 #: templates/clinic/blog_list.html:76
 msgid "Expert"
-msgstr ""
+msgstr "நிபுணர்"
 
 #: templates/clinic/portfolio_spa.html:152
 msgid "Expert Acupuncture & Recovery"
-msgstr ""
+msgstr "நிபுணத்துவ அக்குபஞ்சர் & குணமடைதல்"
 
 #: templates/clinic/about_page.html:220
 #: templates/clinic/course_detail.html:308
@@ -3289,10 +3297,13 @@ msgid ""
 "Expert spinal care and acupuncture treatments in Kerala. We specialize in "
 "natural healing and pain management."
 msgstr ""
+"கேரளத்தில் நிபுணத்துவ முதுகெலும்புப் பராமரிப்பு மற்றும் அக்குபஞ்சர் "
+"சிகிச்சைகள். இயற்கை முறை குணப்படுத்தல் மற்றும் வலி மேலாண்மையில் நாங்கள் "
+"சிறப்பு பெற்றவர்கள்."
 
 #: templates/clinic/practitioner_portfolio.html:121
 msgid "Expertise"
-msgstr ""
+msgstr "நிபுணத்துவம்"
 
 #: idcards/render.py:181
 msgid "Expired"
@@ -3316,7 +3327,7 @@ msgstr "காலாவதி தேதி வழங்கிய தேதிக
 
 #: templates/clinic/portfolio_spa.html:177
 msgid "Explore Services"
-msgstr ""
+msgstr "சேவைகளைப் பாருங்கள்"
 
 #: templates/partials/export_dropdown.html:6
 msgid "Export"
@@ -3328,7 +3339,7 @@ msgstr ""
 
 #: templates/clinic/portfolio.html:133
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:956
 msgid "Facebook Profile URL"
@@ -3377,7 +3388,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:41
 msgid "Fee"
-msgstr ""
+msgstr "கட்டணம்"
 
 #: templates/courses/batch_list.html:74
 #: templates/events/partials/event_list_partial.html:79
@@ -3452,7 +3463,7 @@ msgstr "கருத்துகள் — %(title)s"
 
 #: templates/clinic/portfolio_spa.html:473
 msgid "Fees"
-msgstr ""
+msgstr "கட்டணங்கள்"
 
 #: events/models.py:128
 msgid "Fees (₹)"
@@ -3489,7 +3500,7 @@ msgstr "நிதி"
 #: templates/patients/partials/tcm_diagnosis_display.html:129
 #: templates/patients/partials/tcm_diagnosis_form.html:169
 msgid "FIRE"
-msgstr ""
+msgstr "நெருப்பு"
 
 #: accounts/templates/accounts/admin/user_form.html:42
 #: templates/accounts/settings.html:32
@@ -3522,7 +3533,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:72
 msgid "for confirmation"
-msgstr ""
+msgstr "உறுதிப்படுத்த"
 
 #: templates/events/public_list.html:16
 msgid "Format"
@@ -3548,11 +3559,11 @@ msgstr ""
 #: templates/events/partials/event_list_partial.html:98
 #: templates/events/public_list.html:52
 msgid "Free"
-msgstr ""
+msgstr "இலவசம்"
 
 #: templates/clinic/portfolio_spa.html:475
 msgid "FREE"
-msgstr ""
+msgstr "இலவசம்"
 
 #: appointments/models.py:23
 msgid "Friday"
@@ -3560,7 +3571,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:43 templates/events/public_list.html:46
 msgid "Full"
-msgstr ""
+msgstr "நிரம்பியது"
 
 #: templates/patients/patient_form.html:95
 msgid "Full Address"
@@ -3586,7 +3597,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:70
 msgid "Full name"
-msgstr ""
+msgstr "முழுப் பெயர்"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:21
 #: templates/clinic/course_detail.html:251
@@ -3608,7 +3619,7 @@ msgstr ""
 #: templates/clinic/about_page.html:298
 #: templates/clinic/portfolio_spa.html:1153
 msgid "Fullscreen Preview"
-msgstr ""
+msgstr "முழுத்திரை முன்னோட்டம்"
 
 #: payments/models.py:27
 msgid "Fully Paid"
@@ -3616,12 +3627,12 @@ msgstr ""
 
 #: templates/clinic/about_page.html:175
 msgid "Gallery"
-msgstr ""
+msgstr "படத்தொகுப்பு"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:165
 #: templates/patients/partials/tcm_diagnosis_form.html:205
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:33
 msgid "Gender"
@@ -3666,7 +3677,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:170
 msgid "Get Started"
-msgstr ""
+msgstr "தொடங்குங்கள்"
 
 #: templates/emails/appointment_reminder.html:38
 msgid "Getting Here"
@@ -3710,7 +3721,7 @@ msgstr "GST (%(tax_percent)s%% %(get_tax_type_display)s)"
 #: templates/clinic/portfolio_spa.html:1126
 #: templates/clinic/practitioner_portfolio.html:279
 msgid "GST Compliance"
-msgstr ""
+msgstr "GST இணக்கம்"
 
 #: clinic/models.py:121
 msgid "GSTIN"
@@ -3734,7 +3745,7 @@ msgstr "கணக்கு இல்லாத விருந்தினர் 
 
 #: templates/clinic/event_detail.html:32
 msgid "h"
-msgstr ""
+msgstr "ம"
 
 #: templates/patients/partials/patient_list_partial.html:7
 msgid "Handled By"
@@ -3754,11 +3765,11 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:196
 msgid "Happy Patients"
-msgstr ""
+msgstr "மகிழ்ச்சியான நோயாளிகள்"
 
 #: templates/clinic/portfolio_spa.html:276
 msgid "Healing"
-msgstr ""
+msgstr "குணப்படுத்துதல்"
 
 #: templates/base.html:616 templates/clinic/admin/blog_list.html:4
 #: templates/clinic/blog_list.html:76
@@ -3767,7 +3778,7 @@ msgstr "சுகாதாரக் கட்டுரைகள்"
 
 #: templates/clinic/admin/blog_list.html:3
 msgid "Health Articles — SpinalCure"
-msgstr ""
+msgstr "ஆரோக்கியக் கட்டுரைகள் — SpinalCure"
 
 #: events/models.py:23
 msgid "Health Camp"
@@ -3775,7 +3786,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:428
 msgid "Health Community"
-msgstr ""
+msgstr "ஆரோக்கிய சமூகம்"
 
 #: templates/emails/booking_confirmation.html:9
 #: templates/payments/emails/receipt_email.html:40
@@ -3838,6 +3849,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:593
 msgid "Highly qualified practitioners dedicated to your recovery journey."
 msgstr ""
+"உங்கள் குணமடைதல் பயணத்திற்கு அர்ப்பணித்த உயர் தகுதி வாய்ந்த மருத்துவர்கள்."
 
 #: spinalcure/settings/base.py:124
 msgid "Hindi"
@@ -3853,12 +3865,12 @@ msgstr ""
 
 #: templates/public_base.html:36
 msgid "Home"
-msgstr ""
+msgstr "முகப்பு"
 
 #: templates/patients/session_edit.html:137
 #: templates/patients/session_form.html:125
 msgid "How is the patient feeling after today's session?"
-msgstr ""
+msgstr "இன்றைய அமர்வுக்குப் பிறகு நோயாளி எப்படி உணர்கிறார்?"
 
 #: templates/events/registration_manage.html:33
 msgid "How was it?"
@@ -3977,7 +3989,7 @@ msgstr ""
 #: templates/patients/session_edit.html:170
 #: templates/patients/session_form.html:158
 msgid "Immobile"
-msgstr ""
+msgstr "இயக்கமற்றது"
 
 #: accounts/models.py:330
 msgid "Immutable. OWN-#### for owners, STF-#### for everyone else."
@@ -3998,7 +4010,7 @@ msgstr ""
 #: templates/clinic/event_detail.html:19 templates/events/public_list.html:19
 #: templates/events/public_list.html:43
 msgid "In person"
-msgstr ""
+msgstr "நேரில்"
 
 #: notifications/templates/notifications/preferences.html:18
 msgid "In-app"
@@ -4032,19 +4044,19 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:550
 msgid "Initial vs. Latest session mobility scores"
-msgstr ""
+msgstr "முதல் மற்றும் சமீபத்திய அமர்வு இயக்கத்திறன் மதிப்பெண்கள்"
 
 #: templates/patients/patient_detail.html:539
 msgid "Initial vs. Latest session pain levels"
-msgstr ""
+msgstr "முதல் மற்றும் சமீபத்திய அமர்வு வலி நிலைகள்"
 
 #: templates/clinic/about_page.html:173
 msgid "Inside the Clinic"
-msgstr ""
+msgstr "கிளினிக்கின் உள்ளே"
 
 #: templates/clinic/portfolio.html:137
 msgid "Instagram"
-msgstr ""
+msgstr "Instagram"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:966
 msgid "Instagram Profile URL"
@@ -4061,7 +4073,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:532
 msgid "Intake Open"
-msgstr ""
+msgstr "சேர்க்கை திறந்துள்ளது"
 
 #: clinic/models.py:303
 msgid "Internal / Direct"
@@ -4070,7 +4082,7 @@ msgstr ""
 #: templates/patients/patient_form.html:205
 #: templates/payments/payment_form.html:254
 msgid "Internal Notes"
-msgstr ""
+msgstr "உள் குறிப்புகள்"
 
 #: appointments/models.py:104
 msgid "Internal only; never shown to patients."
@@ -4147,11 +4159,11 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:563
 msgid "Investment"
-msgstr ""
+msgstr "கட்டணம்"
 
 #: templates/patients/patient_detail.html:596
 msgid "Invoice"
-msgstr ""
+msgstr "விலைப்பட்டியல்"
 
 #: templates/payments/invoice.html:9
 #, python-format
@@ -4229,7 +4241,7 @@ msgstr "இது சரிபார்ப்பில் தேறாது. �
 
 #: templates/clinic/course_detail.html:260
 msgid "Join Batch"
-msgstr ""
+msgstr "தொகுதியில் சேர்"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:61
 msgid "Join Date"
@@ -4248,10 +4260,12 @@ msgid ""
 "Join our expert-led courses and certifications. We offer batches for both "
 "beginners and experienced practitioners."
 msgstr ""
+"நிபுணர்கள் நடத்தும் எங்கள் பாடநெறிகள் மற்றும் சான்றிதழ்களில் சேருங்கள். "
+"தொடக்கநிலையினருக்கும் அனுபவம் வாய்ந்த மருத்துவர்களுக்கும் தொகுதிகள் உள்ளன."
 
 #: templates/clinic/event_detail.html:76
 msgid "Join waitlist"
-msgstr ""
+msgstr "காத்திருப்புப் பட்டியலில் சேர்"
 
 #: accounts/templates/accounts/admin/users_list.html:26 idcards/render.py:210
 msgid "Joined"
@@ -4309,6 +4323,7 @@ msgstr ""
 #: templates/clinic/portfolio.html:151
 msgid "Keep your clinic's public-facing details up to date."
 msgstr ""
+"உங்கள் கிளினிக்கின் பொதுத் தகவல்களைப் புதுப்பித்த நிலையில் வைத்திருங்கள்."
 
 #: templates/courses/course_form.html:214
 msgid "Key Learning Outcomes (One per line) *"
@@ -4317,7 +4332,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:480
 #: templates/clinic/portfolio_spa.html:568
 msgid "Know More"
-msgstr ""
+msgstr "மேலும் அறிக"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:580
 #: clinic/templates/clinic/admin/clinic_setup.html:598
@@ -4420,7 +4435,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:1122
 #: templates/clinic/practitioner_portfolio.html:275
 msgid "Legal"
-msgstr ""
+msgstr "சட்டம்"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:549
 msgid "Legay Label"
@@ -4429,7 +4444,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:153
 #: templates/patients/partials/tcm_diagnosis_form.html:193
 msgid "LI"
-msgstr ""
+msgstr "LI"
 
 #: templates/clinic/course_detail.html:262
 msgid "Limited seats available. We will call you to confirm your enrollment."
@@ -4445,7 +4460,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:43
 msgid "Link this review to a specific doctor."
-msgstr ""
+msgstr "இந்த மதிப்பாய்வை ஒரு குறிப்பிட்ட மருத்துவருடன் இணைக்கவும்."
 
 #: templates/appointments/calendar.html:439
 msgid "List View"
@@ -4458,7 +4473,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:164
 #: templates/patients/partials/tcm_diagnosis_form.html:204
 msgid "LIV"
-msgstr ""
+msgstr "LIV"
 
 #: templates/courses/partials/course_list_partial.html:26
 #: templates/events/partials/event_list_partial.html:30
@@ -4468,11 +4483,11 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:20 templates/events/public_list.html:30
 msgid "Live now"
-msgstr ""
+msgstr "இப்போது நேரலை"
 
 #: templates/clinic/portfolio_spa.html:991
 msgid "Loading available slots..."
-msgstr ""
+msgstr "கிடைக்கும் நேரங்கள் ஏற்றப்படுகின்றன..."
 
 #: templates/appointments/calendar.html:504
 msgid "Loading..."
@@ -4500,7 +4515,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:44
 msgid "Log Out"
-msgstr ""
+msgstr "வெளியேறு"
 
 #: templates/accounts/login.html:8
 msgid "Login — SpinalCure"
@@ -4520,16 +4535,16 @@ msgstr ""
 
 #: templates/clinic/admin/testimonial_form.html:99
 msgid "Lower number = shown first"
-msgstr ""
+msgstr "குறைந்த எண் = முதலில் காட்டப்படும்"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:152
 #: templates/patients/partials/tcm_diagnosis_form.html:192
 msgid "LU"
-msgstr ""
+msgstr "LU"
 
 #: templates/clinic/event_detail.html:32
 msgid "m"
-msgstr ""
+msgstr "நி"
 
 #: templates/emails/base_email.html:235
 msgid "MAIL"
@@ -4537,11 +4552,11 @@ msgstr ""
 
 #: templates/public_base.html:35
 msgid "Main"
-msgstr ""
+msgstr "முதன்மை"
 
 #: templates/patients/patient_form.html:171
 msgid "Main health issue..."
-msgstr ""
+msgstr "முக்கிய உடல்நலப் பிரச்சினை..."
 
 #: templates/courses/course_form.html:173
 msgid "Main Identity"
@@ -4582,6 +4597,8 @@ msgstr ""
 #: templates/clinic/admin/testimonials_list.html:9
 msgid "Manage curated testimonials displayed on the public portfolio."
 msgstr ""
+"பொது போர்ட்ஃபோலியோவில் காட்டப்படும் தேர்ந்தெடுக்கப்பட்ட சான்றுகளை "
+"நிர்வகிக்கவும்."
 
 #: clinic/templates/clinic/admin/clinic_setup.html:288
 msgid "Manage GSTIN and default taxation rules."
@@ -4589,7 +4606,7 @@ msgstr ""
 
 #: templates/clinic/portfolio.html:150
 msgid "Manage Profile"
-msgstr ""
+msgstr "சுயவிவரத்தை நிர்வகி"
 
 #: templates/courses/batch_feedback_admin.html:16
 msgid "Manage student reviews and testimonials."
@@ -4597,11 +4614,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:118
 msgid "Manage tags"
-msgstr ""
+msgstr "குறிச்சொற்களை நிர்வகி"
 
 #: templates/clinic/admin/blog_list.html:12
 msgid "Manage Tags"
-msgstr ""
+msgstr "குறிச்சொற்களை நிர்வகி"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:795
 msgid "Manage the core therapy cards shown on the home page."
@@ -4613,7 +4630,7 @@ msgstr "உங்கள் சந்திப்பை நிர்வகிக�
 
 #: templates/clinic/admin/blog_form.html:106
 msgid "Manual Author Name"
-msgstr ""
+msgstr "ஆசிரியர் பெயர் (கைமுறை)"
 
 #: notifications/templates/notifications/_bell.html:19
 #: notifications/templates/notifications/center.html:7
@@ -4670,11 +4687,11 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:137
 msgid "Medical Brief"
-msgstr ""
+msgstr "மருத்துவச் சுருக்கம்"
 
 #: templates/patients/patient_form.html:144
 msgid "Medical Case Details"
-msgstr ""
+msgstr "மருத்துவ வழக்கு விவரங்கள்"
 
 #: patients/models.py:72 templates/patients/patient_detail.html:149
 #: templates/patients/patient_form.html:190
@@ -4683,7 +4700,7 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:474
 msgid "Medical Notes (Internal)"
-msgstr ""
+msgstr "மருத்துவக் குறிப்புகள் (உள்)"
 
 #: payments/models.py:279
 msgid "Medical Supplies"
@@ -4720,7 +4737,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:131
 #: templates/patients/partials/tcm_diagnosis_form.html:171
 msgid "METAL"
-msgstr ""
+msgstr "உலோகம்"
 
 #: accounts/serializers.py:26
 msgid "Method to deliver OTP: email or SMS"
@@ -4728,7 +4745,7 @@ msgstr "OTP அனுப்பும் முறை: மின்னஞ்ச�
 
 #: templates/patients/patient_detail.html:344
 msgid "Metrics"
-msgstr ""
+msgstr "அளவீடுகள்"
 
 #: templates/appointments/manage.html:29 templates/clinic/event_detail.html:37
 msgid "min"
@@ -4748,15 +4765,15 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:385
 msgid "Mobility"
-msgstr ""
+msgstr "இயக்கத்திறன்"
 
 #: templates/patients/patient_detail.html:542
 msgid "Mobility Improvement"
-msgstr ""
+msgstr "இயக்கத்திறன் மேம்பாடு"
 
 #: templates/patients/patient_detail.html:516
 msgid "Mobility Score"
-msgstr ""
+msgstr "இயக்கத்திறன் மதிப்பெண்"
 
 #: patients/models.py:228 templates/patients/session_edit.html:164
 #: templates/patients/session_form.html:152
@@ -4765,13 +4782,13 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:119
 msgid "Mobility Score:"
-msgstr ""
+msgstr "இயக்கத்திறன் மதிப்பெண்:"
 
 #: templates/patients/patient_detail.html:571
 #: templates/payments/partials/payment_list_partial.html:11
 #: templates/payments/pdf_report.html:86
 msgid "Mode"
-msgstr ""
+msgstr "முறை"
 
 #: clinic/admin_views.py:355
 #, python-format
@@ -4784,7 +4801,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:103
 msgid "Modify Override"
-msgstr ""
+msgstr "மேலெழுதலை மாற்று"
 
 #: templates/payments/payment_form.html:25
 msgid "Modifying receipt"
@@ -4797,12 +4814,14 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:965
 msgid "Mon-Sat (9 AM - 5 PM)"
-msgstr ""
+msgstr "திங்கள்-சனி (காலை 9 - மாலை 5)"
 
 #: templates/clinic/portfolio_spa.html:964
 msgid ""
 "Mon-Thu & Sat (10 AM - 1 PM, 5:30 PM - 8:30 PM) | Fri (6:30 PM - 8:30 PM)"
 msgstr ""
+"திங்கள்-வியாழன் & சனி (காலை 10 - பகல் 1, மாலை 5:30 - இரவு 8:30) | வெள்ளி "
+"(மாலை 6:30 - இரவு 8:30)"
 
 #: appointments/models.py:22
 msgid "Monday"
@@ -4834,7 +4853,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:7
 msgid "My Health Portal — SpinalCure"
-msgstr ""
+msgstr "என் ஆரோக்கிய இணையதளம் — SpinalCure"
 
 #: idcards/templates/idcards/mine.html:3 idcards/templates/idcards/mine.html:4
 msgid "My ID card"
@@ -4893,7 +4912,7 @@ msgstr "புதிய சந்திப்பு: %(who)s"
 #: templates/clinic/admin/blog_form.html:3
 #: templates/clinic/admin/blog_form.html:4
 msgid "New Blog Post"
-msgstr ""
+msgstr "புதிய வலைப்பதிவு இடுகை"
 
 #: templates/appointments/calendar.html:585
 msgid "New Booking"
@@ -4933,11 +4952,11 @@ msgstr "புதிய கட்டண ரசீது"
 
 #: templates/patients/patient_detail.html:269
 msgid "New Plan"
-msgstr ""
+msgstr "புதிய திட்டம்"
 
 #: templates/clinic/admin/blog_list.html:19
 msgid "New Post"
-msgstr ""
+msgstr "புதிய இடுகை"
 
 #: templates/emails/audit_log_notification.html:64
 msgid "New Value"
@@ -4957,7 +4976,7 @@ msgstr ""
 #: templates/patients/session_edit.html:141
 #: templates/patients/session_form.html:130
 msgid "Next Appointment (Optional)"
-msgstr ""
+msgstr "அடுத்த சந்திப்பு (விருப்பத்தேர்வு)"
 
 #: patients/models.py:261
 msgid "Next appointment must be after session date."
@@ -4966,11 +4985,11 @@ msgstr ""
 #: templates/clinic/course_detail.html:112
 #, python-format
 msgid "Next Batch: %(start_date)s"
-msgstr ""
+msgstr "அடுத்த தொகுதி: %(start_date)s"
 
 #: templates/patients/print/session_note_pdf.html:146
 msgid "Next Scheduled Appointment:"
-msgstr ""
+msgstr "அடுத்த திட்டமிட்ட சந்திப்பு:"
 
 #: templates/emails/password_reset.html:23
 msgid "Next Steps:"
@@ -4982,11 +5001,11 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:267
 msgid "No active intake"
-msgstr ""
+msgstr "செயலில் உள்ள சேர்க்கை இல்லை"
 
 #: templates/clinic/portfolio.html:73
 msgid "No active practitioners found."
-msgstr ""
+msgstr "செயலில் உள்ள மருத்துவர்கள் இல்லை."
 
 #: clinic/templates/clinic/admin/activity_log.html:200
 msgid "No Activity Yet"
@@ -4999,16 +5018,16 @@ msgstr "சந்திப்புகள் எதுவும் இல்ல�
 #: templates/clinic/blog_list.html:191
 #, python-format
 msgid "No articles found for \"%(name)s\". Try a different tag."
-msgstr ""
+msgstr "\"%(name)s\" க்கு கட்டுரைகள் இல்லை. வேறு குறிச்சொல்லை முயலவும்."
 
 #: templates/clinic/blog_list.html:192
 #, python-format
 msgid "No articles from %(name)s yet."
-msgstr ""
+msgstr "%(name)s இடமிருந்து இதுவரை கட்டுரைகள் இல்லை."
 
 #: templates/clinic/blog_list.html:189
 msgid "No articles yet"
-msgstr ""
+msgstr "இதுவரை கட்டுரைகள் இல்லை"
 
 #: templates/courses/batch_list.html:123
 msgid "No Batches Yet"
@@ -5016,7 +5035,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_list.html:135
 msgid "No blog posts yet"
-msgstr ""
+msgstr "இதுவரை வலைப்பதிவு இடுகைகள் இல்லை"
 
 #: idcards/templates/idcards/dashboard.html:12
 #: idcards/templates/idcards/dashboard.html:37
@@ -5025,7 +5044,7 @@ msgstr "அட்டை இல்லை"
 
 #: templates/clinic/portfolio.html:166
 msgid "No Clinic Profile Found"
-msgstr ""
+msgstr "கிளினிக் சுயவிவரம் இல்லை"
 
 #: templates/appointments/availability.html:100
 msgid "No closures scheduled."
@@ -5065,7 +5084,7 @@ msgstr ""
 
 #: templates/clinic/about_page.html:195
 msgid "No images uploaded yet."
-msgstr ""
+msgstr "இதுவரை படங்கள் பதிவேற்றப்படவில்லை."
 
 #: templates/appointments/availability.html:84
 msgid "No leave scheduled."
@@ -5086,19 +5105,19 @@ msgstr "பொருந்தும் கட்டணங்கள் இல்�
 #: templates/patients/session_edit.html:157
 #: templates/patients/session_form.html:145
 msgid "No Pain"
-msgstr ""
+msgstr "வலி இல்லை"
 
 #: templates/patients/partials/patient_list_partial.html:59
 msgid "No patients found."
-msgstr ""
+msgstr "நோயாளிகள் இல்லை."
 
 #: templates/patients/portal/dashboard.html:223
 msgid "No payment records found."
-msgstr ""
+msgstr "கட்டணப் பதிவுகள் இல்லை."
 
 #: templates/patients/patient_detail.html:631
 msgid "No payments recorded yet."
-msgstr ""
+msgstr "இதுவரை கட்டணங்கள் பதிவு செய்யப்படவில்லை."
 
 #: idcards/templates/idcards/dashboard.html:41
 msgid "No people match. Add owners and staff under Staff Management first."
@@ -5128,7 +5147,7 @@ msgstr ""
 
 #: templates/clinic/practitioner_portfolio.html:198
 msgid "No public reviews yet for this specialist."
-msgstr ""
+msgstr "இந்த நிபுணருக்கு இதுவரை பொது மதிப்பாய்வுகள் இல்லை."
 
 #: templates/exports/print_template.html:164
 msgid "No records found matching criteria."
@@ -5148,7 +5167,7 @@ msgstr ""
 
 #: templates/patients/reviews.html:151
 msgid "No reviews yet."
-msgstr ""
+msgstr "இதுவரை மதிப்பாய்வுகள் இல்லை."
 
 #: events/views.py:263
 msgid "No seat is free. Raise the capacity or cancel a registration first."
@@ -5156,11 +5175,11 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:412
 msgid "No services added yet. Add some in the Clinic Setup!"
-msgstr ""
+msgstr "இதுவரை சேவைகள் சேர்க்கப்படவில்லை. கிளினிக் அமைப்பில் சேர்க்கவும்!"
 
 #: templates/patients/patient_detail.html:494
 msgid "No sessions recorded yet."
-msgstr ""
+msgstr "இதுவரை அமர்வுகள் பதிவு செய்யப்படவில்லை."
 
 #: appointments/models.py:178 templates/appointments/calendar.html:477
 msgid "No Show"
@@ -5168,7 +5187,7 @@ msgstr ""
 
 #: templates/clinic/practitioner_detail.html:94
 msgid "No specific skills listed."
-msgstr ""
+msgstr "குறிப்பிட்ட திறன்கள் பட்டியலிடப்படவில்லை."
 
 #: accounts/templates/accounts/admin/users_list.html:95
 msgid "No staff members found."
@@ -5184,11 +5203,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_tags.html:73
 msgid "No tags yet"
-msgstr ""
+msgstr "இதுவரை குறிச்சொற்கள் இல்லை"
 
 #: templates/clinic/admin/blog_form.html:129
 msgid "No tags yet."
-msgstr ""
+msgstr "இதுவரை குறிச்சொற்கள் இல்லை."
 
 #: payments/models.py:32
 msgid "No Tax"
@@ -5196,11 +5215,11 @@ msgstr ""
 
 #: templates/patients/partials/tcm_diagnosis_display.html:205
 msgid "No TCM Diagnosis Case Sheet available for this patient."
-msgstr ""
+msgstr "இந்த நோயாளிக்கு TCM நோயறிதல் வழக்குத் தாள் இல்லை."
 
 #: templates/clinic/admin/testimonials_list.html:97
 msgid "No testimonials yet"
-msgstr ""
+msgstr "இதுவரை சான்றுகள் இல்லை"
 
 #: templates/appointments/manage.html:43
 msgid "No times available on this date."
@@ -5208,11 +5227,11 @@ msgstr "இந்தத் தேதியில் நேரங்கள் எ
 
 #: templates/patients/portal/dashboard.html:157
 msgid "No treatment history available yet."
-msgstr ""
+msgstr "சிகிச்சை வரலாறு இதுவரை இல்லை."
 
 #: templates/patients/portal/dashboard.html:105
 msgid "No upcoming appointments"
-msgstr ""
+msgstr "வரவிருக்கும் சந்திப்புகள் இல்லை"
 
 #: templates/analytics/dashboard.html:156
 msgid "No upcoming appointments."
@@ -5239,7 +5258,7 @@ msgstr "இதுவரை யாரும் பதிவு செய்யவ
 #: templates/patients/partials/tcm_diagnosis_display.html:40
 #: templates/patients/partials/tcm_diagnosis_display.html:51
 msgid "None reported"
-msgstr ""
+msgstr "எதுவும் தெரிவிக்கப்படவில்லை"
 
 #: templates/appointments/partials/appointment_list_partial.html:29
 #: templates/patients/partials/patient_list_partial.html:38
@@ -5271,7 +5290,7 @@ msgstr ""
 #: templates/patients/session_edit.html:123
 #: templates/patients/session_form.html:111
 msgid "Notes (Internal)"
-msgstr ""
+msgstr "குறிப்புகள் (உள்)"
 
 #: events/models.py:243
 msgid "Notes / Message"
@@ -5283,7 +5302,7 @@ msgstr ""
 
 #: templates/patients/session_edit.html:126
 msgid "Notes..."
-msgstr ""
+msgstr "குறிப்புகள்..."
 
 #: notifications/templates/notifications/_list.html:40
 msgid "Nothing here"
@@ -5357,7 +5376,7 @@ msgstr ""
 #: templates/events/partials/event_list_partial.html:60
 #: templates/events/public_list.html:18 templates/events/public_list.html:43
 msgid "Online"
-msgstr ""
+msgstr "இணையவழி"
 
 #: appointments/scheduling.py:251
 msgid "Online booking is currently unavailable. Please call the clinic."
@@ -5381,11 +5400,11 @@ msgstr "இணையவழி அல்லது நேரடியாக"
 
 #: templates/clinic/event_detail.html:39
 msgid "Online — joining details are sent to registered attendees"
-msgstr ""
+msgstr "இணையவழி — சேரும் விவரங்கள் பதிவு செய்தவர்களுக்கு அனுப்பப்படும்"
 
 #: templates/clinic/portfolio_spa.html:965
 msgid "Online:"
-msgstr ""
+msgstr "இணையவழி:"
 
 #: templates/emails/auth_request.html:52
 msgid "ONLY"
@@ -5466,7 +5485,7 @@ msgstr ""
 #: templates/clinic/admin/testimonials_list.html:71
 #, python-format
 msgid "Order: %(display_order)s"
-msgstr ""
+msgstr "வரிசை: %(display_order)s"
 
 #: idcards/templates/idcards/verify.html:37
 msgid "Organisation"
@@ -5503,35 +5522,37 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:387
 msgid "Our Expertise"
-msgstr ""
+msgstr "எங்கள் நிபுணத்துவம்"
 
 #: templates/clinic/portfolio_spa.html:273
 msgid "Our Legacy"
-msgstr ""
+msgstr "எங்கள் பாரம்பரியம்"
 
 #: templates/clinic/portfolio_spa.html:931
 msgid "Our Location"
-msgstr ""
+msgstr "எங்கள் இடம்"
 
 #: templates/clinic/portfolio.html:48
 msgid "Our Practitioners"
-msgstr ""
+msgstr "எங்கள் மருத்துவர்கள்"
 
 #: templates/clinic/blog_list.html:193
 msgid "Our specialists are preparing research content. Check back soon!"
 msgstr ""
+"எங்கள் நிபுணர்கள் ஆராய்ச்சி உள்ளடக்கத்தைத் தயாரிக்கிறார்கள். விரைவில் "
+"மீண்டும் பாருங்கள்!"
 
 #: templates/clinic/about_page.html:256
 #: templates/clinic/course_detail.html:344
 #: templates/clinic/portfolio_spa.html:1114
 #: templates/clinic/practitioner_portfolio.html:263
 msgid "Our Story"
-msgstr ""
+msgstr "எங்கள் கதை"
 
 #: templates/clinic/about_page.html:11
 #, python-format
 msgid "Our Story — %(name)s"
-msgstr ""
+msgstr "எங்கள் கதை — %(name)s"
 
 #: templates/emails/welcome.html:58
 msgid ""
@@ -5549,7 +5570,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:103
 msgid "Outside Author?"
-msgstr ""
+msgstr "வெளி ஆசிரியரா?"
 
 #: templates/payments/invoice.html:465
 msgid "Outstanding"
@@ -5601,11 +5622,11 @@ msgstr "பக்கக் குறியீடு"
 
 #: templates/patients/portal/dashboard.html:210
 msgid "Paid"
-msgstr ""
+msgstr "செலுத்தியது"
 
 #: templates/patients/patient_detail.html:283
 msgid "Paid Amount"
-msgstr ""
+msgstr "செலுத்திய தொகை"
 
 #: payments/models.py:312 templates/payments/expense_form.html:46
 #: templates/payments/partials/expense_list_partial.html:10
@@ -5614,16 +5635,16 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:380
 msgid "Pain"
-msgstr ""
+msgstr "வலி"
 
 #: templates/patients/patient_detail.html:531
 msgid "Pain Reduction"
-msgstr ""
+msgstr "வலி குறைவு"
 
 #: templates/patients/patient_detail.html:512
 #: templates/patients/portal/dashboard.html:138
 msgid "Pain Scale"
-msgstr ""
+msgstr "வலி அளவுகோல்"
 
 #: patients/models.py:223 templates/patients/session_edit.html:151
 #: templates/patients/session_form.html:139
@@ -5632,16 +5653,16 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:121
 msgid "Pain Scale Trend (0-10)"
-msgstr ""
+msgstr "வலி அளவுகோல் போக்கு (0-10)"
 
 #: templates/patients/print/session_note_pdf.html:118
 msgid "Pain Scale:"
-msgstr ""
+msgstr "வலி அளவுகோல்:"
 
 #: templates/patients/portal/dashboard.html:139
 #, python-format
 msgid "Pain: %(pain_scale)s/10"
-msgstr ""
+msgstr "வலி: %(pain_scale)s/10"
 
 #: templates/emails/appointment_reminder.html:42
 #, python-format
@@ -5699,7 +5720,7 @@ msgstr "கடந்தவை"
 
 #: templates/patients/patient_form.html:193
 msgid "Past surgeries, conditions..."
-msgstr ""
+msgstr "கடந்த அறுவை சிகிச்சைகள், நிலைகள்..."
 
 #: appointments/models.py:193 patients/models.py:92 patients/models.py:155
 #: patients/models.py:188
@@ -5723,7 +5744,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:5
 msgid "Patient - SpinalCure"
-msgstr ""
+msgstr "நோயாளி - SpinalCure"
 
 #: clinic/models.py:317
 msgid "Patient / Client Name"
@@ -5731,12 +5752,12 @@ msgstr ""
 
 #: templates/clinic/admin/testimonial_form.html:29
 msgid "Patient / Client Name *"
-msgstr ""
+msgstr "நோயாளி / வாடிக்கையாளர் பெயர் *"
 
 #: templates/patients/print/patient_card.html:9
 #, python-format
 msgid "Patient Card - %(name)s - SpinalCure"
-msgstr ""
+msgstr "நோயாளி அட்டை - %(name)s - SpinalCure"
 
 #: patients/models.py:142
 msgid "Patient email cannot be same as attender name."
@@ -5759,15 +5780,15 @@ msgstr ""
 
 #: templates/patients/patient_form.html:30
 msgid "Patient ID (Optional)"
-msgstr ""
+msgstr "நோயாளி அடையாள எண் (விருப்பத்தேர்வு)"
 
 #: templates/patients/print/session_note_pdf.html:110
 msgid "Patient ID:"
-msgstr ""
+msgstr "நோயாளி அடையாள எண்:"
 
 #: templates/patients/portal/login.html:7
 msgid "Patient Login — SpinalCure"
-msgstr ""
+msgstr "நோயாளி உள்நுழைவு — SpinalCure"
 
 #: templates/emails/admin_booking_notify.html:18
 #: templates/patients/partials/patient_list_partial.html:6
@@ -5781,11 +5802,11 @@ msgstr "நோயாளி பெயர் அல்லது காரணம்
 
 #: templates/patients/print/session_note_pdf.html:109
 msgid "Patient Name:"
-msgstr ""
+msgstr "நோயாளி பெயர்:"
 
 #: templates/patients/print/patient_card.html:83
 msgid "Patient Photo"
-msgstr ""
+msgstr "நோயாளி புகைப்படம்"
 
 #: appointments/models.py:240
 msgid "Patient portal"
@@ -5794,12 +5815,12 @@ msgstr ""
 #: templates/patients/portal/dashboard.html:36
 #: templates/patients/portal/login.html:30
 msgid "Patient Portal"
-msgstr ""
+msgstr "நோயாளி இணையதளம்"
 
 #: templates/patients/patient_detail.html:7
 #: templates/patients/portal/dashboard.html:169
 msgid "Patient Profile"
-msgstr ""
+msgstr "நோயாளி சுயவிவரம்"
 
 #: patients/models.py:301
 msgid "Patient Review"
@@ -5811,7 +5832,7 @@ msgstr ""
 
 #: templates/patients/reviews.html:4
 msgid "Patient Reviews — SpinalCure"
-msgstr ""
+msgstr "நோயாளி மதிப்பாய்வுகள் — SpinalCure"
 
 #: templates/clinic/admin/testimonial_form.html:79
 msgid "Patient's experience in their words..."
@@ -5819,7 +5840,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:47
 msgid "Patient's Full Name"
-msgstr ""
+msgstr "நோயாளியின் முழுப் பெயர்"
 
 #: templates/appointments/emails/booking_confirmation.html:75
 msgid "Patient:"
@@ -5832,7 +5853,7 @@ msgstr ""
 
 #: templates/patients/patient_list.html:4
 msgid "Patients - SpinalCure"
-msgstr ""
+msgstr "நோயாளிகள் - SpinalCure"
 
 #: appointments/models.py:133
 msgid "Patients may cancel/reschedule until (hours before)"
@@ -5873,7 +5894,7 @@ msgstr "கட்டணம் தோல்வி"
 
 #: templates/patients/patient_detail.html:558
 msgid "Payment History"
-msgstr ""
+msgstr "கட்டண வரலாறு"
 
 #: templates/payments/invoice.html:404
 msgid "Payment Information"
@@ -5908,7 +5929,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:199
 msgid "Payment Receipts"
-msgstr ""
+msgstr "கட்டண ரசீதுகள்"
 
 #: notifications/messages.py:45
 msgid "Payment received"
@@ -5942,7 +5963,7 @@ msgstr "கட்டணங்கள் & பில்லிங்"
 #: templates/patients/patient_detail.html:314
 #, python-format
 msgid "Payments (%(count)s)"
-msgstr ""
+msgstr "கட்டணங்கள் (%(count)s)"
 
 #: templates/payments/payment_list.html:4
 msgid "Payments - SpinalCure"
@@ -6024,7 +6045,7 @@ msgstr ""
 #: templates/patients/print/session_note_pdf.html:102
 #, python-format
 msgid "Phone: %(phone)s | Email: %(email)s"
-msgstr ""
+msgstr "தொலைபேசி: %(phone)s | மின்னஞ்சல்: %(email)s"
 
 #: clinic/models.py:325 patients/models.py:58
 #: templates/clinic/portfolio_spa.html:763
@@ -6042,7 +6063,7 @@ msgstr ""
 
 #: templates/patients/session_edit.html:32
 msgid "PIN Authorized"
-msgstr ""
+msgstr "PIN அங்கீகரிக்கப்பட்டது"
 
 #: patients/views.py:805
 msgid "PIN has expired. Please request a new one."
@@ -6070,7 +6091,7 @@ msgstr ""
 
 #: templates/patients/print/patient_card.html:147
 msgid "Please bring this card for all future visits"
-msgstr ""
+msgstr "எதிர்கால வருகைகள் அனைத்திற்கும் இந்த அட்டையைக் கொண்டு வரவும்"
 
 #: templates/emails/appointment_reminder.html:70
 #, python-format
@@ -6158,7 +6179,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:35
 msgid "Practitioner (Optional)"
-msgstr ""
+msgstr "மருத்துவர் (விருப்பத்தேர்வு)"
 
 #: patients/models.py:234
 msgid "Practitioner Notes"
@@ -6241,11 +6262,11 @@ msgstr ""
 
 #: templates/patients/print/patient_card.html:105
 msgid "Primary Address"
-msgstr ""
+msgstr "முதன்மை முகவரி"
 
 #: templates/patients/patient_form.html:149
 msgid "Primary Doctor (Handled By)"
-msgstr ""
+msgstr "முதன்மை மருத்துவர் (கையாள்பவர்)"
 
 #: idcards/templates/idcards/_card.html:39
 msgid "Print"
@@ -6253,7 +6274,7 @@ msgstr "அச்சிடு"
 
 #: templates/patients/print/patient_card.html:58
 msgid "Print Card"
-msgstr ""
+msgstr "அட்டையை அச்சிடு"
 
 #: templates/payments/invoice.html:271
 msgid "Print Invoice"
@@ -6313,7 +6334,7 @@ msgstr "சுயவிவரம் வெற்றிகரமாகப் ப�
 
 #: templates/patients/partials/patient_list_partial.html:11
 msgid "Progress"
-msgstr ""
+msgstr "முன்னேற்றம்"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:943
 msgid ""
@@ -6326,7 +6347,7 @@ msgstr "உங்கள் நலனுக்காகத் தரமான ப
 
 #: templates/patients/patient_form.html:33
 msgid "PT-001"
-msgstr ""
+msgstr "PT-001"
 
 #: templates/courses/batch_form.html:177
 msgid "Public Display"
@@ -6372,7 +6393,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:74
 msgid "Publish to portfolio immediately"
-msgstr ""
+msgstr "உடனே போர்ட்ஃபோலியோவில் வெளியிடு"
 
 #: clinic/blog_models.py:30 clinic/models.py:337 courses/models.py:51
 #: courses/models.py:133
@@ -6465,7 +6486,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:106
 msgid "Ready for your next visit?"
-msgstr ""
+msgstr "உங்கள் அடுத்த வருகைக்குத் தயாரா?"
 
 #: idcards/templates/idcards/detail.html:41
 #: idcards/templates/idcards/detail.html:45
@@ -6572,7 +6593,7 @@ msgstr "புதிய கட்டணத்தைப் பதிவு செ
 
 #: templates/patients/session_form.html:5
 msgid "Record New Session — SpinalCure"
-msgstr ""
+msgstr "புதிய அமர்வைப் பதிவு செய் — SpinalCure"
 
 #: templates/analytics/dashboard.html:177
 #: templates/patients/patient_detail.html:162
@@ -6582,11 +6603,11 @@ msgstr "கட்டணத்தைப் பதிவு செய்"
 
 #: templates/patients/session_form.html:172
 msgid "Record Session"
-msgstr ""
+msgstr "அமர்வைப் பதிவு செய்"
 
 #: templates/patients/session_form.html:7
 msgid "Record Treatment Session"
-msgstr ""
+msgstr "சிகிச்சை அமர்வைப் பதிவு செய்"
 
 #: templates/emails/audit_log_notification.html:34
 msgid "Record Type"
@@ -6610,11 +6631,11 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:116
 msgid "Recovery Metrics"
-msgstr ""
+msgstr "குணமடைதல் அளவீடுகள்"
 
 #: templates/patients/patient_detail.html:506
 msgid "Recovery Trends"
-msgstr ""
+msgstr "குணமடைதல் போக்குகள்"
 
 #: templates/emails/appointment_reminder.html:33
 msgid "Reference #:"
@@ -6639,7 +6660,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:226
 msgid "Register Patient"
-msgstr ""
+msgstr "நோயாளியைப் பதிவு செய்"
 
 #: templates/events/partials/event_registrations_partial.html:12
 msgid "Registered"
@@ -6651,7 +6672,7 @@ msgstr ""
 
 #: templates/patients/partials/patient_list_partial.html:9
 msgid "Registered Date"
-msgstr ""
+msgstr "பதிவு செய்த தேதி"
 
 #: templates/emails/welcome.html:28
 msgid "Registered On:"
@@ -6660,7 +6681,7 @@ msgstr ""
 #: templates/patients/print/patient_card.html:98
 #, python-format
 msgid "Registered: %(registered_date)s"
-msgstr ""
+msgstr "பதிவு: %(registered_date)s"
 
 #: courses/models.py:207 events/models.py:281
 #: templates/events/event_form.html:50
@@ -6788,7 +6809,7 @@ msgstr "இணைப்பை மாற்று"
 
 #: templates/patients/portal/dashboard.html:107
 msgid "Request an Appointment &rarr;"
-msgstr ""
+msgstr "சந்திப்பைக் கோருங்கள் &rarr;"
 
 #: accounts/models.py:145
 msgid "Request Count (Today)"
@@ -6879,7 +6900,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:63
 msgid "Review Text"
-msgstr ""
+msgstr "மதிப்பாய்வு உரை"
 
 #: templates/base.html:584 templates/clinic/about_page.html:100
 #: templates/clinic/about_page.html:126
@@ -6889,7 +6910,7 @@ msgstr "மதிப்புரைகள்"
 
 #: templates/patients/reviews.html:5
 msgid "Reviews & Ratings"
-msgstr ""
+msgstr "மதிப்பாய்வுகள் & மதிப்பீடுகள்"
 
 #: templates/clinic/course_detail.html:207
 msgid ""
@@ -6960,7 +6981,7 @@ msgstr "செலவைச் சேமி"
 
 #: templates/patients/patient_detail.html:773
 msgid "Save Plan"
-msgstr ""
+msgstr "திட்டத்தைச் சேமி"
 
 #: notifications/templates/notifications/preferences.html:38
 msgid "Save preferences"
@@ -6968,7 +6989,7 @@ msgstr "விருப்பங்களைச் சேமி"
 
 #: templates/patients/review_form.html:85
 msgid "Save Review"
-msgstr ""
+msgstr "மதிப்பாய்வைச் சேமி"
 
 #: templates/appointments/availability.html:116
 msgid "Save rules"
@@ -7037,7 +7058,7 @@ msgstr "பெயர், தொலைபேசி அல்லது சந்�
 
 #: templates/patients/patient_list.html:31
 msgid "Search for patients..."
-msgstr ""
+msgstr "நோயாளிகளைத் தேடு..."
 
 #: idcards/templates/idcards/dashboard.html:18
 msgid "Search name, ID, designation…"
@@ -7049,7 +7070,7 @@ msgstr "பெயர், தொலைபேசி, மின்னஞ்சல�
 
 #: templates/patients/reviews.html:30
 msgid "Search patient name or feedback..."
-msgstr ""
+msgstr "நோயாளி பெயர் அல்லது கருத்தைத் தேடு..."
 
 #: templates/base.html:294
 msgid "Search patients, appointments, etc..."
@@ -7128,7 +7149,7 @@ msgstr "நிகழ்வைத் தேர்ந்தெடு"
 #: templates/patients/patient_form.html:59
 #: templates/patients/patient_form.html:60
 msgid "Select Gender"
-msgstr ""
+msgstr "பாலினத்தைத் தேர்ந்தெடு"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:865
 #: clinic/templates/clinic/admin/clinic_setup.html:1048
@@ -7140,7 +7161,7 @@ msgstr ""
 #: templates/payments/payment_form.html:72
 #: templates/payments/payment_form.html:87
 msgid "Select Patient"
-msgstr ""
+msgstr "நோயாளியைத் தேர்ந்தெடு"
 
 #: templates/clinic/admin/blog_form.html:94
 msgid "Select practitioner"
@@ -7164,7 +7185,7 @@ msgstr ""
 
 #: templates/patients/portal/login.html:59
 msgid "Send OTP"
-msgstr ""
+msgstr "OTP அனுப்பு"
 
 #: appointments/models.py:138
 msgid "Send reminders this many minutes before (comma-separated)"
@@ -7269,7 +7290,7 @@ msgstr ""
 #: templates/patients/session_edit.html:47
 #: templates/patients/session_form.html:41
 msgid "Session Basics"
-msgstr ""
+msgstr "அமர்வு அடிப்படைகள்"
 
 #: patients/models.py:209 templates/patients/session_edit.html:52
 #: templates/patients/session_form.html:46
@@ -7278,16 +7299,16 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:111
 msgid "Session Date:"
-msgstr ""
+msgstr "அமர்வு தேதி:"
 
 #: templates/patients/patient_detail.html:329
 msgid "Session History"
-msgstr ""
+msgstr "அமர்வு வரலாறு"
 
 #: templates/patients/print/session_note_pdf.html:6
 #, python-format
 msgid "Session Note - %(session_number)s"
-msgstr ""
+msgstr "அமர்வுக் குறிப்பு - %(session_number)s"
 
 #: patients/models.py:213 templates/patients/session_edit.html:59
 #: templates/patients/session_form.html:52
@@ -7305,11 +7326,11 @@ msgstr ""
 #: templates/patients/patient_detail.html:302
 #, python-format
 msgid "Sessions (%(count)s)"
-msgstr ""
+msgstr "அமர்வுகள் (%(count)s)"
 
 #: templates/patients/partials/patient_list_partial.html:10
 msgid "Sessions (Done/Total)"
-msgstr ""
+msgstr "அமர்வுகள் (முடிந்தவை/மொத்தம்)"
 
 #: templates/analytics/dashboard.html:23
 msgid "Sessions Today"
@@ -7429,6 +7450,8 @@ msgstr ""
 #, python-format
 msgid "Showing %(start_index)s to %(end_index)s of %(count)s patients"
 msgstr ""
+"%(count)s நோயாளிகளில் %(start_index)s முதல் %(end_index)s வரை "
+"காட்டப்படுகிறது"
 
 #: templates/courses/partials/course_list_partial.html:121
 #, python-format
@@ -7462,7 +7485,7 @@ msgstr "%(count)s இல் %(start_index)s–%(end_index)s காட்டப�
 
 #: templates/patients/portal/dashboard.html:151
 msgid "Showing last 5 sessions"
-msgstr ""
+msgstr "கடைசி 5 அமர்வுகள் காட்டப்படுகின்றன"
 
 #: clinic/blog_models.py:81
 msgid "Shown in Google search results (max 160 chars)."
@@ -7471,7 +7494,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:172
 #: templates/patients/partials/tcm_diagnosis_form.html:212
 msgid "SI"
-msgstr ""
+msgstr "SI"
 
 #: templates/accounts/login.html:128
 msgid "Sign in to Dashboard"
@@ -7495,7 +7518,7 @@ msgstr ""
 
 #: templates/public_base.html:28
 msgid "Skip to content"
-msgstr ""
+msgstr "உள்ளடக்கத்திற்குச் செல்"
 
 #: notifications/models.py:66
 msgid "Skipped"
@@ -7556,7 +7579,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:146
 #: templates/patients/partials/tcm_diagnosis_form.html:186
 msgid "SP"
-msgstr ""
+msgstr "SP"
 
 #: templates/emails/booking_confirmation.html:30
 msgid "Specialist"
@@ -7619,7 +7642,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:147
 #: templates/patients/partials/tcm_diagnosis_form.html:187
 msgid "ST"
-msgstr ""
+msgstr "ST"
 
 #: accounts/models.py:25 accounts/templates/accounts/admin/users_list.html:60
 #: appointments/models.py:240 idcards/models.py:55
@@ -7825,7 +7848,7 @@ msgstr "இடைநிறுத்தப்பட்டது"
 
 #: templates/patients/patient_detail.html:758
 msgid "Symptoms, diagnosis, etc."
-msgstr ""
+msgstr "அறிகுறிகள், நோயறிதல் முதலியன."
 
 #: templates/courses/batch_form.html:188
 msgid "Synchronize Batch Details"
@@ -7909,7 +7932,7 @@ msgstr ""
 
 #: templates/patients/partials/tcm_diagnosis_display.html:6
 msgid "TCM Diagnosis"
-msgstr ""
+msgstr "TCM நோயறிதல்"
 
 #: templates/clinic/about_page.html:98 templates/clinic/about_page.html:124
 #: templates/clinic/blog_detail.html:65 templates/clinic/blog_list.html:48
@@ -7934,7 +7957,7 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:128
 msgid "Techniques Employed:"
-msgstr ""
+msgstr "பயன்படுத்திய நுட்பங்கள்:"
 
 #: patients/models.py:217 templates/patients/patient_detail.html:453
 #: templates/patients/session_edit.html:116
@@ -8351,7 +8374,7 @@ msgstr "OTP செல்லாததாகும் நேரம்"
 
 #: templates/patients/patient_detail.html:437
 msgid "Timing & Duration"
-msgstr ""
+msgstr "நேரம் & கால அளவு"
 
 #: clinic/blog_models.py:34 courses/models.py:20 events/models.py:47
 #: templates/payments/partials/expense_list_partial.html:8
@@ -8444,7 +8467,7 @@ msgstr "மொத்த செலவுகள்"
 
 #: templates/patients/patient_detail.html:277
 msgid "Total Fee"
-msgstr ""
+msgstr "மொத்தக் கட்டணம்"
 
 #: templates/analytics/dashboard.html:14
 msgid "Total Patients"
@@ -8460,7 +8483,7 @@ msgstr ""
 
 #: templates/patients/reviews.html:58
 msgid "Total Reviews"
-msgstr ""
+msgstr "மொத்த மதிப்பாய்வுகள்"
 
 #: patients/models.py:161 templates/patients/patient_detail.html:762
 msgid "Total Sittings"
@@ -8497,11 +8520,11 @@ msgstr ""
 #: templates/patients/reviews.html:120
 #, python-format
 msgid "Treated by %(name)s"
-msgstr ""
+msgstr "%(name)s சிகிச்சை அளித்தார்"
 
 #: templates/patients/print/session_note_pdf.html:122
 msgid "Treatment Details"
-msgstr ""
+msgstr "சிகிச்சை விவரங்கள்"
 
 #: notifications/messages.py:42
 msgid "Treatment follow-up due"
@@ -8510,7 +8533,7 @@ msgstr "தொடர் சிகிச்சை நேரம் வந்து
 #: templates/patients/session_edit.html:104
 #: templates/patients/session_form.html:92
 msgid "Treatment Info"
-msgstr ""
+msgstr "சிகிச்சைத் தகவல்"
 
 #: patients/models.py:195 payments/models.py:63
 #: templates/patients/session_edit.html:66
@@ -8534,12 +8557,12 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:247
 msgid "Treatment Plan:"
-msgstr ""
+msgstr "சிகிச்சைத் திட்டம்:"
 
 #: templates/patients/patient_detail.html:310
 #: templates/patients/portal/dashboard.html:115
 msgid "Treatment Progress"
-msgstr ""
+msgstr "சிகிச்சை முன்னேற்றம்"
 
 #: templates/clinic/about_page.html:258
 #: templates/clinic/course_detail.html:346
@@ -8579,7 +8602,7 @@ msgstr "பகிர்வை இயக்கு"
 #: templates/patients/partials/tcm_diagnosis_display.html:173
 #: templates/patients/partials/tcm_diagnosis_form.html:213
 msgid "TW"
-msgstr ""
+msgstr "TW"
 
 #: templates/clinic/portfolio.html:141
 msgid "Twitter"
@@ -8603,7 +8626,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:159
 #: templates/patients/partials/tcm_diagnosis_form.html:199
 msgid "UB"
-msgstr ""
+msgstr "UB"
 
 #: templates/events/partials/event_registrations_partial.html:31
 msgid "Undo attended"
@@ -8700,7 +8723,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:226
 msgid "Update Patient Profile"
-msgstr ""
+msgstr "நோயாளி சுயவிவரத்தைப் புதுப்பி"
 
 #: templates/payments/payment_form.html:22
 msgid "Update Payment Information"
@@ -8839,7 +8862,7 @@ msgstr "சரிபார்க்கப்பட்ட %(t)s அடையா�
 
 #: templates/patients/portal/verify.html:54
 msgid "Verify & Login"
-msgstr ""
+msgstr "சரிபார்த்து உள்நுழை"
 
 #: templates/partials/security_modal.html:62
 msgid "Verify & Proceed"
@@ -8847,11 +8870,11 @@ msgstr "சரிபார்த்துத் தொடரவும்"
 
 #: templates/patients/portal/verify.html:30
 msgid "Verify It's You"
-msgstr ""
+msgstr "நீங்கள்தான் என்பதைச் சரிபார்க்கவும்"
 
 #: templates/patients/portal/verify.html:7
 msgid "Verify OTP — SpinalCure"
-msgstr ""
+msgstr "OTP ஐச் சரிபார் — SpinalCure"
 
 #: idcards/templates/idcards/share.html:28
 msgid "Verify this card"
@@ -8934,7 +8957,7 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:507
 msgid "Visualizing pain and mobility metrics over time."
-msgstr ""
+msgstr "காலப்போக்கில் வலி மற்றும் இயக்கத்திறன் அளவீடுகளின் காட்சி."
 
 #: templates/events/public_list.html:46
 msgid "Waitlist"
@@ -8978,7 +9001,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:132
 #: templates/patients/partials/tcm_diagnosis_form.html:172
 msgid "WATER"
-msgstr ""
+msgstr "நீர்"
 
 #: templates/payments/invoice.html:482
 msgid "We appreciate your trust in us for your wellness journey."
@@ -9100,6 +9123,9 @@ msgid ""
 "Welcome to your personal health portal. Track your upcoming appointments, "
 "view treatment progress, and download payment receipts."
 msgstr ""
+"உங்கள் தனிப்பட்ட ஆரோக்கிய இணையதளத்திற்கு வரவேற்கிறோம். வரவிருக்கும் "
+"சந்திப்புகளைக் கண்காணிக்கவும், சிகிச்சை முன்னேற்றத்தைக் காணவும், கட்டண "
+"ரசீதுகளைப் பதிவிறக்கவும்."
 
 #: templates/base.html:327
 msgid "What are you looking for?"
@@ -9123,7 +9149,7 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:110
 msgid "Whatsapp"
-msgstr ""
+msgstr "WhatsApp"
 
 #: patients/models.py:46 templates/patients/patient_form.html:76
 msgid "Whatsapp No"
@@ -9170,7 +9196,7 @@ msgstr "யார் செலுத்துகிறார்?"
 
 #: templates/patients/patient_form.html:164
 msgid "Why is the patient visiting?"
-msgstr ""
+msgstr "நோயாளி ஏன் வருகிறார்?"
 
 #: templates/appointments/manage.html:30
 msgid "With"
@@ -9179,7 +9205,7 @@ msgstr "உடன்"
 #: templates/patients/portal/dashboard.html:85
 #, python-format
 msgid "with %(name)s"
-msgstr ""
+msgstr "%(name)s உடன்"
 
 #: templates/emails/appointment_reminder.html:25
 msgid "With:"
@@ -9188,7 +9214,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:133
 #: templates/patients/partials/tcm_diagnosis_form.html:173
 msgid "WOOD"
-msgstr ""
+msgstr "மரம்"
 
 #: templates/clinic/admin/blog_form.html:43
 msgid "Word count: 0"
@@ -9214,7 +9240,7 @@ msgstr ""
 #: templates/patients/session_edit.html:158
 #: templates/patients/session_form.html:146
 msgid "Worst Pain"
-msgstr ""
+msgstr "மிக மோசமான வலி"
 
 #: templates/clinic/admin/blog_list.html:140
 msgid "Write First Post"
@@ -9222,7 +9248,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:66
 msgid "Write the patient's feedback here..."
-msgstr ""
+msgstr "நோயாளியின் கருத்தை இங்கே எழுதுங்கள்..."
 
 #: templates/clinic/admin/blog_form.html:41
 msgid "Write your article here. You can use standard text or HTML..."
@@ -9230,11 +9256,11 @@ msgstr ""
 
 #: templates/patients/partials/tcm_diagnosis_form.html:233
 msgid "Y+ Ya-"
-msgstr ""
+msgstr "Y+ Ya-"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:229
 msgid "Y- Ya+"
-msgstr ""
+msgstr "Y- Ya+"
 
 #: clinic/models.py:161
 msgid "Year cannot be in the future."
@@ -9578,11 +9604,11 @@ msgstr "← பயனர்களுக்குத் திரும்பு"
 
 #: templates/patients/reviews.html:99
 msgid "○ Draft"
-msgstr ""
+msgstr "○ வரைவு"
 
 #: templates/patients/reviews.html:99
 msgid "● Published"
-msgstr ""
+msgstr "● வெளியிடப்பட்டது"
 
 #: templates/emails/payment_receipt.html:69
 msgid "⚠️ Balance Due"

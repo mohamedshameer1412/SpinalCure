@@ -22,22 +22,21 @@
     <!-- Tailwind CSS v3 CDN -->
 <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&display=swap"
-        rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
 
     <!-- Tom Select (Premium Dropdowns) -->
-    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <link rel="stylesheet" href="{% static 'vendor/tom-select/tom-select.css' %}">
+    <script src="{% static 'vendor/tom-select/tom-select.complete.min.js' %}"></script>
 
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="{% static 'vendor/chart.umd.min.js' %}"></script>
+    <!-- Alpine.js: components must register on `alpine:init`, so their scripts are deferred *before* Alpine -->
+    <script defer src="{% static 'js/notifications.js' %}"></script>
+    <script defer src="{% static 'vendor/alpine.min.js' %}"></script>
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}">
     <!-- HTMX -->
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="{% static 'vendor/htmx.min.js' %}"></script>
     <style>
         :root {
             --primary: #16a34a;
@@ -211,7 +210,8 @@
     {% block extra_head %}{% endblock %}
 </head>
 
-<body class="text-gray-900 antialiased" x-data="{ sidebarOpen: window.innerWidth >= 768 }">
+<body class="text-gray-900 antialiased" x-data="{ sidebarOpen: window.innerWidth >= 768, wide: window.innerWidth >= 768 }"
+    @resize.window.debounce.150ms="if ((window.innerWidth >= 768) !== wide) { wide = window.innerWidth >= 768; sidebarOpen = wide }">
 
     <!-- Topbar -->
     <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 shadow-sm">

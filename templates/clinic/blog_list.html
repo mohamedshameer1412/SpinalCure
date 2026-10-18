@@ -9,9 +9,9 @@
     <meta name="description" content="{% if selected_tag %}Articles tagged {{ selected_tag.name }}{% else %}Expert research, insights and health guides from the specialists at {{ clinic.name|default:'SpinalCure' }}{% endif %}">
     <meta name="robots" content="index, follow">
 <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <script defer src="{% static 'vendor/alpine.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
         h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; }

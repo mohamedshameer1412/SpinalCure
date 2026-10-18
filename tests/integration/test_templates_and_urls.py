@@ -62,3 +62,18 @@ def test_parameterless_urls_do_not_500(client, superuser, url):
     client.force_login(superuser)
     r = client.get(url if not url.startswith('/en/') else url, follow=False)
     assert r.status_code < 500, f'{url} -> {r.status_code}'
+
+
+def test_no_template_depends_on_a_third_party_cdn():
+    """Everything the UI needs is vendored under static/, so a CDN outage or a blocked network cannot break it."""
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[2]
+    banned = ('cdn.jsdelivr.net', 'unpkg.com', 'cdnjs.cloudflare.com', 'cdn.tailwindcss.com', 'fonts.googleapis.com',
+              'fonts.gstatic.com', 'code.jquery.com')
+    offenders = []
+    for path in list(root.glob('templates/**/*.html')) + list(root.glob('*/templates/**/*.html')):
+        if 'node_modules' in path.parts:
+            continue
+        text = path.read_text(encoding='utf-8', errors='ignore')
+        offenders += [f'{path.relative_to(root)}: {b}' for b in banned if b in text]
+    assert not offenders, offenders

@@ -1,0 +1,17 @@
+/* Self-hosted web fonts (SIL OFL; see static/fonts/OFL.txt). Latin + Tamil/Devanagari/Arabic subsets only. */
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/web/inter-latin-400-normal.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/web/inter-latin-500-normal.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/inter-latin-600-normal.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/web/inter-latin-700-normal.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url('../fonts/web/inter-latin-800-normal.woff2') format('woff2');}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/web/outfit-latin-400-normal.woff2') format('woff2');}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/web/outfit-latin-500-normal.woff2') format('woff2');}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/outfit-latin-600-normal.woff2') format('woff2');}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/web/outfit-latin-700-normal.woff2') format('woff2');}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:800;font-display:swap;src:url('../fonts/web/outfit-latin-800-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Tamil';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/web/noto-sans-tamil-tamil-400-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Devanagari';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/web/noto-sans-devanagari-devanagari-400-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Naskh Arabic';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/web/noto-naskh-arabic-arabic-400-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Tamil';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/noto-sans-tamil-tamil-600-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Devanagari';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/noto-sans-devanagari-devanagari-600-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Naskh Arabic';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/noto-naskh-arabic-arabic-600-normal.woff2') format('woff2');}

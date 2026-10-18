@@ -52,7 +52,7 @@ msgstr ""
 #: templates/clinic/course_detail.html:108
 #, python-format
 msgid "%(avg_rating)s Rating"
-msgstr ""
+msgstr "%(avg_rating)s रेटिंग"
 
 #: appointments/schedule_views.py:140
 #, python-format
@@ -69,12 +69,12 @@ msgstr ""
 #: templates/clinic/admin/blog_tags.html:53
 #, python-format
 msgid "%(count)s post%(count_2)s"
-msgstr ""
+msgstr "%(count)s पोस्ट%(count_2)s"
 
 #: templates/clinic/course_detail.html:110
 #, python-format
 msgid "%(count)s Reviews"
-msgstr ""
+msgstr "%(count)s समीक्षाएँ"
 
 #: templates/courses/batch_registrations.html:40
 #, python-format
@@ -142,18 +142,18 @@ msgstr ""
 #: templates/clinic/practitioner_detail.html:64
 #, python-format
 msgid "%(experience_years)s Years Experience"
-msgstr ""
+msgstr "%(experience_years)s वर्ष का अनुभव"
 
 #: templates/clinic/portfolio_spa.html:650
 #: templates/clinic/practitioner_portfolio.html:88
 #, python-format
 msgid "%(experience_years)s+ Years"
-msgstr ""
+msgstr "%(experience_years)s+ वर्ष"
 
 #: templates/clinic/event_detail.html:43
 #, python-format
 msgid "%(n)s left"
-msgstr ""
+msgstr "%(n)s शेष"
 
 #: templates/patients/patient_detail.html:5
 #, python-format
@@ -168,7 +168,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:12
 #, python-format
 msgid "%(name)s — Premium Acupuncture Care"
-msgstr ""
+msgstr "%(name)s — प्रीमियम एक्यूपंक्चर देखभाल"
 
 #: templates/emails/base_email.html:247
 #: templates/payments/emails/receipt_email.html:70
@@ -180,12 +180,12 @@ msgstr ""
 #: templates/clinic/blog_detail.html:206
 #, python-format
 msgid "%(read_time_minutes)s min"
-msgstr ""
+msgstr "%(read_time_minutes)s मिनट"
 
 #: templates/clinic/blog_detail.html:136 templates/clinic/blog_list.html:172
 #, python-format
 msgid "%(read_time_minutes)s min read"
-msgstr ""
+msgstr "%(read_time_minutes)s मिनट का पाठ"
 
 #: patients/portal_auth.py:80
 #, python-format
@@ -205,7 +205,7 @@ msgstr "%(org)s में %(t)s पहचान पत्र"
 #: templates/clinic/practitioner_portfolio.html:9
 #, python-format
 msgid "%(title)s %(name)s — Specialist at %(name_2)s"
-msgstr ""
+msgstr "%(title)s %(name)s — %(name_2)s में विशेषज्ञ"
 
 #: templates/courses/batch_form.html:5 templates/courses/course_form.html:5
 #: templates/exports/print_template.html:8
@@ -216,7 +216,7 @@ msgstr ""
 #: templates/clinic/course_detail.html:8
 #, python-format
 msgid "%(title)s — Training at"
-msgstr ""
+msgstr "%(title)s — प्रशिक्षण:"
 
 #: templates/analytics/dashboard.html:82
 #, python-format
@@ -248,7 +248,7 @@ msgstr "&copy;"
 #: templates/clinic/practitioner_portfolio.html:284
 #, python-format
 msgid "&copy; 2026 %(name)s. Developed with &hearts; for Kerala Health."
-msgstr ""
+msgstr "&copy; 2026 %(name)s. केरल स्वास्थ्य के लिए &hearts; से विकसित।"
 
 #: templates/exports/print_template.html:172
 msgid "&copy; 2026 SpinalCure Clinic Management System. Confidental Document."
@@ -256,7 +256,7 @@ msgstr ""
 
 #: templates/clinic/practitioner_detail.html:11
 msgid "&larr; Back to Clinic Portfolio"
-msgstr ""
+msgstr "&larr; क्लिनिक पोर्टफ़ोलियो पर वापस जाएँ"
 
 #: templates/events/event_feedback_admin.html:17
 msgid "&nbsp;·&nbsp;"
@@ -287,11 +287,11 @@ msgstr "-- कोई विशेष योजना नहीं --"
 
 #: templates/clinic/blog_detail.html:227 templates/clinic/blog_list.html:214
 msgid ". All rights reserved."
-msgstr ""
+msgstr "। सर्वाधिकार सुरक्षित।"
 
 #: templates/events/event_feedback_admin.html:51
 msgid ". New submissions will appear here. Only"
-msgstr ""
+msgstr ". नए सबमिशन यहाँ दिखाई देंगे। केवल"
 
 #: templates/partials/security_modal.html:45
 msgid ". Request the PIN from them to authorize this action."
@@ -312,7 +312,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:13
 #: templates/patients/partials/tcm_diagnosis_form.html:16
 msgid "1. Symptoms in Sense Organs"
-msgstr ""
+msgstr "1. ज्ञानेंद्रियों में लक्षण"
 
 #: templates/emails/booking_confirmation.html:50
 msgid "10 minutes early"
@@ -321,38 +321,38 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:112
 #: templates/patients/partials/tcm_diagnosis_form.html:146
 msgid "10. Five Stages of Development"
-msgstr ""
+msgstr "10. विकास के पाँच चरण"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:164
 msgid "11. Pathway of the Meridian / Pulse Reading"
-msgstr ""
+msgstr "11. मेरिडियन का मार्ग / नाड़ी परीक्षण"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:124
 msgid "11. Pathway of the Meridian / Pulse Reading (+ or -)"
-msgstr ""
+msgstr "11. मेरिडियन का मार्ग / नाड़ी परीक्षण (+ या -)"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:225
 msgid "12. Luo - Connecting Points"
-msgstr ""
+msgstr "12. लुओ - कनेक्टिंग पॉइंट"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:185
 msgid "12. Luo Connecting Points"
-msgstr ""
+msgstr "12. लुओ कनेक्टिंग पॉइंट"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:189
 #: templates/patients/partials/tcm_diagnosis_form.html:240
 msgid "13. Mother - Son Law"
-msgstr ""
+msgstr "13. माँ - पुत्र नियम"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:193
 #: templates/patients/partials/tcm_diagnosis_form.html:249
 msgid "14. Kocycle Law"
-msgstr ""
+msgstr "14. कोसाइकल नियम"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:197
 #: templates/patients/partials/tcm_diagnosis_form.html:258
 msgid "15. Recycle Law"
-msgstr ""
+msgstr "15. रीसाइकल नियम"
 
 #: patients/models.py:229
 msgid "1: Immobile, 5: Full mobility"
@@ -361,7 +361,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:24
 #: templates/patients/partials/tcm_diagnosis_form.html:29
 msgid "2. Body Secretions"
-msgstr ""
+msgstr "2. शारीरिक स्राव"
 
 #: templates/emails/booking_confirmation.html:52
 msgid "24 hours in advance"
@@ -370,17 +370,17 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:35
 #: templates/patients/partials/tcm_diagnosis_form.html:42
 msgid "3. Body Area"
-msgstr ""
+msgstr "3. शरीर का क्षेत्र"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:46
 #: templates/patients/partials/tcm_diagnosis_form.html:55
 msgid "4. Body Tissue"
-msgstr ""
+msgstr "4. शरीर के ऊतक"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:57
 #: templates/patients/partials/tcm_diagnosis_form.html:76
 msgid "5. Internal Evil"
-msgstr ""
+msgstr "5. आंतरिक दोष"
 
 #: accounts/serializers.py:68
 msgid "6-digit OTP code"
@@ -389,22 +389,22 @@ msgstr "6 अंकों का OTP कोड"
 #: templates/patients/partials/tcm_diagnosis_display.html:68
 #: templates/patients/partials/tcm_diagnosis_form.html:94
 msgid "6. External Evil"
-msgstr ""
+msgstr "6. बाहरी दोष"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:79
 #: templates/patients/partials/tcm_diagnosis_form.html:107
 msgid "7. Five Seasons"
-msgstr ""
+msgstr "7. पाँच ऋतुएँ"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:90
 #: templates/patients/partials/tcm_diagnosis_form.html:120
 msgid "8. Colour Diagnosis"
-msgstr ""
+msgstr "8. रंग द्वारा निदान"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:101
 #: templates/patients/partials/tcm_diagnosis_form.html:133
 msgid "9. Taste Diagnosis"
-msgstr ""
+msgstr "9. स्वाद द्वारा निदान"
 
 #: templates/events/event_list.html:80
 msgid "? This action cannot be undone."
@@ -541,11 +541,11 @@ msgstr ""
 
 #: templates/clinic/blog_detail.html:176
 msgid "About the Author"
-msgstr ""
+msgstr "लेखक के बारे में"
 
 #: templates/clinic/portfolio.html:39
 msgid "About the Clinic"
-msgstr ""
+msgstr "क्लिनिक के बारे में"
 
 #: idcards/render.py:212
 msgid "About the organisation"
@@ -553,7 +553,7 @@ msgstr "संस्था के बारे में"
 
 #: templates/clinic/practitioner_portfolio.html:136
 msgid "About the Specialist"
-msgstr ""
+msgstr "विशेषज्ञ के बारे में"
 
 #: clinic/models.py:91
 msgid "About Title"
@@ -641,7 +641,7 @@ msgstr "सक्रिय योजना"
 
 #: templates/clinic/practitioner_detail.html:42
 msgid "Active Practitioner"
-msgstr ""
+msgstr "सक्रिय चिकित्सक"
 
 #: clinic/templates/clinic/admin/activity_log.html:17 templates/base.html:663
 msgid "Activity Log"
@@ -666,7 +666,7 @@ msgstr "प्रयुक्त एक्यूप्वाइंट:"
 
 #: templates/clinic/portfolio_spa.html:500
 msgid "Acupuncture"
-msgstr ""
+msgstr "एक्यूपंक्चर"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:5
 msgid "Acupuncture Case Sheet"
@@ -674,7 +674,7 @@ msgstr "एक्यूपंक्चर केस शीट"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:4
 msgid "Acupuncture Case Sheet (TCM Diagnosis)"
-msgstr ""
+msgstr "एक्यूपंक्चर केस शीट (TCM निदान)"
 
 #: templates/accounts/login.html:64
 #: templates/patients/print/patient_card.html:69
@@ -706,7 +706,7 @@ msgstr "बंदी जोड़ें"
 
 #: templates/clinic/admin/testimonials_list.html:98
 msgid "Add curated testimonials that will appear on your public portfolio."
-msgstr ""
+msgstr "चुनी हुई प्रशंसाएँ जोड़ें जो आपके सार्वजनिक पोर्टफ़ोलियो पर दिखेंगी।"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:206
 msgid "Add Diagnosis Details"
@@ -722,7 +722,7 @@ msgstr "खर्च जोड़ें — SpinalCure"
 
 #: templates/clinic/admin/testimonials_list.html:101
 msgid "Add First Testimonial"
-msgstr ""
+msgstr "पहली प्रशंसा जोड़ें"
 
 #: templates/appointments/availability.html:74
 msgid "Add leave"
@@ -748,7 +748,7 @@ msgstr "नया स्टाफ उपयोगकर्ता जोड़े
 
 #: templates/clinic/admin/blog_tags.html:23
 msgid "Add New Tag"
-msgstr ""
+msgstr "नया टैग जोड़ें"
 
 #: accounts/templates/accounts/admin/users_list.html:12
 msgid "Add New User"
@@ -789,7 +789,7 @@ msgstr "शिफ्ट जोड़ें"
 #: templates/clinic/admin/testimonial_form.html:118
 #: templates/clinic/admin/testimonials_list.html:13
 msgid "Add Testimonial"
-msgstr ""
+msgstr "प्रशंसा जोड़ें"
 
 #: templates/patients/reviews.html:152
 msgid "Add the first review →"
@@ -806,7 +806,7 @@ msgstr "अवकाश जोड़ें"
 #: templates/clinic/event_detail.html:46
 #: templates/events/registration_manage.html:15
 msgid "Add to calendar"
-msgstr ""
+msgstr "कैलेंडर में जोड़ें"
 
 #: templates/emails/booking_confirmation.html:44
 msgid "Add to Google Calendar"
@@ -864,7 +864,7 @@ msgstr ""
 
 #: templates/clinic/blog_list.html:103
 msgid "All Authors"
-msgstr ""
+msgstr "सभी लेखक"
 
 #: idcards/templates/idcards/detail.html:5
 msgid "All cards"
@@ -888,7 +888,7 @@ msgstr ""
 
 #: templates/clinic/blog_list.html:90
 msgid "All Posts"
-msgstr ""
+msgstr "सभी पोस्ट"
 
 #: templates/appointments/appointment_list.html:61
 msgid "All Practitioners"
@@ -929,7 +929,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:206
 msgid "Alumni feedback"
-msgstr ""
+msgstr "पूर्व छात्रों की प्रतिक्रिया"
 
 #: templates/patients/patient_detail.html:570
 #: templates/payments/partials/expense_list_partial.html:12
@@ -1152,11 +1152,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:33
 msgid "Article Content"
-msgstr ""
+msgstr "लेख की सामग्री"
 
 #: templates/clinic/admin/blog_form.html:24
 msgid "Article Title"
-msgstr ""
+msgstr "लेख का शीर्षक"
 
 #: templates/appointments/availability.html:30
 msgid "Ask an administrator to add a practitioner with your email address."
@@ -1180,7 +1180,7 @@ msgstr "उपस्थित हुए"
 
 #: templates/clinic/event_detail.html:49
 msgid "Attendee feedback"
-msgstr ""
+msgstr "प्रतिभागियों की प्रतिक्रिया"
 
 #: templates/patients/patient_form.html:116
 msgid "Attender Details"
@@ -1274,7 +1274,7 @@ msgstr "औसत रेटिंग"
 
 #: templates/clinic/practitioner_portfolio.html:153
 msgid "Avg. Rating"
-msgstr ""
+msgstr "औसत रेटिंग"
 
 #: idcards/templates/idcards/branding.html:5
 #: idcards/templates/idcards/issue.html:5
@@ -1299,7 +1299,7 @@ msgstr ""
 #: templates/clinic/practitioner_portfolio.html:64
 #: templates/courses/batch_list.html:15
 msgid "Back to Courses"
-msgstr ""
+msgstr "कोर्स पर वापस जाएँ"
 
 #: templates/events/event_feedback_admin.html:35
 msgid "Back to Events"
@@ -1329,12 +1329,12 @@ msgstr "रोगी प्रोफ़ाइल पर वापस जाए�
 
 #: templates/clinic/about_page.html:146
 msgid "Back to Portfolio"
-msgstr ""
+msgstr "पोर्टफ़ोलियो पर वापस जाएँ"
 
 #: templates/clinic/admin/blog_form.html:10
 #: templates/clinic/admin/blog_tags.html:10
 msgid "Back to Posts"
-msgstr ""
+msgstr "पोस्ट पर वापस जाएँ"
 
 #: templates/patients/review_form.html:10
 msgid "Back to Reviews"
@@ -1342,7 +1342,7 @@ msgstr "समीक्षाओं पर वापस जाएँ"
 
 #: templates/clinic/admin/testimonial_form.html:9
 msgid "Back to Testimonials"
-msgstr ""
+msgstr "प्रशंसाओं पर वापस जाएँ"
 
 #: templates/patients/patient_detail.html:289
 msgid "Balance"
@@ -1414,7 +1414,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:201
 msgid "Be the first to share your experience!"
-msgstr ""
+msgstr "अपना अनुभव साझा करने वाले पहले व्यक्ति बनें!"
 
 #: templates/emails/appointment_reminder.html:74
 #: templates/emails/password_reset.html:35
@@ -1453,7 +1453,7 @@ msgstr "जीवन परिचय"
 
 #: templates/clinic/practitioner_detail.html:73
 msgid "Biography / About"
-msgstr ""
+msgstr "जीवनी / परिचय"
 
 #: templates/accounts/settings.html:53
 msgid "Biography / Notes"
@@ -1462,7 +1462,7 @@ msgstr "परिचय / नोट्स"
 #: templates/clinic/blog_detail.html:66 templates/clinic/blog_list.html:49
 #: templates/clinic/blog_list.html:63 templates/clinic/portfolio_spa.html:115
 msgid "Blog"
-msgstr ""
+msgstr "ब्लॉग"
 
 #: clinic/blog_models.py:88
 msgid "Blog Post"
@@ -1497,7 +1497,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_tags.html:3
 msgid "Blog Tags — SpinalCure"
-msgstr ""
+msgstr "ब्लॉग टैग — SpinalCure"
 
 #: idcards/render.py:212
 msgid "Blood group"
@@ -1506,11 +1506,11 @@ msgstr "रक्त समूह"
 #: templates/clinic/practitioner_portfolio.html:204
 #, python-format
 msgid "Book a Consultation with %(name)s"
-msgstr ""
+msgstr "%(name)s के साथ परामर्श बुक करें"
 
 #: templates/clinic/portfolio_spa.html:1040
 msgid "Book another session"
-msgstr ""
+msgstr "एक और सत्र बुक करें"
 
 #: templates/analytics/dashboard.html:173
 #: templates/appointments/calendar.html:444
@@ -1530,7 +1530,7 @@ msgstr ""
 #: templates/clinic/about_page.html:102 templates/clinic/about_page.html:128
 #: templates/clinic/blog_detail.html:68 templates/clinic/blog_list.html:51
 msgid "Book Session"
-msgstr ""
+msgstr "सत्र बुक करें"
 
 #: templates/clinic/portfolio_spa.html:886
 msgid "Book your"
@@ -1541,7 +1541,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:1118
 #: templates/clinic/practitioner_portfolio.html:271
 msgid "Booking"
-msgstr ""
+msgstr "बुकिंग"
 
 #: templates/emails/booking_confirmation.html:17
 msgid "Booking Details"
@@ -1623,7 +1623,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:962
 msgid "Business Hours"
-msgstr ""
+msgstr "कार्य समय"
 
 #: templates/emails/audit_log_notification.html:22
 msgid ""
@@ -1632,7 +1632,7 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:151
 msgid "by SpinalCure HMS. Highly confidential medical record."
-msgstr ""
+msgstr "SpinalCure HMS द्वारा। अत्यंत गोपनीय मेडिकल रिकॉर्ड।"
 
 #: templates/appointments/appointment_list.html:12
 msgid "Calendar View"
@@ -1868,7 +1868,7 @@ msgstr "क्लिनिक एडमिन"
 
 #: templates/clinic/portfolio_spa.html:239
 msgid "Clinic Hero"
-msgstr ""
+msgstr "क्लिनिक हीरो सेक्शन"
 
 #: templates/appointments/availability.html:90
 msgid "Clinic holidays & closures"
@@ -1892,7 +1892,7 @@ msgstr "क्लिनिक परिचय"
 
 #: templates/clinic/portfolio.html:4
 msgid "Clinic Portfolio - SpinalCure"
-msgstr ""
+msgstr "क्लिनिक पोर्टफ़ोलियो - SpinalCure"
 
 #: clinic/models.py:149
 msgid "Clinic Profile"
@@ -2013,7 +2013,7 @@ msgstr "पुष्टि करें और रसीद प्रिंट �
 
 #: templates/clinic/portfolio_spa.html:1020
 msgid "Confirm Appointment"
-msgstr ""
+msgstr "अपॉइंटमेंट की पुष्टि करें"
 
 #: templates/appointments/calendar.html:638
 msgid "Confirm Booking"
@@ -2034,7 +2034,7 @@ msgstr "पुष्ट"
 
 #: templates/clinic/practitioner_portfolio.html:145
 msgid "Consultations"
-msgstr ""
+msgstr "परामर्श"
 
 #: patients/models.py:205 templates/patients/session_edit.html:77
 #: templates/patients/session_form.html:70
@@ -2056,7 +2056,7 @@ msgstr ""
 #: templates/clinic/portfolio.html:82
 #: templates/patients/patient_detail.html:76
 msgid "Contact Information"
-msgstr ""
+msgstr "संपर्क जानकारी"
 
 #: templates/emails/booking_confirmation.html:57
 msgid "Contact our front desk directly at:"
@@ -2105,7 +2105,7 @@ msgstr "समय लोड नहीं हो सके। कृपया प
 
 #: templates/clinic/event_detail.html:105
 msgid "Could not reach the server. Check your connection and try again."
-msgstr ""
+msgstr "सर्वर तक नहीं पहुँच सका। अपना कनेक्शन जाँचें और पुनः प्रयास करें।"
 
 #: courses/models.py:64 courses/models.py:109 courses/models.py:197
 msgid "Course"
@@ -2157,7 +2157,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:224
 msgid "Course Investment"
-msgstr ""
+msgstr "कोर्स शुल्क"
 
 #: templates/courses/course_form.html:241
 msgid "Course Investment (₹) *"
@@ -2169,7 +2169,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:127
 msgid "Course Overview"
-msgstr ""
+msgstr "कोर्स का अवलोकन"
 
 #: courses/models.py:179 payments/models.py:75
 msgid "Course Registration"
@@ -2191,7 +2191,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_list.html:29
 msgid "Cover"
-msgstr ""
+msgstr "कवर"
 
 #: clinic/blog_models.py:47 courses/models.py:48
 #: templates/clinic/admin/blog_form.html:71
@@ -2200,7 +2200,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:83
 msgid "cover image"
-msgstr ""
+msgstr "कवर इमेज"
 
 #: templates/events/event_form.html:26
 msgid "Cover image"
@@ -2225,11 +2225,11 @@ msgstr "कार्यक्रम बनाएं"
 
 #: templates/clinic/admin/blog_form.html:129
 msgid "Create one"
-msgstr ""
+msgstr "एक बनाएँ"
 
 #: templates/clinic/portfolio.html:169
 msgid "Create Profile"
-msgstr ""
+msgstr "प्रोफ़ाइल बनाएँ"
 
 #: templates/events/event_form.html:44
 msgid ""
@@ -2253,7 +2253,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_list.html:136
 msgid "Create your first research article or health guide."
-msgstr ""
+msgstr "अपना पहला शोध लेख या स्वास्थ्य गाइड बनाएँ।"
 
 #: templates/emails/password_reset.html:28
 msgid "Create your new password (minimum 8 characters)"
@@ -2281,11 +2281,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:74
 msgid "Current cover"
-msgstr ""
+msgstr "वर्तमान कवर"
 
 #: templates/clinic/admin/blog_form.html:76
 msgid "Current cover image"
-msgstr ""
+msgstr "वर्तमान कवर इमेज"
 
 #: templates/courses/course_form.html:273
 msgid "Current Image"
@@ -2302,7 +2302,7 @@ msgstr ""
 
 #: templates/clinic/admin/testimonial_form.html:51
 msgid "Current photo. Upload a new one to replace it."
-msgstr ""
+msgstr "वर्तमान फ़ोटो। बदलने के लिए नई अपलोड करें।"
 
 #: accounts/models.py:120
 msgid "Current valid OTP code"
@@ -2310,11 +2310,11 @@ msgstr "वर्तमान मान्य OTP कोड"
 
 #: templates/clinic/course_detail.html:154
 msgid "Curriculum"
-msgstr ""
+msgstr "पाठ्यक्रम"
 
 #: templates/clinic/event_detail.html:32
 msgid "d"
-msgstr ""
+msgstr "दि"
 
 #: accounts/models.py:214
 msgid "Daily OTP request limit exceeded. Try again tomorrow."
@@ -2416,7 +2416,7 @@ msgstr "स्थायी रूप से हटाएं"
 
 #: templates/clinic/admin/blog_tags.html:59
 msgid "Delete tag"
-msgstr ""
+msgstr "टैग हटाएँ"
 
 #: templates/emails/audit_log_notification.html:61
 msgid "Deleted Data"
@@ -2604,7 +2604,7 @@ msgstr "doctor@spinalcure.com"
 #: templates/clinic/portfolio_spa.html:1117
 #: templates/clinic/practitioner_portfolio.html:269
 msgid "Doctors"
-msgstr ""
+msgstr "डॉक्टर"
 
 #: templates/emails/auth_request.html:45
 msgid "Double-click the PIN below to copy:"
@@ -2637,12 +2637,12 @@ msgstr "रसीद PDF डाउनलोड करें"
 #: templates/patients/portal/dashboard.html:135
 #, python-format
 msgid "Dr. %(name)s"
-msgstr ""
+msgstr "डॉ. %(name)s"
 
 #: templates/clinic/practitioner_detail.html:5
 #, python-format
 msgid "Dr. %(name)s - SpinalCure"
-msgstr ""
+msgstr "डॉ. %(name)s - SpinalCure"
 
 #: appointments/views.py:278
 #, python-format
@@ -2694,16 +2694,16 @@ msgstr ""
 
 #: templates/clinic/admin/blog_tags.html:29
 msgid "e.g. Acupuncture, Back Pain, Nutrition"
-msgstr ""
+msgstr "उदा., एक्यूपंक्चर, पीठ दर्द, पोषण"
 
 #: templates/clinic/admin/blog_form.html:108
 msgid "e.g. Dr. Priya Sharma"
-msgstr ""
+msgstr "उदा., डॉ. प्रिया शर्मा"
 
 #: templates/patients/session_edit.html:119
 #: templates/patients/session_form.html:107
 msgid "e.g. Dry Needling, Tui Na..."
-msgstr ""
+msgstr "उदा., ड्राई नीडलिंग, तुई ना..."
 
 #: courses/models.py:119
 msgid "e.g. Every Saturday 10AM–1PM"
@@ -2716,15 +2716,15 @@ msgstr "जैसे फॉलो-अप, परामर्श..."
 #: templates/patients/session_edit.html:111
 #: templates/patients/session_form.html:99
 msgid "e.g. GB30, BL40, BL23..."
-msgstr ""
+msgstr "e.g. GB30, BL40, BL23..."
 
 #: templates/clinic/admin/blog_form.html:26
 msgid "e.g. How Acupuncture Relieves Chronic Back Pain"
-msgstr ""
+msgstr "उदा., एक्यूपंक्चर पुरानी पीठ दर्द से कैसे राहत देता है"
 
 #: templates/patients/patient_detail.html:753
 msgid "e.g. Lower Back Pain 2026"
-msgstr ""
+msgstr "उदा., कमर के निचले हिस्से का दर्द 2026"
 
 #: clinic/models.py:383
 msgid "e.g. Patient, Payment, Session, Course, Event, Appointment"
@@ -2744,16 +2744,16 @@ msgstr "उदा., मासिक क्लिनिक किराया"
 
 #: templates/clinic/admin/testimonial_form.html:32
 msgid "e.g., Rahul Sharma"
-msgstr ""
+msgstr "उदा., राहुल शर्मा"
 
 #: templates/clinic/admin/testimonial_form.html:39
 msgid "e.g., Teacher, Chennai"
-msgstr ""
+msgstr "उदा., शिक्षक, चेन्नई"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:130
 #: templates/patients/partials/tcm_diagnosis_form.html:170
 msgid "EARTH"
-msgstr ""
+msgstr "पृथ्वी"
 
 #: accounts/templates/accounts/admin/users_list.html:80
 #: clinic/templates/clinic/admin/practitioner_form.html:3
@@ -2764,7 +2764,7 @@ msgstr "संपादित करें"
 
 #: templates/clinic/portfolio.html:153
 msgid "Edit Clinic Details"
-msgstr ""
+msgstr "क्लिनिक विवरण संपादित करें"
 
 #: templates/courses/partials/course_list_partial.html:78
 #: templates/courses/partials/course_list_partial.html:94
@@ -2789,7 +2789,7 @@ msgstr "भुगतान रिकॉर्ड संपादित करे
 
 #: templates/clinic/admin/blog_form.html:3
 msgid "Edit Post"
-msgstr ""
+msgstr "पोस्ट संपादित करें"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:4
 msgid "Edit Practitioner"
@@ -2820,7 +2820,7 @@ msgstr "शिफ्ट संपादित करें"
 
 #: templates/clinic/admin/testimonial_form.html:4
 msgid "Edit Testimonial"
-msgstr ""
+msgstr "प्रशंसा संपादित करें"
 
 #: accounts/templates/accounts/admin/user_form.html:3
 msgid "Edit User"
@@ -2834,7 +2834,7 @@ msgstr "उपयोगकर्ता संपादित करें: %(use
 #: templates/clinic/admin/blog_form.html:4
 #, python-format
 msgid "Edit: %(title)s"
-msgstr ""
+msgstr "संपादित करें: %(title)s"
 
 #: templates/base.html:548
 msgid "Education"
@@ -2895,7 +2895,7 @@ msgstr "आपातकालीन / परिचारक"
 
 #: templates/clinic/portfolio_spa.html:901
 msgid "Emergency Call"
-msgstr ""
+msgstr "आपातकालीन कॉल"
 
 #: idcards/render.py:212
 msgid "Emergency contact"
@@ -2970,7 +2970,7 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:234
 msgid "Enrollment Open"
-msgstr ""
+msgstr "नामांकन खुला है"
 
 #: templates/courses/batch_form.html:156
 msgid "Enrollment Status"
@@ -3188,6 +3188,8 @@ msgid ""
 "Evidence-based research, patient guides, and clinical insights by our "
 "specialist doctors."
 msgstr ""
+"हमारे विशेषज्ञ डॉक्टरों द्वारा साक्ष्य-आधारित शोध, रोगी गाइड और क्लिनिकल "
+"जानकारी।"
 
 #: templates/partials/export_dropdown.html:19
 msgid "Excel Spreadsheet"
@@ -3200,7 +3202,7 @@ msgstr ""
 #: templates/clinic/admin/blog_tags.html:45
 #, python-format
 msgid "Existing Tags (%(count)s)"
-msgstr ""
+msgstr "मौजूदा टैग (%(count)s)"
 
 #: payments/models.py:329
 msgid "Expense"
@@ -3247,25 +3249,27 @@ msgstr "खर्च — SpinalCure"
 
 #: templates/clinic/practitioner_portfolio.html:85
 msgid "Experience"
-msgstr ""
+msgstr "अनुभव"
 
 #: templates/clinic/portfolio_spa.html:164
 msgid ""
 "Experience the perfect blend of ancient acupuncture wisdom and modern spinal"
 " rehabilitation. We help you reclaim a pain-free life."
 msgstr ""
+"प्राचीन एक्यूपंक्चर ज्ञान और आधुनिक स्पाइनल रिहैबिलिटेशन के उत्तम संगम का "
+"अनुभव करें। हम आपको दर्द-मुक्त जीवन वापस पाने में मदद करते हैं।"
 
 #: templates/clinic/portfolio_spa.html:648
 msgid "Experience:"
-msgstr ""
+msgstr "अनुभव:"
 
 #: templates/clinic/blog_list.html:76
 msgid "Expert"
-msgstr ""
+msgstr "विशेषज्ञ"
 
 #: templates/clinic/portfolio_spa.html:152
 msgid "Expert Acupuncture & Recovery"
-msgstr ""
+msgstr "विशेषज्ञ एक्यूपंक्चर और रिकवरी"
 
 #: templates/clinic/about_page.html:220
 #: templates/clinic/course_detail.html:308
@@ -3275,10 +3279,12 @@ msgid ""
 "Expert spinal care and acupuncture treatments in Kerala. We specialize in "
 "natural healing and pain management."
 msgstr ""
+"केरल में विशेषज्ञ स्पाइनल केयर और एक्यूपंक्चर उपचार। हम प्राकृतिक उपचार और "
+"दर्द प्रबंधन में विशेषज्ञ हैं।"
 
 #: templates/clinic/practitioner_portfolio.html:121
 msgid "Expertise"
-msgstr ""
+msgstr "विशेषज्ञता"
 
 #: idcards/render.py:181
 msgid "Expired"
@@ -3302,7 +3308,7 @@ msgstr "समाप्ति तिथि जारी करने की त�
 
 #: templates/clinic/portfolio_spa.html:177
 msgid "Explore Services"
-msgstr ""
+msgstr "सेवाएँ देखें"
 
 #: templates/partials/export_dropdown.html:6
 msgid "Export"
@@ -3314,7 +3320,7 @@ msgstr ""
 
 #: templates/clinic/portfolio.html:133
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:956
 msgid "Facebook Profile URL"
@@ -3363,7 +3369,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:41
 msgid "Fee"
-msgstr ""
+msgstr "शुल्क"
 
 #: templates/courses/batch_list.html:74
 #: templates/events/partials/event_list_partial.html:79
@@ -3438,7 +3444,7 @@ msgstr "फीडबैक — %(title)s"
 
 #: templates/clinic/portfolio_spa.html:473
 msgid "Fees"
-msgstr ""
+msgstr "शुल्क"
 
 #: events/models.py:128
 msgid "Fees (₹)"
@@ -3475,7 +3481,7 @@ msgstr "वित्त"
 #: templates/patients/partials/tcm_diagnosis_display.html:129
 #: templates/patients/partials/tcm_diagnosis_form.html:169
 msgid "FIRE"
-msgstr ""
+msgstr "अग्नि"
 
 #: accounts/templates/accounts/admin/user_form.html:42
 #: templates/accounts/settings.html:32
@@ -3508,7 +3514,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:72
 msgid "for confirmation"
-msgstr ""
+msgstr "पुष्टि के लिए"
 
 #: templates/events/public_list.html:16
 msgid "Format"
@@ -3534,11 +3540,11 @@ msgstr ""
 #: templates/events/partials/event_list_partial.html:98
 #: templates/events/public_list.html:52
 msgid "Free"
-msgstr ""
+msgstr "निःशुल्क"
 
 #: templates/clinic/portfolio_spa.html:475
 msgid "FREE"
-msgstr ""
+msgstr "निःशुल्क"
 
 #: appointments/models.py:23
 msgid "Friday"
@@ -3546,7 +3552,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:43 templates/events/public_list.html:46
 msgid "Full"
-msgstr ""
+msgstr "भरा हुआ"
 
 #: templates/patients/patient_form.html:95
 msgid "Full Address"
@@ -3572,7 +3578,7 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:70
 msgid "Full name"
-msgstr ""
+msgstr "पूरा नाम"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:21
 #: templates/clinic/course_detail.html:251
@@ -3594,7 +3600,7 @@ msgstr ""
 #: templates/clinic/about_page.html:298
 #: templates/clinic/portfolio_spa.html:1153
 msgid "Fullscreen Preview"
-msgstr ""
+msgstr "फ़ुलस्क्रीन पूर्वावलोकन"
 
 #: payments/models.py:27
 msgid "Fully Paid"
@@ -3602,12 +3608,12 @@ msgstr ""
 
 #: templates/clinic/about_page.html:175
 msgid "Gallery"
-msgstr ""
+msgstr "गैलरी"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:165
 #: templates/patients/partials/tcm_diagnosis_form.html:205
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:33
 msgid "Gender"
@@ -3652,7 +3658,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:170
 msgid "Get Started"
-msgstr ""
+msgstr "शुरू करें"
 
 #: templates/emails/appointment_reminder.html:38
 msgid "Getting Here"
@@ -3696,7 +3702,7 @@ msgstr "GST (%(tax_percent)s%% %(get_tax_type_display)s)"
 #: templates/clinic/portfolio_spa.html:1126
 #: templates/clinic/practitioner_portfolio.html:279
 msgid "GST Compliance"
-msgstr ""
+msgstr "GST अनुपालन"
 
 #: clinic/models.py:121
 msgid "GSTIN"
@@ -3720,7 +3726,7 @@ msgstr "बिना खाते वाला अतिथि प्राप�
 
 #: templates/clinic/event_detail.html:32
 msgid "h"
-msgstr ""
+msgstr "घं"
 
 #: templates/patients/partials/patient_list_partial.html:7
 msgid "Handled By"
@@ -3740,11 +3746,11 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:196
 msgid "Happy Patients"
-msgstr ""
+msgstr "संतुष्ट रोगी"
 
 #: templates/clinic/portfolio_spa.html:276
 msgid "Healing"
-msgstr ""
+msgstr "उपचार"
 
 #: templates/base.html:616 templates/clinic/admin/blog_list.html:4
 #: templates/clinic/blog_list.html:76
@@ -3753,7 +3759,7 @@ msgstr "स्वास्थ्य लेख"
 
 #: templates/clinic/admin/blog_list.html:3
 msgid "Health Articles — SpinalCure"
-msgstr ""
+msgstr "स्वास्थ्य लेख — SpinalCure"
 
 #: events/models.py:23
 msgid "Health Camp"
@@ -3761,7 +3767,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:428
 msgid "Health Community"
-msgstr ""
+msgstr "स्वास्थ्य समुदाय"
 
 #: templates/emails/booking_confirmation.html:9
 #: templates/payments/emails/receipt_email.html:40
@@ -3824,6 +3830,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:593
 msgid "Highly qualified practitioners dedicated to your recovery journey."
 msgstr ""
+"उच्च योग्यता प्राप्त चिकित्सक जो आपकी रिकवरी यात्रा के लिए समर्पित हैं।"
 
 #: spinalcure/settings/base.py:124
 msgid "Hindi"
@@ -3839,12 +3846,12 @@ msgstr ""
 
 #: templates/public_base.html:36
 msgid "Home"
-msgstr ""
+msgstr "होम"
 
 #: templates/patients/session_edit.html:137
 #: templates/patients/session_form.html:125
 msgid "How is the patient feeling after today's session?"
-msgstr ""
+msgstr "आज के सत्र के बाद रोगी कैसा महसूस कर रहा है?"
 
 #: templates/events/registration_manage.html:33
 msgid "How was it?"
@@ -3961,7 +3968,7 @@ msgstr ""
 #: templates/patients/session_edit.html:170
 #: templates/patients/session_form.html:158
 msgid "Immobile"
-msgstr ""
+msgstr "गतिहीन"
 
 #: accounts/models.py:330
 msgid "Immutable. OWN-#### for owners, STF-#### for everyone else."
@@ -3982,7 +3989,7 @@ msgstr ""
 #: templates/clinic/event_detail.html:19 templates/events/public_list.html:19
 #: templates/events/public_list.html:43
 msgid "In person"
-msgstr ""
+msgstr "व्यक्तिगत रूप से"
 
 #: notifications/templates/notifications/preferences.html:18
 msgid "In-app"
@@ -4016,19 +4023,19 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:550
 msgid "Initial vs. Latest session mobility scores"
-msgstr ""
+msgstr "प्रारंभिक बनाम नवीनतम सत्र गतिशीलता स्कोर"
 
 #: templates/patients/patient_detail.html:539
 msgid "Initial vs. Latest session pain levels"
-msgstr ""
+msgstr "प्रारंभिक बनाम नवीनतम सत्र दर्द स्तर"
 
 #: templates/clinic/about_page.html:173
 msgid "Inside the Clinic"
-msgstr ""
+msgstr "क्लिनिक के अंदर"
 
 #: templates/clinic/portfolio.html:137
 msgid "Instagram"
-msgstr ""
+msgstr "Instagram"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:966
 msgid "Instagram Profile URL"
@@ -4045,7 +4052,7 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:532
 msgid "Intake Open"
-msgstr ""
+msgstr "प्रवेश खुला है"
 
 #: clinic/models.py:303
 msgid "Internal / Direct"
@@ -4054,7 +4061,7 @@ msgstr ""
 #: templates/patients/patient_form.html:205
 #: templates/payments/payment_form.html:254
 msgid "Internal Notes"
-msgstr ""
+msgstr "आंतरिक नोट्स"
 
 #: appointments/models.py:104
 msgid "Internal only; never shown to patients."
@@ -4131,11 +4138,11 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:563
 msgid "Investment"
-msgstr ""
+msgstr "निवेश"
 
 #: templates/patients/patient_detail.html:596
 msgid "Invoice"
-msgstr ""
+msgstr "इनवॉइस"
 
 #: templates/payments/invoice.html:9
 #, python-format
@@ -4212,7 +4219,7 @@ msgstr "यह सत्यापन में सफल नहीं होग�
 
 #: templates/clinic/course_detail.html:260
 msgid "Join Batch"
-msgstr ""
+msgstr "बैच में शामिल हों"
 
 #: clinic/templates/clinic/admin/practitioner_form.html:61
 msgid "Join Date"
@@ -4231,10 +4238,12 @@ msgid ""
 "Join our expert-led courses and certifications. We offer batches for both "
 "beginners and experienced practitioners."
 msgstr ""
+"हमारे विशेषज्ञ-नेतृत्व वाले कोर्स और प्रमाणपत्रों से जुड़ें। हम नए और अनुभवी"
+" दोनों चिकित्सकों के लिए बैच चलाते हैं।"
 
 #: templates/clinic/event_detail.html:76
 msgid "Join waitlist"
-msgstr ""
+msgstr "प्रतीक्षा सूची में शामिल हों"
 
 #: accounts/templates/accounts/admin/users_list.html:26 idcards/render.py:210
 msgid "Joined"
@@ -4290,7 +4299,7 @@ msgstr ""
 
 #: templates/clinic/portfolio.html:151
 msgid "Keep your clinic's public-facing details up to date."
-msgstr ""
+msgstr "अपने क्लिनिक की सार्वजनिक जानकारी अद्यतन रखें।"
 
 #: templates/courses/course_form.html:214
 msgid "Key Learning Outcomes (One per line) *"
@@ -4299,7 +4308,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:480
 #: templates/clinic/portfolio_spa.html:568
 msgid "Know More"
-msgstr ""
+msgstr "और जानें"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:580
 #: clinic/templates/clinic/admin/clinic_setup.html:598
@@ -4401,7 +4410,7 @@ msgstr ""
 #: templates/clinic/portfolio_spa.html:1122
 #: templates/clinic/practitioner_portfolio.html:275
 msgid "Legal"
-msgstr ""
+msgstr "कानूनी"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:549
 msgid "Legay Label"
@@ -4410,7 +4419,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:153
 #: templates/patients/partials/tcm_diagnosis_form.html:193
 msgid "LI"
-msgstr ""
+msgstr "LI"
 
 #: templates/clinic/course_detail.html:262
 msgid "Limited seats available. We will call you to confirm your enrollment."
@@ -4426,7 +4435,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:43
 msgid "Link this review to a specific doctor."
-msgstr ""
+msgstr "इस समीक्षा को किसी विशिष्ट डॉक्टर से जोड़ें।"
 
 #: templates/appointments/calendar.html:439
 msgid "List View"
@@ -4439,7 +4448,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:164
 #: templates/patients/partials/tcm_diagnosis_form.html:204
 msgid "LIV"
-msgstr ""
+msgstr "LIV"
 
 #: templates/courses/partials/course_list_partial.html:26
 #: templates/events/partials/event_list_partial.html:30
@@ -4449,11 +4458,11 @@ msgstr ""
 
 #: templates/clinic/event_detail.html:20 templates/events/public_list.html:30
 msgid "Live now"
-msgstr ""
+msgstr "अभी लाइव"
 
 #: templates/clinic/portfolio_spa.html:991
 msgid "Loading available slots..."
-msgstr ""
+msgstr "उपलब्ध स्लॉट लोड हो रहे हैं..."
 
 #: templates/appointments/calendar.html:504
 msgid "Loading..."
@@ -4481,7 +4490,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:44
 msgid "Log Out"
-msgstr ""
+msgstr "लॉग आउट"
 
 #: templates/accounts/login.html:8
 msgid "Login — SpinalCure"
@@ -4501,16 +4510,16 @@ msgstr ""
 
 #: templates/clinic/admin/testimonial_form.html:99
 msgid "Lower number = shown first"
-msgstr ""
+msgstr "कम संख्या = पहले दिखाया जाएगा"
 
 #: templates/patients/partials/tcm_diagnosis_display.html:152
 #: templates/patients/partials/tcm_diagnosis_form.html:192
 msgid "LU"
-msgstr ""
+msgstr "LU"
 
 #: templates/clinic/event_detail.html:32
 msgid "m"
-msgstr ""
+msgstr "मि"
 
 #: templates/emails/base_email.html:235
 msgid "MAIL"
@@ -4518,11 +4527,11 @@ msgstr ""
 
 #: templates/public_base.html:35
 msgid "Main"
-msgstr ""
+msgstr "मुख्य"
 
 #: templates/patients/patient_form.html:171
 msgid "Main health issue..."
-msgstr ""
+msgstr "मुख्य स्वास्थ्य समस्या..."
 
 #: templates/courses/course_form.html:173
 msgid "Main Identity"
@@ -4563,6 +4572,7 @@ msgstr ""
 #: templates/clinic/admin/testimonials_list.html:9
 msgid "Manage curated testimonials displayed on the public portfolio."
 msgstr ""
+"सार्वजनिक पोर्टफ़ोलियो पर दिखाई जाने वाली चुनी हुई प्रशंसाएँ प्रबंधित करें।"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:288
 msgid "Manage GSTIN and default taxation rules."
@@ -4570,7 +4580,7 @@ msgstr ""
 
 #: templates/clinic/portfolio.html:150
 msgid "Manage Profile"
-msgstr ""
+msgstr "प्रोफ़ाइल प्रबंधित करें"
 
 #: templates/courses/batch_feedback_admin.html:16
 msgid "Manage student reviews and testimonials."
@@ -4578,11 +4588,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:118
 msgid "Manage tags"
-msgstr ""
+msgstr "टैग प्रबंधित करें"
 
 #: templates/clinic/admin/blog_list.html:12
 msgid "Manage Tags"
-msgstr ""
+msgstr "टैग प्रबंधित करें"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:795
 msgid "Manage the core therapy cards shown on the home page."
@@ -4594,7 +4604,7 @@ msgstr "अपनी अपॉइंटमेंट प्रबंधित क
 
 #: templates/clinic/admin/blog_form.html:106
 msgid "Manual Author Name"
-msgstr ""
+msgstr "लेखक का नाम (मैनुअल)"
 
 #: notifications/templates/notifications/_bell.html:19
 #: notifications/templates/notifications/center.html:7
@@ -4651,11 +4661,11 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:137
 msgid "Medical Brief"
-msgstr ""
+msgstr "चिकित्सा सारांश"
 
 #: templates/patients/patient_form.html:144
 msgid "Medical Case Details"
-msgstr ""
+msgstr "चिकित्सा केस विवरण"
 
 #: patients/models.py:72 templates/patients/patient_detail.html:149
 #: templates/patients/patient_form.html:190
@@ -4664,7 +4674,7 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:474
 msgid "Medical Notes (Internal)"
-msgstr ""
+msgstr "चिकित्सा नोट्स (आंतरिक)"
 
 #: payments/models.py:279
 msgid "Medical Supplies"
@@ -4701,7 +4711,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:131
 #: templates/patients/partials/tcm_diagnosis_form.html:171
 msgid "METAL"
-msgstr ""
+msgstr "धातु"
 
 #: accounts/serializers.py:26
 msgid "Method to deliver OTP: email or SMS"
@@ -4709,7 +4719,7 @@ msgstr "OTP भेजने का तरीका: ईमेल या SMS"
 
 #: templates/patients/patient_detail.html:344
 msgid "Metrics"
-msgstr ""
+msgstr "मेट्रिक्स"
 
 #: templates/appointments/manage.html:29 templates/clinic/event_detail.html:37
 msgid "min"
@@ -4729,15 +4739,15 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:385
 msgid "Mobility"
-msgstr ""
+msgstr "गतिशीलता"
 
 #: templates/patients/patient_detail.html:542
 msgid "Mobility Improvement"
-msgstr ""
+msgstr "गतिशीलता में सुधार"
 
 #: templates/patients/patient_detail.html:516
 msgid "Mobility Score"
-msgstr ""
+msgstr "गतिशीलता स्कोर"
 
 #: patients/models.py:228 templates/patients/session_edit.html:164
 #: templates/patients/session_form.html:152
@@ -4746,13 +4756,13 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:119
 msgid "Mobility Score:"
-msgstr ""
+msgstr "गतिशीलता स्कोर:"
 
 #: templates/patients/patient_detail.html:571
 #: templates/payments/partials/payment_list_partial.html:11
 #: templates/payments/pdf_report.html:86
 msgid "Mode"
-msgstr ""
+msgstr "तरीका"
 
 #: clinic/admin_views.py:355
 #, python-format
@@ -4765,7 +4775,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:103
 msgid "Modify Override"
-msgstr ""
+msgstr "ओवरराइड संशोधित करें"
 
 #: templates/payments/payment_form.html:25
 msgid "Modifying receipt"
@@ -4778,12 +4788,14 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:965
 msgid "Mon-Sat (9 AM - 5 PM)"
-msgstr ""
+msgstr "सोम-शनि (सुबह 9 - शाम 5)"
 
 #: templates/clinic/portfolio_spa.html:964
 msgid ""
 "Mon-Thu & Sat (10 AM - 1 PM, 5:30 PM - 8:30 PM) | Fri (6:30 PM - 8:30 PM)"
 msgstr ""
+"सोम-गुरु और शनि (सुबह 10 - दोपहर 1, शाम 5:30 - रात 8:30) | शुक्र (शाम 6:30 -"
+" रात 8:30)"
 
 #: appointments/models.py:22
 msgid "Monday"
@@ -4815,7 +4827,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:7
 msgid "My Health Portal — SpinalCure"
-msgstr ""
+msgstr "मेरा स्वास्थ्य पोर्टल — SpinalCure"
 
 #: idcards/templates/idcards/mine.html:3 idcards/templates/idcards/mine.html:4
 msgid "My ID card"
@@ -4874,7 +4886,7 @@ msgstr "नई अपॉइंटमेंट: %(who)s"
 #: templates/clinic/admin/blog_form.html:3
 #: templates/clinic/admin/blog_form.html:4
 msgid "New Blog Post"
-msgstr ""
+msgstr "नई ब्लॉग पोस्ट"
 
 #: templates/appointments/calendar.html:585
 msgid "New Booking"
@@ -4914,11 +4926,11 @@ msgstr "नई भुगतान रसीद"
 
 #: templates/patients/patient_detail.html:269
 msgid "New Plan"
-msgstr ""
+msgstr "नई योजना"
 
 #: templates/clinic/admin/blog_list.html:19
 msgid "New Post"
-msgstr ""
+msgstr "नई पोस्ट"
 
 #: templates/emails/audit_log_notification.html:64
 msgid "New Value"
@@ -4938,7 +4950,7 @@ msgstr ""
 #: templates/patients/session_edit.html:141
 #: templates/patients/session_form.html:130
 msgid "Next Appointment (Optional)"
-msgstr ""
+msgstr "अगला अपॉइंटमेंट (वैकल्पिक)"
 
 #: patients/models.py:261
 msgid "Next appointment must be after session date."
@@ -4947,11 +4959,11 @@ msgstr ""
 #: templates/clinic/course_detail.html:112
 #, python-format
 msgid "Next Batch: %(start_date)s"
-msgstr ""
+msgstr "अगला बैच: %(start_date)s"
 
 #: templates/patients/print/session_note_pdf.html:146
 msgid "Next Scheduled Appointment:"
-msgstr ""
+msgstr "अगला निर्धारित अपॉइंटमेंट:"
 
 #: templates/emails/password_reset.html:23
 msgid "Next Steps:"
@@ -4963,11 +4975,11 @@ msgstr ""
 
 #: templates/clinic/course_detail.html:267
 msgid "No active intake"
-msgstr ""
+msgstr "कोई सक्रिय प्रवेश नहीं"
 
 #: templates/clinic/portfolio.html:73
 msgid "No active practitioners found."
-msgstr ""
+msgstr "कोई सक्रिय चिकित्सक नहीं मिला।"
 
 #: clinic/templates/clinic/admin/activity_log.html:200
 msgid "No Activity Yet"
@@ -4980,16 +4992,16 @@ msgstr "कोई अपॉइंटमेंट नहीं मिली"
 #: templates/clinic/blog_list.html:191
 #, python-format
 msgid "No articles found for \"%(name)s\". Try a different tag."
-msgstr ""
+msgstr "\"%(name)s\" के लिए कोई लेख नहीं मिला। कोई दूसरा टैग आज़माएँ।"
 
 #: templates/clinic/blog_list.html:192
 #, python-format
 msgid "No articles from %(name)s yet."
-msgstr ""
+msgstr "%(name)s की ओर से अभी तक कोई लेख नहीं।"
 
 #: templates/clinic/blog_list.html:189
 msgid "No articles yet"
-msgstr ""
+msgstr "अभी तक कोई लेख नहीं"
 
 #: templates/courses/batch_list.html:123
 msgid "No Batches Yet"
@@ -4997,7 +5009,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_list.html:135
 msgid "No blog posts yet"
-msgstr ""
+msgstr "अभी तक कोई ब्लॉग पोस्ट नहीं"
 
 #: idcards/templates/idcards/dashboard.html:12
 #: idcards/templates/idcards/dashboard.html:37
@@ -5006,7 +5018,7 @@ msgstr "कोई कार्ड नहीं"
 
 #: templates/clinic/portfolio.html:166
 msgid "No Clinic Profile Found"
-msgstr ""
+msgstr "कोई क्लिनिक प्रोफ़ाइल नहीं मिली"
 
 #: templates/appointments/availability.html:100
 msgid "No closures scheduled."
@@ -5046,7 +5058,7 @@ msgstr ""
 
 #: templates/clinic/about_page.html:195
 msgid "No images uploaded yet."
-msgstr ""
+msgstr "अभी तक कोई इमेज अपलोड नहीं हुई।"
 
 #: templates/appointments/availability.html:84
 msgid "No leave scheduled."
@@ -5067,19 +5079,19 @@ msgstr "कोई मेल खाता भुगतान नहीं मि�
 #: templates/patients/session_edit.html:157
 #: templates/patients/session_form.html:145
 msgid "No Pain"
-msgstr ""
+msgstr "कोई दर्द नहीं"
 
 #: templates/patients/partials/patient_list_partial.html:59
 msgid "No patients found."
-msgstr ""
+msgstr "कोई रोगी नहीं मिला।"
 
 #: templates/patients/portal/dashboard.html:223
 msgid "No payment records found."
-msgstr ""
+msgstr "कोई भुगतान रिकॉर्ड नहीं मिला।"
 
 #: templates/patients/patient_detail.html:631
 msgid "No payments recorded yet."
-msgstr ""
+msgstr "अभी तक कोई भुगतान दर्ज नहीं हुआ।"
 
 #: idcards/templates/idcards/dashboard.html:41
 msgid "No people match. Add owners and staff under Staff Management first."
@@ -5108,7 +5120,7 @@ msgstr ""
 
 #: templates/clinic/practitioner_portfolio.html:198
 msgid "No public reviews yet for this specialist."
-msgstr ""
+msgstr "इस विशेषज्ञ के लिए अभी तक कोई सार्वजनिक समीक्षा नहीं।"
 
 #: templates/exports/print_template.html:164
 msgid "No records found matching criteria."
@@ -5128,7 +5140,7 @@ msgstr ""
 
 #: templates/patients/reviews.html:151
 msgid "No reviews yet."
-msgstr ""
+msgstr "अभी तक कोई समीक्षा नहीं।"
 
 #: events/views.py:263
 msgid "No seat is free. Raise the capacity or cancel a registration first."
@@ -5136,11 +5148,11 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:412
 msgid "No services added yet. Add some in the Clinic Setup!"
-msgstr ""
+msgstr "अभी तक कोई सेवा नहीं जोड़ी गई। क्लिनिक सेटअप में जोड़ें!"
 
 #: templates/patients/patient_detail.html:494
 msgid "No sessions recorded yet."
-msgstr ""
+msgstr "अभी तक कोई सत्र दर्ज नहीं हुआ।"
 
 #: appointments/models.py:178 templates/appointments/calendar.html:477
 msgid "No Show"
@@ -5148,7 +5160,7 @@ msgstr ""
 
 #: templates/clinic/practitioner_detail.html:94
 msgid "No specific skills listed."
-msgstr ""
+msgstr "कोई विशिष्ट कौशल सूचीबद्ध नहीं।"
 
 #: accounts/templates/accounts/admin/users_list.html:95
 msgid "No staff members found."
@@ -5164,11 +5176,11 @@ msgstr ""
 
 #: templates/clinic/admin/blog_tags.html:73
 msgid "No tags yet"
-msgstr ""
+msgstr "अभी तक कोई टैग नहीं"
 
 #: templates/clinic/admin/blog_form.html:129
 msgid "No tags yet."
-msgstr ""
+msgstr "अभी तक कोई टैग नहीं।"
 
 #: payments/models.py:32
 msgid "No Tax"
@@ -5176,11 +5188,11 @@ msgstr ""
 
 #: templates/patients/partials/tcm_diagnosis_display.html:205
 msgid "No TCM Diagnosis Case Sheet available for this patient."
-msgstr ""
+msgstr "इस रोगी के लिए कोई TCM निदान केस शीट उपलब्ध नहीं है।"
 
 #: templates/clinic/admin/testimonials_list.html:97
 msgid "No testimonials yet"
-msgstr ""
+msgstr "अभी तक कोई प्रशंसा नहीं"
 
 #: templates/appointments/manage.html:43
 msgid "No times available on this date."
@@ -5188,11 +5200,11 @@ msgstr "इस तिथि पर कोई समय उपलब्ध नह
 
 #: templates/patients/portal/dashboard.html:157
 msgid "No treatment history available yet."
-msgstr ""
+msgstr "अभी तक कोई उपचार इतिहास उपलब्ध नहीं है।"
 
 #: templates/patients/portal/dashboard.html:105
 msgid "No upcoming appointments"
-msgstr ""
+msgstr "कोई आगामी अपॉइंटमेंट नहीं"
 
 #: templates/analytics/dashboard.html:156
 msgid "No upcoming appointments."
@@ -5219,7 +5231,7 @@ msgstr "अभी तक किसी ने पंजीकरण नहीं 
 #: templates/patients/partials/tcm_diagnosis_display.html:40
 #: templates/patients/partials/tcm_diagnosis_display.html:51
 msgid "None reported"
-msgstr ""
+msgstr "कोई रिपोर्ट नहीं"
 
 #: templates/appointments/partials/appointment_list_partial.html:29
 #: templates/patients/partials/patient_list_partial.html:38
@@ -5251,7 +5263,7 @@ msgstr ""
 #: templates/patients/session_edit.html:123
 #: templates/patients/session_form.html:111
 msgid "Notes (Internal)"
-msgstr ""
+msgstr "नोट्स (आंतरिक)"
 
 #: events/models.py:243
 msgid "Notes / Message"
@@ -5263,7 +5275,7 @@ msgstr ""
 
 #: templates/patients/session_edit.html:126
 msgid "Notes..."
-msgstr ""
+msgstr "नोट्स..."
 
 #: notifications/templates/notifications/_list.html:40
 msgid "Nothing here"
@@ -5337,7 +5349,7 @@ msgstr ""
 #: templates/events/partials/event_list_partial.html:60
 #: templates/events/public_list.html:18 templates/events/public_list.html:43
 msgid "Online"
-msgstr ""
+msgstr "ऑनलाइन"
 
 #: appointments/scheduling.py:251
 msgid "Online booking is currently unavailable. Please call the clinic."
@@ -5361,11 +5373,11 @@ msgstr "ऑनलाइन या व्यक्तिगत"
 
 #: templates/clinic/event_detail.html:39
 msgid "Online — joining details are sent to registered attendees"
-msgstr ""
+msgstr "ऑनलाइन — जॉइनिंग विवरण पंजीकृत प्रतिभागियों को भेजे जाते हैं"
 
 #: templates/clinic/portfolio_spa.html:965
 msgid "Online:"
-msgstr ""
+msgstr "ऑनलाइन:"
 
 #: templates/emails/auth_request.html:52
 msgid "ONLY"
@@ -5445,7 +5457,7 @@ msgstr ""
 #: templates/clinic/admin/testimonials_list.html:71
 #, python-format
 msgid "Order: %(display_order)s"
-msgstr ""
+msgstr "क्रम: %(display_order)s"
 
 #: idcards/templates/idcards/verify.html:37
 msgid "Organisation"
@@ -5482,35 +5494,35 @@ msgstr ""
 
 #: templates/clinic/portfolio_spa.html:387
 msgid "Our Expertise"
-msgstr ""
+msgstr "हमारी विशेषज्ञता"
 
 #: templates/clinic/portfolio_spa.html:273
 msgid "Our Legacy"
-msgstr ""
+msgstr "हमारी विरासत"
 
 #: templates/clinic/portfolio_spa.html:931
 msgid "Our Location"
-msgstr ""
+msgstr "हमारा स्थान"
 
 #: templates/clinic/portfolio.html:48
 msgid "Our Practitioners"
-msgstr ""
+msgstr "हमारे चिकित्सक"
 
 #: templates/clinic/blog_list.html:193
 msgid "Our specialists are preparing research content. Check back soon!"
-msgstr ""
+msgstr "हमारे विशेषज्ञ शोध सामग्री तैयार कर रहे हैं। जल्द ही फिर देखें!"
 
 #: templates/clinic/about_page.html:256
 #: templates/clinic/course_detail.html:344
 #: templates/clinic/portfolio_spa.html:1114
 #: templates/clinic/practitioner_portfolio.html:263
 msgid "Our Story"
-msgstr ""
+msgstr "हमारी कहानी"
 
 #: templates/clinic/about_page.html:11
 #, python-format
 msgid "Our Story — %(name)s"
-msgstr ""
+msgstr "हमारी कहानी — %(name)s"
 
 #: templates/emails/welcome.html:58
 msgid ""
@@ -5528,7 +5540,7 @@ msgstr ""
 
 #: templates/clinic/admin/blog_form.html:103
 msgid "Outside Author?"
-msgstr ""
+msgstr "बाहरी लेखक?"
 
 #: templates/payments/invoice.html:465
 msgid "Outstanding"
@@ -5580,11 +5592,11 @@ msgstr "पृष्ठ संख्या"
 
 #: templates/patients/portal/dashboard.html:210
 msgid "Paid"
-msgstr ""
+msgstr "भुगतान किया"
 
 #: templates/patients/patient_detail.html:283
 msgid "Paid Amount"
-msgstr ""
+msgstr "भुगतान की गई राशि"
 
 #: payments/models.py:312 templates/payments/expense_form.html:46
 #: templates/payments/partials/expense_list_partial.html:10
@@ -5593,16 +5605,16 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:380
 msgid "Pain"
-msgstr ""
+msgstr "दर्द"
 
 #: templates/patients/patient_detail.html:531
 msgid "Pain Reduction"
-msgstr ""
+msgstr "दर्द में कमी"
 
 #: templates/patients/patient_detail.html:512
 #: templates/patients/portal/dashboard.html:138
 msgid "Pain Scale"
-msgstr ""
+msgstr "दर्द का पैमाना"
 
 #: patients/models.py:223 templates/patients/session_edit.html:151
 #: templates/patients/session_form.html:139
@@ -5611,16 +5623,16 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:121
 msgid "Pain Scale Trend (0-10)"
-msgstr ""
+msgstr "दर्द पैमाने का रुझान (0-10)"
 
 #: templates/patients/print/session_note_pdf.html:118
 msgid "Pain Scale:"
-msgstr ""
+msgstr "दर्द का पैमाना:"
 
 #: templates/patients/portal/dashboard.html:139
 #, python-format
 msgid "Pain: %(pain_scale)s/10"
-msgstr ""
+msgstr "दर्द: %(pain_scale)s/10"
 
 #: templates/emails/appointment_reminder.html:42
 #, python-format
@@ -5677,7 +5689,7 @@ msgstr "बीते"
 
 #: templates/patients/patient_form.html:193
 msgid "Past surgeries, conditions..."
-msgstr ""
+msgstr "पिछली सर्जरी, स्थितियाँ..."
 
 #: appointments/models.py:193 patients/models.py:92 patients/models.py:155
 #: patients/models.py:188
@@ -5701,7 +5713,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:5
 msgid "Patient - SpinalCure"
-msgstr ""
+msgstr "रोगी - SpinalCure"
 
 #: clinic/models.py:317
 msgid "Patient / Client Name"
@@ -5709,12 +5721,12 @@ msgstr ""
 
 #: templates/clinic/admin/testimonial_form.html:29
 msgid "Patient / Client Name *"
-msgstr ""
+msgstr "रोगी / ग्राहक का नाम *"
 
 #: templates/patients/print/patient_card.html:9
 #, python-format
 msgid "Patient Card - %(name)s - SpinalCure"
-msgstr ""
+msgstr "रोगी कार्ड - %(name)s - SpinalCure"
 
 #: patients/models.py:142
 msgid "Patient email cannot be same as attender name."
@@ -5737,15 +5749,15 @@ msgstr ""
 
 #: templates/patients/patient_form.html:30
 msgid "Patient ID (Optional)"
-msgstr ""
+msgstr "रोगी आईडी (वैकल्पिक)"
 
 #: templates/patients/print/session_note_pdf.html:110
 msgid "Patient ID:"
-msgstr ""
+msgstr "रोगी आईडी:"
 
 #: templates/patients/portal/login.html:7
 msgid "Patient Login — SpinalCure"
-msgstr ""
+msgstr "रोगी लॉगिन — SpinalCure"
 
 #: templates/emails/admin_booking_notify.html:18
 #: templates/patients/partials/patient_list_partial.html:6
@@ -5759,11 +5771,11 @@ msgstr "मरीज़ का नाम या कारण..."
 
 #: templates/patients/print/session_note_pdf.html:109
 msgid "Patient Name:"
-msgstr ""
+msgstr "रोगी का नाम:"
 
 #: templates/patients/print/patient_card.html:83
 msgid "Patient Photo"
-msgstr ""
+msgstr "रोगी की फ़ोटो"
 
 #: appointments/models.py:240
 msgid "Patient portal"
@@ -5772,12 +5784,12 @@ msgstr ""
 #: templates/patients/portal/dashboard.html:36
 #: templates/patients/portal/login.html:30
 msgid "Patient Portal"
-msgstr ""
+msgstr "रोगी पोर्टल"
 
 #: templates/patients/patient_detail.html:7
 #: templates/patients/portal/dashboard.html:169
 msgid "Patient Profile"
-msgstr ""
+msgstr "रोगी प्रोफ़ाइल"
 
 #: patients/models.py:301
 msgid "Patient Review"
@@ -5789,7 +5801,7 @@ msgstr ""
 
 #: templates/patients/reviews.html:4
 msgid "Patient Reviews — SpinalCure"
-msgstr ""
+msgstr "रोगी समीक्षाएँ — SpinalCure"
 
 #: templates/clinic/admin/testimonial_form.html:79
 msgid "Patient's experience in their words..."
@@ -5797,7 +5809,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:47
 msgid "Patient's Full Name"
-msgstr ""
+msgstr "रोगी का पूरा नाम"
 
 #: templates/appointments/emails/booking_confirmation.html:75
 msgid "Patient:"
@@ -5810,7 +5822,7 @@ msgstr ""
 
 #: templates/patients/patient_list.html:4
 msgid "Patients - SpinalCure"
-msgstr ""
+msgstr "रोगी - SpinalCure"
 
 #: appointments/models.py:133
 msgid "Patients may cancel/reschedule until (hours before)"
@@ -5851,7 +5863,7 @@ msgstr "भुगतान विफल"
 
 #: templates/patients/patient_detail.html:558
 msgid "Payment History"
-msgstr ""
+msgstr "भुगतान इतिहास"
 
 #: templates/payments/invoice.html:404
 msgid "Payment Information"
@@ -5886,7 +5898,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:199
 msgid "Payment Receipts"
-msgstr ""
+msgstr "भुगतान रसीदें"
 
 #: notifications/messages.py:45
 msgid "Payment received"
@@ -5920,7 +5932,7 @@ msgstr "भुगतान और बिलिंग"
 #: templates/patients/patient_detail.html:314
 #, python-format
 msgid "Payments (%(count)s)"
-msgstr ""
+msgstr "भुगतान (%(count)s)"
 
 #: templates/payments/payment_list.html:4
 msgid "Payments - SpinalCure"
@@ -6002,7 +6014,7 @@ msgstr ""
 #: templates/patients/print/session_note_pdf.html:102
 #, python-format
 msgid "Phone: %(phone)s | Email: %(email)s"
-msgstr ""
+msgstr "फ़ोन: %(phone)s | ईमेल: %(email)s"
 
 #: clinic/models.py:325 patients/models.py:58
 #: templates/clinic/portfolio_spa.html:763
@@ -6020,7 +6032,7 @@ msgstr ""
 
 #: templates/patients/session_edit.html:32
 msgid "PIN Authorized"
-msgstr ""
+msgstr "PIN अधिकृत"
 
 #: patients/views.py:805
 msgid "PIN has expired. Please request a new one."
@@ -6048,7 +6060,7 @@ msgstr ""
 
 #: templates/patients/print/patient_card.html:147
 msgid "Please bring this card for all future visits"
-msgstr ""
+msgstr "कृपया सभी भावी विज़िट के लिए यह कार्ड साथ लाएँ"
 
 #: templates/emails/appointment_reminder.html:70
 #, python-format
@@ -6136,7 +6148,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:35
 msgid "Practitioner (Optional)"
-msgstr ""
+msgstr "चिकित्सक (वैकल्पिक)"
 
 #: patients/models.py:234
 msgid "Practitioner Notes"
@@ -6218,11 +6230,11 @@ msgstr ""
 
 #: templates/patients/print/patient_card.html:105
 msgid "Primary Address"
-msgstr ""
+msgstr "प्राथमिक पता"
 
 #: templates/patients/patient_form.html:149
 msgid "Primary Doctor (Handled By)"
-msgstr ""
+msgstr "प्राथमिक डॉक्टर (संभालने वाले)"
 
 #: idcards/templates/idcards/_card.html:39
 msgid "Print"
@@ -6230,7 +6242,7 @@ msgstr "प्रिंट करें"
 
 #: templates/patients/print/patient_card.html:58
 msgid "Print Card"
-msgstr ""
+msgstr "कार्ड प्रिंट करें"
 
 #: templates/payments/invoice.html:271
 msgid "Print Invoice"
@@ -6290,7 +6302,7 @@ msgstr "प्रोफ़ाइल सफलतापूर्वक अपड�
 
 #: templates/patients/partials/patient_list_partial.html:11
 msgid "Progress"
-msgstr ""
+msgstr "प्रगति"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:943
 msgid ""
@@ -6303,7 +6315,7 @@ msgstr "आपके स्वास्थ्य के लिए गुणव�
 
 #: templates/patients/patient_form.html:33
 msgid "PT-001"
-msgstr ""
+msgstr "PT-001"
 
 #: templates/courses/batch_form.html:177
 msgid "Public Display"
@@ -6349,7 +6361,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:74
 msgid "Publish to portfolio immediately"
-msgstr ""
+msgstr "तुरंत पोर्टफ़ोलियो में प्रकाशित करें"
 
 #: clinic/blog_models.py:30 clinic/models.py:337 courses/models.py:51
 #: courses/models.py:133
@@ -6442,7 +6454,7 @@ msgstr ""
 
 #: templates/patients/portal/dashboard.html:106
 msgid "Ready for your next visit?"
-msgstr ""
+msgstr "क्या आप अपनी अगली विज़िट के लिए तैयार हैं?"
 
 #: idcards/templates/idcards/detail.html:41
 #: idcards/templates/idcards/detail.html:45
@@ -6549,7 +6561,7 @@ msgstr "नया भुगतान दर्ज करें"
 
 #: templates/patients/session_form.html:5
 msgid "Record New Session — SpinalCure"
-msgstr ""
+msgstr "नया सत्र दर्ज करें — SpinalCure"
 
 #: templates/analytics/dashboard.html:177
 #: templates/patients/patient_detail.html:162
@@ -6559,11 +6571,11 @@ msgstr "भुगतान दर्ज करें"
 
 #: templates/patients/session_form.html:172
 msgid "Record Session"
-msgstr ""
+msgstr "सत्र दर्ज करें"
 
 #: templates/patients/session_form.html:7
 msgid "Record Treatment Session"
-msgstr ""
+msgstr "उपचार सत्र दर्ज करें"
 
 #: templates/emails/audit_log_notification.html:34
 msgid "Record Type"
@@ -6587,11 +6599,11 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:116
 msgid "Recovery Metrics"
-msgstr ""
+msgstr "रिकवरी मेट्रिक्स"
 
 #: templates/patients/patient_detail.html:506
 msgid "Recovery Trends"
-msgstr ""
+msgstr "रिकवरी के रुझान"
 
 #: templates/emails/appointment_reminder.html:33
 msgid "Reference #:"
@@ -6616,7 +6628,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:226
 msgid "Register Patient"
-msgstr ""
+msgstr "रोगी पंजीकृत करें"
 
 #: templates/events/partials/event_registrations_partial.html:12
 msgid "Registered"
@@ -6628,7 +6640,7 @@ msgstr ""
 
 #: templates/patients/partials/patient_list_partial.html:9
 msgid "Registered Date"
-msgstr ""
+msgstr "पंजीकरण तिथि"
 
 #: templates/emails/welcome.html:28
 msgid "Registered On:"
@@ -6637,7 +6649,7 @@ msgstr ""
 #: templates/patients/print/patient_card.html:98
 #, python-format
 msgid "Registered: %(registered_date)s"
-msgstr ""
+msgstr "पंजीकृत: %(registered_date)s"
 
 #: courses/models.py:207 events/models.py:281
 #: templates/events/event_form.html:50
@@ -6765,7 +6777,7 @@ msgstr "लिंक बदलें"
 
 #: templates/patients/portal/dashboard.html:107
 msgid "Request an Appointment &rarr;"
-msgstr ""
+msgstr "अपॉइंटमेंट का अनुरोध करें &rarr;"
 
 #: accounts/models.py:145
 msgid "Request Count (Today)"
@@ -6856,7 +6868,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:63
 msgid "Review Text"
-msgstr ""
+msgstr "समीक्षा का पाठ"
 
 #: templates/base.html:584 templates/clinic/about_page.html:100
 #: templates/clinic/about_page.html:126
@@ -6866,7 +6878,7 @@ msgstr "समीक्षाएं"
 
 #: templates/patients/reviews.html:5
 msgid "Reviews & Ratings"
-msgstr ""
+msgstr "समीक्षाएँ और रेटिंग"
 
 #: templates/clinic/course_detail.html:207
 msgid ""
@@ -6937,7 +6949,7 @@ msgstr "खर्च सहेजें"
 
 #: templates/patients/patient_detail.html:773
 msgid "Save Plan"
-msgstr ""
+msgstr "योजना सहेजें"
 
 #: notifications/templates/notifications/preferences.html:38
 msgid "Save preferences"
@@ -6945,7 +6957,7 @@ msgstr "प्राथमिकताएं सहेजें"
 
 #: templates/patients/review_form.html:85
 msgid "Save Review"
-msgstr ""
+msgstr "समीक्षा सहेजें"
 
 #: templates/appointments/availability.html:116
 msgid "Save rules"
@@ -7014,7 +7026,7 @@ msgstr "नाम, फ़ोन या अपॉइंटमेंट आईड�
 
 #: templates/patients/patient_list.html:31
 msgid "Search for patients..."
-msgstr ""
+msgstr "रोगी खोजें..."
 
 #: idcards/templates/idcards/dashboard.html:18
 msgid "Search name, ID, designation…"
@@ -7026,7 +7038,7 @@ msgstr "नाम, फ़ोन, ईमेल खोजें"
 
 #: templates/patients/reviews.html:30
 msgid "Search patient name or feedback..."
-msgstr ""
+msgstr "रोगी का नाम या फ़ीडबैक खोजें..."
 
 #: templates/base.html:294
 msgid "Search patients, appointments, etc..."
@@ -7105,7 +7117,7 @@ msgstr "इवेंट चुनें"
 #: templates/patients/patient_form.html:59
 #: templates/patients/patient_form.html:60
 msgid "Select Gender"
-msgstr ""
+msgstr "लिंग चुनें"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:865
 #: clinic/templates/clinic/admin/clinic_setup.html:1048
@@ -7117,7 +7129,7 @@ msgstr ""
 #: templates/payments/payment_form.html:72
 #: templates/payments/payment_form.html:87
 msgid "Select Patient"
-msgstr ""
+msgstr "रोगी चुनें"
 
 #: templates/clinic/admin/blog_form.html:94
 msgid "Select practitioner"
@@ -7141,7 +7153,7 @@ msgstr ""
 
 #: templates/patients/portal/login.html:59
 msgid "Send OTP"
-msgstr ""
+msgstr "OTP भेजें"
 
 #: appointments/models.py:138
 msgid "Send reminders this many minutes before (comma-separated)"
@@ -7246,7 +7258,7 @@ msgstr ""
 #: templates/patients/session_edit.html:47
 #: templates/patients/session_form.html:41
 msgid "Session Basics"
-msgstr ""
+msgstr "सत्र की बुनियादी जानकारी"
 
 #: patients/models.py:209 templates/patients/session_edit.html:52
 #: templates/patients/session_form.html:46
@@ -7255,16 +7267,16 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:111
 msgid "Session Date:"
-msgstr ""
+msgstr "सत्र की तिथि:"
 
 #: templates/patients/patient_detail.html:329
 msgid "Session History"
-msgstr ""
+msgstr "सत्र इतिहास"
 
 #: templates/patients/print/session_note_pdf.html:6
 #, python-format
 msgid "Session Note - %(session_number)s"
-msgstr ""
+msgstr "सत्र नोट - %(session_number)s"
 
 #: patients/models.py:213 templates/patients/session_edit.html:59
 #: templates/patients/session_form.html:52
@@ -7282,11 +7294,11 @@ msgstr ""
 #: templates/patients/patient_detail.html:302
 #, python-format
 msgid "Sessions (%(count)s)"
-msgstr ""
+msgstr "सत्र (%(count)s)"
 
 #: templates/patients/partials/patient_list_partial.html:10
 msgid "Sessions (Done/Total)"
-msgstr ""
+msgstr "सत्र (पूर्ण/कुल)"
 
 #: templates/analytics/dashboard.html:23
 msgid "Sessions Today"
@@ -7403,6 +7415,7 @@ msgstr ""
 #, python-format
 msgid "Showing %(start_index)s to %(end_index)s of %(count)s patients"
 msgstr ""
+"%(count)s रोगियों में से %(start_index)s से %(end_index)s तक दिखा रहे हैं"
 
 #: templates/courses/partials/course_list_partial.html:121
 #, python-format
@@ -7436,7 +7449,7 @@ msgstr "%(count)s में से %(start_index)s–%(end_index)s दिखा 
 
 #: templates/patients/portal/dashboard.html:151
 msgid "Showing last 5 sessions"
-msgstr ""
+msgstr "अंतिम 5 सत्र दिखा रहे हैं"
 
 #: clinic/blog_models.py:81
 msgid "Shown in Google search results (max 160 chars)."
@@ -7445,7 +7458,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:172
 #: templates/patients/partials/tcm_diagnosis_form.html:212
 msgid "SI"
-msgstr ""
+msgstr "SI"
 
 #: templates/accounts/login.html:128
 msgid "Sign in to Dashboard"
@@ -7469,7 +7482,7 @@ msgstr ""
 
 #: templates/public_base.html:28
 msgid "Skip to content"
-msgstr ""
+msgstr "सामग्री पर जाएँ"
 
 #: notifications/models.py:66
 msgid "Skipped"
@@ -7530,7 +7543,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:146
 #: templates/patients/partials/tcm_diagnosis_form.html:186
 msgid "SP"
-msgstr ""
+msgstr "SP"
 
 #: templates/emails/booking_confirmation.html:30
 msgid "Specialist"
@@ -7593,7 +7606,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:147
 #: templates/patients/partials/tcm_diagnosis_form.html:187
 msgid "ST"
-msgstr ""
+msgstr "ST"
 
 #: accounts/models.py:25 accounts/templates/accounts/admin/users_list.html:60
 #: appointments/models.py:240 idcards/models.py:55
@@ -7799,7 +7812,7 @@ msgstr "निलंबित"
 
 #: templates/patients/patient_detail.html:758
 msgid "Symptoms, diagnosis, etc."
-msgstr ""
+msgstr "लक्षण, निदान आदि।"
 
 #: templates/courses/batch_form.html:188
 msgid "Synchronize Batch Details"
@@ -7883,7 +7896,7 @@ msgstr ""
 
 #: templates/patients/partials/tcm_diagnosis_display.html:6
 msgid "TCM Diagnosis"
-msgstr ""
+msgstr "TCM निदान"
 
 #: templates/clinic/about_page.html:98 templates/clinic/about_page.html:124
 #: templates/clinic/blog_detail.html:65 templates/clinic/blog_list.html:48
@@ -7908,7 +7921,7 @@ msgstr ""
 
 #: templates/patients/print/session_note_pdf.html:128
 msgid "Techniques Employed:"
-msgstr ""
+msgstr "प्रयुक्त तकनीकें:"
 
 #: patients/models.py:217 templates/patients/patient_detail.html:453
 #: templates/patients/session_edit.html:116
@@ -8321,7 +8334,7 @@ msgstr "जब OTP अमान्य हो जाता है उसका �
 
 #: templates/patients/patient_detail.html:437
 msgid "Timing & Duration"
-msgstr ""
+msgstr "समय और अवधि"
 
 #: clinic/blog_models.py:34 courses/models.py:20 events/models.py:47
 #: templates/payments/partials/expense_list_partial.html:8
@@ -8414,7 +8427,7 @@ msgstr "कुल खर्च"
 
 #: templates/patients/patient_detail.html:277
 msgid "Total Fee"
-msgstr ""
+msgstr "कुल शुल्क"
 
 #: templates/analytics/dashboard.html:14
 msgid "Total Patients"
@@ -8430,7 +8443,7 @@ msgstr ""
 
 #: templates/patients/reviews.html:58
 msgid "Total Reviews"
-msgstr ""
+msgstr "कुल समीक्षाएँ"
 
 #: patients/models.py:161 templates/patients/patient_detail.html:762
 msgid "Total Sittings"
@@ -8467,11 +8480,11 @@ msgstr ""
 #: templates/patients/reviews.html:120
 #, python-format
 msgid "Treated by %(name)s"
-msgstr ""
+msgstr "%(name)s द्वारा उपचारित"
 
 #: templates/patients/print/session_note_pdf.html:122
 msgid "Treatment Details"
-msgstr ""
+msgstr "उपचार विवरण"
 
 #: notifications/messages.py:42
 msgid "Treatment follow-up due"
@@ -8480,7 +8493,7 @@ msgstr "उपचार फॉलो-अप देय है"
 #: templates/patients/session_edit.html:104
 #: templates/patients/session_form.html:92
 msgid "Treatment Info"
-msgstr ""
+msgstr "उपचार जानकारी"
 
 #: patients/models.py:195 payments/models.py:63
 #: templates/patients/session_edit.html:66
@@ -8504,12 +8517,12 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:247
 msgid "Treatment Plan:"
-msgstr ""
+msgstr "उपचार योजना:"
 
 #: templates/patients/patient_detail.html:310
 #: templates/patients/portal/dashboard.html:115
 msgid "Treatment Progress"
-msgstr ""
+msgstr "उपचार की प्रगति"
 
 #: templates/clinic/about_page.html:258
 #: templates/clinic/course_detail.html:346
@@ -8549,7 +8562,7 @@ msgstr "साझाकरण चालू करें"
 #: templates/patients/partials/tcm_diagnosis_display.html:173
 #: templates/patients/partials/tcm_diagnosis_form.html:213
 msgid "TW"
-msgstr ""
+msgstr "TW"
 
 #: templates/clinic/portfolio.html:141
 msgid "Twitter"
@@ -8573,7 +8586,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:159
 #: templates/patients/partials/tcm_diagnosis_form.html:199
 msgid "UB"
-msgstr ""
+msgstr "UB"
 
 #: templates/events/partials/event_registrations_partial.html:31
 msgid "Undo attended"
@@ -8670,7 +8683,7 @@ msgstr ""
 
 #: templates/patients/patient_form.html:226
 msgid "Update Patient Profile"
-msgstr ""
+msgstr "रोगी प्रोफ़ाइल अपडेट करें"
 
 #: templates/payments/payment_form.html:22
 msgid "Update Payment Information"
@@ -8809,7 +8822,7 @@ msgstr "सत्यापित %(t)s पहचान पत्र"
 
 #: templates/patients/portal/verify.html:54
 msgid "Verify & Login"
-msgstr ""
+msgstr "सत्यापित करें और लॉगिन करें"
 
 #: templates/partials/security_modal.html:62
 msgid "Verify & Proceed"
@@ -8817,11 +8830,11 @@ msgstr "सत्यापित करें और आगे बढ़ें"
 
 #: templates/patients/portal/verify.html:30
 msgid "Verify It's You"
-msgstr ""
+msgstr "पुष्टि करें कि यह आप हैं"
 
 #: templates/patients/portal/verify.html:7
 msgid "Verify OTP — SpinalCure"
-msgstr ""
+msgstr "OTP सत्यापित करें — SpinalCure"
 
 #: idcards/templates/idcards/share.html:28
 msgid "Verify this card"
@@ -8904,7 +8917,7 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:507
 msgid "Visualizing pain and mobility metrics over time."
-msgstr ""
+msgstr "समय के साथ दर्द और गतिशीलता मेट्रिक्स का दृश्य।"
 
 #: templates/events/public_list.html:46
 msgid "Waitlist"
@@ -8948,7 +8961,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:132
 #: templates/patients/partials/tcm_diagnosis_form.html:172
 msgid "WATER"
-msgstr ""
+msgstr "जल"
 
 #: templates/payments/invoice.html:482
 msgid "We appreciate your trust in us for your wellness journey."
@@ -9069,6 +9082,8 @@ msgid ""
 "Welcome to your personal health portal. Track your upcoming appointments, "
 "view treatment progress, and download payment receipts."
 msgstr ""
+"आपके व्यक्तिगत स्वास्थ्य पोर्टल में आपका स्वागत है। अपने आगामी अपॉइंटमेंट "
+"ट्रैक करें, उपचार की प्रगति देखें और भुगतान रसीदें डाउनलोड करें।"
 
 #: templates/base.html:327
 msgid "What are you looking for?"
@@ -9092,7 +9107,7 @@ msgstr ""
 
 #: templates/patients/patient_detail.html:110
 msgid "Whatsapp"
-msgstr ""
+msgstr "WhatsApp"
 
 #: patients/models.py:46 templates/patients/patient_form.html:76
 msgid "Whatsapp No"
@@ -9139,7 +9154,7 @@ msgstr "भुगतान कौन कर रहा है?"
 
 #: templates/patients/patient_form.html:164
 msgid "Why is the patient visiting?"
-msgstr ""
+msgstr "रोगी क्यों आ रहा है?"
 
 #: templates/appointments/manage.html:30
 msgid "With"
@@ -9148,7 +9163,7 @@ msgstr "के साथ"
 #: templates/patients/portal/dashboard.html:85
 #, python-format
 msgid "with %(name)s"
-msgstr ""
+msgstr "%(name)s के साथ"
 
 #: templates/emails/appointment_reminder.html:25
 msgid "With:"
@@ -9157,7 +9172,7 @@ msgstr ""
 #: templates/patients/partials/tcm_diagnosis_display.html:133
 #: templates/patients/partials/tcm_diagnosis_form.html:173
 msgid "WOOD"
-msgstr ""
+msgstr "काष्ठ"
 
 #: templates/clinic/admin/blog_form.html:43
 msgid "Word count: 0"
@@ -9183,7 +9198,7 @@ msgstr ""
 #: templates/patients/session_edit.html:158
 #: templates/patients/session_form.html:146
 msgid "Worst Pain"
-msgstr ""
+msgstr "सबसे तीव्र दर्द"
 
 #: templates/clinic/admin/blog_list.html:140
 msgid "Write First Post"
@@ -9191,7 +9206,7 @@ msgstr ""
 
 #: templates/patients/review_form.html:66
 msgid "Write the patient's feedback here..."
-msgstr ""
+msgstr "रोगी का फ़ीडबैक यहाँ लिखें..."
 
 #: templates/clinic/admin/blog_form.html:41
 msgid "Write your article here. You can use standard text or HTML..."
@@ -9199,11 +9214,11 @@ msgstr ""
 
 #: templates/patients/partials/tcm_diagnosis_form.html:233
 msgid "Y+ Ya-"
-msgstr ""
+msgstr "Y+ Ya-"
 
 #: templates/patients/partials/tcm_diagnosis_form.html:229
 msgid "Y- Ya+"
-msgstr ""
+msgstr "Y- Ya+"
 
 #: clinic/models.py:161
 msgid "Year cannot be in the future."
@@ -9542,11 +9557,11 @@ msgstr "← उपयोगकर्ताओं पर वापस"
 
 #: templates/patients/reviews.html:99
 msgid "○ Draft"
-msgstr ""
+msgstr "○ ड्राफ़्ट"
 
 #: templates/patients/reviews.html:99
 msgid "● Published"
-msgstr ""
+msgstr "● प्रकाशित"
 
 #: templates/emails/payment_receipt.html:69
 msgid "⚠️ Balance Due"

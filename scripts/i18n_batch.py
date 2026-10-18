@@ -22,7 +22,8 @@ PRIORITY = ['templates/base.html', 'templates/partials', 'templates/components',
             'idcards', 'templates/appointments', 'templates/events', 'templates/payments', 'templates/analytics',
             'templates/patients', 'templates/public_base', 'templates/clinic', 'clinic/', 'templates/courses',
             'templates/exports', 'templates/emails']
-PH = re.compile(r'%\(\w+\)[sd]|%[sd]|&\w+;|&#\d+;|\{\{.*?\}\}|%%')
+# &larr;/&rarr; are directional: RTL translations legitimately use the mirrored arrow
+PH = re.compile(r'%\(\w+\)[sd]|%[sd]|&(?!larr;|rarr;)\w+;|&#\d+;|\{\{.*?\}\}|%%')
 
 
 def rank(entry):
