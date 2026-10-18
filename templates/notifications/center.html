@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Notifications - SpinalCure{% endblock %}
+{% block page_title %}Notifications{% endblock %}
+{% block content %}
+<div class="bg-white rounded-xl border border-gray-100 shadow-sm">
+    <div class="flex flex-wrap items-center justify-between gap-3 p-4 border-b border-gray-100">
+        <nav class="flex gap-1" aria-label="Notification folders">
+            <a href="?box=inbox" class="px-3 py-1.5 rounded-lg text-sm font-medium no-underline {% if box == 'inbox' %}bg-green-100 text-green-800{% else %}text-gray-600 hover:bg-gray-100{% endif %}" {% if box == 'inbox' %}aria-current="page"{% endif %}>Inbox</a>
+            <a href="?box=unread" class="px-3 py-1.5 rounded-lg text-sm font-medium no-underline {% if box == 'unread' %}bg-green-100 text-green-800{% else %}text-gray-600 hover:bg-gray-100{% endif %}" {% if box == 'unread' %}aria-current="page"{% endif %}>Unread</a>
+            <a href="?box=archived" class="px-3 py-1.5 rounded-lg text-sm font-medium no-underline {% if box == 'archived' %}bg-green-100 text-green-800{% else %}text-gray-600 hover:bg-gray-100{% endif %}" {% if box == 'archived' %}aria-current="page"{% endif %}>Archived</a>
+        </nav>
+        <div class="flex gap-2">
+            <form method="post" action="{% url 'notification_action' %}">{% csrf_token %}
+                <input type="hidden" name="action" value="read"><input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <button type="submit" class="px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 hover:bg-gray-50">Mark all read</button>
+            </form>
+            <a href="{% url 'notification_preferences' %}" class="px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 hover:bg-gray-50 no-underline text-gray-700">Preferences</a>
+        </div>
+    </div>
+    <ul class="divide-y divide-gray-100">
+        {% for n in page %}
+        <li class="flex items-start gap-3 p-4 {% if not n.is_read %}bg-green-50/40{% endif %}">
+            <span class="mt-1.5 w-2 h-2 rounded-full flex-shrink-0 {% if n.is_read %}bg-transparent{% else %}bg-green-600{% endif %}" aria-hidden="true"></span>
+            <a href="{% url 'notification_open' n.pk %}" class="flex-1 min-w-0 no-underline">
+                <p class="text-sm {% if not n.is_read %}font-semibold{% endif %} text-gray-900">{{ n.title }}{% if not n.is_read %}<span class="sr-only"> (unread)</span>{% endif %}</p>
+                {% if n.body %}<p class="text-sm text-gray-600 mt-0.5">{{ n.body }}</p>{% endif %}
+                <p class="text-xs text-gray-400 mt-1">{{ n.get_event_display }} · {{ n.created_at|date:"d M Y, h:i A" }}</p>
+            </a>
+            <form method="post" action="{% url 'notification_action' %}">{% csrf_token %}
+                <input type="hidden" name="id" value="{{ n.pk }}"><input type="hidden" name="next" value="{{ request.get_full_path }}">
+                {% if box == 'archived' %}
+                <button type="submit" name="action" value="unarchive" class="text-xs text-gray-500 hover:text-gray-800">Restore</button>
+                {% else %}
+                {% if not n.is_read %}<button type="submit" name="action" value="read" class="text-xs text-gray-500 hover:text-gray-800 mr-2">Mark read</button>{% endif %}
+                <button type="submit" name="action" value="archive" class="text-xs text-gray-500 hover:text-gray-800">Archive</button>
+                {% endif %}
+            </form>
+        </li>
+        {% empty %}
+        <li class="p-12 text-center">
+            <i class="bi bi-bell-slash text-3xl text-gray-300" aria-hidden="true"></i>
+            <p class="mt-2 text-sm text-gray-500">{% if box == 'archived' %}No archived notifications.{% elif box == 'unread' %}No unread notifications.{% else %}No notifications yet.{% endif %}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% if page.has_other_pages %}
+    <nav class="flex justify-between p-4 border-t border-gray-100 text-sm" aria-label="Pagination">
+        {% if page.has_previous %}<a href="?box={{ box }}&page={{ page.previous_page_number }}" class="text-green-700">Previous</a>{% else %}<span></span>{% endif %}
+        <span class="text-gray-500">Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
+        {% if page.has_next %}<a href="?box={{ box }}&page={{ page.next_page_number }}" class="text-green-700">Next</a>{% else %}<span></span>{% endif %}
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

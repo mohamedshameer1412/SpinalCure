@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Email deliveries - SpinalCure{% endblock %}
+{% block page_title %}Email deliveries{% endblock %}
+{% block content %}
+<div class="bg-white rounded-xl border border-gray-100 shadow-sm">
+    <form method="get" class="flex items-end gap-3 p-4 border-b border-gray-100">
+        <div>
+            <label for="status" class="block text-xs font-medium text-gray-700 mb-1">Status</label>
+            <select id="status" name="status" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                <option value="">All</option>
+                <option value="pending" {% if status == 'pending' %}selected{% endif %}>Pending</option>
+                <option value="sent" {% if status == 'sent' %}selected{% endif %}>Sent</option>
+                <option value="failed" {% if status == 'failed' %}selected{% endif %}>Failed</option>
+            </select>
+        </div>
+        <p class="text-xs text-gray-500">Failed emails are retried automatically up to 5 times by the scheduled job.</p>
+    </form>
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+        <thead class="bg-gray-50 text-xs uppercase text-gray-600 text-left">
+            <tr><th scope="col" class="px-4 py-3">When</th><th scope="col" class="px-4 py-3">Event</th><th scope="col" class="px-4 py-3">To</th><th scope="col" class="px-4 py-3">Subject</th><th scope="col" class="px-4 py-3">Status</th><th scope="col" class="px-4 py-3"><span class="sr-only">Actions</span></th></tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+            {% for row in page %}
+            <tr>
+                <td class="px-4 py-3 whitespace-nowrap text-gray-500">{{ row.created_at|date:"d M, h:i A" }}</td>
+                <td class="px-4 py-3">{{ row.get_event_display }}</td>
+                <td class="px-4 py-3">{{ row.to_email }}</td>
+                <td class="px-4 py-3">{{ row.subject|truncatechars:60 }}</td>
+                <td class="px-4 py-3">
+                    <span class="px-2 py-0.5 rounded text-xs font-semibold {% if row.status == 'sent' %}bg-green-100 text-green-800{% elif row.status == 'failed' %}bg-red-100 text-red-800{% else %}bg-gray-100 text-gray-700{% endif %}">{{ row.get_status_display }}</span>
+                    {% if row.status == 'failed' %}<p class="text-xs text-red-700 mt-1">{{ row.last_error|truncatechars:120 }} (attempt {{ row.attempts }})</p>{% endif %}
+                </td>
+                <td class="px-4 py-3 text-right">
+                    {% if row.status == 'failed' %}
+                    <form method="post">{% csrf_token %}<input type="hidden" name="id" value="{{ row.pk }}"><button type="submit" class="text-green-700 font-medium hover:underline">Retry now</button></form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="px-4 py-10 text-center text-gray-500">No emails yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    {% if page.has_other_pages %}
+    <nav class="flex justify-between p-4 border-t border-gray-100 text-sm" aria-label="Pagination">
+        {% if page.has_previous %}<a href="?status={{ status }}&page={{ page.previous_page_number }}" class="text-green-700">Previous</a>{% else %}<span></span>{% endif %}
+        <span class="text-gray-500">Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
+        {% if page.has_next %}<a href="?status={{ status }}&page={{ page.next_page_number }}" class="text-green-700">Next</a>{% else %}<span></span>{% endif %}
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

@@ -13,6 +13,12 @@ def _fast_hasher(settings):
 
 
 @pytest.fixture(autouse=True)
+def _run_on_commit_now(monkeypatch):
+    # Tests run inside a never-committed transaction; send outbox emails immediately, as autocommit does.
+    monkeypatch.setattr('notifications.services.transaction.on_commit', lambda fn, *a, **k: fn())
+
+
+@pytest.fixture(autouse=True)
 def _clear_cache():
     from django.utils import translation
     translation.activate('en')  # URLs are under /en/; LANGUAGE_CODE 'en-us' is not a URL prefix

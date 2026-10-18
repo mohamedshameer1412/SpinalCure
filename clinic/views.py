@@ -339,6 +339,8 @@ def book_appointment_ajax(request):
             return JsonResponse({'status': 'error', 'message': str(e)}, status=409)
 
         logger.info('Public appointment %s booked for %s', appointment.pk, day)
+        from appointments.notify import appointment_changed
+        appointment_changed(appointment, 'booked', public=True)
 
         # Send booking confirmation email to patient + notify admin
         try:

@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Appointment, DoctorAvailability
 from .serializers import AppointmentSerializer, DoctorAvailabilitySerializer
 from .scheduling import booking_lock, check_bookable, BookingError
+from .notify import appointment_changed
 from spinalcure.utils import log_action, decode_b64uuid
 from spinalcure.permissions import IsDoctor
 import logging
@@ -82,6 +83,11 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         changes = {k: {'old': before[k], 'new': after[k]} for k in before if before[k] != after[k]}
         if changes:
             log_action(self.request, 'update', 'Appointment', str(appointment), object_id=appointment.pk, changes=changes)
+        if 'date' in changes or 'time' in changes:
+            Appointment.objects.filter(pk=appointment.pk).update(email_reminder_sent=False)
+            appointment_changed(appointment, 'rescheduled')
+        elif changes.get('status', {}).get('new') in ('cancelled', 'confirmed'):
+            appointment_changed(appointment, changes['status']['new'])
 
     @action(detail=True, methods=['post'])
     def reschedule(self, request, pk=None):

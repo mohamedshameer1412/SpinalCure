@@ -26,7 +26,7 @@ def send_payment_receipt_email(payment, request=None):
 
     if not payer_email:
         logger.warning(f"No email found for payment {payment.receipt_number}. Skipping email.")
-        return False
+        return None
 
     clinic = ClinicProfile.objects.first()
     
@@ -53,12 +53,8 @@ def send_payment_receipt_email(payment, request=None):
     html_content = render_to_string('payments/emails/receipt_email.html', context)
     text_content = strip_tags(html_content)
 
-    try:
-        msg = EmailMultiAlternatives(subject, text_content, from_email, to)
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
-        logger.info(f"Receipt email sent for {payment.receipt_number} to {payer_email}")
-        return True
-    except Exception as e:
-        logger.error(f"Failed to send receipt email for {payment.receipt_number}: {str(e)}")
-        return False
+    from notifications.services import queue_email
+    # No dedupe key: staff may deliberately resend a receipt.
+    row = queue_email(payer_email, 'payment_received', subject, text_content, html_content)
+    logger.info('Receipt email for %s queued (outbox %s)', payment.receipt_number, row.pk if row else None)
+    return row

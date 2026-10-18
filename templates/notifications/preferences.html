@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Notification preferences - SpinalCure{% endblock %}
+{% block page_title %}Notification preferences{% endblock %}
+{% block content %}
+<form method="post" class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+    {% csrf_token %}
+    <p class="p-4 text-sm text-gray-600 border-b border-gray-100">Choose how you hear about each event. Emails go to {{ request.user.email|default:"(no email on your account)" }}. Security codes are always sent.</p>
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+        <thead class="bg-gray-50 text-xs uppercase text-gray-600">
+            <tr><th scope="col" class="px-4 py-3 text-left">Event</th><th scope="col" class="px-4 py-3">In app</th><th scope="col" class="px-4 py-3">Email</th></tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+            {% for key, label, in_app, email in rows %}
+            <tr>
+                <th scope="row" class="px-4 py-3 text-left font-medium text-gray-800">{{ label }}</th>
+                <td class="px-4 py-3 text-center"><input type="checkbox" name="in_app_{{ key }}" aria-label="{{ label }}: in app" {% if in_app %}checked{% endif %} class="w-4 h-4 text-green-600 rounded"></td>
+                <td class="px-4 py-3 text-center"><input type="checkbox" name="email_{{ key }}" aria-label="{{ label }}: email" {% if email %}checked{% endif %} class="w-4 h-4 text-green-600 rounded"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <div class="p-4 border-t border-gray-100"><button type="submit" class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg">Save preferences</button></div>
+</form>
+{% endblock %}

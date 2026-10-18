@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from spinalcure.decorators import role_required
 from django.shortcuts import render, get_object_or_404, redirect
@@ -81,17 +82,18 @@ def send_invoice_email_view(request, pk):
     try:
         payment = Payment.objects.get(pk=pk)
         from .utils import send_payment_receipt_email
-        success = send_payment_receipt_email(payment, request)
-        
-        if success:
-            return JsonResponse({'status': 'success', 'message': 'Email sent successfully.'})
-        else:
+        row = send_payment_receipt_email(payment, request)
+        if row is None:
             return JsonResponse({'status': 'error', 'message': 'Recipient has no valid email address.'}, status=400)
+        row.refresh_from_db()
+        if row.status == 'sent':
+            return JsonResponse({'status': 'success', 'message': 'Email sent successfully.'})
+        return JsonResponse({'status': 'error', 'message': 'The email could not be sent right now. It will be retried automatically.'}, status=502)
     except Payment.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'Payment record not found.'}, status=404)
     except Exception as e:
         logger.error(f"Error in send_invoice_email_view: {str(e)}")
-        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+        return JsonResponse({'status': 'error', 'message': 'Could not send the email.'}, status=500)
 
 
 def payment_pdf_download_view(request, pk):
@@ -386,9 +388,17 @@ def payment_create_view(request):
             
             # Send automated email receipt
             from .utils import send_payment_receipt_email
-            send_payment_receipt_email(payment)
+            row = send_payment_receipt_email(payment)
+            if row:
+                row.refresh_from_db()
+            mail_note = {None: 'No email on file, so no receipt was emailed.', 'sent': 'Email receipt sent.'}.get(
+                row and row.status, 'The receipt email could not be sent now and will be retried.')
 
-            messages.success(request, f'Payment of ₹{amount_paid} recorded for {payer_name}. Email receipt sent.')
+            from notifications.services import notify_users, users_with_perm
+            notify_users([u for u in users_with_perm('finance_reports') if u != request.user], 'payment_received',
+                         f'Payment recorded: ₹{amount_paid}', f'{payer_name} · receipt {payment.receipt_number}',
+                         reverse('payment_list'), dedupe_key=f'payment:{payment.pk}', email=False)
+            messages.success(request, f'Payment of ₹{amount_paid} recorded for {payer_name}. {mail_note}')
             return success_redirect
 
         except Exception as e:

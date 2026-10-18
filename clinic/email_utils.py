@@ -109,17 +109,9 @@ def send_booking_confirmation_email(appointment, request=None):
     # --- 1. Send to patient (if they have an email) ---
     patient_email = appointment.patient.email if appointment.patient else appointment.guest_email
     if patient_email:
-        try:
-            msg = EmailMultiAlternatives(subject, text_content, from_email, [patient_email])
-            msg.attach_alternative(html_content, "text/html")
-            msg.attach('invite.ics', ics_content, 'text/calendar')
-            msg.send(fail_silently=False)
-            logger.info(
-                f"Booking confirmation email sent to patient {p_name} "
-                f"<{patient_email}> for appointment {booking_ref}"
-            )
-        except Exception as e:
-            logger.error(f"Failed to send booking confirmation to patient {patient_email}: {e}")
+        from notifications.services import queue_email
+        queue_email(patient_email, 'appointment_booked', subject, text_content, html_content,
+                    dedupe_key=f'booked:{appointment.pk}', ics=ics_content)
 
     # --- 2. Notify clinic admin ---
     try:

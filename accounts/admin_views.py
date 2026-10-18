@@ -61,6 +61,14 @@ def user_create(request):
             with transaction.atomic():
                 user.save()
             log_action(request, 'create', 'User', f'{username} ({user.get_role_display()})', object_id=user.pk)
+            from django.conf import settings
+            from django.urls import reverse
+            from notifications.services import notify_users
+            # Never email the password; the user signs in with the one given in person or uses "Forgot password".
+            notify_users([user], 'staff_invited', f'Welcome to {settings.SITE_NAME}',
+                         f'An account was created for you as {user.get_role_display()}. Sign in with your email address. '
+                         'If you were not given a password, use "Forgot password" on the sign-in page.',
+                         reverse('login'), dedupe_key=f'invite:{user.pk}')
             messages.success(request, f'User "{username}" created successfully.')
             return redirect('admin_users')
         for e in errors:

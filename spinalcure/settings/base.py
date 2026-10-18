@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'appointments',
     'events',
     'courses',
+    'notifications',
     'payments',
     'analytics',
     'tailwind',
@@ -66,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'clinic.context_processors.clinic_info',
                 'accounts.context_processors.role_perms',
+                'notifications.context_processors.bell',
             ],
             'builtins': [
                 'clinic.templatetags.b64uuid_tags',
@@ -191,6 +193,7 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='SpinalCure <noreply@s
 # Site Configuration
 SITE_URL = config('SITE_URL', default='http://127.0.0.1:8000')
 SITE_NAME = config('SITE_NAME', default='SpinalCure')
+APPOINTMENT_REMINDER_HOURS = config('APPOINTMENT_REMINDER_HOURS', default=24, cast=int)
 
 # Compressor settings
 COMPRESS_ENABLED = True
