@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from spinalcure.rbac import has_capability, require_capability, capability_rw_permission
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.db.models import Avg, Sum, Q
@@ -34,10 +35,9 @@ class PatientViewSet(viewsets.ModelViewSet):
     """
     queryset = Patient.objects.prefetch_related('sessions', 'payments', 'appointments').order_by('-registered_date')
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['phone', 'is_active']
-    search_fields = ['name', 'phone', 'chief_complaint']
+    filterset_fields = ['is_active']
     ordering_fields = ['registered_date', 'name']
-    permission_classes = [IsAuthenticated, IsDoctor]
+    permission_classes = [IsAuthenticated, capability_rw_permission('patients.view', 'patients.edit')]
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
@@ -49,6 +49,10 @@ class PatientViewSet(viewsets.ModelViewSet):
         queryset = Patient.objects.prefetch_related('sessions', 'payments', 'appointments')
         if self.action == 'retrieve':
             return queryset
+        term = self.request.query_params.get('search', '').strip()
+        if term:  # encrypted columns cannot be searched in SQL; see patients/search.py
+            from .search import patient_q
+            queryset = queryset.filter(patient_q(term))
         return queryset.order_by('-registered_date')
 
 
@@ -63,13 +67,13 @@ class SessionViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['patient', 'consulted_by', 'session_date']
     ordering_fields = ['session_date', 'patient']
-    permission_classes = [IsAuthenticated, IsDoctor]
+    permission_classes = [IsAuthenticated, capability_rw_permission('clinical.view', 'clinical.edit')]
 
 
 @login_required
 def patient_list_view(request):
     """List all patients - admin panel view with search."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'patients.view'):
         messages.error(request, 'You do not have permission to view this page.')
         return redirect('dashboard')
     
@@ -266,7 +270,7 @@ def export_patients_print(request):
 @login_required
 def patient_detail_view(request, pk):
     """View patient details."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'patients.view'):
         messages.error(request, 'You do not have permission to view this page.')
         return redirect('dashboard')
     
@@ -300,7 +304,7 @@ def patient_detail_view(request, pk):
 @login_required
 def patient_print_card_view(request, pk):
     """Print patient card."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'patients.view'):
         messages.error(request, 'You do not have permission to print this.')
         return redirect('dashboard')
     
@@ -401,7 +405,7 @@ def review_create_view(request):
 @login_required
 def patient_create_view(request):
     """Create a new patient."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'patients.edit'):
         messages.error(request, 'You do not have permission to add patients.')
         return redirect('patient-list')
     
@@ -480,7 +484,7 @@ def patient_create_view(request):
 @require_pin_auth('patient-list')
 def patient_edit_view(request, pk):
     """Edit an existing patient."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'patients.edit'):
         messages.error(request, 'You do not have permission to edit patients.')
         return redirect('patient-list')
     
@@ -617,7 +621,7 @@ def review_delete_view(request, pk):
 @login_required
 def session_create_view(request, patient_pk):
     """Add a new treatment session for a specific patient."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'clinical.edit'):
         messages.error(request, 'You do not have permission to add sessions.')
         return redirect('dashboard')
         
@@ -688,7 +692,7 @@ def session_create_view(request, patient_pk):
 @require_POST
 def session_request_pin_view(request):
     """Generate a 4-digit security PIN and email it to the superadmin for approval."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'clinical.edit'):
         return JsonResponse({'status': 'error', 'message': 'Permission denied.'}, status=403)
 
     pin = str(random.randint(1000, 9999))
@@ -813,7 +817,7 @@ def session_verify_pin_view(request):
 @login_required
 def session_edit_view(request, patient_pk, session_pk):
     """Edit a treatment session — requires prior PIN authorization."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'clinical.edit'):
         messages.error(request, 'You do not have permission to edit sessions.')
         return redirect('dashboard')
 
@@ -1018,7 +1022,7 @@ def patient_dashboard_view(request):
     return render(request, 'patients/portal/dashboard.html', context)
 
 
-@login_required
+@require_capability('clinical.view')
 def session_pdf_view(request, session_pk):
     """Generate professional PDF clinical note for a session."""
     from clinic.models import ClinicProfile
@@ -1048,7 +1052,7 @@ def session_pdf_view(request, session_pk):
 @require_POST
 def treatment_plan_create_view(request, patient_pk):
     """Create a new treatment plan for a patient."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'clinical.edit'):
         messages.error(request, 'You do not have permission to perform this action.')
         return redirect('dashboard')
         
@@ -1082,7 +1086,7 @@ def treatment_plan_create_view(request, patient_pk):
 @require_POST
 def treatment_plan_edit_view(request, patient_pk, plan_pk):
     """Edit an existing treatment plan."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'clinical.edit'):
         return JsonResponse({'status': 'error', 'message': 'Permission denied.'}, status=403)
         
     plan = get_object_or_404(TreatmentPlan, pk=plan_pk, patient_id=patient_pk)
@@ -1104,7 +1108,7 @@ def treatment_plan_edit_view(request, patient_pk, plan_pk):
 @require_POST
 def treatment_plan_delete_view(request, patient_pk, plan_pk):
     """Delete a treatment plan."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'clinical.edit'):
         return JsonResponse({'status': 'error', 'message': 'Permission denied.'}, status=403)
         
     plan = get_object_or_404(TreatmentPlan, pk=plan_pk, patient_id=patient_pk)

@@ -67,6 +67,7 @@ TEMPLATES = [
                 'clinic.context_processors.clinic_info',
             ],
             'builtins': [
+                'clinic.templatetags.rbac_tags',
                 'clinic.templatetags.b64uuid_tags',
             ],
         },

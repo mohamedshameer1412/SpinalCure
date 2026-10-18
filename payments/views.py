@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from spinalcure.rbac import has_capability, capability_rw_permission
 from patients.search import patient_q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -31,13 +32,13 @@ class PaymentViewSet(viewsets.ModelViewSet):
     filterset_fields = ['patient', 'payment_status', 'payment_mode']
     search_fields = ['patient__name', 'notes', 'receipt_number']
     ordering_fields = ['payment_date', 'amount_paid']
-    permission_classes = [IsAuthenticated, IsDoctor]
+    permission_classes = [IsAuthenticated, capability_rw_permission('billing.view', 'billing.manage')]
 
 
 @login_required
 def payment_list_view(request):
     """List all payments - admin panel."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'billing.view'):
         messages.error(request, 'You do not have permission to view this page.')
         return redirect('dashboard')
     
@@ -99,7 +100,7 @@ def send_invoice_email_view(request, pk):
 def payment_pdf_download_view(request, pk):
     """Generate and download a ReportLab PDF receipt for a payment (admin or patient)."""
     # Check authorization: either staff/doctor or the patient who owns the payment
-    is_staff = request.user.is_authenticated and (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff)
+    is_staff = has_capability(request.user, 'billing.view')
     patient_id = request.session.get('patient_id')
     
     if not is_staff and not patient_id:
@@ -132,7 +133,7 @@ def payment_pdf_download_view(request, pk):
 @login_required
 def payment_invoice_view(request, pk):
     """Generate a printable GST invoice for a payment."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'billing.view'):
         messages.error(request, 'You do not have permission to view this page.')
         return redirect('dashboard')
     
@@ -242,7 +243,7 @@ def expense_create_view(request):
 @require_pin_auth('expense_list')
 def expense_edit_view(request, pk):
     """Edit an existing expense record."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'expenses.manage'):
         messages.error(request, 'Only admins and authorized staff can edit expenses.')
         return redirect('dashboard')
     
@@ -282,7 +283,7 @@ def expense_edit_view(request, pk):
 @require_pin_auth('expense_list')
 def expense_delete_view(request, pk):
     """Delete an expense record."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'expenses.manage'):
         messages.error(request, 'Only admins and authorized staff can delete expenses.')
         return redirect('dashboard')
     
@@ -305,7 +306,7 @@ def expense_delete_view(request, pk):
 @login_required
 def payment_create_view(request):
     """Record a new payment for Patients, Students (Courses), or Participants (Events)."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'billing.manage'):
         messages.error(request, 'You do not have permission to perform this action.')
         return redirect('dashboard')
     
@@ -440,7 +441,7 @@ def payment_create_view(request):
 @require_pin_auth('payment_list')
 def payment_edit_view(request, pk):
     """Edit an existing payment record."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'billing.manage'):
         messages.error(request, 'You do not have permission to perform this action.')
         return redirect('dashboard')
     

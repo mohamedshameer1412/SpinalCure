@@ -18,8 +18,11 @@ class CustomUser(AbstractUser):
     """
     ROLE_CHOICES = [
         ('superadmin', _('Super Admin')),
+        ('clinicadmin', _('Clinic Admin')),
+        ('owner', _('Owner')),
         ('doctor', _('Doctor')),
         ('receptionist', _('Receptionist')),
+        ('staff', _('Staff')),
     ]
 
     role = models.CharField(
@@ -42,6 +45,12 @@ class CustomUser(AbstractUser):
         verbose_name=_('Profile Photo')
     )
     bio = models.TextField(blank=True, verbose_name=_('Biography'))
+    language = models.CharField(
+        max_length=5,
+        choices=[('en', 'English'), ('ta', 'தமிழ்'), ('hi', 'हिन्दी'), ('ar', 'العربية')],
+        default='en',
+        verbose_name=_('Preferred language'),
+    )
     is_verified = models.BooleanField(
         default=False,
         verbose_name=_('Email Verified'),
@@ -298,3 +307,77 @@ class OTPToken(models.Model):
             is_used=False
         ).delete()
         return deleted_count
+
+
+
+class StaffProfile(models.Model):
+    """
+    Organisational record for owners and staff. Clinical authority comes from CustomUser.role
+    (a doctor can also be the owner); this model carries HR / identity data used by ID cards.
+    """
+    STATUS_CHOICES = [
+        ('active', _('Active')),
+        ('on_leave', _('On leave')),
+        ('suspended', _('Suspended')),
+        ('terminated', _('Terminated')),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='staff_profile')
+    clinic = models.ForeignKey('clinic.ClinicProfile', on_delete=models.PROTECT, related_name='staff_profiles')
+    employee_id = models.CharField(
+        max_length=20, unique=True, editable=False,
+        help_text=_('Immutable. OWN-#### for owners, STF-#### for everyone else.'))
+    designation = models.CharField(max_length=120)
+    department = models.CharField(max_length=120, blank=True)
+    joined_on = models.DateField()
+    employment_status = models.CharField(max_length=12, choices=STATUS_CHOICES, default='active', db_index=True)
+    ended_on = models.DateField(null=True, blank=True)
+    contact_phone = models.CharField(max_length=20, blank=True, validators=[validate_phone_number])
+    contact_email = models.EmailField(blank=True)
+    blood_group = models.CharField(max_length=5, blank=True)
+    skills = models.CharField(max_length=250, blank=True)
+    emergency_contact_name = models.CharField(max_length=120, blank=True)
+    emergency_contact_phone = models.CharField(max_length=20, blank=True, validators=[validate_phone_number])
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['employee_id']
+
+    def __str__(self):
+        return f'{self.employee_id} — {self.user.get_full_name() or self.user.username}'
+
+    @property
+    def is_owner(self):
+        return self.user.role == 'owner'
+
+    @property
+    def is_employed(self):
+        return self.employment_status in ('active', 'on_leave') and self.user.is_active
+
+    @classmethod
+    def _next_employee_id(cls, owner):
+        prefix = 'OWN' if owner else 'STF'
+        last = cls.objects.filter(employee_id__startswith=prefix + '-').order_by('-employee_id').first()
+        n = int(last.employee_id.split('-')[1]) + 1 if last else 1
+        return f'{prefix}-{n:04d}'
+
+    def save(self, *args, **kwargs):
+        from django.db import IntegrityError, transaction
+        if self.pk and not self._state.adding:
+            original = type(self).objects.filter(pk=self.pk).values_list('employee_id', flat=True).first()
+            if original and self.employee_id != original:
+                raise ValueError('employee_id is immutable')
+        if self.employment_status == 'terminated' and not self.ended_on:
+            self.ended_on = timezone.localdate()
+        if self._state.adding and not self.employee_id:
+            for _attempt in range(5):  # retry on a concurrent allocation of the same number
+                self.employee_id = self._next_employee_id(self.is_owner)
+                try:
+                    with transaction.atomic():
+                        return super().save(*args, **kwargs)
+                except IntegrityError:
+                    self.employee_id = ''
+            raise IntegrityError('Could not allocate an employee id')
+        return super().save(*args, **kwargs)

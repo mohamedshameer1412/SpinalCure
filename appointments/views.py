@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from spinalcure.rbac import has_capability
 from patients.search import patient_q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -67,7 +68,7 @@ def doctor_availability_view(request):
 @login_required
 def appointment_list_view(request):
     """List all appointments with search and filters."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'appointments.manage'):
         messages.error(request, 'You do not have permission to view this page.')
         return redirect('dashboard')
     

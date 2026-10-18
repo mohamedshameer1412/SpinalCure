@@ -6,7 +6,7 @@ from .serializers import AppointmentSerializer, DoctorAvailabilitySerializer
 from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
-from spinalcure.permissions import IsDoctor
+from spinalcure.rbac import capability_rw_permission
 import logging
 
 logger = logging.getLogger(__name__)
@@ -23,7 +23,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     filterset_fields = ['patient', 'practitioner', 'status', 'appointment_date']
     search_fields = ['patient__name', 'notes']
     ordering_fields = ['appointment_date', 'created_at']
-    permission_classes = [IsAuthenticated, IsDoctor]
+    permission_classes = [IsAuthenticated, capability_rw_permission('appointments.manage', 'appointments.manage')]
     pagination_class = None
 
     def get_queryset(self):
@@ -50,12 +50,12 @@ class DoctorAvailabilityViewSet(viewsets.ModelViewSet):
     serializer_class = DoctorAvailabilitySerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['practitioner', 'day_of_week', 'is_available']
-    permission_classes = [IsAuthenticated, IsDoctor]
+    permission_classes = [IsAuthenticated, capability_rw_permission('appointments.manage', 'schedule.manage')]
 
     def get_queryset(self):
-        """Doctors only see their own availability."""
+        """Doctors only see their own availability; management roles see all."""
         user = self.request.user
-        if user.role == 'superadmin' or user.is_superuser:
+        if user.role != 'doctor':
             return DoctorAvailability.objects.all()
         return DoctorAvailability.objects.filter(practitioner__email=user.email)
 

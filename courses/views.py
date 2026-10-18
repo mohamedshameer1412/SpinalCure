@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from spinalcure.rbac import has_capability
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
@@ -66,7 +67,7 @@ def course_create_view(request):
 @login_required
 @require_pin_auth('course_list')
 def course_edit_view(request, pk):
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'events.manage'):
         messages.error(request, 'Permission denied.')
         return redirect('course_list')
     course = get_object_or_404(Course, pk=pk)
@@ -82,7 +83,7 @@ def course_edit_view(request, pk):
 @login_required
 @require_http_methods(["POST"])
 def toggle_course_publish(request, pk):
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'events.manage'):
         messages.error(request, 'Permission denied.')
         return redirect('course_list')
     course = get_object_or_404(Course, pk=pk)
@@ -97,7 +98,7 @@ def toggle_course_publish(request, pk):
 @require_http_methods(["POST"])
 @require_pin_auth('course_list')
 def course_delete_view(request, pk):
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'events.manage'):
         messages.error(request, 'Permission denied.')
         return redirect('course_list')
     course = get_object_or_404(Course, pk=pk)
@@ -139,7 +140,7 @@ def batch_create_view(request, course_pk):
 @login_required
 @require_pin_auth('course_list')
 def batch_edit_view(request, pk):
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'events.manage'):
         messages.error(request, 'Permission denied.')
         return redirect('course_list')
     batch = get_object_or_404(CourseBatch, pk=pk)
@@ -160,7 +161,7 @@ def batch_edit_view(request, pk):
 @require_http_methods(["POST"])
 @require_pin_auth('course_list')
 def batch_delete_view(request, pk):
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'events.manage'):
         messages.error(request, 'Permission denied.')
         return redirect('course_list')
     batch = get_object_or_404(CourseBatch, pk=pk)

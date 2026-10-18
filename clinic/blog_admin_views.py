@@ -2,6 +2,7 @@
 Admin (dashboard) views for Blog management.
 Only superadmins and doctors can write/manage blogs.
 """
+from spinalcure.rbac import has_capability
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -20,7 +21,7 @@ def admin_blog_list(request):
 @login_required
 def admin_blog_create(request):
     """Create a new blog post."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'website.manage'):
         messages.error(request, 'You do not have permission to create blog posts.')
         return redirect('dashboard')
 
@@ -74,7 +75,7 @@ def admin_blog_create(request):
 @login_required
 def admin_blog_edit(request, pk):
     """Edit an existing blog post."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'website.manage'):
         messages.error(request, 'You do not have permission to edit blog posts.')
         return redirect('dashboard')
 
@@ -121,7 +122,7 @@ def admin_blog_edit(request, pk):
 @login_required
 def admin_blog_delete(request, pk):
     """Delete a blog post."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'website.manage'):
         messages.error(request, 'You do not have permission to delete blog posts.')
         return redirect('dashboard')
 
@@ -136,7 +137,7 @@ def admin_blog_delete(request, pk):
 @login_required
 def admin_tag_list(request):
     """Manage blog tags."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'website.manage'):
         messages.error(request, 'Permission denied.')
         return redirect('dashboard')
 

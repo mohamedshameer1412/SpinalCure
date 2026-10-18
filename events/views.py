@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from spinalcure.rbac import has_capability
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
@@ -46,7 +47,7 @@ class EventViewSet(viewsets.ModelViewSet):
 @login_required
 def event_list_view(request):
     """List events - admin panel view."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'events.manage'):
         messages.error(request, 'You do not have permission to view this page.')
         return redirect('dashboard')
     
@@ -83,7 +84,7 @@ def event_list_view(request):
 @login_required
 def event_create_view(request):
     """Create a new event."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'events.manage'):
         messages.error(request, 'You do not have permission to perform this action.')
         return redirect('dashboard')
     
@@ -136,7 +137,7 @@ def event_create_view(request):
 @require_pin_auth('event_list')
 def event_edit_view(request, pk):
     """Edit an existing event."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'events.manage'):
         messages.error(request, 'You do not have permission to perform this action.')
         return redirect('dashboard')
     
@@ -177,7 +178,7 @@ def event_edit_view(request, pk):
 @require_http_methods(["POST"])
 def toggle_event_publish(request, pk):
     """Toggle event publish status."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'events.manage'):
         messages.error(request, 'You do not have permission to perform this action.')
         return redirect('dashboard')
     
@@ -192,7 +193,7 @@ def toggle_event_publish(request, pk):
 @require_pin_auth('event_list')
 def event_delete_view(request, pk):
     """Delete an event."""
-    if not (request.user.role in ['superadmin', 'doctor'] or request.user.is_staff):
+    if not has_capability(request.user, 'events.manage'):
         messages.error(request, 'You do not have permission to perform this action.')
         return redirect('dashboard')
     

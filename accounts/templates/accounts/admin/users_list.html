@@ -78,10 +78,13 @@
                             <a href="{% url 'admin_user_edit' u.pk %}"
                                 class="text-xs font-semibold px-3 py-1.5 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg border border-gray-200 transition-all no-underline">Edit</a>
                             {% if u != request.user %}
-                            <a href="{% url 'admin_user_toggle' u.pk %}"
-                                class="text-xs font-semibold px-3 py-1.5 {% if u.is_active %}bg-red-50 text-red-600 border-red-100 hover:bg-red-100{% else %}bg-green-50 text-green-600 border-green-100 hover:bg-green-100{% endif %} rounded-lg border transition-all no-underline">
-                                {% if u.is_active %}Disable{% else %}Enable{% endif %}
-                            </a>
+                            <form method="post" action="{% url 'admin_user_toggle' u.pk %}" class="inline">
+                                {% csrf_token %}
+                                <button type="submit"
+                                    class="text-xs font-semibold px-3 py-1.5 {% if u.is_active %}bg-red-50 text-red-600 border-red-100 hover:bg-red-100{% else %}bg-green-50 text-green-600 border-green-100 hover:bg-green-100{% endif %} rounded-lg border transition-all">
+                                    {% if u.is_active %}Disable{% else %}Enable{% endif %}
+                                </button>
+                            </form>
                             {% endif %}
                         </div>
                     </td>
