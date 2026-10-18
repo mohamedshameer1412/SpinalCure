@@ -6,6 +6,7 @@ from django.views.generic import RedirectView
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from .converters import B64UUIDConverter
+from idcards.urls import public_urlpatterns as idcard_public_urls
 
 try:
     register_converter(B64UUIDConverter, 'b64uuid')
@@ -60,6 +61,8 @@ urlpatterns += i18n_patterns(
     path('payments/', include('payments.urls')),
     path('analytics/', include('analytics.urls')),
     path('notifications/', include('notifications.urls')),
+    path('idcards/', include('idcards.urls')),
+    *idcard_public_urls,
 )
 
 # Static and Media files

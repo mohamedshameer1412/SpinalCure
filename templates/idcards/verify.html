@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>ID card verification</title>
+    <style>
+        body { margin: 0; font-family: system-ui, -apple-system, 'Segoe UI', 'Noto Sans Tamil', sans-serif; background: #f1f5f9; color: #0f172a; }
+        main { max-width: 440px; margin: 40px auto; padding: 0 16px; }
+        .card { background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(15,23,42,.1); overflow: hidden; }
+        .head { padding: 20px; color: #fff; }
+        .ok { background: #15803d; } .bad { background: #b91c1c; } .warn { background: #b45309; }
+        .head h1 { margin: 0; font-size: 22px; } .head p { margin: 4px 0 0; opacity: .9; }
+        .body { padding: 20px; display: grid; grid-template-columns: 88px 1fr; gap: 16px; align-items: center; }
+        .photo { width: 88px; height: 106px; border-radius: 12px; background: #e2e8f0; object-fit: cover; }
+        dl { margin: 0; } dt { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: #64748b; } dd { margin: 0 0 8px; font-weight: 600; }
+        footer { padding: 14px 20px; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0; }
+    </style>
+</head>
+<body>
+<main>
+    {% if rate_limited %}
+    <div class="card"><div class="head warn"><h1>Too many checks</h1><p>Please wait a minute and scan again.</p></div></div>
+    {% elif not card %}
+    <div class="card"><div class="head bad"><h1>Not a valid card</h1><p>This QR code does not match any card issued by the clinic.</p></div></div>
+    {% else %}
+    <div class="card">
+        <div class="head {% if card.is_valid %}ok{% elif card.effective_status == 'revoked' %}bad{% else %}warn{% endif %}">
+            <h1>{% if card.is_valid %}✓ Valid ID card{% else %}✗ Card {{ card.effective_status }}{% endif %}</h1>
+            <p>{{ clinic.name|default:"SpinalCure" }}</p>
+        </div>
+        <div class="body">
+            {% if card.photo %}<img class="photo" src="{{ card.photo.url }}" alt="Photo of {{ card.holder_name }}">{% elif card.user.photo %}<img class="photo" src="{{ card.user.photo.url }}" alt="Photo of {{ card.holder_name }}">{% else %}<div class="photo" aria-hidden="true"></div>{% endif %}
+            <dl>
+                <dt>Name</dt><dd dir="auto">{{ card.holder_name }}</dd>
+                <dt>Role</dt><dd dir="auto">{{ card.get_card_type_display }} · {{ card.designation }}</dd>
+                <dt>Card number</dt><dd><bdi>{{ card.card_number }}</bdi></dd>
+                {% if card.expiry_date %}<dt>Valid until</dt><dd>{{ card.expiry_date|date:"d M Y" }}</dd>{% endif %}
+            </dl>
+        </div>
+        <footer>Checked {% now "d M Y, h:i A" %}. Contact the clinic if the details do not match the person presenting the card.</footer>
+    </div>
+    {% endif %}
+</main>
+</body>
+</html>

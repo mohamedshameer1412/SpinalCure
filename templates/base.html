@@ -462,6 +462,8 @@
                                 </p>
                                 <p class="text-xs text-gray-500 truncate">{{ request.user.email }}</p>
                             </div>
+                            <a href="{% url 'my_idcard' %}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 no-underline"><i class="bi bi-person-vcard text-gray-400" aria-hidden="true"></i> My ID card</a>
+                            <a href="{% url 'notification_preferences' %}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 no-underline"><i class="bi bi-bell text-gray-400" aria-hidden="true"></i> Notification settings</a>
                             {% if can.site_manage %}
                             <div class="border-t border-gray-100 mb-1"></div>
                             <a href="{% url 'admin_clinic_setup' %}"
@@ -701,6 +703,15 @@
                         Clinic Setup
                     </a>
                 </li>
+                {% if can.idcards_manage %}
+                <li>
+                    <a href="{% url 'idcard_list' %}"
+                        class="sidebar-link {% if 'idcard' in request.resolver_match.url_name|default:'' and request.resolver_match.url_name != 'my_idcard' %}active{% endif %}">
+                        <i class="bi bi-person-vcard" aria-hidden="true" style="width:18px"></i>
+                        ID Cards
+                    </a>
+                </li>
+                {% endif %}
                 {% if can.site_manage %}
                 <li>
                     <a href="{% url 'notification_deliveries' %}"

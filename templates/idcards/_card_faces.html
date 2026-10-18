@@ -1,0 +1,56 @@
+{# Front and back faces at their natural 900x560 size. Rendered twice: once inside the flip card, once off-screen for exports. #}
+{% load static %}
+<div class="idc-face idc-front {{ face_class }}" data-face="front">
+    <div class="idc-band">
+        <div class="idc-org">
+            {% if clinic.logo %}<img src="{{ clinic.logo.url }}" alt="" class="idc-logo" crossorigin="anonymous">{% else %}<div class="idc-logo idc-logo-fallback">{{ clinic.name|default:"S"|slice:":1" }}</div>{% endif %}
+            <div>
+                <div class="idc-org-name">{{ clinic.name|default:"SpinalCure" }}</div>
+                <div class="idc-org-sub">{% if card.card_type == 'owner' %}Owner Identity Card{% else %}Staff Identity Card{% endif %}</div>
+            </div>
+        </div>
+        <div class="idc-type idc-type-{{ card.card_type }}">{{ card.get_card_type_display|upper }}</div>
+    </div>
+    <div class="idc-body">
+        <div class="idc-photo">
+            {% if photo_url %}<img src="{{ photo_url }}" alt="Photo of {{ card.holder_name }}" crossorigin="anonymous">{% else %}<span aria-hidden="true">{{ card.holder_name|slice:":1"|upper }}</span>{% endif %}
+        </div>
+        <div class="idc-info">
+            <div class="idc-name" dir="auto">{{ card.holder_name }}</div>
+            <div class="idc-designation" dir="auto">{{ card.designation }}{% if card.department %} · {{ card.department }}{% endif %}</div>
+            <div class="idc-id"><span>ID</span> <bdi>{{ card.card_number }}</bdi></div>
+            <dl class="idc-facts">
+                {% if card.phone %}<div><dt>Phone</dt><dd><bdi>{{ card.phone }}</bdi></dd></div>{% endif %}
+                {% if card.show_email and card.user.email %}<div><dt>Email</dt><dd><bdi>{{ card.user.email }}</bdi></dd></div>{% endif %}
+                <div><dt>{% if card.card_type == 'owner' %}Since{% else %}Joined{% endif %}</dt><dd>{{ card.joining_date|date:"d M Y" }}</dd></div>
+                <div><dt>Status</dt><dd class="idc-status idc-status-{{ card.effective_status }}">{{ card.effective_status|capfirst }}</dd></div>
+            </dl>
+        </div>
+        <div class="idc-qr">
+            <img src="{{ front_qr }}" alt="Verification QR code">
+            <span>Scan to verify</span>
+        </div>
+    </div>
+</div>
+<div class="idc-face idc-back {{ face_class }}" data-face="back">
+    <div class="idc-back-head">
+        <div class="idc-org-name">{{ clinic.name|default:"SpinalCure" }}</div>
+        <div class="idc-back-addr" dir="auto">{{ clinic.address|default:"" }}</div>
+        <div class="idc-back-addr"><bdi>{{ clinic.phone|default:"" }}</bdi>{% if clinic.email %} · <bdi>{{ clinic.email }}</bdi>{% endif %}</div>
+    </div>
+    <div class="idc-back-body">
+        <dl class="idc-facts idc-facts-back">
+            <div><dt>Card No.</dt><dd><bdi>{{ card.card_number }}</bdi>{% if card.version > 1 %} (v{{ card.version }}){% endif %}</dd></div>
+            <div><dt>Issued</dt><dd>{{ card.issue_date|date:"d M Y" }}</dd></div>
+            {% if card.expiry_date %}<div><dt>Valid until</dt><dd>{{ card.expiry_date|date:"d M Y" }}</dd></div>{% endif %}
+            {% if card.blood_group %}<div><dt>Blood group</dt><dd>{{ card.blood_group }}</dd></div>{% endif %}
+            {% if card.emergency_contact %}<div><dt>Emergency</dt><dd dir="auto">{{ card.emergency_contact }}</dd></div>{% endif %}
+            {% if card.skills %}<div><dt>Skills</dt><dd dir="auto">{{ card.skills }}</dd></div>{% endif %}
+        </dl>
+        <div class="idc-qr">
+            <img src="{{ back_qr }}" alt="QR code for the clinic website">
+            <span>About the clinic</span>
+        </div>
+    </div>
+    <div class="idc-legal">This card is the property of {{ clinic.name|default:"the clinic" }} and must be returned on request or at the end of employment. If found, please return it to the address above. Validity can be checked by scanning the QR code on the front.</div>
+</div>

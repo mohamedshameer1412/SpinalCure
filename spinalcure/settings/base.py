@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'events',
     'courses',
     'notifications',
+    'idcards',
     'payments',
     'analytics',
     'tailwind',

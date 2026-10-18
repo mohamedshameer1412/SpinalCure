@@ -119,6 +119,8 @@ def user_toggle_active(request, pk):
     else:
         user.is_active = not user.is_active
         user.save(update_fields=['is_active'])
+        from idcards.views import sync_with_user
+        sync_with_user(user)
         status = 'activated' if user.is_active else 'deactivated'
         log_action(request, 'update', 'User', f'{user.username} {status}', object_id=user.pk)
         messages.success(request, f'User "{user.username}" has been {status}.')

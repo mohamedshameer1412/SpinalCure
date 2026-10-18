@@ -31,6 +31,8 @@ def _clear_cache():
 def make_user(db):
     def _make(role, **extra):
         email = extra.pop('email', f'{role}@test.com')
+        extra.setdefault('first_name', role.replace('_', ' ').title())
+        extra.setdefault('last_name', 'Tester')
         return User.objects.create_user(username=email, email=email, password=PASSWORD, role=role, **extra)
     return _make
 

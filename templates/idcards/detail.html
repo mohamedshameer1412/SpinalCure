@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block title %}ID Card - SpinalCure{% endblock %}
+{% block page_title %}{% if card %}ID Card · {{ card.card_number }}{% else %}My ID Card{% endif %}{% endblock %}
+{% block extra_head %}{% if card %}{% include 'idcards/_card_styles.html' %}{% endif %}{% endblock %}
+{% block content %}
+{% if not card %}
+<div class="bg-white rounded-xl border border-gray-100 shadow-sm p-10 text-center">
+    <i class="bi bi-person-vcard text-4xl text-gray-300" aria-hidden="true"></i>
+    <p class="mt-3 text-gray-700 font-semibold">No ID card has been issued to you yet.</p>
+    <p class="text-sm text-gray-500">Ask the clinic owner or administrator to issue one.</p>
+</div>
+{% else %}
+<div class="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6">
+    <section aria-label="ID card preview" class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 sm:p-6">
+        {% if not card.is_valid %}
+        <div role="alert" class="mb-4 px-4 py-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-sm">
+            This card is <strong>{{ card.effective_status }}</strong>{% if card.status_reason %}: {{ card.status_reason }}{% endif %}. Scanning its QR code will show it as not valid.
+        </div>
+        {% endif %}
+        <div class="idc-stage-wrap" id="idc-wrap">
+            <div class="idc-stage" id="idc-stage">
+                <div class="idc-card" id="idc-card" role="button" tabindex="0" aria-pressed="false"
+                     aria-label="ID card, showing front. Press Enter or tap to flip.">
+                    {% include 'idcards/_card_faces.html' with face_class='' %}
+                </div>
+            </div>
+        </div>
+        <p class="text-center text-xs text-gray-500 mt-3">Tap or click the card (or press Enter) to see the other side.</p>
+    </section>
+
+    <aside class="space-y-4">
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+            <h2 class="text-sm font-semibold text-gray-900 mb-3">Download &amp; share</h2>
+            <div class="grid grid-cols-2 gap-2">
+                <button type="button" data-export="front" class="idc-btn">Front PNG</button>
+                <button type="button" data-export="back" class="idc-btn">Back PNG</button>
+                <button type="button" data-export="pdf" class="idc-btn col-span-2">PDF (2 pages)</button>
+                <button type="button" id="idc-share" class="idc-btn">Share</button>
+                <a class="idc-btn text-center no-underline" target="_blank" rel="noopener"
+                   href="https://wa.me/?text={% filter urlencode %}{{ card.holder_name }}, {{ card.designation }} at {{ clinic.name|default:'our clinic' }}. Verify this ID card: {{ verify_url }}{% endfilter %}">WhatsApp</a>
+            </div>
+            <p id="idc-msg" role="status" aria-live="polite" class="text-xs text-gray-600 mt-2 min-h-[1em]"></p>
+            <p class="text-[11px] text-gray-400 mt-1">Shared links show only name, role, card number and validity, never contact or medical details.</p>
+        </div>
+
+        {% if can.idcards_manage %}
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 space-y-3">
+            <h2 class="text-sm font-semibold text-gray-900">Manage card</h2>
+            <p class="text-xs text-gray-500">Status: <strong>{{ card.get_status_display }}</strong>{% if card.status_reason %} ({{ card.status_reason }}){% endif %} · v{{ card.version }}</p>
+            {% if card.status != 'revoked' %}
+            <a href="{% url 'idcard_edit' card.pk %}" class="idc-btn block text-center no-underline">Edit details</a>
+            <form method="post" action="{% url 'idcard_action' card.pk %}" onsubmit="return confirm('Reissue? Printed copies of the current card will stop verifying.')">
+                {% csrf_token %}<input type="hidden" name="action" value="reissue">
+                <button type="submit" class="idc-btn w-full">Reissue (new QR)</button>
+            </form>
+            {% if card.status == 'suspended' %}
+            <form method="post" action="{% url 'idcard_action' card.pk %}">{% csrf_token %}<input type="hidden" name="action" value="activate"><button type="submit" class="idc-btn w-full">Reactivate</button></form>
+            {% endif %}
+            <form method="post" action="{% url 'idcard_action' card.pk %}" class="space-y-2">
+                {% csrf_token %}
+                <label for="reason" class="block text-xs font-medium text-gray-700">Reason (required to suspend or revoke)</label>
+                <input id="reason" name="reason" maxlength="200" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                <div class="grid grid-cols-2 gap-2">
+                    {% if card.status == 'active' %}<button type="submit" name="action" value="suspend" class="idc-btn">Suspend</button>{% endif %}
+                    <button type="submit" name="action" value="revoke" class="idc-btn text-red-700" onclick="return confirm('Revoke permanently? This cannot be undone.')">Revoke</button>
+                </div>
+            </form>
+            {% else %}
+            <p class="text-sm text-gray-600">Revoked cards are kept for the record. <a href="{% url 'idcard_issue' %}?user={{ card.user_id }}" class="text-green-700">Issue a new card</a>.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </aside>
+</div>
+
+{# Off-screen, unrotated copies so exports capture each face exactly, independent of the flip state. #}
+<div class="idc-export-root" aria-hidden="true">
+    {% include 'idcards/_card_faces.html' with face_class='idc-export' %}
+</div>
+<style>
+    .idc-btn { display: inline-block; padding: 9px 12px; border-radius: 10px; border: 1px solid #d1d5db; background: #fff; font-size: 13px; font-weight: 600; color: #1f2937; }
+    .idc-btn:hover { background: #f9fafb; } .idc-btn:focus-visible { outline: 2px solid #16a34a; outline-offset: 2px; }
+    .idc-btn[disabled] { opacity: 0.6; cursor: progress; }
+</style>
+{% load static %}
+<script src="{% static 'vendor/html2canvas-1.4.1.min.js' %}"></script>{# MIT, vendored #}
+<script src="{% static 'vendor/jspdf-2.5.1.umd.min.js' %}"></script>{# MIT, vendored #}
+<script>
+(function () {
+    const card = document.getElementById('idc-card');
+    const stage = document.getElementById('idc-stage');
+    const wrap = document.getElementById('idc-wrap');
+    const msg = document.getElementById('idc-msg');
+    const fileBase = '{{ card.card_number|escapejs }}';
+
+    function flip() {
+        const flipped = card.classList.toggle('is-flipped');
+        card.setAttribute('aria-pressed', String(flipped));
+        card.setAttribute('aria-label', 'ID card, showing ' + (flipped ? 'back' : 'front') + '. Press Enter or tap to flip.');
+    }
+    card.addEventListener('click', flip);
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
+
+    // Scale the fixed 900x560 card to the available width.
+    const ro = new ResizeObserver(entries => {
+        const w = entries[0].contentRect.width;
+        const s = Math.min(1, w / 900);
+        stage.style.transform = `scale(${s})`;
+        wrap.style.height = (560 * s) + 'px';
+    });
+    ro.observe(wrap);
+    window.addEventListener('pagehide', () => ro.disconnect());
+
+    async function renderFace(face) {
+        await document.fonts.ready;
+        const el = document.querySelector(`.idc-export[data-face="${face}"]`);
+        return html2canvas(el, { scale: 3, useCORS: true, backgroundColor: null, logging: false, width: 900, height: 560 });
+    }
+    function download(blob, name) {
+        const url = URL.createObjectURL(blob);
+        const a = Object.assign(document.createElement('a'), { href: url, download: name });
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+    document.querySelectorAll('[data-export]').forEach(btn => btn.addEventListener('click', async () => {
+        if (!window.html2canvas || !window.jspdf) { msg.textContent = 'Export tools could not load. Check your connection and retry.'; return; }
+        const kind = btn.dataset.export;
+        btn.disabled = true; msg.textContent = 'Preparing download…';
+        try {
+            if (kind === 'pdf') {
+                const pdf = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'px', format: [900, 560], hotfixes: ['px_scaling'] });
+                for (const [i, face] of ['front', 'back'].entries()) {
+                    const c = await renderFace(face);
+                    if (i) pdf.addPage([900, 560], 'landscape');
+                    pdf.addImage(c.toDataURL('image/png'), 'PNG', 0, 0, 900, 560);
+                    c.width = c.height = 0;  // free canvas memory
+                }
+                download(pdf.output('blob'), `${fileBase}.pdf`);
+            } else {
+                const c = await renderFace(kind);
+                const blob = await new Promise(r => c.toBlob(r, 'image/png'));
+                c.width = c.height = 0;
+                download(blob, `${fileBase}-${kind}.png`);
+            }
+            msg.textContent = 'Downloaded.';
+        } catch (e) {
+            console.error(e); msg.textContent = 'Export failed. Please try again.';
+        } finally { btn.disabled = false; }
+    }));
+
+    const shareData = { title: 'ID card verification', text: '{{ card.holder_name|escapejs }}, {{ card.designation|escapejs }}', url: '{{ share_url|escapejs }}' };
+    document.getElementById('idc-share').addEventListener('click', async () => {
+        try {
+            if (navigator.share) { await navigator.share(shareData); return; }
+            await navigator.clipboard.writeText(shareData.url);
+            msg.textContent = 'Link copied to clipboard.';
+        } catch (e) {
+            if (e.name !== 'AbortError') msg.textContent = 'Copy this link: ' + shareData.url;
+        }
+    });
+})();
+</script>
+{% endif %}
+{% endblock %}
