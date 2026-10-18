@@ -324,7 +324,7 @@
                                     value="{{ clinic.default_tax_percent|default:'0' }}" step="0.01" min="0" max="100"
                                     class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 transition-all">
 
-                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">%</span>
+                                <span class="absolute end-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">%</span>
 
                             </div>
 
@@ -473,7 +473,7 @@
                                             class="px-2 py-1 bg-red-600/90 backdrop-blur-sm text-[10px] text-white font-bold rounded uppercase shadow-sm">{% trans "Removed" %}</span>
                                     </div>
                                     <div
-                                        class="absolute top-2 left-2 px-2 py-0.5 bg-black/50 backdrop-blur-md rounded text-white text-[10px] font-bold">
+                                        class="absolute top-2 start-2 px-2 py-0.5 bg-black/50 backdrop-blur-md rounded text-white text-[10px] font-bold">
                                         #{{ forloop.counter }}</div>
                                 </div>
                                 {% endfor %}
@@ -950,7 +950,7 @@
 
                         <div class="relative">
 
-                            <i class="bi bi-facebook absolute left-4 top-1/2 -translate-y-1/2 text-blue-600"></i>
+                            <i class="bi bi-facebook absolute start-4 top-1/2 -translate-y-1/2 text-blue-600"></i>
 
                             <input type="url" name="facebook" value="{{ clinic.facebook|default:'' }}"
                                 placeholder="{% trans 'Facebook Profile URL' %}"
@@ -960,7 +960,7 @@
 
                         <div class="relative">
 
-                            <i class="bi bi-instagram absolute left-4 top-1/2 -translate-y-1/2 text-pink-600"></i>
+                            <i class="bi bi-instagram absolute start-4 top-1/2 -translate-y-1/2 text-pink-600"></i>
 
                             <input type="url" name="instagram" value="{{ clinic.instagram|default:'' }}"
                                 placeholder="{% trans 'Instagram Profile URL' %}"
@@ -970,7 +970,7 @@
 
                         <div class="relative">
 
-                            <i class="bi bi-twitter-x absolute left-4 top-1/2 -translate-y-1/2 text-slate-900"></i>
+                            <i class="bi bi-twitter-x absolute start-4 top-1/2 -translate-y-1/2 text-slate-900"></i>
 
                             <input type="url" name="twitter" value="{{ clinic.twitter|default:'' }}"
                                 placeholder="{% trans 'Twitter / X Profile URL' %}"
@@ -980,7 +980,7 @@
 
                         <div class="relative">
 
-                            <i class="bi bi-youtube absolute left-4 top-1/2 -translate-y-1/2 text-red-600"></i>
+                            <i class="bi bi-youtube absolute start-4 top-1/2 -translate-y-1/2 text-red-600"></i>
 
                             <input type="url" name="youtube" value="{{ clinic.youtube|default:'' }}"
                                 placeholder="{% trans 'YouTube Channel URL' %}"
@@ -1149,7 +1149,7 @@
                     div.className = 'relative group aspect-video rounded-xl overflow-hidden border border-green-200 shadow-sm ring-2 ring-green-500/20';
                     div.innerHTML = `
                         <img src="${e.target.result}" class="w-full h-full object-cover">
-                        <div class="absolute top-2 left-2 px-2 py-0.5 bg-green-600 rounded text-white text-[10px] font-bold">NEW #${index + 1}</div>
+                        <div class="absolute top-2 start-2 px-2 py-0.5 bg-green-600 rounded text-white text-[10px] font-bold">NEW #${index + 1}</div>
                     `;
                     container.appendChild(div);
                 }

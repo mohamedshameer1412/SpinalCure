@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% blocktranslate trimmed with name=patient.name %}Patient Card - {{ name }} - SpinalCure{% endblocktranslate %}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     <style>
         @media print {
             body {

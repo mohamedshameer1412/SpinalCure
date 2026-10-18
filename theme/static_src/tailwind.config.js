@@ -1,74 +1,26 @@
 /**
- * This is a minimal config.
- *
- * If you need the full config, get it from here:
- * https://unpkg.com/browse/tailwindcss@latest/stubs/defaultConfig.stub.js
+ * Build with `npm run build` in this directory. The compiled stylesheet (static/css/tailwind.css) is
+ * committed, so deployments do not need Node.
  */
-
 module.exports = {
     content: [
-        /**
-         * HTML. Paths to Django template files that will contain Tailwind CSS classes.
-         */
-
-        /*  Templates within theme app (<tailwind_app_name>/templates), e.g. base.html. */
-        '../templates/**/*.html',
-
-        /*
-         * Main templates directory of the project (BASE_DIR/templates).
-         * Adjust the following line to match your project structure.
-         */
         '../../templates/**/*.html',
-
-        /*
-         * Templates in other django apps (BASE_DIR/<any_app_name>/templates).
-         * Adjust the following line to match your project structure.
-         */
         '../../**/templates/**/*.html',
-
-        /**
-         * JS: If you use Tailwind CSS in JavaScript, uncomment the following lines and make sure
-         * patterns match your project structure.
-         */
-        /* JS 1: Ignore any JavaScript in node_modules folder. */
-        // '!../../**/node_modules',
-        /* JS 2: Process all JavaScript files in the project. */
-        // '../../**/*.js',
-
-        /**
-         * Python: If you use Tailwind CSS classes in Python, uncomment the following line
-         * and make sure the pattern below matches your project structure.
-         */
-        // '../../**/*.py'
+        '../../static/js/**/*.js',
+        '!../../**/node_modules/**',
     ],
     theme: {
         extend: {
             colors: {
                 primary: {
-                    50: '#f0fdf4',
-                    100: '#dcfce7',
-                    200: '#bbf7d0',
-                    300: '#86efac',
-                    400: '#4ade80',
-                    500: '#22c55e',
-                    600: '#16a34a',
-                    700: '#15803d',
-                    800: '#166534',
-                    900: '#14532d',
-                    950: '#052e16',
-                }
-            }
+                    50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80',
+                    500: '#22c55e', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d', 950: '#052e16',
+                },
+            },
+            fontFamily: {
+                sans: ['Inter', 'Noto Sans Tamil', 'Noto Sans Devanagari', 'Noto Naskh Arabic', 'system-ui', 'sans-serif'],
+            },
         },
     },
-    plugins: [
-        /**
-         * '@tailwindcss/forms' is the forms plugin that provides a minimal styling
-         * for forms. If you don't like it or have own styling for forms,
-         * comment the line below to disable '@tailwindcss/forms'.
-         */
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/typography'),
-        require('@tailwindcss/aspect-ratio'),
-        require('flowbite/plugin')
-    ],
+    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require('@tailwindcss/aspect-ratio')],
 }

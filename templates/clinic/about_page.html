@@ -35,7 +35,7 @@
         content="{{ clinic.about|default:'Experience the perfect blend of ancient acupuncture wisdom and modern spinal rehabilitation.'|truncatewords:30 }}">
     <meta property="twitter:image"
         content="{% if clinic.logo %}{{ request.scheme }}://{{ request.get_host }}{{ clinic.logo.url }}{% endif %}">
-    <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -134,7 +134,7 @@
         <!-- Hero Section -->
         <section class="relative pt-24 pb-16 overflow-hidden bg-slate-50">
             <div
-                class="absolute top-0 right-0 -me-32 -mt-32 w-96 h-96 rounded-full bg-green-500/10 blur-3xl shadow-2xl animate-pulse">
+                class="absolute top-0 end-0 -me-32 -mt-32 w-96 h-96 rounded-full bg-green-500/10 blur-3xl shadow-2xl animate-pulse">
             </div>
             <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
                 <a href="{% url 'clinic_portfolio' %}"
@@ -285,7 +285,7 @@
         class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/90 backdrop-blur-sm transition-opacity duration-300 opacity-0"
         onclick="closeLightbox()">
         <button type="button"
-            class="absolute top-6 right-6 text-white hover:text-green-400 bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors z-[110]"
+            class="absolute top-6 end-6 text-white hover:text-green-400 bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors z-[110]"
             onclick="closeLightbox()">
             <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

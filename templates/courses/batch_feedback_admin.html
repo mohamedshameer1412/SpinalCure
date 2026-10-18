@@ -36,7 +36,7 @@
         {% for feedback in feedback_list %}
         <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-8 transition-all hover:border-amber-100 relative overflow-hidden">
             {% if feedback.is_published %}
-            <div class="absolute top-0 right-0">
+            <div class="absolute top-0 end-0">
                 <div class="bg-green-600 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-bl-xl shadow-sm">{% trans "Published" %}</div>
             </div>
             {% endif %}

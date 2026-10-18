@@ -43,7 +43,7 @@
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     {% endif %}
     
-    <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -226,7 +226,7 @@
 
                             <!-- Carousel Indicators -->
                             {% if clinic.hero_carousel_images.count > 1 %}
-                            <div class="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
+                            <div class="absolute bottom-6 start-0 end-0 z-20 flex justify-center gap-2">
                                 <template x-for="i in slides" :key="i">
                                     <button @click="activeSlide = i"
                                         class="w-2 h-2 rounded-full transition-all duration-300"
@@ -445,7 +445,7 @@
                                 <i class="bi bi-calendar-check text-5xl"></i>
                             </div>
                             {% endif %}
-                            <div class="absolute top-4 left-4">
+                            <div class="absolute top-4 start-4">
                                 <span
                                     class="px-4 py-1.5 bg-white/90 backdrop-blur text-green-700 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
                                     {{ event.get_event_type_display }}
@@ -518,7 +518,7 @@
                             </div>
                             {% endif %}
 
-                            <div class="absolute top-4 right-4">
+                            <div class="absolute top-4 end-4">
                                 <span
                                     class="px-4 py-1.5 bg-slate-900/80 backdrop-blur text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">
                                     {{ course.get_platform_display }}
@@ -526,7 +526,7 @@
                             </div>
 
                             {% if course.active_batch %}
-                            <div class="absolute bottom-4 left-4">
+                            <div class="absolute bottom-4 start-4">
                                 <span
                                     class="px-4 py-1.5 bg-green-500 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg animate-pulse">
                                     {% trans "Intake Open" %}
@@ -611,7 +611,7 @@
                                 {{ p.name|slice:":1" }}</div>
                             {% endif %}
                             <!-- Social Icons Overlay -->
-                            <div class="absolute top-6 right-6 flex flex-col gap-3">
+                            <div class="absolute top-6 end-6 flex flex-col gap-3">
                                 {% if p.youtube_url %}<a href="{{ p.youtube_url }}" target="_blank"
                                     class="w-10 h-10 bg-white/90 backdrop-blur rounded-xl flex items-center justify-center text-slate-600 hover:bg-green-600 hover:text-white transition-all shadow-lg"><i
                                         class="bi bi-youtube"></i></a>{% endif %}
@@ -687,7 +687,7 @@
                             </div>
 
                             {% if p.designation_tag %}
-                            <div class="absolute top-5 left-5 right-5 flex justify-center">
+                            <div class="absolute top-5 start-5 end-5 flex justify-center">
                                 <span
                                     class="px-3 py-1.5 bg-white/95 backdrop-blur text-slate-900 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm truncate max-w-full text-center">
                                     {{ p.designation_tag }}
@@ -739,7 +739,7 @@
                 <div class="grid md:grid-cols-3 gap-8 mb-16">
                     {% for review in reviews %}
                     <div class="glass p-8 rounded-3xl relative flex flex-col h-full">
-                        <svg class="absolute top-6 right-8 w-10 h-10 text-green-100" fill="currentColor"
+                        <svg class="absolute top-6 end-8 w-10 h-10 text-green-100" fill="currentColor"
                             viewBox="0 0 24 24">
                             <path
                                 d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H14.017C13.4647 8 13.017 8.44772 13.017 9V12C13.017 12.5523 12.5693 13 12.017 13H11.017C10.4647 13 10.017 12.5523 10.017 12V9C10.017 7.34315 11.3601 6 13.017 6H19.017C20.6739 6 22.017 7.34315 22.017 9V15C22.017 16.6569 20.6739 18 19.017 18H17.017L17.017 21H14.017ZM3.01693 21L3.01693 18C3.01693 16.8954 3.91236 16 5.01693 16H8.01693C8.56921 16 9.01693 15.5523 9.01693 15V9C9.01693 8.44772 8.56921 8 8.01693 8H3.01693C2.46465 8 2.01693 8.44772 2.01693 9V12C2.01693 12.5523 1.56921 13 1.01693 13H0.0169282C-0.535356 13 -0.983072 12.5523 -0.983072 12V9C-0.983072 7.34315 0.360074 6 2.01693 6H8.01693C9.67378 6 11.0169 7.34315 11.0169 9V15C11.0169 16.6569 9.67378 18 8.01693 18H6.01693L6.01693 21H3.01693Z">
@@ -1140,7 +1140,7 @@
         class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/90 backdrop-blur-sm transition-opacity duration-300 opacity-0"
         onclick="closeLightbox()">
         <button type="button"
-            class="absolute top-6 right-6 text-white hover:text-green-400 bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors z-[110]"
+            class="absolute top-6 end-6 text-white hover:text-green-400 bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors z-[110]"
             onclick="closeLightbox()">
             <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

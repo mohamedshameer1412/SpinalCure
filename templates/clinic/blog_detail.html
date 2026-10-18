@@ -17,7 +17,7 @@
     <meta property="article:published_time" content="{{ post.published_at|date:'c' }}">
     <meta property="article:author" content="{{ post.display_author }}">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -81,7 +81,7 @@
             <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
                 class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-8 max-w-4xl mx-auto">
+            <div class="absolute bottom-0 start-0 end-0 p-8 max-w-4xl mx-auto">
                 <div class="flex flex-wrap gap-2 mb-3">
                     {% for tag in post.tags.all %}
                     <a href="{% url 'blog_list' %}?tag={{ tag.slug }}"
