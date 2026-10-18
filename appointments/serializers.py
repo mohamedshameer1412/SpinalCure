@@ -22,6 +22,22 @@ class AppointmentSerializer(serializers.ModelSerializer):
         model = Appointment
         fields = '__all__'
         
+    def validate(self, attrs):
+        inst = self.instance
+        status = attrs.get('status')
+        if inst is None:
+            if status not in (None, 'scheduled', 'confirmed'):
+                raise serializers.ValidationError({'detail': 'New appointments must be scheduled or confirmed.'})
+            if not attrs.get('patient') and not attrs.get('guest_name'):
+                raise serializers.ValidationError({'detail': 'Choose a patient or enter a guest name.'})
+        elif status and status != inst.status and status not in Appointment.TRANSITIONS.get(inst.status, set()):
+            raise serializers.ValidationError(
+                {'detail': f'Cannot change status from {inst.get_status_display()} to {dict(Appointment.STATUS_CHOICES).get(status, status)}.'})
+        elif inst.status not in ('scheduled', 'confirmed') and any(
+                f in attrs for f in ('appointment_date', 'appointment_time', 'practitioner', 'duration_minutes')):
+            raise serializers.ValidationError({'detail': 'Closed appointments cannot be moved.'})
+        return attrs
+
     def get_patient_name(self, obj):
         return obj.patient.name if obj.patient else (obj.guest_name or 'Guest')
         

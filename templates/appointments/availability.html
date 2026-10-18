@@ -5,77 +5,133 @@
 {% block page_title %}Doctor Availability Management{% endblock %}
 
 {% block content %}
+{% with input="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500" %}
 <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6">
-    <form method="get" class="flex gap-4 items-end">
+    <form method="get" class="flex flex-wrap gap-4 items-end">
         <div>
-            <label for="practitioner_id" class="block mb-2 text-sm font-medium text-gray-900">Select Doctor</label>
-            <select id="practitioner_id" name="practitioner_id">
+            <label for="practitioner_id" class="block mb-2 text-sm font-medium text-gray-900">Doctor</label>
+            <select id="practitioner_id" name="practitioner_id" class="{{ input }}" onchange="this.form.submit()">
                 {% for doc in practitioners %}
-                <option value="{{ doc.id|b64uuid }}" {% if selected_doc and doc.id == selected_doc.id %}selected{% endif %}>Dr. {{ doc.name }} ({{ doc.specialization }})</option>
+                <option value="{{ doc.id|b64uuid }}" {% if selected_doc and doc.id == selected_doc.id %}selected{% endif %}>Dr. {{ doc.name }}{% if doc.specialization %} ({{ doc.specialization }}){% endif %}</option>
                 {% endfor %}
             </select>
         </div>
-        <button type="submit"
-            class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5">
-            View Schedule
-        </button>
-        <button type="button"
-            class="ml-auto text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5">
-            + Add Time Slot
-        </button>
+        <noscript><button type="submit" class="text-white bg-primary-600 hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5">View</button></noscript>
     </form>
+    <p class="text-xs text-gray-500 mt-3">Bookable slots come from these shifts. Add two shifts on one day (e.g. morning and evening) to create a break. A doctor with no shifts uses the clinic's default hours.</p>
 </div>
 
 {% if selected_doc %}
-<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-    <div class="p-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
-        <h3 class="text-lg font-semibold text-gray-800">Weekly Schedule: Dr. {{ selected_doc.name }}</h3>
-        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Active Template</span>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+        <div class="p-4 border-b border-gray-100 bg-gray-50">
+            <h2 class="text-lg font-semibold text-gray-800">Weekly schedule: Dr. {{ selected_doc.name }}</h2>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-600">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
+                    <tr>
+                        <th scope="col" class="px-4 py-3">Day</th>
+                        <th scope="col" class="px-4 py-3">Hours</th>
+                        <th scope="col" class="px-4 py-3">Slot</th>
+                        <th scope="col" class="px-4 py-3">Buffer</th>
+                        <th scope="col" class="px-4 py-3">Limit</th>
+                        <th scope="col" class="px-4 py-3 text-right"><span class="sr-only">Actions</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for slot in availabilities %}
+                    <tr class="bg-white border-b">
+                        <td class="px-4 py-3 font-medium text-gray-900">{{ slot.get_day_of_week_display }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap">{{ slot.start_time|time:"h:i A" }} – {{ slot.end_time|time:"h:i A" }}{% if not slot.is_available %} <span class="text-red-600">(off)</span>{% endif %}</td>
+                        <td class="px-4 py-3">{{ slot.slot_duration_minutes }} min</td>
+                        <td class="px-4 py-3">{{ slot.buffer_minutes }} min</td>
+                        <td class="px-4 py-3">{{ slot.max_appointments|default:"—" }}</td>
+                        <td class="px-4 py-3 text-right">
+                            <form method="post" onsubmit="return confirm('Remove this shift?')">
+                                {% csrf_token %}
+                                <input type="hidden" name="practitioner_id" value="{{ selected_doc.id|b64uuid }}">
+                                <input type="hidden" name="action" value="delete_shift">
+                                <input type="hidden" name="id" value="{{ slot.pk }}">
+                                <button type="submit" class="font-medium text-red-600 hover:underline">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="6" class="px-4 py-8 text-center text-gray-500">No shifts yet. This doctor is bookable during the clinic's default hours.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <form method="post" class="p-4 border-t border-gray-100 grid grid-cols-2 md:grid-cols-6 gap-3 items-end">
+            {% csrf_token %}
+            <input type="hidden" name="practitioner_id" value="{{ selected_doc.id|b64uuid }}">
+            <input type="hidden" name="action" value="add_shift">
+            {% for field in shift_form %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="block mb-1 text-xs font-medium text-gray-700">{{ field.label }}</label>
+                {{ field }}
+                {% for e in field.errors %}<p class="text-xs text-red-600 mt-1">{{ e }}</p>{% endfor %}
+            </div>
+            {% endfor %}
+            {% for e in shift_form.non_field_errors %}<p class="col-span-full text-sm text-red-600">{{ e }}</p>{% endfor %}
+            <div class="col-span-full">
+                <button type="submit" class="text-white bg-primary-600 hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5">Add shift</button>
+            </div>
+        </form>
     </div>
-    <div class="p-0">
-        <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
-                <tr>
-                    <th scope="col" class="px-6 py-3">Day of Week</th>
-                    <th scope="col" class="px-6 py-3">Start Time</th>
-                    <th scope="col" class="px-6 py-3">End Time</th>
-                    <th scope="col" class="px-6 py-3 text-center">Status</th>
-                    <th scope="col" class="px-6 py-3 text-right">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for slot in availabilities %}
-                <tr class="bg-white border-b hover:bg-gray-50">
-                    <td class="px-6 py-4 font-medium text-gray-900">{{ slot.get_day_of_week_display }}</td>
-                    <td class="px-6 py-4">{{ slot.start_time|time:"h:i A" }}</td>
-                    <td class="px-6 py-4">{{ slot.end_time|time:"h:i A" }}</td>
-                    <td class="px-6 py-4 text-center">
-                        {% if slot.is_available %}
-                        <span
-                            class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Available</span>
-                        {% else %}
-                        <span
-                            class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Unavailable</span>
-                        {% endif %}
-                    </td>
-                    <td class="px-6 py-4 text-right">
-                        <button class="font-medium text-primary-600 hover:underline">Edit</button>
-                        <button class="font-medium text-red-600 hover:underline ml-3">Delete</button>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5" class="px-6 py-8 text-center text-gray-500">No availability slots defined for this
-                        doctor yet.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+    <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+        <div class="p-4 border-b border-gray-100 bg-gray-50">
+            <h2 class="text-lg font-semibold text-gray-800">Leave &amp; holidays</h2>
+        </div>
+        <ul class="divide-y divide-gray-100">
+            {% for leave in leaves %}
+            <li class="p-4 flex items-start justify-between gap-3 text-sm">
+                <div>
+                    <p class="font-medium text-gray-900">{{ leave.start_date|date:"d M Y" }}{% if leave.end_date != leave.start_date %} – {{ leave.end_date|date:"d M Y" }}{% endif %}</p>
+                    <p class="text-gray-500">{% if not leave.practitioner %}Clinic holiday{% else %}Leave{% endif %}{% if leave.reason %} · {{ leave.reason }}{% endif %}</p>
+                </div>
+                {% if leave.practitioner or can.site_manage %}
+                <form method="post" onsubmit="return confirm('Remove this leave?')">
+                    {% csrf_token %}
+                    <input type="hidden" name="practitioner_id" value="{{ selected_doc.id|b64uuid }}">
+                    <input type="hidden" name="action" value="delete_leave">
+                    <input type="hidden" name="id" value="{{ leave.pk }}">
+                    <button type="submit" class="text-red-600 hover:underline">Remove</button>
+                </form>
+                {% endif %}
+            </li>
+            {% empty %}
+            <li class="p-4 text-sm text-gray-500">No upcoming leave.</li>
+            {% endfor %}
+        </ul>
+        <form method="post" class="p-4 border-t border-gray-100 space-y-3">
+            {% csrf_token %}
+            <input type="hidden" name="practitioner_id" value="{{ selected_doc.id|b64uuid }}">
+            <input type="hidden" name="action" value="add_leave">
+            {% for field in leave_form %}
+            {% if field.name == 'clinic_wide' %}
+                {% if can.site_manage %}
+                <label class="flex items-center gap-2 text-sm text-gray-700">{{ field }} {{ field.label }}</label>
+                {% endif %}
+            {% else %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="block mb-1 text-xs font-medium text-gray-700">{{ field.label }}</label>
+                {{ field }}
+                {% for e in field.errors %}<p class="text-xs text-red-600 mt-1">{{ e }}</p>{% endfor %}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% for e in leave_form.non_field_errors %}<p class="text-sm text-red-600">{{ e }}</p>{% endfor %}
+            <button type="submit" class="text-white bg-primary-600 hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5">Add leave</button>
+        </form>
     </div>
 </div>
 {% else %}
 <div class="bg-white rounded-lg shadow border border-gray-200 p-8 text-center">
-    <p class="text-gray-500">Please select a doctor to view their availability schedule.</p>
+    <p class="text-gray-500">No practitioner profile is linked to your account. Ask an administrator to add one with your email address.</p>
 </div>
 {% endif %}
+{% endwith %}
 {% endblock %}

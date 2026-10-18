@@ -16,6 +16,10 @@ from spinalcure.permissions import IsSuperAdmin, IsDoctor
 import json
 import logging
 from urllib.parse import quote
+from django.core.exceptions import ValidationError
+from django.db import transaction
+from appointments.scheduling import booking_lock, check_bookable, parse_day_time, BookingError
+from spinalcure.validators import validate_phone_number
 from spinalcure.permissions import ReadWritePerm
 from spinalcure.utils import decode_b64uuid
 
@@ -275,6 +279,9 @@ def submit_review_ajax(request):
 @require_http_methods(["POST"])
 def book_appointment_ajax(request):
     """AJAX endpoint for booking appointments from public portal."""
+    from spinalcure.utils import rate_limited, client_ip
+    if rate_limited(f'public_booking:{client_ip(request)}', 10, 3600):
+        return JsonResponse({'status': 'error', 'message': 'Too many booking attempts. Please call the clinic.'}, status=429)
     try:
         data = json.loads(request.body)
         patient_name = data.get('name', '').strip()
@@ -297,44 +304,41 @@ def book_appointment_ajax(request):
                 'message': 'All fields are required including time.'
             }, status=400)
 
-        # Try to find an existing patient by phone
+        if len(patient_name) > 255 or len(notes) > 300:
+            return JsonResponse({'status': 'error', 'message': 'Name or notes are too long.'}, status=400)
+        try:
+            validate_phone_number(patient_phone)
+            day, start = parse_day_time(app_date, app_time)
+        except (ValidationError, BookingError):
+            return JsonResponse({'status': 'error', 'message': 'Please enter a valid phone number, date and time.'}, status=400)
+
+        # Never update an existing patient's record from this unauthenticated form: changing the
+        # email here would redirect that patient's portal login codes to whoever typed it.
         patient = Patient.by_phone(patient_phone)
-        
-        # Update email if patient exists and a new email was provided
-        if patient and patient_email and patient.email != patient_email:
-            patient.email = patient_email
-            patient.save(update_fields=['email'])
-        
+
         practitioner = None
         if practitioner_id:
             practitioner = Practitioner.objects.filter(id=practitioner_id, is_active=True).first()
-        
-        # Create appointment
+            if practitioner is None:
+                return JsonResponse({'status': 'error', 'message': 'Please choose a valid practitioner.'}, status=400)
+
+        appointment_type = 'online' if data.get('type') == 'online' else 'physical'
+        fields = dict(practitioner=practitioner, appointment_date=day, appointment_time=start,
+                      appointment_type=appointment_type, status='scheduled', reason=notes)
         if patient:
-            appointment = Appointment.objects.create(
-                patient=patient,
-                practitioner=practitioner,
-                appointment_date=app_date,
-                appointment_time=app_time,
-                appointment_type='physical',
-                status='scheduled',
-                reason=notes
-            )
+            fields['patient'] = patient
         else:
-            # Guest booking
-            appointment = Appointment.objects.create(
-                guest_name=patient_name,
-                guest_phone=patient_phone,
-                guest_email=patient_email,
-                practitioner=practitioner,
-                appointment_date=app_date,
-                appointment_time=app_time,
-                appointment_type='physical',
-                status='scheduled',
-                reason=notes
-            )
-        
-        logger.info(f'New appointment booked by {patient_name} for {app_date}')
+            fields.update(guest_name=patient_name, guest_phone=patient_phone, guest_email=patient_email or None)
+        try:
+            with booking_lock(practitioner.pk if practitioner else None, day), transaction.atomic():
+                error = check_bookable(practitioner, day, start, 30, appointment_type)
+                if error:
+                    return JsonResponse({'status': 'error', 'message': error}, status=409)
+                appointment = Appointment.objects.create(**fields)
+        except BookingError as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=409)
+
+        logger.info('Public appointment %s booked for %s', appointment.pk, day)
 
         # Send booking confirmation email to patient + notify admin
         try:

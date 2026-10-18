@@ -8,10 +8,11 @@ from django.db.models import Q
 from django.urls import reverse
 from datetime import datetime, date, timedelta, time
 
-from spinalcure.utils import SpinalCureExport, decode_b64uuid, log_action
+from spinalcure.utils import SpinalCureExport, decode_b64uuid, encode_b64uuid, log_action
 from clinic.models import Practitioner, ClinicProfile
 from patients.models import Patient
-from appointments.models import Appointment, DoctorAvailability
+from appointments.models import Appointment, DoctorAvailability, PractitionerLeave
+from django import forms
 
 @role_required('appointments_view')
 def appointment_calendar_view(request):
@@ -46,23 +47,112 @@ def appointment_calendar_view(request):
     }
     return render(request, 'appointments/calendar.html', context)
 
+_INPUT_CLASS = 'w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500'
+
+
+def _style(form):
+    for f in form.fields.values():
+        if not isinstance(f.widget, forms.CheckboxInput):
+            f.widget.attrs.setdefault('class', _INPUT_CLASS)
+
+
+class _ShiftForm(forms.ModelForm):
+    class Meta:
+        model = DoctorAvailability
+        fields = ['day_of_week', 'start_time', 'end_time', 'slot_duration_minutes', 'buffer_minutes', 'max_appointments']
+        widgets = {'start_time': forms.TimeInput(attrs={'type': 'time'}), 'end_time': forms.TimeInput(attrs={'type': 'time'})}
+
+    def __init__(self, *args, practitioner=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.instance.practitioner = practitioner
+        _style(self)
+
+    def clean_slot_duration_minutes(self):
+        v = self.cleaned_data['slot_duration_minutes']
+        if not 5 <= v <= 240:
+            raise forms.ValidationError('Slot length must be between 5 and 240 minutes.')
+        return v
+
+
+class _LeaveForm(forms.ModelForm):
+    clinic_wide = forms.BooleanField(required=False, label='Clinic holiday (all practitioners)')
+
+    class Meta:
+        model = PractitionerLeave
+        fields = ['start_date', 'end_date', 'reason']
+        widgets = {'start_date': forms.DateInput(attrs={'type': 'date'}), 'end_date': forms.DateInput(attrs={'type': 'date'})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        _style(self)
+
+
+def _editable_practitioners(user):
+    """Admins manage everyone; a doctor only their own practitioner profile (matched by email)."""
+    qs = Practitioner.objects.order_by('name')
+    if user.can('site_manage'):
+        return qs
+    return qs.filter(email__iexact=user.email) if user.email else qs.none()
+
+
 @role_required('availability_manage')
 def doctor_availability_view(request):
-    practitioners = Practitioner.objects.all()
-    # If a specific doctor is selected or default to the first one for the UI
-    selected_doc_id = request.GET.get('practitioner_id')
-    if selected_doc_id:
-        selected_doc_id = decode_b64uuid(selected_doc_id)
-    selected_doc = practitioners.filter(id=selected_doc_id).first() if selected_doc_id else practitioners.first()
-    
+    practitioners = _editable_practitioners(request.user)
+    pid = request.POST.get('practitioner_id') or request.GET.get('practitioner_id')
+    selected_doc = (practitioners.filter(pk=decode_b64uuid(pid)).first() if pid else None) or practitioners.first()
+    shift_form, leave_form = _ShiftForm(practitioner=selected_doc), _LeaveForm()
+
+    if request.method == 'POST' and selected_doc:
+        action = request.POST.get('action')
+        if action == 'add_shift':
+            shift_form = _ShiftForm(request.POST, practitioner=selected_doc)
+            if shift_form.is_valid():
+                shift = shift_form.save()
+                log_action(request, 'create', 'DoctorAvailability', str(shift), object_id=shift.pk)
+                messages.success(request, 'Shift added.')
+                return redirect(f"{reverse('doctor_availability')}?practitioner_id={encode_b64uuid(selected_doc.pk)}")
+        elif action == 'delete_shift':
+            shift = DoctorAvailability.objects.filter(pk=request.POST.get('id'), practitioner=selected_doc).first()
+            if shift:
+                log_action(request, 'delete', 'DoctorAvailability', str(shift), object_id=shift.pk)
+                shift.delete()
+                messages.success(request, 'Shift removed. Existing appointments are unchanged.')
+            return redirect(f"{reverse('doctor_availability')}?practitioner_id={encode_b64uuid(selected_doc.pk)}")
+        elif action == 'add_leave':
+            leave_form = _LeaveForm(request.POST)
+            if leave_form.is_valid():
+                if leave_form.cleaned_data['clinic_wide'] and not request.user.can('site_manage'):
+                    messages.error(request, 'Only clinic administrators can add clinic holidays.')
+                else:
+                    leave = leave_form.save(commit=False)
+                    leave.practitioner = None if leave_form.cleaned_data['clinic_wide'] else selected_doc
+                    leave.save()
+                    log_action(request, 'create', 'PractitionerLeave', str(leave), object_id=leave.pk)
+                    clashes = Appointment.objects.filter(
+                        appointment_date__range=(leave.start_date, leave.end_date),
+                        status__in=('scheduled', 'confirmed'),
+                        **({} if leave.practitioner is None else {'practitioner': selected_doc}))
+                    n = clashes.count()
+                    messages.success(request, 'Leave saved.' + (f' {n} existing appointment(s) fall in this period and need rescheduling.' if n else ''))
+                    return redirect(f"{reverse('doctor_availability')}?practitioner_id={encode_b64uuid(selected_doc.pk)}")
+        elif action == 'delete_leave':
+            leave = PractitionerLeave.objects.filter(pk=request.POST.get('id')).first()
+            allowed = leave and (leave.practitioner_id == selected_doc.pk or (leave.practitioner_id is None and request.user.can('site_manage')))
+            if allowed:
+                log_action(request, 'delete', 'PractitionerLeave', str(leave), object_id=leave.pk)
+                leave.delete()
+                messages.success(request, 'Leave removed.')
+            return redirect(f"{reverse('doctor_availability')}?practitioner_id={encode_b64uuid(selected_doc.pk)}")
+
     availabilities = DoctorAvailability.objects.filter(practitioner=selected_doc).order_by('day_of_week', 'start_time') if selected_doc else []
-    
-    context = {
-        'practitioners': practitioners,
-        'selected_doc': selected_doc,
-        'availabilities': availabilities,
-    }
-    return render(request, 'appointments/availability.html', context)
+    leaves = PractitionerLeave.objects.filter(
+        Q(practitioner=selected_doc) | Q(practitioner__isnull=True), end_date__gte=date.today()
+    ).select_related('practitioner') if selected_doc else []
+    return render(request, 'appointments/availability.html', {
+        'practitioners': practitioners, 'selected_doc': selected_doc, 'availabilities': availabilities,
+        'leaves': leaves, 'shift_form': shift_form, 'leave_form': leave_form,
+    })
+
 
 @role_required('appointments_view')
 def appointment_list_view(request):
@@ -261,128 +351,28 @@ def appointment_delete_view(request, pk):
     return redirect('appointment_calendar')
 
 
-@role_required('appointments_manage')
-def appointment_check_collision(request):
-    """Check if a doctor already has an appointment at a specific time."""
-    practitioner_id = request.GET.get('practitioner')
-    app_date = request.GET.get('date')
-    app_time = request.GET.get('time')
-    exclude_id = request.GET.get('exclude')
+def _practitioner_from_param(value):
+    """Accept a plain UUID (staff calendar) or base64 id (public site)."""
+    import uuid as uuid_mod
+    try:
+        pk = uuid_mod.UUID(str(value))
+    except ValueError:
+        pk = decode_b64uuid(str(value))
+    return Practitioner.objects.filter(pk=pk, is_active=True).first() if pk else None
 
-    if not all([practitioner_id, app_date, app_time]):
-        return JsonResponse({'conflict': False})
-
-    # Basic collision: check if practitioner has ANY appointment at this EXACT time on this date
-    # (In a real system, you'd check time ranges/duration overlap)
-    qs = Appointment.objects.filter(
-        practitioner_id=practitioner_id,
-        appointment_date=app_date,
-        appointment_time=app_time
-    ).exclude(status='cancelled')
-
-    if exclude_id:
-        qs = qs.exclude(id=exclude_id)
-
-    conflict = qs.first()
-    if conflict:
-        return JsonResponse({
-            'conflict': True,
-            'message': f'Dr. {conflict.practitioner.name} is already booked for {conflict.patient.name} at this time.'
-        })
-
-    return JsonResponse({'conflict': False})
 
 def get_available_slots(request):
-    """
-    Returns available 15-minute time slots for a given date, practitioner, and appointment type.
-    """
-    date_str = request.GET.get('date')
-    practitioner_id = request.GET.get('practitioner')
-    if practitioner_id:
-        try:
-            practitioner_id = decode_b64uuid(practitioner_id)
-        except Exception:
-            pass
-            
-    appointment_type = request.GET.get('type', 'physical') # 'physical' or 'online'
-    
-    if not date_str:
-        return JsonResponse({'error': 'Date is required'}, status=400)
-        
+    """Public: bookable start times for a date, optional practitioner and type (physical/online)."""
+    from .scheduling import available_slots
+    practitioner = None
+    pid = request.GET.get('practitioner')
+    if pid:
+        practitioner = _practitioner_from_param(pid)
+        if practitioner is None:
+            return JsonResponse({'error': 'Unknown practitioner'}, status=400)
     try:
-        target_date = datetime.strptime(date_str, '%Y-%m-%d').date()
+        day = datetime.strptime(request.GET.get('date', ''), '%Y-%m-%d').date()
     except ValueError:
         return JsonResponse({'error': 'Invalid date format. Use YYYY-MM-DD'}, status=400)
-    
-    # 1. Generate all possible slots based on the clinic physical/online hours
-    day_of_week = target_date.weekday() # 0 = Monday, 6 = Sunday
-    possible_slots = []
-
-    # Sunday (6): Closed for both physical and online
-    if day_of_week == 6:
-        return JsonResponse({'available_slots': []})
-
-    if appointment_type == 'online':
-        # Online Hours: Mon-Sat 9 AM - 5 PM
-        current_time = datetime.combine(target_date, time(9, 0))
-        end_time = datetime.combine(target_date, time(17, 0))
-        while current_time < end_time:
-            possible_slots.append(current_time.time())
-            current_time += timedelta(minutes=15)
-    else:
-        # Physical Hours
-        # Friday (4): Evening only (6:30 PM - 8:30 PM)
-        if day_of_week == 4:
-            current_time = datetime.combine(target_date, time(18, 30))
-            end_time = datetime.combine(target_date, time(20, 30))
-            while current_time < end_time:
-                possible_slots.append(current_time.time())
-                current_time += timedelta(minutes=15)
-        # Mon, Tue, Wed, Thu, Sat: Morning (10 AM - 1 PM) and Evening (5:30 PM - 8:30 PM)
-        else:
-            # Morning shift
-            current_time = datetime.combine(target_date, time(10, 0))
-            end_time = datetime.combine(target_date, time(13, 0))
-            while current_time < end_time:
-                possible_slots.append(current_time.time())
-                current_time += timedelta(minutes=15)
-            
-            # Evening shift
-            current_time = datetime.combine(target_date, time(17, 30))
-            end_time = datetime.combine(target_date, time(20, 30))
-            while current_time < end_time:
-                possible_slots.append(current_time.time())
-                current_time += timedelta(minutes=15)
-
-    # 2. Filter out slots that have already passed if the date is today
-    from django.utils import timezone
-    now = timezone.now()
-    if target_date == now.date():
-        possible_slots = [s for s in possible_slots if s > now.time()]
-    elif target_date < now.date():
-        possible_slots = []
-
-    # 3. Query existing non-cancelled appointments to find booked slots
-    booked_appointments = Appointment.objects.filter(
-        appointment_date=target_date
-    ).exclude(status__in=['cancelled', 'no_show', 'rescheduled'])
-    
-    if practitioner_id:
-        booked_appointments = booked_appointments.filter(practitioner_id=practitioner_id)
-        
-    booked_times = []
-    for appt in booked_appointments:
-        appt_start = datetime.combine(target_date, appt.appointment_time)
-        appt_end = appt_start + timedelta(minutes=appt.duration_minutes)
-        c_time = appt_start
-        while c_time < appt_end:
-            booked_times.append(c_time.time())
-            c_time += timedelta(minutes=15)
-            
-    # 4. Remove booked slots
-    available_slots = [
-        s.strftime('%H:%M') for s in possible_slots 
-        if s not in booked_times
-    ]
-    
-    return JsonResponse({'available_slots': available_slots})
+    appointment_type = 'online' if request.GET.get('type') == 'online' else 'physical'
+    return JsonResponse({'available_slots': available_slots(day, practitioner, appointment_type)})

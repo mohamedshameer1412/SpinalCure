@@ -1225,12 +1225,6 @@
                         return;
                     }
 
-                    const selectedDateObj = new Date(dateStr);
-                    if (selectedDateObj.getDay() === 0) {
-                        this.slotError = 'Clinic is closed on Sundays. Please select another date.';
-                        return;
-                    }
-
                     this.slotsLoading = true;
                     try {
                         const url = `/en/appointments/api/available-slots/?date=${dateStr}&type=${this.appointmentType}`;
@@ -1244,7 +1238,7 @@
                         }
 
                         if (!data.available_slots || data.available_slots.length === 0) {
-                            this.slotError = 'No slots available for this date.';
+                            this.slotError = 'No free slots on this date (the clinic may be closed). Please choose another date.';
                             return;
                         }
 

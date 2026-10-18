@@ -8,6 +8,11 @@ PASSWORD = 'Str0ng-Pass-2026!'
 
 
 @pytest.fixture(autouse=True)
+def _fast_hasher(settings):
+    settings.PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher']  # tests only: real hashing is slow
+
+
+@pytest.fixture(autouse=True)
 def _clear_cache():
     from django.utils import translation
     translation.activate('en')  # URLs are under /en/; LANGUAGE_CODE 'en-us' is not a URL prefix
