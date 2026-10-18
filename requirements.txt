@@ -13,7 +13,6 @@ Pillow>=10.1.0
 openpyxl==3.11.0
 python-docx==0.8.11
 reportlab>=4.0
-xhtml2pdf>=0.2.16
 
 # Frontend & Styling
 django-tailwind==3.6.0

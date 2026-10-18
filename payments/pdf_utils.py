@@ -7,6 +7,7 @@ import os
 from decimal import Decimal
 
 from django.conf import settings
+from spinalcure.pdftext import para
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
 from reportlab.lib.pagesizes import A4
@@ -104,14 +105,14 @@ def generate_receipt_pdf(payment) -> bytes:
     # ── HEADER BAND (painted via canvas in onFirstPage / onLaterPages) ───────
     # We simulate a coloured header with a Table at the top of the story.
     header_data = [[
-        Paragraph(f"<b>{clinic_name}</b>", s["clinic_name"]),
+        para(clinic_name, s["clinic_name"]),
         Paragraph("RECEIPT", s["receipt_title"]),
     ]]
     # Sub-row: clinic details vs receipt number
     sub_text = f"{clinic_addr}<br/>{clinic_phone}  {clinic_email}"
     receipt_sub = f"Receipt No: <b>{payment.receipt_number}</b>"
     header_data.append([
-        Paragraph(sub_text, s["clinic_sub"]),
+        para(sub_text.replace("<br/>", "  "), s["clinic_sub"]),
         Paragraph(receipt_sub, s["receipt_num"]),
     ])
 
@@ -152,9 +153,9 @@ def generate_receipt_pdf(payment) -> bytes:
     # ── BILLING DETAILS ROW ──────────────────────────────────────────────────
     bill_left = [
         [Paragraph("BILLED TO", s["label"])],
-        [Paragraph(f"<b>{payment.payer_name}</b>", s["value"])],
-        [Paragraph(payment.payer_phone or "", s["value"])],
-        [Paragraph(payment.payer_address or "", s["note"])],
+        [para(payment.payer_name, s["value"])],
+        [para(payment.payer_phone or "", s["value"])],
+        [para(payment.payer_address or "", s["note"])],
     ]
     bill_right = [
         [Paragraph("PAYMENT DATE", s["label"])],
@@ -194,7 +195,7 @@ def generate_receipt_pdf(payment) -> bytes:
     items_rows = [
         items_header,
         [
-            Paragraph(desc, s["td"]),
+            para(desc, s["td"]),
             Paragraph(f"Payer Type: {payment.get_payer_type_display()}", s["td"]),
             Paragraph(f"₹{payment.total_amount:,.2f}", s["td_r"]),
         ],

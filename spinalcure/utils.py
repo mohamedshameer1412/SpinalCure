@@ -302,7 +302,8 @@ class SpinalCureExport:
             fontName='Helvetica-Bold'
         )
 
-        elements.append(Paragraph(f"SpinalCure — {title}", title_style))
+        from .pdftext import para
+        elements.append(para(f"SpinalCure — {title}", title_style))
         elements.append(Paragraph(
             f"Generated: {datetime.now().strftime('%B %d, %Y %I:%M %p')}",
             meta_style
@@ -310,7 +311,7 @@ class SpinalCureExport:
         elements.append(Spacer(1, 0.15 * inch))
 
         # Build header row
-        header_row = [Paragraph(h, header_cell_style) for h in headers]
+        header_row = [para(h, header_cell_style) for h in headers]
         data = [header_row]
 
         # Build data rows — image_cols is 0-indexed
@@ -324,12 +325,11 @@ class SpinalCureExport:
                             img = CircularImage(val, width=36, height=36)
                             row.append(img)
                         except Exception:
-                            row.append(Paragraph("N/A", cell_style))
+                            row.append(para("N/A", cell_style))
                     else:
                         row.append(Paragraph("", cell_style))
                 else:
-                    text = str(val) if val is not None else ""
-                    row.append(Paragraph(text, cell_style))
+                    row.append(para(val, cell_style))
             data.append(row)
 
         # Smart column widths
@@ -391,29 +391,6 @@ class SpinalCureExport:
             row = [str(val) for val in mapping_func(item)]
             output += "\t".join(row) + "\n"
         return output
-
-    @staticmethod
-    def render_to_pdf(template_src, context_dict=None):
-        """Renders a Django template to a PDF response using xhtml2pdf."""
-        from django.template.loader import get_template
-        from xhtml2pdf import pisa
-
-        if context_dict is None:
-            context_dict = {}
-
-        template = get_template(template_src)
-        html = template.render(context_dict)
-        result = BytesIO()
-
-        # Create PDF
-        pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
-
-        if not pdf.err:
-            response = HttpResponse(result.getvalue(), content_type='application/pdf')
-            return response
-
-        logger.error(f"PDF generation error: {pdf.err}")
-        return None
 
 
 def log_action(request, action, model_name, object_repr, object_id='', changes=None, raw_changes=None, snapshot=None):

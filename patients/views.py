@@ -1030,18 +1030,17 @@ def session_pdf_view(request, session_pk):
     session = get_object_or_404(Session, pk=session_pk)
     clinic = ClinicProfile.objects.first()
     
-    context = {
-        'session': session,
-        'clinic': clinic,
-    }
-    
+    from .session_pdf import build_session_note
     filename = f"Session_{session.session_number}_{session.patient.name.replace(' ', '_')}.pdf"
-    response = SpinalCureExport.render_to_pdf('patients/print/session_note_pdf.html', context)
-    
-    if response:
+    try:
+        pdf = build_session_note(session, clinic)
+    except Exception:
+        logger.exception('Session note PDF failed for session %s', session_pk)
+    else:
+        response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = f'inline; filename="{filename}"'
         return response
-    
+
     messages.error(request, gettext("Failed to generate PDF. Please contact support."))
     return redirect('patient-detail', pk=session.patient.id)
 
