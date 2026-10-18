@@ -45,7 +45,7 @@ msgstr ""
 msgid "%(appointment_date)s at %(appointment_time)s"
 msgstr ""
 
-#: templates/clinic/course_detail.html:108
+#: templates/clinic/course_detail.html:107
 #, python-format
 msgid "%(avg_rating)s Rating"
 msgstr ""
@@ -67,7 +67,7 @@ msgstr ""
 msgid "%(count)s post%(count_2)s"
 msgstr ""
 
-#: templates/clinic/course_detail.html:110
+#: templates/clinic/course_detail.html:109
 #, python-format
 msgid "%(count)s Reviews"
 msgstr ""
@@ -136,8 +136,8 @@ msgstr ""
 msgid "%(experience_years)s Years Experience"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:650
-#: templates/clinic/practitioner_portfolio.html:88
+#: templates/clinic/portfolio_spa.html:648
+#: templates/clinic/practitioner_portfolio.html:86
 #, python-format
 msgid "%(experience_years)s+ Years"
 msgstr ""
@@ -200,12 +200,12 @@ msgid "%(title)s %(name)s — Specialist at %(name_2)s"
 msgstr ""
 
 #: templates/courses/batch_form.html:5 templates/courses/course_form.html:5
-#: templates/exports/print_template.html:8
+#: templates/exports/print_template.html:9
 #, python-format
 msgid "%(title)s - SpinalCure"
 msgstr ""
 
-#: templates/clinic/course_detail.html:8
+#: templates/clinic/course_detail.html:9
 #, python-format
 msgid "%(title)s — Training at"
 msgstr ""
@@ -234,15 +234,15 @@ msgstr ""
 msgid "&copy;"
 msgstr ""
 
-#: templates/clinic/about_page.html:277
-#: templates/clinic/course_detail.html:365
-#: templates/clinic/portfolio_spa.html:1131
-#: templates/clinic/practitioner_portfolio.html:284
+#: templates/clinic/about_page.html:275
+#: templates/clinic/course_detail.html:364
+#: templates/clinic/portfolio_spa.html:1129
+#: templates/clinic/practitioner_portfolio.html:282
 #, python-format
 msgid "&copy; 2026 %(name)s. Developed with &hearts; for Kerala Health."
 msgstr ""
 
-#: templates/exports/print_template.html:172
+#: templates/exports/print_template.html:173
 msgid "&copy; 2026 SpinalCure Clinic Management System. Confidental Document."
 msgstr ""
 
@@ -413,7 +413,7 @@ msgid ""
 "employment has ended."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:275
+#: templates/clinic/portfolio_spa.html:273
 msgid "A Decade of"
 msgstr ""
 
@@ -461,6 +461,10 @@ msgstr ""
 msgid "A place opened: %(event)s"
 msgstr ""
 
+#: payments/refunds.py:23
+msgid "A reason is required for a refund."
+msgstr ""
+
 #: idcards/service.py:106
 msgid "A revoked card cannot be changed."
 msgstr ""
@@ -485,13 +489,13 @@ msgstr ""
 msgid "A user with this email already exists."
 msgstr ""
 
-#: templates/payments/invoice.html:412
+#: templates/payments/invoice.html:408
 #, python-format
 msgid "A/C: %(bank_account)s | IFSC: %(bank_ifsc)s"
 msgstr ""
 
-#: clinic/models.py:34 templates/clinic/about_page.html:95
-#: templates/clinic/about_page.html:120 templates/clinic/blog_detail.html:64
+#: clinic/models.py:34 templates/clinic/about_page.html:93
+#: templates/clinic/about_page.html:118 templates/clinic/blog_detail.html:64
 msgid "About"
 msgstr ""
 
@@ -535,7 +539,7 @@ msgstr ""
 msgid "About the organisation"
 msgstr ""
 
-#: templates/clinic/practitioner_portfolio.html:136
+#: templates/clinic/practitioner_portfolio.html:134
 msgid "About the Specialist"
 msgstr ""
 
@@ -596,7 +600,7 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: accounts/models.py:319 accounts/templates/accounts/admin/users_list.html:68
+#: accounts/models.py:318 accounts/templates/accounts/admin/users_list.html:68
 #: clinic/models.py:228
 #: clinic/templates/clinic/admin/practitioners_list.html:35
 msgid "Active"
@@ -627,7 +631,7 @@ msgstr ""
 msgid "Active Practitioner"
 msgstr ""
 
-#: clinic/templates/clinic/admin/activity_log.html:17 templates/base.html:663
+#: clinic/templates/clinic/admin/activity_log.html:17 templates/base.html:684
 msgid "Activity Log"
 msgstr ""
 
@@ -648,7 +652,7 @@ msgstr ""
 msgid "Acupoints Used:"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:500
+#: templates/clinic/portfolio_spa.html:498
 msgid "Acupuncture"
 msgstr ""
 
@@ -660,7 +664,7 @@ msgstr ""
 msgid "Acupuncture Case Sheet (TCM Diagnosis)"
 msgstr ""
 
-#: templates/accounts/login.html:64
+#: templates/accounts/login.html:63
 #: templates/patients/print/patient_card.html:69
 msgid "Acupuncture Clinic Management"
 msgstr ""
@@ -903,7 +907,7 @@ msgstr ""
 msgid "Allows public registrations for this batch."
 msgstr ""
 
-#: templates/payments/invoice.html:459
+#: templates/payments/invoice.html:455
 msgid "Already Paid"
 msgstr ""
 
@@ -911,7 +915,7 @@ msgstr ""
 msgid "Already reverted."
 msgstr ""
 
-#: templates/clinic/course_detail.html:206
+#: templates/clinic/course_detail.html:205
 msgid "Alumni feedback"
 msgstr ""
 
@@ -920,7 +924,7 @@ msgstr ""
 msgid "Amount"
 msgstr ""
 
-#: templates/payments/invoice.html:378
+#: templates/payments/invoice.html:260 templates/payments/invoice.html:374
 msgid "Amount (INR)"
 msgstr ""
 
@@ -928,11 +932,11 @@ msgstr ""
 msgid "Amount (Paid / Total)"
 msgstr ""
 
-#: payments/models.py:305 templates/payments/expense_form.html:33
+#: payments/models.py:319 templates/payments/expense_form.html:33
 msgid "Amount (₹)"
 msgstr ""
 
-#: templates/payments/invoice.html:452
+#: templates/payments/invoice.html:448
 msgid "Amount Due"
 msgstr ""
 
@@ -944,7 +948,7 @@ msgstr ""
 msgid "Amount Paid"
 msgstr ""
 
-#: payments/models.py:243
+#: payments/models.py:257
 msgid "Amount paid cannot exceed total amount."
 msgstr ""
 
@@ -1002,6 +1006,7 @@ msgid "Applies to"
 msgstr ""
 
 #: templates/appointments/appointment_list.html:81
+#: templates/payments/report.html:12
 msgid "Apply"
 msgstr ""
 
@@ -1074,11 +1079,11 @@ msgstr ""
 msgid "Appointment rescheduled"
 msgstr ""
 
-#: appointments/models.py:231 templates/clinic/portfolio_spa.html:972
+#: appointments/models.py:231 templates/clinic/portfolio_spa.html:970
 msgid "Appointment Type"
 msgstr ""
 
-#: appointments/models.py:268 templates/base.html:503
+#: appointments/models.py:268 templates/base.html:488
 msgid "Appointments"
 msgstr ""
 
@@ -1216,7 +1221,7 @@ msgstr ""
 msgid "Authorization Request"
 msgstr ""
 
-#: templates/payments/invoice.html:489
+#: templates/payments/invoice.html:491
 msgid "Authorized by SpinalCure"
 msgstr ""
 
@@ -1228,7 +1233,7 @@ msgstr ""
 msgid "Automatically mark unattended appointments as no-show"
 msgstr ""
 
-#: templates/appointments/availability.html:3
+#: templates/appointments/availability.html:3 templates/base.html:494
 msgid "Availability"
 msgstr ""
 
@@ -1248,7 +1253,7 @@ msgstr ""
 msgid "Available Formats"
 msgstr ""
 
-#: templates/appointments/manage.html:51
+#: templates/appointments/manage.html:52
 msgid "Available times"
 msgstr ""
 
@@ -1256,7 +1261,7 @@ msgstr ""
 msgid "Average Rating"
 msgstr ""
 
-#: templates/clinic/practitioner_portfolio.html:153
+#: templates/clinic/practitioner_portfolio.html:151
 msgid "Avg. Rating"
 msgstr ""
 
@@ -1279,8 +1284,8 @@ msgstr ""
 msgid "Back to Course Management"
 msgstr ""
 
-#: templates/clinic/course_detail.html:77
-#: templates/clinic/practitioner_portfolio.html:64
+#: templates/clinic/course_detail.html:76
+#: templates/clinic/practitioner_portfolio.html:62
 #: templates/courses/batch_list.html:15
 msgid "Back to Courses"
 msgstr ""
@@ -1294,11 +1299,11 @@ msgstr ""
 msgid "Back to events"
 msgstr ""
 
-#: templates/patients/portal/login.html:65
+#: templates/patients/portal/login.html:56
 msgid "Back to Home"
 msgstr ""
 
-#: templates/payments/invoice.html:252
+#: templates/payments/invoice.html:226
 msgid "Back to List"
 msgstr ""
 
@@ -1311,7 +1316,7 @@ msgstr ""
 msgid "Back to Patient Profile"
 msgstr ""
 
-#: templates/clinic/about_page.html:146
+#: templates/clinic/about_page.html:144
 msgid "Back to Portfolio"
 msgstr ""
 
@@ -1340,7 +1345,7 @@ msgstr ""
 msgid "Bank Name"
 msgstr ""
 
-#: payments/models.py:22 templates/payments/invoice.html:409
+#: payments/models.py:22 templates/payments/invoice.html:405
 msgid "Bank Transfer"
 msgstr ""
 
@@ -1396,7 +1401,7 @@ msgstr ""
 msgid "Batches — %(title)s"
 msgstr ""
 
-#: templates/clinic/course_detail.html:201
+#: templates/clinic/course_detail.html:200
 msgid "Be the first to share your experience!"
 msgstr ""
 
@@ -1406,7 +1411,7 @@ msgstr ""
 msgid "Best regards,"
 msgstr ""
 
-#: templates/payments/invoice.html:326
+#: templates/payments/invoice.html:322
 msgid "Billed To"
 msgstr ""
 
@@ -1444,7 +1449,7 @@ msgid "Biography / Notes"
 msgstr ""
 
 #: templates/clinic/blog_detail.html:66 templates/clinic/blog_list.html:49
-#: templates/clinic/blog_list.html:63 templates/clinic/portfolio_spa.html:115
+#: templates/clinic/blog_list.html:63 templates/clinic/portfolio_spa.html:113
 msgid "Blog"
 msgstr ""
 
@@ -1487,12 +1492,12 @@ msgstr ""
 msgid "Blood group"
 msgstr ""
 
-#: templates/clinic/practitioner_portfolio.html:204
+#: templates/clinic/practitioner_portfolio.html:202
 #, python-format
 msgid "Book a Consultation with %(name)s"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:1040
+#: templates/clinic/portfolio_spa.html:1038
 msgid "Book another session"
 msgstr ""
 
@@ -1511,19 +1516,19 @@ msgstr ""
 msgid "Book Now"
 msgstr ""
 
-#: templates/clinic/about_page.html:102 templates/clinic/about_page.html:128
+#: templates/clinic/about_page.html:100 templates/clinic/about_page.html:126
 #: templates/clinic/blog_detail.html:68 templates/clinic/blog_list.html:51
 msgid "Book Session"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:886
+#: templates/clinic/portfolio_spa.html:884
 msgid "Book your"
 msgstr ""
 
-#: templates/clinic/about_page.html:264
-#: templates/clinic/course_detail.html:352
-#: templates/clinic/portfolio_spa.html:1118
-#: templates/clinic/practitioner_portfolio.html:271
+#: templates/clinic/about_page.html:262
+#: templates/clinic/course_detail.html:351
+#: templates/clinic/portfolio_spa.html:1116
+#: templates/clinic/practitioner_portfolio.html:269
 msgid "Booking"
 msgstr ""
 
@@ -1605,7 +1610,7 @@ msgstr ""
 msgid "Buffer between appointments (mins)"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:962
+#: templates/clinic/portfolio_spa.html:960
 msgid "Business Hours"
 msgstr ""
 
@@ -1629,7 +1634,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: templates/appointments/manage.html:61
+#: templates/appointments/manage.html:62
 msgid "Cancel appointment"
 msgstr ""
 
@@ -1739,16 +1744,16 @@ msgstr ""
 msgid "Cash"
 msgstr ""
 
-#: payments/models.py:298 templates/payments/expense_form.html:22
+#: payments/models.py:312 templates/payments/expense_form.html:22
 #: templates/payments/partials/expense_list_partial.html:9
 msgid "Category"
 msgstr ""
 
-#: templates/patients/portal/verify.html:60
+#: templates/patients/portal/verify.html:51
 msgid "Change Phone Number"
 msgstr ""
 
-#: templates/appointments/manage.html:45
+#: templates/appointments/manage.html:46
 msgid "Change the time"
 msgstr ""
 
@@ -1756,7 +1761,7 @@ msgstr ""
 msgid "Changes"
 msgstr ""
 
-#: templates/appointments/manage.html:37
+#: templates/appointments/manage.html:38
 #, python-format
 msgid ""
 "Changes online close %(cutoff_hours)s hours before the appointment. Please "
@@ -1810,6 +1815,10 @@ msgstr ""
 msgid "Choose a practitioner."
 msgstr ""
 
+#: payments/refunds.py:25
+msgid "Choose a valid refund mode."
+msgstr ""
+
 #: notifications/templates/notifications/preferences.html:15
 msgid "Choose how you want to be told about each event"
 msgstr ""
@@ -1844,7 +1853,7 @@ msgstr ""
 msgid "Clinic Admin"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:239
+#: templates/clinic/portfolio_spa.html:237
 msgid "Clinic Hero"
 msgstr ""
 
@@ -1864,7 +1873,7 @@ msgstr ""
 msgid "Clinic Name *"
 msgstr ""
 
-#: templates/base.html:606 templates/clinic/portfolio.html:5
+#: templates/base.html:603 templates/clinic/portfolio.html:5
 msgid "Clinic Portfolio"
 msgstr ""
 
@@ -1884,11 +1893,11 @@ msgstr ""
 msgid "Clinic Profiles"
 msgstr ""
 
-#: templates/base.html:438
+#: templates/base.html:423
 msgid "Clinic Settings"
 msgstr ""
 
-#: templates/base.html:653
+#: templates/base.html:674
 msgid "Clinic Setup"
 msgstr ""
 
@@ -1900,7 +1909,7 @@ msgstr ""
 msgid "Clinic User Settings"
 msgstr ""
 
-#: templates/base.html:494
+#: templates/base.html:479
 msgid "Clinical"
 msgstr ""
 
@@ -1908,7 +1917,7 @@ msgstr ""
 msgid "Clinical Appointments"
 msgstr ""
 
-#: templates/payments/invoice.html:386
+#: templates/payments/invoice.html:382
 msgid "Clinical consultation and treatment session included."
 msgstr ""
 
@@ -1941,11 +1950,11 @@ msgstr ""
 msgid "Collected By"
 msgstr ""
 
-#: templates/payments/invoice.html:360
+#: templates/payments/invoice.html:356
 msgid "Collected by:"
 msgstr ""
 
-#: templates/analytics/dashboard.html:35
+#: templates/analytics/dashboard.html:35 templates/payments/report.html:18
 msgid "Collections so far"
 msgstr ""
 
@@ -1989,7 +1998,7 @@ msgstr ""
 msgid "Confirm & Print Receipt"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:1020
+#: templates/clinic/portfolio_spa.html:1018
 msgid "Confirm Appointment"
 msgstr ""
 
@@ -2010,7 +2019,7 @@ msgstr ""
 msgid "confirmed"
 msgstr ""
 
-#: templates/clinic/practitioner_portfolio.html:145
+#: templates/clinic/practitioner_portfolio.html:143
 msgid "Consultations"
 msgstr ""
 
@@ -2068,16 +2077,16 @@ msgstr ""
 msgid "Could not create the file. Try again, or use the server download."
 msgstr ""
 
-#: payments/views.py:130
+#: payments/views.py:131
 #, python-format
 msgid "Could not generate PDF: %(e)s"
 msgstr ""
 
-#: notifications/templates/notifications/_bell.html:23
+#: notifications/templates/notifications/_bell.html:22
 msgid "Could not load notifications."
 msgstr ""
 
-#: templates/appointments/manage.html:44
+#: templates/appointments/manage.html:45
 msgid "Could not load times. Please try again."
 msgstr ""
 
@@ -2133,7 +2142,7 @@ msgstr ""
 msgid "Course Fees (₹)"
 msgstr ""
 
-#: templates/clinic/course_detail.html:224
+#: templates/clinic/course_detail.html:223
 msgid "Course Investment"
 msgstr ""
 
@@ -2145,7 +2154,7 @@ msgstr ""
 msgid "Course Management - SpinalCure"
 msgstr ""
 
-#: templates/clinic/course_detail.html:127
+#: templates/clinic/course_detail.html:126
 msgid "Course Overview"
 msgstr ""
 
@@ -2161,9 +2170,9 @@ msgstr ""
 msgid "Course Student"
 msgstr ""
 
-#: courses/models.py:65 templates/base.html:557
-#: templates/clinic/portfolio_spa.html:112
-#: templates/clinic/portfolio_spa.html:137
+#: courses/models.py:65 templates/base.html:554
+#: templates/clinic/portfolio_spa.html:110
+#: templates/clinic/portfolio_spa.html:135
 msgid "Courses"
 msgstr ""
 
@@ -2282,7 +2291,7 @@ msgstr ""
 msgid "Current valid OTP code"
 msgstr ""
 
-#: templates/clinic/course_detail.html:154
+#: templates/clinic/course_detail.html:153
 msgid "Curriculum"
 msgstr ""
 
@@ -2294,8 +2303,8 @@ msgstr ""
 msgid "Daily OTP request limit exceeded. Try again tomorrow."
 msgstr ""
 
-#: clinic/templates/clinic/admin/activity_log.html:26 templates/base.html:487
-#: templates/base.html:677
+#: clinic/templates/clinic/admin/activity_log.html:26 templates/base.html:472
+#: templates/base.html:698
 msgid "Dashboard"
 msgstr ""
 
@@ -2307,7 +2316,7 @@ msgstr ""
 msgid "Dashboard Overview"
 msgstr ""
 
-#: appointments/models.py:212 events/models.py:65 payments/models.py:308
+#: appointments/models.py:212 events/models.py:65 payments/models.py:322
 #: templates/appointments/appointment_list.html:72
 msgid "Date"
 msgstr ""
@@ -2329,11 +2338,11 @@ msgid "Date cannot be in the past."
 msgstr ""
 
 #: patients/models.py:56 templates/patients/patient_form.html:84
-#: templates/patients/portal/dashboard.html:189
+#: templates/patients/portal/dashboard.html:180
 msgid "Date of Birth"
 msgstr ""
 
-#: templates/payments/invoice.html:313
+#: templates/payments/invoice.html:309
 msgid "Date of Issue"
 msgstr ""
 
@@ -2441,7 +2450,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: templates/payments/invoice.html:375
+#: templates/payments/invoice.html:371
 msgid "Description of Service"
 msgstr ""
 
@@ -2503,7 +2512,7 @@ msgstr ""
 msgid "Diagnosis Data"
 msgstr ""
 
-#: templates/payments/invoice.html:417
+#: templates/payments/invoice.html:413
 msgid "Digital (UPI)"
 msgstr ""
 
@@ -2519,7 +2528,7 @@ msgstr ""
 msgid "Discount:"
 msgstr ""
 
-#: notifications/templates/notifications/_list.html:24 templates/base.html:701
+#: notifications/templates/notifications/_list.html:24 templates/base.html:722
 msgid "Dismiss"
 msgstr ""
 
@@ -2567,14 +2576,14 @@ msgstr ""
 msgid "Doctor:"
 msgstr ""
 
-#: templates/accounts/login.html:100
+#: templates/accounts/login.html:99
 msgid "doctor@spinalcure.com"
 msgstr ""
 
-#: templates/clinic/about_page.html:262
-#: templates/clinic/course_detail.html:350
-#: templates/clinic/portfolio_spa.html:1117
-#: templates/clinic/practitioner_portfolio.html:269
+#: templates/clinic/about_page.html:260
+#: templates/clinic/course_detail.html:349
+#: templates/clinic/portfolio_spa.html:1115
+#: templates/clinic/practitioner_portfolio.html:267
 msgid "Doctors"
 msgstr ""
 
@@ -2592,7 +2601,7 @@ msgstr ""
 
 #: idcards/templates/idcards/_card.html:38
 #: templates/patients/patient_detail.html:394
-#: templates/payments/invoice.html:265
+#: templates/payments/invoice.html:239
 msgid "Download PDF"
 msgstr ""
 
@@ -2600,13 +2609,13 @@ msgstr ""
 msgid "Download ready"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:214
+#: templates/patients/portal/dashboard.html:205
 msgid "Download Receipt PDF"
 msgstr ""
 
 #: templates/clinic/portfolio.html:65
 #: templates/clinic/practitioner_detail.html:36
-#: templates/patients/portal/dashboard.html:135
+#: templates/patients/portal/dashboard.html:126
 #, python-format
 msgid "Dr. %(name)s"
 msgstr ""
@@ -2631,7 +2640,7 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
-#: courses/models.py:44 templates/clinic/portfolio_spa.html:547
+#: courses/models.py:44 templates/clinic/portfolio_spa.html:545
 msgid "Duration"
 msgstr ""
 
@@ -2808,7 +2817,7 @@ msgstr ""
 msgid "Edit: %(title)s"
 msgstr ""
 
-#: templates/base.html:548
+#: templates/base.html:545
 msgid "Education"
 msgstr ""
 
@@ -2835,9 +2844,9 @@ msgstr ""
 msgid "Email (Optional)"
 msgstr ""
 
-#: templates/accounts/login.html:89 templates/accounts/settings.html:42
-#: templates/clinic/course_detail.html:255
-#: templates/clinic/portfolio_spa.html:952
+#: templates/accounts/login.html:88 templates/accounts/settings.html:42
+#: templates/clinic/course_detail.html:254
+#: templates/clinic/portfolio_spa.html:950
 msgid "Email Address"
 msgstr ""
 
@@ -2845,7 +2854,7 @@ msgstr ""
 msgid "Email notifications"
 msgstr ""
 
-#: payments/views.py:91
+#: payments/views.py:92
 msgid "Email sent successfully."
 msgstr ""
 
@@ -2865,7 +2874,7 @@ msgstr ""
 msgid "Emergency / Attender"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:901
+#: templates/clinic/portfolio_spa.html:899
 msgid "Emergency Call"
 msgstr ""
 
@@ -2890,7 +2899,7 @@ msgstr ""
 msgid "Enable after the batch ends so alumni can submit reviews."
 msgstr ""
 
-#: notifications/templates/notifications/_bell.html:58
+#: notifications/templates/notifications/_bell.html:57
 msgid "Enable desktop alerts"
 msgstr ""
 
@@ -2939,7 +2948,7 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: templates/clinic/course_detail.html:234
+#: templates/clinic/course_detail.html:233
 msgid "Enrollment Open"
 msgstr ""
 
@@ -2947,7 +2956,7 @@ msgstr ""
 msgid "Enrollment Status"
 msgstr ""
 
-#: templates/patients/portal/verify.html:48
+#: templates/patients/portal/verify.html:39
 msgid "Enter 6-digit Code"
 msgstr ""
 
@@ -2955,7 +2964,11 @@ msgstr ""
 msgid "Enter a valid email address."
 msgstr ""
 
-#: templates/patients/portal/verify.html:31
+#: payments/refunds.py:18
+msgid "Enter a valid refund amount."
+msgstr ""
+
+#: templates/patients/portal/verify.html:22
 msgid "Enter the 6-digit code emailed to you. It expires in 10 minutes."
 msgstr ""
 
@@ -2963,17 +2976,17 @@ msgstr ""
 msgid "Enter your email and the OTP code"
 msgstr ""
 
-#: templates/patients/portal/login.html:31
+#: templates/patients/portal/login.html:22
 msgid ""
 "Enter your registered phone number to access your medical records and "
 "appointments."
 msgstr ""
 
-#: payments/models.py:278
+#: payments/models.py:292
 msgid "Equipment & Instruments"
 msgstr ""
 
-#: payments/views.py:235
+#: payments/views.py:294
 #, python-format
 msgid "Error creating expense: %(value1)s"
 msgstr ""
@@ -2998,7 +3011,7 @@ msgstr ""
 msgid "Error creating treatment plan: %(value1)s"
 msgstr ""
 
-#: payments/views.py:417
+#: payments/views.py:476
 #, python-format
 msgid "Error recording payment: %(value1)s"
 msgstr ""
@@ -3013,7 +3026,7 @@ msgstr ""
 msgid "Error saving testimonial: %(e)s"
 msgstr ""
 
-#: payments/views.py:273
+#: payments/views.py:332
 #, python-format
 msgid "Error updating expense: %(value1)s"
 msgstr ""
@@ -3023,7 +3036,7 @@ msgstr ""
 msgid "Error updating patient: %(value1)s"
 msgstr ""
 
-#: payments/views.py:515
+#: payments/views.py:574
 #, python-format
 msgid "Error updating payment: %(value1)s"
 msgstr ""
@@ -3048,7 +3061,7 @@ msgstr ""
 msgid "Error updating treatment plan: %(value1)s"
 msgstr ""
 
-#: templates/base.html:332
+#: templates/base.html:310
 msgid "ESC"
 msgstr ""
 
@@ -3117,9 +3130,9 @@ msgstr ""
 msgid "Event updated: %(event)s"
 msgstr ""
 
-#: events/models.py:133 templates/base.html:567
-#: templates/clinic/about_page.html:260
-#: templates/clinic/course_detail.html:348
+#: events/models.py:133 templates/base.html:564
+#: templates/clinic/about_page.html:258
+#: templates/clinic/course_detail.html:347
 msgid "Events"
 msgstr ""
 
@@ -3166,26 +3179,26 @@ msgstr ""
 msgid "Existing Tags (%(count)s)"
 msgstr ""
 
-#: payments/models.py:329
+#: payments/models.py:343
 msgid "Expense"
 msgstr ""
 
-#: payments/views.py:302
+#: payments/views.py:361
 #, python-format
 msgid "Expense \"%(title)s\" deleted."
 msgstr ""
 
-#: payments/views.py:231
+#: payments/views.py:290
 #, python-format
 msgid "Expense \"%(title)s\" recorded successfully."
 msgstr ""
 
-#: payments/views.py:270
+#: payments/views.py:329
 #, python-format
 msgid "Expense \"%(title)s\" updated."
 msgstr ""
 
-#: payments/models.py:343
+#: payments/models.py:357
 msgid "Expense date cannot be in the future."
 msgstr ""
 
@@ -3197,7 +3210,7 @@ msgstr ""
 msgid "Expense Management"
 msgstr ""
 
-#: payments/models.py:330 templates/base.html:540
+#: payments/models.py:344 templates/base.html:537
 msgid "Expenses"
 msgstr ""
 
@@ -3209,17 +3222,17 @@ msgstr ""
 msgid "Expenses — SpinalCure"
 msgstr ""
 
-#: templates/clinic/practitioner_portfolio.html:85
+#: templates/clinic/practitioner_portfolio.html:83
 msgid "Experience"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:164
+#: templates/clinic/portfolio_spa.html:162
 msgid ""
 "Experience the perfect blend of ancient acupuncture wisdom and modern spinal"
 " rehabilitation. We help you reclaim a pain-free life."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:648
+#: templates/clinic/portfolio_spa.html:646
 msgid "Experience:"
 msgstr ""
 
@@ -3227,20 +3240,20 @@ msgstr ""
 msgid "Expert"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:152
+#: templates/clinic/portfolio_spa.html:150
 msgid "Expert Acupuncture & Recovery"
 msgstr ""
 
-#: templates/clinic/about_page.html:220
-#: templates/clinic/course_detail.html:308
-#: templates/clinic/portfolio_spa.html:1078
-#: templates/clinic/practitioner_portfolio.html:227
+#: templates/clinic/about_page.html:218
+#: templates/clinic/course_detail.html:307
+#: templates/clinic/portfolio_spa.html:1076
+#: templates/clinic/practitioner_portfolio.html:225
 msgid ""
 "Expert spinal care and acupuncture treatments in Kerala. We specialize in "
 "natural healing and pain management."
 msgstr ""
 
-#: templates/clinic/practitioner_portfolio.html:121
+#: templates/clinic/practitioner_portfolio.html:119
 msgid "Expertise"
 msgstr ""
 
@@ -3264,7 +3277,7 @@ msgstr ""
 msgid "Expiry cannot be before the issue date."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:177
+#: templates/clinic/portfolio_spa.html:175
 msgid "Explore Services"
 msgstr ""
 
@@ -3400,7 +3413,7 @@ msgstr ""
 msgid "Feedback — %(title)s"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:473
+#: templates/clinic/portfolio_spa.html:471
 msgid "Fees"
 msgstr ""
 
@@ -3424,7 +3437,7 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: templates/exports/print_template.html:136
+#: templates/exports/print_template.html:137
 msgid "Filter applied:"
 msgstr ""
 
@@ -3432,7 +3445,7 @@ msgstr ""
 msgid "Filter by Doctor"
 msgstr ""
 
-#: templates/base.html:520
+#: templates/base.html:511
 msgid "Financials"
 msgstr ""
 
@@ -3478,14 +3491,14 @@ msgstr ""
 msgid "Format"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:282
+#: templates/clinic/portfolio_spa.html:280
 msgid ""
 "Founded by experts in traditional medicine, SpinalCure has been the leading "
 "sanctuary for those seeking holistic relief from chronic pain and spinal "
 "discomfort."
 msgstr ""
 
-#: templates/clinic/about_page.html:164
+#: templates/clinic/about_page.html:162
 msgid ""
 "Founded by experts in traditional medicine, SpinalCure has been the leading "
 "sanctuary for those seeking holistic relief from chronic pain and spinal "
@@ -3500,12 +3513,16 @@ msgstr ""
 msgid "Free"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:475
+#: templates/clinic/portfolio_spa.html:473
 msgid "FREE"
 msgstr ""
 
 #: appointments/models.py:23
 msgid "Friday"
+msgstr ""
+
+#: templates/payments/report.html:8
+msgid "From"
 msgstr ""
 
 #: templates/clinic/event_detail.html:43 templates/events/public_list.html:46
@@ -3539,7 +3556,7 @@ msgid "Full name"
 msgstr ""
 
 #: clinic/templates/clinic/admin/practitioner_form.html:21
-#: templates/clinic/course_detail.html:251
+#: templates/clinic/course_detail.html:250
 msgid "Full Name *"
 msgstr ""
 
@@ -3555,8 +3572,8 @@ msgstr ""
 msgid "Full Syllabus / Modules *"
 msgstr ""
 
-#: templates/clinic/about_page.html:298
-#: templates/clinic/portfolio_spa.html:1153
+#: templates/clinic/about_page.html:296
+#: templates/clinic/portfolio_spa.html:1151
 msgid "Fullscreen Preview"
 msgstr ""
 
@@ -3564,7 +3581,7 @@ msgstr ""
 msgid "Fully Paid"
 msgstr ""
 
-#: templates/clinic/about_page.html:175
+#: templates/clinic/about_page.html:173
 msgid "Gallery"
 msgstr ""
 
@@ -3601,7 +3618,7 @@ msgstr ""
 msgid "Generated automatically by SpinalCure on"
 msgstr ""
 
-#: templates/payments/invoice.html:491
+#: templates/payments/invoice.html:493
 msgid "Generated by SpinalCure Healthcare Suite"
 msgstr ""
 
@@ -3609,12 +3626,12 @@ msgstr ""
 msgid "Generated on"
 msgstr ""
 
-#: templates/exports/print_template.html:129
+#: templates/exports/print_template.html:130
 #, python-format
 msgid "Generated: %(now)s"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:170
+#: templates/clinic/portfolio_spa.html:168
 msgid "Get Started"
 msgstr ""
 
@@ -3650,15 +3667,15 @@ msgstr ""
 msgid "Google Review"
 msgstr ""
 
-#: templates/payments/invoice.html:441
+#: templates/payments/invoice.html:437
 #, python-format
 msgid "GST (%(tax_percent)s%% %(get_tax_type_display)s)"
 msgstr ""
 
-#: templates/clinic/about_page.html:272
-#: templates/clinic/course_detail.html:360
-#: templates/clinic/portfolio_spa.html:1126
-#: templates/clinic/practitioner_portfolio.html:279
+#: templates/clinic/about_page.html:270
+#: templates/clinic/course_detail.html:359
+#: templates/clinic/portfolio_spa.html:1124
+#: templates/clinic/practitioner_portfolio.html:277
 msgid "GST Compliance"
 msgstr ""
 
@@ -3694,7 +3711,7 @@ msgstr ""
 msgid "Handled By (Doctor)"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:276
+#: templates/clinic/portfolio_spa.html:274
 msgid "Hands and Precision."
 msgstr ""
 
@@ -3702,15 +3719,15 @@ msgstr ""
 msgid "Hang on to this for your records"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:196
+#: templates/clinic/portfolio_spa.html:194
 msgid "Happy Patients"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:276
+#: templates/clinic/portfolio_spa.html:274
 msgid "Healing"
 msgstr ""
 
-#: templates/base.html:616 templates/clinic/admin/blog_list.html:4
+#: templates/base.html:613 templates/clinic/admin/blog_list.html:4
 #: templates/clinic/blog_list.html:76
 msgid "Health Articles"
 msgstr ""
@@ -3723,7 +3740,7 @@ msgstr ""
 msgid "Health Camp"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:428
+#: templates/clinic/portfolio_spa.html:426
 msgid "Health Community"
 msgstr ""
 
@@ -3752,7 +3769,7 @@ msgstr ""
 msgid "Hello Admin,"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:59
+#: templates/patients/portal/dashboard.html:50
 #, python-format
 msgid "Hello, %(v_0)s! 👋"
 msgstr ""
@@ -3785,7 +3802,7 @@ msgstr ""
 msgid "High resolution JPG/WebP preferred. Aspect 16:9."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:593
+#: templates/clinic/portfolio_spa.html:591
 msgid "Highly qualified practitioners dedicated to your recovery journey."
 msgstr ""
 
@@ -3801,7 +3818,7 @@ msgstr ""
 msgid "Holiday / closure"
 msgstr ""
 
-#: templates/public_base.html:36
+#: templates/public_base.html:34
 msgid "Home"
 msgstr ""
 
@@ -3867,7 +3884,7 @@ msgid "ID card, front side. Press to see the back."
 msgstr ""
 
 #: idcards/templates/idcards/dashboard.html:3
-#: idcards/templates/idcards/dashboard.html:4
+#: idcards/templates/idcards/dashboard.html:4 templates/base.html:637
 msgid "ID cards"
 msgstr ""
 
@@ -3927,7 +3944,7 @@ msgstr ""
 msgid "Immobile"
 msgstr ""
 
-#: accounts/models.py:330
+#: accounts/models.py:329
 msgid "Immutable. OWN-#### for owners, STF-#### for everyone else."
 msgstr ""
 
@@ -3986,7 +4003,7 @@ msgstr ""
 msgid "Initial vs. Latest session pain levels"
 msgstr ""
 
-#: templates/clinic/about_page.html:173
+#: templates/clinic/about_page.html:171
 msgid "Inside the Clinic"
 msgstr ""
 
@@ -4003,11 +4020,11 @@ msgstr ""
 msgid "Instagram URL"
 msgstr ""
 
-#: payments/models.py:284
+#: payments/models.py:298
 msgid "Insurance"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:532
+#: templates/clinic/portfolio_spa.html:530
 msgid "Intake Open"
 msgstr ""
 
@@ -4044,7 +4061,7 @@ msgstr ""
 msgid "Invalid duration."
 msgstr ""
 
-#: templates/accounts/login.html:80
+#: templates/accounts/login.html:79
 msgid "Invalid email or password. Please try again."
 msgstr ""
 
@@ -4072,7 +4089,7 @@ msgstr ""
 msgid "Invalid or missing date. Use YYYY-MM-DD."
 msgstr ""
 
-#: accounts/models.py:291
+#: accounts/models.py:290
 #, python-format
 msgid "Invalid OTP. %(n)d attempts remaining."
 msgstr ""
@@ -4081,7 +4098,7 @@ msgstr ""
 msgid "Invalid rating value."
 msgstr ""
 
-#: payments/views.py:83
+#: payments/views.py:84
 msgid "Invalid request method."
 msgstr ""
 
@@ -4093,7 +4110,7 @@ msgstr ""
 msgid "Invalid UPI ID format."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:563
+#: templates/clinic/portfolio_spa.html:561
 msgid "Investment"
 msgstr ""
 
@@ -4158,6 +4175,10 @@ msgstr ""
 msgid "Issue ID card"
 msgstr ""
 
+#: templates/payments/invoice.html:266
+msgid "Issue refund"
+msgstr ""
+
 #: idcards/render.py:211 idcards/templates/idcards/detail.html:23
 #: idcards/templates/idcards/verify.html:39
 msgid "Issued"
@@ -4173,7 +4194,7 @@ msgstr ""
 msgid "It will not pass verification. Contact your administrator."
 msgstr ""
 
-#: templates/clinic/course_detail.html:260
+#: templates/clinic/course_detail.html:259
 msgid "Join Batch"
 msgstr ""
 
@@ -4185,11 +4206,11 @@ msgstr ""
 msgid "Join now"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:428
+#: templates/clinic/portfolio_spa.html:426
 msgid "Join Our"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:503
+#: templates/clinic/portfolio_spa.html:501
 msgid ""
 "Join our expert-led courses and certifications. We offer batches for both "
 "beginners and experienced practitioners."
@@ -4235,13 +4256,13 @@ msgstr ""
 msgid "Keep event"
 msgstr ""
 
-#: templates/appointments/manage.html:66
+#: templates/appointments/manage.html:67
 #: templates/courses/registration_manage.html:31
 #: templates/events/registration_manage.html:48
 msgid "Keep it"
 msgstr ""
 
-#: templates/appointments/manage.html:73
+#: templates/appointments/manage.html:74
 msgid "Keep this link private: anyone with it can change this appointment."
 msgstr ""
 
@@ -4258,8 +4279,8 @@ msgstr ""
 msgid "Key Learning Outcomes (One per line) *"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:480
-#: templates/clinic/portfolio_spa.html:568
+#: templates/clinic/portfolio_spa.html:478
+#: templates/clinic/portfolio_spa.html:566
 msgid "Know More"
 msgstr ""
 
@@ -4269,7 +4290,7 @@ msgid "Label"
 msgstr ""
 
 #: accounts/templates/accounts/admin/user_form.html:82 events/models.py:97
-#: templates/clinic/event_detail.html:40 templates/public_base.html:41
+#: templates/base.html:364 templates/clinic/event_detail.html:40
 msgid "Language"
 msgstr ""
 
@@ -4350,7 +4371,7 @@ msgstr ""
 msgid "Leave empty to close the whole clinic."
 msgstr ""
 
-#: templates/clinic/about_page.html:149
+#: templates/clinic/about_page.html:147
 msgid "Legacy"
 msgstr ""
 
@@ -4358,10 +4379,10 @@ msgstr ""
 msgid "Legacy Photo Gallery"
 msgstr ""
 
-#: templates/clinic/about_page.html:268
-#: templates/clinic/course_detail.html:356
-#: templates/clinic/portfolio_spa.html:1122
-#: templates/clinic/practitioner_portfolio.html:275
+#: templates/clinic/about_page.html:266
+#: templates/clinic/course_detail.html:355
+#: templates/clinic/portfolio_spa.html:1120
+#: templates/clinic/practitioner_portfolio.html:273
 msgid "Legal"
 msgstr ""
 
@@ -4374,7 +4395,7 @@ msgstr ""
 msgid "LI"
 msgstr ""
 
-#: templates/clinic/course_detail.html:262
+#: templates/clinic/course_detail.html:261
 msgid "Limited seats available. We will call you to confirm your enrollment."
 msgstr ""
 
@@ -4413,7 +4434,7 @@ msgstr ""
 msgid "Live now"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:991
+#: templates/clinic/portfolio_spa.html:989
 msgid "Loading available slots..."
 msgstr ""
 
@@ -4421,7 +4442,7 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: templates/appointments/manage.html:49
+#: templates/appointments/manage.html:50
 msgid "Loading…"
 msgstr ""
 
@@ -4441,11 +4462,11 @@ msgstr ""
 msgid "Location:"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:44
+#: templates/patients/portal/dashboard.html:35
 msgid "Log Out"
 msgstr ""
 
-#: templates/accounts/login.html:8
+#: templates/accounts/login.html:9
 msgid "Login — SpinalCure"
 msgstr ""
 
@@ -4478,7 +4499,7 @@ msgstr ""
 msgid "MAIL"
 msgstr ""
 
-#: templates/public_base.html:35
+#: templates/public_base.html:33
 msgid "Main"
 msgstr ""
 
@@ -4550,7 +4571,7 @@ msgstr ""
 msgid "Manage the core therapy cards shown on the home page."
 msgstr ""
 
-#: templates/appointments/manage.html:15
+#: templates/appointments/manage.html:16
 msgid "Manage your appointment"
 msgstr ""
 
@@ -4558,7 +4579,7 @@ msgstr ""
 msgid "Manual Author Name"
 msgstr ""
 
-#: notifications/templates/notifications/_bell.html:19
+#: notifications/templates/notifications/_bell.html:18
 #: notifications/templates/notifications/center.html:7
 msgid "Mark all as read"
 msgstr ""
@@ -4575,15 +4596,15 @@ msgstr ""
 msgid "Mark attended"
 msgstr ""
 
-#: templates/base.html:574
+#: templates/base.html:571
 msgid "Marketing"
 msgstr ""
 
-#: payments/models.py:281
+#: payments/models.py:295
 msgid "Marketing & Advertising"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:500
+#: templates/clinic/portfolio_spa.html:498
 msgid "Master the Art of"
 msgstr ""
 
@@ -4628,11 +4649,11 @@ msgstr ""
 msgid "Medical Notes (Internal)"
 msgstr ""
 
-#: payments/models.py:279
+#: payments/models.py:293
 msgid "Medical Supplies"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:588
+#: templates/clinic/portfolio_spa.html:586
 msgid "Meet our"
 msgstr ""
 
@@ -4673,7 +4694,7 @@ msgstr ""
 msgid "Metrics"
 msgstr ""
 
-#: templates/appointments/manage.html:29 templates/clinic/event_detail.html:37
+#: templates/appointments/manage.html:30 templates/clinic/event_detail.html:37
 msgid "min"
 msgstr ""
 
@@ -4711,6 +4732,7 @@ msgid "Mobility Score:"
 msgstr ""
 
 #: templates/patients/patient_detail.html:571
+#: templates/payments/invoice.html:262
 #: templates/payments/partials/payment_list_partial.html:11
 #: templates/payments/pdf_report.html:86
 msgid "Mode"
@@ -4738,11 +4760,11 @@ msgstr ""
 msgid "Module"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:965
+#: templates/clinic/portfolio_spa.html:963
 msgid "Mon-Sat (9 AM - 5 PM)"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:964
+#: templates/clinic/portfolio_spa.html:962
 msgid ""
 "Mon-Thu & Sat (10 AM - 1 PM, 5:30 PM - 8:30 PM) | Fri (6:30 PM - 8:30 PM)"
 msgstr ""
@@ -4763,7 +4785,7 @@ msgstr ""
 msgid "Monthly Sessions"
 msgstr ""
 
-#: templates/appointments/manage.html:57
+#: templates/appointments/manage.html:58
 msgid "Move appointment"
 msgstr ""
 
@@ -4775,11 +4797,12 @@ msgstr ""
 msgid "Must be less than or equal to total amount"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:7
+#: templates/patients/portal/dashboard.html:8
 msgid "My Health Portal — SpinalCure"
 msgstr ""
 
 #: idcards/templates/idcards/mine.html:3 idcards/templates/idcards/mine.html:4
+#: templates/base.html:631
 msgid "My ID card"
 msgstr ""
 
@@ -4801,6 +4824,10 @@ msgstr ""
 
 #: templates/emails/appointment_reminder.html:60
 msgid "Need to Reschedule?"
+msgstr ""
+
+#: templates/payments/report.html:23
+msgid "Net after refunds"
 msgstr ""
 
 #: templates/emails/password_reset.html:20
@@ -4848,7 +4875,7 @@ msgstr ""
 msgid "New Charges (₹)"
 msgstr ""
 
-#: templates/appointments/manage.html:47
+#: templates/appointments/manage.html:48
 msgid "New date"
 msgstr ""
 
@@ -4904,7 +4931,7 @@ msgstr ""
 msgid "Next appointment must be after session date."
 msgstr ""
 
-#: templates/clinic/course_detail.html:112
+#: templates/clinic/course_detail.html:111
 #, python-format
 msgid "Next Batch: %(start_date)s"
 msgstr ""
@@ -4921,7 +4948,7 @@ msgstr ""
 msgid "No active batch"
 msgstr ""
 
-#: templates/clinic/course_detail.html:267
+#: templates/clinic/course_detail.html:266
 msgid "No active intake"
 msgstr ""
 
@@ -5004,7 +5031,7 @@ msgstr ""
 msgid "No Image"
 msgstr ""
 
-#: templates/clinic/about_page.html:195
+#: templates/clinic/about_page.html:193
 msgid "No images uploaded yet."
 msgstr ""
 
@@ -5021,6 +5048,7 @@ msgid "No matching expenses found."
 msgstr ""
 
 #: templates/payments/partials/payment_list_partial.html:94
+#: templates/payments/report.html:32
 msgid "No matching payments found."
 msgstr ""
 
@@ -5033,7 +5061,7 @@ msgstr ""
 msgid "No patients found."
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:223
+#: templates/patients/portal/dashboard.html:214
 msgid "No payment records found."
 msgstr ""
 
@@ -5065,11 +5093,11 @@ msgstr ""
 msgid "No practitioners added yet"
 msgstr ""
 
-#: templates/clinic/practitioner_portfolio.html:198
+#: templates/clinic/practitioner_portfolio.html:196
 msgid "No public reviews yet for this specialist."
 msgstr ""
 
-#: templates/exports/print_template.html:164
+#: templates/exports/print_template.html:165
 msgid "No records found matching criteria."
 msgstr ""
 
@@ -5077,7 +5105,7 @@ msgstr ""
 msgid "No registrations found"
 msgstr ""
 
-#: templates/base.html:365
+#: templates/base.html:343
 msgid "No results found"
 msgstr ""
 
@@ -5093,7 +5121,7 @@ msgstr ""
 msgid "No seat is free. Raise the capacity or cancel a registration first."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:412
+#: templates/clinic/portfolio_spa.html:410
 msgid "No services added yet. Add some in the Clinic Setup!"
 msgstr ""
 
@@ -5141,15 +5169,15 @@ msgstr ""
 msgid "No testimonials yet"
 msgstr ""
 
-#: templates/appointments/manage.html:43
+#: templates/appointments/manage.html:44
 msgid "No times available on this date."
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:157
+#: templates/patients/portal/dashboard.html:148
 msgid "No treatment history available yet."
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:105
+#: templates/patients/portal/dashboard.html:96
 msgid "No upcoming appointments"
 msgstr ""
 
@@ -5157,7 +5185,7 @@ msgstr ""
 msgid "No upcoming appointments."
 msgstr ""
 
-#: accounts/models.py:271
+#: accounts/models.py:270
 msgid "No valid OTP found. Please request a new one."
 msgstr ""
 
@@ -5202,7 +5230,7 @@ msgstr ""
 msgid "Note: %(parking_cost)s"
 msgstr ""
 
-#: appointments/models.py:235 payments/models.py:319
+#: appointments/models.py:235 payments/models.py:333
 #: templates/payments/expense_form.html:52
 msgid "Notes"
 msgstr ""
@@ -5241,9 +5269,9 @@ msgstr ""
 msgid "Notification preferences saved."
 msgstr ""
 
-#: notifications/templates/notifications/_bell.html:8
-#: notifications/templates/notifications/_bell.html:16
-#: notifications/templates/notifications/_bell.html:18
+#: notifications/templates/notifications/_bell.html:7
+#: notifications/templates/notifications/_bell.html:15
+#: notifications/templates/notifications/_bell.html:17
 #: notifications/templates/notifications/center.html:3
 msgid "Notifications"
 msgstr ""
@@ -5268,11 +5296,11 @@ msgstr ""
 msgid "Off"
 msgstr ""
 
-#: templates/payments/invoice.html:308
+#: templates/payments/invoice.html:304
 msgid "Official Invoice"
 msgstr ""
 
-#: notifications/templates/notifications/_bell.html:11
+#: notifications/templates/notifications/_bell.html:10
 msgid "Offline"
 msgstr ""
 
@@ -5280,7 +5308,7 @@ msgstr ""
 msgid "Old Value"
 msgstr ""
 
-#: accounts/models.py:320
+#: accounts/models.py:319
 msgid "On leave"
 msgstr ""
 
@@ -5322,7 +5350,7 @@ msgstr ""
 msgid "Online — joining details are sent to registered attendees"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:965
+#: templates/clinic/portfolio_spa.html:963
 msgid "Online:"
 msgstr ""
 
@@ -5338,15 +5366,15 @@ msgstr ""
 msgid "Only a super admin can edit a super admin."
 msgstr ""
 
-#: payments/views.py:288
+#: payments/views.py:347
 msgid "Only admins and authorized staff can delete expenses."
 msgstr ""
 
-#: payments/views.py:248
+#: payments/views.py:307
 msgid "Only admins and authorized staff can edit expenses."
 msgstr ""
 
-#: payments/views.py:208
+#: payments/views.py:267
 msgid "Only admins can create expenses."
 msgstr ""
 
@@ -5358,7 +5386,7 @@ msgstr ""
 msgid "Only admins can manage reviews."
 msgstr ""
 
-#: payments/views.py:156
+#: payments/views.py:215
 msgid "Only admins can view expenses."
 msgstr ""
 
@@ -5429,7 +5457,7 @@ msgstr ""
 msgid "OTP Tokens"
 msgstr ""
 
-#: templates/clinic/about_page.html:149 templates/clinic/about_page.html:174
+#: templates/clinic/about_page.html:147 templates/clinic/about_page.html:172
 msgid "Our"
 msgstr ""
 
@@ -5437,15 +5465,15 @@ msgstr ""
 msgid "Our Expert Practitioners"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:387
+#: templates/clinic/portfolio_spa.html:385
 msgid "Our Expertise"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:273
+#: templates/clinic/portfolio_spa.html:271
 msgid "Our Legacy"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:931
+#: templates/clinic/portfolio_spa.html:929
 msgid "Our Location"
 msgstr ""
 
@@ -5457,10 +5485,10 @@ msgstr ""
 msgid "Our specialists are preparing research content. Check back soon!"
 msgstr ""
 
-#: templates/clinic/about_page.html:256
-#: templates/clinic/course_detail.html:344
-#: templates/clinic/portfolio_spa.html:1114
-#: templates/clinic/practitioner_portfolio.html:263
+#: templates/clinic/about_page.html:254
+#: templates/clinic/course_detail.html:343
+#: templates/clinic/portfolio_spa.html:1112
+#: templates/clinic/practitioner_portfolio.html:261
 msgid "Our Story"
 msgstr ""
 
@@ -5487,7 +5515,7 @@ msgstr ""
 msgid "Outside Author?"
 msgstr ""
 
-#: templates/payments/invoice.html:465
+#: templates/payments/invoice.html:467 templates/payments/report.html:20
 msgid "Outstanding"
 msgstr ""
 
@@ -5496,7 +5524,7 @@ msgstr ""
 msgid "Outstanding payment: %(who)s"
 msgstr ""
 
-#: templates/base.html:478
+#: templates/base.html:463
 msgid "Overview Cluster"
 msgstr ""
 
@@ -5535,7 +5563,7 @@ msgstr ""
 msgid "Pagination"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:210
+#: templates/patients/portal/dashboard.html:201
 msgid "Paid"
 msgstr ""
 
@@ -5543,7 +5571,7 @@ msgstr ""
 msgid "Paid Amount"
 msgstr ""
 
-#: payments/models.py:312 templates/payments/expense_form.html:46
+#: payments/models.py:326 templates/payments/expense_form.html:46
 #: templates/payments/partials/expense_list_partial.html:10
 msgid "Paid To"
 msgstr ""
@@ -5557,7 +5585,7 @@ msgid "Pain Reduction"
 msgstr ""
 
 #: templates/patients/patient_detail.html:512
-#: templates/patients/portal/dashboard.html:138
+#: templates/patients/portal/dashboard.html:129
 msgid "Pain Scale"
 msgstr ""
 
@@ -5566,7 +5594,7 @@ msgstr ""
 msgid "Pain Scale (0-10)"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:121
+#: templates/patients/portal/dashboard.html:112
 msgid "Pain Scale Trend (0-10)"
 msgstr ""
 
@@ -5574,7 +5602,7 @@ msgstr ""
 msgid "Pain Scale:"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:139
+#: templates/patients/portal/dashboard.html:130
 #, python-format
 msgid "Pain: %(pain_scale)s/10"
 msgstr ""
@@ -5605,7 +5633,7 @@ msgid "Passcode"
 msgstr ""
 
 #: accounts/templates/accounts/admin/user_form.html:59
-#: templates/accounts/login.html:108
+#: templates/accounts/login.html:107
 msgid "Password"
 msgstr ""
 
@@ -5682,7 +5710,7 @@ msgstr ""
 msgid "Patient Feedback"
 msgstr ""
 
-#: templates/clinic/practitioner_portfolio.html:159
+#: templates/clinic/practitioner_portfolio.html:157
 msgid "Patient Feedbacks"
 msgstr ""
 
@@ -5699,7 +5727,7 @@ msgstr ""
 msgid "Patient ID:"
 msgstr ""
 
-#: templates/patients/portal/login.html:7
+#: templates/patients/portal/login.html:8
 msgid "Patient Login — SpinalCure"
 msgstr ""
 
@@ -5725,13 +5753,13 @@ msgstr ""
 msgid "Patient portal"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:36
-#: templates/patients/portal/login.html:30
+#: templates/patients/portal/dashboard.html:27
+#: templates/patients/portal/login.html:21
 msgid "Patient Portal"
 msgstr ""
 
 #: templates/patients/patient_detail.html:7
-#: templates/patients/portal/dashboard.html:169
+#: templates/patients/portal/dashboard.html:160
 msgid "Patient Profile"
 msgstr ""
 
@@ -5759,7 +5787,7 @@ msgstr ""
 msgid "Patient:"
 msgstr ""
 
-#: patients/models.py:93 templates/base.html:513
+#: patients/models.py:93 templates/base.html:504
 #: templates/patients/patient_list.html:5
 msgid "Patients"
 msgstr ""
@@ -5792,7 +5820,7 @@ msgstr ""
 msgid "Payment"
 msgstr ""
 
-#: payments/views.py:557
+#: payments/views.py:619
 #, python-format
 msgid "Payment %(receipt)s deleted successfully."
 msgstr ""
@@ -5809,7 +5837,7 @@ msgstr ""
 msgid "Payment History"
 msgstr ""
 
-#: templates/payments/invoice.html:404
+#: templates/payments/invoice.html:400
 msgid "Payment Information"
 msgstr ""
 
@@ -5821,11 +5849,11 @@ msgstr ""
 msgid "Payment Mode"
 msgstr ""
 
-#: templates/analytics/dashboard.html:97
+#: templates/analytics/dashboard.html:97 templates/payments/report.html:29
 msgid "Payment Modes"
 msgstr ""
 
-#: payments/views.py:413
+#: payments/views.py:472
 #, python-format
 msgid ""
 "Payment of ₹%(amount_paid)s recorded for %(payer_name)s. Email receipt sent."
@@ -5840,7 +5868,7 @@ msgstr ""
 msgid "Payment Receipt - Invoice #%(receipt_number)s"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:199
+#: templates/patients/portal/dashboard.html:190
 msgid "Payment Receipts"
 msgstr ""
 
@@ -5852,20 +5880,20 @@ msgstr ""
 msgid "Payment Received:"
 msgstr ""
 
-#: payments/views.py:95
+#: payments/views.py:96
 msgid "Payment record not found."
 msgstr ""
 
-#: payments/views.py:510
+#: payments/views.py:569
 msgid "Payment record updated successfully."
 msgstr ""
 
 #: templates/emails/payment_receipt.html:43
-#: templates/payments/invoice.html:347
+#: templates/payments/invoice.html:343
 msgid "Payment Summary"
 msgstr ""
 
-#: payments/models.py:167 templates/base.html:529
+#: payments/models.py:167 templates/base.html:520
 msgid "Payments"
 msgstr ""
 
@@ -5882,11 +5910,12 @@ msgstr ""
 msgid "Payments - SpinalCure"
 msgstr ""
 
-#: templates/payments/pdf_report.html:76
+#: templates/base.html:526 templates/payments/pdf_report.html:76
+#: templates/payments/report.html:4
 msgid "Payments Report"
 msgstr ""
 
-#: templates/payments/pdf_report.html:7
+#: templates/payments/pdf_report.html:7 templates/payments/report.html:3
 msgid "Payments Report - SpinalCure"
 msgstr ""
 
@@ -5934,12 +5963,12 @@ msgid "Phone number"
 msgstr ""
 
 #: events/models.py:241 templates/accounts/settings.html:48
-#: templates/clinic/portfolio_spa.html:797
-#: templates/clinic/portfolio_spa.html:947
+#: templates/clinic/portfolio_spa.html:795
+#: templates/clinic/portfolio_spa.html:945
 msgid "Phone Number"
 msgstr ""
 
-#: templates/clinic/course_detail.html:253
+#: templates/clinic/course_detail.html:252
 msgid "Phone Number *"
 msgstr ""
 
@@ -5961,8 +5990,8 @@ msgid "Phone: %(phone)s | Email: %(email)s"
 msgstr ""
 
 #: clinic/models.py:325 patients/models.py:58
-#: templates/clinic/portfolio_spa.html:763
-#: templates/exports/print_template.html:154
+#: templates/clinic/portfolio_spa.html:761
+#: templates/exports/print_template.html:155
 msgid "Photo"
 msgstr ""
 
@@ -5970,7 +5999,7 @@ msgstr ""
 msgid "Physical Visit"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:964
+#: templates/clinic/portfolio_spa.html:962
 msgid "Physical:"
 msgstr ""
 
@@ -6011,7 +6040,7 @@ msgstr ""
 msgid "Please call us immediately at %(clinic_phone)s"
 msgstr ""
 
-#: templates/clinic/course_detail.html:268
+#: templates/clinic/course_detail.html:267
 msgid "Please check back soon for the next batch."
 msgstr ""
 
@@ -6041,7 +6070,7 @@ msgstr ""
 msgid "Please enter your name and phone number."
 msgstr ""
 
-#: payments/views.py:238
+#: payments/views.py:297
 msgid "Please fill in all required fields."
 msgstr ""
 
@@ -6054,7 +6083,7 @@ msgstr ""
 msgid "Please log in to the admin dashboard to manage this appointment."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:986
+#: templates/clinic/portfolio_spa.html:984
 msgid "Please select a date first"
 msgstr ""
 
@@ -6122,12 +6151,12 @@ msgstr ""
 msgid "Practitioners — SpinalCure"
 msgstr ""
 
-#: notifications/templates/notifications/_bell.html:59
+#: notifications/templates/notifications/_bell.html:58
 #: notifications/templates/notifications/center.html:9
 msgid "Preferences"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:977
+#: templates/clinic/portfolio_spa.html:975
 msgid "Preferred Date"
 msgstr ""
 
@@ -6139,7 +6168,7 @@ msgstr ""
 msgid "Preferred language"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:983
+#: templates/clinic/portfolio_spa.html:981
 msgid "Preferred Time"
 msgstr ""
 
@@ -6179,7 +6208,7 @@ msgstr ""
 msgid "Primary Doctor (Handled By)"
 msgstr ""
 
-#: idcards/templates/idcards/_card.html:39
+#: idcards/templates/idcards/_card.html:39 templates/payments/report.html:13
 msgid "Print"
 msgstr ""
 
@@ -6187,11 +6216,11 @@ msgstr ""
 msgid "Print Card"
 msgstr ""
 
-#: templates/payments/invoice.html:271
+#: templates/payments/invoice.html:245
 msgid "Print Invoice"
 msgstr ""
 
-#: templates/exports/print_template.html:178
+#: templates/exports/print_template.html:179
 msgid "Print Now"
 msgstr ""
 
@@ -6203,10 +6232,10 @@ msgstr ""
 msgid "Print Records"
 msgstr ""
 
-#: templates/clinic/about_page.html:270
-#: templates/clinic/course_detail.html:358
-#: templates/clinic/portfolio_spa.html:1124
-#: templates/clinic/practitioner_portfolio.html:277
+#: templates/clinic/about_page.html:268
+#: templates/clinic/course_detail.html:357
+#: templates/clinic/portfolio_spa.html:1122
+#: templates/clinic/practitioner_portfolio.html:275
 msgid "Privacy Policy"
 msgstr ""
 
@@ -6214,7 +6243,7 @@ msgstr ""
 msgid "Private: shown only to confirmed registrants shortly before the event."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:157
+#: templates/clinic/portfolio_spa.html:155
 msgid "Professional Care for your"
 msgstr ""
 
@@ -6222,7 +6251,7 @@ msgstr ""
 msgid "Professional Info"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:497
+#: templates/clinic/portfolio_spa.html:495
 msgid "Professional Training"
 msgstr ""
 
@@ -6241,6 +6270,10 @@ msgstr ""
 
 #: accounts/views.py:24
 msgid "Profile updated successfully!"
+msgstr ""
+
+#: templates/payments/report.html:24
+msgid "Profit"
 msgstr ""
 
 #: templates/patients/partials/patient_list_partial.html:11
@@ -6351,10 +6384,10 @@ msgstr ""
 msgid "Quick Actions"
 msgstr ""
 
-#: templates/clinic/about_page.html:254
-#: templates/clinic/course_detail.html:342
-#: templates/clinic/portfolio_spa.html:1112
-#: templates/clinic/practitioner_portfolio.html:261
+#: templates/clinic/about_page.html:252
+#: templates/clinic/course_detail.html:341
+#: templates/clinic/portfolio_spa.html:1110
+#: templates/clinic/practitioner_portfolio.html:259
 msgid "Quick Links"
 msgstr ""
 
@@ -6379,7 +6412,7 @@ msgstr ""
 msgid "Reactivate"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:311
+#: templates/clinic/portfolio_spa.html:309
 msgid "Read Full Story"
 msgstr ""
 
@@ -6395,14 +6428,13 @@ msgstr ""
 msgid "Read Time (minutes)"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:106
+#: templates/patients/portal/dashboard.html:97
 msgid "Ready for your next visit?"
 msgstr ""
 
 #: idcards/templates/idcards/detail.html:41
-#: idcards/templates/idcards/detail.html:45
+#: idcards/templates/idcards/detail.html:45 payments/models.py:366
 #: templates/appointments/partials/appointment_list_partial.html:10
-#: templates/emails/admin_booking_notify.html:35
 msgid "Reason"
 msgstr ""
 
@@ -6410,7 +6442,7 @@ msgstr ""
 msgid "Reason (e.g. lost)"
 msgstr ""
 
-#: templates/appointments/manage.html:63
+#: templates/appointments/manage.html:64
 msgid "Reason (optional)"
 msgstr ""
 
@@ -6424,7 +6456,7 @@ msgstr ""
 msgid "Reason For Visit"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:1013
+#: templates/clinic/portfolio_spa.html:1011
 msgid "Reason for Visit (optional)"
 msgstr ""
 
@@ -6445,7 +6477,7 @@ msgstr ""
 msgid "Receipt Number"
 msgstr ""
 
-#: payments/models.py:317
+#: payments/models.py:331
 msgid "Receipt Photo"
 msgstr ""
 
@@ -6462,7 +6494,7 @@ msgstr ""
 msgid "Receptionist"
 msgstr ""
 
-#: payments/views.py:93
+#: payments/views.py:94
 msgid "Recipient has no valid email address."
 msgstr ""
 
@@ -6532,11 +6564,11 @@ msgstr ""
 msgid "Record:"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:771
+#: templates/clinic/portfolio_spa.html:769
 msgid "Recovered Patient"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:887
+#: templates/clinic/portfolio_spa.html:885
 msgid "Recovery"
 msgstr ""
 
@@ -6550,6 +6582,29 @@ msgstr ""
 
 #: templates/emails/appointment_reminder.html:33
 msgid "Reference #:"
+msgstr ""
+
+#: payments/refunds.py:21
+msgid "Refund amount must be greater than zero."
+msgstr ""
+
+#: payments/refunds.py:29
+#, python-format
+msgid "Refund exceeds the refundable amount (₹%(max)s)."
+msgstr ""
+
+#: payments/views.py:170
+#, python-format
+msgid "Refund of ₹%(amount)s recorded."
+msgstr ""
+
+#: templates/payments/invoice.html:461
+msgid "Refunded"
+msgstr ""
+
+#: templates/payments/invoice.html:252 templates/payments/report.html:21
+#: templates/payments/report.html:35
+msgid "Refunds"
 msgstr ""
 
 #: templates/courses/partials/batch_registrations_partial.html:10
@@ -6700,11 +6755,11 @@ msgstr ""
 msgid "Removed"
 msgstr ""
 
-#: payments/models.py:276
+#: payments/models.py:290
 msgid "Rent / Lease"
 msgstr ""
 
-#: payments/models.py:282
+#: payments/models.py:296
 msgid "Repairs & Maintenance"
 msgstr ""
 
@@ -6716,7 +6771,7 @@ msgstr ""
 msgid "Replace link"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:107
+#: templates/patients/portal/dashboard.html:98
 msgid "Request an Appointment &rarr;"
 msgstr ""
 
@@ -6753,7 +6808,7 @@ msgstr ""
 msgid "Research & Insights — %(name)s"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:885
+#: templates/clinic/portfolio_spa.html:883
 msgid "Reservation"
 msgstr ""
 
@@ -6765,7 +6820,7 @@ msgstr ""
 msgid "Restore"
 msgstr ""
 
-#: notifications/templates/notifications/_bell.html:24
+#: notifications/templates/notifications/_bell.html:23
 msgid "Retry"
 msgstr ""
 
@@ -6785,7 +6840,7 @@ msgstr ""
 msgid "Reverted"
 msgstr ""
 
-#: patients/models.py:292 templates/base.html:700
+#: patients/models.py:292 templates/base.html:721
 msgid "Review"
 msgstr ""
 
@@ -6803,7 +6858,7 @@ msgstr ""
 msgid "Review for %(name)s added."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:874
+#: templates/clinic/portfolio_spa.html:872
 msgid "Review Submitted!"
 msgstr ""
 
@@ -6811,9 +6866,9 @@ msgstr ""
 msgid "Review Text"
 msgstr ""
 
-#: templates/base.html:584 templates/clinic/about_page.html:100
-#: templates/clinic/about_page.html:126
-#: templates/clinic/portfolio_spa.html:114
+#: templates/base.html:581 templates/clinic/about_page.html:98
+#: templates/clinic/about_page.html:124
+#: templates/clinic/portfolio_spa.html:112
 msgid "Reviews"
 msgstr ""
 
@@ -6821,7 +6876,7 @@ msgstr ""
 msgid "Reviews & Ratings"
 msgstr ""
 
-#: templates/clinic/course_detail.html:207
+#: templates/clinic/course_detail.html:206
 msgid ""
 "Reviews come only from registered students. After your batch ends, open the "
 "personal link from your registration email to leave a review."
@@ -6851,7 +6906,7 @@ msgstr ""
 msgid "Role"
 msgstr ""
 
-#: payments/models.py:277
+#: payments/models.py:291
 msgid "Salaries & Wages"
 msgstr ""
 
@@ -6916,7 +6971,7 @@ msgstr ""
 msgid "Scan to verify"
 msgstr ""
 
-#: templates/clinic/course_detail.html:278
+#: templates/clinic/course_detail.html:277
 #: templates/courses/batch_list.html:87 templates/events/event_form.html:30
 msgid "Schedule"
 msgstr ""
@@ -6959,7 +7014,7 @@ msgstr ""
 msgid "Search events…"
 msgstr ""
 
-#: templates/base.html:374
+#: templates/base.html:352
 msgid "Search for patients by name, phone, or appointment IDs."
 msgstr ""
 
@@ -6979,11 +7034,11 @@ msgstr ""
 msgid "Search patient name or feedback..."
 msgstr ""
 
-#: templates/base.html:294
+#: templates/base.html:272
 msgid "Search patients, appointments, etc..."
 msgstr ""
 
-#: templates/exports/print_template.html:136
+#: templates/exports/print_template.html:137
 #, python-format
 msgid "Search query \"%(query)s\""
 msgstr ""
@@ -7074,7 +7129,7 @@ msgstr ""
 msgid "Select practitioner"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:822
+#: templates/clinic/portfolio_spa.html:820
 #: templates/patients/patient_form.html:150
 #: templates/patients/patient_form.html:151
 #: templates/patients/review_form.html:36
@@ -7090,7 +7145,7 @@ msgstr ""
 msgid "Send feedback"
 msgstr ""
 
-#: templates/patients/portal/login.html:59
+#: templates/patients/portal/login.html:50
 msgid "Send OTP"
 msgstr ""
 
@@ -7098,7 +7153,7 @@ msgstr ""
 msgid "Send reminders this many minutes before (comma-separated)"
 msgstr ""
 
-#: templates/payments/invoice.html:259
+#: templates/payments/invoice.html:233
 msgid "Send to Client"
 msgstr ""
 
@@ -7142,7 +7197,7 @@ msgid "Service/Treatment:"
 msgstr ""
 
 #: clinic/models.py:275 clinic/templates/clinic/admin/clinic_setup.html:88
-#: templates/clinic/about_page.html:97 templates/clinic/about_page.html:122
+#: templates/clinic/about_page.html:95 templates/clinic/about_page.html:120
 msgid "Services"
 msgstr ""
 
@@ -7222,7 +7277,7 @@ msgstr ""
 msgid "Session Time"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:887
+#: templates/clinic/portfolio_spa.html:885
 msgid "Session today."
 msgstr ""
 
@@ -7255,7 +7310,7 @@ msgstr ""
 msgid "Settings - SpinalCure"
 msgstr ""
 
-#: templates/base.html:624
+#: templates/base.html:645
 msgid "Settings Area"
 msgstr ""
 
@@ -7283,7 +7338,7 @@ msgstr ""
 msgid "Share this PIN with the staff member"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:781
+#: templates/clinic/portfolio_spa.html:779
 msgid "Share Your Experience"
 msgstr ""
 
@@ -7382,7 +7437,7 @@ msgstr ""
 msgid "Showing %(start_index)s–%(end_index)s of %(count)s"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:151
+#: templates/patients/portal/dashboard.html:142
 msgid "Showing last 5 sessions"
 msgstr ""
 
@@ -7395,15 +7450,15 @@ msgstr ""
 msgid "SI"
 msgstr ""
 
-#: templates/accounts/login.html:128
+#: templates/accounts/login.html:127
 msgid "Sign in to Dashboard"
 msgstr ""
 
-#: templates/accounts/login.html:70
+#: templates/accounts/login.html:69
 msgid "Sign in with your email address"
 msgstr ""
 
-#: templates/base.html:459
+#: templates/base.html:444
 msgid "Sign out"
 msgstr ""
 
@@ -7415,7 +7470,7 @@ msgstr ""
 msgid "Skills / Treatments"
 msgstr ""
 
-#: templates/public_base.html:28
+#: templates/public_base.html:26
 msgid "Skip to content"
 msgstr ""
 
@@ -7484,7 +7539,7 @@ msgstr ""
 msgid "Specialist"
 msgstr ""
 
-#: templates/base.html:633 templates/clinic/portfolio_spa.html:589
+#: templates/base.html:654 templates/clinic/portfolio_spa.html:587
 msgid "Specialists"
 msgstr ""
 
@@ -7534,7 +7589,7 @@ msgstr ""
 msgid "SpinalCure — Authorization Request"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:157
+#: templates/clinic/portfolio_spa.html:155
 msgid "Spine & Health."
 msgstr ""
 
@@ -7556,7 +7611,7 @@ msgstr ""
 msgid "Staff ID"
 msgstr ""
 
-#: templates/base.html:447
+#: templates/base.html:432
 msgid "Staff Management"
 msgstr ""
 
@@ -7579,15 +7634,15 @@ msgstr ""
 msgid "Start time must be before end time."
 msgstr ""
 
-#: templates/base.html:373
+#: templates/base.html:351
 msgid "Start typing to search across your clinic."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:888
+#: templates/clinic/portfolio_spa.html:886
 msgid "Start your journey to a pain-free life with our expert practitioners."
 msgstr ""
 
-#: templates/clinic/course_detail.html:238
+#: templates/clinic/course_detail.html:237
 #, python-format
 msgid "Starting %(start_date)s"
 msgstr ""
@@ -7673,7 +7728,7 @@ msgstr ""
 msgid "Student Registrations"
 msgstr ""
 
-#: templates/clinic/course_detail.html:172
+#: templates/clinic/course_detail.html:171
 msgid "Student Success Stories"
 msgstr ""
 
@@ -7681,7 +7736,7 @@ msgstr ""
 msgid "Students"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:855
+#: templates/clinic/portfolio_spa.html:853
 msgid "Submit Review"
 msgstr ""
 
@@ -7693,7 +7748,7 @@ msgstr ""
 msgid "Submitted At"
 msgstr ""
 
-#: templates/payments/invoice.html:434
+#: templates/payments/invoice.html:430
 msgid "Subtotal"
 msgstr ""
 
@@ -7701,15 +7756,15 @@ msgstr ""
 msgid "Subtotal:"
 msgstr ""
 
-#: templates/clinic/practitioner_portfolio.html:149
+#: templates/clinic/practitioner_portfolio.html:147
 msgid "Success Rate"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:723
+#: templates/clinic/portfolio_spa.html:721
 msgid "Success Stories"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:300
+#: templates/clinic/portfolio_spa.html:298
 msgid "Successful Sittings"
 msgstr ""
 
@@ -7717,7 +7772,7 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:966
+#: templates/clinic/portfolio_spa.html:964
 msgid "Sunday Closed"
 msgstr ""
 
@@ -7741,7 +7796,7 @@ msgstr ""
 msgid "Supported: JPG, PNG, WEBP"
 msgstr ""
 
-#: accounts/models.py:321
+#: accounts/models.py:320
 msgid "Suspended"
 msgstr ""
 
@@ -7825,7 +7880,7 @@ msgstr ""
 msgid "Tax Type"
 msgstr ""
 
-#: payments/models.py:285
+#: payments/models.py:299
 msgid "Taxes & Fees"
 msgstr ""
 
@@ -7833,12 +7888,12 @@ msgstr ""
 msgid "TCM Diagnosis"
 msgstr ""
 
-#: templates/clinic/about_page.html:98 templates/clinic/about_page.html:124
+#: templates/clinic/about_page.html:96 templates/clinic/about_page.html:122
 #: templates/clinic/blog_detail.html:65 templates/clinic/blog_list.html:48
 msgid "Team"
 msgstr ""
 
-#: templates/base.html:643
+#: templates/base.html:664
 msgid "Team Accounts"
 msgstr ""
 
@@ -7876,14 +7931,14 @@ msgstr ""
 msgid "Tell future students about your experience (optional)"
 msgstr ""
 
-#: accounts/models.py:322
+#: accounts/models.py:321
 msgid "Terminated"
 msgstr ""
 
-#: templates/clinic/about_page.html:271
-#: templates/clinic/course_detail.html:359
-#: templates/clinic/portfolio_spa.html:1125
-#: templates/clinic/practitioner_portfolio.html:278
+#: templates/clinic/about_page.html:269
+#: templates/clinic/course_detail.html:358
+#: templates/clinic/portfolio_spa.html:1123
+#: templates/clinic/practitioner_portfolio.html:276
 msgid "Terms of Service"
 msgstr ""
 
@@ -7919,7 +7974,7 @@ msgid "Testimonial — SpinalCure Admin"
 msgstr ""
 
 #: clinic/models.py:343 templates/analytics/dashboard.html:181
-#: templates/base.html:594 templates/clinic/admin/testimonials_list.html:4
+#: templates/base.html:591 templates/clinic/admin/testimonials_list.html:4
 msgid "Testimonials"
 msgstr ""
 
@@ -7962,7 +8017,7 @@ msgid ""
 "successfully."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:875
+#: templates/clinic/portfolio_spa.html:873
 msgid ""
 "Thank you for your valuable feedback. It will be visible after approval."
 msgstr ""
@@ -8019,7 +8074,7 @@ msgstr ""
 msgid "The deadline must be before the event starts."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:585
+#: templates/clinic/portfolio_spa.html:583
 msgid "The Experts"
 msgstr ""
 
@@ -8073,7 +8128,7 @@ msgstr ""
 msgid "The SpinalCure Team"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:391
+#: templates/clinic/portfolio_spa.html:389
 msgid "Therapies"
 msgstr ""
 
@@ -8164,7 +8219,7 @@ msgstr ""
 msgid "This is an automated message from your SpinalCure platform."
 msgstr ""
 
-#: templates/payments/invoice.html:483
+#: templates/payments/invoice.html:485
 msgid ""
 "This is an enterprise computer-generated document — Professional Care "
 "Guaranteed"
@@ -8214,7 +8269,7 @@ msgstr ""
 
 #: appointments/models.py:215 templates/appointments/calendar.html:551
 #: templates/appointments/calendar.html:607
-#: templates/appointments/manage.html:29
+#: templates/appointments/manage.html:30
 msgid "Time"
 msgstr ""
 
@@ -8266,7 +8321,7 @@ msgstr ""
 msgid "Title & Author"
 msgstr ""
 
-#: payments/models.py:291 templates/payments/expense_form.html:15
+#: payments/models.py:305 templates/payments/expense_form.html:15
 msgid "Title / Description"
 msgstr ""
 
@@ -8280,6 +8335,10 @@ msgstr ""
 
 #: clinic/models.py:179
 msgid "Title/Designation"
+msgstr ""
+
+#: templates/payments/report.html:10
+msgid "To"
 msgstr ""
 
 #: templates/emails/booking_confirmation.html:50
@@ -8311,7 +8370,7 @@ msgstr ""
 msgid "Too many attempts. Please try again later."
 msgstr ""
 
-#: accounts/models.py:277 accounts/models.py:288
+#: accounts/models.py:276 accounts/models.py:287
 msgid ""
 "Too many failed attempts. OTP has been invalidated. Please request a new "
 "one."
@@ -8325,7 +8384,7 @@ msgstr ""
 msgid "Top Doctor This Month"
 msgstr ""
 
-#: templates/base.html:341
+#: templates/base.html:319
 msgid "Top Results"
 msgstr ""
 
@@ -8333,7 +8392,7 @@ msgstr ""
 msgid "Top Sub-label"
 msgstr ""
 
-#: templates/clinic/course_detail.html:227
+#: templates/clinic/course_detail.html:226
 msgid "Total"
 msgstr ""
 
@@ -8341,7 +8400,7 @@ msgstr ""
 msgid "Total Amount"
 msgstr ""
 
-#: templates/payments/expense_list.html:21
+#: templates/payments/expense_list.html:21 templates/payments/report.html:22
 msgid "Total Expenses"
 msgstr ""
 
@@ -8353,7 +8412,7 @@ msgstr ""
 msgid "Total Patients"
 msgstr ""
 
-#: templates/payments/expense_list.html:29
+#: templates/payments/expense_list.html:29 templates/payments/report.html:17
 msgid "Total Records"
 msgstr ""
 
@@ -8393,7 +8452,7 @@ msgstr ""
 msgid "Transparent PNG or SVG recommended. Max 2MB."
 msgstr ""
 
-#: payments/models.py:283
+#: payments/models.py:297
 msgid "Transport"
 msgstr ""
 
@@ -8440,14 +8499,14 @@ msgid "Treatment Plan:"
 msgstr ""
 
 #: templates/patients/patient_detail.html:310
-#: templates/patients/portal/dashboard.html:115
+#: templates/patients/portal/dashboard.html:106
 msgid "Treatment Progress"
 msgstr ""
 
-#: templates/clinic/about_page.html:258
-#: templates/clinic/course_detail.html:346
-#: templates/clinic/portfolio_spa.html:1115
-#: templates/clinic/practitioner_portfolio.html:265
+#: templates/clinic/about_page.html:256
+#: templates/clinic/course_detail.html:345
+#: templates/clinic/portfolio_spa.html:1113
+#: templates/clinic/practitioner_portfolio.html:263
 msgid "Treatments"
 msgstr ""
 
@@ -8499,7 +8558,7 @@ msgstr ""
 
 #: events/models.py:54 idcards/templates/idcards/dashboard.html:19
 #: idcards/templates/idcards/detail.html:22
-#: templates/appointments/manage.html:31
+#: templates/appointments/manage.html:32
 msgid "Type"
 msgstr ""
 
@@ -8550,7 +8609,7 @@ msgstr ""
 msgid "Unread"
 msgstr ""
 
-#: notifications/templates/notifications/_bell.html:13
+#: notifications/templates/notifications/_bell.html:12
 msgid "unread notifications"
 msgstr ""
 
@@ -8560,11 +8619,11 @@ msgid "Upcoming"
 msgstr ""
 
 #: templates/analytics/dashboard.html:127
-#: templates/patients/portal/dashboard.html:72
+#: templates/patients/portal/dashboard.html:63
 msgid "Upcoming Appointments"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:425
+#: templates/clinic/portfolio_spa.html:423
 msgid "Upcoming Events"
 msgstr ""
 
@@ -8689,7 +8748,7 @@ msgstr ""
 msgid "User \"%(username)s\" updated."
 msgstr ""
 
-#: templates/exports/print_template.html:130
+#: templates/exports/print_template.html:131
 #, python-format
 msgid "User: %(username)s"
 msgstr ""
@@ -8702,7 +8761,7 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: payments/models.py:280
+#: payments/models.py:294
 msgid "Utilities (Electric/Water)"
 msgstr ""
 
@@ -8740,7 +8799,7 @@ msgstr ""
 msgid "Verified %(t)s ID card"
 msgstr ""
 
-#: templates/patients/portal/verify.html:54
+#: templates/patients/portal/verify.html:45
 msgid "Verify & Login"
 msgstr ""
 
@@ -8748,11 +8807,11 @@ msgstr ""
 msgid "Verify & Proceed"
 msgstr ""
 
-#: templates/patients/portal/verify.html:30
+#: templates/patients/portal/verify.html:21
 msgid "Verify It's You"
 msgstr ""
 
-#: templates/patients/portal/verify.html:7
+#: templates/patients/portal/verify.html:8
 msgid "Verify OTP — SpinalCure"
 msgstr ""
 
@@ -8764,7 +8823,7 @@ msgstr ""
 msgid "Verify this ID card:"
 msgstr ""
 
-#: templates/payments/invoice.html:357
+#: templates/payments/invoice.html:353
 #, python-format
 msgid "via %(get_payment_mode_display)s"
 msgstr ""
@@ -8775,7 +8834,7 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: notifications/templates/notifications/_bell.html:56
+#: notifications/templates/notifications/_bell.html:55
 msgid "View all"
 msgstr ""
 
@@ -8799,7 +8858,7 @@ msgstr ""
 msgid "View Digital Invoice"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:646
+#: templates/clinic/portfolio_spa.html:644
 msgid "View Full Profile"
 msgstr ""
 
@@ -8807,7 +8866,7 @@ msgstr ""
 msgid "View Patient Profile"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:686
+#: templates/clinic/portfolio_spa.html:684
 msgid "View Portfolio"
 msgstr ""
 
@@ -8881,7 +8940,7 @@ msgstr ""
 msgid "WATER"
 msgstr ""
 
-#: templates/payments/invoice.html:482
+#: templates/payments/invoice.html:484
 msgid "We appreciate your trust in us for your wellness journey."
 msgstr ""
 
@@ -8897,7 +8956,7 @@ msgid ""
 "We couldn't find any courses matching your search. Try a different query."
 msgstr ""
 
-#: templates/base.html:366
+#: templates/base.html:344
 msgid "We couldn't find anything matching \""
 msgstr ""
 
@@ -8909,7 +8968,7 @@ msgstr ""
 msgid "We missed you"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:394
+#: templates/clinic/portfolio_spa.html:392
 msgid ""
 "We provide a wide range of specialized services for pain relief and "
 "wellness."
@@ -8957,7 +9016,7 @@ msgid "Webinar"
 msgstr ""
 
 #: clinic/models.py:42 templates/clinic/event_detail.html:73
-#: templates/clinic/portfolio_spa.html:1016
+#: templates/clinic/portfolio_spa.html:1014
 msgid "Website"
 msgstr ""
 
@@ -8981,7 +9040,7 @@ msgid ""
 "health and wellness."
 msgstr ""
 
-#: templates/accounts/login.html:69
+#: templates/accounts/login.html:68
 msgid "Welcome back"
 msgstr ""
 
@@ -8993,13 +9052,13 @@ msgstr ""
 msgid "Welcome to SpinalCure!"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:60
+#: templates/patients/portal/dashboard.html:51
 msgid ""
 "Welcome to your personal health portal. Track your upcoming appointments, "
 "view treatment progress, and download payment receipts."
 msgstr ""
 
-#: templates/base.html:327
+#: templates/base.html:305
 msgid "What are you looking for?"
 msgstr ""
 
@@ -9011,7 +9070,7 @@ msgstr ""
 msgid "What You Can Do Now"
 msgstr ""
 
-#: templates/clinic/course_detail.html:136
+#: templates/clinic/course_detail.html:135
 msgid "What You Will Learn"
 msgstr ""
 
@@ -9070,11 +9129,11 @@ msgstr ""
 msgid "Why is the patient visiting?"
 msgstr ""
 
-#: templates/appointments/manage.html:30
+#: templates/appointments/manage.html:31
 msgid "With"
 msgstr ""
 
-#: templates/patients/portal/dashboard.html:85
+#: templates/patients/portal/dashboard.html:76
 #, python-format
 msgid "with %(name)s"
 msgstr ""
@@ -9100,12 +9159,16 @@ msgstr ""
 msgid "Workshop"
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:431
+#: templates/clinic/portfolio_spa.html:429
 msgid ""
 "Workshops, camps, and seminars designed to empower your wellness journey."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:390
+#: templates/base.html:620
+msgid "Workspace"
+msgstr ""
+
+#: templates/clinic/portfolio_spa.html:388
 msgid "World-Class"
 msgstr ""
 
@@ -9138,7 +9201,7 @@ msgstr ""
 msgid "Year cannot be in the future."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:293
+#: templates/clinic/portfolio_spa.html:291
 msgid "Years Experience"
 msgstr ""
 
@@ -9147,7 +9210,7 @@ msgstr ""
 msgid "Years of Experience"
 msgstr ""
 
-#: templates/appointments/manage.html:67
+#: templates/appointments/manage.html:68
 #: templates/courses/registration_manage.html:31
 #: templates/events/registration_manage.html:48
 msgid "Yes, cancel"
@@ -9183,7 +9246,7 @@ msgid ""
 "You are already registered for this intake. Check your email for the link."
 msgstr ""
 
-#: notifications/templates/notifications/_bell.html:21
+#: notifications/templates/notifications/_bell.html:20
 msgid "You are offline. Showing the last loaded notifications."
 msgstr ""
 
@@ -9252,7 +9315,11 @@ msgstr ""
 msgid "You do not have permission to delete blog posts."
 msgstr ""
 
-#: payments/views.py:116
+#: payments/views.py:604
+msgid "You do not have permission to delete payments."
+msgstr ""
+
+#: payments/views.py:117
 msgid "You do not have permission to download this receipt."
 msgstr ""
 
@@ -9268,8 +9335,12 @@ msgstr ""
 msgid "You do not have permission to edit sessions."
 msgstr ""
 
-#: events/views.py:72 patients/views.py:1057 payments/views.py:311
-#: payments/views.py:446
+#: payments/views.py:159
+msgid "You do not have permission to issue refunds."
+msgstr ""
+
+#: events/views.py:72 patients/views.py:1057 payments/views.py:370
+#: payments/views.py:505
 msgid "You do not have permission to perform this action."
 msgstr ""
 
@@ -9278,7 +9349,7 @@ msgid "You do not have permission to print this."
 msgstr ""
 
 #: appointments/views.py:56 patients/views.py:78 patients/views.py:275
-#: payments/views.py:43
+#: payments/views.py:44
 msgid "You do not have permission to view this page."
 msgstr ""
 
@@ -9304,11 +9375,11 @@ msgstr ""
 msgid "You were added as %(role)s. Sign in to get started."
 msgstr ""
 
-#: notifications/templates/notifications/_bell.html:52
+#: notifications/templates/notifications/_bell.html:51
 msgid "You're all caught up."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:1038
+#: templates/clinic/portfolio_spa.html:1036
 msgid "You're all set!"
 msgstr ""
 
@@ -9317,7 +9388,7 @@ msgstr ""
 msgid "Your %(card_type)s ID card (%(employee_id)s) has been issued."
 msgstr ""
 
-#: templates/appointments/manage.html:7
+#: templates/appointments/manage.html:8
 msgid "Your appointment"
 msgstr ""
 
@@ -9348,7 +9419,7 @@ msgid ""
 "Your appointment on %(date)s at %(time)s with %(practitioner)s is confirmed."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:1039
+#: templates/clinic/portfolio_spa.html:1037
 msgid ""
 "Your appointment request has been received. Our team will call you shortly "
 "to confirm the timing."
@@ -9371,14 +9442,14 @@ msgid ""
 "securely in compliance with international healthcare privacy standards."
 msgstr ""
 
-#: templates/clinic/about_page.html:152
-#: templates/clinic/portfolio_spa.html:306
+#: templates/clinic/about_page.html:150
+#: templates/clinic/portfolio_spa.html:304
 msgid ""
 "Your health is our priority. We believe in treating the cause, not just the "
 "symptom."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:795
+#: templates/clinic/portfolio_spa.html:793
 msgid "Your Name"
 msgstr ""
 
@@ -9406,7 +9477,7 @@ msgstr ""
 msgid "Your registration has been cancelled."
 msgstr ""
 
-#: templates/clinic/portfolio_spa.html:851
+#: templates/clinic/portfolio_spa.html:849
 msgid "Your Review"
 msgstr ""
 
@@ -9426,12 +9497,8 @@ msgstr ""
 msgid "YouTube URL"
 msgstr ""
 
-#: templates/accounts/login.html:133
+#: templates/accounts/login.html:132
 msgid "© 2024 SpinalCure — Secure Clinic Management"
-msgstr ""
-
-#: clinic/templates/clinic/admin/practitioner_form.html:9
-msgid "â† Back to Practitioners"
 msgstr ""
 
 #: templates/clinic/admin/blog_form.html:95
@@ -9450,6 +9517,10 @@ msgstr ""
 
 #: templates/clinic/blog_list.html:215
 msgid "← Back to Portfolio"
+msgstr ""
+
+#: clinic/templates/clinic/admin/practitioner_form.html:9
+msgid "← Back to Practitioners"
 msgstr ""
 
 #: accounts/templates/accounts/admin/user_form.html:14
