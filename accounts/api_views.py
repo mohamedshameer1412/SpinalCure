@@ -6,6 +6,7 @@ from django_ratelimit.decorators import ratelimit
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils.html import escape
 from django.views.decorators.http import require_http_methods
 from django.utils.decorators import method_decorator
 import logging
@@ -27,8 +28,9 @@ class OTPAuthViewSet(viewsets.ViewSet):
     Includes DDoS prevention with rate limiting.
     """
     permission_classes = [AllowAny]
+    throttle_scope = 'otp_request'  # overridden per action below
     
-    @action(detail=False, methods=['post'], permission_classes=[AllowAny])
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny], throttle_scope='otp_request')
     def request_otp(self, request):
         """
         Request OTP for password reset.
@@ -52,7 +54,14 @@ class OTPAuthViewSet(viewsets.ViewSet):
         
         user = serializer.validated_data['user']
         delivery_method = serializer.validated_data.get('delivery_method', 'email')
-        
+        generic_ok = {
+            'detail': _('If an account exists, a verification code has been sent.'),
+            'delivery_method': delivery_method,
+            'expires_in_minutes': settings.OTP_EXPIRY_MINUTES,
+        }
+        if user is None:
+            return Response(generic_ok, status=status.HTTP_200_OK)
+
         try:
             # Generate OTP with DDoS rate limiting (max 3 per hour)
             otp_token, otp_value, created = OTPToken.generate_otp_token(
@@ -69,18 +78,12 @@ class OTPAuthViewSet(viewsets.ViewSet):
             
             logger.info(f'OTP generated for user {user.email} via {delivery_method}')
             
-            return Response({
-                'detail': _(f'OTP has been sent to your {delivery_method}.'),
-                'delivery_method': delivery_method,
-                'expires_in_minutes': settings.OTP_EXPIRY_MINUTES,
-                'remaining_attempts': 5,  # Hide real attempt count for security
-            }, status=status.HTTP_200_OK)
+            return Response(generic_ok, status=status.HTTP_200_OK)
             
         except PermissionError as e:
             logger.warning(f'OTP request rate limited for user {user.email}: {str(e)}')
-            return Response({
-                'detail': str(e)
-            }, status=status.HTTP_429_TOO_MANY_REQUESTS)
+            # Same body as success so rate-limit state does not leak account existence.
+            return Response(generic_ok, status=status.HTTP_200_OK)
         
         except Exception as e:
             logger.error(f'Error generating OTP for user {user.email}: {str(e)}')
@@ -88,7 +91,7 @@ class OTPAuthViewSet(viewsets.ViewSet):
                 'detail': _('Failed to send OTP. Please try again later.')
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-    @action(detail=False, methods=['post'], permission_classes=[AllowAny])
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny], throttle_scope='otp_verify')
     def verify_otp(self, request):
         """
         Verify OTP and reset password.
@@ -147,7 +150,7 @@ class OTPAuthViewSet(viewsets.ViewSet):
                     <div style="max-width: 600px; margin: 0 auto;">
                         <h2>Password Reset Request</h2>
                         
-                        <p>Hello {user.get_full_name() or user.email},</p>
+                        <p>Hello {escape(user.get_full_name() or user.email)},</p>
                         
                         <p>You requested to reset your password. Use the OTP code below to proceed:</p>
                         
@@ -202,7 +205,7 @@ class OTPAuthViewSet(viewsets.ViewSet):
             #     to=user.phone
             # )
             
-            logger.info(f'SMS OTP would be sent to {user.phone}: {otp_value}')
+            logger.info('SMS OTP generated for user %s (SMS provider not configured; nothing sent)', user.pk)
             # For now, just log it (production should use real SMS service)
         except Exception as e:
             logger.error(f'Failed to send OTP SMS to {user.phone}: {str(e)}')

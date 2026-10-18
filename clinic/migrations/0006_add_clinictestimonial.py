@@ -5,6 +5,7 @@
 import django.db.models.deletion
 import uuid
 from django.db import migrations, models
+from spinalcure.migration_utils import mysql_ddl_or_schema_editor
 
 
 CREATE_SQL = """
@@ -41,9 +42,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.SeparateDatabaseAndState(
-            database_operations=[
-                migrations.RunSQL(sql=CREATE_SQL, reverse_sql=DROP_SQL),
-            ],
             state_operations=[
                 migrations.CreateModel(
                     name='ClinicTestimonial',
@@ -68,4 +66,5 @@ class Migration(migrations.Migration):
                 ),
             ],
         ),
+        mysql_ddl_or_schema_editor('clinic', 'ClinicTestimonial', CREATE_SQL, DROP_SQL),
     ]

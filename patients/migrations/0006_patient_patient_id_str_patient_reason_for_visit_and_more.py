@@ -3,6 +3,7 @@
 import django.db.models.deletion
 import uuid
 from django.db import migrations, models
+from spinalcure.migration_utils import mysql_ddl_or_schema_editor
 
 
 class Migration(migrations.Migration):
@@ -38,16 +39,6 @@ class Migration(migrations.Migration):
             ]
         ),
         migrations.SeparateDatabaseAndState(
-            database_operations=[
-                migrations.RunSQL(
-                    sql=[
-                        "DROP TABLE IF EXISTS `patients_acupuncturediagnosis`;",
-                        "CREATE TABLE `patients_acupuncturediagnosis` (`id` char(32) NOT NULL PRIMARY KEY, `diagnosis_data` longtext NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, `patient_id` char(32) NOT NULL UNIQUE);",
-                        "ALTER TABLE `patients_acupuncturediagnosis` ADD CONSTRAINT `patients_acupuncture_patient_id_ba66f245_fk_patients_` FOREIGN KEY (`patient_id`) REFERENCES `patients_patient` (`id`);"
-                    ],
-                    reverse_sql="DROP TABLE IF EXISTS `patients_acupuncturediagnosis`;"
-                )
-            ],
             state_operations=[
                 migrations.CreateModel(
                     name='AcupunctureDiagnosis',
@@ -64,5 +55,14 @@ class Migration(migrations.Migration):
                     },
                 ),
             ]
+        ),
+        mysql_ddl_or_schema_editor(
+            'patients', 'AcupunctureDiagnosis',
+            [
+                "DROP TABLE IF EXISTS `patients_acupuncturediagnosis`;",
+                "CREATE TABLE `patients_acupuncturediagnosis` (`id` char(32) NOT NULL PRIMARY KEY, `diagnosis_data` longtext NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, `patient_id` char(32) NOT NULL UNIQUE);",
+                "ALTER TABLE `patients_acupuncturediagnosis` ADD CONSTRAINT `patients_acupuncture_patient_id_ba66f245_fk_patients_` FOREIGN KEY (`patient_id`) REFERENCES `patients_patient` (`id`);",
+            ],
+            "DROP TABLE IF EXISTS `patients_acupuncturediagnosis`;",
         ),
     ]

@@ -186,7 +186,7 @@ class TestGSTINValidator:
         valid_gstins = [
             "27AAABZ1234K1Z1",
             "29AAFFF1234K1Z1",
-            "06AAACN5001J3N1"
+            "06AAACN5001J1Z3"
         ]
         
         for gstin in valid_gstins:

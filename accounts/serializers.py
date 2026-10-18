@@ -6,7 +6,8 @@ from .models import CustomUser, OTPToken
 
 class UserSerializer(serializers.ModelSerializer):
     id = B64UUIDField(read_only=True)
-class Meta:
+
+    class Meta:
         model = CustomUser
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'role', 'phone', 'bio', 'photo')
         read_only_fields = ('id', 'role')
@@ -49,12 +50,8 @@ class OTPRequestSerializer(serializers.Serializer):
             except CustomUser.DoesNotExist:
                 pass
         
-        if not user:
-            # For security, don't reveal whether email/phone exists
-            raise serializers.ValidationError(
-                _('No account found with provided email or phone number.')
-            )
-        
+        # user is None when no account matches; the view answers identically
+        # in both cases so the endpoint cannot be used to enumerate accounts.
         attrs['user'] = user
         return attrs
 
@@ -114,9 +111,8 @@ class OTPVerifySerializer(serializers.Serializer):
                 pass
         
         if not user:
-            raise serializers.ValidationError(
-                _('No account found with provided email or phone number.')
-            )
+            # Generic message: do not reveal whether an account exists.
+            raise serializers.ValidationError({'otp': _('Invalid or expired OTP.')})
         
         # Verify OTP
         success, otp_token, error_message = OTPToken.verify_otp(

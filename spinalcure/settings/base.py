@@ -155,6 +155,13 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'otp_request': '10/hour',
+        'otp_verify': '20/hour',
+    },
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'EXCEPTION_HANDLER': 'spinalcure.utils.custom_exception_handler',
 }
@@ -189,6 +196,7 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='SpinalCure <noreply@s
 
 # Site Configuration
 SITE_URL = config('SITE_URL', default='http://127.0.0.1:8000')
+SITE_NAME = config('SITE_NAME', default='SpinalCure')
 
 # Compressor settings
 COMPRESS_ENABLED = True

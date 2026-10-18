@@ -18,6 +18,11 @@ from events.models import Event
 User = get_user_model()
 
 
+@pytest.fixture(autouse=True)
+def _enable_db(db):
+    """Every test in this suite touches the database."""
+
+
 # ============================================================================
 # Client Fixtures
 # ============================================================================
@@ -49,12 +54,13 @@ def authenticated_api_client(api_client, superuser):
 def superuser():
     """Create a superuser for testing."""
     return User.objects.create_user(
+        username="admin",
         email="admin@test.com",
         phone="9876543210",
         password="SecurePassword123!",
         is_superuser=True,
         is_staff=True,
-        role="admin",
+        role="superadmin",
         is_verified=True
     )
 
@@ -63,6 +69,7 @@ def superuser():
 def doctor_user():
     """Create a doctor user for testing."""
     return User.objects.create_user(
+        username="doctor",
         email="doctor@test.com",
         phone="9123456789",
         password="DoctorPass123!",
@@ -75,6 +82,7 @@ def doctor_user():
 def receptionist_user():
     """Create a receptionist user for testing."""
     return User.objects.create_user(
+        username="receptionist",
         email="receptionist@test.com",
         phone="9111111111",
         password="ReceptionPass123!",
@@ -87,10 +95,11 @@ def receptionist_user():
 def patient_user():
     """Create a patient user for testing."""
     return User.objects.create_user(
+        username="patient",
         email="patient@test.com",
         phone="9222222222",
         password="PatientPass123!",
-        role="patient",
+        role="receptionist",
         is_verified=True
     )
 
@@ -99,10 +108,11 @@ def patient_user():
 def unverified_user():
     """Create an unverified user for testing."""
     return User.objects.create_user(
+        username="unverified",
         email="unverified@test.com",
         phone="9333333333",
         password="UnverifiedPass123!",
-        role="patient",
+        role="receptionist",
         is_verified=False
     )
 

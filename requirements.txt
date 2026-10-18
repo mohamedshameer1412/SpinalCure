@@ -9,14 +9,14 @@ python-decouple==3.8
 mysqlclient>=2.2.0
 
 # File handling
-Pillow==10.1.0
+Pillow>=10.1.0
 openpyxl==3.11.0
 python-docx==0.8.11
 reportlab>=4.0
 
 # Frontend & Styling
 django-tailwind==3.6.0
-django-compressor==4.1.1
+django-compressor>=4.1.1
 
 # Filtering & Search
 django-filter==23.5
@@ -31,6 +31,7 @@ django-redis==5.4.0
 # Security & Validation
 django-ratelimit==4.1.0
 pyotp==2.9.0
+cryptography>=42.0.0
 qrcode==7.4.2
 
 # Logging & Monitoring

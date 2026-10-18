@@ -72,8 +72,6 @@ class CustomUser(AbstractUser):
         """Enforce role-based permissions on save."""
         if self.is_superuser:
             self.role = 'superadmin'
-        if self.is_staff:
-            self.role = 'doctor'
         super().save(*args, **kwargs)
 
 
@@ -157,6 +155,11 @@ class OTPToken(models.Model):
     def __str__(self):
         return f"OTP for {self.user.email} - {self.get_delivery_method_display()}"
     
+    @staticmethod
+    def _totp(secret):
+        from django.conf import settings
+        return pyotp.TOTP(secret, interval=settings.OTP_EXPIRY_MINUTES * 60)
+
     @classmethod
     def generate_otp_token(cls, user, delivery_method='email', password_reset=False):
         """
@@ -212,7 +215,7 @@ class OTPToken(models.Model):
         
         # Generate new OTP secret
         secret = pyotp.random_base32()
-        totp = pyotp.TOTP(secret, interval=settings.OTP_EXPIRY_MINUTES * 60)
+        totp = cls._totp(secret)
         otp_value = totp.now()
         
         # Create OTP token
@@ -223,7 +226,7 @@ class OTPToken(models.Model):
             is_used=False,
             defaults={
                 'otp_secret': secret,
-                'otp_value': otp_value,
+                'otp_value': '',  # never persist the code itself; it is derived from otp_secret
                 'expires_at': expires_at,
                 'failed_attempts': 0,
                 'last_request_at': now,
@@ -265,10 +268,8 @@ class OTPToken(models.Model):
             return False, None, _('Too many failed attempts. OTP has been invalidated. Please request a new one.')
         
         # Verify OTP
-        totp = pyotp.TOTP(otp_token.otp_secret, interval=otp_token.created_at.second)
-        
-        # Allow previous and next time windows for clock skew (±30 seconds)
-        is_valid = totp.verify(otp_value, valid_window=1)
+        # Same interval as generation; the token's expires_at enforces the real lifetime.
+        is_valid = cls._totp(otp_token.otp_secret).verify(str(otp_value).strip(), valid_window=1)
         
         if not is_valid:
             otp_token.failed_attempts += 1
@@ -278,7 +279,7 @@ class OTPToken(models.Model):
                 return False, None, _('Too many failed attempts. OTP has been invalidated. Please request a new one.')
             
             remaining_attempts = 5 - otp_token.failed_attempts
-            return False, None, _(f'Invalid OTP. {remaining_attempts} attempts remaining.')
+            return False, None, _('Invalid OTP. %(n)d attempts remaining.') % {'n': remaining_attempts}
         
         # OTP is valid
         otp_token.is_used = True
@@ -292,7 +293,7 @@ class OTPToken(models.Model):
         Should be run periodically via celery or scheduled task.
         """
         now = timezone.now()
-        deleted_count, _ = cls.objects.filter(
+        deleted_count, _details = cls.objects.filter(
             expires_at__lt=now,
             is_used=False
         ).delete()
