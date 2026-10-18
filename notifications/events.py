@@ -28,6 +28,8 @@ class EventSpec:
 _EVENTS = [
     EventSpec('appointment_booked', 'Appointment booked', 'patient', 'success'),
     EventSpec('appointment_booked_staff', 'New appointment booked', 'staff', 'info', default_channels=(IN_APP,)),
+    EventSpec('appointment_booked_clinic', 'New appointment (clinic inbox)', 'staff', 'info',
+              default_channels=(EMAIL,), configurable=False),
     EventSpec('appointment_confirmed', 'Appointment confirmed', 'patient', 'success'),
     EventSpec('appointment_rescheduled', 'Appointment rescheduled', 'patient', 'warning'),
     EventSpec('appointment_cancelled', 'Appointment cancelled', 'patient', 'warning'),

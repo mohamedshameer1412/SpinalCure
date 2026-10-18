@@ -1,0 +1,75 @@
+{% load i18n %}{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as RTL %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if RTL %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">
+    <title>{% translate "Your appointment" %}</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body class="bg-slate-50 text-gray-900 antialiased min-h-screen">
+<main class="max-w-lg mx-auto px-4 py-8">
+    <h1 class="text-xl font-bold mb-1">{{ clinic_info.name|default:"SpinalCure" }}</h1>
+    <p class="text-sm text-gray-500 mb-6">{% translate "Manage your appointment" %}</p>
+
+    {% for message in messages %}
+    <div role="status" class="mb-4 rounded-xl px-4 py-3 text-sm {% if message.tags == 'success' %}bg-green-50 text-green-800{% else %}bg-red-50 text-red-800{% endif %}">{{ message }}</div>
+    {% endfor %}
+
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-3">
+        <div class="flex items-center justify-between">
+            <p class="font-semibold">{{ appt.display_name }}</p>
+            <span class="text-xs font-bold uppercase tracking-wide rounded-full px-2.5 py-1
+                {% if appt.status == 'cancelled' or appt.status == 'no_show' %}bg-red-100 text-red-700{% elif appt.status == 'completed' %}bg-gray-100 text-gray-700{% else %}bg-green-100 text-green-700{% endif %}">{{ appt.get_status_display }}</span>
+        </div>
+        <dl class="grid grid-cols-[auto,1fr] gap-x-4 gap-y-2 text-sm">
+            <dt class="text-gray-500">{% translate "Date" %}</dt><dd>{{ appt.appointment_date|date:"DATE_FORMAT" }}</dd>
+            <dt class="text-gray-500">{% translate "Time" %}</dt><dd>{{ appt.appointment_time|time:"TIME_FORMAT" }} <span class="text-gray-400">({{ appt.duration_minutes }} {% translate "min" %})</span></dd>
+            {% if appt.practitioner %}<dt class="text-gray-500">{% translate "With" %}</dt><dd>{{ appt.practitioner.name }}</dd>{% endif %}
+            <dt class="text-gray-500">{% translate "Type" %}</dt><dd>{{ appt.get_appointment_type_display }}</dd>
+        </dl>
+    </section>
+
+    {% if appt.status == 'scheduled' or appt.status == 'confirmed' %}
+        {% if too_late %}
+        <p class="mt-4 text-sm rounded-xl bg-amber-50 text-amber-800 px-4 py-3">{% blocktranslate %}Changes online close {{ cutoff_hours }} hours before the appointment. Please call the clinic.{% endblocktranslate %}</p>
+        {% elif can_change %}
+        <section class="mt-4 bg-white rounded-2xl border border-gray-100 shadow-sm p-5"
+            x-data="{ date: '', slots: [], loading: false, error: '', time: '',
+                async load() { this.time=''; this.error=''; if(!this.date) return; this.loading=true;
+                    try { const r = await fetch('{% url 'appointment_manage_slots' appt.manage_token %}?date='+this.date); const d = await r.json();
+                          this.slots = d.slots || []; if(!this.slots.length) this.error='{% translate "No times available on this date." %}'; }
+                    catch(e){ this.error='{% translate "Could not load times. Please try again." %}'; } this.loading=false; } }">
+            <h2 class="font-semibold mb-3">{% translate "Change the time" %}</h2>
+            <form method="post">{% csrf_token %}<input type="hidden" name="action" value="reschedule">
+                <label for="d" class="block text-sm text-gray-600 mb-1">{% translate "New date" %}</label>
+                <input id="d" type="date" name="date" x-model="date" @change="load()" required class="w-full rounded-xl border-gray-200 text-sm">
+                <p x-show="loading" class="text-sm text-gray-500 mt-2" role="status">{% translate "Loading…" %}</p>
+                <p x-show="error" x-text="error" class="text-sm text-amber-700 mt-2" role="alert"></p>
+                <div class="grid grid-cols-3 gap-2 mt-3" role="radiogroup" aria-label="{% translate 'Available times' %}">
+                    <template x-for="s in slots" :key="s.value">
+                        <label class="cursor-pointer"><input type="radio" name="time" :value="s.value" x-model="time" class="sr-only peer">
+                            <span class="block text-center text-sm rounded-lg border border-gray-200 py-2 peer-checked:bg-green-600 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-green-500" x-text="s.label"></span></label>
+                    </template>
+                </div>
+                <button type="submit" :disabled="!time" class="mt-4 w-full rounded-xl bg-green-600 text-white font-semibold py-2.5 disabled:opacity-40">{% translate "Move appointment" %}</button>
+            </form>
+        </section>
+        <section class="mt-4 bg-white rounded-2xl border border-gray-100 shadow-sm p-5" x-data="{ confirming: false }">
+            <button type="button" x-show="!confirming" @click="confirming = true" class="w-full rounded-xl border border-red-200 text-red-700 font-semibold py-2.5 hover:bg-red-50">{% translate "Cancel appointment" %}</button>
+            <form method="post" x-show="confirming" x-cloak>{% csrf_token %}<input type="hidden" name="action" value="cancel">
+                <label for="reason" class="block text-sm text-gray-600 mb-1">{% translate "Reason (optional)" %}</label>
+                <input id="reason" name="reason" maxlength="300" class="w-full rounded-xl border-gray-200 text-sm">
+                <div class="flex gap-2 mt-3">
+                    <button type="button" @click="confirming = false" class="flex-1 rounded-xl border border-gray-200 py-2.5 font-semibold">{% translate "Keep it" %}</button>
+                    <button type="submit" class="flex-1 rounded-xl bg-red-600 text-white py-2.5 font-semibold">{% translate "Yes, cancel" %}</button>
+                </div>
+            </form>
+        </section>
+        {% endif %}
+    {% endif %}
+    <p class="mt-6 text-xs text-gray-400 text-center">{% translate "Keep this link private: anyone with it can change this appointment." %}</p>
+</main>
+</body></html>

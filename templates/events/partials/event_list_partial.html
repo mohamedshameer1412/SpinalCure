@@ -103,13 +103,13 @@
                                 <i class="bi bi-trash"></i>
                             </button>
                             {% else %}
-                            <button onclick="openSecurityModal('edit', `/en/events/${'{{ event.id }}'}/edit/`, '{{ event.title|escapejs }}')"
+                            <button onclick="openSecurityModal('edit', `/{{ LANGUAGE_CODE }}/events/${'{{ event.id }}'}/edit/`, '{{ event.title|escapejs }}')"
                                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-primary-600 rounded-lg hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-all">
                                 <i class="bi bi-pencil me-1.5"></i>
                                 Edit
                             </button>
                             <button
-                                onclick="openSecurityModal('delete', `/en/events/${'{{ event.id }}'}/delete/`, '{{ event.title|escapejs }}')"
+                                onclick="openSecurityModal('delete', `/{{ LANGUAGE_CODE }}/events/${'{{ event.id }}'}/delete/`, '{{ event.title|escapejs }}')"
                                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-red-600 bg-red-50 rounded-lg hover:bg-red-100 focus:ring-4 focus:outline-none focus:ring-red-200 transition-all">
                                 <i class="bi bi-trash"></i>
                             </button>

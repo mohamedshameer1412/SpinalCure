@@ -95,6 +95,23 @@ def decode_b64uuid(b64_str):
         return None
 
 
+def parse_uuid_param(value):
+    """Accept a base64-url UUID or a canonical UUID string; return a UUID or None if it is neither."""
+    if isinstance(value, uuid.UUID):
+        return value
+    value = (value or '').strip() if isinstance(value, str) else ''
+    if not value:
+        return None
+    if len(value) == 22:
+        decoded = decode_b64uuid(value)
+        if decoded:
+            return decoded
+    try:
+        return uuid.UUID(value)
+    except ValueError:
+        return None
+
+
 class B64UUIDField(serializers.Field):
     """
     Serializes Django UUIDs to Base64 Url-Safe Strings and vice versa.

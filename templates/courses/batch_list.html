@@ -97,7 +97,7 @@
                     <i class="bi bi-pencil-square"></i>
                 </a>
                 {% else %}
-                <button onclick="openSecurityModal('edit', `/en/courses/batches/${'{{ batch.id|b64uuid }}'}/edit/`, '{{ batch.name|escapejs }}')"
+                <button onclick="openSecurityModal('edit', `/{{ LANGUAGE_CODE }}/courses/batches/${'{{ batch.id|b64uuid }}'}/edit/`, '{{ batch.name|escapejs }}')"
                     class="p-3 text-slate-600 bg-slate-50 rounded-2xl hover:bg-slate-100 transition-all border border-slate-100 group-hover:bg-white group-hover:border-slate-200">
                     <i class="bi bi-pencil-square"></i>
                 </button>
@@ -109,7 +109,7 @@
                 </button>
                 {% else %}
                 <button
-                    onclick="openSecurityModal('delete', `/en/courses/batches/${'{{ batch.id|b64uuid }}'}/delete/`, '{{ batch.name|escapejs }}')"
+                    onclick="openSecurityModal('delete', `/{{ LANGUAGE_CODE }}/courses/batches/${'{{ batch.id|b64uuid }}'}/delete/`, '{{ batch.name|escapejs }}')"
                     class="p-3 text-red-600 bg-red-50 rounded-2xl hover:bg-red-100 transition-all border border-red-100">
                     <i class="bi bi-trash text-lg"></i>
                 </button>
@@ -173,7 +173,7 @@
 <script>
     function openDeleteModal(pk, name) {
         document.getElementById('batch-name').textContent = name;
-        document.getElementById('delete-form').action = `/en/courses/batches/${pk}/delete/`;
+        document.getElementById('delete-form').action = `/{{ LANGUAGE_CODE }}/courses/batches/${pk}/delete/`;
         const modal = document.getElementById('delete-modal');
         modal.classList.replace('hidden', 'flex');
     }

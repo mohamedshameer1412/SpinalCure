@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django_ratelimit.decorators import ratelimit
 from spinalcure.rbac import has_capability
 from patients.search import patient_q
 from django.shortcuts import render, get_object_or_404, redirect
@@ -9,7 +10,7 @@ from django.db.models import Q
 from django.urls import reverse
 from datetime import datetime, date, timedelta, time
 
-from spinalcure.utils import SpinalCureExport, decode_b64uuid, log_action
+from spinalcure.utils import SpinalCureExport, decode_b64uuid, log_action, parse_uuid_param
 from clinic.models import Practitioner, ClinicProfile
 from patients.models import Patient
 from appointments.models import Appointment, DoctorAvailability
@@ -46,24 +47,6 @@ def appointment_calendar_view(request):
         'export_appointments_print_url': reverse('export_appointments_print') + params,
     }
     return render(request, 'appointments/calendar.html', context)
-
-@login_required
-def doctor_availability_view(request):
-    practitioners = Practitioner.objects.all()
-    # If a specific doctor is selected or default to the first one for the UI
-    selected_doc_id = request.GET.get('practitioner_id')
-    if selected_doc_id:
-        selected_doc_id = decode_b64uuid(selected_doc_id)
-    selected_doc = practitioners.filter(id=selected_doc_id).first() if selected_doc_id else practitioners.first()
-    
-    availabilities = DoctorAvailability.objects.filter(practitioner=selected_doc).order_by('day_of_week', 'start_time') if selected_doc else []
-    
-    context = {
-        'practitioners': practitioners,
-        'selected_doc': selected_doc,
-        'availabilities': availabilities,
-    }
-    return render(request, 'appointments/availability.html', context)
 
 @login_required
 def appointment_list_view(request):
@@ -296,97 +279,68 @@ def appointment_check_collision(request):
 
     return JsonResponse({'conflict': False})
 
+@ratelimit(key='ip', rate='120/m', method='GET', block=True)
 def get_available_slots(request):
     """
-    Returns available 15-minute time slots for a given date, practitioner, and appointment type.
+    Bookable start times for one date, driven by practitioner shifts, leave and existing bookings.
+    ?date=YYYY-MM-DD [&practitioner=<id>] [&type=physical|online] [&duration=<mins>] [&exclude=<appointment id>]
+    Without `practitioner` the union across active practitioners is returned ("any available doctor").
+    Only times are exposed; nothing about who holds the other slots.
     """
-    date_str = request.GET.get('date')
-    practitioner_id = request.GET.get('practitioner')
-    if practitioner_id:
-        try:
-            practitioner_id = decode_b64uuid(practitioner_id)
-        except Exception:
-            pass
-            
-    appointment_type = request.GET.get('type', 'physical') # 'physical' or 'online'
-    
-    if not date_str:
-        return JsonResponse({'error': 'Date is required'}, status=400)
-        
+    from django.utils.formats import time_format
+    from . import scheduling as sch
+
     try:
-        target_date = datetime.strptime(date_str, '%Y-%m-%d').date()
+        day = datetime.strptime(request.GET.get('date', ''), '%Y-%m-%d').date()
     except ValueError:
-        return JsonResponse({'error': 'Invalid date format. Use YYYY-MM-DD'}, status=400)
-    
-    # 1. Generate all possible slots based on the clinic physical/online hours
-    day_of_week = target_date.weekday() # 0 = Monday, 6 = Sunday
-    possible_slots = []
+        return JsonResponse({'error': 'Invalid or missing date. Use YYYY-MM-DD.'}, status=400)
+    appt_type = request.GET.get('type', 'physical')
+    if appt_type not in ('physical', 'online'):
+        return JsonResponse({'error': 'Invalid appointment type.'}, status=400)
+    try:
+        duration = int(request.GET['duration']) if request.GET.get('duration') else None
+    except ValueError:
+        return JsonResponse({'error': 'Invalid duration.'}, status=400)
+    if duration is not None and not (5 <= duration <= 480):
+        return JsonResponse({'error': 'Duration must be between 5 and 480 minutes.'}, status=400)
 
-    # Sunday (6): Closed for both physical and online
-    if day_of_week == 6:
-        return JsonResponse({'available_slots': []})
+    exclude = None
+    if request.GET.get('exclude') and request.user.is_authenticated:
+        exclude = Appointment.objects.filter(pk=request.GET['exclude']).first()
 
-    if appointment_type == 'online':
-        # Online Hours: Mon-Sat 9 AM - 5 PM
-        current_time = datetime.combine(target_date, time(9, 0))
-        end_time = datetime.combine(target_date, time(17, 0))
-        while current_time < end_time:
-            possible_slots.append(current_time.time())
-            current_time += timedelta(minutes=15)
-    else:
-        # Physical Hours
-        # Friday (4): Evening only (6:30 PM - 8:30 PM)
-        if day_of_week == 4:
-            current_time = datetime.combine(target_date, time(18, 30))
-            end_time = datetime.combine(target_date, time(20, 30))
-            while current_time < end_time:
-                possible_slots.append(current_time.time())
-                current_time += timedelta(minutes=15)
-        # Mon, Tue, Wed, Thu, Sat: Morning (10 AM - 1 PM) and Evening (5:30 PM - 8:30 PM)
-        else:
-            # Morning shift
-            current_time = datetime.combine(target_date, time(10, 0))
-            end_time = datetime.combine(target_date, time(13, 0))
-            while current_time < end_time:
-                possible_slots.append(current_time.time())
-                current_time += timedelta(minutes=15)
-            
-            # Evening shift
-            current_time = datetime.combine(target_date, time(17, 30))
-            end_time = datetime.combine(target_date, time(20, 30))
-            while current_time < end_time:
-                possible_slots.append(current_time.time())
-                current_time += timedelta(minutes=15)
+    qs = Practitioner.objects.filter(is_active=True)
+    if request.GET.get('practitioner'):
+        practitioner_id = parse_uuid_param(request.GET['practitioner'])
+        if practitioner_id is None:
+            return JsonResponse({'error': 'Unknown practitioner.'}, status=404)
+        qs = qs.filter(pk=practitioner_id)
+    practitioners = list(qs)
+    if request.GET.get('practitioner') and not practitioners:
+        return JsonResponse({'error': 'Unknown practitioner.'}, status=404)
 
-    # 2. Filter out slots that have already passed if the date is today
-    from django.utils import timezone
-    now = timezone.now()
-    if target_date == now.date():
-        possible_slots = [s for s in possible_slots if s > now.time()]
-    elif target_date < now.date():
-        possible_slots = []
+    seen, slots = set(), []
+    for pr in practitioners:
+        for slot in sch.generate_slots(pr, day, appt_type, duration, exclude):
+            if slot.label not in seen:
+                seen.add(slot.label)
+                slots.append(slot)
+    slots.sort(key=lambda sl: sl.start)
 
-    # 3. Query existing non-cancelled appointments to find booked slots
-    booked_appointments = Appointment.objects.filter(
-        appointment_date=target_date
-    ).exclude(status__in=['cancelled', 'no_show', 'rescheduled'])
-    
-    if practitioner_id:
-        booked_appointments = booked_appointments.filter(practitioner_id=practitioner_id)
-        
-    booked_times = []
-    for appt in booked_appointments:
-        appt_start = datetime.combine(target_date, appt.appointment_time)
-        appt_end = appt_start + timedelta(minutes=appt.duration_minutes)
-        c_time = appt_start
-        while c_time < appt_end:
-            booked_times.append(c_time.time())
-            c_time += timedelta(minutes=15)
-            
-    # 4. Remove booked slots
-    available_slots = [
-        s.strftime('%H:%M') for s in possible_slots 
-        if s not in booked_times
-    ]
-    
-    return JsonResponse({'available_slots': available_slots})
+    message = ''
+    if not slots:
+        message = 'No times are available on this date.'
+        if practitioners:
+            reasons = {sch._diagnose(pr, day, sch._aware(day, time(12, 0)), sch._aware(day, time(12, 30)),
+                                     appt_type, None, sch._now(), sch.BookingSettings.get(), True).code
+                       for pr in practitioners}
+            if reasons <= {'closed'}:
+                message = 'The clinic does not take bookings on this day.'
+            elif reasons <= {'blocked'}:
+                message = 'The clinic is closed on this date.'
+    from django.conf import settings as dj_settings
+    return JsonResponse({
+        'available_slots': [sl.label for sl in slots],
+        'slots': [{'value': sl.label, 'label': time_format(sl.time, 'TIME_FORMAT')} for sl in slots],
+        'message': message,
+        'timezone': dj_settings.TIME_ZONE,
+    })

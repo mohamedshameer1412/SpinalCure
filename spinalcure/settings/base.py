@@ -292,9 +292,9 @@ MESSAGE_TAGS = {
 }
 
 # Login URLs
-LOGIN_URL = '/en/accounts/login/'
-LOGIN_REDIRECT_URL = '/en/analytics/dashboard/'
-LOGOUT_REDIRECT_URL = '/en/accounts/login/'
+LOGIN_URL = 'login'   # URL names so redirects follow the active language prefix
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
 
 # Caching
 CACHES = {

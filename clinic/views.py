@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django_ratelimit.decorators import ratelimit
 from patients.search import patient_q
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
@@ -272,85 +273,77 @@ def submit_review_ajax(request):
 
 
 @require_http_methods(["POST"])
+@ratelimit(key='ip', rate='12/h', method='POST', block=True)
 def book_appointment_ajax(request):
-    """AJAX endpoint for booking appointments from public portal."""
+    """
+    Public booking. Always creates a *guest* booking: an anonymous visitor must never be able to
+    attach themselves to, or change, an existing patient's record (staff match guests to patients).
+    Availability is re-validated server-side under a lock; the picker in the browser is a convenience.
+    """
+    from datetime import datetime as _dt
+    from django.core.exceptions import ValidationError
+    from django.core.validators import validate_email
+    from appointments import scheduling as sch
+    from spinalcure.validators import validate_phone_number
+
+    def fail(message, status=400, code='invalid'):
+        return JsonResponse({'status': 'error', 'code': code, 'message': message}, status=status)
+
     try:
-        data = json.loads(request.body)
-        patient_name = data.get('name', '').strip()
-        patient_phone = data.get('phone', '').strip()
-        patient_email = data.get('email', '').strip()
-        practitioner_id = data.get('practitioner_id', '').strip()
-        if practitioner_id:
-            try:
-                practitioner_id = decode_b64uuid(practitioner_id)
-            except Exception:
-                pass
-        app_date = data.get('date', '').strip()
-        app_time = data.get('time', '').strip()
-        notes = data.get('notes', '').strip()
-
-        # Validate required fields
-        if not all([patient_name, patient_phone, app_date, app_time]):
-            return JsonResponse({
-                'status': 'error',
-                'message': 'All fields are required including time.'
-            }, status=400)
-
-        # Try to find an existing patient by phone
-        patient = Patient.objects.filter(phone=patient_phone).first()
-        
-        # Update email if patient exists and a new email was provided
-        if patient and patient_email and patient.email != patient_email:
-            patient.email = patient_email
-            patient.save(update_fields=['email'])
-        
-        practitioner = None
-        if practitioner_id:
-            practitioner = Practitioner.objects.filter(id=practitioner_id, is_active=True).first()
-        
-        # Create appointment
-        if patient:
-            appointment = Appointment.objects.create(
-                patient=patient,
-                practitioner=practitioner,
-                appointment_date=app_date,
-                appointment_time=app_time,
-                appointment_type='physical',
-                status='scheduled',
-                reason=notes
-            )
-        else:
-            # Guest booking
-            appointment = Appointment.objects.create(
-                guest_name=patient_name,
-                guest_phone=patient_phone,
-                guest_email=patient_email,
-                practitioner=practitioner,
-                appointment_date=app_date,
-                appointment_time=app_time,
-                appointment_type='physical',
-                status='scheduled',
-                reason=notes
-            )
-        
-        logger.info(f'New appointment booked by {patient_name} for {app_date}')
-
-        # Send booking confirmation email to patient + notify admin
-        try:
-            from clinic.email_utils import send_booking_confirmation_email
-            send_booking_confirmation_email(appointment, request)
-        except Exception as email_err:
-            logger.error(f'Booking email failed: {email_err}')
-
-        return JsonResponse({
-            'status': 'success',
-            'message': 'Appointment booked successfully! A confirmation email has been sent.'
-        })
+        data = json.loads(request.body or b'{}')
     except json.JSONDecodeError:
-        return JsonResponse({'status': 'error', 'message': 'Invalid JSON.'}, status=400)
-    except Exception as e:
-        logger.error(f'Error in book_appointment_ajax: {str(e)}')
-        return JsonResponse({'status': 'error', 'message': 'An error occurred. Please try again.'}, status=500)
+        return fail('Invalid JSON.')
+    if not isinstance(data, dict):
+        return fail('Invalid request.')
+    if str(data.get('website', '')).strip():          # honeypot field: humans never fill it
+        return JsonResponse({'status': 'success', 'message': 'Appointment booked successfully!'})
+
+    name = str(data.get('name', '')).strip()[:120]
+    phone = str(data.get('phone', '')).strip()[:20]
+    email = str(data.get('email', '')).strip()[:254]
+    notes = str(data.get('notes', '')).strip()[:300]
+    appt_type = data.get('type', 'physical')
+    if len(name) < 2 or not phone:
+        return fail('Please enter your name and phone number.')
+    try:
+        validate_phone_number(phone)
+        if email:
+            validate_email(email)
+        day = _dt.strptime(str(data.get('date', '')), '%Y-%m-%d').date()
+        start = _dt.strptime(str(data.get('time', ''))[:5], '%H:%M').time()
+    except ValidationError:
+        return fail('Please check your phone number and email address.')
+    except ValueError:
+        return fail('Please choose a valid date and time.')
+    if appt_type not in ('physical', 'online'):
+        return fail('Invalid appointment type.')
+
+    practitioner = None
+    raw = str(data.get('practitioner_id', '')).strip()
+    if raw:
+        try:
+            raw = decode_b64uuid(raw)
+        except Exception:
+            pass
+        practitioner = Practitioner.objects.filter(id=raw, is_active=True).first()
+        if practitioner is None:
+            return fail('That practitioner is not available.', 404, 'unknown_practitioner')
+
+    request_key = str(data.get('request_key', ''))[:64] or None
+    try:
+        appt = sch.book(practitioner=practitioner, day=day, start_time=start, appointment_type=appt_type,
+                        guest_name=name, guest_phone=phone, guest_email=email, reason=notes,
+                        source='public', request_key=request_key)
+    except sch.SchedulingError as exc:
+        status = 409 if exc.code in ('conflict', 'unavailable') else 429 if exc.code == 'limit' else 400
+        return fail(exc.message, status, exc.code)
+
+    logger.info('Public appointment %s booked for %s', appt.pk, day)
+    return JsonResponse({
+        'status': 'success',
+        'message': 'Appointment booked! ' + ('A confirmation email is on its way.' if email else 'Please keep this time free.'),
+        'manage_url': request.build_absolute_uri(sch._manage_path(appt)) if email else '',
+    })
 
 
 # --- Course Views ---

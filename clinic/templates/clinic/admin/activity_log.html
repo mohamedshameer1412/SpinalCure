@@ -218,7 +218,7 @@ function toggleChanges(id) {
 
 function revertAction(logId) {
     window.showCustomConfirm('Are you sure you want to revert this action? This will restore the data to its previous state.', () => {
-        fetch(`/en/clinic/admin/activity-log/${logId}/revert/`, {
+        fetch(`/{{ LANGUAGE_CODE }}/clinic/admin/activity-log/${logId}/revert/`, {
             method: 'POST',
             headers: {
                 'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}',

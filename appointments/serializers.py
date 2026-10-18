@@ -20,7 +20,12 @@ class AppointmentSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Appointment
-        fields = '__all__'
+        exclude = ('manage_token', 'request_key')   # manage_token is the patient's secret link
+        validators = []   # DRF would derive a (condition-less) unique-set check from the DB constraint; the
+                          # scheduling engine is the single authority on conflicts
+        read_only_fields = ('status', 'booked_via', 'confirmed_at', 'cancelled_at', 'cancel_reason',
+                            'cancelled_by', 'rescheduled_from', 'created_at', 'updated_at',
+                            'email_reminder_sent')
         
     def get_patient_name(self, obj):
         return obj.patient.name if obj.patient else (obj.guest_name or 'Guest')

@@ -81,7 +81,7 @@
 <script>
     function openDeleteModal(pk, title) {
         document.getElementById('event-title').textContent = title;
-        document.getElementById('delete-form').action = `/en/events/${pk}/delete/`;
+        document.getElementById('delete-form').action = `/{{ LANGUAGE_CODE }}/events/${pk}/delete/`;
         document.getElementById('delete-modal').classList.remove('hidden');
     }
     function closeDeleteModal() {

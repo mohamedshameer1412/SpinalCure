@@ -12,7 +12,8 @@ def superadmin_required(view_func):
     @wraps(view_func)
     def _wrapped(request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect(settings.LOGIN_URL + f'?next={request.path}')
+            from django.contrib.auth.views import redirect_to_login
+            return redirect_to_login(request.get_full_path())
         if not (request.user.is_staff or request.user.is_superuser):
             messages.error(request, 'You do not have permission to access this section.')
             return redirect('dashboard')

@@ -50,7 +50,7 @@ urlpatterns += [
 
 # Localized URLs (with language prefix)
 urlpatterns += i18n_patterns(
-    path('', RedirectView.as_view(url='/en/accounts/login/', permanent=False), name='index'),
+    path('', RedirectView.as_view(pattern_name='login', permanent=False), name='index'),
     path('accounts/', include('accounts.urls')),
     path('clinic/', include('clinic.urls')),
     path('patients/', include('patients.urls')),

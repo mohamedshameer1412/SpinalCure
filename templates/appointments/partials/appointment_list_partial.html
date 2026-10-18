@@ -104,7 +104,7 @@
     function deleteAppointment(appointmentId, itemName) {
         const role = "{{ request.user.role|default:'' }}";
         const isSuperadmin = (role === 'superadmin' || '{{ request.user.is_superuser|yesno:"true,false" }}' === 'true');
-        const deleteUrl = `/en/appointments/${appointmentId}/delete/`;
+        const deleteUrl = `/{{ LANGUAGE_CODE }}/appointments/${appointmentId}/delete/`;
         
         if (isSuperadmin) {
             directDelete(deleteUrl, itemName);

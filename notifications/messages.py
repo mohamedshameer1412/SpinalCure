@@ -17,6 +17,9 @@ CATALOGUE = {
     'appointment_booked_staff': (
         N_('New appointment: %(who)s'),
         N_('%(who)s booked %(date)s at %(time)s with %(practitioner)s.')),
+    'appointment_booked_clinic': (
+        N_('New appointment: %(who)s'),
+        N_('%(who)s booked %(date)s at %(time)s with %(practitioner)s.')),
     'appointment_confirmed': (
         N_('Appointment confirmed'),
         N_('Your appointment on %(date)s at %(time)s with %(practitioner)s is confirmed.')),

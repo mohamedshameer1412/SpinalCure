@@ -273,7 +273,7 @@
                          search() {
                              if(this.query.length < 2) { this.results = []; return; }
                              this.loading = true;
-                             fetch(`/en/clinic/api/global-search/?q=${this.query}`)
+                             fetch(`/{{ LANGUAGE_CODE }}/clinic/api/global-search/?q=${this.query}`)
                                 .then(res => res.json())
                                 .then(data => {
                                     this.results = data.results;

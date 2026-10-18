@@ -1027,6 +1027,7 @@
                             <label class="text-sm font-bold text-slate-700 ml-2">Reason for Visit (optional)</label>
                             <textarea x-ref="appNotes" rows="3"
                                 class="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none transition-all"></textarea>
+                            <div class="hidden" aria-hidden="true"><label>Website <input type="text" x-ref="appWebsite" tabindex="-1" autocomplete="off"></label></div>
                         </div>
                         <button type="submit" :disabled="loading"
                             class="w-full py-5 bg-slate-900 text-white rounded-2xl font-bold hover:bg-green-600 transition-all shadow-xl flex items-center justify-center gap-3">
@@ -1212,6 +1213,7 @@
                 appointmentType: 'physical',
                 availableSlots: [],
                 selectedTime: '',
+                requestKey: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random()).replace(/-/g, ''),
                 slotsLoading: false,
                 slotError: '',
                 async fetchSlots() {
@@ -1225,15 +1227,9 @@
                         return;
                     }
 
-                    const selectedDateObj = new Date(dateStr);
-                    if (selectedDateObj.getDay() === 0) {
-                        this.slotError = 'Clinic is closed on Sundays. Please select another date.';
-                        return;
-                    }
-
                     this.slotsLoading = true;
                     try {
-                        const url = `/en/appointments/api/available-slots/?date=${dateStr}&type=${this.appointmentType}`;
+                        const url = `/{{ LANGUAGE_CODE }}/appointments/api/available-slots/?date=${dateStr}&type=${this.appointmentType}`;
                         const res = await fetch(url);
                         if (!res.ok) throw new Error('API Error');
                         const data = await res.json();
@@ -1243,18 +1239,12 @@
                             return;
                         }
 
-                        if (!data.available_slots || data.available_slots.length === 0) {
-                            this.slotError = 'No slots available for this date.';
+                        if (!data.slots || data.slots.length === 0) {
+                            this.slotError = data.message || 'No slots available for this date.';
                             return;
                         }
 
-                        this.availableSlots = data.available_slots.map(slot => {
-                            const [hrStr, minStr] = slot.split(':');
-                            let hr = parseInt(hrStr, 10);
-                            const ampm = hr >= 12 ? 'PM' : 'AM';
-                            hr = hr % 12 || 12;
-                            return { value: slot, label: `${hr}:${minStr} ${ampm}` };
-                        });
+                        this.availableSlots = data.slots;   // {value: "HH:MM", label: localised time}
                     } catch (e) {
                         console.error('Fetch slots error:', e);
                         this.slotError = 'Error loading slots.';
@@ -1282,7 +1272,9 @@
                                 type: this.appointmentType,
                                 date: this.appDate,
                                 time: this.selectedTime,
-                                notes: this.$refs.appNotes.value
+                                notes: this.$refs.appNotes.value,
+                                request_key: this.requestKey,
+                                website: (this.$refs.appWebsite || {}).value || ''
                             })
                         });
                         const data = await res.json();
@@ -1290,7 +1282,8 @@
                         if (data.status === 'success') {
                             this.booked = true;
                         } else {
-                            alert(data.message);
+                            this.slotError = data.message || 'Booking failed. Please try again.';
+                            if (data.code === 'conflict' || data.code === 'unavailable') this.fetchSlots && this.fetchSlots();
                         }
                     } catch (e) {
                         this.loading = false;

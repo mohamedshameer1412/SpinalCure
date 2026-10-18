@@ -88,13 +88,13 @@
                             <i class="bi bi-trash text-lg"></i>
                         </button>
                         {% else %}
-                        <button onclick="openSecurityModal('edit', `/en/courses/${'{{ course.id }}'}/edit/`, '{{ course.title|escapejs }}')"
+                        <button onclick="openSecurityModal('edit', `/{{ LANGUAGE_CODE }}/courses/${'{{ course.id }}'}/edit/`, '{{ course.title|escapejs }}')"
                             class="flex-1 inline-flex items-center justify-center px-4 py-2 text-xs font-bold text-white bg-slate-900 rounded-xl hover:bg-slate-800 transition-all">
                             <i class="bi bi-pencil me-1.5"></i>
                             Edit Course
                         </button>
                         <button
-                            onclick="openSecurityModal('delete', `/en/courses/${'{{ course.id }}'}/delete/`, '{{ course.title|escapejs }}')"
+                            onclick="openSecurityModal('delete', `/{{ LANGUAGE_CODE }}/courses/${'{{ course.id }}'}/delete/`, '{{ course.title|escapejs }}')"
                             class="p-2 text-red-600 bg-red-50 rounded-xl hover:bg-red-100 transition-all border border-red-100">
                             <i class="bi bi-trash text-lg"></i>
                         </button>

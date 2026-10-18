@@ -74,7 +74,7 @@
     function openDeleteModal(pk, title) {
         const modal = document.getElementById('delete-modal');
         document.getElementById('course-title').textContent = title;
-        document.getElementById('delete-form').action = `/en/courses/${pk}/delete/`;
+        document.getElementById('delete-form').action = `/{{ LANGUAGE_CODE }}/courses/${pk}/delete/`;
         modal.classList.remove('hidden');
         modal.classList.add('flex');
     }

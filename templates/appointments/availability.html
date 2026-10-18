@@ -1,81 +1,187 @@
 {% extends 'base.html' %}
-{% load b64uuid_tags %}
-
-{% block title %}Doctor Availability - SpinalCure{% endblock %}
-{% block page_title %}Doctor Availability Management{% endblock %}
+{% load i18n b64uuid_tags %}
+{% block title %}{% translate "Availability" %} — SpinalCure{% endblock %}
+{% block page_title %}{% translate "Availability & leave" %}{% endblock %}
 
 {% block content %}
-<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6">
-    <form method="get" class="flex gap-4 items-end">
-        <div>
-            <label for="practitioner_id" class="block mb-2 text-sm font-medium text-gray-900">Select Doctor</label>
-            <select id="practitioner_id" name="practitioner_id">
+<div x-data="availabilityPage()" class="space-y-6">
+
+    <form method="get" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-wrap gap-3 items-end">
+        <div class="min-w-[14rem] flex-1 sm:flex-none">
+            <label for="practitioner_id" class="block text-sm font-medium text-gray-700 mb-1">{% translate "Practitioner" %}</label>
+            <select id="practitioner_id" name="practitioner_id" class="no-ts w-full rounded-xl border-gray-200 text-sm" onchange="this.form.submit()">
                 {% for doc in practitioners %}
-                <option value="{{ doc.id|b64uuid }}" {% if selected_doc and doc.id == selected_doc.id %}selected{% endif %}>Dr. {{ doc.name }} ({{ doc.specialization }})</option>
+                <option value="{{ doc.id|b64uuid }}" {% if selected_doc and doc.id == selected_doc.id %}selected{% endif %}>{{ doc.name }}{% if doc.specialization %} — {{ doc.specialization }}{% endif %}</option>
                 {% endfor %}
             </select>
         </div>
-        <button type="submit"
-            class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5">
-            View Schedule
+        <noscript><button class="px-4 py-2.5 rounded-xl bg-green-600 text-white text-sm font-semibold">{% translate "View" %}</button></noscript>
+        {% if selected_doc %}
+        <button type="button" @click="openShift()" class="ms-auto px-4 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-semibold">
+            <i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Add shift" %}
         </button>
-        <button type="button"
-            class="ml-auto text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5">
-            + Add Time Slot
-        </button>
+        {% endif %}
     </form>
-</div>
 
-{% if selected_doc %}
-<div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-    <div class="p-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
-        <h3 class="text-lg font-semibold text-gray-800">Weekly Schedule: Dr. {{ selected_doc.name }}</h3>
-        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Active Template</span>
+    {% if not practitioners %}
+    <div class="bg-white rounded-2xl border border-gray-100 p-12 text-center">
+        <i class="bi bi-person-x text-3xl text-gray-300" aria-hidden="true"></i>
+        <p class="mt-3 font-semibold text-gray-800">{% translate "No practitioner profile is linked to your account" %}</p>
+        <p class="text-sm text-gray-500">{% translate "Ask an administrator to add a practitioner with your email address." %}</p>
     </div>
-    <div class="p-0">
-        <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
-                <tr>
-                    <th scope="col" class="px-6 py-3">Day of Week</th>
-                    <th scope="col" class="px-6 py-3">Start Time</th>
-                    <th scope="col" class="px-6 py-3">End Time</th>
-                    <th scope="col" class="px-6 py-3 text-center">Status</th>
-                    <th scope="col" class="px-6 py-3 text-right">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for slot in availabilities %}
-                <tr class="bg-white border-b hover:bg-gray-50">
-                    <td class="px-6 py-4 font-medium text-gray-900">{{ slot.get_day_of_week_display }}</td>
-                    <td class="px-6 py-4">{{ slot.start_time|time:"h:i A" }}</td>
-                    <td class="px-6 py-4">{{ slot.end_time|time:"h:i A" }}</td>
-                    <td class="px-6 py-4 text-center">
-                        {% if slot.is_available %}
-                        <span
-                            class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Available</span>
-                        {% else %}
-                        <span
-                            class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Unavailable</span>
-                        {% endif %}
-                    </td>
-                    <td class="px-6 py-4 text-right">
-                        <button class="font-medium text-primary-600 hover:underline">Edit</button>
-                        <button class="font-medium text-red-600 hover:underline ml-3">Delete</button>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5" class="px-6 py-8 text-center text-gray-500">No availability slots defined for this
-                        doctor yet.</td>
-                </tr>
+    {% elif selected_doc %}
+
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden" aria-labelledby="weekly-h">
+        <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+            <h2 id="weekly-h" class="font-semibold text-gray-900">{% blocktranslate with name=selected_doc.name %}Weekly schedule — {{ name }}{% endblocktranslate %}</h2>
+            <p class="text-xs text-gray-500">{% translate "Several shifts per day are allowed (e.g. morning and evening)." %}</p>
+        </div>
+        <div class="divide-y divide-gray-50">
+            {% for num, label, shifts in by_day %}
+            <div class="px-5 py-3 flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6">
+                <p class="w-28 shrink-0 font-medium text-gray-800">{{ label }}</p>
+                <div class="flex-1 space-y-2">
+                    {% for s in shifts %}
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 rounded-xl border {% if s.is_available %}border-gray-100 bg-gray-50/60{% else %}border-dashed border-gray-200 opacity-60{% endif %} px-3 py-2 text-sm">
+                        <span class="font-semibold tabular-nums" dir="ltr">{{ s.start_time|time:"H:i" }}–{{ s.end_time|time:"H:i" }}</span>
+                        <span class="text-gray-500">{{ s.slot_duration_minutes }} {% translate "min slots" %}{% if s.buffer_minutes %} · {{ s.buffer_minutes }} {% translate "min buffer" %}{% endif %}</span>
+                        {% if s.break_start %}<span class="text-gray-500">{% translate "break" %} <span dir="ltr">{{ s.break_start|time:"H:i" }}–{{ s.break_end|time:"H:i" }}</span></span>{% endif %}
+                        {% if s.appointment_type != 'both' %}<span class="text-xs rounded-full bg-sky-100 text-sky-800 px-2 py-0.5">{{ s.get_appointment_type_display }}</span>{% endif %}
+                        {% if s.max_appointments %}<span class="text-xs rounded-full bg-gray-200 px-2 py-0.5">{% translate "max" %} {{ s.max_appointments }}</span>{% endif %}
+                        {% if s.valid_from or s.valid_until %}<span class="text-xs text-gray-500">{{ s.valid_from|default_if_none:"…" }} → {{ s.valid_until|default_if_none:"…" }}</span>{% endif %}
+                        {% if not s.is_available %}<span class="text-xs rounded-full bg-red-100 text-red-700 px-2 py-0.5">{% translate "Off" %}</span>{% endif %}
+                        <span class="ms-auto flex items-center gap-1">
+                            <button type="button" class="px-2 py-1 rounded-lg text-green-700 hover:bg-green-50 font-medium"
+                                @click="openShift('{{ s.pk }}')">{% translate "Edit" %}</button>
+                            <form method="post" action="{% url 'shift_delete' selected_doc.id|b64uuid s.pk %}" onsubmit="return confirm('{% translate "Remove this shift?" %}')">{% csrf_token %}
+                                <button class="px-2 py-1 rounded-lg text-red-600 hover:bg-red-50 font-medium">{% translate "Delete" %}</button>
+                            </form>
+                        </span>
+                    </div>
+                    {% empty %}
+                    <p class="text-sm text-gray-400 py-1">{% translate "Not working" %}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="grid lg:grid-cols-2 gap-6">
+        <section class="bg-white rounded-2xl border border-gray-100 shadow-sm" aria-labelledby="leave-h">
+            <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+                <h2 id="leave-h" class="font-semibold text-gray-900">{% translate "Leave" %}</h2>
+                <button type="button" @click="openOff('{{ selected_doc.id|b64uuid }}')" class="text-sm font-semibold text-green-700 hover:underline">{% translate "Add leave" %}</button>
+            </div>
+            <ul class="divide-y divide-gray-50 text-sm">
+                {% for o in time_off %}
+                <li class="px-5 py-3 flex items-center gap-3">
+                    <div class="flex-1"><p class="font-medium">{{ o.start_date|date:"DATE_FORMAT" }}{% if o.end_date != o.start_date %} → {{ o.end_date|date:"DATE_FORMAT" }}{% endif %}
+                        {% if o.start_time %}<span class="text-gray-500" dir="ltr"> {{ o.start_time|time:"H:i" }}–{{ o.end_time|time:"H:i" }}</span>{% endif %}</p>
+                        <p class="text-xs text-gray-500">{{ o.get_kind_display }}{% if o.reason %} · {{ o.reason }}{% endif %}</p></div>
+                    <form method="post" action="{% url 'timeoff_delete' o.pk %}">{% csrf_token %}<button class="text-red-600 hover:underline text-xs font-semibold">{% translate "Remove" %}</button></form>
+                </li>
+                {% empty %}<li class="px-5 py-8 text-center text-gray-400">{% translate "No leave scheduled." %}</li>{% endfor %}
+            </ul>
+        </section>
+
+        <section class="bg-white rounded-2xl border border-gray-100 shadow-sm" aria-labelledby="closure-h">
+            <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+                <h2 id="closure-h" class="font-semibold text-gray-900">{% translate "Clinic holidays & closures" %}</h2>
+                {% if is_management %}<button type="button" @click="openOff('clinic')" class="text-sm font-semibold text-green-700 hover:underline">{% translate "Add closure" %}</button>{% endif %}
+            </div>
+            <ul class="divide-y divide-gray-50 text-sm">
+                {% for o in clinic_closures %}
+                <li class="px-5 py-3 flex items-center gap-3">
+                    <div class="flex-1"><p class="font-medium">{{ o.start_date|date:"DATE_FORMAT" }}{% if o.end_date != o.start_date %} → {{ o.end_date|date:"DATE_FORMAT" }}{% endif %}</p>
+                        <p class="text-xs text-gray-500">{{ o.get_kind_display }}{% if o.reason %} · {{ o.reason }}{% endif %}</p></div>
+                    {% if is_management %}<form method="post" action="{% url 'timeoff_delete' o.pk %}">{% csrf_token %}<button class="text-red-600 hover:underline text-xs font-semibold">{% translate "Remove" %}</button></form>{% endif %}
+                </li>
+                {% empty %}<li class="px-5 py-8 text-center text-gray-400">{% translate "No closures scheduled." %}</li>{% endfor %}
+            </ul>
+        </section>
+    </div>
+    {% endif %}
+
+    {% if is_management and settings_form %}
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm" aria-labelledby="rules-h">
+        <div class="px-5 py-4 border-b border-gray-100"><h2 id="rules-h" class="font-semibold text-gray-900">{% translate "Booking rules & reminders" %}</h2></div>
+        <form method="post" action="{% url 'booking_settings_save' %}" class="p-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">{% csrf_token %}
+            {% for f in settings_form %}
+            <div class="{% if f.field.widget.input_type == 'checkbox' %}flex items-center gap-2 pt-6{% endif %}">
+                {% if f.field.widget.input_type == 'checkbox' %}{{ f }}<label for="{{ f.id_for_label }}" class="text-sm text-gray-700">{{ f.label }}</label>
+                {% else %}<label for="{{ f.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ f.label }}</label>{{ f }}{% endif %}
+            </div>
+            {% endfor %}
+            <div class="sm:col-span-2 lg:col-span-3"><button class="px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-semibold">{% translate "Save rules" %}</button></div>
+        </form>
+    </section>
+    {% endif %}
+
+    {% if selected_doc %}
+    <!-- Shift dialog -->
+    <div x-show="shiftOpen" x-cloak class="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-slate-900/40" role="dialog" aria-modal="true" aria-labelledby="shift-h" @keydown.escape.window="shiftOpen=false">
+        <form method="post" x-ref="shiftForm" action="{% url 'shift_save' selected_doc.id|b64uuid %}" @click.outside="shiftOpen=false" class="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto p-6 space-y-4">{% csrf_token %}
+            <h3 id="shift-h" class="font-semibold text-lg" x-text="shiftId ? '{% translate "Edit shift" %}' : '{% translate "Add shift" %}'"></h3>
+            <input type="hidden" name="shift_id" :value="shiftId">
+            <div class="grid sm:grid-cols-2 gap-4">
+                {% for f in shift_form %}
+                <div class="{% if f.field.widget.input_type == 'checkbox' %}flex items-center gap-2 sm:col-span-2{% endif %}">
+                    {% if f.field.widget.input_type == 'checkbox' %}{{ f }}<label for="{{ f.id_for_label }}" class="text-sm">{% translate "Shift is active" %}</label>
+                    {% else %}<label for="{{ f.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ f.label }}</label>{{ f }}{% endif %}
+                </div>
                 {% endfor %}
-            </tbody>
-        </table>
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button type="button" @click="shiftOpen=false" class="px-4 py-2 rounded-xl border border-gray-200 text-sm font-semibold">{% translate "Cancel" %}</button>
+                <button class="px-5 py-2 rounded-xl bg-green-600 text-white text-sm font-semibold">{% translate "Save shift" %}</button>
+            </div>
+        </form>
     </div>
+
+    <!-- Time-off dialog -->
+    <div x-show="offOpen" x-cloak class="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-slate-900/40" role="dialog" aria-modal="true" aria-labelledby="off-h" @keydown.escape.window="offOpen=false">
+        <form method="post" :action="offAction" @click.outside="offOpen=false" class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 space-y-4">{% csrf_token %}
+            <h3 id="off-h" class="font-semibold text-lg">{% translate "Add time off" %}</h3>
+            <div class="grid sm:grid-cols-2 gap-4">
+                {% for f in timeoff_form %}
+                <div class="{% if f.name == 'reason' %}sm:col-span-2{% endif %}"><label for="{{ f.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ f.label }}</label>{{ f }}
+                    {% if f.help_text %}<p class="text-xs text-gray-500 mt-1">{{ f.help_text }}</p>{% endif %}</div>
+                {% endfor %}
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button type="button" @click="offOpen=false" class="px-4 py-2 rounded-xl border border-gray-200 text-sm font-semibold">{% translate "Cancel" %}</button>
+                <button class="px-5 py-2 rounded-xl bg-green-600 text-white text-sm font-semibold">{% translate "Save" %}</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
 </div>
-{% else %}
-<div class="bg-white rounded-lg shadow border border-gray-200 p-8 text-center">
-    <p class="text-gray-500">Please select a doctor to view their availability schedule.</p>
-</div>
-{% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+{{ shifts_json|json_script:"shifts-data" }}
+<script>
+function availabilityPage() {
+    const shifts = JSON.parse(document.getElementById('shifts-data')?.textContent || '{}');
+    const offUrl = "{% if timeoff_url_template %}{{ timeoff_url_template }}{% endif %}";
+    return {
+        shiftOpen: false, shiftId: '', offOpen: false, offAction: '',
+        openShift(id) {
+            this.shiftId = id || '';
+            this.shiftOpen = true;
+            this.$nextTick(() => {
+                const f = this.$refs.shiftForm; f.reset();
+                const d = id ? shifts[id] : null;
+                Array.from(f.elements).forEach(el => {
+                    if (!el.name || el.name === 'csrfmiddlewaretoken' || el.name === 'shift_id' || !d || !(el.name in d)) return;
+                    if (el.type === 'checkbox') el.checked = !!d[el.name]; else el.value = d[el.name] ?? '';
+                });
+                f.querySelector('select, input:not([type=hidden])')?.focus();
+            });
+        },
+        openOff(target) { this.offAction = offUrl.replace('__T__', target); this.offOpen = true; },
+    };
+}
+</script>
 {% endblock %}
