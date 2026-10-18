@@ -144,7 +144,7 @@ class TestIsOwnerOrAdmin:
         
         # Create a mock object with owner
         class MockObject:
-            owner = patient_user
+            created_by = patient_user
         
         obj = MockObject()
         
@@ -174,7 +174,7 @@ class TestIsOwnerOrAdmin:
         request.user = superuser
         
         class MockObject:
-            owner = patient_user
+            created_by = patient_user
         
         obj = MockObject()
         

@@ -229,19 +229,18 @@ class OTPToken(models.Model):
         
         # Create OTP token
         expires_at = now + timedelta(minutes=settings.OTP_EXPIRY_MINUTES)
-        otp_token, created = cls.objects.update_or_create(
+        # One row per request: the hourly/daily limits above count rows, and a fresh row starts with
+        # failed_attempts=0 only because the previous code was invalidated, never by resetting it in place.
+        otp_token = cls.objects.create(
             user=user,
             delivery_method=delivery_method,
-            is_used=False,
-            defaults={
-                'otp_secret': secret,
-                'otp_value': '',  # never persist the code itself; it is derived from otp_secret
-                'expires_at': expires_at,
-                'failed_attempts': 0,
-                'last_request_at': now,
-                'request_count_today': today_requests + 1,
-            }
+            otp_secret=secret,
+            otp_value='',  # never persist the code itself; it is derived from otp_secret
+            expires_at=expires_at,
+            last_request_at=now,
+            request_count_today=today_requests + 1,
         )
+        created = True
         
         return otp_token, otp_value, created
     
