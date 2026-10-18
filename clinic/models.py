@@ -360,6 +360,7 @@ class AuditLog(models.Model):
         (ACTION_CREATE, _('Create')),
         (ACTION_UPDATE, _('Update')),
         (ACTION_DELETE, _('Delete')),
+        ('export', _('Export')),
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

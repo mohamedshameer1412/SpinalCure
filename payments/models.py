@@ -4,10 +4,39 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from patients.models import Patient
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
+from django.core.validators import MinValueValidator
+from django.db import transaction
 from spinalcure.validators import validate_positive_amount, validate_percentage
-import random
 from datetime import date
+
+TWO = Decimal('0.01')
+
+
+def money(v):
+    return Decimal(v).quantize(TWO, rounding=ROUND_HALF_UP)
+
+
+def financial_year(d):
+    """Indian FY label for a date: April-March, e.g. 2026-27."""
+    start = d.year if d.month >= 4 else d.year - 1
+    return f'{start}-{str(start + 1)[-2:]}'
+
+
+class InvoiceCounter(models.Model):
+    """Last invoice serial per financial year (GST invoices must be consecutive)."""
+    fy = models.CharField(max_length=7, primary_key=True)
+    last = models.PositiveIntegerField(default=0)
+
+    @classmethod
+    def next_number(cls, d):
+        fy = financial_year(d)
+        with transaction.atomic():
+            cls.objects.get_or_create(fy=fy)
+            row = cls.objects.select_for_update().get(fy=fy)
+            row.last += 1
+            row.save(update_fields=['last'])
+        return f'SC/{fy}/{row.last:05d}'
 
 
 class Payment(models.Model):
@@ -113,7 +142,7 @@ class Payment(models.Model):
         max_digits=10,
         decimal_places=2,
         default=0,
-        validators=[validate_positive_amount],
+        validators=[MinValueValidator(0)],
         verbose_name=_('Amount Paid'),
         help_text=_('Must be less than or equal to total amount')
     )
@@ -161,6 +190,10 @@ class Payment(models.Model):
         validators=[validate_percentage],
         verbose_name=_('Tax %')
     )
+    is_interstate = models.BooleanField(
+        default=False, verbose_name=_('Inter-state supply (IGST)'),
+        help_text=_('Leave off for customers in the clinic\'s state: tax is split into CGST + SGST')
+    )
 
     class Meta:
         verbose_name = _('Payment')
@@ -204,67 +237,108 @@ class Payment(models.Model):
         return ""
 
     @property
+    def refunded_amount(self):
+        return money(sum((r.amount for r in self.refunds.all()), Decimal('0')))
+
+    @property
     def balance(self):
-        """How much still needs to be paid."""
-        return self.total_amount - self.amount_paid
+        """Still owed, including exclusive GST."""
+        return money(self.grand_total - (self.amount_paid or 0))
 
     @property
     def subtotal(self):
-        """Amount before tax."""
-        if self.tax_type == 'exclusive' and self.tax_percent > 0:
-            return self.total_amount
-        elif self.tax_type == 'inclusive' and self.tax_percent > 0:
-            rate = 1 + (self.tax_percent / Decimal('100'))
-            return round(self.total_amount / rate, 2)
-        return self.total_amount
+        """Taxable value (before GST)."""
+        total = Decimal(self.total_amount or 0)
+        if self.tax_type == 'inclusive' and self.tax_percent:
+            return money(total / (1 + Decimal(self.tax_percent) / 100))
+        return money(total)
 
     @property
     def tax_amount(self):
-        """Calculated tax amount."""
-        if self.tax_percent == 0 or self.tax_type == 'none':
-            return Decimal('0')
+        if self.tax_type == 'none' or not self.tax_percent:
+            return Decimal('0.00')
         if self.tax_type == 'exclusive':
-            return round(self.total_amount * self.tax_percent / Decimal('100'), 2)
-        elif self.tax_type == 'inclusive':
-            return round(self.total_amount - self.subtotal, 2)
-        return Decimal('0')
+            return money(Decimal(self.total_amount) * Decimal(self.tax_percent) / 100)
+        return money(Decimal(self.total_amount) - self.subtotal)
+
+    @property
+    def cgst(self):
+        return Decimal('0.00') if self.is_interstate else money(self.tax_amount / 2)
+
+    @property
+    def sgst(self):
+        # Remainder, so CGST + SGST always equals the tax exactly.
+        return Decimal('0.00') if self.is_interstate else self.tax_amount - self.cgst
+
+    @property
+    def igst(self):
+        return self.tax_amount if self.is_interstate else Decimal('0.00')
+
+    @property
+    def half_rate(self):
+        return Decimal(self.tax_percent) / 2
 
     @property
     def grand_total(self):
-        """Final total including tax."""
-        if self.tax_type == 'exclusive':
-            return self.total_amount + self.tax_amount
-        return self.total_amount
+        """Invoice total including GST."""
+        total = money(self.total_amount or 0)
+        return total + self.tax_amount if self.tax_type == 'exclusive' else total
 
     def clean(self):
-        """Validate payment data."""
-        if self.amount_paid > self.total_amount:
-            raise ValidationError(
-                {'amount_paid': _('Amount paid cannot exceed total amount.')}
-            )
+        if self.tax_type == 'none':
+            self.tax_percent = Decimal('0')
+        elif not self.tax_percent:
+            raise ValidationError({'tax_percent': _('Enter the GST rate, or choose "No Tax".')})
+        if self.total_amount is not None and self.amount_paid is not None and Decimal(self.amount_paid) > self.grand_total:
+            raise ValidationError({'amount_paid': _('Amount paid cannot exceed the invoice total.')})
 
     def save(self, *args, **kwargs):
-        """Auto-update status and generate receipt number."""
-        # Full validation
-        self.full_clean()
-        
-        # Auto-set status based on payment
-        if self.amount_paid >= self.total_amount:
+        """Validate, set status from amounts and assign the next invoice number."""
+        self.full_clean(exclude=['receipt_number'])
+        paid = Decimal(self.amount_paid or 0)
+        if paid >= self.grand_total:
             self.payment_status = 'fully_paid'
-        elif self.amount_paid > 0:
+        elif paid > 0:
             self.payment_status = 'partial'
         else:
             self.payment_status = 'unpaid'
-        
-        # Auto-generate unique receipt number
-        if not self.receipt_number:
-            while True:
-                receipt = f"SC{date.today().strftime('%Y%m%d')}{random.randint(100, 999)}"
-                if not Payment.objects.filter(receipt_number=receipt).exists():
-                    self.receipt_number = receipt
-                    break
-        
-        super().save(*args, **kwargs)
+        with transaction.atomic():  # a failed save must not consume an invoice number
+            if not self.receipt_number:
+                d = self.payment_date if isinstance(self.payment_date, date) else date.fromisoformat(str(self.payment_date))
+                self.receipt_number = InvoiceCounter.next_number(d)
+            super().save(*args, **kwargs)
+
+
+class PaymentItem(models.Model):
+    """Invoice line. When an invoice has items, its total_amount is the sum of the lines."""
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, related_name='items')
+    description = models.CharField(max_length=200, verbose_name=_('Description'))
+    sac_code = models.CharField(max_length=8, blank=True, verbose_name=_('SAC/HSN'))
+    quantity = models.DecimalField(max_digits=8, decimal_places=2, default=1, validators=[validate_positive_amount])
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+
+    @property
+    def line_total(self):
+        return money(self.quantity * self.unit_price)
+
+
+class Refund(models.Model):
+    payment = models.ForeignKey(Payment, on_delete=models.PROTECT, related_name='refunds')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[validate_positive_amount])
+    refund_date = models.DateField(default=date.today)
+    mode = models.CharField(max_length=20, choices=Payment.PAYMENT_MODE_CHOICES, default='cash')
+    reason = models.CharField(max_length=300)
+    created_by = models.ForeignKey('accounts.CustomUser', on_delete=models.SET_NULL, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-refund_date']
+
+    def clean(self):
+        if self.payment_id and self.amount:
+            already = sum((r.amount for r in self.payment.refunds.exclude(pk=self.pk)), Decimal('0'))
+            if already + Decimal(self.amount) > Decimal(self.payment.amount_paid):
+                raise ValidationError({'amount': _('Refunds cannot exceed the amount paid.')})
 
 
 class Expense(models.Model):

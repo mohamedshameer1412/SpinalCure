@@ -34,36 +34,39 @@ TABLE_STRIPE = colors.HexColor("#f8fafc")
 
 W, H = A4  # 595 x 842 pts
 
+from spinalcure.pdf_fonts import register, uni  # noqa: E402
+BASE_FONT, BOLD_FONT = register()
+
 
 def _styles():
     base = getSampleStyleSheet()
     return {
-        "clinic_name": ParagraphStyle("clinic_name", fontSize=20, fontName="Helvetica-Bold",
+        "clinic_name": ParagraphStyle("clinic_name", fontSize=20, fontName=BOLD_FONT, shaping=1,
                                       textColor=WHITE, alignment=TA_LEFT, leading=24),
-        "clinic_sub":  ParagraphStyle("clinic_sub", fontSize=9, fontName="Helvetica",
+        "clinic_sub":  ParagraphStyle("clinic_sub", fontSize=9, fontName=BASE_FONT, shaping=1,
                                       textColor=colors.HexColor("#bbf7d0"), alignment=TA_LEFT, leading=13),
-        "receipt_title": ParagraphStyle("receipt_title", fontSize=22, fontName="Helvetica-Bold",
+        "receipt_title": ParagraphStyle("receipt_title", fontSize=22, fontName=BOLD_FONT, shaping=1,
                                         textColor=WHITE, alignment=TA_RIGHT, leading=26),
-        "receipt_num":  ParagraphStyle("receipt_num", fontSize=10, fontName="Helvetica",
+        "receipt_num":  ParagraphStyle("receipt_num", fontSize=10, fontName=BASE_FONT, shaping=1,
                                        textColor=colors.HexColor("#bbf7d0"), alignment=TA_RIGHT),
-        "label":   ParagraphStyle("label", fontSize=8, fontName="Helvetica-Bold",
+        "label":   ParagraphStyle("label", fontSize=8, fontName=BOLD_FONT, shaping=1,
                                   textColor=GRAY, spaceAfter=1),
-        "value":   ParagraphStyle("value", fontSize=10, fontName="Helvetica",
+        "value":   ParagraphStyle("value", fontSize=10, fontName=BASE_FONT, shaping=1,
                                   textColor=DARK),
-        "section": ParagraphStyle("section", fontSize=10, fontName="Helvetica-Bold",
+        "section": ParagraphStyle("section", fontSize=10, fontName=BOLD_FONT, shaping=1,
                                   textColor=PRIMARY_DARK, spaceBefore=4, spaceAfter=2),
-        "th":      ParagraphStyle("th", fontSize=9, fontName="Helvetica-Bold",
+        "th":      ParagraphStyle("th", fontSize=9, fontName=BOLD_FONT, shaping=1,
                                   textColor=WHITE, alignment=TA_LEFT),
-        "td":      ParagraphStyle("td", fontSize=9, fontName="Helvetica", textColor=DARK),
-        "td_r":    ParagraphStyle("td_r", fontSize=9, fontName="Helvetica",
+        "td":      ParagraphStyle("td", fontSize=9, fontName=BASE_FONT, shaping=1, textColor=DARK),
+        "td_r":    ParagraphStyle("td_r", fontSize=9, fontName=BASE_FONT, shaping=1,
                                   textColor=DARK, alignment=TA_RIGHT),
-        "total_label": ParagraphStyle("total_label", fontSize=11, fontName="Helvetica-Bold",
+        "total_label": ParagraphStyle("total_label", fontSize=11, fontName=BOLD_FONT, shaping=1,
                                       textColor=DARK, alignment=TA_RIGHT),
-        "total_val":   ParagraphStyle("total_val", fontSize=13, fontName="Helvetica-Bold",
+        "total_val":   ParagraphStyle("total_val", fontSize=13, fontName=BOLD_FONT, shaping=1,
                                       textColor=PRIMARY_DARK, alignment=TA_RIGHT),
-        "footer":  ParagraphStyle("footer", fontSize=8, fontName="Helvetica",
+        "footer":  ParagraphStyle("footer", fontSize=8, fontName=BASE_FONT, shaping=1,
                                   textColor=GRAY, alignment=TA_CENTER),
-        "note":    ParagraphStyle("note", fontSize=8, fontName="Helvetica-Oblique",
+        "note":    ParagraphStyle("note", fontSize=8, fontName=BASE_FONT, shaping=1,
                                   textColor=GRAY),
     }
 
@@ -104,12 +107,14 @@ def generate_receipt_pdf(payment) -> bytes:
     # ── HEADER BAND (painted via canvas in onFirstPage / onLaterPages) ───────
     # We simulate a coloured header with a Table at the top of the story.
     header_data = [[
-        Paragraph(f"<b>{clinic_name}</b>", s["clinic_name"]),
+        Paragraph(f"<b>{uni(clinic_name)}</b>", s["clinic_name"]),
         Paragraph("RECEIPT", s["receipt_title"]),
     ]]
     # Sub-row: clinic details vs receipt number
-    sub_text = f"{clinic_addr}<br/>{clinic_phone}  {clinic_email}"
-    receipt_sub = f"Receipt No: <b>{payment.receipt_number}</b>"
+    sub_text = f"{uni(clinic_addr)}<br/>{uni(clinic_phone)}  {uni(clinic_email)}"
+    if gstin:
+        sub_text += f"<br/>GSTIN: {uni(gstin)}"
+    receipt_sub = f"{'Tax Invoice' if payment.tax_amount else 'Bill of Supply'} No: <b>{uni(payment.receipt_number)}</b>"
     header_data.append([
         Paragraph(sub_text, s["clinic_sub"]),
         Paragraph(receipt_sub, s["receipt_num"]),
@@ -137,7 +142,7 @@ def generate_receipt_pdf(payment) -> bytes:
     }
     stamp_label, stamp_color = status_map.get(payment.payment_status, ("UNKNOWN", GRAY))
     stamp_data = [[Paragraph(f"<b>{stamp_label}</b>",
-                             ParagraphStyle("stamp", fontSize=11, fontName="Helvetica-Bold",
+                             ParagraphStyle("stamp", fontSize=11, fontName=BOLD_FONT, shaping=1,
                                             textColor=WHITE, alignment=TA_CENTER))]]
     stamp = Table(stamp_data, colWidths=[usable_w])
     stamp.setStyle(TableStyle([
@@ -152,9 +157,9 @@ def generate_receipt_pdf(payment) -> bytes:
     # ── BILLING DETAILS ROW ──────────────────────────────────────────────────
     bill_left = [
         [Paragraph("BILLED TO", s["label"])],
-        [Paragraph(f"<b>{payment.payer_name}</b>", s["value"])],
-        [Paragraph(payment.payer_phone or "", s["value"])],
-        [Paragraph(payment.payer_address or "", s["note"])],
+        [Paragraph(f"<b>{uni(payment.payer_name)}</b>", s["value"])],
+        [Paragraph(uni(payment.payer_phone), s["value"])],
+        [Paragraph(uni(payment.payer_address), s["note"])],
     ]
     bill_right = [
         [Paragraph("PAYMENT DATE", s["label"])],
@@ -181,24 +186,29 @@ def generate_receipt_pdf(payment) -> bytes:
     story.append(Spacer(1, 5 * mm))
 
     # ── ITEMS TABLE ───────────────────────────────────────────────────────────
-    th_style = ParagraphStyle("th2", fontSize=9, fontName="Helvetica-Bold",
+    th_style = ParagraphStyle("th2", fontSize=9, fontName=BOLD_FONT, shaping=1,
                               textColor=WHITE)
     items_header = [
         Paragraph("Description", th_style),
         Paragraph("Details", th_style),
-        Paragraph("Amount", ParagraphStyle("th_r", fontSize=9, fontName="Helvetica-Bold",
+        Paragraph("Amount", ParagraphStyle("th_r", fontSize=9, fontName=BOLD_FONT, shaping=1,
                                            textColor=WHITE, alignment=TA_RIGHT)),
     ]
 
-    desc = payment.description or f"Treatment / Service Payment"
-    items_rows = [
-        items_header,
-        [
-            Paragraph(desc, s["td"]),
-            Paragraph(f"Payer Type: {payment.get_payer_type_display()}", s["td"]),
+    items_rows = [items_header]
+    lines = list(payment.items.all())
+    for it in lines:
+        items_rows.append([
+            Paragraph(uni(it.description), s["td"]),
+            Paragraph(uni(f"{'SAC ' + it.sac_code + ' · ' if it.sac_code else ''}{it.quantity.normalize():f} × ₹{it.unit_price:,.2f}"), s["td"]),
+            Paragraph(f"₹{it.line_total:,.2f}", s["td_r"]),
+        ])
+    if not lines:
+        items_rows.append([
+            Paragraph(uni(payment.description or "Treatment / service"), s["td"]),
+            Paragraph(uni(payment.get_payer_type_display()), s["td"]),
             Paragraph(f"₹{payment.total_amount:,.2f}", s["td_r"]),
-        ],
-    ]
+        ])
 
     items_table = Table(items_rows, colWidths=[usable_w * 0.45, usable_w * 0.30, usable_w * 0.25])
     items_table.setStyle(TableStyle([
@@ -207,7 +217,7 @@ def generate_receipt_pdf(payment) -> bytes:
         ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
         ("LEFTPADDING", (0, 0), (-1, -1), 8),
         ("RIGHTPADDING", (0, 0), (-1, -1), 8),
-        ("BACKGROUND", (0, 1), (-1, 1), TABLE_STRIPE),
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [TABLE_STRIPE, WHITE]),
         ("LINEBELOW", (0, 1), (-1, -1), 0.3, colors.HexColor("#e2e8f0")),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
     ]))
@@ -217,25 +227,28 @@ def generate_receipt_pdf(payment) -> bytes:
     # ── TOTALS ────────────────────────────────────────────────────────────────
     def tot_row(label, val, bold=False):
         lstyle = ParagraphStyle("tl", fontSize=10 if bold else 9,
-                                fontName="Helvetica-Bold" if bold else "Helvetica",
+                                fontName=BOLD_FONT if bold else BASE_FONT, shaping=1,
                                 textColor=PRIMARY_DARK if bold else DARK,
                                 alignment=TA_RIGHT)
         vstyle = ParagraphStyle("tv", fontSize=12 if bold else 10,
-                                fontName="Helvetica-Bold" if bold else "Helvetica",
+                                fontName=BOLD_FONT if bold else BASE_FONT, shaping=1,
                                 textColor=PRIMARY_DARK if bold else DARK,
                                 alignment=TA_RIGHT)
         return [Paragraph("", s["td"]), Paragraph(label, lstyle), Paragraph(val, vstyle)]
 
     tot_rows = []
-    if payment.tax_type != "none" and payment.tax_percent:
-        tot_rows.append(tot_row(f"Subtotal", f"₹{payment.subtotal:,.2f}"))
-        tot_rows.append(tot_row(
-            f"Tax ({payment.tax_percent}% {payment.get_tax_type_display()})",
-            f"₹{payment.tax_amount:,.2f}"
-        ))
-    tot_rows.append(tot_row("Grand Total", f"₹{payment.grand_total:,.2f}", bold=True))
-    if payment.payment_status == "partial":
-        tot_rows.append(tot_row("Amount Paid", f"₹{payment.amount_paid:,.2f}"))
+    if payment.tax_amount:
+        tot_rows.append(tot_row("Taxable value", f"₹{payment.subtotal:,.2f}"))
+        if payment.is_interstate:
+            tot_rows.append(tot_row(f"IGST {payment.tax_percent:g}%", f"₹{payment.igst:,.2f}"))
+        else:
+            tot_rows.append(tot_row(f"CGST {payment.half_rate:g}%", f"₹{payment.cgst:,.2f}"))
+            tot_rows.append(tot_row(f"SGST {payment.half_rate:g}%", f"₹{payment.sgst:,.2f}"))
+    tot_rows.append(tot_row("Invoice Total", f"₹{payment.grand_total:,.2f}", bold=True))
+    tot_rows.append(tot_row("Amount Paid", f"₹{payment.amount_paid:,.2f}"))
+    if payment.refunded_amount:
+        tot_rows.append(tot_row("Refunded", f"−₹{payment.refunded_amount:,.2f}"))
+    if payment.balance > 0:
         tot_rows.append(tot_row("Balance Due", f"₹{payment.balance:,.2f}", bold=True))
 
     tot_table = Table(tot_rows, colWidths=[usable_w * 0.45, usable_w * 0.30, usable_w * 0.25])
@@ -252,21 +265,18 @@ def generate_receipt_pdf(payment) -> bytes:
     story.append(Spacer(1, 4 * mm))
 
     # ── GSTIN & NOTES ─────────────────────────────────────────────────────────
-    if gstin:
-        story.append(Paragraph(f"GSTIN: {gstin}", s["note"]))
-    if payment.notes:
-        story.append(Paragraph(f"Notes: {payment.notes}", s["note"]))
+    # payment.notes are internal staff notes: never printed on the customer's receipt.
     story.append(Spacer(1, 8 * mm))
 
     # ── FOOTER ────────────────────────────────────────────────────────────────
     story.append(HRFlowable(width=usable_w, thickness=0.5, color=colors.HexColor("#e2e8f0")))
     story.append(Spacer(1, 3 * mm))
     story.append(Paragraph(
-        f"Thank you for choosing {clinic_name}. This is a computer-generated receipt.",
+        uni(f"Thank you for choosing {clinic_name}. This is a computer-generated receipt."),
         s["footer"],
     ))
     story.append(Paragraph(
-        f"{clinic_addr}  |  {clinic_phone}",
+        uni(f"{clinic_addr}  |  {clinic_phone}"),
         s["footer"],
     ))
 

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from spinalcure.decorators import role_required
@@ -7,7 +8,8 @@ from django.db.models import Sum, Q
 from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 from spinalcure.utils import SpinalCureExport, log_action
-from .models import Payment, Expense
+from .models import Payment, Expense, PaymentItem
+from django.db import transaction
 from patients.models import PatientReview, Patient
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
@@ -133,15 +135,34 @@ def payment_pdf_download_view(request, pk):
 def payment_invoice_view(request, pk):
     """Generate a printable GST invoice for a payment."""
     
-    payment = Payment.objects.select_related('patient', 'clinic', 'course_registration', 'event_registration').get(pk=pk)
+    payment = get_object_or_404(Payment.objects.select_related('patient', 'clinic', 'course_registration', 'event_registration'), pk=pk)
     from clinic.models import ClinicProfile
-    clinic = ClinicProfile.objects.first()
-    
     context = {
         'payment': payment,
-        'clinic': clinic,
+        'clinic': ClinicProfile.objects.first(),
+        'payment_modes': Payment.PAYMENT_MODE_CHOICES,
     }
     return render(request, 'payments/invoice.html', context)
+
+
+@role_required('billing_edit')
+@require_POST
+def payment_refund_view(request, pk):
+    """Record a refund against a payment (cannot exceed what was paid)."""
+    from django.core.exceptions import ValidationError
+    from .models import Refund
+    payment = get_object_or_404(Payment, pk=pk)
+    refund = Refund(payment=payment, amount=request.POST.get('amount') or 0, mode=request.POST.get('mode', 'cash'),
+                    reason=request.POST.get('reason', '').strip()[:300], created_by=request.user)
+    try:
+        refund.full_clean()
+    except ValidationError as e:
+        messages.error(request, ' '.join(e.messages))
+        return redirect('payment_invoice', pk=pk)
+    refund.save()
+    log_action(request, 'create', 'Refund', f'₹{refund.amount} on {payment.receipt_number}', object_id=refund.pk)
+    messages.success(request, f'Refund of ₹{refund.amount} recorded.')
+    return redirect('payment_invoice', pk=pk)
 
 
 @role_required('expenses_manage')
@@ -287,6 +308,39 @@ def expense_delete_view(request, pk):
     
     return redirect('expense_list')
 
+def _billing_fields(post):
+    """GST fields and invoice lines from the payment form. Raises ValueError with a user-facing message."""
+    from decimal import Decimal, InvalidOperation
+    from .models import PaymentItem, money
+    items = []
+    rows = zip(post.getlist('item_description'), post.getlist('item_sac'), post.getlist('item_qty'), post.getlist('item_price'))
+    for desc, sac, qty, price in rows:
+        if not desc.strip():
+            continue
+        try:
+            qty, price = Decimal(qty), Decimal(price)
+        except InvalidOperation:
+            raise ValueError('Each invoice item needs a valid quantity and price.')
+        if qty <= 0 or price < 0:
+            raise ValueError('Item quantities must be above 0 and prices cannot be negative.')
+        items.append(PaymentItem(description=desc.strip()[:200], sac_code=sac.strip()[:8], quantity=qty, unit_price=price))
+    tax_type = post.get('tax_type', 'none')
+    if tax_type not in dict(Payment.TAX_TYPE_CHOICES):
+        tax_type = 'none'
+    fields = {'tax_type': tax_type, 'tax_percent': post.get('tax_percent') or 0, 'is_interstate': post.get('is_interstate') == 'on'}
+    if items:
+        fields['total_amount'] = money(sum((i.line_total for i in items), Decimal('0')))
+    return fields, items
+
+
+def _save_items(payment, items, replace):
+    if replace:
+        payment.items.all().delete()
+    for i in items:
+        i.payment = payment
+    PaymentItem.objects.bulk_create(items)
+
+
 @role_required('billing_create')
 def payment_create_view(request):
     """Record a new payment for Patients, Students (Courses), or Participants (Events)."""
@@ -383,7 +437,11 @@ def payment_create_view(request):
                 success_redirect = redirect('payment_list')
                 payer_name = name
 
-            payment = Payment.objects.create(**payment_kwargs)
+            billing, items = _billing_fields(request.POST)
+            payment_kwargs.update(billing)
+            with transaction.atomic():
+                payment = Payment.objects.create(**payment_kwargs)
+                _save_items(payment, items, replace=False)
             log_action(request, 'create', 'Payment', f'₹{amount_paid} for {payer_name}', object_id=payment.id)
             
             # Send automated email receipt
@@ -421,6 +479,8 @@ def payment_create_view(request):
         'treatment_plans': treatment_plans,
         'payment_modes': Payment.PAYMENT_MODE_CHOICES,
         'tax_types': Payment.TAX_TYPE_CHOICES,
+        'gst_defaults': settings.GST_DEFAULTS,
+        'initial_items': [],
         'current_date': date.today(),
     }
     return render(request, 'payments/payment_form.html', context)
@@ -489,7 +549,12 @@ def payment_edit_view(request, pk):
                 payment.manual_payer_name = name
                 payment.manual_payer_phone = phone
 
-            payment.save()
+            billing, items = _billing_fields(request.POST)
+            for k, v in billing.items():
+                setattr(payment, k, v)
+            with transaction.atomic():
+                payment.save()
+                _save_items(payment, items, replace=True)
             log_action(request, 'update', 'Payment', f'Receipt #{payment.receipt_number}', object_id=pk)
             
             messages.success(request, 'Payment record updated successfully.')
@@ -515,6 +580,9 @@ def payment_edit_view(request, pk):
         'treatment_plans': treatment_plans,
         'payment_modes': Payment.PAYMENT_MODE_CHOICES,
         'tax_types': Payment.TAX_TYPE_CHOICES,
+        'gst_defaults': settings.GST_DEFAULTS,
+        'initial_items': [{'description': i.description, 'sac_code': i.sac_code, 'quantity': float(i.quantity),
+                           'unit_price': float(i.unit_price)} for i in payment.items.all()],
         'is_edit': True,
         'initial_patient': payment.patient,
     }

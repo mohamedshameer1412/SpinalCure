@@ -1,4 +1,5 @@
 from django.urls import path, include
+from . import views
 from rest_framework.routers import DefaultRouter
 from .views import (
     PaymentViewSet, payment_list_view, payment_invoice_view, send_invoice_email_view,
@@ -17,6 +18,7 @@ urlpatterns = [
     path('<b64uuid:pk>/invoice/', payment_invoice_view, name='payment_invoice'),
     path('<b64uuid:pk>/download-receipt/', payment_pdf_download_view, name='payment_pdf_download'),
     path('<b64uuid:pk>/send-email/', send_invoice_email_view, name='send_invoice_email'),
+    path('<b64uuid:pk>/refund/', views.payment_refund_view, name='payment_refund'),
     path('export/excel/', export_payments_excel, name='export_payments_excel'),
     path('export/csv/', export_payments_csv, name='export_payments_csv'),
     path('export/pdf/', export_payments_pdf, name='export_payments_pdf'),

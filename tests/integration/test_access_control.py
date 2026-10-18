@@ -107,3 +107,34 @@ def test_dashboard_stats_api_needs_billing_role(users, client):
     assert client.get('/api/analytics/dashboard-stats/').status_code == 403
     client.force_login(users['receptionist'])
     assert client.get('/api/analytics/dashboard-stats/').status_code == 200
+
+
+def test_payment_form_saves_items_gst_and_refund(users, login):
+    from payments.models import Payment
+    from tests.conftest_helpers import make_patient
+    p = make_patient()
+    c = login(users['receptionist'])
+    c.post(reverse('payment_create'), {
+        'payer_type': 'patient', 'patient': str(p.pk), 'amount_paid': '500', 'payment_mode': 'upi',
+        'payment_date': '2026-10-18', 'tax_type': 'exclusive', 'tax_percent': '18', 'total_amount': '1',
+        'item_description': ['Consultation', 'Session'], 'item_sac': ['999312', ''], 'item_qty': ['1', '2'], 'item_price': ['300', '100'],
+    })
+    pay = Payment.objects.get()
+    assert pay.total_amount == 500 and pay.items.count() == 2 and pay.grand_total == 590
+    # receptionists cannot refund; admins can
+    login(users['receptionist']).post(reverse('payment_refund', args=[pay.pk]), {'amount': '100', 'reason': 'x'})
+    assert pay.refunds.count() == 0
+    login(users['clinic_admin']).post(reverse('payment_refund', args=[pay.pk]), {'amount': '100', 'reason': 'x', 'mode': 'cash'})
+    assert pay.refunds.count() == 1
+    html = login(users['clinic_admin']).get(reverse('payment_invoice', args=[pay.pk])).content.decode()
+    assert 'CGST 9%' in html and 'SGST 9%' in html and pay.receipt_number in html
+
+
+def test_session_pdf(users, login):
+    from patients.models import Session
+    from tests.conftest_helpers import make_patient
+    p = make_patient(name='முருகன்')
+    s = Session.objects.create(patient=p, session_number=1, session_date='2026-10-01', acupoints_used='LI4, ST36\nGB34',
+                               practitioner_notes='வலி குறைந்தது')
+    r = login(users['doctor']).get(reverse('session-pdf', args=[s.pk]))
+    assert r.status_code == 200 and r.content.startswith(b'%PDF') and 'முருகன்' not in r['Content-Disposition']

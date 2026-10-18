@@ -249,27 +249,29 @@ class SpinalCureExport:
         )
         elements = []
 
+        from spinalcure.pdf_fonts import register, uni
+        base_font, bold_font = register()
         styles = getSampleStyleSheet()
         title_style = ParagraphStyle(
-            'ReportTitle', parent=styles['Heading1'],
+            'ReportTitle', parent=styles['Heading1'], fontName=bold_font, shaping=1,
             fontSize=16, spaceAfter=4, alignment=1,
             textColor=colors.HexColor("#1f2937")
         )
         meta_style = ParagraphStyle(
-            'ReportMeta', fontSize=8,
+            'ReportMeta', fontSize=8, fontName=base_font,
             textColor=colors.grey, alignment=1, spaceAfter=10
         )
         cell_style = ParagraphStyle(
             'CellStyle', parent=styles['Normal'],
-            fontSize=7, leading=9, wordWrap='LTR'
+            fontSize=7, leading=9, wordWrap='LTR', fontName=base_font, shaping=1
         )
         header_cell_style = ParagraphStyle(
             'HeaderCell', parent=styles['Normal'],
             fontSize=8, leading=10, textColor=colors.white,
-            fontName='Helvetica-Bold'
+            fontName=bold_font, shaping=1
         )
 
-        elements.append(Paragraph(f"SpinalCure — {title}", title_style))
+        elements.append(Paragraph(uni(f"SpinalCure — {title}"), title_style))
         elements.append(Paragraph(
             f"Generated: {datetime.now().strftime('%B %d, %Y %I:%M %p')}",
             meta_style
@@ -277,7 +279,7 @@ class SpinalCureExport:
         elements.append(Spacer(1, 0.15 * inch))
 
         # Build header row
-        header_row = [Paragraph(h, header_cell_style) for h in headers]
+        header_row = [Paragraph(uni(h), header_cell_style) for h in headers]
         data = [header_row]
 
         # Build data rows — image_cols is 0-indexed
@@ -296,7 +298,7 @@ class SpinalCureExport:
                         row.append(Paragraph("", cell_style))
                 else:
                     text = str(val) if val is not None else ""
-                    row.append(Paragraph(text, cell_style))
+                    row.append(Paragraph(uni(text), cell_style))
             data.append(row)
 
         # Smart column widths
@@ -324,7 +326,7 @@ class SpinalCureExport:
             # Header
             ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#1f2937")),
             ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTNAME', (0, 0), (-1, 0), bold_font),
             ('FONTSIZE', (0, 0), (-1, 0), 8),
             ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
             ('TOPPADDING', (0, 0), (-1, 0), 8),
@@ -358,29 +360,6 @@ class SpinalCureExport:
             row = [str(val) for val in mapping_func(item)]
             output += "\t".join(row) + "\n"
         return output
-
-    @staticmethod
-    def render_to_pdf(template_src, context_dict=None):
-        """Renders a Django template to a PDF response using xhtml2pdf."""
-        from django.template.loader import get_template
-        from xhtml2pdf import pisa
-
-        if context_dict is None:
-            context_dict = {}
-
-        template = get_template(template_src)
-        html = template.render(context_dict)
-        result = BytesIO()
-
-        # Create PDF
-        pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
-
-        if not pdf.err:
-            response = HttpResponse(result.getvalue(), content_type='application/pdf')
-            return response
-
-        logger.error(f"PDF generation error: {pdf.err}")
-        return None
 
 
 def log_action(request, action, model_name, object_repr, object_id='', changes=None, raw_changes=None, snapshot=None):

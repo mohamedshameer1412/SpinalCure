@@ -263,6 +263,23 @@
                 <i class="bi bi-file-earmark-pdf"></i>
                 Download PDF
             </a>
+            {% if can.billing_edit and payment.amount_paid > payment.refunded_amount %}
+            <details class="relative">
+                <summary class="btn-transition inline-flex items-center gap-2 px-6 py-2.5 bg-amber-50 text-amber-800 text-sm font-bold rounded-2xl border border-amber-200 cursor-pointer">
+                    <i class="bi bi-arrow-counterclockwise"></i> Record refund
+                </summary>
+                <form method="post" action="{% url 'payment_refund' payment.id %}" class="absolute right-0 z-20 mt-2 w-72 p-4 bg-white rounded-2xl shadow-xl border border-slate-100 space-y-3">
+                    {% csrf_token %}
+                    <label class="block text-xs font-bold text-slate-600">Amount (max ₹{{ payment.amount_paid|floatformat:2 }})
+                        <input name="amount" type="number" step="0.01" min="0.01" required class="mt-1 w-full px-3 py-2 border border-slate-200 rounded-xl text-sm"></label>
+                    <label class="block text-xs font-bold text-slate-600">Mode
+                        <select name="mode" class="mt-1 w-full px-3 py-2 border border-slate-200 rounded-xl text-sm">{% for code, label in payment_modes %}<option value="{{ code }}">{{ label }}</option>{% endfor %}</select></label>
+                    <label class="block text-xs font-bold text-slate-600">Reason
+                        <input name="reason" required maxlength="300" class="mt-1 w-full px-3 py-2 border border-slate-200 rounded-xl text-sm"></label>
+                    <button type="submit" class="w-full px-4 py-2 bg-amber-600 text-white text-sm font-bold rounded-xl">Save refund</button>
+                </form>
+            </details>
+            {% endif %}
             <!-- Print Button -->
             <button onclick="window.print()"
                 class="btn-transition inline-flex items-center gap-2 px-6 py-2.5 bg-primary-600 text-white text-sm font-bold rounded-2xl hover:bg-primary-700 hover:shadow-lg shadow-md active:scale-95">
@@ -298,17 +315,18 @@
                         <p class="flex items-center gap-1.5"><i class="bi bi-geo-alt text-primary-500"></i>
                             {{ clinic.address|default:"Chennai, India" }}</p>
                         <p class="flex items-center gap-1.5"><i class="bi bi-telephone text-primary-500"></i>
-                            {{ clinic.phone|default:"+91 98765 43210" }}</p>
+                            {{ clinic.phone }}</p>
+                        {% if clinic.gstin %}<p class="not-italic font-bold text-slate-600">GSTIN: {{ clinic.gstin }}</p>{% endif %}
                     </div>
                 </div>
             </div>
             <div class="flex flex-col items-end text-right">
                 <div class="bg-primary-50 px-5 py-2 rounded-2xl mb-4 border border-primary-100/50">
-                    <span class="text-primary-700 font-black text-xs uppercase tracking-[0.2em] heading-font">Official
-                        Invoice</span>
+                    <span class="text-primary-700 font-black text-xs uppercase tracking-[0.2em] heading-font">{% if payment.tax_amount %}Tax Invoice{% else %}Bill of Supply{% endif %}</span>
                 </div>
-                <h2 class="text-5xl font-black text-slate-900 heading-font tracking-tighter">
-                    #{{ payment.receipt_number|slice:"-6:"|default:payment.receipt_number }}</h2>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 heading-font tracking-tight break-all">
+                    {{ payment.receipt_number }}</h2>
+                <p class="text-xs text-slate-500 mt-1">Place of supply: {% if payment.is_interstate %}Outside {{ clinic.state|default:"Tamil Nadu" }}{% else %}{{ clinic.state|default:"Tamil Nadu" }}{% endif %}</p>
                 <div class="mt-4 space-y-1">
                     <p class="text-[0.65rem] font-bold text-slate-400 uppercase tracking-widest">Date of Issue</p>
                     <p class="text-base font-black text-slate-800">
@@ -381,18 +399,24 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
+                        {% for item in payment.items.all %}
+                        <tr>
+                            <td class="px-8 py-5">
+                                <p class="text-base font-bold text-slate-800">{{ item.description }}</p>
+                                <p class="text-xs font-medium text-slate-400">{% if item.sac_code %}SAC {{ item.sac_code }} · {% endif %}{{ item.quantity|floatformat:"-2" }} × ₹{{ item.unit_price|floatformat:2 }}</p>
+                            </td>
+                            <td class="px-8 py-5 text-right"><span class="text-lg font-black text-slate-900 heading-font">₹{{ item.line_total|floatformat:2 }}</span></td>
+                        </tr>
+                        {% empty %}
                         <tr>
                             <td class="px-8 py-7">
-                                <p class="text-base font-bold text-slate-800 mb-1">
-                                    {{ payment.description|default:"Specialized Acupuncture Treatment" }}</p>
-                                <p class="text-xs font-medium text-slate-400 italic">Clinical consultation and treatment
-                                    session included.</p>
+                                <p class="text-base font-bold text-slate-800 mb-1">{{ payment.description|default:"Treatment and consultation" }}</p>
                             </td>
                             <td class="px-8 py-7 text-right">
-                                <span class="text-lg font-black text-slate-900 heading-font">
-                                    ₹{{ payment.subtotal|floatformat:2 }}</span>
+                                <span class="text-lg font-black text-slate-900 heading-font">₹{{ payment.total_amount|floatformat:2 }}</span>
                             </td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -437,18 +461,27 @@
                     <!-- Compact totals for print -->
                     <div class="w-full space-y-4">
                         <div class="flex justify-between items-center px-4">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Subtotal</span>
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Taxable value</span>
                             <span class="text-base font-bold text-slate-700">
                                 ₹{{ payment.subtotal|floatformat:2}}</span>
                         </div>
                         {% if payment.tax_type != 'none' and payment.tax_percent > 0 %}
+                        {% if payment.is_interstate %}
                         <div class="flex justify-between items-center px-4">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                GST ({{  payment.tax_percent }}% 
-                                {{ payment.get_tax_type_display }})</span>
-                            <span class="text-base font-bold text-slate-700">
-                                ₹{{ payment.tax_amount|floatformat:2}}</span>
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">IGST {{ payment.tax_percent|floatformat:"-2" }}%</span>
+                            <span class="text-base font-bold text-slate-700">₹{{ payment.igst|floatformat:2 }}</span>
                         </div>
+                        {% else %}
+                        <div class="flex justify-between items-center px-4">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">CGST {{ payment.half_rate|floatformat:"-2" }}%</span>
+                            <span class="text-base font-bold text-slate-700">₹{{ payment.cgst|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center px-4">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">SGST {{ payment.half_rate|floatformat:"-2" }}%</span>
+                            <span class="text-base font-bold text-slate-700">₹{{ payment.sgst|floatformat:2 }}</span>
+                        </div>
+                        {% endif %}
+                        <p class="px-4 text-[0.65rem] text-slate-400">GST {{ payment.get_tax_type_display|lower }}</p>
                         {% endif %}
 
                         <div class="h-px bg-slate-100 mx-2"></div>
@@ -456,8 +489,8 @@
                         <div
                             class="flex justify-between items-center bg-primary-600 p-6 rounded-[2rem] shadow-xl shadow-primary-900/10 amount-due-print">
                             <span
-                                class="text-xs font-black text-white/70 uppercase tracking-[0.2em] heading-font">Amount
-                                Due</span>
+                                class="text-xs font-black text-white/70 uppercase tracking-[0.2em] heading-font">Invoice
+                                Total</span>
                             <span class="text-3xl font-black text-white heading-font">
                                 ₹{{ payment.grand_total|floatformat:2 }}</span>
                         </div>
@@ -468,6 +501,12 @@
                                 <span class="text-green-600 font-black italic">
                                     ₹{{ payment.amount_paid|floatformat:2 }}</span>
                             </div>
+                            {% for r in payment.refunds.all %}
+                            <div class="flex justify-between items-center text-xs font-bold">
+                                <span class="text-slate-400 uppercase">Refunded {{ r.refund_date|date:"d M Y" }}</span>
+                                <span class="text-amber-700 font-black">−₹{{ r.amount|floatformat:2 }}</span>
+                            </div>
+                            {% endfor %}
                             {% if payment.balance > 0 %}
                             <div class="flex justify-between items-center text-xs font-bold">
                                 <span class="text-slate-400 uppercase">Outstanding</span>

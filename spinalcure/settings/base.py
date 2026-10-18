@@ -311,3 +311,12 @@ RATELIMIT_ENABLE = True
 
 # Cryptography
 FERNET_KEYS = [k.strip() for k in config('FERNET_KEYS', default='').split(',') if k.strip()]
+
+# Default GST suggested on new invoices per payer type (staff can change each invoice).
+# Healthcare services by a clinical establishment are generally exempt (0%); training/events
+# are usually 18%. Confirm with your accountant. Rates are split CGST/SGST within Tamil Nadu.
+GST_DEFAULTS = {
+    'patient': {'type': 'none', 'rate': 0, 'sac': '999312'},
+    'student': {'type': 'inclusive', 'rate': 18, 'sac': '999293'},
+    'participant': {'type': 'inclusive', 'rate': 18, 'sac': '999293'},
+}

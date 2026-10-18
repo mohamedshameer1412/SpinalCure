@@ -1044,20 +1044,12 @@ def session_pdf_view(request, session_pk):
     session = get_object_or_404(Session, pk=session_pk)
     clinic = ClinicProfile.objects.first()
     
-    context = {
-        'session': session,
-        'clinic': clinic,
-    }
-    
-    filename = f"Session_{session.session_number}_{session.patient.name.replace(' ', '_')}.pdf"
-    response = SpinalCureExport.render_to_pdf('patients/print/session_note_pdf.html', context)
-    
-    if response:
-        response['Content-Disposition'] = f'inline; filename="{filename}"'
-        return response
-    
-    messages.error(request, "Failed to generate PDF. Please contact support.")
-    return redirect('patient-detail', pk=session.patient.id)
+    from .pdf import session_note_pdf
+    response = HttpResponse(session_note_pdf(session, clinic), content_type='application/pdf')
+    # No patient name in the filename: it may not be ASCII and should not sit in download folders.
+    response['Content-Disposition'] = f'inline; filename="session-{session.session_number}-{session.session_date:%Y%m%d}.pdf"'
+    log_action(request, 'export', 'Session', f'PDF of session #{session.session_number}', object_id=session.pk)
+    return response
 
 # ---------------------------------------------------------------------------
 # Treatment Plan Views

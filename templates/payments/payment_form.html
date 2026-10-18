@@ -31,7 +31,8 @@
             </div>
         </div>
 
-        <form method="POST" class="p-8 space-y-8" x-data="{ payerType: '{{ payment.payer_type|default:'patient' }}' }">
+        {{ gst_defaults|json_script:"gst-defaults" }}{{ initial_items|json_script:"initial-items" }}
+        <form method="POST" class="p-8 space-y-8" x-data="billingForm('{{ payment.payer_type|default:'patient' }}', {{ is_edit|yesno:'true,false' }})" x-init="$watch('payerType', t => applyDefaults(t))">
             {% csrf_token %}
             {% if is_edit %}
             <input type="hidden" name="auth_token" value="{{ auth_token }}">
@@ -160,6 +161,24 @@
                     </div>
                 </div>
 
+                <!-- Line items -->
+                <div class="col-span-full">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="block text-xs font-bold text-gray-400 uppercase tracking-widest">{% trans "Invoice items" %} <span class="normal-case font-normal">({% trans "optional" %})</span></p>
+                        <button type="button" @click="items.push({description:'', sac_code: sac, quantity: 1, unit_price: 0})" class="text-sm font-semibold text-primary-700 hover:underline">+ {% trans "Add item" %}</button>
+                    </div>
+                    <template x-for="(it, i) in items" :key="i">
+                        <div class="grid grid-cols-12 gap-2 mb-2">
+                            <input name="item_description" x-model="it.description" required maxlength="200" :aria-label="'Item ' + (i+1) + ' description'" placeholder="{% trans 'Description' %}" class="col-span-12 sm:col-span-5 px-3 py-2 bg-gray-50 rounded-xl border border-gray-200 text-sm">
+                            <input name="item_sac" x-model="it.sac_code" maxlength="8" :aria-label="'Item ' + (i+1) + ' SAC code'" placeholder="SAC" class="col-span-4 sm:col-span-2 px-3 py-2 bg-gray-50 rounded-xl border border-gray-200 text-sm">
+                            <input name="item_qty" x-model.number="it.quantity" type="number" min="0.01" step="0.01" required :aria-label="'Item ' + (i+1) + ' quantity'" class="col-span-3 sm:col-span-1 px-3 py-2 bg-gray-50 rounded-xl border border-gray-200 text-sm">
+                            <input name="item_price" x-model.number="it.unit_price" type="number" min="0" step="0.01" required :aria-label="'Item ' + (i+1) + ' unit price'" class="col-span-4 sm:col-span-3 px-3 py-2 bg-gray-50 rounded-xl border border-gray-200 text-sm">
+                            <button type="button" @click="items.splice(i, 1)" class="col-span-1 text-red-600" :aria-label="'Remove item ' + (i+1)"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+                        </div>
+                    </template>
+                    <p x-show="items.length" class="text-xs text-gray-500">{% trans "Charges below are the sum of the items." %}</p>
+                </div>
+
                 <!-- Total Amount -->
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
@@ -167,11 +186,11 @@
                     </label>
                     <div class="relative">
                         <span class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
-                        <input type="number" name="total_amount" step="0.01" min="0" required
-                            value="{{ payment.total_amount|default:'0.00' }}" placeholder="0.00"
+                        <input type="number" name="total_amount" step="0.01" min="0.01" required
+                            x-model.number="total" :readonly="items.length > 0" placeholder="0.00"
                             class="w-full pl-10 pr-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-gray-900 font-bold transition-all outline-none">
                     </div>
-                    <p class="text-[10px] text-gray-400 mt-1">Leave as 0.00 if paying an existing balance.</p>
+                    <p class="text-[10px] text-gray-400 mt-1" x-show="taxType === 'exclusive'">{% trans "GST is added on top" %}: ₹<span x-text="grand().toFixed(2)"></span> {% trans "total" %}</p>
                 </div>
 
                 <!-- Amount Paid -->
@@ -185,6 +204,24 @@
                             value="{{ payment.amount_paid|default:'' }}" placeholder="0.00"
                             class="w-full pl-10 pr-5 py-4 bg-gray-50 border-2 border-transparent focus:border-primary-500 focus:bg-white rounded-2xl text-green-600 font-bold transition-all outline-none">
                     </div>
+                </div>
+
+                <!-- GST -->
+                <div class="col-span-full grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-2xl bg-gray-50">
+                    <div>
+                        <label for="tax_type" class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">GST</label>
+                        <select id="tax_type" name="tax_type" x-model="taxType" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm">
+                            {% for code, label in tax_types %}<option value="{{ code }}">{{ label }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div x-show="taxType !== 'none'">
+                        <label for="tax_percent" class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{% trans "GST rate %" %}</label>
+                        <input id="tax_percent" name="tax_percent" type="number" min="0" max="28" step="0.01" x-model.number="taxRate" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm">
+                    </div>
+                    <label x-show="taxType !== 'none'" class="flex items-center gap-2 text-sm text-gray-700 sm:pt-7">
+                        <input type="checkbox" name="is_interstate" value="on" {% if payment.is_interstate %}checked{% endif %} class="w-4 h-4 rounded">
+                        {% trans "Customer outside Tamil Nadu (IGST)" %}
+                    </label>
                 </div>
 
                 <!-- Payment Mode -->
@@ -284,4 +321,22 @@
         background-color: #f0fdfa !important;
     }
 </style>
+<script>
+    function billingForm(initialType, isEdit) {
+        const defaults = JSON.parse(document.getElementById('gst-defaults').textContent);
+        const items = JSON.parse(document.getElementById('initial-items').textContent);
+        return {
+            payerType: initialType,
+            items: items,
+            manualTotal: {{ payment.total_amount|default:0|stringformat:"s" }},
+            taxType: '{{ payment.tax_type|default:"" }}' || defaults[initialType].type,
+            taxRate: {% if is_edit %}{{ payment.tax_percent|stringformat:"s" }}{% else %}defaults[initialType].rate{% endif %},
+            sac: defaults[initialType].sac,
+            get total() { return this.items.length ? this.items.reduce((s, it) => s + (Number(it.quantity) || 0) * (Number(it.unit_price) || 0), 0) : this.manualTotal; },
+            set total(v) { this.manualTotal = v; },
+            grand() { return this.taxType === 'exclusive' ? this.total * (1 + (Number(this.taxRate) || 0) / 100) : this.total; },
+            applyDefaults(t) { if (isEdit) return; this.taxType = defaults[t].type; this.taxRate = defaults[t].rate; this.sac = defaults[t].sac; },
+        };
+    }
+</script>
 {% endblock %}
