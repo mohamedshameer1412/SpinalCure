@@ -1,0 +1,48 @@
+{% load i18n static %}
+{% comment %}
+  The card widget. Context: c (card_context), filename, share_url (optional).
+  Include once per page; it loads its own CSS/JS (vendored: no CDN needed).
+{% endcomment %}
+<link rel="stylesheet" href="{% static 'css/idcard.css' %}">
+<div data-idc-root
+     data-filename="{{ filename|default:'id-card' }}"
+     data-verify-url="{{ c.verify_url }}"
+     data-share-url="{{ share_url|default:'' }}"
+     data-share-title="{{ c.org }} — {{ c.card_type }}"
+     data-share-text="{{ c.org }}: {{ c.name }} ({{ c.card_type }}). {% translate 'Verify this ID card:' %}"
+     data-msg-done="{% translate 'Download ready' %}" data-msg-failed="{% translate 'Could not create the file. Try again, or use the server download.' %}"
+     data-msg-copied="{% translate 'Link copied to the clipboard' %}" data-msg-copy-prompt="{% translate 'Copy this link' %}">
+    <div class="idc-stage" aria-label="{% translate 'ID card' %}">
+        <div class="idc-scale">
+            <div class="idc-flip" role="button" tabindex="0" aria-pressed="false"
+                 data-label-front="{% translate 'ID card, front side. Press to see the back.' %}"
+                 data-label-back="{% translate 'ID card, back side. Press to see the front.' %}"
+                 aria-label="{% translate 'ID card, front side. Press to see the back.' %}">
+                <div class="idc-inner">
+                    <div class="idc-face">{% include "idcards/_face.html" with side="front" %}</div>
+                    <div class="idc-face idc-back-face">{% include "idcards/_face.html" with side="back" %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Isolated, untransformed copies at exactly 900x560 so exports never capture a half-flipped or scaled card -->
+    <div class="idc-offscreen" aria-hidden="true">
+        <div data-idc-export="front">{% include "idcards/_face.html" with side="front" %}</div>
+        <div data-idc-export="back">{% include "idcards/_face.html" with side="back" %}</div>
+    </div>
+    {% if show_actions|default_if_none:True %}
+    <div class="idc-toolbar" role="toolbar" aria-label="{% translate 'Card actions' %}">
+        <button type="button" data-idc-flip><span aria-hidden="true">⟲</span> {% translate "Flip card" %}</button>
+        <button type="button" data-idc-action="png-front">{% translate "Download front (PNG)" %}</button>
+        <button type="button" data-idc-action="png-back">{% translate "Download back (PNG)" %}</button>
+        <button type="button" data-idc-action="pdf">{% translate "Download PDF" %}</button>
+        <button type="button" data-idc-action="print">{% translate "Print" %}</button>
+        <button type="button" data-idc-action="share">{% translate "Share" %}</button>
+        <button type="button" data-idc-action="whatsapp">WhatsApp</button>
+    </div>
+    <p class="idc-hint">{% translate "Sharing sends only the holder's name, card type and the verification link — never contact details." %}</p>
+    {% endif %}
+</div>
+<script src="{% static 'vendor/html2canvas.min.js' %}"></script>
+<script src="{% static 'vendor/jspdf.umd.min.js' %}"></script>
+<script src="{% static 'js/idcard.js' %}"></script>

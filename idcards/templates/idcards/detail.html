@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ card.display_id }} — SpinalCure{% endblock %}
+{% block page_title %}{% translate "ID card" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'idcard_dashboard' %}" class="text-sm text-gray-500 hover:text-gray-900 no-underline">← {% translate "All cards" %}</a>{% endblock %}
+{% block content %}
+<div class="grid xl:grid-cols-[minmax(0,900px),minmax(280px,1fr)] gap-8" x-data="{ revoke: false, reissue: false }">
+    <div>
+        <form method="get" class="mb-3 flex items-center gap-2 text-sm"><label for="lang" class="text-gray-600">{% translate "Preview language" %}</label>
+            <select id="lang" name="lang" onchange="this.form.submit()" class="no-ts rounded-lg border-gray-200 text-sm">
+                {% for code, name in languages %}<option value="{{ code }}" {% if code == lang %}selected{% endif %}>{% if code == 'en' %}English{% elif code == 'ta' %}தமிழ்{% elif code == 'hi' %}हिन्दी{% else %}العربية{% endif %}</option>{% endfor %}</select></form>
+        {% include "idcards/_card.html" with filename=card.holder.employee_id share_url=share_url %}
+    </div>
+
+    <aside class="space-y-5">
+        <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-3">
+            <div class="flex items-center justify-between"><h2 class="font-semibold">{{ card.holder.user.get_full_name|default:card.holder.user.username }}</h2>
+                <span class="text-xs font-bold uppercase rounded-full px-2.5 py-1 {% if card.effective_status == 'active' %}bg-green-100 text-green-800{% elif card.effective_status == 'deactivated' %}bg-amber-100 text-amber-800{% else %}bg-red-100 text-red-700{% endif %}">{{ c.status_label }}</span></div>
+            <dl class="text-sm grid grid-cols-[auto,1fr] gap-x-4 gap-y-1.5">
+                <dt class="text-gray-500">{% translate "Card ID" %}</dt><dd dir="ltr">{{ card.display_id }}</dd>
+                <dt class="text-gray-500">{% translate "Employee ID" %}</dt><dd dir="ltr">{{ card.holder.employee_id }}</dd>
+                <dt class="text-gray-500">{% translate "Type" %}</dt><dd>{{ card.get_card_type_display }}</dd>
+                <dt class="text-gray-500">{% translate "Issued" %}</dt><dd>{{ card.issued_on|date:"DATE_FORMAT" }}{% if card.issued_by %} · {{ card.issued_by.get_full_name|default:card.issued_by.username }}{% endif %}</dd>
+                {% if card.expires_on %}<dt class="text-gray-500">{% translate "Expires" %}</dt><dd>{{ card.expires_on|date:"DATE_FORMAT" }}</dd>{% endif %}
+                {% if card.revoked_at %}<dt class="text-gray-500">{% translate "Revoked" %}</dt><dd>{{ card.revoked_at|date:"DATETIME_FORMAT" }}{% if card.revoke_reason %} — {{ card.revoke_reason }}{% endif %}</dd>{% endif %}
+            </dl>
+            {% if card.effective_status == 'inactive' %}<p class="text-sm rounded-xl bg-gray-50 text-gray-700 p-3">{% translate "The holder's account is disabled or their employment is not active, so this card does not verify." %}</p>{% endif %}
+        </section>
+
+        {% if card.status != 'revoked' %}
+        <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-3">
+            <h2 class="font-semibold">{% translate "Manage" %}</h2>
+            <div class="flex flex-wrap gap-2">
+                {% if card.status == 'active' %}<form method="post" action="{% url 'idcard_action' card.pk %}">{% csrf_token %}<input type="hidden" name="action" value="deactivate"><button class="px-3 py-2 rounded-xl border border-amber-300 text-amber-800 text-sm font-semibold hover:bg-amber-50">{% translate "Deactivate" %}</button></form>
+                {% else %}<form method="post" action="{% url 'idcard_action' card.pk %}">{% csrf_token %}<input type="hidden" name="action" value="reactivate"><button class="px-3 py-2 rounded-xl border border-green-300 text-green-800 text-sm font-semibold hover:bg-green-50">{% translate "Reactivate" %}</button></form>{% endif %}
+                <button type="button" @click="reissue = !reissue; revoke = false" class="px-3 py-2 rounded-xl border border-gray-300 text-sm font-semibold hover:bg-gray-50">{% translate "Reissue" %}</button>
+                <button type="button" @click="revoke = !revoke; reissue = false" class="px-3 py-2 rounded-xl border border-red-300 text-red-700 text-sm font-semibold hover:bg-red-50">{% translate "Revoke" %}</button>
+            </div>
+            <form method="post" action="{% url 'idcard_action' card.pk %}" x-show="reissue" x-cloak class="space-y-2">{% csrf_token %}<input type="hidden" name="action" value="reissue">
+                <p class="text-sm text-gray-600">{% translate "Creates a new card ID for the same person and revokes this one. Use it when a card is lost or damaged." %}</p>
+                <label for="rr" class="sr-only">{% translate "Reason" %}</label><input id="rr" name="reason" placeholder="{% translate 'Reason (e.g. lost)' %}" maxlength="300" class="w-full rounded-xl border-gray-200 text-sm">
+                <button class="px-4 py-2 rounded-xl bg-gray-900 text-white text-sm font-semibold">{% translate "Reissue card" %}</button></form>
+            <form method="post" action="{% url 'idcard_action' card.pk %}" x-show="revoke" x-cloak class="space-y-2">{% csrf_token %}<input type="hidden" name="action" value="revoke">
+                <p class="text-sm text-red-700">{% translate "Revocation is permanent. The card stops verifying immediately and the holder is notified." %}</p>
+                <label for="rv" class="sr-only">{% translate "Reason" %}</label><input id="rv" name="reason" placeholder="{% translate 'Reason' %}" maxlength="300" class="w-full rounded-xl border-gray-200 text-sm">
+                <button class="px-4 py-2 rounded-xl bg-red-600 text-white text-sm font-semibold">{% translate "Revoke permanently" %}</button></form>
+        </section>
+        <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-3">
+            <h2 class="font-semibold">{% translate "Public sharing" %}</h2>
+            <p class="text-sm text-gray-600">{% translate "Optional page with a link preview. It shows the front with name, type and status only; contact details are never included." %}</p>
+            {% if card.share_enabled %}
+            <input readonly value="{{ share_url }}" class="w-full rounded-xl border-gray-200 text-xs" dir="ltr" onfocus="this.select()" aria-label="{% translate 'Share link' %}">
+            <div class="flex gap-2">
+                <form method="post" action="{% url 'idcard_action' card.pk %}">{% csrf_token %}<input type="hidden" name="action" value="share_rotate"><button class="px-3 py-2 rounded-xl border border-gray-300 text-sm font-semibold hover:bg-gray-50">{% translate "Replace link" %}</button></form>
+                <form method="post" action="{% url 'idcard_action' card.pk %}">{% csrf_token %}<input type="hidden" name="action" value="share_off"><button class="px-3 py-2 rounded-xl border border-gray-300 text-sm font-semibold hover:bg-gray-50">{% translate "Turn off" %}</button></form>
+            </div>
+            {% else %}<form method="post" action="{% url 'idcard_action' card.pk %}">{% csrf_token %}<input type="hidden" name="action" value="share_on"><button class="px-3 py-2 rounded-xl border border-gray-300 text-sm font-semibold hover:bg-gray-50">{% translate "Turn on sharing" %}</button></form>{% endif %}
+        </section>
+        {% endif %}
+
+        <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+            <h2 class="font-semibold mb-2">{% translate "History" %}</h2>
+            <ul class="text-sm space-y-1.5">{% for h in history %}<li class="flex justify-between gap-2"><a href="{% url 'idcard_detail' h.pk %}" class="no-underline hover:underline {% if h.pk == card.pk %}font-semibold text-green-700{% else %}text-gray-700{% endif %}" dir="ltr">{{ h.display_id }}</a><span class="text-gray-500">{{ h.get_status_display }} · {{ h.issued_on|date:"SHORT_DATE_FORMAT" }}</span></li>{% endfor %}</ul>
+        </section>
+        <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+            <h2 class="font-semibold mb-2">{% translate "Recent verifications" %}</h2>
+            {% for l in logs %}<p class="text-sm text-gray-600 flex justify-between"><span>{{ l.result }}</span><span>{{ l.at|date:"SHORT_DATETIME_FORMAT" }}</span></p>
+            {% empty %}<p class="text-sm text-gray-400">{% translate "This card has not been scanned yet." %}</p>{% endfor %}
+        </section>
+    </aside>
+</div>
+{% endblock %}

@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'payments',
     'analytics',
     'notifications',
+    'idcards',
     'tailwind',
     'theme',
 ]

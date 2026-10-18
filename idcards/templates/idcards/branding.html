@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Card branding" %} — SpinalCure{% endblock %}
+{% block page_title %}{% translate "Card branding" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'idcard_dashboard' %}" class="text-sm text-gray-500 hover:text-gray-900 no-underline">← {% translate "Back" %}</a>{% endblock %}
+{% block content %}
+<div class="grid xl:grid-cols-[minmax(0,420px),minmax(0,900px)] gap-8">
+<form method="post" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4" novalidate>{% csrf_token %}
+    {% if form.errors %}<div role="alert" class="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">{% for f in form %}{% for e in f.errors %}<p>{{ f.label }}: {{ e }}</p>{% endfor %}{% endfor %}</div>{% endif %}
+    {% for f in form %}
+    <div class="{% if f.field.widget.input_type == 'checkbox' %}flex items-center gap-2{% endif %}">
+        {% if f.field.widget.input_type == 'checkbox' %}{{ f }}<label for="{{ f.id_for_label }}" class="text-sm">{{ f.label }}</label>
+        {% else %}<label for="{{ f.id_for_label }}" class="block text-sm font-medium mb-1">{{ f.label }}</label>{{ f }}{% endif %}
+        {% if f.help_text %}<p class="text-xs text-gray-500 mt-1">{{ f.help_text }}</p>{% endif %}
+    </div>{% endfor %}
+    <p class="text-xs text-gray-500">{% translate "The organisation name, logo and address come from Clinic Settings." %}</p>
+    <button class="px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-semibold">{% translate "Save branding" %}</button>
+</form>
+<div>{% if c %}{% include "idcards/_card.html" with show_actions=False filename="preview" %}<p class="mt-4 text-xs text-gray-500">{% translate "Preview uses the first issued card. Save to update it." %}</p>
+    {% else %}<p class="text-sm text-gray-500">{% translate "Issue a card to see a live preview here." %}</p>{% endif %}</div>
+</div>
+{% endblock %}

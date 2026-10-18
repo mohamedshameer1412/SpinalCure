@@ -42,6 +42,10 @@ urlpatterns = [
     path('api/schema/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 ]
 
+from idcards.urls import public_urlpatterns as idcard_public_urls
+
+urlpatterns += idcard_public_urls
+
 urlpatterns += [
     # API Routes
     path('api/', include(api_router.urls)),
@@ -60,6 +64,7 @@ urlpatterns += i18n_patterns(
     path('payments/', include('payments.urls')),
     path('analytics/', include('analytics.urls')),
     path('notifications/', include('notifications.urls')),
+    path('idcards/', include('idcards.urls')),
 )
 
 # Static and Media files

@@ -1,0 +1,30 @@
+{% load i18n %}{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as RTL %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if RTL %}rtl{% else %}ltr{% endif %}">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>{{ name }} — {{ org }}</title>
+<meta name="description" content="{% blocktranslate with t=card_type %}{{ t }} ID card at {{ org }}{% endblocktranslate %}">
+{% if valid %}
+<meta property="og:type" content="profile"><meta property="og:title" content="{{ name }} — {{ org }}">
+<meta property="og:description" content="{% blocktranslate with t=card_type %}Verified {{ t }} ID card{% endblocktranslate %}">
+<meta property="og:image" content="{{ image_url }}"><meta property="og:image:width" content="900"><meta property="og:image:height" content="560">
+<meta property="og:url" content="{{ page_url }}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{{ name }} — {{ org }}">
+<meta name="twitter:description" content="{% blocktranslate with t=card_type %}Verified {{ t }} ID card{% endblocktranslate %}"><meta name="twitter:image" content="{{ image_url }}">
+{% else %}<meta name="robots" content="noindex">{% endif %}
+<style>
+ body{margin:0;background:#f1f5f9;color:#111827;font:16px/1.5 'Noto Sans','Noto Sans Tamil','Noto Sans Devanagari','Noto Sans Arabic',system-ui,sans-serif}
+ main{max-width:640px;margin:0 auto;padding:24px 16px;text-align:center}
+ img{max-width:100%;height:auto;border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+ a.btn{display:inline-block;margin-top:18px;background:#16a34a;color:#fff;text-decoration:none;font-weight:600;padding:12px 20px;border-radius:12px}
+ .bad{background:#fef2f2;color:#991b1b;border:1px solid #fecaca;padding:16px;border-radius:14px}
+</style></head>
+<body><main>
+ <h1 style="font-size:22px;margin:0 0 4px">{{ name }}</h1>
+ <p style="margin:0 0 18px;color:#6b7280">{{ card_type }} · {{ org }}</p>
+ {% if valid %}<img src="{{ image_url }}" alt="{% blocktranslate %}ID card of {{ name }}{% endblocktranslate %}" width="900" height="560">
+ <p><a class="btn" href="{{ verify_url }}">{% translate "Verify this card" %}</a></p>
+ {% else %}<div class="bad" role="alert">{% translate "This card is no longer valid." %}</div>{% endif %}
+</main></body></html>

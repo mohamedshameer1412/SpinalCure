@@ -1,0 +1,43 @@
+{% comment %}One card face. Context: c (idcards.ui.card_context), side ('front' or 'back').{% endcomment %}
+<div class="idc-art" dir="{% if c.rtl %}rtl{% else %}ltr{% endif %}" lang="{{ c.lang }}"
+     style="--idc-primary: {{ c.brand.primary_color }}; --idc-accent: {{ c.brand.accent_color }};">
+{% if side == 'front' %}
+    <div class="idc-band">
+        <div class="idc-logo">{% if c.logo_url %}<img src="{{ c.logo_url }}" alt="">{% else %}{{ c.org|slice:":1" }}{% endif %}</div>
+        <div class="idc-org"><b><bdi>{{ c.org }}</bdi></b>{% if c.tagline %}<span><bdi>{{ c.tagline }}</bdi></span>{% endif %}</div>
+        <div class="idc-pill">{{ c.card_type }}</div>
+    </div>
+    <div class="idc-photo">{% if c.photo_url %}<img src="{{ c.photo_url }}" alt="">{% else %}{{ c.name|slice:":1"|upper }}{% endif %}</div>
+    <div class="idc-id">
+        <div class="idc-name"><bdi>{{ c.name }}</bdi></div>
+        <div class="idc-badge idc-num">{{ c.employee_id }}</div>
+        <div class="idc-desig"><bdi>{{ c.designation }}</bdi></div>
+        {% if c.department %}<div class="idc-line"><i>{{ c.labels.department }}:</i> <bdi>{{ c.department }}</bdi></div>{% endif %}
+        {% if c.phone %}<div class="idc-line"><i>{{ c.labels.phone }}:</i> <span class="idc-num">{{ c.phone }}</span></div>{% endif %}
+        {% if c.email %}<div class="idc-line"><i>{{ c.labels.email }}:</i> <span class="idc-num">{{ c.email }}</span></div>{% endif %}
+    </div>
+    <div class="idc-qr"><img src="{{ c.qr_front }}" alt=""><div>{{ c.labels.scan }}</div></div>
+    <div class="idc-foot">
+        <span class="idc-status s-{{ c.status }}">{{ c.status_label }}</span>
+        <span><i>{{ c.labels.joined }}:</i> <bdi>{{ c.joined }}</bdi></span>
+        {% if c.expires %}<span><i>{{ c.labels.valid_until }}:</i> <bdi>{{ c.expires }}</bdi></span>{% endif %}
+    </div>
+{% else %}
+    <div class="idc-band slim"><div class="idc-org"><b style="font-size:28px">{{ c.org }}</b></div></div>
+    <div class="idc-back-body">
+        <h4>{{ c.labels.about }}</h4>
+        <p><bdi>{{ c.address|linebreaksbr }}</bdi></p>
+        {% if c.org_phone %}<p><span class="idc-num">{{ c.org_phone }}</span></p>{% endif %}
+        {% if c.org_email %}<p><span class="idc-num">{{ c.org_email }}</span></p>{% endif %}
+        {% if c.website %}<p><span class="idc-num">{{ c.website }}</span></p>{% endif %}
+        {% if c.emergency %}<div class="gap"></div><h4>{{ c.labels.emergency }}</h4>
+            <p><bdi>{{ c.emergency.0 }}</bdi>{% if c.emergency.1 %} · <span class="idc-num">{{ c.emergency.1 }}</span>{% endif %}</p>{% endif %}
+        {% if c.blood %}<p><i>{{ c.labels.blood }}:</i> <bdi>{{ c.blood }}</bdi></p>{% endif %}
+        {% if c.skills %}<p><i>{{ c.labels.skills }}:</i> <bdi>{{ c.skills }}</bdi></p>{% endif %}
+    </div>
+    <div class="idc-back-ids"><div><i>{{ c.labels.card_id }}:</i> <b class="idc-num">{{ c.card_id }}</b></div>
+        <div class="sm"><i>{{ c.labels.issued }}:</i> <bdi>{{ c.issued }}</bdi>{% if c.expires %} &nbsp;·&nbsp; <i>{{ c.labels.valid_until }}:</i> <bdi>{{ c.expires }}</bdi>{% endif %}</div></div>
+    <div class="idc-qr back"><img src="{{ c.qr_back }}" alt=""><div>{{ c.labels.about }}</div></div>
+    <div class="idc-legal"><bdi>{{ c.footer }}</bdi></div>
+{% endif %}
+</div>

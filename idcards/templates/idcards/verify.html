@@ -1,0 +1,47 @@
+{% load i18n %}{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as RTL %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if RTL %}rtl{% else %}ltr{% endif %}">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive"><meta name="referrer" content="no-referrer">
+<title>{% translate "ID card verification" %}</title>
+<style>
+ body{margin:0;background:#f1f5f9;color:#111827;font:16px/1.5 'Noto Sans','Noto Sans Tamil','Noto Sans Devanagari','Noto Sans Arabic',system-ui,sans-serif}
+ main{max-width:440px;margin:0 auto;padding:24px 16px}
+ .card{background:#fff;border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.08);overflow:hidden}
+ .banner{padding:20px 22px;color:#fff;font-weight:700;font-size:20px;display:flex;align-items:center;gap:12px}
+ .ok{background:#16a34a}.bad{background:#dc2626}.warn{background:#d97706}.grey{background:#6b7280}
+ .body{padding:22px}
+ .photo{width:96px;height:120px;object-fit:cover;border-radius:12px;background:#ecfdf5;float:inline-end;margin-inline-start:16px}
+ h1{font-size:22px;margin:0 0 4px}.muted{color:#6b7280;font-size:14px}
+ dl{margin:18px 0 0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px;clear:both}
+ dt{color:#6b7280}.num{unicode-bidi:isolate;direction:ltr;display:inline-block}
+ .note{margin-top:18px;font-size:13px;color:#6b7280}
+</style>
+</head>
+<body><main>
+{% if not found %}
+  <div class="card"><div class="banner grey"><span aria-hidden="true">?</span> {% translate "Card not recognised" %}</div>
+  <div class="body"><p>{% translate "We could not verify this card. Check that you scanned the QR code printed on it. If you still doubt it, treat the card as invalid and contact the organisation." %}</p></div></div>
+{% else %}
+  <div class="card" role="region" aria-live="polite">
+    <div class="banner {% if valid %}ok{% elif status == 'deactivated' %}warn{% elif status == 'inactive' %}grey{% else %}bad{% endif %}">
+      <span aria-hidden="true">{% if valid %}✓{% else %}✕{% endif %}</span>
+      {% if valid %}{% translate "Valid ID card" %}{% elif status == 'revoked' %}{% translate "This card has been revoked" %}{% elif status == 'expired' %}{% translate "This card has expired" %}{% elif status == 'deactivated' %}{% translate "This card is deactivated" %}{% else %}{% translate "This card is no longer valid" %}{% endif %}
+    </div>
+    <div class="body">
+      {% if photo_url %}<img class="photo" src="{{ photo_url }}" alt="">{% endif %}
+      <h1>{{ name }}</h1>
+      <div class="muted">{{ card_type }} · {{ clinic.name|default:"SpinalCure" }}</div>
+      <dl>
+        <dt>{% translate "Organisation" %}</dt><dd>{{ clinic.name|default:"SpinalCure" }}</dd>
+        <dt>{% translate "Card type" %}</dt><dd>{{ card_type }}</dd>
+        <dt>{% translate "Issued" %}</dt><dd>{{ issued|date:"DATE_FORMAT" }}</dd>
+        {% if expires %}<dt>{% translate "Valid until" %}</dt><dd>{{ expires|date:"DATE_FORMAT" }}</dd>{% endif %}
+        <dt>{% translate "Card ends with" %}</dt><dd><span class="num">{{ tail }}</span></dd>
+      </dl>
+      <p class="note">{% if valid %}{% translate "Compare the name and photo with the person presenting the card." %}{% else %}{% translate "Do not accept this card as identification." %}{% endif %}</p>
+    </div>
+  </div>
+{% endif %}
+</main></body></html>

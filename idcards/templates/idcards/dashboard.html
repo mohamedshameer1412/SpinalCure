@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "ID cards" %} — SpinalCure{% endblock %}
+{% block page_title %}{% translate "ID cards" %}{% endblock %}
+{% block header_actions %}
+<a href="{% url 'idcard_branding' %}" class="text-sm font-semibold px-3 py-2 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 no-underline text-gray-700">{% translate "Branding" %}</a>
+<a href="{% url 'idcard_issue' %}" class="text-sm font-semibold px-3 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white no-underline"><i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Issue card" %}</a>
+{% endblock %}
+{% block content %}
+<div class="flex flex-wrap gap-2 mb-4">
+    <a href="?" class="px-3 py-1.5 rounded-lg text-sm font-semibold no-underline {% if not status %}bg-green-600 text-white{% else %}bg-white border border-gray-200 text-gray-600{% endif %}">{% translate "All" %}</a>
+    {% for s in statuses %}<a href="?status={{ s }}{% if q %}&q={{ q|urlencode }}{% endif %}" class="px-3 py-1.5 rounded-lg text-sm font-semibold no-underline capitalize {% if status == s %}bg-green-600 text-white{% else %}bg-white border border-gray-200 text-gray-600{% endif %}">{% if s == 'none' %}{% translate "No card" %}{% else %}{{ s }}{% endif %}
+        <span class="ms-1 text-xs opacity-70">{% for k, v in counts.items %}{% if k == s %}{{ v }}{% endif %}{% endfor %}</span></a>{% endfor %}
+</div>
+<form method="get" class="mb-4 flex flex-wrap gap-2">
+    <input type="hidden" name="status" value="{{ status }}">
+    <label class="sr-only" for="q">{% translate "Search" %}</label>
+    <input id="q" type="search" name="q" value="{{ q }}" placeholder="{% translate 'Search name, ID, designation…' %}" class="rounded-xl border-gray-200 text-sm w-64">
+    <label class="sr-only" for="type">{% translate "Type" %}</label>
+    <select id="type" name="type" class="no-ts rounded-xl border-gray-200 text-sm"><option value="">{% translate "Owners and staff" %}</option><option value="owner" {% if ctype == 'owner' %}selected{% endif %}>{% translate "Owners" %}</option><option value="staff" {% if ctype == 'staff' %}selected{% endif %}>{% translate "Staff" %}</option></select>
+    <button class="px-4 rounded-xl bg-white border border-gray-200 text-sm font-semibold">{% translate "Filter" %}</button>
+</form>
+<div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-x-auto">
+    <table class="w-full text-sm">
+        <caption class="sr-only">{% translate "People and their ID cards" %}</caption>
+        <thead><tr class="text-xs uppercase tracking-wider text-gray-500 border-b border-gray-100">
+            <th scope="col" class="px-4 py-3 text-start">{% translate "Person" %}</th><th scope="col" class="px-4 py-3 text-start">{% translate "Employee ID" %}</th>
+            <th scope="col" class="px-4 py-3 text-start">{% translate "Designation" %}</th><th scope="col" class="px-4 py-3 text-start">{% translate "Card" %}</th>
+            <th scope="col" class="px-4 py-3 text-start">{% translate "Status" %}</th><th scope="col" class="px-4 py-3 text-end">{% translate "Actions" %}</th></tr></thead>
+        <tbody class="divide-y divide-gray-50">
+        {% for r in page %}
+            <tr>
+                <td class="px-4 py-3 font-medium">{{ r.profile.user.get_full_name|default:r.profile.user.username }}</td>
+                <td class="px-4 py-3"><span dir="ltr">{{ r.profile.employee_id }}</span></td>
+                <td class="px-4 py-3 text-gray-600">{{ r.profile.designation }}</td>
+                <td class="px-4 py-3">{% if r.card %}<span dir="ltr" class="text-xs">{{ r.card.display_id }}</span>{% else %}<span class="text-gray-400">—</span>{% endif %}</td>
+                <td class="px-4 py-3"><span class="text-xs font-bold uppercase rounded-full px-2 py-0.5 {% if r.status == 'active' %}bg-green-100 text-green-800{% elif r.status == 'deactivated' %}bg-amber-100 text-amber-800{% elif r.status == 'none' %}bg-gray-100 text-gray-500{% else %}bg-red-100 text-red-700{% endif %}">{% if r.status == 'none' %}{% translate "No card" %}{% else %}{{ r.status }}{% endif %}</span></td>
+                <td class="px-4 py-3 text-end">{% if r.card %}<a class="font-semibold text-green-700 no-underline hover:underline" href="{% url 'idcard_detail' r.card.pk %}">{% translate "Manage" %}</a>{% else %}<a class="font-semibold text-green-700 no-underline hover:underline" href="{% url 'idcard_issue' %}?holder={{ r.profile.pk }}">{% translate "Issue" %}</a>{% endif %}</td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="6" class="px-4 py-12 text-center text-gray-500">{% translate "No people match. Add owners and staff under Staff Management first." %}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% if page.has_other_pages %}
+<nav class="mt-4 flex justify-between text-sm" aria-label="{% translate 'Pagination' %}">
+    {% if page.has_previous %}<a class="px-3 py-2 rounded-lg border bg-white no-underline" href="?page={{ page.previous_page_number }}&q={{ q|urlencode }}&type={{ ctype }}&status={{ status }}">{% translate "Previous" %}</a>{% else %}<span></span>{% endif %}
+    <span class="text-gray-500">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+    {% if page.has_next %}<a class="px-3 py-2 rounded-lg border bg-white no-underline" href="?page={{ page.next_page_number }}&q={{ q|urlencode }}&type={{ ctype }}&status={{ status }}">{% translate "Next" %}</a>{% else %}<span></span>{% endif %}
+</nav>
+{% endif %}
+{% endblock %}
