@@ -1,0 +1,63 @@
+{% load i18n static %}
+<script defer src="{% static 'js/notifications.js' %}"></script>
+<div class="relative" x-data="notifBell({ summaryUrl: '{% url 'notification_summary' %}', markAllUrl: '{% url 'notification_mark_all_read' %}', preferencesUrl: '{% url 'notification_preferences' %}', csrf: '{{ csrf_token }}', unread: {{ notif_unread|default:0 }} })" @keydown.escape.window="open = false">
+    <button type="button" @click="open = !open; if (open) refresh()" @click.away="open = false"
+        class="relative p-2 text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+        aria-haspopup="true" :aria-expanded="open" aria-controls="notif-panel">
+        <i class="bi bi-bell text-xl" aria-hidden="true"></i>
+        <span class="sr-only">{% translate "Notifications" %}</span>
+        <span x-show="unread > 0" x-cloak x-text="unread > 99 ? '99+' : unread"
+            class="absolute -top-0.5 -end-0.5 min-w-[1.1rem] h-[1.1rem] px-1 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center"></span>
+        <span x-show="offline" x-cloak class="absolute bottom-0 end-0 w-2 h-2 rounded-full bg-gray-400" title="{% translate 'Offline' %}"></span>
+    </button>
+    <span class="sr-only" role="status" aria-live="polite" x-text="unread > 0 ? unread + ' {% translate 'unread notifications' %}' : ''"></span>
+    <div id="notif-panel" x-show="open" x-cloak x-transition.opacity
+        class="absolute end-0 top-12 w-[22rem] max-w-[calc(100vw-1.5rem)] bg-white border border-gray-100 rounded-xl shadow-xl z-50 overflow-hidden"
+        role="dialog" aria-label="{% translate 'Notifications' %}">
+        <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+            <p class="text-sm font-semibold text-gray-900">{% translate "Notifications" %}</p>
+            <button type="button" @click="markAll()" x-show="unread > 0" class="text-xs font-semibold text-green-700 hover:underline">{% translate "Mark all as read" %}</button>
+        </div>
+        <div x-show="offline" x-cloak class="px-4 py-2 text-xs bg-gray-50 text-gray-600">{% translate "You are offline. Showing the last loaded notifications." %}</div>
+        <div x-show="failed && !offline" x-cloak class="px-4 py-2 text-xs bg-red-50 text-red-700 flex items-center justify-between">
+            <span>{% translate "Could not load notifications." %}</span>
+            <button type="button" @click="refresh()" class="font-semibold underline">{% translate "Retry" %}</button>
+        </div>
+        <ul class="max-h-96 overflow-y-auto divide-y divide-gray-50">
+            <template x-for="n in items" :key="n.id">
+                <li>
+                    <template x-if="n.open_url">
+                        <a :href="n.open_url" class="flex gap-3 px-4 py-3 hover:bg-gray-50 no-underline" :class="n.read ? '' : 'bg-green-50/40'">
+                            <span class="mt-1.5 w-2 h-2 rounded-full flex-shrink-0" :class="dot(n.level)"></span>
+                            <span class="min-w-0">
+                                <span class="block text-sm text-gray-900" :class="n.read ? '' : 'font-semibold'" x-text="n.title"></span>
+                                <span class="block text-xs text-gray-500 line-clamp-2" x-text="n.body"></span>
+                                <span class="block text-[11px] text-gray-400 mt-0.5" x-text="ago(n.created)"></span>
+                            </span>
+                        </a>
+                    </template>
+                    <template x-if="!n.open_url">
+                        <div class="flex gap-3 px-4 py-3" :class="n.read ? '' : 'bg-green-50/40'">
+                            <span class="mt-1.5 w-2 h-2 rounded-full flex-shrink-0" :class="dot(n.level)"></span>
+                            <span class="min-w-0">
+                                <span class="block text-sm text-gray-900" :class="n.read ? '' : 'font-semibold'" x-text="n.title"></span>
+                                <span class="block text-xs text-gray-500 line-clamp-2" x-text="n.body"></span>
+                                <span class="block text-[11px] text-gray-400 mt-0.5" x-text="ago(n.created)"></span>
+                            </span>
+                        </div>
+                    </template>
+                </li>
+            </template>
+            <li x-show="items.length === 0 && !loading" class="px-4 py-10 text-center text-sm text-gray-500">
+                <i class="bi bi-bell-slash text-2xl text-gray-300 block mb-2" aria-hidden="true"></i>{% translate "You're all caught up." %}
+            </li>
+        </ul>
+        <div class="flex items-center justify-between px-4 py-2.5 border-t border-gray-100 text-xs">
+            <a href="{% url 'notification_center' %}" class="font-semibold text-green-700 no-underline hover:underline">{% translate "View all" %}</a>
+            <span class="flex items-center gap-3">
+                <button type="button" x-show="permission === 'default'" @click="enableBrowser()" class="text-gray-500 hover:text-gray-800">{% translate "Enable desktop alerts" %}</button>
+                <a href="{% url 'notification_preferences' %}" class="text-gray-500 hover:text-gray-800 no-underline">{% translate "Preferences" %}</a>
+            </span>
+        </div>
+    </div>
+</div>

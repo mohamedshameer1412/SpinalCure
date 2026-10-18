@@ -59,6 +59,7 @@ urlpatterns += i18n_patterns(
     path('courses/', include('courses.urls')),
     path('payments/', include('payments.urls')),
     path('analytics/', include('analytics.urls')),
+    path('notifications/', include('notifications.urls')),
 )
 
 # Static and Media files

@@ -380,6 +380,7 @@
                 {% endif %}
 
                 <div class="flex items-center gap-2">
+                    {% include "notifications/_bell.html" %}
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open" @click.away="open = false"
                             class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
@@ -690,6 +691,15 @@
                 {% endfor %}
             </div>
             {% endif %}
+
+            {% for alert in notif_alerts %}
+            <div role="alert" class="mb-4 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+                <i class="bi bi-exclamation-octagon mt-0.5" aria-hidden="true"></i>
+                <div class="flex-1"><p class="font-semibold">{{ alert.title }}</p><p>{{ alert.body }}</p></div>
+                {% if alert.url %}<a href="{% url 'notification_open' alert.pk %}" class="font-semibold underline">Review</a>{% endif %}
+                <form method="post" action="{% url 'notification_archive' alert.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><button class="text-red-500 hover:text-red-800" aria-label="Dismiss"><i class="bi bi-x-lg"></i></button></form>
+            </div>
+            {% endfor %}
 
             {% block content %}{% endblock %}
         </div>

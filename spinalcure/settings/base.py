@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'courses',
     'payments',
     'analytics',
+    'notifications',
     'tailwind',
     'theme',
 ]
@@ -65,6 +66,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
                 'clinic.context_processors.clinic_info',
+                'notifications.context_processors.notifications',
             ],
             'builtins': [
                 'clinic.templatetags.rbac_tags',
@@ -108,7 +110,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 TIME_ZONE = config('TIME_ZONE', default='Asia/Kolkata')
 USE_I18N = True
 USE_L10N = True
@@ -321,3 +323,9 @@ FERNET_KEYS = [k.strip() for k in config('FERNET_KEYS', default='').split(',') i
 # This key was committed to git and must be treated as compromised. It is accepted ONLY
 # by development/test settings so local setups keep working; staging/production refuse it.
 LEAKED_DEV_FERNET_KEY = '8mrsr84tmG0jitcuXLSLFjCIVYzAFoJrdeXBueV8UE8='
+
+
+# Notifications. SMS/WhatsApp are sent ONLY through a provider you configure (see notifications/channels.py).
+NOTIFY_SMS_BACKEND = config('NOTIFY_SMS_BACKEND', default='')
+NOTIFY_WHATSAPP_BACKEND = config('NOTIFY_WHATSAPP_BACKEND', default='')
+NOTIFY_SEND_ON_COMMIT = True

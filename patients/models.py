@@ -29,6 +29,12 @@ class Patient(models.Model):
         verbose_name=_('Phone'),
         db_index=True
     )
+    preferred_language = models.CharField(
+        max_length=5, default='en', verbose_name=_('Preferred language'),
+        choices=[('en', 'English'), ('ta', 'தமிழ்'), ('hi', 'हिन्दी'), ('ar', 'العربية')])
+    notify_email = models.BooleanField(default=True, verbose_name=_('Email notifications'))
+    notify_sms = models.BooleanField(default=False, verbose_name=_('SMS notifications (opt-in)'))
+    notify_whatsapp = models.BooleanField(default=False, verbose_name=_('WhatsApp notifications (opt-in)'))
     phone_index = models.CharField(
         max_length=64, blank=True, default='', db_index=True, editable=False,
         help_text='Keyed hash of the normalised phone number, used for exact lookups.'

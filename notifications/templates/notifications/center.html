@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Notifications" %} — SpinalCure{% endblock %}
+{% block page_title %}{% translate "Notifications" %}{% endblock %}
+{% block header_actions %}
+<form method="post" action="{% url 'notification_mark_all_read' %}">{% csrf_token %}
+    <button type="submit" class="text-sm font-semibold px-3 py-2 rounded-lg border border-gray-200 bg-white hover:bg-gray-50">{% translate "Mark all as read" %}</button>
+</form>
+<a href="{% url 'notification_preferences' %}" class="text-sm font-semibold px-3 py-2 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 no-underline text-gray-700">{% translate "Preferences" %}</a>
+{% endblock %}
+{% block content %}
+<div class="max-w-3xl">
+    <div class="flex gap-1 border-b border-gray-200 mb-4 overflow-x-auto" role="tablist">
+        {% for t in tabs %}
+        <a href="?tab={{ t }}" hx-get="?tab={{ t }}" hx-target="#notif-list" hx-push-url="true" role="tab" aria-selected="{% if t == tab %}true{% else %}false{% endif %}"
+           class="px-4 py-2.5 text-sm font-semibold whitespace-nowrap no-underline border-b-2 {% if t == tab %}border-green-600 text-green-700{% else %}border-transparent text-gray-500 hover:text-gray-800{% endif %}">
+            {% if t == 'all' %}{% translate "All" %}{% elif t == 'unread' %}{% translate "Unread" %}{% if unread_count %} <span class="ms-1 text-xs bg-red-600 text-white rounded-full px-1.5">{{ unread_count }}</span>{% endif %}{% elif t == 'alerts' %}{% translate "Alerts" %}{% else %}{% translate "Archived" %}{% endif %}
+        </a>
+        {% endfor %}
+    </div>
+    <div id="notif-list">{% include "notifications/_list.html" %}</div>
+</div>
+{% endblock %}
