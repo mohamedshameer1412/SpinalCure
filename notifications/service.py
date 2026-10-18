@@ -88,6 +88,7 @@ def notify(event_key, *, user=None, patient=None, email='', context=None, url=''
         if dedupe_key:
             existing = Notification.objects.filter(dedupe_key=dedupe_key).first()
             if existing:
+                existing.was_created = False          # callers can tell a repeat from a new message
                 return existing
         language = _language(user, patient)
         title, body = render(event_key, context or {}, language)
@@ -108,10 +109,14 @@ def notify(event_key, *, user=None, patient=None, email='', context=None, url=''
                     )
         if getattr(settings, 'NOTIFY_SEND_ON_COMMIT', True):
             transaction.on_commit(lambda: deliver_notification(notification.pk))
+        notification.was_created = True
         return notification
     except IntegrityError:
         # A concurrent request created the same dedupe_key first: that is the desired outcome.
-        return Notification.objects.filter(dedupe_key=dedupe_key).first() if dedupe_key else None
+        existing = Notification.objects.filter(dedupe_key=dedupe_key).first() if dedupe_key else None
+        if existing:
+            existing.was_created = False
+        return existing
     except Exception:
         logger.exception('notify(%s) failed', event_key)
         return None

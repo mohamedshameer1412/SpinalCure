@@ -51,6 +51,9 @@ _EVENTS = [
     EventSpec('event_changed', 'Event details changed', 'patient', 'warning'),
     EventSpec('event_cancelled', 'Event cancelled', 'patient', 'danger'),
     EventSpec('event_reminder', 'Event reminder', 'patient', 'info', default_channels=(IN_APP, EMAIL)),
+    EventSpec('course_registered', 'Course registration confirmed', 'patient', 'success'),
+    EventSpec('course_waitlisted', 'Added to course waitlist', 'patient', 'info'),
+    EventSpec('course_promoted', 'Course place available', 'patient', 'success'),
     EventSpec('admin_alert', 'Administrative alert', 'staff', 'danger', True, (IN_APP, EMAIL)),
 ]
 EVENTS = {e.key: e for e in _EVENTS}

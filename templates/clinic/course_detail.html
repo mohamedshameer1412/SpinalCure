@@ -204,84 +204,9 @@
                         </div>
                         {% endif %}
 
-                        <!-- Gated Feedback Submission -->
-                        <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden">
-                            <div class="absolute top-0 right-0 p-8 opacity-10">
-                                <i class="bi bi-shield-check text-9xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-black mb-2">Alumni Feedback</h3>
-                            <p class="text-slate-400 mb-8 max-w-md">Feedback is restricted to verified students from
-                                past batches to ensure authentic reviews.</p>
-
-                            <div id="feedback-verify-box">
-                                <div id="v-error"
-                                    class="hidden mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-2xl text-red-200 text-sm">
-                                </div>
-                                <div id="v-info"
-                                    class="hidden mb-6 p-4 bg-blue-500/20 border border-blue-500/50 rounded-2xl text-blue-200 text-sm">
-                                </div>
-
-                                <div class="flex flex-col md:flex-row gap-4">
-                                    <input type="text" id="v-identifier"
-                                        class="flex-1 bg-white/10 border border-white/20 rounded-2xl px-6 py-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-                                        placeholder="Phone or Email (Past Registration)">
-                                    <button id="v-btn"
-                                        class="px-8 py-4 bg-green-500 hover:bg-green-600 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-2 whitespace-nowrap">
-                                        Verify Alumni <i class="bi bi-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div id="feedback-submit-box" class="hidden animate-in fade-in slide-in-from-bottom-4">
-                                <div
-                                    class="flex items-center gap-4 mb-8 p-4 bg-white/5 rounded-2xl border border-white/10">
-                                    <div
-                                        class="w-12 h-12 bg-green-500/20 text-green-500 rounded-xl flex items-center justify-center">
-                                        <i class="bi bi-person-check-fill text-xl"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-bold" id="v-alumni-name">Welcome student!</p>
-                                        <p class="text-xs text-slate-400">Authenticated access for feedback.</p>
-                                    </div>
-                                </div>
-
-                                <form id="fb-submit-form" class="space-y-6">
-                                    <input type="hidden" id="v-reg-id">
-                                    <div>
-                                        <label
-                                            class="block text-sm font-bold text-slate-400 mb-3 uppercase tracking-widest">Your
-                                            Rating</label>
-                                        <div class="flex gap-3" id="course-star-rating">
-                                            {% for i in rating_range %}
-                                            <button type="button"
-                                                class="course-star text-4xl text-white/20 transition-all hover:scale-110"
-                                                data-value="{{ i }}">
-                                                <i class="bi bi-star-fill"></i>
-                                            </button>
-                                            {% endfor %}
-                                        </div>
-                                        <input type="hidden" id="fb-rating-val">
-                                    </div>
-                                    <div>
-                                        <label
-                                            class="block text-sm font-bold text-slate-400 mb-3 uppercase tracking-widest">Share
-                                            Your Experience</label>
-                                        <textarea id="fb-comment" rows="4"
-                                            class="w-full bg-white/10 border border-white/20 rounded-2xl px-6 py-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
-                                            placeholder="Tell potential students about the course, teaching, and outcomes..."></textarea>
-                                    </div>
-                                    <div id="fb-error"
-                                        class="hidden p-4 bg-red-500/20 border border-red-500/50 rounded-2xl text-red-200 text-sm">
-                                    </div>
-                                    <div id="fb-success"
-                                        class="hidden p-4 bg-green-500/20 border border-green-500/50 rounded-2xl text-green-200 text-sm">
-                                    </div>
-                                    <button type="submit" id="fb-submit-btn"
-                                        class="w-full py-5 bg-green-500 hover:bg-green-600 text-white font-black rounded-2xl shadow-xl shadow-green-500/20 transition-all flex items-center justify-center gap-2 uppercase tracking-widest">
-                                        Post Alumni Review <i class="bi bi-send-fill"></i>
-                                    </button>
-                                </form>
-                            </div>
+                        <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white">
+                            <h3 class="text-2xl font-black mb-2">Alumni feedback</h3>
+                            <p class="text-slate-400 max-w-md">Reviews come only from registered students. After your batch ends, open the personal link from your registration email to leave a review.</p>
                         </div>
                     </div>
 
@@ -480,6 +405,11 @@
                     const data = await res.json();
                     if (data.status === 'success') {
                         suc.textContent = data.message;
+                        if (data.manage_url) {
+                            const a = document.createElement('a'); a.href = data.manage_url; a.textContent = data.manage_url;
+                            a.className = 'block mt-2 underline break-all';
+                            suc.appendChild(document.createTextNode(' Save your personal link: ')); suc.appendChild(a);
+                        }
                         suc.classList.remove('hidden');
                         regForm.reset();
                         btn.classList.add('bg-green-500');
@@ -498,126 +428,6 @@
             });
         }
 
-        // ── Alumni Feedback Verification ────────────────────────────────────
-        const vBtn = document.getElementById('v-btn');
-        if (vBtn) {
-            vBtn.addEventListener('click', async function () {
-                const iden = document.getElementById('v-identifier').value.trim();
-                const err = document.getElementById('v-error');
-                const info = document.getElementById('v-info');
-
-                err.classList.add('hidden');
-                info.classList.add('hidden');
-
-                if (!iden) {
-                    err.textContent = 'Please enter your phone or email.';
-                    err.classList.remove('hidden');
-                    return;
-                }
-
-                vBtn.disabled = true;
-                vBtn.innerHTML = '<i class="bi bi-shield-shaded animate-pulse"></i> Verifying...';
-
-                try {
-                    const res = await fetch("{% url 'course_verify_registration_ajax' pk=course.id %}", {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
-                        body: JSON.stringify({ identifier: iden })
-                    });
-                    const data = await res.json();
-                    if (data.status === 'verified') {
-                        document.getElementById('feedback-verify-box').classList.add('hidden');
-                        document.getElementById('feedback-submit-box').classList.remove('hidden');
-                        document.getElementById('v-alumni-name').textContent = `Verified: ${data.name}`;
-                        document.getElementById('v-reg-id').value = data.registration_id;
-                    } else {
-                        err.textContent = data.message;
-                        err.classList.remove('hidden');
-                        vBtn.disabled = false;
-                        vBtn.innerHTML = 'Verify Alumni <i class="bi bi-arrow-right"></i>';
-                    }
-                } catch {
-                    err.textContent = 'Verification error.';
-                    err.classList.remove('hidden');
-                    vBtn.disabled = false;
-                }
-            });
-        }
-
-        // ── Star Rating Logic ────────────────────────────────────────────────
-        const stars = document.querySelectorAll('.course-star');
-        let currentRating = 0;
-        stars.forEach(s => {
-            s.addEventListener('mouseover', () => fillStars(s.dataset.value));
-            s.addEventListener('mouseout', () => fillStars(currentRating));
-            s.addEventListener('click', () => {
-                currentRating = s.dataset.value;
-                document.getElementById('fb-rating-val').value = currentRating;
-                fillStars(currentRating);
-            });
-        });
-        function fillStars(v) {
-            stars.forEach(s => {
-                if (parseInt(s.dataset.value) <= parseInt(v)) {
-                    s.classList.remove('text-white/20');
-                    s.classList.add('text-amber-400');
-                } else {
-                    s.classList.add('text-white/20');
-                    s.classList.remove('text-amber-400');
-                }
-            });
-        }
-
-        // ── Feedback Submission ──────────────────────────────────────────────
-        const fbForm = document.getElementById('fb-submit-form');
-        if (fbForm) {
-            fbForm.addEventListener('submit', async function (e) {
-                e.preventDefault();
-                const btn = document.getElementById('fb-submit-btn');
-                const err = document.getElementById('fb-error');
-                const suc = document.getElementById('fb-success');
-
-                err.classList.add('hidden');
-                suc.classList.add('hidden');
-
-                const rating = document.getElementById('fb-rating-val').value;
-                const regId = document.getElementById('v-reg-id').value;
-                const comment = document.getElementById('fb-comment').value;
-
-                if (!rating) {
-                    err.textContent = 'Please select a star rating.';
-                    err.classList.remove('hidden');
-                    return;
-                }
-
-                btn.disabled = true;
-                btn.innerHTML = 'Submitting Feedback...';
-
-                try {
-                    const res = await fetch("{% url 'course_feedback_ajax' pk=course.id %}", {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
-                        body: JSON.stringify({ registration_id: regId, rating, comment })
-                    });
-                    const data = await res.json();
-                    if (data.status === 'success') {
-                        suc.textContent = data.message;
-                        suc.classList.remove('hidden');
-                        fbForm.style.display = 'none';
-                        document.getElementById('v-alumni-name').textContent = 'Feedback Posted Successfully!';
-                    } else {
-                        err.textContent = data.message;
-                        err.classList.remove('hidden');
-                        btn.disabled = false;
-                        btn.innerHTML = 'Post Alumni Review <i class="bi bi-send-fill"></i>';
-                    }
-                } catch {
-                    err.textContent = 'Submission error.';
-                    err.classList.remove('hidden');
-                    btn.disabled = false;
-                }
-            });
-        }
     </script>
 </body>
 

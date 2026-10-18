@@ -10,7 +10,7 @@ from .views import (event_list_view, event_create_view, event_edit_view, event_d
                     export_event_registrations_excel, export_event_registrations_csv,
                     export_event_registrations_pdf, export_event_registrations_copy,
                     export_event_registrations_print,
-                    toggle_event_feedback, toggle_feedback_publish)
+                    toggle_event_feedback, toggle_feedback_publish, event_status, registration_action)
 
 urlpatterns = [
     path('', event_list_view, name='event_list'),
@@ -27,6 +27,8 @@ urlpatterns = [
     path('create/', event_create_view, name='event_create'),
     path('<b64uuid:pk>/edit/', event_edit_view, name='event_edit'),
     path('<b64uuid:pk>/delete/', event_delete_view, name='event_delete'),
+    path('<b64uuid:pk>/status/', event_status, name='event_status'),
+    path('<b64uuid:pk>/registrations/<uuid:reg_pk>/action/', registration_action, name='event_registration_action'),
     path('<b64uuid:pk>/toggle-publish/', toggle_event_publish, name='toggle_event_publish'),
     # Admin - Registrations & Feedback
     path('<b64uuid:pk>/registrations/', event_registrations_view, name='event_registrations'),

@@ -1,10 +1,10 @@
 from django.urls import path
+from events import public_views as pev
+from courses import public_views as pcv
 from .views import (clinic_portfolio_view, practitioner_detail_view,
                     submit_review_ajax, book_appointment_ajax, clinic_about_page_view,
-                    event_detail_view, register_for_event_ajax, submit_event_feedback_ajax,
-                    verify_event_registration_ajax, course_detail_view,
-                    register_for_course_ajax, verify_course_registration_ajax,
-                    submit_course_feedback_ajax, global_search_ajax)
+                    course_detail_view,
+                    global_search_ajax)
 from .admin_views import (clinic_setup_view, practitioners_list,
                           practitioner_create, practitioner_edit, practitioner_delete,
                           testimonials_list, testimonial_create, testimonial_edit,
@@ -25,16 +25,17 @@ urlpatterns = [
     path('ajax/book-appointment/', book_appointment_ajax, name='book_appointment_ajax'),
 
     # ── Public Event Detail ───────────────────────────────────────────
-    path('events/<b64uuid:pk>/', event_detail_view, name='event_detail'),
-    path('events/<b64uuid:pk>/register/', register_for_event_ajax, name='event_register_ajax'),
-    path('events/<b64uuid:pk>/verify-registration/', verify_event_registration_ajax, name='event_verify_registration_ajax'),
-    path('events/<b64uuid:pk>/feedback/', submit_event_feedback_ajax, name='event_feedback_ajax'),
+    path('events/', pev.public_event_list, name='public_event_list'),
+    path('events/<b64uuid:pk>/', pev.public_event_detail, name='event_detail'),
+    path('events/<b64uuid:pk>/register/', pev.register_for_event, name='event_register_ajax'),
+    path('events/<b64uuid:pk>/calendar.ics', pev.event_ics, name='event_ics'),
+    path('events/registration/<str:token>/', pev.registration_manage, name='event_registration_manage'),
+    path('events/registration/<str:token>/calendar.ics', pev.registration_ics, name='registration_ics'),
 
     # ── Public Course Detail ──────────────────────────────────────────
     path('courses/<b64uuid:pk>/', course_detail_view, name='course_detail'),
-    path('courses/<b64uuid:pk>/register/', register_for_course_ajax, name='course_register_ajax'),
-    path('courses/<b64uuid:pk>/verify-registration/', verify_course_registration_ajax, name='course_verify_registration_ajax'),
-    path('courses/<b64uuid:pk>/feedback/', submit_course_feedback_ajax, name='course_feedback_ajax'),
+    path('courses/<b64uuid:pk>/register/', pcv.register_for_course, name='course_register_ajax'),
+    path('courses/registration/<str:token>/', pcv.registration_manage, name='course_registration_manage'),
 
     # ── Public Blog ───────────────────────────────────────────────────
     path('blog/', blog_list_view, name='blog_list'),

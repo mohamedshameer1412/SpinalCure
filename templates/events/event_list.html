@@ -35,7 +35,27 @@
     </a>
 </div>
 
+<div class="mb-5 flex gap-1 border-b border-gray-200 overflow-x-auto" role="tablist" aria-label="Event status">
+    <a href="?" role="tab" aria-selected="{% if not phase %}true{% else %}false{% endif %}" class="px-4 py-2.5 text-sm font-semibold whitespace-nowrap no-underline border-b-2 {% if not phase %}border-green-600 text-green-700{% else %}border-transparent text-gray-500 hover:text-gray-800{% endif %}">All</a>
+    {% for p in phases %}
+    <a href="?phase={{ p }}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" role="tab" aria-selected="{% if p == phase %}true{% else %}false{% endif %}" class="px-4 py-2.5 text-sm font-semibold whitespace-nowrap no-underline border-b-2 capitalize {% if p == phase %}border-green-600 text-green-700{% else %}border-transparent text-gray-500 hover:text-gray-800{% endif %}">{{ p }}</a>
+    {% endfor %}
+</div>
+
 {% include 'events/partials/event_list_partial.html' %}
+
+<!-- Cancel event modal -->
+<div id="cancel-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-gray-900/50" role="dialog" aria-modal="true" aria-labelledby="cancel-h">
+    <form method="post" id="cancel-form" class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 space-y-4">{% csrf_token %}
+        <input type="hidden" name="action" value="cancel">
+        <h3 id="cancel-h" class="text-lg font-bold text-gray-900">Cancel <span id="cancel-title"></span>?</h3>
+        <p class="text-sm text-gray-600">Everyone who is registered or waitlisted will be emailed. This cannot be undone.</p>
+        <label for="cancel-reason" class="block text-sm font-medium">Reason shown to attendees (optional)</label>
+        <input id="cancel-reason" name="reason" maxlength="300" class="w-full rounded-xl border-gray-200 text-sm">
+        <div class="flex justify-end gap-2"><button type="button" onclick="document.getElementById('cancel-modal').classList.add('hidden');document.getElementById('cancel-modal').classList.remove('flex')" class="px-4 py-2 rounded-xl border border-gray-200 text-sm font-semibold">Keep event</button>
+            <button class="px-4 py-2 rounded-xl bg-red-600 text-white text-sm font-semibold">Cancel event</button></div>
+    </form>
+</div>
 
 <!-- Delete Confirmation Modal -->
 <div id="delete-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog"
@@ -79,6 +99,12 @@
 </div>
 
 <script>
+    function openCancelModal(pk, title) {
+        document.getElementById('cancel-title').textContent = title;
+        document.getElementById('cancel-form').action = `/{{ LANGUAGE_CODE }}/events/${pk}/status/`;
+        const m = document.getElementById('cancel-modal'); m.classList.remove('hidden'); m.classList.add('flex');
+        document.getElementById('cancel-reason').focus();
+    }
     function openDeleteModal(pk, title) {
         document.getElementById('event-title').textContent = title;
         document.getElementById('delete-form').action = `/{{ LANGUAGE_CODE }}/events/${pk}/delete/`;

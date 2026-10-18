@@ -1,634 +1,111 @@
-{% load i18n b64uuid_tags %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ event.title }} — {% if clinic %}
-        {{ clinic.name }}
-        {% else %}SpinalCure{% endif %}</title>
-    <meta name="description" content="{{ event.description|truncatewords:30 }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .star-btn {
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .star-btn:hover,
-        .star-btn.active {
-            color: #f59e0b;
-            transform: scale(1.2);
-        }
-
-        .line-clamp-4 {
-            display: -webkit-box;
-            -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-    </style>
-</head>
-
-<body class="bg-slate-50 text-slate-900">
-
-    <!-- Navbar -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-100/50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="{% url 'clinic_portfolio' %}" class="flex items-center gap-3 no-underline">
-                {% if clinic_logo_url %}
-                <img src="{{ clinic_logo_url }}" alt="{{ clinic_info.name }}"
-                    class="w-10 h-10 rounded-xl object-contain bg-white shadow-sm border border-slate-100 p-0.5 group-hover:scale-110 transition-transform">
-                {% else %}
-                <div
-                    class="w-10 h-10 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center text-white font-bold shadow-sm group-hover:scale-110 transition-transform">
-                    {{ clinic_info.name|default:"S"|slice:":1" }}</div>
-                {% endif %}
-                <span class="font-bold text-slate-900">
-                    {% if clinic %}
-                    {{ clinic.name }}
-                    {% else %}SpinalCure
-                    {% endif %}</span>
-            </a>
-            <a href="{% url 'clinic_portfolio' %}#events"
-                class="flex items-center gap-2 text-sm text-slate-600 hover:text-green-600 transition-colors no-underline">
-                <i class="bi bi-arrow-left"></i> Back to Events
-            </a>
+{% extends "public_base.html" %}
+{% load i18n %}
+{% block title %}{{ event.title }} — {{ clinic.name|default:"SpinalCure" }}{% endblock %}
+{% block description %}{{ event.description|striptags|truncatewords:30 }}{% endblock %}
+{% block meta %}
+<meta property="og:title" content="{{ event.title }}">
+<meta property="og:description" content="{{ event.description|striptags|truncatewords:30 }}">
+<meta property="og:type" content="event">
+<meta property="og:url" content="{{ og_url }}">
+{% if event.image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ event.image.url }}">{% endif %}
+{% endblock %}
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-8 grid lg:grid-cols-3 gap-8"
+     x-data="eventPage({ start: '{{ start_iso }}', end: '{{ event.ends_at.isoformat }}', status: '{{ event.status }}', url: '{% url 'event_register_ajax' event.pk %}', csrf: '{{ csrf_token }}' })">
+    <article class="lg:col-span-2">
+        {% if event.image %}<img src="{{ event.image.url }}" alt="" class="w-full h-56 sm:h-72 object-cover rounded-2xl mb-6">{% endif %}
+        <div class="flex flex-wrap gap-2 text-xs mb-3">
+            <span class="rounded-full bg-green-100 text-green-800 px-2.5 py-1 font-semibold">{{ event.get_event_type_display }}</span>
+            <span class="rounded-full bg-gray-100 px-2.5 py-1">{% if event.is_online %}{% translate "Online" %}{% else %}{% translate "In person" %}{% endif %}</span>
+            {% if event.phase == 'live' %}<span class="rounded-full bg-red-100 text-red-700 px-2.5 py-1 font-semibold">{% translate "Live now" %}</span>{% endif %}
+            {% if event.phase == 'completed' %}<span class="rounded-full bg-gray-200 px-2.5 py-1">{% translate "Completed" %}</span>{% endif %}
+            {% if event.status == 'cancelled' %}<span class="rounded-full bg-red-100 text-red-700 px-2.5 py-1 font-semibold">{% translate "Cancelled" %}</span>{% endif %}
         </div>
-    </nav>
+        <h1 class="text-3xl font-bold leading-tight">{{ event.title }}</h1>
+        {% if event.presenter %}<p class="mt-1 text-gray-600">{% blocktranslate with name=event.presenter %}Presented by {{ name }}{% endblocktranslate %}</p>{% endif %}
+        {% if event.status == 'cancelled' %}
+        <div role="alert" class="mt-5 rounded-xl bg-red-50 border border-red-200 text-red-800 p-4 text-sm"><strong>{% translate "This event was cancelled." %}</strong>{% if event.cancel_reason %} {{ event.cancel_reason }}{% endif %}</div>
+        {% endif %}
 
-    <main class="pt-20">
+        <div x-show="state === 'before'" x-cloak class="mt-5 rounded-xl bg-green-50 border border-green-100 p-4" aria-live="off">
+            <p class="text-xs uppercase tracking-wide text-green-700 font-semibold">{% translate "Starts in" %}</p>
+            <p class="text-2xl font-bold tabular-nums text-green-900"><span x-text="parts.d"></span><span class="text-sm font-medium"> {% translate "d" %} </span><span x-text="parts.h"></span><span class="text-sm font-medium"> {% translate "h" %} </span><span x-text="parts.m"></span><span class="text-sm font-medium"> {% translate "m" %}</span></p>
+        </div>
 
-        <!-- Hero Section -->
-        <section class="relative min-h-[60vh] flex items-end overflow-hidden">
-            {% if event.image %}
-            <div class="absolute inset-0">
-                <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
-            </div>
+        <dl class="mt-6 grid sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
+            <div><dt class="text-gray-500">{% translate "When" %}</dt>
+                <dd class="font-medium">{{ event.starts_at|date:"DATE_FORMAT" }}<br><span class="ltr-isolate">{{ event.starts_at|time:"H:i" }}–{{ event.ends_at|time:"H:i" }}</span> <span class="text-gray-500 font-normal">{{ event.timezone }} · {{ event.duration_minutes }} {% translate "min" %}</span></dd></div>
+            <div><dt class="text-gray-500">{% translate "Where" %}</dt>
+                <dd class="font-medium">{% if event.is_online %}{% translate "Online — joining details are sent to registered attendees" %}{% else %}{{ event.venue }}{% endif %}</dd></div>
+            <div><dt class="text-gray-500">{% translate "Language" %}</dt><dd class="font-medium">{{ event.get_language_display }}</dd></div>
+            <div><dt class="text-gray-500">{% translate "Fee" %}</dt><dd class="font-medium">{% if event.fees > 0 %}₹{{ event.fees|floatformat:"-2" }}{% else %}{% translate "Free" %}{% endif %}</dd></div>
+            {% if event.registration_deadline %}<div><dt class="text-gray-500">{% translate "Register by" %}</dt><dd class="font-medium">{{ event.registration_deadline|date:"DATETIME_FORMAT" }}</dd></div>{% endif %}
+            {% if event.seats_left is not None %}<div><dt class="text-gray-500">{% translate "Places" %}</dt><dd class="font-medium">{% if event.is_full %}{% translate "Full" %}{% else %}{% blocktranslate with n=event.seats_left %}{{ n }} left{% endblocktranslate %}{% endif %}</dd></div>{% endif %}
+        </dl>
+        <div class="prose max-w-none mt-6 text-gray-700 whitespace-pre-line">{{ event.description }}</div>
+        <p class="mt-6"><a href="{{ ics_url }}" class="inline-flex items-center gap-2 text-sm font-semibold text-green-700 no-underline hover:underline"><i class="bi bi-calendar-plus" aria-hidden="true"></i>{% translate "Add to calendar" %}</a></p>
+
+        {% if feedbacks %}
+        <section class="mt-10" aria-labelledby="fb-h"><h2 id="fb-h" class="font-semibold text-lg">{% translate "Attendee feedback" %} <span class="text-amber-500 text-base">★ {{ avg_rating }}/5</span></h2>
+            <ul class="mt-3 space-y-3">{% for fb in feedbacks %}<li class="bg-white border border-gray-100 rounded-xl p-4 text-sm"><p class="font-semibold">{{ fb.reviewer_name }} <span class="text-amber-500">{% for i in rating_range %}{% if i <= fb.rating %}★{% else %}☆{% endif %}{% endfor %}</span></p><p class="text-gray-600 mt-1">{{ fb.comment }}</p></li>{% endfor %}</ul></section>
+        {% endif %}
+    </article>
+
+    <aside class="lg:col-span-1">
+        <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 lg:sticky lg:top-6" aria-labelledby="reg-h">
+            <h2 id="reg-h" class="font-semibold text-lg">{% translate "Register" %}</h2>
+            {% if closed_reason %}
+            <p class="mt-3 text-sm rounded-xl bg-gray-50 text-gray-700 p-4" role="status">
+                {% if closed_reason == 'cancelled' %}{% translate "This event was cancelled." %}{% elif closed_reason == 'ended' %}{% translate "This event has ended." %}{% elif closed_reason == 'deadline' %}{% translate "Registration for this event has closed." %}{% else %}{% translate "This event is full." %}{% endif %}</p>
             {% else %}
-            <div class="absolute inset-0 bg-gradient-to-br from-green-900 via-slate-800 to-slate-900"></div>
+            <template x-if="done">
+                <div class="mt-3 rounded-xl p-4 text-sm" :class="outcome === 'waitlisted' ? 'bg-amber-50 text-amber-900' : 'bg-green-50 text-green-900'" role="status">
+                    <p class="font-semibold" x-text="message"></p>
+                    <p class="mt-2">{% translate "Save your personal link — it is how you cancel, see joining details and leave feedback:" %}</p>
+                    <a :href="manageUrl" class="break-all underline font-medium" x-text="manageUrl"></a>
+                </div>
+            </template>
+            <form x-show="!done" @submit.prevent="submit" class="mt-3 space-y-3" novalidate>
+                {% if waitlist_only %}<p class="text-sm rounded-xl bg-amber-50 text-amber-900 p-3">{% translate "This event is full. Join the waitlist and we will email you if a place opens." %}</p>{% endif %}
+                <div><label for="rn" class="block text-sm font-medium mb-1">{% translate "Full name" %}</label><input id="rn" x-model="f.name" required autocomplete="name" class="w-full rounded-xl border-gray-200 text-sm"></div>
+                <div><label for="rp" class="block text-sm font-medium mb-1">{% translate "Phone" %}</label><input id="rp" x-model="f.phone" type="tel" required autocomplete="tel" inputmode="tel" dir="ltr" class="w-full rounded-xl border-gray-200 text-sm"></div>
+                <div><label for="re" class="block text-sm font-medium mb-1">{% translate "Email" %} <span class="text-gray-400 font-normal">({% translate "for confirmation" %})</span></label><input id="re" x-model="f.email" type="email" autocomplete="email" dir="ltr" class="w-full rounded-xl border-gray-200 text-sm"></div>
+                <div class="hidden" aria-hidden="true"><label>Website <input tabindex="-1" autocomplete="off" x-model="f.website"></label></div>
+                <p x-show="error" x-text="error" class="text-sm text-red-700" role="alert"></p>
+                <button :disabled="busy" class="w-full rounded-xl bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-2.5">
+                    <span x-show="!busy">{% if waitlist_only %}{% translate "Join waitlist" %}{% else %}{% translate "Register" %}{% endif %}</span><span x-show="busy" x-cloak>{% translate "Please wait…" %}</span></button>
+            </form>
             {% endif %}
-
-            <div class="relative max-w-7xl mx-auto px-6 py-16 w-full fade-in">
-                <div class="flex flex-wrap gap-3 mb-6">
-                    <span
-                        class="px-4 py-1.5 bg-green-500/90 backdrop-blur text-white rounded-full text-xs font-bold uppercase tracking-wider">
-                        {{ event.get_event_type_display }}
-                    </span>
-                    {% if event.is_upcoming %}
-                    <span
-                        class="px-4 py-1.5 bg-blue-500/90 backdrop-blur text-white rounded-full text-xs font-bold uppercase tracking-wider">
-                        <i class="bi bi-clock"></i> Upcoming
-                    </span>
-                    {% else %}
-                    <span
-                        class="px-4 py-1.5 bg-gray-500/90 backdrop-blur text-white rounded-full text-xs font-bold uppercase tracking-wider">
-                        Completed
-                    </span>
-                    {% endif %}
-                </div>
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">{{ event.title }}</h1>
-                <div class="flex flex-wrap gap-6 text-slate-300 text-sm">
-                    <div class="flex items-center gap-2"><i class="bi bi-calendar3 text-green-400"></i>
-                        {{ event.date|date:"D, d M Y" }}</div>
-                    <div class="flex items-center gap-2"><i class="bi bi-clock text-green-400"></i>
-                        {{ event.start_time|time:"g:i A" }} – {{ event.end_time|time:"g:i A" }}</div>
-                    {% if event.venue %}<div class="flex items-center gap-2"><i
-                            class="bi bi-geo-alt text-green-400"></i> {{ event.venue }}</div>{% endif %}
-                    {% if event.is_online %}<div class="flex items-center gap-2"><i
-                            class="bi bi-camera-video text-green-400"></i> Online Event</div>{% endif %}
-                    <div class="flex items-center gap-2"><i class="bi bi-people text-green-400"></i>
-                        {{ registration_count }} registered</div>
-                    {% if avg_rating > 0 %}<div class="flex items-center gap-2"><i
-                            class="bi bi-star-fill text-amber-400"></i>
-                        {{ avg_rating }}/5</div>{% endif %}
-                </div>
-            </div>
         </section>
-
-        <div class="max-w-7xl mx-auto px-6 py-16">
-            <div class="grid lg:grid-cols-3 gap-10">
-
-                <!-- Main Content -->
-                <div class="lg:col-span-2 space-y-10">
-
-                    <!-- About -->
-                    <div class="glass rounded-3xl p-5 sm:p-8">
-                        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                            <span
-                                class="w-10 h-10 bg-green-100 text-green-600 rounded-xl flex shrink-0 items-center justify-center"><i
-                                    class="bi bi-info-circle"></i></span>
-                            About This Event
-                        </h2>
-                        <p class="text-slate-600 leading-relaxed whitespace-pre-line break-words">{{ event.description }}</p>
-                        {% if event.meeting_link and event.is_online %}
-                        <a href="{{ event.meeting_link }}" target="_blank"
-                            class="mt-6 inline-flex items-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all no-underline">
-                            <i class="bi bi-camera-video-fill"></i> Join Meeting
-                        </a>
-                        {% endif %}
-                    </div>
-
-                    <!-- Feedback Section -->
-                    <div class="glass rounded-3xl p-5 sm:p-8" id="reviews">
-                        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
-                            <span
-                                class="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex shrink-0 items-center justify-center"><i
-                                    class="bi bi-star"></i></span>
-                            Attendee Feedback
-                            <span class="ml-auto text-xs sm:text-sm font-medium text-slate-400">
-                                {{ feedbacks.count }} review{% if feedbacks.count != 1 %}s{% endif %}
-                            </span>
-                        </h2>
-
-                        {% if feedbacks %}
-                        <div class="space-y-6 mb-10">
-                            {% for fb in feedbacks %}
-                            <div class="border border-slate-100 rounded-2xl p-4 sm:p-6 hover:shadow-md transition-all">
-                                <div class="flex items-start justify-between mb-3">
-                                    <div>
-                                        <p class="font-semibold text-slate-900">
-                                            {{ fb.reviewer_name }}</p>
-                                        <p class="text-xs text-slate-400">
-                                            {{ fb.submitted_at|date:"M d, Y" }}</p>
-                                    </div>
-                                    <div class="flex gap-0.5">
-                                        {% for i in rating_range %}
-                                        <i
-                                            class="bi bi-star{% if i <= fb.rating %}-fill text-amber-400{% else %} text-slate-200{% endif %} text-sm sm:text-lg"></i>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                <p class="text-slate-600 text-sm leading-relaxed">{{ fb.comment }}</p>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        {% else %}
-                        <div class="text-center py-12 text-slate-400 mb-8">
-                            <i class="bi bi-chat-square-heart text-5xl mb-4 block"></i>
-                            <p class="text-sm px-2">No feedback yet. Be the first to share your experience!</p>
-                        </div>
-                        {% endif %}
-
-                        <!-- Feedback Form (only if enabled) -->
-                        {% if event.feedback_enabled %}
-                        <div class="border-t border-slate-100 pt-8">
-
-                            <!-- Step 1: Verify Registration -->
-                            <div id="verify-step">
-                                <h3 class="text-lg font-bold text-slate-900 mb-2">Share Your Experience</h3>
-                                <p class="text-sm text-slate-500 mb-6 flex items-start sm:items-center gap-2">
-                                    <i class="bi bi-shield-lock text-green-600 mt-0.5 sm:mt-0"></i>
-                                    Feedback is only for registered attendees of this event.
-                                </p>
-                                <div id="verify-error"
-                                    class="hidden mb-4 p-4 bg-red-50 border border-red-200 text-red-800 rounded-xl text-sm font-medium">
-                                </div>
-                                <div id="verify-info"
-                                    class="hidden mb-4 p-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl text-sm font-medium">
-                                </div>
-                                <div class="flex flex-col sm:flex-row gap-3">
-                                    <input type="text" id="verify-identifier"
-                                        class="flex-1 px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-white text-sm"
-                                        placeholder="Your registered phone or email">
-                                    <button id="verify-btn" type="button"
-                                        class="px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-all text-sm flex items-center justify-center gap-2 whitespace-nowrap">
-                                        <i class="bi bi-check-circle"></i> Verify
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Step 2: Feedback Form (revealed after verification) -->
-                            <div id="feedback-step" class="hidden mt-6">
-                                <div
-                                    class="flex items-center gap-3 mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
-                                    <i class="bi bi-person-check-fill text-green-600 text-lg"></i>
-                                    <div>
-                                        <p class="text-sm font-bold text-green-800" id="verified-name-label">Verified
-                                        </p>
-                                        <p class="text-xs text-green-600">You are registered for this event. Please
-                                            share your experience.</p>
-                                    </div>
-                                </div>
-                                <div id="feedback-success"
-                                    class="hidden mb-4 p-4 bg-green-50 border border-green-200 text-green-800 rounded-xl text-sm font-medium">
-                                </div>
-                                <div id="feedback-error"
-                                    class="hidden mb-4 p-4 bg-red-50 border border-red-200 text-red-800 rounded-xl text-sm font-medium">
-                                </div>
-                                <input type="hidden" id="verified-registration-id" value="">
-                                <form id="feedback-form" class="space-y-5">
-                                    {% csrf_token %}
-                                    <div>
-                                        <label class="block text-sm font-semibold text-slate-700 mb-2">Rating *</label>
-                                        <div class="flex gap-2" id="star-rating">
-                                            {% for i in rating_range %}
-                                            <button type="button" class="star-btn text-3xl text-slate-200"
-                                                data-value="{{ i }}">
-                                                <i class="bi bi-star-fill"></i>
-                                            </button>
-                                            {% endfor %}
-                                        </div>
-                                        <input type="hidden" id="fb-rating" value="">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-semibold text-slate-700 mb-2">Your Comment
-                                            *</label>
-                                        <textarea id="fb-comment" rows="4"
-                                            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-white resize-none"
-                                            placeholder="Share your experience about this event..."></textarea>
-                                    </div>
-                                    <button type="submit" id="fb-btn"
-                                        class="px-8 py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition-all flex items-center gap-2">
-                                        <i class="bi bi-send"></i> Submit Feedback
-                                    </button>
-                                </form>
-                            </div>
-
-                        </div>
-                        {% else %}
-                        <div class="border-t border-slate-100 pt-6 text-center">
-                            <p class="text-slate-400 text-sm"><i class="bi bi-lock"></i> Feedback submissions are
-                                currently closed for this event.</p>
-                        </div>
-                        {% endif %}
-                    </div>
-
-                </div>
-
-                <!-- Sidebar -->
-                <div class="space-y-6 self-start sticky top-24">
-
-                    <!-- Fees & Register -->
-                    <div class="glass rounded-3xl p-8">
-                        <div class="text-center mb-6">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">Event
-                                Fee</span>
-                            <span class="text-5xl font-extrabold text-slate-900">
-                                {% if event.fees > 0 %}₹{{ event.fees }}{% else %}<span
-                                    class="text-green-600">FREE</span>{% endif %}
-                            </span>
-                        </div>
-
-                        {% if event.max_participants %}
-                        <div class="flex justify-between text-sm text-slate-500 mb-2">
-                            <span>Available Spots</span>
-                            <span class="font-semibold text-slate-900">
-                                {{ event.max_participants }}</span>
-                        </div>
-                        {% endif %}
-
-                        <div class="flex justify-between text-sm text-slate-500 mb-6">
-                            <span>Registered</span>
-                            <span class="font-semibold text-slate-900">
-                                {{ registration_count }}</span>
-                        </div>
-
-                        <div id="reg-success"
-                            class="hidden mb-4 p-3 bg-green-50 border border-green-200 text-green-800 rounded-xl text-sm font-medium text-center">
-                        </div>
-                        <div id="reg-error"
-                            class="hidden mb-4 p-3 bg-red-50 border border-red-200 text-red-800 rounded-xl text-sm font-medium text-center">
-                        </div>
-
-                        <form id="register-form" class="space-y-4">
-                            {% csrf_token %}
-                            <div>
-                                <input type="text" id="reg-name" placeholder="Your Full Name *"
-                                    class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-white text-sm">
-                            </div>
-                            <div>
-                                <input type="tel" id="reg-phone" placeholder="Phone Number *"
-                                    class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-white text-sm">
-                            </div>
-                            <div>
-                                <input type="email" id="reg-email" placeholder="Email (optional)"
-                                    class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-white text-sm">
-                            </div>
-                            <div>
-                                <textarea id="reg-notes" rows="2" placeholder="Any notes or questions..."
-                                    class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-white text-sm resize-none"></textarea>
-                            </div>
-                            <button type="submit" id="reg-btn"
-                                class="w-full py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-all text-sm shadow-lg shadow-green-200 flex items-center justify-center gap-2">
-                                <i class="bi bi-person-check"></i> Register for This Event
-                            </button>
-                        </form>
-
-                        <p class="text-xs text-center text-slate-400 mt-4">Free registration. We'll contact you with
-                            details.</p>
-                    </div>
-
-                    <!-- Event Info Card -->
-                    <div class="glass rounded-3xl p-6">
-                        <h3 class="font-bold text-slate-900 mb-4">Event Details</h3>
-                        <ul class="space-y-3 text-sm text-slate-600">
-                            <li class="flex items-start gap-3"><i
-                                    class="bi bi-calendar3 text-green-600 mt-0.5"></i><span>
-                                    {{ event.date|date:"l, d F Y" }}</span></li>
-                            <li class="flex items-start gap-3"><i class="bi bi-clock text-green-600 mt-0.5"></i><span>
-                                    {{ event.start_time|time:"g:i A" }} to {{ event.end_time|time:"g:i A" }}</span></li>
-                            {% if event.venue %}<li class="flex items-start gap-3"><i
-                                    class="bi bi-geo-alt text-green-600 mt-0.5"></i><span>{{ event.venue }}</span></li>
-                            {% endif %}
-                            <li class="flex items-start gap-3"><i class="bi bi-tag text-green-600 mt-0.5"></i><span>
-                                    {{ event.get_event_type_display }}</span></li>
-                            {% if event.max_participants %}<li class="flex items-start gap-3"><i
-                                    class="bi bi-people text-green-600 mt-0.5"></i><span>Capacity:
-                                    {{ event.max_participants }} persons</span></li>{% endif %}
-                        </ul>
-                    </div>
-
-                </div><!-- end sidebar -->
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-white py-20">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
-            <div class="col-span-1 md:col-span-2">
-                <div class="flex items-center gap-2 mb-8">
-                    {% if clinic_logo_url %}
-                    <img src="{{ clinic_logo_url }}" alt="{{ clinic_info.name }}" class="w-10 h-10 rounded-xl object-contain bg-white shadow-sm p-0.5">
-                    {% else %}
-                    <div
-                        class="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center text-white font-bold">
-                        {{ clinic_info.name|default:"S"|slice:":1" }}</div>
-                    {% endif %}
-                    <span class="text-2xl font-extrabold tracking-tight">{{ clinic.name|default:"SpinalCure" }}</span>
-                </div>
-                <p class="text-slate-400 max-w-sm leading-relaxed mb-8">
-                    {% if clinic.footer_text %}
-                    {{ clinic.footer_text }}
-                    {% else %}
-                    Expert spinal care and acupuncture treatments in Kerala. We specialize in natural healing and pain
-                    management.
-                    {% endif %}
-                </p>
-                <div class="flex gap-4">
-                    {% if clinic.facebook %}
-                    <a href="{{ clinic.facebook }}" target="_blank"
-                        class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-green-600 hover:border-green-600 transition-all">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                        </svg>
-                    </a>
-                    {% endif %}
-                    {% if clinic.twitter %}
-                    <a href="{{ clinic.twitter }}" target="_blank"
-                        class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-green-600 hover:border-green-600 transition-all">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-                        </svg>
-                    </a>
-                    {% endif %}
-                    {% if clinic.instagram %}
-                    <a href="{{ clinic.instagram }}" target="_blank"
-                        class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-green-600 hover:border-green-600 transition-all">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-                        </svg>
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
-            <div>
-                <h5 class="font-bold mb-6">Quick Links</h5>
-                <ul class="space-y-4 text-slate-400 text-sm">
-                    <li><a href="{% url 'clinic_portfolio' %}#about" class="hover:text-white transition-colors">Our
-                            Story</a></li>
-                    <li><a href="{% url 'clinic_portfolio' %}#services"
-                            class="hover:text-white transition-colors">Treatments</a></li>
-                    <li><a href="{% url 'clinic_portfolio' %}#events"
-                            class="hover:text-white transition-colors">Events</a></li>
-                    <li><a href="{% url 'clinic_portfolio' %}#team"
-                            class="hover:text-white transition-colors">Doctors</a></li>
-                    <li><a href="{% url 'clinic_portfolio' %}#appointment"
-                            class="hover:text-white transition-colors">Booking</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5 class="font-bold mb-6">Legal</h5>
-                <ul class="space-y-4 text-slate-400 text-sm">
-                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">GST Compliance</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-6 pt-16 mt-16 border-t border-slate-800 text-center text-slate-500 text-sm">
-            <p>&copy; 2026 {{ clinic.name|default:"SpinalCure" }}. Developed with &hearts; for Kerala Health.</p>
-        </div>
-    </footer>
-
-    <script>
-        const CSRF = document.cookie.split('; ').find(r => r.startsWith('csrftoken='))?.split('=')[1] || '{{ csrf_token }}';
-
-        // ── Star Rating ──────────────────────────────────────────────────────────
-        const stars = document.querySelectorAll('.star-btn');
-        let selectedRating = 0;
-        stars.forEach(star => {
-            star.addEventListener('mouseover', () => highlightStars(star.dataset.value));
-            star.addEventListener('mouseout', () => highlightStars(selectedRating));
-            star.addEventListener('click', () => {
-                selectedRating = parseInt(star.dataset.value);
-                document.getElementById('fb-rating').value = selectedRating;
-                highlightStars(selectedRating);
-            });
-        });
-        function highlightStars(val) {
-            stars.forEach(s => {
-                if (parseInt(s.dataset.value) <= parseInt(val)) {
-                    s.classList.add('active');
-                    s.style.color = '#f59e0b';
-                } else {
-                    s.classList.remove('active');
-                    s.style.color = '#e2e8f0';
-                }
-            });
-        }
-
-        // ── Registration Form ─────────────────────────────────────────────────────
-        const regForm = document.getElementById('register-form');
-        if (regForm) {
-            regForm.addEventListener('submit', async function (e) {
-                e.preventDefault();
-                const btn = document.getElementById('reg-btn');
-                btn.disabled = true;
-                btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Submitting...';
-                const successEl = document.getElementById('reg-success');
-                const errorEl = document.getElementById('reg-error');
-                successEl.classList.add('hidden');
-                errorEl.classList.add('hidden');
-                try {
-                    const res = await fetch("{% url 'event_register_ajax' pk=event.id %}", {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
-                        body: JSON.stringify({
-                            name: document.getElementById('reg-name').value,
-                            phone: document.getElementById('reg-phone').value,
-                            email: document.getElementById('reg-email').value,
-                            notes: document.getElementById('reg-notes').value,
-                        })
-                    });
-                    const data = await res.json();
-                    if (data.status === 'success') {
-                        successEl.textContent = data.message;
-                        successEl.classList.remove('hidden');
-                        regForm.reset();
-                    } else {
-                        errorEl.textContent = data.message;
-                        errorEl.classList.remove('hidden');
-                    }
-                } catch {
-                    errorEl.textContent = 'An error occurred. Please try again.';
-                    errorEl.classList.remove('hidden');
-                } finally {
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="bi bi-person-check"></i> Register for This Event';
-                }
-            });
-        }
-
-        // ── Verify Registration ───────────────────────────────────────────────────
-        const verifyBtn = document.getElementById('verify-btn');
-        if (verifyBtn) {
-            verifyBtn.addEventListener('click', async function () {
-                const identifier = document.getElementById('verify-identifier').value.trim();
-                const errorEl = document.getElementById('verify-error');
-                const infoEl = document.getElementById('verify-info');
-                errorEl.classList.add('hidden');
-                infoEl.classList.add('hidden');
-                if (!identifier) {
-                    errorEl.textContent = 'Please enter your registered phone number or email.';
-                    errorEl.classList.remove('hidden');
-                    return;
-                }
-                verifyBtn.disabled = true;
-                verifyBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Checking...';
-                try {
-                    const res = await fetch("{% url 'event_verify_registration_ajax' pk=event.id %}", {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
-                        body: JSON.stringify({ identifier })
-                    });
-                    const data = await res.json();
-                    if (data.status === 'verified') {
-                        // Show the feedback form
-                        document.getElementById('verify-step').classList.add('hidden');
-                        document.getElementById('feedback-step').classList.remove('hidden');
-                        document.getElementById('verified-name-label').textContent = `✓ Verified: ${data.name}`;
-                        document.getElementById('verified-registration-id').value = data.registration_id;
-                    } else if (data.status === 'already_submitted') {
-                        infoEl.textContent = data.message;
-                        infoEl.classList.remove('hidden');
-                    } else {
-                        errorEl.textContent = data.message;
-                        errorEl.classList.remove('hidden');
-                    }
-                } catch {
-                    errorEl.textContent = 'An error occurred. Please try again.';
-                    errorEl.classList.remove('hidden');
-                } finally {
-                    verifyBtn.disabled = false;
-                    verifyBtn.innerHTML = '<i class="bi bi-check-circle"></i> Verify';
-                }
-            });
-            // Allow Enter key on the identifier input
-            document.getElementById('verify-identifier').addEventListener('keydown', function (e) {
-                if (e.key === 'Enter') { e.preventDefault(); verifyBtn.click(); }
-            });
-        }
-
-        // ── Feedback Form ─────────────────────────────────────────────────────────
-        const fbForm = document.getElementById('feedback-form');
-        if (fbForm) {
-            fbForm.addEventListener('submit', async function (e) {
-                e.preventDefault();
-                const btn = document.getElementById('fb-btn');
-                btn.disabled = true;
-                btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Submitting...';
-                const successEl = document.getElementById('feedback-success');
-                const errorEl = document.getElementById('feedback-error');
-                successEl.classList.add('hidden');
-                errorEl.classList.add('hidden');
-                const rating = document.getElementById('fb-rating').value;
-                const registrationId = document.getElementById('verified-registration-id').value;
-                if (!rating) {
-                    errorEl.textContent = 'Please select a star rating.';
-                    errorEl.classList.remove('hidden');
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="bi bi-send"></i> Submit Feedback';
-                    return;
-                }
-                try {
-                    const res = await fetch("{% url 'event_feedback_ajax' pk=event.id %}", {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
-                        body: JSON.stringify({
-                            registration_id: registrationId,
-                            rating: rating,
-                            comment: document.getElementById('fb-comment').value,
-                        })
-                    });
-                    const data = await res.json();
-                    if (data.status === 'success') {
-                        successEl.textContent = data.message;
-                        successEl.classList.remove('hidden');
-                        fbForm.style.display = 'none';
-                        selectedRating = 0;
-                        highlightStars(0);
-                    } else {
-                        errorEl.textContent = data.message;
-                        errorEl.classList.remove('hidden');
-                    }
-                } catch {
-                    errorEl.textContent = 'An error occurred. Please try again.';
-                    errorEl.classList.remove('hidden');
-                } finally {
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="bi bi-send"></i> Submit Feedback';
-                }
-            });
-        }
-    </script>
-</body>
-
-</html>
+    </aside>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+function eventPage(cfg) {
+    return {
+        f: { name: '', phone: '', email: '', website: '' }, busy: false, error: '', done: false, outcome: '', message: '', manageUrl: '',
+        state: 'before', parts: { d: 0, h: 0, m: 0 },
+        init() { this.tick(); setInterval(() => this.tick(), 30000); },
+        tick() {
+            const now = Date.now(), s = Date.parse(cfg.start), e = Date.parse(cfg.end);
+            this.state = cfg.status === 'cancelled' ? 'cancelled' : now < s ? 'before' : now <= e ? 'live' : 'after';
+            const left = Math.max(0, s - now);
+            this.parts = { d: Math.floor(left / 864e5), h: Math.floor(left % 864e5 / 36e5), m: Math.floor(left % 36e5 / 6e4) };
+        },
+        async submit() {
+            this.error = '';
+            if (this.f.name.trim().length < 2 || !this.f.phone.trim()) { this.error = '{% translate "Please enter your name and phone number." %}'; return; }
+            this.busy = true;
+            try {
+                const r = await fetch(cfg.url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRFToken': cfg.csrf }, body: JSON.stringify(this.f) });
+                const d = await r.json();
+                if (d.status === 'success') { this.done = true; this.outcome = d.outcome; this.message = d.message; this.manageUrl = d.manage_url; }
+                else this.error = d.message || '{% translate "Registration failed. Please try again." %}';
+            } catch (e) { this.error = '{% translate "Could not reach the server. Check your connection and try again." %}'; }
+            this.busy = false;
+        },
+    };
+}
+</script>
+{% endblock %}

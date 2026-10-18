@@ -31,7 +31,7 @@ api_router.register(r'sessions', SessionViewSet)
 api_router.register(r'appointments', AppointmentViewSet)
 api_router.register(r'availability', DoctorAvailabilityViewSet)
 api_router.register(r'payments', PaymentViewSet)
-api_router.register(r'events', EventViewSet)
+api_router.register(r'events', EventViewSet, basename='event')
 
 urlpatterns = [
     # Internationalization

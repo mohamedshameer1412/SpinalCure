@@ -5,40 +5,33 @@
 {% block page_title %}Event Registrations{% endblock %}
 
 {% block content %}
-<div class="mb-6 flex flex-wrap items-center justify-between gap-4">
-    <div class="flex-1">
+<div class="mb-6 flex flex-wrap items-start justify-between gap-4">
+    <div class="flex-1 min-w-0">
         <h2 class="text-xl font-bold text-gray-900">{{ event.title }}</h2>
         <p class="text-sm text-gray-500 mt-1">
-            <i class="bi bi-calendar3 me-1"></i> {{ event.date|date:"D, d M Y" }}
-            &nbsp;·&nbsp;
-            <i class="bi bi-clock me-1"></i> {{ event.start_time|time:"g:i A" }}
-            &nbsp;·&nbsp;
-            <span class="font-semibold text-indigo-700">{{ registrations.paginator.count }} Registration{{ registrations.paginator.count|pluralize }}</span>
+            <i class="bi bi-calendar3 me-1" aria-hidden="true"></i> {{ event.starts_at|date:"D, d M Y" }} · <span dir="ltr">{{ event.starts_at|time:"H:i" }}–{{ event.ends_at|time:"H:i" }}</span> ({{ event.timezone }})
+            · <span class="font-semibold capitalize">{{ event.status }}{% if event.status == 'published' %} / {{ event.phase }}{% endif %}</span>
+        </p>
+        <p class="text-sm mt-2 flex flex-wrap gap-x-4 gap-y-1">
+            <span><strong>{{ counts.confirmed }}</strong>{% if event.max_participants %}/{{ event.max_participants }}{% endif %} confirmed</span>
+            <span><strong>{{ counts.waitlisted }}</strong> waitlisted</span>
+            <span><strong>{{ counts.cancelled }}</strong> cancelled</span>
+            <span><strong>{{ attended }}</strong> attended</span>
         </p>
     </div>
     <div class="flex flex-wrap items-center gap-3">
-        <form method="GET" 
-              hx-get="{% url 'event_registrations' event.id %}"
-              hx-trigger="keyup changed delay:500ms"
-              hx-target="#event-registrations-container"
-              hx-swap="outerHTML"
-              class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <i class="bi bi-search text-gray-400"></i>
-            </div>
-            <input type="text" name="q" value="{{ search_query|default:'' }}"
-                class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-200 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500"
-                placeholder="Search registrations...">
-            <!-- HTMX Indicator -->
-            <div class="htmx-indicator absolute inset-y-0 end-0 flex items-center pe-3">
-                <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-600"></div>
-            </div>
+        <form method="GET" hx-get="{% url 'event_registrations' event.id %}" hx-trigger="keyup changed delay:500ms, change" hx-target="#event-registrations-container" hx-swap="outerHTML" class="flex items-center gap-2">
+            <label class="relative"><span class="sr-only">Search registrations</span>
+                <i class="bi bi-search absolute inset-y-0 start-3 flex items-center text-gray-400 pointer-events-none" style="top:.65rem" aria-hidden="true"></i>
+                <input type="text" name="q" value="{{ search_query|default:'' }}" class="block p-2 ps-10 text-sm border border-gray-200 rounded-lg bg-gray-50" placeholder="Search name, phone, email"></label>
+            <label><span class="sr-only">Status</span>
+                <select name="status" class="no-ts text-sm rounded-lg border-gray-200"><option value="">All</option>
+                    <option value="confirmed" {% if status == 'confirmed' %}selected{% endif %}>Confirmed</option>
+                    <option value="waitlisted" {% if status == 'waitlisted' %}selected{% endif %}>Waitlisted</option>
+                    <option value="cancelled" {% if status == 'cancelled' %}selected{% endif %}>Cancelled</option></select></label>
         </form>
-
         {% include "partials/export_dropdown.html" with excel_url=export_event_registrations_excel_url csv_url=export_event_registrations_csv_url pdf_url=export_event_registrations_pdf_url copy_url=export_event_registrations_copy_url print_url=export_event_registrations_print_url %}
-        <a href="{% url 'event_list' %}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-all">
-            <i class="bi bi-arrow-left"></i> Back to Events
-        </a>
+        <a href="{% url 'event_list' %}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 no-underline"><i class="bi bi-arrow-left" aria-hidden="true"></i> Back to events</a>
     </div>
 </div>
 

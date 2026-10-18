@@ -23,7 +23,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         cfg, now = BookingSettings.get(), timezone.now()
         counts = {'reminders': self.reminders(cfg, now), 'followups': self.followups(cfg, now),
-                  'missed': self.missed(cfg, now)}
+                  'missed': self.missed(cfg, now), 'event_reminders': self.event_reminders(now)}
         self.stdout.write(', '.join(f'{k}={v}' for k, v in counts.items()))
 
     # reminders ---------------------------------------------------------------------------------
@@ -47,8 +47,9 @@ class Command(BaseCommand):
                 if not (rcpt.get('patient') or rcpt.get('email')):
                     continue
                 key = f'appt:{appt.pk}:rem:{offset}'
-                if notify('appointment_reminder', context=sch._ctx(appt), url=sch._manage_path(appt),
-                          dedupe_key=key, **rcpt):
+                n = notify('appointment_reminder', context=sch._ctx(appt), url=sch._manage_path(appt),
+                           dedupe_key=key, **rcpt)
+                if n is not None and getattr(n, 'was_created', False):
                     sent += 1
         return sent
 
@@ -66,8 +67,9 @@ class Command(BaseCommand):
                 patient=session.patient, status__in=('scheduled', 'confirmed'), appointment_date__gte=today).exists()
             if booked:
                 continue
-            if notify('treatment_followup', patient=session.patient, context={'clinic': sch._clinic_name()},
-                      dedupe_key=f'followup:{session.pk}'):
+            n = notify('treatment_followup', patient=session.patient, context={'clinic': sch._clinic_name()},
+                       dedupe_key=f'followup:{session.pk}')
+            if n is not None and getattr(n, 'was_created', False):
                 sent += 1
         return sent
 
@@ -88,8 +90,30 @@ class Command(BaseCommand):
                 except sch.SchedulingError:
                     continue
             else:
-                if notify_staff('appointment_missed_staff', 'appointments.manage', context=sch._ctx(appt),
-                                url=reverse('appointment_calendar'),
-                                dedupe_key=f'appt:{appt.pk}:missed_staff'):
+                made = notify_staff('appointment_missed_staff', 'appointments.manage', context=sch._ctx(appt),
+                                    url=reverse('appointment_calendar'), dedupe_key=f'appt:{appt.pk}:missed_staff')
+                if any(getattr(n, 'was_created', False) for n in made):
                     handled += 1
         return handled
+
+    # events ------------------------------------------------------------------------------------
+    def event_reminders(self, now):
+        from events import service as event_service
+        from events.models import Event
+        sent = 0
+        soon = Event.objects.filter(status='published', date__gte=now.date() - timedelta(days=1),
+                                    date__lte=now.date() + timedelta(days=8))
+        for event in soon:
+            start = event.starts_at
+            if start <= now:
+                continue
+            for offset in event.reminder_offsets:
+                due_at = start - timedelta(minutes=offset)
+                if due_at > now:
+                    continue
+                for reg in event.registrations.filter(status='confirmed').exclude(email=''):
+                    if reg.registered_at > due_at:
+                        continue                      # registered after this reminder's moment
+                    if event_service._notify_reg('event_reminder', reg, key_suffix=f':{offset}'):
+                        sent += 1
+        return sent

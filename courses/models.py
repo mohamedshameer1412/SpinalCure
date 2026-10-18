@@ -1,3 +1,4 @@
+import secrets
 import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -148,7 +149,11 @@ class CourseBatch(models.Model):
 
     @property
     def registration_count(self):
-        return self.registrations.count()
+        return self.registrations.filter(status='confirmed').count()
+
+    @property
+    def is_full(self):
+        return self.max_participants is not None and self.registration_count >= self.max_participants
 
 
 class CourseRegistration(models.Model):
@@ -163,6 +168,12 @@ class CourseRegistration(models.Model):
     email = models.EmailField(blank=True, verbose_name=_('Email'))
     notes = models.TextField(blank=True, verbose_name=_('Notes / Questions'))
     registered_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Registered At'))
+    STATUS_CHOICES = [('confirmed', _('Confirmed')), ('waitlisted', _('Waitlisted')), ('cancelled', _('Cancelled'))]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='confirmed', db_index=True)
+    phone_key = models.CharField(max_length=15, blank=True, db_index=True, editable=False)
+    access_token = models.CharField(max_length=43, unique=True, editable=False, default=secrets.token_urlsafe)
+    cancelled_at = models.DateTimeField(null=True, blank=True)
+    promoted_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         verbose_name = _('Course Registration')

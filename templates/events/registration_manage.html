@@ -1,0 +1,53 @@
+{% extends "public_base.html" %}
+{% load i18n %}
+{% block title %}{{ event.title }} — {% translate "Your registration" %}{% endblock %}
+{% block meta %}<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">{% endblock %}
+{% block content %}
+<div class="max-w-xl mx-auto px-4 py-8 space-y-4">
+    <h1 class="text-xl font-bold">{% translate "Your registration" %}</h1>
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-3">
+        <div class="flex items-start justify-between gap-3"><p class="font-semibold">{{ event.title }}</p>
+            <span class="text-xs font-bold uppercase rounded-full px-2.5 py-1 {% if reg.status == 'confirmed' %}bg-green-100 text-green-800{% elif reg.status == 'waitlisted' %}bg-amber-100 text-amber-800{% else %}bg-red-100 text-red-700{% endif %}">{{ reg.get_status_display }}</span></div>
+        <p class="text-sm text-gray-600">{{ event.starts_at|date:"DATE_FORMAT" }} · <span class="ltr-isolate">{{ event.starts_at|time:"H:i" }}–{{ event.ends_at|time:"H:i" }}</span> ({{ event.timezone }})</p>
+        <p class="text-sm text-gray-600">{{ reg.name }}</p>
+        {% if event.status == 'cancelled' %}<p role="alert" class="rounded-xl bg-red-50 text-red-800 text-sm p-3">{% translate "This event was cancelled." %}{% if event.cancel_reason %} {{ event.cancel_reason }}{% endif %}</p>{% endif %}
+        {% if reg.status == 'waitlisted' %}<p class="rounded-xl bg-amber-50 text-amber-900 text-sm p-3">{% translate "You are on the waitlist. We will email you if a place opens." %}</p>{% endif %}
+        <a href="{{ ics_url }}" class="inline-flex items-center gap-2 text-sm font-semibold text-green-700 no-underline hover:underline"><i class="bi bi-calendar-plus" aria-hidden="true"></i>{% translate "Add to calendar" %}</a>
+    </section>
+
+    {% if join.online and reg.status == 'confirmed' %}
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5" aria-labelledby="join-h">
+        <h2 id="join-h" class="font-semibold mb-2">{% translate "Joining online" %}</h2>
+        {% if join.open %}
+            <a href="{{ join.link }}" target="_blank" rel="noopener noreferrer" class="block text-center rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold py-3 no-underline">{% translate "Join now" %}</a>
+            {% if join.passcode %}<p class="mt-3 text-sm">{% translate "Passcode" %}: <strong class="ltr-isolate">{{ join.passcode }}</strong></p>{% endif %}
+        {% else %}
+            <p class="text-sm text-gray-600">{% blocktranslate with t=join.opens_at|date:"DATETIME_FORMAT" %}The joining link appears here from {{ t }}.{% endblocktranslate %}</p>
+        {% endif %}
+        {% if join.instructions %}<p class="mt-3 text-sm text-gray-600 whitespace-pre-line">{{ join.instructions }}</p>{% endif %}
+    </section>
+    {% endif %}
+
+    {% if can_feedback %}
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5" aria-labelledby="fb-h">
+        <h2 id="fb-h" class="font-semibold mb-3">{% translate "How was it?" %}</h2>
+        <form method="post">{% csrf_token %}<input type="hidden" name="action" value="feedback">
+            <fieldset class="flex gap-2 mb-3"><legend class="sr-only">{% translate "Rating" %}</legend>
+                {% for i in rating_range %}<label class="cursor-pointer"><input type="radio" name="rating" value="{{ i }}" required class="sr-only peer"><span class="block w-10 h-10 rounded-lg border border-gray-200 text-center leading-10 peer-checked:bg-amber-400 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-green-500">{{ i }}</span></label>{% endfor %}</fieldset>
+            <label for="c" class="sr-only">{% translate "Comment" %}</label>
+            <textarea id="c" name="comment" rows="3" maxlength="1000" class="w-full rounded-xl border-gray-200 text-sm" placeholder="{% translate 'Anything you would like to share (optional)' %}"></textarea>
+            <button class="mt-3 w-full rounded-xl bg-green-600 text-white font-semibold py-2.5">{% translate "Send feedback" %}</button></form>
+    </section>
+    {% endif %}
+
+    {% if can_cancel %}
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5" x-data="{ c: false }">
+        <button type="button" x-show="!c" @click="c = true" class="w-full rounded-xl border border-red-200 text-red-700 font-semibold py-2.5 hover:bg-red-50">{% translate "Cancel my registration" %}</button>
+        <form method="post" x-show="c" x-cloak>{% csrf_token %}<input type="hidden" name="action" value="cancel">
+            <p class="text-sm mb-3">{% translate "Your place may be offered to someone on the waitlist." %}</p>
+            <div class="flex gap-2"><button type="button" @click="c = false" class="flex-1 rounded-xl border border-gray-200 py-2.5 font-semibold">{% translate "Keep it" %}</button><button class="flex-1 rounded-xl bg-red-600 text-white py-2.5 font-semibold">{% translate "Yes, cancel" %}</button></div></form>
+    </section>
+    {% endif %}
+    <p class="text-xs text-gray-400 text-center">{% translate "Keep this link private: anyone with it can manage this registration." %}</p>
+</div>
+{% endblock %}

@@ -1,72 +1,62 @@
 <div id="event-registrations-container" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
     {% if registrations %}
     <div class="overflow-x-auto">
-        <table class="w-full text-sm text-left">
+        <table class="w-full text-sm text-start">
+            <caption class="sr-only">Registrations for {{ event.title }}</caption>
             <thead class="bg-gray-50 border-b border-gray-100">
                 <tr>
-                    <th class="px-6 py-4 font-semibold text-gray-700">#</th>
-                    <th class="px-6 py-4 font-semibold text-gray-700">Name</th>
-                    <th class="px-6 py-4 font-semibold text-gray-700">Phone</th>
-                    <th class="px-6 py-4 font-semibold text-gray-700">Email</th>
-                    <th class="px-6 py-4 font-semibold text-gray-700">Notes</th>
-                    <th class="px-6 py-4 font-semibold text-gray-700">Registered At</th>
+                    <th scope="col" class="px-4 py-3 text-start font-semibold text-gray-700">Name</th>
+                    <th scope="col" class="px-4 py-3 text-start font-semibold text-gray-700">Contact</th>
+                    <th scope="col" class="px-4 py-3 text-start font-semibold text-gray-700">Status</th>
+                    <th scope="col" class="px-4 py-3 text-start font-semibold text-gray-700">Registered</th>
+                    <th scope="col" class="px-4 py-3 text-end font-semibold text-gray-700">Actions</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-50">
                 {% for reg in registrations %}
-                <tr class="hover:bg-gray-50 transition-colors">
-                    <td class="px-6 py-4 text-gray-400 font-mono text-xs">
-                        {{ registrations.start_index|add:forloop.counter0 }}</td>
-                    <td class="px-6 py-4">
-                        <p class="font-semibold text-gray-900">{{ reg.name }}</p>
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-3"><p class="font-semibold text-gray-900">{{ reg.name }}</p>{% if reg.notes %}<p class="text-xs text-gray-500 max-w-xs truncate" title="{{ reg.notes }}">{{ reg.notes }}</p>{% endif %}</td>
+                    <td class="px-4 py-3"><a href="tel:{{ reg.phone }}" class="text-indigo-600 hover:underline" dir="ltr">{{ reg.phone }}</a>{% if reg.email %}<br><a href="mailto:{{ reg.email }}" class="text-xs text-gray-500 hover:underline" dir="ltr">{{ reg.email }}</a>{% endif %}</td>
+                    <td class="px-4 py-3">
+                        <span class="text-xs font-bold uppercase rounded-full px-2 py-0.5 {% if reg.status == 'confirmed' %}bg-green-100 text-green-800{% elif reg.status == 'waitlisted' %}bg-amber-100 text-amber-800{% else %}bg-gray-200 text-gray-600{% endif %}">{{ reg.get_status_display }}</span>
+                        {% if reg.attended %}<span class="ms-1 text-xs rounded-full bg-sky-100 text-sky-800 px-2 py-0.5">Attended</span>{% endif %}
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="tel:{{ reg.phone }}" class="text-indigo-600 hover:underline">{{ reg.phone }}</a>
-                    </td>
-                    <td class="px-6 py-4 text-gray-600">
-                        {% if reg.email %}<a href="mailto:{{ reg.email }}" class="text-indigo-600 hover:underline">
-                            {{ reg.email }}</a>{% else %}<span class="text-gray-400">—</span>{% endif %}
-                    </td>
-                    <td class="px-6 py-4 text-gray-500 max-w-xs truncate">{{ reg.notes|default:"—" }}</td>
-                    <td class="px-6 py-4 text-gray-500 whitespace-nowrap">{{ reg.registered_at|date:"d M Y, g:i A" }}
+                    <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ reg.registered_at|date:"d M Y, H:i" }}</td>
+                    <td class="px-4 py-3">
+                        <div class="flex justify-end gap-1 flex-wrap">
+                            {% if reg.status == 'confirmed' %}
+                            <form method="post" action="{% url 'event_registration_action' event.id reg.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                <input type="hidden" name="action" value="{% if reg.attended %}not_attended{% else %}attended{% endif %}">
+                                <button class="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50">{% if reg.attended %}Undo attended{% else %}Mark attended{% endif %}</button></form>
+                            {% elif reg.status == 'waitlisted' %}
+                            <form method="post" action="{% url 'event_registration_action' event.id reg.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><input type="hidden" name="action" value="promote">
+                                <button class="text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-green-50 text-green-700 hover:bg-green-100">Confirm</button></form>
+                            {% endif %}
+                            {% if reg.status != 'cancelled' %}
+                            <form method="post" action="{% url 'event_registration_action' event.id reg.pk %}" onsubmit="return confirm('Cancel this registration?')">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><input type="hidden" name="action" value="cancel">
+                                <button class="text-xs font-semibold px-2.5 py-1.5 rounded-lg text-red-600 hover:bg-red-50">Cancel</button></form>
+                            {% endif %}
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-
-    <!-- Pagination -->
     {% if registrations.has_other_pages %}
-    <div class="flex items-center justify-between p-4 bg-white border-t border-gray-50">
-        <span class="text-sm text-gray-500 font-medium">
-            Showing {{ registrations.start_index }}-{{ registrations.end_index }} of {{ registrations.paginator.count }}
-            registrations
-        </span>
+    <div class="flex items-center justify-between p-4 border-t border-gray-50">
+        <span class="text-sm text-gray-500 font-medium">Showing {{ registrations.start_index }}–{{ registrations.end_index }} of {{ registrations.paginator.count }}</span>
         <div class="inline-flex gap-2">
-            {% if registrations.has_previous %}
-            <button hx-get="?page={{ registrations.previous_page_number }}&q={{ search_query }}"
-                hx-target="#event-registrations-container" hx-swap="outerHTML"
-                class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
-                Previous
-            </button>
-            {% endif %}
-            {% if registrations.has_next %}
-            <button hx-get="?page={{ registrations.next_page_number }}&q={{ search_query }}"
-                hx-target="#event-registrations-container" hx-swap="outerHTML"
-                class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
-                Next
-            </button>
-            {% endif %}
+            {% if registrations.has_previous %}<button hx-get="?page={{ registrations.previous_page_number }}&q={{ search_query|urlencode }}&status={{ status }}" hx-target="#event-registrations-container" hx-swap="outerHTML" class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100">Previous</button>{% endif %}
+            {% if registrations.has_next %}<button hx-get="?page={{ registrations.next_page_number }}&q={{ search_query|urlencode }}&status={{ status }}" hx-target="#event-registrations-container" hx-swap="outerHTML" class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100">Next</button>{% endif %}
         </div>
     </div>
     {% endif %}
-
     {% else %}
     <div class="p-16 text-center">
-        <i class="bi bi-person-x text-5xl text-gray-300 block mb-4"></i>
-        <h3 class="text-lg font-semibold text-gray-900 mb-1">No Registrations Found</h3>
-        <p class="text-sm text-gray-500">Try adjusting your search query or check back later.</p>
+        <i class="bi bi-person-x text-5xl text-gray-300 block mb-4" aria-hidden="true"></i>
+        <h3 class="text-lg font-semibold text-gray-900 mb-1">No registrations found</h3>
+        <p class="text-sm text-gray-500">{% if search_query or status %}Try clearing the search or status filter.{% else %}Nobody has registered yet.{% endif %}</p>
     </div>
     {% endif %}
 </div>

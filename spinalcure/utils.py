@@ -159,6 +159,22 @@ class SpinalCureExport:
         return datetime.now().strftime('%Y%m%d_%H%M')
 
     @staticmethod
+    def _cell(value):
+        """Neutralise spreadsheet formula injection: text starting with = + - @ (or tab/CR) is prefixed with '."""
+        if isinstance(value, str) and value[:1] in ('=', '+', '-', '@', '\t', '\r'):
+            return "'" + value
+        return value
+
+    @staticmethod
+    def to_text(queryset, headers, mapping_func):
+        """Tab-separated text for the "copy to clipboard" export."""
+        lines = ['\t'.join(str(h) for h in headers)]
+        for item in queryset:
+            lines.append('\t'.join(str(SpinalCureExport._cell(v)).replace('\t', ' ').replace('\n', ' ')
+                                   for v in mapping_func(item)))
+        return '\n'.join(lines)
+
+    @staticmethod
     def to_csv(queryset, headers, mapping_func, filename_prefix="report"):
         """Export queryset or list to CSV."""
         response = HttpResponse(content_type='text/csv')
@@ -168,7 +184,7 @@ class SpinalCureExport:
         writer = csv.writer(response)
         writer.writerow(headers)
         for item in queryset:
-            writer.writerow(mapping_func(item))
+            writer.writerow([SpinalCureExport._cell(v) for v in mapping_func(item)])
         return response
 
     @staticmethod
@@ -225,7 +241,7 @@ class SpinalCureExport:
                     else:
                         cell.value = ""
                 else:
-                    cell.value = value
+                    cell.value = SpinalCureExport._cell(value)
 
                 cell.alignment = Alignment(vertical="center")
 

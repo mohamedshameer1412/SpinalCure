@@ -1,0 +1,74 @@
+{% extends "public_base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Events, workshops & webinars" %} — {{ clinic.name|default:"SpinalCure" }}{% endblock %}
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold">{% translate "Events, workshops & webinars" %}</h1>
+    <p class="text-gray-500 mt-1">{% translate "Learn, practise and connect with our practitioners." %}</p>
+
+    <form method="get" class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
+        <input type="hidden" name="phase" value="{{ phase }}">
+        <label class="lg:col-span-2"><span class="sr-only">{% translate "Search" %}</span>
+            <input type="search" name="q" value="{{ q }}" placeholder="{% translate 'Search events…' %}" class="w-full rounded-xl border-gray-200 text-sm"></label>
+        <label><span class="sr-only">{% translate "Type" %}</span>
+            <select name="type" class="no-ts w-full rounded-xl border-gray-200 text-sm"><option value="">{% translate "All types" %}</option>
+                {% for v, l in event_types %}<option value="{{ v }}" {% if v == etype %}selected{% endif %}>{{ l }}</option>{% endfor %}</select></label>
+        <label><span class="sr-only">{% translate "Format" %}</span>
+            <select name="mode" class="no-ts w-full rounded-xl border-gray-200 text-sm"><option value="">{% translate "Online or in person" %}</option>
+                <option value="online" {% if mode == 'online' %}selected{% endif %}>{% translate "Online" %}</option>
+                <option value="in_person" {% if mode == 'in_person' %}selected{% endif %}>{% translate "In person" %}</option></select></label>
+        <div class="flex gap-2"><select name="language" class="no-ts flex-1 rounded-xl border-gray-200 text-sm" aria-label="{% translate 'Event language' %}">
+                <option value="">{% translate "Any language" %}</option>
+                {% for c, n in LANGUAGES %}<option value="{{ c }}" {% if c == language %}selected{% endif %}>{% if c == 'en' %}English{% elif c == 'ta' %}தமிழ்{% elif c == 'hi' %}हिन्दी{% else %}العربية{% endif %}</option>{% endfor %}</select>
+            <button class="px-4 rounded-xl bg-green-600 text-white text-sm font-semibold">{% translate "Filter" %}</button></div>
+    </form>
+
+    <div class="mt-6 flex gap-1 border-b border-gray-200 overflow-x-auto" role="tablist">
+        {% for p in phases %}
+        <a href="?phase={{ p }}&q={{ q|urlencode }}&type={{ etype }}&mode={{ mode }}&language={{ language }}" role="tab" aria-selected="{% if p == phase %}true{% else %}false{% endif %}"
+           class="px-4 py-2.5 text-sm font-semibold whitespace-nowrap no-underline border-b-2 {% if p == phase %}border-green-600 text-green-700{% else %}border-transparent text-gray-500 hover:text-gray-800{% endif %}">
+            {% if p == 'upcoming' %}{% translate "Upcoming" %}{% elif p == 'live' %}{% translate "Live now" %}{% elif p == 'completed' %}{% translate "Past" %}{% else %}{% translate "Cancelled" %}{% endif %}
+            <span class="ms-1 text-xs text-gray-400">{% for k, v in counts.items %}{% if k == p %}{{ v }}{% endif %}{% endfor %}</span></a>
+        {% endfor %}
+    </div>
+
+    {% if events %}
+    <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {% for e in events %}
+        <li class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
+            {% if e.image %}<img src="{{ e.image.url }}" alt="" loading="lazy" class="h-40 w-full object-cover">{% else %}<div class="h-40 bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center"><i class="bi bi-calendar-event text-4xl text-green-400" aria-hidden="true"></i></div>{% endif %}
+            <div class="p-5 flex-1 flex flex-col">
+                <div class="flex flex-wrap items-center gap-2 text-xs">
+                    <span class="rounded-full bg-green-100 text-green-800 px-2 py-0.5 font-semibold">{{ e.get_event_type_display }}</span>
+                    <span class="rounded-full bg-gray-100 text-gray-700 px-2 py-0.5">{% if e.is_online %}{% translate "Online" %}{% else %}{% translate "In person" %}{% endif %}</span>
+                    {% if e.phase == 'live' %}<span class="rounded-full bg-red-100 text-red-700 px-2 py-0.5 font-semibold">{% translate "Live" %}</span>{% endif %}
+                    {% if e.phase == 'cancelled' %}<span class="rounded-full bg-red-100 text-red-700 px-2 py-0.5 font-semibold">{% translate "Cancelled" %}</span>{% endif %}
+                    {% if e.phase == 'upcoming' and e.is_full %}<span class="rounded-full bg-amber-100 text-amber-800 px-2 py-0.5">{% if e.waitlist_enabled %}{% translate "Waitlist" %}{% else %}{% translate "Full" %}{% endif %}</span>{% endif %}
+                </div>
+                <h2 class="mt-3 font-semibold text-lg leading-snug"><a href="{% url 'event_detail' e.pk %}" class="no-underline text-gray-900 hover:underline">{{ e.title }}</a></h2>
+                {% if e.presenter %}<p class="text-sm text-gray-500">{{ e.presenter }}</p>{% endif %}
+                <p class="mt-2 text-sm text-gray-600"><i class="bi bi-clock me-1" aria-hidden="true"></i>{{ e.starts_at|date:"DATE_FORMAT" }} · <span class="ltr-isolate">{{ e.starts_at|time:"H:i" }}–{{ e.ends_at|time:"H:i" }}</span> <span class="text-gray-400">({{ e.timezone }})</span></p>
+                <div class="mt-auto pt-4 flex items-center justify-between text-sm">
+                    <span class="font-semibold">{% if e.fees > 0 %}₹{{ e.fees|floatformat:"-2" }}{% else %}<span class="text-green-700">{% translate "Free" %}</span>{% endif %}</span>
+                    <a href="{% url 'event_detail' e.pk %}" class="font-semibold text-green-700 no-underline hover:underline">{% if e.phase == 'upcoming' %}{% translate "Details & register" %}{% else %}{% translate "View" %}{% endif %} →</a>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% if events.has_other_pages %}
+    <nav class="mt-8 flex justify-between text-sm" aria-label="{% translate 'Pagination' %}">
+        {% if events.has_previous %}<a class="px-4 py-2 rounded-xl border bg-white no-underline" href="?phase={{ phase }}&q={{ q|urlencode }}&type={{ etype }}&mode={{ mode }}&language={{ language }}&page={{ events.previous_page_number }}">{% translate "Previous" %}</a>{% else %}<span></span>{% endif %}
+        <span class="text-gray-500">{{ events.number }} / {{ events.paginator.num_pages }}</span>
+        {% if events.has_next %}<a class="px-4 py-2 rounded-xl border bg-white no-underline" href="?phase={{ phase }}&q={{ q|urlencode }}&type={{ etype }}&mode={{ mode }}&language={{ language }}&page={{ events.next_page_number }}">{% translate "Next" %}</a>{% else %}<span></span>{% endif %}
+    </nav>
+    {% endif %}
+    {% else %}
+    <div class="mt-8 bg-white rounded-2xl border border-gray-100 p-12 text-center">
+        <i class="bi bi-calendar-x text-4xl text-gray-300" aria-hidden="true"></i>
+        <p class="mt-3 font-semibold">{% translate "No events found" %}</p>
+        <p class="text-sm text-gray-500">{% translate "Try another tab or clear your filters." %}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -80,6 +80,15 @@ CATALOGUE = {
     'event_reminder': (
         N_('Starting soon: %(event)s'),
         N_('%(event)s starts on %(date)s at %(time)s.')),
+    'course_registered': (
+        N_('Registration confirmed: %(event)s'),
+        N_('You are registered for %(event)s (%(batch)s), starting %(date)s.')),
+    'course_waitlisted': (
+        N_('Waitlisted: %(event)s'),
+        N_('%(event)s (%(batch)s) is full. You are on the waitlist and will be told if a place opens.')),
+    'course_promoted': (
+        N_('A place opened: %(event)s'),
+        N_('A place opened and you are now registered for %(event)s (%(batch)s), starting %(date)s.')),
     'admin_alert': (
         N_('%(subject)s'),
         N_('%(detail)s')),

@@ -1,0 +1,36 @@
+{% extends "public_base.html" %}
+{% load i18n %}
+{% block title %}{{ course.title }} — {% translate "Your registration" %}{% endblock %}
+{% block meta %}<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">{% endblock %}
+{% block content %}
+<div class="max-w-xl mx-auto px-4 py-8 space-y-4">
+    <h1 class="text-xl font-bold">{% translate "Your registration" %}</h1>
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-2">
+        <div class="flex items-start justify-between gap-3"><p class="font-semibold">{{ course.title }}</p>
+            <span class="text-xs font-bold uppercase rounded-full px-2.5 py-1 {% if reg.status == 'confirmed' %}bg-green-100 text-green-800{% elif reg.status == 'waitlisted' %}bg-amber-100 text-amber-800{% else %}bg-red-100 text-red-700{% endif %}">{{ reg.get_status_display }}</span></div>
+        <p class="text-sm text-gray-600">{{ batch.name }} · {% blocktranslate with d=batch.start_date|date:"DATE_FORMAT" %}starts {{ d }}{% endblocktranslate %}</p>
+        {% if batch.schedule_details %}<p class="text-sm text-gray-600">{{ batch.schedule_details }}</p>{% endif %}
+        {% if reg.status == 'waitlisted' %}<p class="rounded-xl bg-amber-50 text-amber-900 text-sm p-3">{% translate "You are on the waitlist. We will email you if a place opens." %}</p>{% endif %}
+    </section>
+    {% if can_feedback %}
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+        <h2 class="font-semibold mb-3">{% translate "How was the course?" %}</h2>
+        <form method="post">{% csrf_token %}<input type="hidden" name="action" value="feedback">
+            <fieldset class="flex gap-2 mb-3"><legend class="sr-only">{% translate "Rating" %}</legend>
+                {% for i in rating_range %}<label class="cursor-pointer"><input type="radio" name="rating" value="{{ i }}" required class="sr-only peer"><span class="block w-10 h-10 rounded-lg border border-gray-200 text-center leading-10 peer-checked:bg-amber-400 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-green-500">{{ i }}</span></label>{% endfor %}</fieldset>
+            <label for="c" class="sr-only">{% translate "Comment" %}</label>
+            <textarea id="c" name="comment" rows="3" maxlength="1000" class="w-full rounded-xl border-gray-200 text-sm" placeholder="{% translate 'Tell future students about your experience (optional)' %}"></textarea>
+            <button class="mt-3 w-full rounded-xl bg-green-600 text-white font-semibold py-2.5">{% translate "Send feedback" %}</button></form>
+    </section>
+    {% endif %}
+    {% if can_cancel %}
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5" x-data="{ c: false }">
+        <button type="button" x-show="!c" @click="c = true" class="w-full rounded-xl border border-red-200 text-red-700 font-semibold py-2.5 hover:bg-red-50">{% translate "Cancel my registration" %}</button>
+        <form method="post" x-show="c" x-cloak>{% csrf_token %}<input type="hidden" name="action" value="cancel">
+            <p class="text-sm mb-3">{% translate "Your place may be offered to someone on the waitlist." %}</p>
+            <div class="flex gap-2"><button type="button" @click="c = false" class="flex-1 rounded-xl border border-gray-200 py-2.5 font-semibold">{% translate "Keep it" %}</button><button class="flex-1 rounded-xl bg-red-600 text-white py-2.5 font-semibold">{% translate "Yes, cancel" %}</button></div></form>
+    </section>
+    {% endif %}
+    <p class="text-xs text-gray-400 text-center">{% translate "Keep this link private: anyone with it can manage this registration." %}</p>
+</div>
+{% endblock %}
