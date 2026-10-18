@@ -25,6 +25,8 @@ urlpatterns = [
     path('batches/<b64uuid:pk>/delete/', views.batch_delete_view, name='batch_delete'),
     # Registrations & Feedback Admin
     path('batches/<b64uuid:pk>/registrations/', views.batch_registrations_view, name='batch_registrations'),
+    path('batches/<b64uuid:pk>/registrations/<uuid:reg_pk>/cancel/', views.batch_registration_cancel, name='batch_registration_cancel'),
+    path('batches/<b64uuid:pk>/promote/', views.batch_promote_waitlist, name='batch_promote_waitlist'),
     path('batches/<b64uuid:pk>/feedback/', views.batch_feedback_admin_view, name='batch_feedback_admin'),
     path('batches/<b64uuid:pk>/toggle-feedback/', views.toggle_batch_feedback, name='toggle_batch_feedback'),
     path('feedback/<b64uuid:feedback_pk>/toggle-publish/', views.toggle_course_feedback_publish, name='toggle_course_feedback_publish'),

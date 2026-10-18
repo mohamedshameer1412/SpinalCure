@@ -72,7 +72,7 @@ msgstr ""
 msgid "%(count)s Reviews"
 msgstr ""
 
-#: templates/courses/batch_registrations.html:40
+#: templates/courses/batch_registrations.html:45
 #, python-format
 msgid "%(count)s Students"
 msgstr ""
@@ -152,7 +152,7 @@ msgstr ""
 msgid "%(name)s - SpinalCure"
 msgstr ""
 
-#: events/views.py:267
+#: courses/views.py:240 events/views.py:267
 #, python-format
 msgid "%(name)s was moved from the waitlist."
 msgstr ""
@@ -866,7 +866,7 @@ msgstr ""
 msgid "All Doctors"
 msgstr ""
 
-#: clinic/views.py:107
+#: clinic/views.py:108
 msgid "All fields are required."
 msgstr ""
 
@@ -968,7 +968,7 @@ msgstr ""
 msgid "An appointment cannot be completed before it starts."
 msgstr ""
 
-#: clinic/views.py:144
+#: clinic/views.py:145
 msgid "An error occurred. Please try again."
 msgstr ""
 
@@ -1018,7 +1018,7 @@ msgstr ""
 msgid "Appointment booked"
 msgstr ""
 
-#: clinic/views.py:171
+#: clinic/views.py:172
 msgid "Appointment booked successfully!"
 msgstr ""
 
@@ -1369,17 +1369,17 @@ msgstr ""
 msgid "Batch"
 msgstr ""
 
-#: courses/views.py:134
+#: courses/views.py:136
 #, python-format
 msgid "Batch \"%(name)s\" created."
 msgstr ""
 
-#: courses/views.py:172
+#: courses/views.py:174
 #, python-format
 msgid "Batch \"%(name)s\" deleted."
 msgstr ""
 
-#: courses/views.py:154
+#: courses/views.py:156
 #, python-format
 msgid "Batch \"%(name)s\" updated."
 msgstr ""
@@ -1652,6 +1652,10 @@ msgstr ""
 msgid "Cancel or unpublish an upcoming event before archiving it."
 msgstr ""
 
+#: templates/courses/partials/batch_registrations_partial.html:55
+msgid "Cancel this registration?"
+msgstr ""
+
 #: appointments/models.py:177 courses/models.py:171 events/models.py:89
 #: events/models.py:245
 msgid "Cancelled"
@@ -1661,7 +1665,7 @@ msgstr ""
 msgid "cancelled"
 msgstr ""
 
-#: events/views.py:260
+#: courses/views.py:230 events/views.py:260
 #, python-format
 msgid "Cancelled %(name)s's registration."
 msgstr ""
@@ -2098,22 +2102,22 @@ msgstr ""
 msgid "Course"
 msgstr ""
 
-#: courses/views.py:94
+#: courses/views.py:96
 #, python-format
 msgid "Course \"%(title)s\" %(state)s."
 msgstr ""
 
-#: courses/views.py:63
+#: courses/views.py:65
 #, python-format
 msgid "Course \"%(title)s\" created successfully."
 msgstr ""
 
-#: courses/views.py:110
+#: courses/views.py:112
 #, python-format
 msgid "Course \"%(title)s\" deleted."
 msgstr ""
 
-#: courses/views.py:79
+#: courses/views.py:81
 #, python-format
 msgid "Course \"%(title)s\" updated."
 msgstr ""
@@ -3347,7 +3351,7 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
-#: courses/views.py:242
+#: courses/views.py:273
 #, python-format
 msgid "Feedback by %(reviewer_name)s %(state)s."
 msgstr ""
@@ -3369,7 +3373,7 @@ msgstr ""
 msgid "Feedback Form"
 msgstr ""
 
-#: courses/views.py:231
+#: courses/views.py:262
 #, python-format
 msgid "Feedback form %(state)s for batch \"%(name)s\"."
 msgstr ""
@@ -3383,7 +3387,7 @@ msgstr ""
 msgid "Feedback Form Enabled"
 msgstr ""
 
-#: templates/courses/partials/batch_registrations_partial.html:42
+#: templates/courses/partials/batch_registrations_partial.html:47
 msgid "Feedback Given"
 msgstr ""
 
@@ -3399,7 +3403,7 @@ msgstr ""
 msgid "feedback is visible to the public."
 msgstr ""
 
-#: templates/courses/partials/batch_registrations_partial.html:11
+#: templates/courses/partials/batch_registrations_partial.html:12
 msgid "Feedback Status"
 msgstr ""
 
@@ -4079,7 +4083,7 @@ msgstr ""
 msgid "Invalid IFSC Code format."
 msgstr ""
 
-#: clinic/views.py:141
+#: clinic/views.py:142
 msgid "Invalid JSON."
 msgstr ""
 
@@ -4100,7 +4104,7 @@ msgstr ""
 msgid "Invalid OTP. %(n)d attempts remaining."
 msgstr ""
 
-#: clinic/views.py:114
+#: clinic/views.py:115
 msgid "Invalid rating value."
 msgstr ""
 
@@ -5025,7 +5029,7 @@ msgstr ""
 msgid "No fasting required unless specifically instructed."
 msgstr ""
 
-#: templates/courses/partials/batch_registrations_partial.html:45
+#: templates/courses/partials/batch_registrations_partial.html:50
 msgid "No feedback"
 msgstr ""
 
@@ -5131,7 +5135,7 @@ msgstr ""
 msgid "No reviews yet."
 msgstr ""
 
-#: events/views.py:263
+#: courses/views.py:242 events/views.py:263
 msgid "No seat is free. Raise the capacity or cancel a registration first."
 msgstr ""
 
@@ -5159,7 +5163,7 @@ msgstr ""
 msgid "No staff profile is linked to your account"
 msgstr ""
 
-#: templates/courses/partials/batch_registrations_partial.html:53
+#: templates/courses/partials/batch_registrations_partial.html:65
 msgid "No students found matching your search."
 msgstr ""
 
@@ -5949,8 +5953,8 @@ msgstr ""
 msgid "People and their ID cards"
 msgstr ""
 
-#: clinic/blog_admin_views.py:142 courses/views.py:72 courses/views.py:88
-#: courses/views.py:103
+#: clinic/blog_admin_views.py:142 courses/views.py:74 courses/views.py:90
+#: courses/views.py:105
 msgid "Permission denied."
 msgstr ""
 
@@ -6292,6 +6296,11 @@ msgstr ""
 
 #: templates/patients/partials/patient_list_partial.html:11
 msgid "Progress"
+msgstr ""
+
+#: templates/courses/batch_registrations.html:41
+#, python-format
+msgid "Promote waitlist (%(n)s)"
 msgstr ""
 
 #: clinic/templates/clinic/admin/clinic_setup.html:943
@@ -7441,7 +7450,7 @@ msgstr ""
 msgid "Showing %(start_index)s-%(end_index)s of %(count)s payments"
 msgstr ""
 
-#: templates/courses/partials/batch_registrations_partial.html:65
+#: templates/courses/partials/batch_registrations_partial.html:77
 #, python-format
 msgid "Showing %(start_index)s-%(end_index)s of %(count)s registrations"
 msgstr ""
@@ -8036,7 +8045,7 @@ msgid ""
 "Thank you for your valuable feedback. It will be visible after approval."
 msgstr ""
 
-#: clinic/views.py:138
+#: clinic/views.py:139
 msgid "Thank you! Your review has been submitted for approval."
 msgstr ""
 

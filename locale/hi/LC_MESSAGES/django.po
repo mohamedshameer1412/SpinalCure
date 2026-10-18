@@ -78,7 +78,7 @@ msgstr "%(count)s पोस्ट%(count_2)s"
 msgid "%(count)s Reviews"
 msgstr "%(count)s समीक्षाएँ"
 
-#: templates/courses/batch_registrations.html:40
+#: templates/courses/batch_registrations.html:45
 #, python-format
 msgid "%(count)s Students"
 msgstr "%(count)s छात्र"
@@ -162,7 +162,7 @@ msgstr "%(n)s शेष"
 msgid "%(name)s - SpinalCure"
 msgstr "%(name)s - SpinalCure"
 
-#: events/views.py:267
+#: courses/views.py:240 events/views.py:267
 #, python-format
 msgid "%(name)s was moved from the waitlist."
 msgstr "%(name)s को प्रतीक्षा सूची से आगे बढ़ाया गया।"
@@ -886,7 +886,7 @@ msgstr "सभी श्रेणियाँ"
 msgid "All Doctors"
 msgstr "सभी डॉक्टर"
 
-#: clinic/views.py:107
+#: clinic/views.py:108
 msgid "All fields are required."
 msgstr "सभी फ़ील्ड आवश्यक हैं।"
 
@@ -988,7 +988,7 @@ msgstr "अपॉइंटमेंट शुरू होने से पह�
 msgid "An appointment cannot be completed before it starts."
 msgstr "अपॉइंटमेंट शुरू होने से पहले उसे पूर्ण नहीं किया जा सकता।"
 
-#: clinic/views.py:144
+#: clinic/views.py:145
 msgid "An error occurred. Please try again."
 msgstr "एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
 
@@ -1038,7 +1038,7 @@ msgstr "अपॉइंटमेंट"
 msgid "Appointment booked"
 msgstr "अपॉइंटमेंट बुक हो गई"
 
-#: clinic/views.py:171
+#: clinic/views.py:172
 msgid "Appointment booked successfully!"
 msgstr "अपॉइंटमेंट सफलतापूर्वक बुक हो गया!"
 
@@ -1395,17 +1395,17 @@ msgstr "बुनियादी जानकारी"
 msgid "Batch"
 msgstr "बैच"
 
-#: courses/views.py:134
+#: courses/views.py:136
 #, python-format
 msgid "Batch \"%(name)s\" created."
 msgstr "बैच \"%(name)s\" बनाया गया।"
 
-#: courses/views.py:172
+#: courses/views.py:174
 #, python-format
 msgid "Batch \"%(name)s\" deleted."
 msgstr "बैच \"%(name)s\" हटाया गया।"
 
-#: courses/views.py:154
+#: courses/views.py:156
 #, python-format
 msgid "Batch \"%(name)s\" updated."
 msgstr "बैच \"%(name)s\" अपडेट किया गया।"
@@ -1679,6 +1679,10 @@ msgstr "मेरा पंजीकरण रद्द करें"
 msgid "Cancel or unpublish an upcoming event before archiving it."
 msgstr "संग्रहीत करने से पहले आगामी इवेंट को रद्द या अप्रकाशित करें।"
 
+#: templates/courses/partials/batch_registrations_partial.html:55
+msgid "Cancel this registration?"
+msgstr "क्या यह पंजीकरण रद्द करें?"
+
 #: appointments/models.py:177 courses/models.py:171 events/models.py:89
 #: events/models.py:245
 msgid "Cancelled"
@@ -1688,7 +1692,7 @@ msgstr "रद्द"
 msgid "cancelled"
 msgstr "रद्द"
 
-#: events/views.py:260
+#: courses/views.py:230 events/views.py:260
 #, python-format
 msgid "Cancelled %(name)s's registration."
 msgstr "%(name)s का पंजीकरण रद्द किया गया।"
@@ -2133,22 +2137,22 @@ msgstr "सर्वर तक नहीं पहुँच सका। अप�
 msgid "Course"
 msgstr "कोर्स"
 
-#: courses/views.py:94
+#: courses/views.py:96
 #, python-format
 msgid "Course \"%(title)s\" %(state)s."
 msgstr "कोर्स \"%(title)s\" %(state)s।"
 
-#: courses/views.py:63
+#: courses/views.py:65
 #, python-format
 msgid "Course \"%(title)s\" created successfully."
 msgstr "कोर्स \"%(title)s\" सफलतापूर्वक बनाया गया।"
 
-#: courses/views.py:110
+#: courses/views.py:112
 #, python-format
 msgid "Course \"%(title)s\" deleted."
 msgstr "कोर्स \"%(title)s\" हटाया गया।"
 
-#: courses/views.py:79
+#: courses/views.py:81
 #, python-format
 msgid "Course \"%(title)s\" updated."
 msgstr "कोर्स \"%(title)s\" अपडेट किया गया।"
@@ -3411,7 +3415,7 @@ msgstr "शुल्क"
 msgid "Feedback"
 msgstr "फ़ीडबैक"
 
-#: courses/views.py:242
+#: courses/views.py:273
 #, python-format
 msgid "Feedback by %(reviewer_name)s %(state)s."
 msgstr "%(reviewer_name)s का फ़ीडबैक %(state)s।"
@@ -3433,7 +3437,7 @@ msgstr "फ़ीडबैक सक्षम"
 msgid "Feedback Form"
 msgstr "फीडबैक फ़ॉर्म"
 
-#: courses/views.py:231
+#: courses/views.py:262
 #, python-format
 msgid "Feedback form %(state)s for batch \"%(name)s\"."
 msgstr "बैच \"%(name)s\" के लिए फ़ीडबैक फ़ॉर्म %(state)s।"
@@ -3447,7 +3451,7 @@ msgstr "\"%(title)s\" के लिए फ़ीडबैक फ़ॉर्म 
 msgid "Feedback Form Enabled"
 msgstr "फ़ीडबैक फ़ॉर्म सक्षम"
 
-#: templates/courses/partials/batch_registrations_partial.html:42
+#: templates/courses/partials/batch_registrations_partial.html:47
 msgid "Feedback Given"
 msgstr "फ़ीडबैक दिया गया"
 
@@ -3463,7 +3467,7 @@ msgstr "इस इवेंट के लिए फ़ीडबैक खुल�
 msgid "feedback is visible to the public."
 msgstr "फ़ीडबैक सार्वजनिक रूप से दिखाई देता है।"
 
-#: templates/courses/partials/batch_registrations_partial.html:11
+#: templates/courses/partials/batch_registrations_partial.html:12
 msgid "Feedback Status"
 msgstr "फ़ीडबैक की स्थिति"
 
@@ -4156,7 +4160,7 @@ msgstr "अमान्य GST पहचान संख्या प्रा�
 msgid "Invalid IFSC Code format."
 msgstr "अमान्य IFSC कोड प्रारूप।"
 
-#: clinic/views.py:141
+#: clinic/views.py:142
 msgid "Invalid JSON."
 msgstr "अमान्य JSON।"
 
@@ -4177,7 +4181,7 @@ msgstr "अमान्य या अनुपस्थित तिथि। YY
 msgid "Invalid OTP. %(n)d attempts remaining."
 msgstr "OTP अमान्य है। %(n)d प्रयास शेष हैं।"
 
-#: clinic/views.py:114
+#: clinic/views.py:115
 msgid "Invalid rating value."
 msgstr "अमान्य रेटिंग मान।"
 
@@ -5118,7 +5122,7 @@ msgstr "कोई इवेंट नहीं मिला"
 msgid "No fasting required unless specifically instructed."
 msgstr "विशेष रूप से निर्देशित न होने पर उपवास आवश्यक नहीं है।"
 
-#: templates/courses/partials/batch_registrations_partial.html:45
+#: templates/courses/partials/batch_registrations_partial.html:50
 msgid "No feedback"
 msgstr "कोई फ़ीडबैक नहीं"
 
@@ -5225,7 +5229,7 @@ msgstr "अभी तक कोई समीक्षा नहीं"
 msgid "No reviews yet."
 msgstr "अभी तक कोई समीक्षा नहीं।"
 
-#: events/views.py:263
+#: courses/views.py:242 events/views.py:263
 msgid "No seat is free. Raise the capacity or cancel a registration first."
 msgstr "कोई सीट खाली नहीं है। पहले क्षमता बढ़ाएँ या कोई पंजीकरण रद्द करें।"
 
@@ -5253,7 +5257,7 @@ msgstr "कोई कर्मचारी नहीं मिला।"
 msgid "No staff profile is linked to your account"
 msgstr "आपके खाते से कोई स्टाफ प्रोफ़ाइल जुड़ी नहीं है"
 
-#: templates/courses/partials/batch_registrations_partial.html:53
+#: templates/courses/partials/batch_registrations_partial.html:65
 msgid "No students found matching your search."
 msgstr "आपकी खोज से मेल खाने वाला कोई छात्र नहीं मिला।"
 
@@ -6050,8 +6054,8 @@ msgstr "लंबित बकाया"
 msgid "People and their ID cards"
 msgstr "लोग और उनके पहचान पत्र"
 
-#: clinic/blog_admin_views.py:142 courses/views.py:72 courses/views.py:88
-#: courses/views.py:103
+#: clinic/blog_admin_views.py:142 courses/views.py:74 courses/views.py:90
+#: courses/views.py:105
 msgid "Permission denied."
 msgstr "अनुमति अस्वीकृत।"
 
@@ -6400,6 +6404,11 @@ msgstr "लाभ"
 #: templates/patients/partials/patient_list_partial.html:11
 msgid "Progress"
 msgstr "प्रगति"
+
+#: templates/courses/batch_registrations.html:41
+#, python-format
+msgid "Promote waitlist (%(n)s)"
+msgstr "प्रतीक्षा सूची आगे बढ़ाएँ (%(n)s)"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:943
 msgid ""
@@ -7565,7 +7574,7 @@ msgstr "%(count)s खर्चों में से %(start_index)s-%(end_inde
 msgid "Showing %(start_index)s-%(end_index)s of %(count)s payments"
 msgstr "%(count)s भुगतानों में से %(start_index)s-%(end_index)s दिखा रहे हैं"
 
-#: templates/courses/partials/batch_registrations_partial.html:65
+#: templates/courses/partials/batch_registrations_partial.html:77
 #, python-format
 msgid "Showing %(start_index)s-%(end_index)s of %(count)s registrations"
 msgstr "%(count)s पंजीकरण में से %(start_index)s-%(end_index)s दिखा रहे हैं"
@@ -8169,7 +8178,7 @@ msgid ""
 "Thank you for your valuable feedback. It will be visible after approval."
 msgstr "आपके बहुमूल्य फ़ीडबैक के लिए धन्यवाद। स्वीकृति के बाद यह दिखाई देगा।"
 
-#: clinic/views.py:138
+#: clinic/views.py:139
 msgid "Thank you! Your review has been submitted for approval."
 msgstr "धन्यवाद! आपकी समीक्षा स्वीकृति के लिए जमा कर दी गई है।"
 

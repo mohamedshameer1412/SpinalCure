@@ -36,6 +36,11 @@
 
             {% include "partials/export_dropdown.html" with excel_url=export_batch_registrations_excel_url csv_url=export_batch_registrations_csv_url pdf_url=export_batch_registrations_pdf_url copy_url=export_batch_registrations_copy_url print_url=export_batch_registrations_print_url %}
 
+            {% if waitlisted_count %}
+            <form method="post" action="{% url 'batch_promote_waitlist' batch.id %}">{% csrf_token %}
+                <button class="px-4 py-2 rounded-xl bg-amber-500 text-white text-sm font-bold">{% blocktranslate trimmed with n=waitlisted_count %}Promote waitlist ({{ n }}){% endblocktranslate %}</button>
+            </form>
+            {% endif %}
             <span class="bg-indigo-50 text-indigo-700 text-sm font-black px-4 py-2 rounded-xl border border-indigo-100">
                 {% blocktranslate trimmed with count=registrations.paginator.count|default:registrations.count %}{{ count }} Students{% endblocktranslate %}
             </span>

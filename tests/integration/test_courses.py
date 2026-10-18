@@ -110,3 +110,58 @@ def test_cancel_before_start_only(client, batch):
     with pytest.raises(EventError):
         service.cancel_registration(reg2)
     assert service.cancel_registration(reg2, by_staff=True).status == 'cancelled'
+
+
+# ── staff-side registration management ─────────────────────────────────────────────────────────
+
+def _login(client, role):
+    from django.contrib.auth import get_user_model
+    u = get_user_model().objects.create_user(username=f'c-{role}', email=f'c-{role}@x.com', password='x-Str0ng-pass!', role=role)
+    client.force_login(u)
+    return u
+
+
+def test_staff_registrations_page_search_and_status_filter_work(client, batch):
+    service.register(batch, name='Asha Raman', phone='9000000001', email='a@x.com')
+    service.register(batch, name='Bala K', phone='9000000002', email='b@x.com')
+    _login(client, 'receptionist')
+    url = reverse('batch_registrations', args=[batch.pk])
+    assert client.get(url, {'q': 'asha'}).context['registrations'].paginator.count == 1       # used to 500 on a bad field name
+    assert client.get(url, {'status': 'waitlisted'}).context['registrations'].paginator.count == 0
+
+
+def test_staff_cancel_frees_a_seat_and_promotes_waitlist(client, batch):
+    regs = [service.register(batch, name=f'S{i}', phone=f'900000000{i}', email=f's{i}@x.com') for i in range(1, 4)]
+    assert regs[2].status == 'waitlisted'
+    _login(client, 'receptionist')
+    r = client.post(reverse('batch_registration_cancel', args=[batch.pk, regs[0].pk]))
+    assert r.status_code == 302
+    for x in regs: x.refresh_from_db()
+    assert [x.status for x in regs] == ['cancelled', 'confirmed', 'confirmed']
+
+
+def test_manual_promote_fills_seats_after_capacity_is_raised(client, batch):
+    for i in range(1, 4):
+        service.register(batch, name=f'S{i}', phone=f'900000000{i}', email=f's{i}@x.com')
+    batch.max_participants = 3
+    batch.save()
+    _login(client, 'owner')
+    client.post(reverse('batch_promote_waitlist', args=[batch.pk]))
+    assert batch.registrations.filter(status='waitlisted').count() == 0
+
+
+def test_registration_actions_need_capability_and_post(client, batch):
+    reg = service.register(batch, name='S', phone='9000000009', email='s@x.com')
+    _login(client, 'staff')
+    assert client.post(reverse('batch_registration_cancel', args=[batch.pk, reg.pk])).status_code == 302
+    reg.refresh_from_db()
+    assert reg.status == 'confirmed'                                                          # staff role cannot cancel
+    client.logout(); _login(client, 'receptionist')
+    assert client.get(reverse('batch_registration_cancel', args=[batch.pk, reg.pk])).status_code == 405
+
+
+def test_batch_registration_exports_work(client, batch):
+    service.register(batch, name='Asha', phone='9000000001', email='a@x.com')
+    _login(client, 'receptionist')
+    for kind in ('csv', 'excel', 'pdf', 'copy', 'print'):
+        assert client.get(reverse(f'export_batch_registrations_{kind}', args=[batch.pk])).status_code == 200

@@ -80,7 +80,7 @@ msgstr "%(count)s இடுகை%(count_2)s"
 msgid "%(count)s Reviews"
 msgstr "%(count)s மதிப்பாய்வுகள்"
 
-#: templates/courses/batch_registrations.html:40
+#: templates/courses/batch_registrations.html:45
 #, python-format
 msgid "%(count)s Students"
 msgstr "%(count)s மாணவர்கள்"
@@ -164,7 +164,7 @@ msgstr "%(n)s மீதமுள்ளது"
 msgid "%(name)s - SpinalCure"
 msgstr "%(name)s - SpinalCure"
 
-#: events/views.py:267
+#: courses/views.py:240 events/views.py:267
 #, python-format
 msgid "%(name)s was moved from the waitlist."
 msgstr "%(name)s காத்திருப்புப் பட்டியலிலிருந்து மாற்றப்பட்டார்."
@@ -895,7 +895,7 @@ msgstr "அனைத்து வகைகள்"
 msgid "All Doctors"
 msgstr "அனைத்து மருத்துவர்கள்"
 
-#: clinic/views.py:107
+#: clinic/views.py:108
 msgid "All fields are required."
 msgstr "அனைத்துப் புலங்களும் அவசியம்."
 
@@ -997,7 +997,7 @@ msgstr "சந்திப்பு தொடங்குவதற்கு ம�
 msgid "An appointment cannot be completed before it starts."
 msgstr "சந்திப்பு தொடங்குவதற்கு முன் அதை முடிந்ததாகக் குறிக்க முடியாது."
 
-#: clinic/views.py:144
+#: clinic/views.py:145
 msgid "An error occurred. Please try again."
 msgstr "பிழை ஏற்பட்டது. மீண்டும் முயலவும்."
 
@@ -1047,7 +1047,7 @@ msgstr "சந்திப்பு"
 msgid "Appointment booked"
 msgstr "சந்திப்பு முன்பதிவு செய்யப்பட்டது"
 
-#: clinic/views.py:171
+#: clinic/views.py:172
 msgid "Appointment booked successfully!"
 msgstr "சந்திப்பு வெற்றிகரமாக முன்பதிவு செய்யப்பட்டது!"
 
@@ -1406,17 +1406,17 @@ msgstr "அடிப்படைகள்"
 msgid "Batch"
 msgstr "தொகுதி"
 
-#: courses/views.py:134
+#: courses/views.py:136
 #, python-format
 msgid "Batch \"%(name)s\" created."
 msgstr "தொகுதி \"%(name)s\" உருவாக்கப்பட்டது."
 
-#: courses/views.py:172
+#: courses/views.py:174
 #, python-format
 msgid "Batch \"%(name)s\" deleted."
 msgstr "தொகுதி \"%(name)s\" நீக்கப்பட்டது."
 
-#: courses/views.py:154
+#: courses/views.py:156
 #, python-format
 msgid "Batch \"%(name)s\" updated."
 msgstr "தொகுதி \"%(name)s\" புதுப்பிக்கப்பட்டது."
@@ -1695,6 +1695,10 @@ msgstr ""
 "காப்பகப்படுத்தும் முன் வரவிருக்கும் நிகழ்வை ரத்து செய்யவும் அல்லது "
 "வெளியீட்டை நீக்கவும்."
 
+#: templates/courses/partials/batch_registrations_partial.html:55
+msgid "Cancel this registration?"
+msgstr "இந்தப் பதிவை ரத்து செய்யவா?"
+
 #: appointments/models.py:177 courses/models.py:171 events/models.py:89
 #: events/models.py:245
 msgid "Cancelled"
@@ -1704,7 +1708,7 @@ msgstr "ரத்து செய்யப்பட்டது"
 msgid "cancelled"
 msgstr "ரத்து செய்யப்பட்டது"
 
-#: events/views.py:260
+#: courses/views.py:230 events/views.py:260
 #, python-format
 msgid "Cancelled %(name)s's registration."
 msgstr "%(name)s இன் பதிவு ரத்து செய்யப்பட்டது."
@@ -2155,22 +2159,22 @@ msgstr "சேவையகத்தை அடைய முடியவில்�
 msgid "Course"
 msgstr "பாடநெறி"
 
-#: courses/views.py:94
+#: courses/views.py:96
 #, python-format
 msgid "Course \"%(title)s\" %(state)s."
 msgstr "பாடநெறி \"%(title)s\" %(state)s."
 
-#: courses/views.py:63
+#: courses/views.py:65
 #, python-format
 msgid "Course \"%(title)s\" created successfully."
 msgstr "பாடநெறி \"%(title)s\" வெற்றிகரமாக உருவாக்கப்பட்டது."
 
-#: courses/views.py:110
+#: courses/views.py:112
 #, python-format
 msgid "Course \"%(title)s\" deleted."
 msgstr "பாடநெறி \"%(title)s\" நீக்கப்பட்டது."
 
-#: courses/views.py:79
+#: courses/views.py:81
 #, python-format
 msgid "Course \"%(title)s\" updated."
 msgstr "பாடநெறி \"%(title)s\" புதுப்பிக்கப்பட்டது."
@@ -3443,7 +3447,7 @@ msgstr "கட்டணம்"
 msgid "Feedback"
 msgstr "கருத்துகள்"
 
-#: courses/views.py:242
+#: courses/views.py:273
 #, python-format
 msgid "Feedback by %(reviewer_name)s %(state)s."
 msgstr "%(reviewer_name)s இன் கருத்து %(state)s."
@@ -3465,7 +3469,7 @@ msgstr "கருத்துகள் இயக்கப்பட்டுள�
 msgid "Feedback Form"
 msgstr "கருத்துப் படிவம்"
 
-#: courses/views.py:231
+#: courses/views.py:262
 #, python-format
 msgid "Feedback form %(state)s for batch \"%(name)s\"."
 msgstr "தொகுதி \"%(name)s\" க்கான கருத்துப் படிவம் %(state)s."
@@ -3479,7 +3483,7 @@ msgstr "\"%(title)s\" க்கான கருத்துப் படிவ�
 msgid "Feedback Form Enabled"
 msgstr "கருத்துப் படிவம் இயக்கப்பட்டது"
 
-#: templates/courses/partials/batch_registrations_partial.html:42
+#: templates/courses/partials/batch_registrations_partial.html:47
 msgid "Feedback Given"
 msgstr "கருத்து வழங்கப்பட்டது"
 
@@ -3495,7 +3499,7 @@ msgstr "இந்த நிகழ்வுக்குக் கருத்த�
 msgid "feedback is visible to the public."
 msgstr "கருத்துகள் பொதுமக்களுக்குத் தெரியும்."
 
-#: templates/courses/partials/batch_registrations_partial.html:11
+#: templates/courses/partials/batch_registrations_partial.html:12
 msgid "Feedback Status"
 msgstr "கருத்து நிலை"
 
@@ -4196,7 +4200,7 @@ msgstr "செல்லாத GST அடையாள எண் வடிவம�
 msgid "Invalid IFSC Code format."
 msgstr "செல்லாத IFSC குறியீட்டு வடிவம்."
 
-#: clinic/views.py:141
+#: clinic/views.py:142
 msgid "Invalid JSON."
 msgstr "செல்லாத JSON."
 
@@ -4217,7 +4221,7 @@ msgstr "செல்லாத அல்லது விடுபட்ட தே
 msgid "Invalid OTP. %(n)d attempts remaining."
 msgstr "OTP தவறானது. %(n)d முயற்சிகள் மீதமுள்ளன."
 
-#: clinic/views.py:114
+#: clinic/views.py:115
 msgid "Invalid rating value."
 msgstr "செல்லாத மதிப்பீட்டு மதிப்பு."
 
@@ -5164,7 +5168,7 @@ msgstr "நிகழ்வுகள் எதுவும் இல்லை"
 msgid "No fasting required unless specifically instructed."
 msgstr "குறிப்பாகச் சொல்லப்பட்டாலன்றி உண்ணாவிரதம் தேவையில்லை."
 
-#: templates/courses/partials/batch_registrations_partial.html:45
+#: templates/courses/partials/batch_registrations_partial.html:50
 msgid "No feedback"
 msgstr "கருத்துகள் இல்லை"
 
@@ -5272,7 +5276,7 @@ msgstr "இதுவரை மதிப்பாய்வுகள் இல்�
 msgid "No reviews yet."
 msgstr "இதுவரை மதிப்பாய்வுகள் இல்லை."
 
-#: events/views.py:263
+#: courses/views.py:242 events/views.py:263
 msgid "No seat is free. Raise the capacity or cancel a registration first."
 msgstr ""
 "இடம் எதுவும் காலியில்லை. கொள்ளளவை உயர்த்தவும் அல்லது முதலில் ஒரு பதிவை ரத்து"
@@ -5302,7 +5306,7 @@ msgstr "பணியாளர்கள் யாரும் இல்லை."
 msgid "No staff profile is linked to your account"
 msgstr "உங்கள் கணக்குடன் எந்தப் பணியாளர் சுயவிவரமும் இணைக்கப்படவில்லை"
 
-#: templates/courses/partials/batch_registrations_partial.html:53
+#: templates/courses/partials/batch_registrations_partial.html:65
 msgid "No students found matching your search."
 msgstr "உங்கள் தேடலுக்குப் பொருந்தும் மாணவர்கள் இல்லை."
 
@@ -6107,8 +6111,8 @@ msgstr "நிலுவையில் உள்ள தொகை"
 msgid "People and their ID cards"
 msgstr "நபர்களும் அவர்களின் அடையாள அட்டைகளும்"
 
-#: clinic/blog_admin_views.py:142 courses/views.py:72 courses/views.py:88
-#: courses/views.py:103
+#: clinic/blog_admin_views.py:142 courses/views.py:74 courses/views.py:90
+#: courses/views.py:105
 msgid "Permission denied."
 msgstr "அனுமதி மறுக்கப்பட்டது."
 
@@ -6457,6 +6461,11 @@ msgstr "லாபம்"
 #: templates/patients/partials/patient_list_partial.html:11
 msgid "Progress"
 msgstr "முன்னேற்றம்"
+
+#: templates/courses/batch_registrations.html:41
+#, python-format
+msgid "Promote waitlist (%(n)s)"
+msgstr "காத்திருப்புப் பட்டியலை உயர்த்து (%(n)s)"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:943
 msgid ""
@@ -7634,7 +7643,7 @@ msgstr "%(count)s செலவுகளில் %(start_index)s-%(end_index)s �
 msgid "Showing %(start_index)s-%(end_index)s of %(count)s payments"
 msgstr "%(count)s கட்டணங்களில் %(start_index)s-%(end_index)s காட்டப்படுகிறது"
 
-#: templates/courses/partials/batch_registrations_partial.html:65
+#: templates/courses/partials/batch_registrations_partial.html:77
 #, python-format
 msgid "Showing %(start_index)s-%(end_index)s of %(count)s registrations"
 msgstr "%(count)s பதிவுகளில் %(start_index)s-%(end_index)s காட்டப்படுகிறது"
@@ -8241,7 +8250,7 @@ msgid ""
 msgstr ""
 "உங்கள் மதிப்புமிக்க கருத்துக்கு நன்றி. ஒப்புதலுக்குப் பிறகு இது தெரியும்."
 
-#: clinic/views.py:138
+#: clinic/views.py:139
 msgid "Thank you! Your review has been submitted for approval."
 msgstr "நன்றி! உங்கள் மதிப்பாய்வு ஒப்புதலுக்காகச் சமர்ப்பிக்கப்பட்டது."
 

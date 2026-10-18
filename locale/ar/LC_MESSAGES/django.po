@@ -78,7 +78,7 @@ msgstr "%(count)s منشور%(count_2)s"
 msgid "%(count)s Reviews"
 msgstr "%(count)s تقييم"
 
-#: templates/courses/batch_registrations.html:40
+#: templates/courses/batch_registrations.html:45
 #, python-format
 msgid "%(count)s Students"
 msgstr "%(count)s طالب"
@@ -160,7 +160,7 @@ msgstr "تبقّى %(n)s"
 msgid "%(name)s - SpinalCure"
 msgstr "%(name)s - SpinalCure"
 
-#: events/views.py:267
+#: courses/views.py:240 events/views.py:267
 #, python-format
 msgid "%(name)s was moved from the waitlist."
 msgstr "تم نقل %(name)s من قائمة الانتظار."
@@ -876,7 +876,7 @@ msgstr "جميع الفئات"
 msgid "All Doctors"
 msgstr "جميع الأطباء"
 
-#: clinic/views.py:107
+#: clinic/views.py:108
 msgid "All fields are required."
 msgstr "جميع الحقول مطلوبة."
 
@@ -978,7 +978,7 @@ msgstr "لا يمكن اعتبار الموعد 'لم يحضر' قبل أن يب
 msgid "An appointment cannot be completed before it starts."
 msgstr "لا يمكن إكمال الموعد قبل أن يبدأ."
 
-#: clinic/views.py:144
+#: clinic/views.py:145
 msgid "An error occurred. Please try again."
 msgstr "حدث خطأ. يرجى المحاولة مرة أخرى."
 
@@ -1028,7 +1028,7 @@ msgstr "الموعد"
 msgid "Appointment booked"
 msgstr "تم حجز الموعد"
 
-#: clinic/views.py:171
+#: clinic/views.py:172
 msgid "Appointment booked successfully!"
 msgstr "تم حجز الموعد بنجاح!"
 
@@ -1384,17 +1384,17 @@ msgstr "الأساسيات"
 msgid "Batch"
 msgstr "الدفعة"
 
-#: courses/views.py:134
+#: courses/views.py:136
 #, python-format
 msgid "Batch \"%(name)s\" created."
 msgstr "تم إنشاء الدفعة \"%(name)s\"."
 
-#: courses/views.py:172
+#: courses/views.py:174
 #, python-format
 msgid "Batch \"%(name)s\" deleted."
 msgstr "تم حذف الدفعة \"%(name)s\"."
 
-#: courses/views.py:154
+#: courses/views.py:156
 #, python-format
 msgid "Batch \"%(name)s\" updated."
 msgstr "تم تحديث الدفعة \"%(name)s\"."
@@ -1668,6 +1668,10 @@ msgstr "إلغاء تسجيلي"
 msgid "Cancel or unpublish an upcoming event before archiving it."
 msgstr "ألغِ الفعالية القادمة أو أوقف نشرها قبل أرشفتها."
 
+#: templates/courses/partials/batch_registrations_partial.html:55
+msgid "Cancel this registration?"
+msgstr "هل تريد إلغاء هذا التسجيل؟"
+
 #: appointments/models.py:177 courses/models.py:171 events/models.py:89
 #: events/models.py:245
 msgid "Cancelled"
@@ -1677,7 +1681,7 @@ msgstr "ملغى"
 msgid "cancelled"
 msgstr "ملغاة"
 
-#: events/views.py:260
+#: courses/views.py:230 events/views.py:260
 #, python-format
 msgid "Cancelled %(name)s's registration."
 msgstr "تم إلغاء تسجيل %(name)s."
@@ -2120,22 +2124,22 @@ msgstr "تعذر الوصول إلى الخادم. تحقق من اتصالك و
 msgid "Course"
 msgstr "الدورة"
 
-#: courses/views.py:94
+#: courses/views.py:96
 #, python-format
 msgid "Course \"%(title)s\" %(state)s."
 msgstr "الدورة \"%(title)s\" %(state)s."
 
-#: courses/views.py:63
+#: courses/views.py:65
 #, python-format
 msgid "Course \"%(title)s\" created successfully."
 msgstr "تم إنشاء الدورة \"%(title)s\" بنجاح."
 
-#: courses/views.py:110
+#: courses/views.py:112
 #, python-format
 msgid "Course \"%(title)s\" deleted."
 msgstr "تم حذف الدورة \"%(title)s\"."
 
-#: courses/views.py:79
+#: courses/views.py:81
 #, python-format
 msgid "Course \"%(title)s\" updated."
 msgstr "تم تحديث الدورة \"%(title)s\"."
@@ -3389,7 +3393,7 @@ msgstr "الرسوم"
 msgid "Feedback"
 msgstr "الملاحظات"
 
-#: courses/views.py:242
+#: courses/views.py:273
 #, python-format
 msgid "Feedback by %(reviewer_name)s %(state)s."
 msgstr "ملاحظات %(reviewer_name)s %(state)s."
@@ -3411,7 +3415,7 @@ msgstr "الملاحظات مفعلة"
 msgid "Feedback Form"
 msgstr "نموذج الملاحظات"
 
-#: courses/views.py:231
+#: courses/views.py:262
 #, python-format
 msgid "Feedback form %(state)s for batch \"%(name)s\"."
 msgstr "نموذج الملاحظات %(state)s للدفعة \"%(name)s\"."
@@ -3425,7 +3429,7 @@ msgstr "نموذج الملاحظات %(value1)s لـ \"%(title)s\"."
 msgid "Feedback Form Enabled"
 msgstr "نموذج الملاحظات مفعّل"
 
-#: templates/courses/partials/batch_registrations_partial.html:42
+#: templates/courses/partials/batch_registrations_partial.html:47
 msgid "Feedback Given"
 msgstr "تم تقديم الملاحظات"
 
@@ -3441,7 +3445,7 @@ msgstr "الملاحظات غير مفتوحة لهذه الفعالية."
 msgid "feedback is visible to the public."
 msgstr "الملاحظات ظاهرة للعامة."
 
-#: templates/courses/partials/batch_registrations_partial.html:11
+#: templates/courses/partials/batch_registrations_partial.html:12
 msgid "Feedback Status"
 msgstr "حالة الملاحظات"
 
@@ -4129,7 +4133,7 @@ msgstr "تنسيق رقم تعريف GST غير صالح."
 msgid "Invalid IFSC Code format."
 msgstr "تنسيق رمز IFSC غير صالح."
 
-#: clinic/views.py:141
+#: clinic/views.py:142
 msgid "Invalid JSON."
 msgstr "JSON غير صالح."
 
@@ -4150,7 +4154,7 @@ msgstr "تاريخ غير صالح أو مفقود. استخدم YYYY-MM-DD."
 msgid "Invalid OTP. %(n)d attempts remaining."
 msgstr "رمز OTP غير صالح. المحاولات المتبقية: %(n)d."
 
-#: clinic/views.py:114
+#: clinic/views.py:115
 msgid "Invalid rating value."
 msgstr "قيمة تقييم غير صالحة."
 
@@ -5083,7 +5087,7 @@ msgstr "لم يتم العثور على فعاليات"
 msgid "No fasting required unless specifically instructed."
 msgstr "لا يلزم الصيام ما لم يُطلب ذلك تحديداً."
 
-#: templates/courses/partials/batch_registrations_partial.html:45
+#: templates/courses/partials/batch_registrations_partial.html:50
 msgid "No feedback"
 msgstr "لا توجد ملاحظات"
 
@@ -5190,7 +5194,7 @@ msgstr "لا توجد تقييمات بعد"
 msgid "No reviews yet."
 msgstr "لا توجد تقييمات بعد."
 
-#: events/views.py:263
+#: courses/views.py:242 events/views.py:263
 msgid "No seat is free. Raise the capacity or cancel a registration first."
 msgstr "لا يوجد مقعد شاغر. ارفع الطاقة الاستيعابية أو ألغِ تسجيلاً أولاً."
 
@@ -5218,7 +5222,7 @@ msgstr "لم يتم العثور على موظفين."
 msgid "No staff profile is linked to your account"
 msgstr "لا يوجد ملف موظف مرتبط بحسابك"
 
-#: templates/courses/partials/batch_registrations_partial.html:53
+#: templates/courses/partials/batch_registrations_partial.html:65
 msgid "No students found matching your search."
 msgstr "لم يتم العثور على طلاب مطابقين لبحثك."
 
@@ -6015,8 +6019,8 @@ msgstr "المستحقات المعلقة"
 msgid "People and their ID cards"
 msgstr "الأشخاص وبطاقات هويتهم"
 
-#: clinic/blog_admin_views.py:142 courses/views.py:72 courses/views.py:88
-#: courses/views.py:103
+#: clinic/blog_admin_views.py:142 courses/views.py:74 courses/views.py:90
+#: courses/views.py:105
 msgid "Permission denied."
 msgstr "تم رفض الإذن."
 
@@ -6361,6 +6365,11 @@ msgstr "الربح"
 #: templates/patients/partials/patient_list_partial.html:11
 msgid "Progress"
 msgstr "التقدم"
+
+#: templates/courses/batch_registrations.html:41
+#, python-format
+msgid "Promote waitlist (%(n)s)"
+msgstr "ترقية قائمة الانتظار (%(n)s)"
 
 #: clinic/templates/clinic/admin/clinic_setup.html:943
 msgid ""
@@ -7521,7 +7530,7 @@ msgstr "عرض %(start_index)s-%(end_index)s من أصل %(count)s مصروف"
 msgid "Showing %(start_index)s-%(end_index)s of %(count)s payments"
 msgstr "عرض %(start_index)s-%(end_index)s من أصل %(count)s دفعة"
 
-#: templates/courses/partials/batch_registrations_partial.html:65
+#: templates/courses/partials/batch_registrations_partial.html:77
 #, python-format
 msgid "Showing %(start_index)s-%(end_index)s of %(count)s registrations"
 msgstr "عرض %(start_index)s-%(end_index)s من أصل %(count)s تسجيل"
@@ -8121,7 +8130,7 @@ msgid ""
 "Thank you for your valuable feedback. It will be visible after approval."
 msgstr "شكراً لملاحظاتك القيّمة. ستظهر بعد الموافقة عليها."
 
-#: clinic/views.py:138
+#: clinic/views.py:139
 msgid "Thank you! Your review has been submitted for approval."
 msgstr "شكراً لك! تم إرسال تقييمك للموافقة."
 

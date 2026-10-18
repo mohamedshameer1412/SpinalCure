@@ -14,6 +14,8 @@ import logging
 from spinalcure.utils import SpinalCureExport, log_action
 from courses.models import Course, CourseBatch, CourseRegistration, CourseFeedback
 from courses.forms import CourseForm, CourseBatchForm
+from courses import service as course_service
+from events.service import EventError
 import logging
 from spinalcure.decorators import superadmin_required, require_pin_auth
 
@@ -180,10 +182,13 @@ def batch_registrations_view(request, pk):
     batch = get_object_or_404(CourseBatch, pk=pk)
     query = request.GET.get('q', '')
     registrations = batch.registrations.all()
+    status = request.GET.get('status', '')
+    if status in ('confirmed', 'waitlisted', 'cancelled'):
+        registrations = registrations.filter(status=status)
 
     if query:
         registrations = registrations.filter(
-            Q(full_name__icontains=query) |
+            Q(name__icontains=query) |
             Q(email__icontains=query) |
             Q(phone__icontains=query)
         )
@@ -199,6 +204,9 @@ def batch_registrations_view(request, pk):
         'batch': batch, 
         'registrations': page_obj,
         'search_query': query,
+        'status': status,
+        'can_manage_registrations': True,
+        'waitlisted_count': batch.registrations.filter(status='waitlisted').count(),
         'export_batch_registrations_excel_url': reverse('export_batch_registrations_excel', kwargs={'pk': pk}),
         'export_batch_registrations_csv_url': reverse('export_batch_registrations_csv', kwargs={'pk': pk}),
         'export_batch_registrations_pdf_url': reverse('export_batch_registrations_pdf', kwargs={'pk': pk}),
@@ -210,6 +218,29 @@ def batch_registrations_view(request, pk):
         return render(request, 'courses/partials/batch_registrations_partial.html', context)
 
     return render(request, 'courses/batch_registrations.html', context)
+
+
+@require_capability('events.registrations')
+@require_http_methods(['POST'])
+def batch_registration_cancel(request, pk, reg_pk):
+    batch = get_object_or_404(CourseBatch, pk=pk)
+    reg = get_object_or_404(CourseRegistration, pk=reg_pk, batch=batch)
+    course_service.cancel_registration(reg, by_staff=True)
+    log_action(request, 'update', 'CourseRegistration', f'Cancelled {reg.name} in {batch.name}', object_id=reg.pk)
+    messages.success(request, gettext("Cancelled %(name)s's registration.") % {'name': reg.name})
+    return redirect('batch_registrations', pk=batch.pk)
+
+
+@require_capability('events.registrations')
+@require_http_methods(['POST'])
+def batch_promote_waitlist(request, pk):
+    batch = get_object_or_404(CourseBatch, pk=pk)
+    promoted = course_service.promote_waitlist(batch)
+    for reg in promoted:
+        messages.success(request, gettext('%(name)s was moved from the waitlist.') % {'name': reg.name})
+    if not promoted:
+        messages.info(request, gettext('No seat is free. Raise the capacity or cancel a registration first.'))
+    return redirect('batch_registrations', pk=batch.pk)
 
 
 @require_capability('events.manage')
@@ -299,7 +330,7 @@ def export_courses_print(request):
 # ── Batch Registration Export ──
 
 def _batch_reg_mapping(r):
-    return [r.full_name, r.email, r.phone, r.get_status_display(), r.registered_at.strftime('%Y-%m-%d %H:%M')]
+    return [r.name, r.email, r.phone, r.get_status_display(), r.registered_at.strftime('%Y-%m-%d %H:%M')]
 
 @require_capability('events.registrations')
 def export_batch_registrations_excel(request, pk):
