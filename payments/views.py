@@ -1,6 +1,6 @@
 from django.utils.translation import gettext
 from django.contrib.auth.decorators import login_required
-from spinalcure.rbac import has_capability, capability_rw_permission
+from spinalcure.rbac import has_capability, capability_rw_permission, require_capability
 from patients.search import patient_q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -77,7 +77,7 @@ def payment_list_view(request):
     return render(request, 'payments/payment_list.html', context)
 
 
-@login_required
+@require_capability('billing.manage')
 def send_invoice_email_view(request, pk):
     """AJAX view to send professional invoice email to client."""
     if request.method != 'POST':
@@ -638,19 +638,19 @@ def _get_filtered_expenses(request):
 def _expense_mapping(e):
     return [e.title, e.get_category_display(), float(e.amount), e.expense_date.strftime('%Y-%m-%d'), e.paid_to, e.notes]
 
-@login_required
+@require_capability('expenses.manage')
 def export_expenses_excel(request):
     expenses, _ = _get_filtered_expenses(request)
     headers = ["Title", "Category", "Amount", "Date", "Paid To", "Notes"]
     return SpinalCureExport.to_excel(expenses, headers, _expense_mapping, "Expenses", "expenses")
 
-@login_required
+@require_capability('expenses.manage')
 def export_expenses_csv(request):
     expenses, _ = _get_filtered_expenses(request)
     headers = ["Title", "Category", "Amount", "Date", "Paid To", "Notes"]
     return SpinalCureExport.to_csv(expenses, headers, _expense_mapping, "expenses")
 
-@login_required
+@require_capability('expenses.manage')
 def export_expenses_pdf(request):
     expenses, query = _get_filtered_expenses(request)
     headers = ["Title", "Category", "Amount", "Date", "Paid To"]
@@ -659,14 +659,14 @@ def export_expenses_pdf(request):
     title = f"Expense Report {'(Filtered)' if query else ''}"
     return SpinalCureExport.to_pdf(expenses, headers, pdf_mapping, title, "expenses")
 
-@login_required
+@require_capability('expenses.manage')
 def export_expenses_copy(request):
     expenses, _ = _get_filtered_expenses(request)
     headers = ["Title", "Category", "Amount", "Date", "Paid To"]
     text = SpinalCureExport.to_text(expenses, headers, _expense_mapping)
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@require_capability('expenses.manage')
 def export_expenses_print(request):
     expenses, query = _get_filtered_expenses(request)
     headers = ["Title", "Category", "Amount", "Date", "Paid To"]
@@ -716,19 +716,19 @@ def _payment_mapping(payment):
         payment.get_payment_status_display()
     ]
 
-@login_required
+@require_capability('billing.view')
 def export_payments_excel(request):
     payments, _ = _get_filtered_payments(request)
     headers = ["Receipt No", "Date", "Payer Name", "Amount Paid", "Total Amount", "Mode", "Status"]
     return SpinalCureExport.to_excel(payments, headers, _payment_mapping, "Payments", "payments")
 
-@login_required
+@require_capability('billing.view')
 def export_payments_csv(request):
     payments, _ = _get_filtered_payments(request)
     headers = ["Receipt No", "Date", "Payer Name", "Amount Paid", "Total Amount", "Mode", "Status"]
     return SpinalCureExport.to_csv(payments, headers, _payment_mapping, "payments")
 
-@login_required
+@require_capability('billing.view')
 def export_payments_pdf(request):
     payments, query = _get_filtered_payments(request)
     headers = ["Receipt No", "Date", "Payer Name", "Amount", "Mode", "Status"]
@@ -744,14 +744,14 @@ def export_payments_pdf(request):
     title = f"Payments Report {'(Filtered)' if query else ''}"
     return SpinalCureExport.to_pdf(payments, headers, pdf_mapping, title, "payments")
 
-@login_required
+@require_capability('billing.view')
 def export_payments_copy(request):
     payments, _ = _get_filtered_payments(request)
     headers = ["Receipt No", "Date", "Payer Name", "Paid", "Total", "Mode", "Status"]
     text = SpinalCureExport.to_text(payments, headers, _payment_mapping)
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@require_capability('billing.view')
 def export_payments_print(request):
     payments, query = _get_filtered_payments(request)
     headers = ["Receipt", "Date", "Payer", "Amount", "Mode", "Status"]

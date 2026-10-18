@@ -41,3 +41,6 @@ if not FERNET_KEYS or LEAKED_DEV_FERNET_KEY in FERNET_KEYS:
     raise _ImproperlyConfigured(
         'FERNET_KEYS must be set to freshly generated key(s); the repository default key is compromised.'
     )
+
+
+REST_FRAMEWORK = {**REST_FRAMEWORK, 'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer']}

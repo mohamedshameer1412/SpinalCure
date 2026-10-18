@@ -1,6 +1,6 @@
 from django.utils.translation import gettext
 from django.contrib.auth.decorators import login_required
-from spinalcure.rbac import has_capability
+from spinalcure.rbac import has_capability, require_capability
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 # ── Course Admin CRUD ─────────────────────────────────────────────────────────
 
-@login_required
+@require_capability('events.registrations')
 def course_list_view(request):
     query = request.GET.get('q', '')
     courses = Course.objects.all().order_by('-created_at')
@@ -54,7 +54,7 @@ def course_list_view(request):
     return render(request, 'courses/course_list.html', context)
 
 
-@login_required
+@require_capability('events.manage')
 def course_create_view(request):
     form = CourseForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -113,14 +113,14 @@ def course_delete_view(request, pk):
 
 # ── Batch Admin CRUD ──────────────────────────────────────────────────────────
 
-@login_required
+@require_capability('events.registrations')
 def batch_list_view(request, course_pk):
     course = get_object_or_404(Course, pk=course_pk)
     batches = course.batches.annotate_registrations() if hasattr(course.batches, 'annotate_registrations') else course.batches.all()
     return render(request, 'courses/batch_list.html', {'course': course, 'batches': course.batches.all()})
 
 
-@login_required
+@require_capability('events.manage')
 def batch_create_view(request, course_pk):
     course = get_object_or_404(Course, pk=course_pk)
     form = CourseBatchForm(request.POST or None)
@@ -175,7 +175,7 @@ def batch_delete_view(request, pk):
 
 # ── Registrations & Feedback Admin ───────────────────────────────────────────
 
-@login_required
+@require_capability('events.registrations')
 def batch_registrations_view(request, pk):
     batch = get_object_or_404(CourseBatch, pk=pk)
     query = request.GET.get('q', '')
@@ -212,7 +212,7 @@ def batch_registrations_view(request, pk):
     return render(request, 'courses/batch_registrations.html', context)
 
 
-@login_required
+@require_capability('events.manage')
 def batch_feedback_admin_view(request, pk):
     batch = get_object_or_404(CourseBatch, pk=pk)
     feedbacks = batch.feedback.order_by('-submitted_at')
@@ -221,7 +221,7 @@ def batch_feedback_admin_view(request, pk):
     })
 
 
-@login_required
+@require_capability('events.manage')
 @require_http_methods(["POST"])
 def toggle_batch_feedback(request, pk):
     batch = get_object_or_404(CourseBatch, pk=pk)
@@ -232,7 +232,7 @@ def toggle_batch_feedback(request, pk):
     return redirect('batch_feedback_admin', pk=pk)
 
 
-@login_required
+@require_capability('events.manage')
 @require_http_methods(["POST"])
 def toggle_course_feedback_publish(request, feedback_pk):
     fb = get_object_or_404(CourseFeedback, pk=feedback_pk)
@@ -254,19 +254,19 @@ def _get_filtered_courses(request):
 def _course_mapping(c):
     return [c.title, c.description[:50], float(c.fees), c.duration, c.created_at.strftime('%Y-%m-%d')]
 
-@login_required
+@require_capability('events.registrations')
 def export_courses_excel(request):
     courses, _ = _get_filtered_courses(request)
     headers = ["Title", "Description", "Fees", "Duration", "Created"]
     return SpinalCureExport.to_excel(courses, headers, _course_mapping, "Courses", "courses")
 
-@login_required
+@require_capability('events.registrations')
 def export_courses_csv(request):
     courses, _ = _get_filtered_courses(request)
     headers = ["Title", "Description", "Fees", "Duration", "Created"]
     return SpinalCureExport.to_csv(courses, headers, _course_mapping, "courses")
 
-@login_required
+@require_capability('events.registrations')
 def export_courses_pdf(request):
     courses, query = _get_filtered_courses(request)
     headers = ["Title", "Fees", "Duration", "Created"]
@@ -275,14 +275,14 @@ def export_courses_pdf(request):
     title = f"Courses Catalog {'(Filtered)' if query else ''}"
     return SpinalCureExport.to_pdf(courses, headers, pdf_mapping, title, "courses")
 
-@login_required
+@require_capability('events.registrations')
 def export_courses_copy(request):
     courses, _ = _get_filtered_courses(request)
     headers = ["Title", "Fees", "Duration", "Created"]
     text = SpinalCureExport.to_text(courses, headers, _course_mapping)
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@require_capability('events.registrations')
 def export_courses_print(request):
     courses, query = _get_filtered_courses(request)
     headers = ["Title", "Fees", "Duration", "Created"]
@@ -301,21 +301,21 @@ def export_courses_print(request):
 def _batch_reg_mapping(r):
     return [r.full_name, r.email, r.phone, r.get_status_display(), r.registered_at.strftime('%Y-%m-%d %H:%M')]
 
-@login_required
+@require_capability('events.registrations')
 def export_batch_registrations_excel(request, pk):
     batch = get_object_or_404(CourseBatch, pk=pk)
     registrations = batch.registrations.all().order_by('-registered_at')
     headers = ["Name", "Email", "Phone", "Status", "Date"]
     return SpinalCureExport.to_excel(registrations, headers, _batch_reg_mapping, f"Reg - {batch.name}", "batch_registrations")
 
-@login_required
+@require_capability('events.registrations')
 def export_batch_registrations_csv(request, pk):
     batch = get_object_or_404(CourseBatch, pk=pk)
     registrations = batch.registrations.all().order_by('-registered_at')
     headers = ["Name", "Email", "Phone", "Status", "Date"]
     return SpinalCureExport.to_csv(registrations, headers, _batch_reg_mapping, "batch_registrations")
 
-@login_required
+@require_capability('events.registrations')
 def export_batch_registrations_pdf(request, pk):
     batch = get_object_or_404(CourseBatch, pk=pk)
     registrations = batch.registrations.all().order_by('-registered_at')
@@ -323,7 +323,7 @@ def export_batch_registrations_pdf(request, pk):
     title = f"Batch Registrations: {batch.name}"
     return SpinalCureExport.to_pdf(registrations, headers, _batch_reg_mapping, title, "batch_registrations")
 
-@login_required
+@require_capability('events.registrations')
 def export_batch_registrations_copy(request, pk):
     batch = get_object_or_404(CourseBatch, pk=pk)
     registrations = batch.registrations.all().order_by('-registered_at')
@@ -331,7 +331,7 @@ def export_batch_registrations_copy(request, pk):
     text = SpinalCureExport.to_text(registrations, headers, _batch_reg_mapping)
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@require_capability('events.registrations')
 def export_batch_registrations_print(request, pk):
     batch = get_object_or_404(CourseBatch, pk=pk)
     registrations = batch.registrations.all().order_by('-registered_at')

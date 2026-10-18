@@ -160,14 +160,14 @@ def _get_patient_export_rows(patients):
         ])
     return rows
 
-@login_required
+@require_capability('patients.view')
 def export_patients_excel(request):
     patients, _ = _get_filtered_patients(request)
     headers = ["S.No", "Photo", "Name", "Phone", "Email", "Address", "Gender", "DOB", "Chief Complaint", "Progress", "Registered"]
     rows = _get_patient_export_rows(patients)
     return SpinalCureExport.to_excel(rows, headers, lambda r: r, "Patients", "patients", image_cols=[1])
 
-@login_required
+@require_capability('patients.view')
 def export_patients_csv(request):
     patients, _ = _get_filtered_patients(request)
     headers = ["S.No", "Photo URL", "Name", "Phone", "Email", "Address", "Gender", "DOB", "Chief Complaint", "Progress", "Registered"]
@@ -188,7 +188,7 @@ def export_patients_csv(request):
         ])
     return SpinalCureExport.to_csv(rows, headers, lambda r: r, "patients")
 
-@login_required
+@require_capability('patients.view')
 def export_patients_pdf(request):
     patients, query = _get_filtered_patients(request)
 
@@ -227,7 +227,7 @@ def export_patients_pdf(request):
         image_cols=[1]   # IMPORTANT: Photo column index is 1
     )
 
-@login_required
+@require_capability('patients.view')
 def export_patients_copy(request):
     patients, _ = _get_filtered_patients(request)
     headers = ["S.No", "Name", "Phone", "Email", "Address", "Complaint", "Progress"]
@@ -237,7 +237,7 @@ def export_patients_copy(request):
     text = SpinalCureExport.to_text(rows, headers, lambda r: r)
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@require_capability('patients.view')
 def export_patients_print(request):
     patients, query = _get_filtered_patients(request)
     headers = ["S.No", "Photo", "Name", "Phone", "Email", "Address", "Gender", "DOB", "Chief Complaint", "Progress", "Registered"]
@@ -577,7 +577,7 @@ def patient_edit_view(request, pk):
     })
 
 
-@login_required
+@require_capability('patients.edit')
 @require_pin_auth('patient-list')
 def patient_delete_view(request, pk):
     """Delete a patient profile securely."""
@@ -610,7 +610,7 @@ def patient_delete_view(request, pk):
     return redirect('patient-detail', pk=pk)
 
 
-@login_required
+@require_capability('reviews.manage')
 def review_delete_view(request, pk):
     review = get_object_or_404(PatientReview, pk=pk)
     if request.method == 'POST':
@@ -870,7 +870,7 @@ def session_edit_view(request, patient_pk, session_pk):
     return render(request, 'patients/session_edit.html', context)
 
 
-@login_required
+@require_capability('clinical.edit')
 @require_POST
 @require_pin_auth('patient-list')
 def session_delete_view(request, patient_pk, session_pk):
@@ -900,19 +900,19 @@ def _get_filtered_reviews(request):
 def _review_mapping(r):
     return [r.patient.name, r.practitioner.name if r.practitioner else "General", r.rating, r.review_text, "Published" if r.is_published else "Hidden", r.created_at.strftime('%Y-%m-%d')]
 
-@login_required
+@require_capability('reviews.manage')
 def export_reviews_excel(request):
     reviews, _ = _get_filtered_reviews(request)
     headers = ["Patient", "Practitioner", "Rating", "Review", "Status", "Date"]
     return SpinalCureExport.to_excel(reviews, headers, _review_mapping, "Reviews", "reviews")
 
-@login_required
+@require_capability('reviews.manage')
 def export_reviews_csv(request):
     reviews, _ = _get_filtered_reviews(request)
     headers = ["Patient", "Practitioner", "Rating", "Review", "Status", "Date"]
     return SpinalCureExport.to_csv(reviews, headers, _review_mapping, "reviews")
 
-@login_required
+@require_capability('reviews.manage')
 def export_reviews_pdf(request):
     reviews, query = _get_filtered_reviews(request)
     headers = ["Patient", "Rating", "Review", "Status", "Date"]
@@ -921,7 +921,7 @@ def export_reviews_pdf(request):
     title = f"Patient Reviews {'(Filtered)' if query else ''}"
     return SpinalCureExport.to_pdf(reviews, headers, pdf_mapping, title, "reviews")
 
-@login_required
+@require_capability('reviews.manage')
 def export_reviews_copy(request):
     reviews, _ = _get_filtered_reviews(request)
     headers = ["Patient", "Rating", "Review", "Status", "Date"]
@@ -929,7 +929,7 @@ def export_reviews_copy(request):
     from django.http import HttpResponse
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@require_capability('reviews.manage')
 def export_reviews_print(request):
     reviews, query = _get_filtered_reviews(request)
     headers = ["Patient", "Rating", "Review", "Status", "Date"]

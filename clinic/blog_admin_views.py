@@ -3,7 +3,7 @@ Admin (dashboard) views for Blog management.
 Only superadmins and doctors can write/manage blogs.
 """
 from django.utils.translation import gettext
-from spinalcure.rbac import has_capability
+from spinalcure.rbac import has_capability, require_capability
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -11,7 +11,7 @@ from .blog_models import BlogPost, BlogTag
 from .models import Practitioner
 
 
-@login_required
+@require_capability('website.manage')
 def admin_blog_list(request):
     """List all blog posts (admin panel)."""
     posts = BlogPost.objects.select_related('author').prefetch_related('tags').order_by('-created_at')

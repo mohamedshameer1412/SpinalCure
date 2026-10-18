@@ -70,3 +70,7 @@ if not FERNET_KEYS or LEAKED_DEV_FERNET_KEY in FERNET_KEYS:
     raise _ImproperlyConfigured(
         'FERNET_KEYS must be set to freshly generated key(s); the repository default key is compromised.'
     )
+
+
+# No browsable API in production: it renders forms for every method and widens the CSRF/HTML surface of the API.
+REST_FRAMEWORK = {**REST_FRAMEWORK, 'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer']}

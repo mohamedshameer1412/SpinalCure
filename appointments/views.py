@@ -1,7 +1,7 @@
 from django.utils.translation import gettext
 from django.contrib.auth.decorators import login_required
 from django_ratelimit.decorators import ratelimit
-from spinalcure.rbac import has_capability
+from spinalcure.rbac import has_capability, require_capability
 from patients.search import patient_q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -16,7 +16,7 @@ from clinic.models import Practitioner, ClinicProfile
 from patients.models import Patient
 from appointments.models import Appointment, DoctorAvailability
 
-@login_required
+@require_capability('appointments.manage')
 def appointment_calendar_view(request):
     
     # Export URLs (no filters on main calendar typically, or use defaults)
@@ -134,7 +134,7 @@ def _appointment_mapping(a):
         a.reason
     ]
 
-@login_required
+@require_capability('appointments.manage')
 def export_appointments_excel(request):
     appointments, _ = _get_filtered_appointments(request)
     headers = ["Patient", "Practitioner", "Phone Number", "Date", "Time","Reason","Status"]
@@ -150,7 +150,7 @@ def export_appointments_excel(request):
         ]
     return SpinalCureExport.to_excel(appointments, headers, copy_mapping, "Appointments", "appointments")
 
-@login_required
+@require_capability('appointments.manage')
 def export_appointments_csv(request):
     appointments, _ = _get_filtered_appointments(request)
     headers = ["Patient", "Practitioner", "Phone Number", "Date", "Time","Reason","Status"]
@@ -166,7 +166,7 @@ def export_appointments_csv(request):
         ]
     return SpinalCureExport.to_csv(appointments, headers, copy_mapping, "appointments")
 
-@login_required
+@require_capability('appointments.manage')
 def export_appointments_pdf(request):
     appointments, query = _get_filtered_appointments(request)
     headers = ["Patient", "Practitioner", "Phone Number", "Date", "Time","Reason","Status"]
@@ -183,7 +183,7 @@ def export_appointments_pdf(request):
     title = f"Appointments Report {'(Filtered)' if query else ''}"
     return SpinalCureExport.to_pdf(appointments, headers, pdf_mapping, title, "appointments")
 
-@login_required
+@require_capability('appointments.manage')
 def export_appointments_copy(request):
     appointments, _ = _get_filtered_appointments(request)
     headers = ["Patient", "Practitioner", "Phone Number", "Date", "Time","Reason","Status"]
@@ -200,7 +200,7 @@ def export_appointments_copy(request):
     text = SpinalCureExport.to_text(appointments, headers, copy_mapping)
     return HttpResponse(text, content_type='text/plain')
 
-@login_required
+@require_capability('appointments.manage')
 def export_appointments_print(request):
     appointments, query = _get_filtered_appointments(request)
     headers = ["S.No", "Patient", "Practitioner", "Phone Number", "Date", "Time","Reason","Status"]
@@ -227,7 +227,7 @@ def export_appointments_print(request):
 
 from spinalcure.decorators import require_pin_auth
 
-@login_required
+@require_capability('appointments.manage')
 @require_pin_auth('appointments')
 def appointment_delete_view(request, pk):
     """Delete an appointment - requires POST and role check."""
@@ -249,7 +249,7 @@ def appointment_delete_view(request, pk):
     return redirect('appointment_calendar')
 
 
-@login_required
+@require_capability('appointments.manage')
 def appointment_check_collision(request):
     """Check if a doctor already has an appointment at a specific time."""
     practitioner_id = request.GET.get('practitioner')

@@ -5,7 +5,8 @@ from patients.search import patient_q
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, SAFE_METHODS
+from spinalcure.rbac import capability_permission, has_capability, require_capability
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import ClinicProfile, Practitioner
@@ -267,13 +268,13 @@ class PractitionerViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'specialization', 'designation_tag', 'qualifications']
     
     def get_permissions(self):
-        if self.request.method == 'GET':
+        if self.request.method in SAFE_METHODS:
             return [IsAuthenticatedOrReadOnly()]
-        return [IsAuthenticated, IsDoctor()]
-    
+        return [IsAuthenticated(), capability_permission('users.manage')()]
+
     def get_queryset(self):
-        # Non-authenticated users only see active practitioners
-        if not self.request.user.is_authenticated:
+        # Only people who manage the team see inactive practitioners; everyone else sees the public roster.
+        if not has_capability(self.request.user, 'users.manage'):
             return Practitioner.objects.filter(is_active=True)
         return Practitioner.objects.all()
 
@@ -285,7 +286,7 @@ from appointments.models import Appointment
 from django.db.models import Q
 from django.urls import reverse
 
-@login_required
+@require_capability('patients.view')
 def global_search_ajax(request):
     """Fast AJAX search for top nav bar (Admin only)"""
     query = request.GET.get('q', '').strip()
