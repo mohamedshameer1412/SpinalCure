@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third-party
+    'django.contrib.sitemaps',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'spinalcure.seo.RobotsTagMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -66,6 +68,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
                 'clinic.context_processors.clinic_info',
+                'spinalcure.seo.seo',
                 'notifications.context_processors.notifications',
             ],
             'builtins': [
@@ -211,8 +214,11 @@ MYMEMORY_EMAIL = config('MYMEMORY_EMAIL', default='')
 RAZORPAY_KEY_ID = config('RAZORPAY_KEY_ID', default='')
 RAZORPAY_KEY_SECRET = config('RAZORPAY_KEY_SECRET', default='')
 RAZORPAY_WEBHOOK_SECRET = config('RAZORPAY_WEBHOOK_SECRET', default='')
+RAZORPAY_LINK_TTL_HOURS = config('RAZORPAY_LINK_TTL_HOURS', default=168, cast=int)
 
 SITE_URL = config('SITE_URL', default='http://127.0.0.1:8000')
+# Set to False on staging so robots.txt asks search engines to stay out.
+SEO_ALLOW_INDEXING = config('SEO_ALLOW_INDEXING', default=True, cast=bool)
 SITE_NAME = config('SITE_NAME', default='SpinalCure')
 
 # Tailwind

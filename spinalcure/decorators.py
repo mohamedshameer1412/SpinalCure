@@ -9,17 +9,31 @@ import logging
 logger = logging.getLogger(__name__)
 
 def superadmin_required(view_func):
-    """Decorator: only superadmin / staff can access these management views."""
+    """Decorator for the website-management screens (clinic profile, practitioners, reviews, stories, translations).
+    Granted by the `website.manage` capability (super admin, clinic admin, owner). Django's `is_staff` flag is
+    deliberately ignored: it only controls the Django admin login and must not widen app permissions."""
+    from spinalcure.rbac import has_capability
+
     @wraps(view_func)
     def _wrapped(request, *args, **kwargs):
         if not request.user.is_authenticated:
             from django.contrib.auth.views import redirect_to_login
             return redirect_to_login(request.get_full_path())
-        if not (request.user.is_staff or request.user.is_superuser):
+        if not has_capability(request.user, 'website.manage'):
             messages.error(request, gettext('You do not have permission to access this section.'))
             return redirect('dashboard')
         return view_func(request, *args, **kwargs)
     return _wrapped
+
+def _safe_referer(request, fallback):
+    """Back to the referring page only if it is on this site (no open redirect) and not this page (no loop)."""
+    from django.utils.http import url_has_allowed_host_and_scheme
+    ref = request.META.get('HTTP_REFERER', '')
+    if (not ref or request.path in ref or not url_has_allowed_host_and_scheme(
+            ref, allowed_hosts={request.get_host()}, require_https=request.is_secure())):
+        return fallback
+    return ref
+
 
 def require_pin_auth(redirect_url_name='dashboard'):
     """
@@ -44,13 +58,7 @@ def require_pin_auth(redirect_url_name='dashboard'):
                     if is_ajax:
                         return JsonResponse({'status': 'error', 'message': gettext('Security authorization required.')}, status=403)
                     messages.error(request, gettext('Security authorization required. Please verify your PIN first.'))
-                    redirect_to = request.META.get('HTTP_REFERER', redirect_url_name)
-                    # Prevent endless loop if referring to itself
-                    if redirect_to and request.path in redirect_to:
-                        redirect_to = redirect_url_name
-                    if not redirect_to:
-                        redirect_to = redirect_url_name
-                    return redirect(redirect_to)
+                    return redirect(_safe_referer(request, redirect_url_name))
                 
                 return view_func(request, *args, **kwargs)
 
@@ -71,11 +79,7 @@ def require_pin_auth(redirect_url_name='dashboard'):
                         return JsonResponse({'status': 'error', 'message': gettext('Authorization failed. Please verify your PIN again.')}, status=403)
                     messages.error(request, gettext('Authorization failed. Please verify your PIN again.'))
                     
-                    redirect_to = request.META.get('HTTP_REFERER', redirect_url_name)
-                    if not redirect_to or request.path in redirect_to:
-                        redirect_to = redirect_url_name
-                    
-                    return redirect(redirect_to)
+                    return redirect(_safe_referer(request, redirect_url_name))
 
                 # Run the view
                 response = view_func(request, *args, **kwargs)

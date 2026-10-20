@@ -1,0 +1,6 @@
+{# Aspect classes are written out here (not in Python) so Tailwind compiles them. #}
+<picture class="block {% if aspect == '9:16' %}aspect-[9/16]{% elif aspect == '4:5' %}aspect-[4/5]{% else %}aspect-video{% endif %} overflow-hidden bg-gray-900">
+    {% for s in sources %}<source type="{{ s.type }}" srcset="{{ s.srcset }}" sizes="{{ sizes }}">{% endfor %}
+    {% if fallback %}<img src="{{ fallback }}" alt="{{ video.title }}" loading="{{ loading }}" decoding="async"{% if width %} width="{{ width }}" height="{{ height }}"{% endif %} class="h-full w-full object-cover"{% if not sources %} referrerpolicy="no-referrer"{% endif %}>
+    {% else %}<span class="flex h-full w-full items-center justify-center text-4xl text-white/60" aria-hidden="true"><i class="bi bi-play-btn"></i></span>{% endif %}
+</picture>

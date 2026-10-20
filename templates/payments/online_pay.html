@@ -40,6 +40,7 @@
 
 {% block extra_scripts %}
 {% if payment and order.status != 'paid' %}
+{{ checkout|json_script:"rzp-checkout" }}
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
 function onlinePay() {
@@ -47,14 +48,15 @@ function onlinePay() {
         busy: false, done: false, error: '', message: '',
         pay() {
             this.error = '';
-            const rzp = new Razorpay({
-                key: '{{ key_id|escapejs }}', amount: {{ amount_paise }}, currency: 'INR', order_id: '{{ order.order_id|escapejs }}',
-                name: '{{ clinic.name|default:"Spinal Cure"|escapejs }}', description: '{{ payment.receipt_number|escapejs }}',
-                prefill: { name: '{{ payment.payer_name|escapejs }}', contact: '{{ payment.payer_phone|default:""|escapejs }}' },
-                theme: { color: '#16a34a' },
+            const cfg = JSON.parse(document.getElementById('rzp-checkout').textContent);
+            // Brand colour from the design tokens (space-separated RGB channels) as the hex Razorpay expects.
+            const rgb = getComputedStyle(document.documentElement).getPropertyValue('--c-primary-600').trim().split(/[\s,]+/).map(Number);
+            const hex = rgb.length === 3 && rgb.every((n) => n >= 0) ? '#' + rgb.map((n) => n.toString(16).padStart(2, '0')).join('') : '';
+            const rzp = new Razorpay(Object.assign(cfg, {
+                theme: hex ? { color: hex } : {},
                 handler: (resp) => this.verify(resp),
                 modal: { ondismiss: () => { this.busy = false; } },
-            });
+            }));
             rzp.on('payment.failed', (r) => { this.busy = false; this.error = (r.error && r.error.description) || '{{ _("Payment failed. Please try again.")|escapejs }}'; });
             this.busy = true; rzp.open();
         },
@@ -63,7 +65,7 @@ function onlinePay() {
                 const r = await fetch('{% url "online_pay_verify" order.token %}', { method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' }, body: JSON.stringify(resp) });
                 const d = await r.json();
-                if (d.status === 'success') { this.done = true; this.message = d.message; } else this.error = d.message;
+                if (d.status === 'success' || d.status === 'processing') { this.done = true; this.message = d.message; } else this.error = d.message;
             } catch (e) { this.error = '{{ _("Could not confirm the payment. It will be confirmed automatically shortly.")|escapejs }}'; }
             finally { this.busy = false; }
         },

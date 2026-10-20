@@ -57,9 +57,9 @@
                     <input type="radio" name="rating" value="{{ forloop.counter }}" class="sr-only"
                         {% if testimonial and testimonial.rating == forloop.counter %}checked
                         {% elif not testimonial and forloop.counter == 5 %}checked{% endif %}>
-                    <i class="bi bi-star-fill text-2xl transition-colors"
-                        id="star-{{ forloop.counter }}"
-                        style="color: {% if testimonial and forloop.counter <= testimonial.rating %}#f59e0b{% elif not testimonial %}#f59e0b{% else %}#e5e7eb{% endif %}"></i>
+                    <i class="bi bi-star-fill text-2xl transition-colors {% if testimonial and forloop.counter <= testimonial.rating or not testimonial %}text-amber-400{% else %}text-gray-200{% endif %}"
+                        id="star-{{ forloop.counter }}" aria-hidden="true"></i>
+                    <span class="sr-only">{{ forloop.counter }} / 5</span>
                 </label>
                 {% endfor %}
             </div>
@@ -145,6 +145,17 @@
 </div>
 
 <div class="mt-8 max-w-4xl">{% translation_panel testimonial %}</div>
+{% if testimonial %}
+<section class="card mt-8 max-w-4xl p-6" aria-labelledby="hist-h">
+    <h2 id="hist-h" class="card-title">{% trans "Moderation history" %}</h2>
+    <p class="card-description mt-1">{% if testimonial.submitted_via == 'public_form' %}{% blocktrans with d=testimonial.consent_at|date:"d M Y, H:i" %}Submitted on the website; publication consent given {{ d }}.{% endblocktrans %}{% else %}{% trans "Added by staff." %}{% endif %}</p>
+    <ol class="mt-4 space-y-3 border-s border-gray-200 ps-4 text-sm">
+        {% for h in history %}
+        <li><p class="font-medium text-gray-900">{{ h.action|capfirst }} <span class="font-normal text-gray-500">· {{ h.actor|default:"system" }} · {{ h.created_at|date:"d M Y, H:i" }}</span></p>{% if h.note %}<p class="text-gray-600">{{ h.note }}</p>{% endif %}</li>
+        {% empty %}<li class="text-gray-500">{% trans "No recorded actions yet (older reviews were created before history was kept)." %}</li>{% endfor %}
+    </ol>
+</section>
+{% endif %}
 {% endblock %}
 
 {% block extra_scripts %}
@@ -154,7 +165,8 @@ const stars = document.querySelectorAll('#star-picker input[type=radio]');
 stars.forEach((radio, i) => {
     radio.addEventListener('change', () => {
         document.querySelectorAll('#star-picker i').forEach((star, j) => {
-            star.style.color = j <= i ? '#f59e0b' : '#e5e7eb';
+            star.classList.toggle('text-amber-400', j <= i);
+            star.classList.toggle('text-gray-200', j > i);
         });
     });
 });

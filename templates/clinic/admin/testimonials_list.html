@@ -1,119 +1,77 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% block title %}{% trans "Testimonials — SpinalCure Admin" %}{% endblock %}
-{% block page_title %}{% trans "Testimonials" %}{% endblock %}
+{% block title %}{% translate "Testimonials" %} — SpinalCure{% endblock %}
+{% block page_title %}{% translate "Testimonials" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'admin_testimonial_create' %}" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg" aria-hidden="true"></i>{% translate "Add Testimonial" %}</a>{% endblock %}
 
 {% block content %}
-<div class="mb-6 flex flex-wrap items-center justify-between gap-4">
-    <div>
-        <p class="text-sm text-gray-500 mt-1">{% trans "Manage curated testimonials displayed on the public portfolio." %}</p>
-    </div>
-    <a href="{% url 'admin_testimonial_create' %}"
-        class="btn btn-primary inline-flex items-center gap-2">
-        <i class="bi bi-plus-lg"></i> {% trans "Add Testimonial" %}
-    </a>
+<p class="mb-4 text-sm text-gray-500">{% translate "Website submissions wait here until you approve them. Only reviews whose authors agreed to publication can go live; every action is recorded." %}</p>
+
+<div class="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+    <nav class="tabs max-w-full overflow-x-auto" aria-label="{% translate 'Review status' %}">
+        {% for key, label, n in tabs %}
+        <a href="?status={{ key }}{% if q %}&amp;q={{ q|urlencode }}{% endif %}" class="tab whitespace-nowrap{% if status == key %} bg-surface text-gray-900 shadow-sm{% endif %}"{% if status == key %} aria-current="page"{% endif %}>{{ label }} <span class="ms-1 text-xs text-gray-500">{{ n }}</span></a>
+        {% endfor %}
+    </nav>
+    <form method="get" role="search" class="flex gap-2">
+        <input type="hidden" name="status" value="{{ status }}">
+        <label for="rq" class="sr-only">{% translate "Search reviews" %}</label>
+        <input id="rq" type="search" name="q" value="{{ q }}" placeholder="{% translate 'Search name or text…' %}" class="w-full lg:w-64">
+        <button class="btn btn-outline">{% translate "Search" %}</button>
+    </form>
 </div>
-
-
 
 {% if testimonials %}
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
     {% for t in testimonials %}
-    <div class="card p-5 flex flex-col gap-3 hover:shadow-md transition-all">
-        <!-- Header -->
-        <div class="flex items-start justify-between gap-3">
-            <div class="flex items-center gap-3">
-                {% if t.photo %}
-                <img src="{{ t.photo.url }}" alt="{{ t.patient_name }}"
-                    class="w-12 h-12 rounded-full object-cover border-2 border-primary-100">
-                {% else %}
-                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-primary-400 to-primary-700 flex items-center justify-center text-white font-bold text-lg">
-                    {{ t.patient_name|slice:":1" }}
-                </div>
-                {% endif %}
-                <div>
-                    <p class="font-bold text-gray-900 text-sm">{{ t.patient_name }}</p>
-                    <p class="text-xs text-gray-500">{{ t.patient_designation|default:"—" }}</p>
+    <article class="card flex flex-col gap-3 p-5">
+        <header class="flex items-start justify-between gap-3">
+            <div class="flex min-w-0 items-center gap-3">
+                {% if t.photo %}<img src="{{ t.photo.url }}" alt="" class="h-11 w-11 rounded-full object-cover">
+                {% else %}<span class="avatar h-11 w-11">{{ t.patient_name|slice:":1" }}</span>{% endif %}
+                <div class="min-w-0">
+                    <p class="truncate text-sm font-semibold text-gray-900">{{ t.patient_name }}</p>
+                    <p class="truncate text-xs text-gray-500">{{ t.patient_designation|default:"—" }}</p>
                 </div>
             </div>
-            <!-- Publish Toggle -->
-            <button onclick="togglePublish('{{ t.pk }}')" id="toggle-btn-{{ t.pk }}"
-                class="text-xs font-bold px-3 py-1 rounded-full transition-all {% if t.is_published %}bg-green-100 text-green-700 hover:bg-green-200{% else %}bg-gray-100 text-gray-500 hover:bg-gray-200{% endif %}"
-                data-published="{{ t.is_published|yesno:'true,false' }}">
-                {% if t.is_published %}{% trans "✓ Published" %}{% else %}{% trans "Draft" %}{% endif %}
-            </button>
+            <span class="badge {% if t.is_published %}badge-success{% elif t.moderation_status == 'pending' %}badge-warning{% elif t.moderation_status == 'approved' %}badge-info{% else %}badge-outline{% endif %}">
+                {% if t.is_published %}{% translate "Live" %}{% else %}{{ t.get_moderation_status_display }}{% endif %}</span>
+        </header>
+        <div class="flex gap-0.5" aria-label="{% blocktranslate with r=t.rating %}{{ r }} out of 5{% endblocktranslate %}">
+            {% for i in "12345" %}<i class="bi bi-star-fill text-sm {% if forloop.counter <= t.rating %}text-amber-400{% else %}text-gray-200{% endif %}" aria-hidden="true"></i>{% endfor %}
         </div>
-
-        <!-- Stars -->
-        <div class="flex gap-0.5">
-            {% for i in "12345" %}
-            <i class="bi bi-star{% if forloop.counter <= t.rating %}-fill text-amber-400{% else %} text-gray-200{% endif %} text-sm"></i>
-            {% endfor %}
-        </div>
-
-        <!-- Review -->
-        <p class="text-sm text-gray-600 leading-relaxed line-clamp-3">"{{ t.review_text }}"</p>
-
-        <!-- Meta -->
-        <div class="flex items-center justify-between text-xs text-gray-400 pt-1 border-t border-gray-50">
-            <span class="flex items-center gap-1">
-                <i class="bi bi-tag"></i>
-                {{ t.get_source_display }}
-            </span>
-            <span>{% blocktranslate trimmed with display_order=t.display_order %}Order: {{ display_order }}{% endblocktranslate %}</span>
-        </div>
-
-        <!-- Actions -->
-        <div class="flex gap-2 mt-1">
-            <a href="{% url 'admin_testimonial_edit' t.pk %}"
-                class="flex-1 text-center py-2 text-xs font-bold text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-all">
-                <i class="bi bi-pencil me-1"></i>{% trans "Edit" %}
-            </a>
-            <form method="POST" action="{% url 'admin_testimonial_delete' t.pk %}" class="flex-1"
-                data-confirm="Delete this testimonial?">
-                {% csrf_token %}
-                <button type="submit"
-                    class="btn btn-soft !bg-red-50 !text-red-700 hover:!bg-red-100 btn-sm w-full">
-                    <i class="bi bi-trash me-1"></i>{% trans "Delete" %}
-                </button>
+        <p class="line-clamp-4 text-sm leading-relaxed text-gray-700">{{ t.review_text|default:"—" }}</p>
+        <dl class="grid grid-cols-2 gap-x-3 gap-y-1 border-t border-gray-100 pt-3 text-xs text-gray-500">
+            <dt>{% translate "Source" %}</dt><dd class="text-end text-gray-700">{{ t.get_submitted_via_display }} · {{ t.get_source_display }}</dd>
+            <dt>{% translate "Consent" %}</dt><dd class="text-end {% if t.submitted_via == 'public_form' and not t.consent_to_publish %}text-red-600{% else %}text-gray-700{% endif %}">{% if t.submitted_via == 'staff' %}{% translate "Staff-curated" %}{% elif t.consent_to_publish %}{% translate "Given" %} {{ t.consent_at|date:"d M Y" }}{% else %}{% translate "None" %}{% endif %}</dd>
+            <dt>{% translate "Received" %}</dt><dd class="text-end text-gray-700">{{ t.created_at|date:"d M Y" }}</dd>
+        </dl>
+        <footer class="mt-auto flex flex-wrap gap-2">
+            {% if t.moderation_status != 'withdrawn' %}
+            <form method="post" action="{% url 'admin_testimonial_moderate' t.pk %}" class="contents">{% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                {% if t.is_published %}<button name="action" value="unpublish" class="btn btn-outline btn-sm">{% translate "Unpublish" %}</button>
+                {% elif t.can_publish %}<button name="action" value="publish" class="btn btn-primary btn-sm">{% translate "Approve & publish" %}</button>{% endif %}
+                {% if t.moderation_status == 'pending' %}
+                <button name="action" value="reject" class="btn btn-outline btn-sm">{% translate "Reject" %}</button>
+                <button name="action" value="spam" class="btn btn-ghost btn-sm">{% translate "Spam" %}</button>
+                {% elif t.moderation_status in 'rejected spam' %}<button name="action" value="reopen" class="btn btn-ghost btn-sm">{% translate "Back to queue" %}</button>{% endif %}
             </form>
-        </div>
-    </div>
+            <a href="{% url 'admin_testimonial_edit' t.pk %}" class="btn btn-soft btn-sm"><i class="bi bi-pencil" aria-hidden="true"></i>{% translate "Edit" %}</a>
+            {% endif %}
+            <form method="post" action="{% url 'admin_testimonial_delete' t.pk %}" data-confirm="{% translate 'Delete this review?' %}" class="ms-auto">{% csrf_token %}
+                <button class="btn btn-ghost btn-sm text-red-600" aria-label="{% translate 'Delete' %}"><i class="bi bi-trash" aria-hidden="true"></i></button>
+            </form>
+        </footer>
+    </article>
     {% endfor %}
 </div>
+{% include "components/pagination.html" with page=page_obj %}
 {% else %}
-<div class="card text-center py-20 border-dashed">
-    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-        <i class="bi bi-chat-quote text-2xl text-gray-400"></i>
-    </div>
-    <h3 class="text-gray-900 font-bold mb-2">{% trans "No testimonials yet" %}</h3>
-    <p class="text-sm text-gray-500 mb-5">{% trans "Add curated testimonials that will appear on your public portfolio." %}</p>
-    <a href="{% url 'admin_testimonial_create' %}"
-        class="btn btn-primary inline-flex items-center gap-2">
-        <i class="bi bi-plus-lg"></i> {% trans "Add First Testimonial" %}
-    </a>
+<div class="card border-dashed py-16 text-center">
+    <span class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gray-100 text-2xl text-gray-400" aria-hidden="true"><i class="bi bi-chat-quote"></i></span>
+    <h2 class="font-semibold text-gray-900">{% if status == 'pending' %}{% translate "Nothing waiting for review" %}{% else %}{% translate "No reviews here" %}{% endif %}</h2>
+    <p class="mt-1 text-sm text-gray-500">{% translate "New website submissions will appear in the Pending tab." %}</p>
 </div>
 {% endif %}
-{% endblock %}
-
-{% block extra_scripts %}
-<script>
-function togglePublish(pk) {
-    const btn = document.getElementById('toggle-btn-' + pk);
-    fetch(`{% url 'admin_testimonials' %}`.replace('/', '/') + `../../admin/testimonials/${pk}/toggle/`, {
-        method: 'POST',
-        headers: { 'X-CSRFToken': '{{ csrf_token }}', 'Content-Type': 'application/json' }
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data.is_published) {
-            btn.className = 'text-xs font-bold px-3 py-1 rounded-full transition-all bg-green-100 text-green-700 hover:bg-green-200';
-            btn.textContent = '✓ Published';
-        } else {
-            btn.className = 'text-xs font-bold px-3 py-1 rounded-full transition-all bg-gray-100 text-gray-500 hover:bg-gray-200';
-            btn.textContent = 'Draft';
-        }
-    });
-}
-</script>
 {% endblock %}

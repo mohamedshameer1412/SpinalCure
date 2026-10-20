@@ -1,6 +1,7 @@
 """
 Public-facing blog views for SpinalCure portfolio.
 """
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from .blog_models import BlogPost, BlogTag
 from .models import Practitioner
@@ -44,7 +45,12 @@ def blog_list_view(request):
 
 def blog_detail_view(request, slug):
     """Public blog detail / article page."""
-    post = get_object_or_404(BlogPost, slug=slug, status='published')
+    post = BlogPost.objects.filter(slug=slug).first()
+    if post is None or post.status != 'published':
+        if post is not None and post.published_at:   # was public once: tell search engines it is gone for good
+            from spinalcure.views_errors import gone
+            return gone(request)
+        raise Http404
 
     # Related posts: same tags, exclude self, limit 3
     related = BlogPost.objects.filter(

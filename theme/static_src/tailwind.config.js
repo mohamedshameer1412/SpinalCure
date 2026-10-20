@@ -73,6 +73,8 @@ module.exports = {
     ],
     theme: {
         extend: {
+            // @tailwindcss/aspect-ratio replaces the aspect-ratio scale with numbers; keep the named utilities too
+            aspectRatio: { auto: 'auto', square: '1 / 1', video: '16 / 9' },
             colors: {
                 ...scales,
                 surface: 'rgb(var(--surface) / <alpha-value>)',

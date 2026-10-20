@@ -3,7 +3,8 @@ from django.utils.translation import gettext
 from django.shortcuts import render, get_object_or_404, redirect
 from django_ratelimit.decorators import ratelimit
 from patients.search import patient_q
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
+from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, SAFE_METHODS
@@ -54,7 +55,10 @@ def clinic_about_page_view(request):
 
 def practitioner_detail_view(request, pk):
     """Public practitioner detail view."""
-    practitioner = get_object_or_404(Practitioner, pk=pk, is_active=True)
+    practitioner = get_object_or_404(Practitioner, pk=pk)
+    if not practitioner.is_active:   # retired profile: gone, not missing
+        from spinalcure.views_errors import gone
+        return gone(request)
     from .models import ClinicTestimonial, TestimonialVideo
     return render(request, 'clinic/practitioner_portfolio.html', {
         'practitioner': practitioner,
@@ -67,37 +71,42 @@ def practitioner_detail_view(request, pk):
 @require_http_methods(["POST"])
 @ratelimit(key='ip', rate='5/h', method='POST', block=True)
 def submit_review_ajax(request):
-    """Public "share your experience" form. Stored as an unpublished testimonial for staff to approve; it never
+    """Public "share your experience" form. Stored as a pending testimonial for staff to approve; it never
     creates or touches patient records (a visitor must not be able to write under a real patient's identity)."""
-    from .models import ClinicTestimonial, ProblemCategory
+    from . import stories
     try:
         data = json.loads(request.body or b'{}')
     except json.JSONDecodeError:
         return JsonResponse({'status': 'error', 'message': gettext('Invalid JSON.')}, status=400)
     if not isinstance(data, dict):
         return JsonResponse({'status': 'error', 'message': gettext('Invalid request.')}, status=400)
-    if str(data.get('website', '')).strip():          # honeypot
-        return JsonResponse({'status': 'success', 'message': gettext('Thank you! Your review has been submitted for approval.')})
-    name = str(data.get('name', '')).strip()[:120]
-    text = str(data.get('review', '')).strip()[:2000]
-    place = str(data.get('place', '')).strip()[:120]
+    thanks = gettext('Thank you! Your review has been submitted for approval.')
     try:
-        rating = int(data.get('rating'))
-    except (TypeError, ValueError):
-        rating = 0
-    if len(name) < 2 or len(text) < 10:
-        return JsonResponse({'status': 'error', 'message': gettext('Please enter your name and a few words about your experience.')}, status=400)
-    if rating not in range(1, 6):
-        return JsonResponse({'status': 'error', 'message': gettext('Invalid rating value.')}, status=400)
-    clinic = ClinicProfile.objects.first()
-    if clinic is None:
-        return JsonResponse({'status': 'error', 'message': gettext('An error occurred. Please try again.')}, status=503)
-    ClinicTestimonial.objects.create(
-        clinic=clinic, patient_name=name, patient_designation=place, rating=rating, review_text=text,
-        problem=ProblemCategory.objects.filter(slug=str(data.get('problem', ''))[:120]).first(),
-        source='internal', is_published=False)
+        t = stories.submit_public_review(data)
+    except stories.ReviewRejected as e:
+        if e.silent:
+            logger.info('Public review dropped by spam check (%s)', e.message)
+            return JsonResponse({'status': 'success', 'message': thanks})
+        return JsonResponse({'status': 'error', 'message': e.message}, status=e.status)
     logger.info('Public review submitted (pending approval)')
-    return JsonResponse({'status': 'success', 'message': gettext('Thank you! Your review has been submitted for approval.')})
+    return JsonResponse({'status': 'success', 'message': thanks,
+                         'withdraw_url': request.build_absolute_uri(reverse('review_withdraw', args=[t.withdraw_token]))})
+
+
+@ratelimit(key='ip', rate='20/h', method='POST', block=True)
+def review_withdraw(request, token):
+    """The author's private link: withdraw consent, which unpublishes and erases the review."""
+    from . import stories
+    from .models import ClinicTestimonial
+    t = ClinicTestimonial.objects.filter(withdraw_token=token).first() if len(token) >= 30 else None
+    if t is None:
+        raise Http404
+    if request.method == 'POST':
+        stories.withdraw(token)
+        t.refresh_from_db()
+    response = render(request, 'clinic/review_withdraw.html', {'review': t})
+    response['Referrer-Policy'] = 'no-referrer'
+    return response
 
 
 @require_http_methods(["POST"])

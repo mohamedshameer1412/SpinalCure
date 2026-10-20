@@ -1,0 +1,24 @@
+{% extends "public_base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Withdraw your review" %} — {{ clinic.name|default:"Spinal Cure" }}{% endblock %}
+{% block meta %}<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">{% endblock %}
+{% block content %}
+<div class="container-site flex justify-center py-12 sm:py-16">
+    <div class="card w-full max-w-md p-6 shadow-pop sm:p-8">
+        {% if review.moderation_status == 'withdrawn' %}
+        <div class="text-center" role="status">
+            <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gray-100 text-2xl text-gray-600" aria-hidden="true"><i class="bi bi-check-lg"></i></span>
+            <h1 class="mt-4 text-xl font-bold text-gray-900">{% translate "Your review has been withdrawn" %}</h1>
+            <p class="mt-2 text-sm text-gray-600">{% translate "It is no longer shown and its text and your name have been deleted." %}</p>
+        </div>
+        {% else %}
+        <h1 class="text-xl font-bold text-gray-900">{% translate "Withdraw your review" %}</h1>
+        <p class="mt-2 text-sm text-gray-600">{% translate "This removes your review from the website and deletes its text and your name. It cannot be undone." %}</p>
+        <blockquote class="mt-4 rounded-xl bg-gray-50 p-4 text-sm text-gray-700">{{ review.review_text|truncatewords:40 }}</blockquote>
+        <form method="post" class="mt-6">{% csrf_token %}
+            <button type="submit" class="btn btn-destructive w-full"><i class="bi bi-trash" aria-hidden="true"></i>{% translate "Withdraw my review" %}</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

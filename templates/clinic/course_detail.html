@@ -1,7 +1,11 @@
 {% extends "public_base.html" %}
-{% load i18n content_i18n %}
+{% load i18n content_i18n seo_tags %}
 {% block title %}{{ course|tx:"title" }} — {{ clinic|tx:"name"|default:"Spinal Cure" }}{% endblock %}
 {% block description %}{{ course|tx:"short_description"|default:course.description|truncatewords:30 }}{% endblock %}
+{% block og_defaults %}<meta property="og:type" content="website">
+<meta property="og:title" content="{{ course|tx:'title' }}">
+{% if course.image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ course.image.url }}">{% endif %}{% endblock %}
+{% block jsonld %}{% ld "course" course %}{% endblock %}
 
 {% block content %}
 <section class="relative overflow-hidden bg-slate-950 text-white">

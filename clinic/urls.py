@@ -1,15 +1,16 @@
 from django.urls import path
+from django.views.generic import RedirectView
 from events import public_views as pev
 from courses import public_views as pcv
 from .views import (clinic_portfolio_view, practitioner_detail_view,
-                    submit_review_ajax, book_appointment_ajax, clinic_about_page_view,
+                    submit_review_ajax, review_withdraw, book_appointment_ajax, clinic_about_page_view,
                     course_detail_view,
                     global_search_ajax)
 from .admin_views import (clinic_setup_view, practitioners_list,
                           practitioner_create, practitioner_edit, practitioner_delete,
                           testimonials_list, testimonial_create, testimonial_edit,
-                          testimonial_delete, testimonial_toggle_publish, activity_log_view, revert_audit_log_view)
-from .testimonial_views import (testimonials_page, admin_videos, admin_video_toggle, admin_video_delete,
+                          testimonial_delete, testimonial_toggle_publish, testimonial_moderate, activity_log_view, revert_audit_log_view)
+from .testimonial_views import (testimonials_page, admin_videos, admin_video_edit, admin_video_toggle, admin_video_delete,
                                 admin_problems, admin_problem_delete)
 from .translation_views import translations_page, translation_action
 from .blog_views import blog_list_view, blog_detail_view
@@ -21,11 +22,12 @@ urlpatterns = [
     path('api/global-search/', global_search_ajax, name='global_search'),
 
     # ── Public Views ──────────────────────────────────────────────────
-    path('portfolio/', clinic_portfolio_view, name='clinic_portfolio'),
+    path('portfolio/', RedirectView.as_view(pattern_name='clinic_portfolio', permanent=True), name='clinic_portfolio_legacy'),
     path('testimonials/', testimonials_page, name='public_testimonials'),
     path('about/', clinic_about_page_view, name='clinic_about_page'),
     path('practitioners/<b64uuid:pk>/', practitioner_detail_view, name='practitioner_detail'),
     path('ajax/submit-review/', submit_review_ajax, name='submit_review_ajax'),
+    path('reviews/withdraw/<str:token>/', review_withdraw, name='review_withdraw'),
     path('ajax/book-appointment/', book_appointment_ajax, name='book_appointment_ajax'),
 
     # ── Public Event Detail ───────────────────────────────────────────
@@ -65,8 +67,10 @@ urlpatterns = [
     path('admin/testimonials/<uuid:pk>/edit/', testimonial_edit, name='admin_testimonial_edit'),
     path('admin/testimonials/<uuid:pk>/delete/', testimonial_delete, name='admin_testimonial_delete'),
     path('admin/testimonials/<uuid:pk>/toggle/', testimonial_toggle_publish, name='admin_testimonial_toggle'),
+    path('admin/testimonials/<uuid:pk>/moderate/', testimonial_moderate, name='admin_testimonial_moderate'),
 
     path('admin/videos/', admin_videos, name='admin_videos'),
+    path('admin/videos/<uuid:pk>/', admin_video_edit, name='admin_video_edit'),
     path('admin/videos/<uuid:pk>/toggle/', admin_video_toggle, name='admin_video_toggle'),
     path('admin/videos/<uuid:pk>/delete/', admin_video_delete, name='admin_video_delete'),
     path('admin/problems/', admin_problems, name='admin_problems'),

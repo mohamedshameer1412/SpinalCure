@@ -39,6 +39,7 @@ _EVENTS = [
     EventSpec('treatment_followup', 'Treatment follow-up due', 'patient', 'info'),
     EventSpec('payment_received', 'Payment received', 'patient', 'success'),
     EventSpec('payment_failed', 'Payment failed', 'staff', 'danger', True, (IN_APP, EMAIL)),
+    EventSpec('online_payment_received', 'Online payment received', 'staff', 'success', default_channels=(IN_APP,)),
     EventSpec('invoice_created', 'Invoice created', 'patient', 'info'),
     EventSpec('outstanding_payment', 'Outstanding payment', 'staff', 'warning', True, (IN_APP,)),
     EventSpec('staff_invitation', 'Staff invitation', 'staff', 'info', configurable=False,

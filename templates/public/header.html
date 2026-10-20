@@ -8,7 +8,8 @@
                 {% if clinic.address %}<span class="hidden min-w-0 items-center gap-1.5 truncate lg:inline-flex"><i class="bi bi-geo-alt" aria-hidden="true"></i><span class="truncate">{{ clinic|tx:"address"|truncatechars:70 }}</span></span>{% endif %}
             </div>
             <div class="flex shrink-0 items-center gap-4">
-                <span class="inline-flex items-center gap-1 whitespace-nowrap"><i class="bi bi-star-fill text-amber-400" aria-hidden="true"></i>{{ clinic.about_stat1_number|default:"5.0" }} {% translate "on Google" %}</span>
+                {# Only a rating the clinic actually entered as its Google rating; never a default number #}
+                {% if clinic.about_stat1_number and 'Google' in clinic.about_stat1_label %}<span class="inline-flex items-center gap-1 whitespace-nowrap"><i class="bi bi-star-fill text-amber-400" aria-hidden="true"></i>{{ clinic.about_stat1_number }} {% translate "on Google" %}</span>{% endif %}
                 {% if clinic.instagram %}<a href="{{ clinic.instagram }}" target="_blank" rel="noopener" class="text-gray-500 hover:text-primary-700" aria-label="Instagram"><i class="bi bi-instagram"></i></a>{% endif %}
                 {% if clinic.youtube %}<a href="{{ clinic.youtube }}" target="_blank" rel="noopener" class="text-gray-500 hover:text-primary-700" aria-label="YouTube"><i class="bi bi-youtube"></i></a>{% endif %}
             </div>

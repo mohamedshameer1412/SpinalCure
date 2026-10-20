@@ -467,3 +467,12 @@ def log_action(request, action, model_name, object_repr, object_id='', changes=N
 
     except Exception as e:
         logger.warning(f'AuditLog failed to record action [{action}] on [{model_name}]: {e}')
+
+
+def safe_next(request, fallback):
+    """A `next` value from the request, only if it points back into this site; otherwise `fallback`."""
+    from django.utils.http import url_has_allowed_host_and_scheme
+    target = request.POST.get('next') or request.GET.get('next') or ''
+    if target and url_has_allowed_host_and_scheme(target, allowed_hosts={request.get_host()}, require_https=request.is_secure()):
+        return target
+    return fallback

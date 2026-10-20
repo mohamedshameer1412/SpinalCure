@@ -3,6 +3,9 @@ from django.db import models
 import uuid
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator
+from spinalcure.languages import NATIVE_CHOICES
+from spinalcure.uploads import RandomName
 from spinalcure.validators import (
     validate_phone_number, validate_gstin, validate_ifsc_code, validate_upi, validate_percentage
 )
@@ -151,6 +154,21 @@ class ClinicProfile(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def map_embed_src(self):
+        """The Google Maps embed URL from the pasted <iframe> code (or plain URL), or '' if it is anything else.
+        The page renders its own iframe from this; the pasted HTML itself is never output."""
+        import re
+        from urllib.parse import urlsplit
+        raw = (self.map_iframe_url or '').strip()
+        m = re.search(r'src\s*=\s*["\']([^"\']+)["\']', raw, re.I)
+        url = (m.group(1) if m else raw).replace('&amp;', '&')
+        parts = urlsplit(url)
+        if parts.scheme == 'https' and parts.hostname in ('www.google.com', 'maps.google.com', 'google.com') \
+                and (parts.path.startswith('/maps/embed') or 'output=embed' in parts.query):
+            return url
+        return ''
 
     def clean(self):
         """Custom validation."""
@@ -375,6 +393,19 @@ class ClinicTestimonial(models.Model):
     display_order = models.PositiveIntegerField(default=0, verbose_name=_('Display Order'))
     created_at = models.DateTimeField(auto_now_add=True)
 
+    # Provenance, consent and moderation. Public submissions need the writer's consent before staff can publish
+    # them, and the writer can withdraw it with the private link shown after submitting.
+    SUBMITTED_VIA_CHOICES = [('staff', _('Added by staff')), ('public_form', _('Website form'))]
+    MODERATION_CHOICES = [('pending', _('Pending review')), ('approved', _('Approved')), ('rejected', _('Rejected')),
+                          ('spam', _('Spam')), ('withdrawn', _('Withdrawn by author'))]
+    submitted_via = models.CharField(max_length=12, choices=SUBMITTED_VIA_CHOICES, default='staff')
+    moderation_status = models.CharField(max_length=10, choices=MODERATION_CHOICES, default='approved', db_index=True)
+    consent_to_publish = models.BooleanField(default=False, verbose_name=_('Author agreed to publication'))
+    consent_at = models.DateTimeField(null=True, blank=True)
+    withdrawn_at = models.DateTimeField(null=True, blank=True)
+    withdraw_token = models.CharField(max_length=43, blank=True, db_index=True, editable=False)
+    content_hash = models.CharField(max_length=64, blank=True, db_index=True, editable=False)
+
     class Meta:
         verbose_name = _('Testimonial')
         verbose_name_plural = _('Testimonials')
@@ -382,6 +413,35 @@ class ClinicTestimonial(models.Model):
 
     def __str__(self):
         return f"{self.patient_name} — {self.rating}★"
+
+    def save(self, *args, **kwargs):
+        if self.moderation_status in ('withdrawn', 'spam', 'rejected'):
+            self.is_published = False      # never public, whatever path saved it
+        super().save(*args, **kwargs)
+
+    @property
+    def can_publish(self):
+        if self.moderation_status in ('withdrawn', 'spam', 'rejected'):
+            return False
+        return self.submitted_via != 'public_form' or self.consent_to_publish
+
+
+class TestimonialModeration(models.Model):
+    """Append-only history of what happened to a testimonial (submitted, approved, published, withdrawn ...).
+    Kept when the testimonial is deleted; no database constraint so it also works on legacy char(32) tables."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    testimonial = models.ForeignKey(ClinicTestimonial, on_delete=models.SET_NULL, null=True, blank=True,
+                                    db_constraint=False, related_name='moderation_history')
+    action = models.CharField(max_length=20)
+    actor = models.CharField(max_length=150, blank=True, help_text=_('Username, or "author" / "system".'))
+    note = models.CharField(max_length=300, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.action} by {self.actor or "system"}'
 
 
 class TestimonialVideo(models.Model):
@@ -402,6 +462,26 @@ class TestimonialVideo(models.Model):
     is_published = models.BooleanField(default=True, db_index=True)
     display_order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    # Media library: language, transcript (accessibility and search), consent, and a thumbnail with a focal point
+    # so one image crops well to 16:9, 4:5 and 9:16.
+    CONSENT_CHOICES = [('unrecorded', _('Not recorded')), ('obtained', _('Consent on file')), ('withdrawn', _('Withdrawn'))]
+    LAYOUT_CHOICES = [('auto', _('Automatic')), ('16:9', '16:9'), ('4:5', '4:5'), ('9:16', '9:16')]
+    THUMB_SOURCE_CHOICES = [('platform', _('Platform thumbnail')), ('upload', _('Uploaded image')),
+                            ('frame1', _('Video frame 1')), ('frame2', _('Video frame 2')), ('frame3', _('Video frame 3'))]
+    language = models.CharField(max_length=5, choices=NATIVE_CHOICES, default='en', verbose_name=_('Language'))
+    transcript = models.TextField(blank=True, verbose_name=_('Transcript'))
+    consent_status = models.CharField(max_length=10, choices=CONSENT_CHOICES, default='unrecorded', db_index=True,
+                                      verbose_name=_('Patient consent'))
+    consent_note = models.CharField(max_length=300, blank=True, verbose_name=_('Where consent is recorded'),
+                                    help_text=_('e.g. "Signed media consent form, file 2026/14". Never upload the form itself here.'))
+    consent_date = models.DateField(null=True, blank=True, verbose_name=_('Consent date'))
+    thumbnail = models.ImageField(upload_to=RandomName('stories'), blank=True, null=True, verbose_name=_('Thumbnail'))
+    thumbnail_source = models.CharField(max_length=10, choices=THUMB_SOURCE_CHOICES, default='platform')
+    focal_x = models.PositiveSmallIntegerField(default=50, validators=[MaxValueValidator(100)])
+    focal_y = models.PositiveSmallIntegerField(default=50, validators=[MaxValueValidator(100)])
+    layout = models.CharField(max_length=5, choices=LAYOUT_CHOICES, default='auto', verbose_name=_('Card layout'))
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         verbose_name = _('Testimonial Video')
@@ -430,6 +510,8 @@ class TestimonialVideo(models.Model):
 
     def save(self, *args, **kwargs):
         self.platform, self.video_id = self.parse_url(self.url or '')
+        if self.consent_status == 'withdrawn':
+            self.is_published = False
         super().save(*args, **kwargs)
 
     @property
@@ -446,9 +528,24 @@ class TestimonialVideo(models.Model):
 
     @property
     def thumbnail_url(self):
+        if self.thumbnail:
+            try:
+                return self.thumbnail.url
+            except ValueError:
+                pass
         if self.platform == 'youtube':
             return f'https://i.ytimg.com/vi/{self.video_id}/hqdefault.jpg'
         return ''
+
+    @property
+    def aspect(self):
+        if self.layout != 'auto':
+            return self.layout
+        return '9:16' if self.is_vertical else '16:9'
+
+    @property
+    def can_publish(self):
+        return self.consent_status == 'obtained'
 
 
 class AuditLog(models.Model):

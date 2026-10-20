@@ -1,11 +1,14 @@
+from spinalcure.uploads import checked_image, reject_bad_uploads
 from django.utils.translation import gettext
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from spinalcure.decorators import superadmin_required
 from .models import ClinicProfile, Practitioner, ClinicService, ClinicAboutImage, ClinicTestimonial, ProblemCategory
 
 @superadmin_required
+@reject_bad_uploads
 def clinic_setup_view(request):
     clinic = ClinicProfile.objects.first()
     if not clinic:
@@ -54,7 +57,7 @@ def clinic_setup_view(request):
             clinic.hero_title = data.get('hero_title', '')
             clinic.hero_subtitle = data.get('hero_subtitle', '')
             clinic.footer_text = data.get('footer_text', '')
-            if request.FILES.get('logo'): clinic.logo = request.FILES['logo']
+            if request.FILES.get('logo'): clinic.logo = checked_image(request.FILES['logo'])
             
             # Handle deleting existing hero carousel images
             delete_ids = request.POST.getlist('delete_hero_image_ids[]')
@@ -69,7 +72,7 @@ def clinic_setup_view(request):
                 from clinic.models import HeroCarouselImage
                 HeroCarouselImage.objects.create(
                     clinic=clinic,
-                    image=img,
+                    image=checked_image(img),
                     order=clinic.hero_carousel_images.count() + order
                 )
 
@@ -88,7 +91,7 @@ def clinic_setup_view(request):
             
             new_images = request.FILES.getlist('new_about_images[]')
             for img in new_images:
-                ClinicAboutImage.objects.create(clinic=clinic, image=img)
+                ClinicAboutImage.objects.create(clinic=clinic, image=checked_image(img))
             messages.success(request, gettext('About section & legacy updated.'))
 
         elif section_type == 'services_header':
@@ -155,6 +158,7 @@ def practitioners_list(request):
     return render(request, 'clinic/admin/practitioners_list.html', {'practitioners': practitioners})
 
 @superadmin_required
+@reject_bad_uploads
 def practitioner_create(request):
     if request.method == 'POST':
         try:
@@ -177,7 +181,7 @@ def practitioner_create(request):
                 is_active=request.POST.get('is_active') == 'on',
             )
             if request.FILES.get('photo'):
-                p.photo = request.FILES['photo']
+                p.photo = checked_image(request.FILES['photo'])
             if request.POST.get('joined_date'):
                 p.joined_date = request.POST['joined_date']
             p.save()
@@ -188,6 +192,7 @@ def practitioner_create(request):
     return render(request, 'clinic/admin/practitioner_form.html', {'practitioner': None})
 
 @superadmin_required
+@reject_bad_uploads
 def practitioner_edit(request, pk):
     p = get_object_or_404(Practitioner, pk=pk)
     if request.method == 'POST':
@@ -209,7 +214,7 @@ def practitioner_edit(request, pk):
             p.facebook = request.POST.get('facebook', p.facebook)
             p.is_active = request.POST.get('is_active') == 'on'
             if request.FILES.get('photo'):
-                p.photo = request.FILES['photo']
+                p.photo = checked_image(request.FILES['photo'])
             if request.POST.get('joined_date'):
                 p.joined_date = request.POST['joined_date']
             p.save()
@@ -233,15 +238,44 @@ def practitioner_delete(request, pk):
 
 @superadmin_required
 def testimonials_list(request):
+    """Moderation queue: filter by status, search, paginate."""
+    from django.core.paginator import Paginator
+    from django.db.models import Count, Q
     clinic = ClinicProfile.objects.first()
-    testimonials = ClinicTestimonial.objects.filter(clinic=clinic).select_related('problem').order_by('display_order', '-created_at') if clinic else []
+    status = request.GET.get('status', 'pending')
+    statuses = dict(ClinicTestimonial.MODERATION_CHOICES)
+    qs = ClinicTestimonial.objects.filter(clinic=clinic).select_related('problem') if clinic else ClinicTestimonial.objects.none()
+    counts = dict(qs.values_list('moderation_status').annotate(n=Count('id')))
+    if status in statuses:
+        qs = qs.filter(moderation_status=status)
+    else:
+        status = 'all'
+    q = request.GET.get('q', '').strip()[:100]
+    if q:
+        qs = qs.filter(Q(patient_name__icontains=q) | Q(review_text__icontains=q) | Q(patient_designation__icontains=q))
+    page = Paginator(qs.order_by('display_order', '-created_at'), 24).get_page(request.GET.get('page'))
+    tabs = [('all', gettext('All'), sum(counts.values()))] + [(k, label, counts.get(k, 0)) for k, label in statuses.items()]
     return render(request, 'clinic/admin/testimonials_list.html', {
-        'testimonials': testimonials,
-        'clinic': clinic,
+        'testimonials': page, 'page_obj': page, 'clinic': clinic, 'status': status, 'q': q, 'tabs': tabs,
     })
 
 
 @superadmin_required
+@require_POST
+def testimonial_moderate(request, pk):
+    from . import stories
+    t = get_object_or_404(ClinicTestimonial, pk=pk)
+    error = stories.moderate(t, request.POST.get('action', ''), request.user, request.POST.get('note', '').strip())
+    if error:
+        messages.error(request, error)
+    else:
+        messages.success(request, gettext('Review updated.'))
+    from spinalcure.utils import safe_next
+    return redirect(safe_next(request, reverse('admin_testimonials')))
+
+
+@superadmin_required
+@reject_bad_uploads
 def testimonial_create(request):
     clinic = ClinicProfile.objects.first()
     if not clinic:
@@ -265,8 +299,11 @@ def testimonial_create(request):
                 posted_label=request.POST.get('posted_label', '').strip(),
             )
             if request.FILES.get('photo'):
-                t.photo = request.FILES['photo']
+                t.photo = checked_image(request.FILES['photo'])
+            t.moderation_status = 'approved'
             t.save()
+            from . import stories
+            stories.log(t, 'created', request.user.get_username(), 'Published' if t.is_published else 'Saved as draft')
             messages.success(request, gettext('Testimonial from %(patient_name)s added.') % {'patient_name': t.patient_name})
             return redirect('admin_testimonials')
         except Exception as e:
@@ -280,6 +317,7 @@ def testimonial_create(request):
 
 
 @superadmin_required
+@reject_bad_uploads
 def testimonial_edit(request, pk):
     t = get_object_or_404(ClinicTestimonial, pk=pk)
     if request.method == 'POST':
@@ -290,21 +328,30 @@ def testimonial_edit(request, pk):
             t.review_text = request.POST.get('review_text', t.review_text).strip()
             t.source = request.POST.get('source', t.source)
             t.display_order = int(request.POST.get('display_order', t.display_order) or 0)
+            was_published = t.is_published
             t.is_published = request.POST.get('is_published') == 'on'
+            if t.is_published and not t.can_publish:
+                t.is_published = False
+                messages.warning(request, gettext('Not published: the author has not agreed, or the review was withdrawn or rejected.'))
+            elif t.is_published and t.moderation_status == 'pending':
+                t.moderation_status = 'approved'
             t.problem_id = request.POST.get('problem') or None
             t.owner_reply = request.POST.get('owner_reply', '').strip()
             t.source_url = request.POST.get('source_url', '').strip()
             t.posted_label = request.POST.get('posted_label', '').strip()
             if request.FILES.get('photo'):
-                t.photo = request.FILES['photo']
+                t.photo = checked_image(request.FILES['photo'])
             t.save()
+            from . import stories
+            stories.log(t, 'edited', request.user.get_username(),
+                        '' if was_published == t.is_published else ('Published' if t.is_published else 'Unpublished'))
             messages.success(request, gettext('Testimonial from %(patient_name)s updated.') % {'patient_name': t.patient_name})
             return redirect('admin_testimonials')
         except Exception as e:
             messages.error(request, gettext('Error updating testimonial: %(e)s') % {'e': e})
 
     return render(request, 'clinic/admin/testimonial_form.html', {
-        'testimonial': t,
+        'testimonial': t, 'history': t.moderation_history.all()[:50],
         'source_choices': ClinicTestimonial.SOURCE_CHOICES,
         'problems': ProblemCategory.objects.filter(is_active=True),
     })
@@ -315,18 +362,23 @@ def testimonial_delete(request, pk):
     t = get_object_or_404(ClinicTestimonial, pk=pk)
     if request.method == 'POST':
         name = t.patient_name
+        from . import stories
+        stories.log(t, 'deleted', request.user.get_username(), f'{name[:60]} ({t.rating}*)')
         t.delete()
         messages.success(request, gettext('Testimonial from %(name)s deleted.') % {'name': name})
     return redirect('admin_testimonials')
 
 
 @superadmin_required
+@require_POST
 def testimonial_toggle_publish(request, pk):
-    """Quick AJAX toggle for published status."""
+    """Quick AJAX toggle for published status (POST only: a GET must never change data)."""
     from django.http import JsonResponse
+    from . import stories
     t = get_object_or_404(ClinicTestimonial, pk=pk)
-    t.is_published = not t.is_published
-    t.save(update_fields=['is_published'])
+    error = stories.moderate(t, 'unpublish' if t.is_published else 'publish', request.user)
+    if error:
+        return JsonResponse({'status': 'error', 'message': error, 'is_published': t.is_published}, status=400)
     return JsonResponse({'status': 'ok', 'is_published': t.is_published})
 
 
@@ -342,6 +394,9 @@ def revert_audit_log_view(request, pk):
     from clinic.models import AuditLog
     
     logger = logging.getLogger(__name__)
+    # Reverting re-creates or overwrites records from a snapshot: super admins only.
+    if not (request.user.is_superuser or getattr(request.user, 'role', '') == 'superadmin'):
+        return JsonResponse({'status': 'error', 'message': gettext('Permission denied.')}, status=403)
     log = get_object_or_404(AuditLog, pk=pk)
     
     if log.reverted:

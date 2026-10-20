@@ -1,3 +1,4 @@
+from spinalcure.uploads import checked_image, reject_bad_uploads
 """
 Admin (dashboard) views for Blog management.
 Only superadmins and doctors can write/manage blogs.
@@ -20,6 +21,7 @@ def admin_blog_list(request):
 
 
 @login_required
+@reject_bad_uploads
 def admin_blog_create(request):
     """Create a new blog post."""
     if not has_capability(request.user, 'website.manage'):
@@ -54,7 +56,7 @@ def admin_blog_create(request):
                 post.author = get_object_or_404(Practitioner, pk=author_id)
 
             if request.FILES.get('cover_image'):
-                post.cover_image = request.FILES['cover_image']
+                post.cover_image = checked_image(request.FILES['cover_image'])
 
             post.save()
 
@@ -74,6 +76,7 @@ def admin_blog_create(request):
 
 
 @login_required
+@reject_bad_uploads
 def admin_blog_edit(request, pk):
     """Edit an existing blog post."""
     if not has_capability(request.user, 'website.manage'):
@@ -100,7 +103,7 @@ def admin_blog_edit(request, pk):
             post.author = None
 
         if request.FILES.get('cover_image'):
-            post.cover_image = request.FILES['cover_image']
+            post.cover_image = checked_image(request.FILES['cover_image'])
 
         if not post.title or not post.content:
             messages.error(request, gettext('Title and Content are required.'))

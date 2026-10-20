@@ -9,6 +9,7 @@ from django.utils.translation import gettext
 from django.views.decorators.http import require_POST
 
 from spinalcure.decorators import superadmin_required
+from . import stories
 from .models import ClinicTestimonial, ProblemCategory, TestimonialVideo
 
 TYPES = ('all', 'reviews', 'videos')
@@ -28,7 +29,7 @@ def testimonials_page(request):
     problem = ProblemCategory.objects.filter(slug=request.GET.get('problem', ''), is_active=True).first()
 
     reviews = ClinicTestimonial.objects.filter(is_published=True).select_related('problem')
-    videos = TestimonialVideo.objects.filter(is_published=True).select_related('problem')
+    videos = TestimonialVideo.objects.filter(is_published=True).exclude(consent_status='withdrawn').select_related('problem')
     if problem:
         reviews, videos = reviews.filter(problem=problem), videos.filter(problem=problem)
     if q:
@@ -36,7 +37,8 @@ def testimonials_page(request):
             Q(patient_name__icontains=q) | Q(review_text__icontains=q) | Q(owner_reply__icontains=q)
             | Q(patient_designation__icontains=q) | _problem_q('problem', q))
         videos = videos.filter(
-            Q(title__icontains=q) | Q(patient_name__icontains=q) | Q(description__icontains=q) | _problem_q('problem', q))
+            Q(title__icontains=q) | Q(patient_name__icontains=q) | Q(description__icontains=q) | Q(transcript__icontains=q)
+            | _problem_q('problem', q))
 
     try:
         limit = min(max(int(request.GET.get('limit', PAGE)), PAGE), 500)
@@ -55,33 +57,112 @@ def testimonials_page(request):
         'kinds': [('all', gettext('All')), ('reviews', gettext('Reviews')), ('videos', gettext('Reels & Shorts'))],
     }
     ctx['total'] = total
+    ctx['review_form_token'] = stories.form_token()
     template = 'clinic/partials/testimonial_results.html' if request.headers.get('HX-Request') else 'clinic/testimonials_public.html'
     return render(request, template, ctx)
 
 
 # ── Admin: videos ──────────────────────────────────────────────────────────
 
+def _int(value, default=0, lo=0, hi=10**6):
+    try:
+        return min(max(int(value), lo), hi)
+    except (TypeError, ValueError):
+        return default
+
+
+def _apply_video_form(v, post):
+    """Copy the text fields of the video form onto v (no files)."""
+    from datetime import date
+    v.title = post.get('title', '').strip()[:200]
+    v.patient_name = post.get('patient_name', '').strip()[:200]
+    v.url = post.get('url', '').strip()
+    v.description = post.get('description', '').strip()
+    v.problem_id = post.get('problem') or None
+    v.display_order = _int(post.get('display_order'))
+    v.language = post.get('language') if post.get('language') in dict(TestimonialVideo._meta.get_field('language').choices) else 'en'
+    v.transcript = post.get('transcript', '').strip()
+    if post.get('consent_status') in dict(TestimonialVideo.CONSENT_CHOICES):
+        v.consent_status = post['consent_status']
+    v.consent_note = post.get('consent_note', '').strip()[:300]
+    try:
+        v.consent_date = date.fromisoformat(post['consent_date']) if post.get('consent_date') else None
+    except ValueError:
+        v.consent_date = None
+    if post.get('layout') in dict(TestimonialVideo.LAYOUT_CHOICES):
+        v.layout = post['layout']
+    v.focal_x, v.focal_y = _int(post.get('focal_x'), 50, 0, 100), _int(post.get('focal_y'), 50, 0, 100)
+
+
 @superadmin_required
 def admin_videos(request):
     if request.method == 'POST':
-        v = TestimonialVideo(
-            title=request.POST.get('title', '').strip(),
-            patient_name=request.POST.get('patient_name', '').strip(),
-            url=request.POST.get('url', '').strip(),
-            description=request.POST.get('description', '').strip(),
-            problem_id=request.POST.get('problem') or None,
-            display_order=int(request.POST.get('display_order') or 0),
-        )
+        v = TestimonialVideo()
+        _apply_video_form(v, request.POST)
+        # Goes live only with the patient's consent on file.
+        v.is_published = v.consent_status == 'obtained' and request.POST.get('is_published') == 'on'
         try:
             v.full_clean(exclude=['platform', 'video_id'])
             v.save()
             messages.success(request, gettext('Video "%(title)s" added.') % {'title': v.title})
+            if not v.is_published:
+                messages.info(request, gettext('Saved as hidden. Record the patient\'s consent to publish it.'))
+            return redirect('admin_video_edit', pk=v.pk)
         except ValidationError as e:
             messages.error(request, gettext('Could not save: %(e)s') % {'e': '; '.join(sum(e.message_dict.values(), []))})
         return redirect('admin_videos')
+    status = request.GET.get('consent', '')
+    videos = TestimonialVideo.objects.select_related('problem')
+    if status in dict(TestimonialVideo.CONSENT_CHOICES):
+        videos = videos.filter(consent_status=status)
+    q = request.GET.get('q', '').strip()[:100]
+    if q:
+        videos = videos.filter(Q(title__icontains=q) | Q(patient_name__icontains=q) | Q(description__icontains=q))
+    from django.core.paginator import Paginator
+    page = Paginator(videos, 25).get_page(request.GET.get('page'))
     return render(request, 'clinic/admin/videos.html', {
-        'videos': TestimonialVideo.objects.select_related('problem'),
+        'videos': page, 'page_obj': page, 'q': q, 'consent': status,
+        'consent_choices': TestimonialVideo.CONSENT_CHOICES, 'language_choices': TestimonialVideo._meta.get_field('language').choices,
         'problems': ProblemCategory.objects.filter(is_active=True),
+    })
+
+
+@superadmin_required
+def admin_video_edit(request, pk):
+    v = get_object_or_404(TestimonialVideo, pk=pk)
+    if request.method == 'POST':
+        _apply_video_form(v, request.POST)
+        try:
+            if request.FILES.get('thumbnail'):
+                upload = request.FILES['thumbnail']
+                stories.validate_image(upload)
+                if v.thumbnail:
+                    v.thumbnail.delete(save=False)
+                v.thumbnail, v.thumbnail_source = upload, 'upload'
+            elif request.POST.get('thumbnail_action') in ('frame1', 'frame2', 'frame3', 'platform'):
+                stories.import_frame(v, request.POST['thumbnail_action'])
+            elif request.POST.get('thumbnail_action') == 'remove' and v.thumbnail:
+                v.thumbnail.delete(save=False)
+                v.thumbnail, v.thumbnail_source = None, 'platform'
+            if request.POST.get('is_published') == 'on' and not v.can_publish:
+                messages.warning(request, gettext('Not published: record the patient\'s consent first.'))
+                v.is_published = False
+            else:
+                v.is_published = request.POST.get('is_published') == 'on'
+            v.full_clean(exclude=['platform', 'video_id', 'thumbnail'])
+            v.save()
+            messages.success(request, gettext('Video "%(title)s" saved.') % {'title': v.title})
+            return redirect('admin_video_edit', pk=v.pk)
+        except ValueError as e:
+            messages.error(request, str(e))
+        except ValidationError as e:
+            messages.error(request, gettext('Could not save: %(e)s') % {'e': '; '.join(sum(e.message_dict.values(), []))})
+    return render(request, 'clinic/admin/video_form.html', {
+        'video': v, 'problems': ProblemCategory.objects.filter(is_active=True),
+        'consent_choices': TestimonialVideo.CONSENT_CHOICES, 'layout_choices': TestimonialVideo.LAYOUT_CHOICES,
+        'language_choices': TestimonialVideo._meta.get_field('language').choices,
+        'frames': [(k, stories.frame_url(v, k)) for k in ('platform', 'frame1', 'frame2', 'frame3')] if v.platform == 'youtube' else [],
+        'aspects': ['16:9', '4:5', '9:16'],
     })
 
 
@@ -89,6 +170,9 @@ def admin_videos(request):
 @require_POST
 def admin_video_toggle(request, pk):
     v = get_object_or_404(TestimonialVideo, pk=pk)
+    if not v.is_published and not v.can_publish:
+        messages.error(request, gettext('Record the patient\'s consent before publishing this video.'))
+        return redirect('admin_video_edit', pk=v.pk)
     v.is_published = not v.is_published
     v.save(update_fields=['is_published'])
     return redirect('admin_videos')
@@ -98,6 +182,8 @@ def admin_video_toggle(request, pk):
 @require_POST
 def admin_video_delete(request, pk):
     v = get_object_or_404(TestimonialVideo, pk=pk)
+    if v.thumbnail:
+        v.thumbnail.delete(save=False)
     v.delete()
     messages.success(request, gettext('Video deleted.'))
     return redirect('admin_videos')

@@ -1,5 +1,4 @@
-{% load content_i18n %}
-{% load i18n %}
+{% load content_i18n i18n story_tags %}
 <p class="text-sm text-slate-500 mb-6">
     {% blocktranslate count n=total %}{{ n }} result{% plural %}{{ n }} results{% endblocktranslate %}
     {% if selected_problem %}· <strong class="text-slate-700">{{ selected_problem.name }}</strong>{% endif %}
@@ -9,12 +8,13 @@
 
 {% if videos %}
 <h2 class="text-lg font-extrabold text-slate-900 mb-4 flex items-center gap-2"><i class="bi bi-play-circle-fill text-green-600"></i>{% translate "Reels & Shorts" %}</h2>
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12">
+<div class="grid grid-cols-2 items-start md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12">
     {% for v in videos %}
-    <button type="button" @click="$dispatch('play-video', { src: '{{ v.embed_url }}', vertical: {{ v.is_vertical|yesno:'true,false' }} })"
-        class="group relative text-start rounded-2xl overflow-hidden bg-slate-900 aspect-[9/14] shadow-sm hover:shadow-xl transition focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500">
-        {% if v.thumbnail_url %}<img src="{{ v.thumbnail_url }}" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-500">
-        {% else %}<div class="absolute inset-0 bg-gradient-to-br from-fuchsia-500 via-rose-500 to-amber-400 flex items-center justify-center"><i class="bi bi-instagram text-white/80 text-5xl"></i></div>{% endif %}
+    <button type="button" @click="$dispatch('play-video', { src: '{{ v.embed_url|escapejs }}', vertical: {{ v.is_vertical|yesno:'true,false' }} })"
+        aria-label="{% blocktranslate with t=v.title %}Play video: {{ t }}{% endblocktranslate %}"
+        class="group relative block w-full self-start text-start rounded-2xl overflow-hidden bg-slate-900 shadow-sm hover:shadow-xl transition focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500">
+        {% if v.thumbnail_url %}{% story_picture v %}
+        {% else %}<div class="{% if v.aspect == '16:9' %}aspect-video{% elif v.aspect == '4:5' %}aspect-[4/5]{% else %}aspect-[9/16]{% endif %} bg-gradient-to-br from-fuchsia-500 via-rose-500 to-amber-400 flex items-center justify-center"><i class="bi bi-instagram text-white/80 text-5xl" aria-hidden="true"></i></div>{% endif %}
         <span class="absolute top-3 start-3 px-2 py-0.5 rounded-full bg-black/60 text-white text-[10px] font-bold uppercase tracking-wide"><i class="bi bi-{{ v.platform }} me-1"></i>{{ v.get_platform_display }}</span>
         <span class="absolute inset-0 flex items-center justify-center"><span class="w-14 h-14 rounded-full bg-white/90 text-green-700 flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition"><i class="bi bi-play-fill ms-0.5"></i></span></span>
         <span class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 to-transparent text-white">

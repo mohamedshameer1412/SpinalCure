@@ -1,6 +1,8 @@
 {% extends "public_base.html" %}
-{% load i18n content_i18n %}
+{% load i18n content_i18n seo_tags %}
 {% block title %}{% translate "About us" %} — {{ clinic|tx:"name"|default:"Spinal Cure" }}{% endblock %}
+{% block description %}{% if clinic %}{{ clinic|tx:"about"|default:clinic.tagline|striptags|truncatewords:30 }}{% endif %}{% endblock %}
+{% block jsonld %}{% ld "clinic" clinic %}{% endblock %}
 
 {% block content %}
 <section class="bg-gradient-to-b from-primary-50/70 to-white">

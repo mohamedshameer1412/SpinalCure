@@ -49,6 +49,16 @@ def fetch_payment(payment_id):
     return _call('GET', f'/payments/{payment_id}')
 
 
+def fetch_order_payments(order_id):
+    """All payment attempts made against an order (used to reconcile missed webhooks)."""
+    return _call('GET', f'/orders/{order_id}/payments').get('items', [])
+
+
+def refund(payment_id, amount_paise, notes=None):
+    """Refund (part of) a captured payment; returns the refund entity (id rfnd_xxx, status)."""
+    return _call('POST', f'/payments/{payment_id}/refund', {'amount': int(amount_paise), 'notes': notes or {}})
+
+
 def _hmac(secret, message):
     return hmac.new(secret.encode(), message if isinstance(message, bytes) else message.encode(), hashlib.sha256).hexdigest()
 

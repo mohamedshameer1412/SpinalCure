@@ -1,10 +1,12 @@
 {% extends "public_base.html" %}
-{% load i18n static content_i18n %}
-{% block meta %}
+{% load i18n static content_i18n seo_tags story_tags %}
+{% block og_defaults %}
+<meta property="og:type" content="website">
 <meta property="og:title" content="{{ clinic|tx:'name' }} — {{ clinic|tx:'tagline' }}">
 <meta property="og:description" content="{{ clinic|tx:'hero_subtitle'|striptags|truncatewords:30 }}">
 {% if hero_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ hero_image.image.url }}">{% endif %}
 {% endblock %}
+{% block jsonld %}{% ld "clinic" clinic %}{% endblock %}
 
 {% block content %}
 <!-- ============ HERO ============ -->
@@ -131,7 +133,7 @@
         <div class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {% for v in videos %}
             <a href="{% url 'public_testimonials' %}?type=videos" class="group relative block aspect-[9/14] overflow-hidden rounded-2xl bg-slate-900 no-underline shadow-card">
-                {% if v.thumbnail_url %}<img src="{{ v.thumbnail_url }}" alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-105">{% endif %}
+                {% if v.thumbnail_url %}<div class="absolute inset-0 opacity-90 transition duration-500 group-hover:scale-105 [&_picture]:h-full [&_picture]:w-full">{% story_picture v "9:16" "(min-width: 1024px) 20vw, 50vw" %}</div>{% endif %}
                 <span class="absolute inset-0 flex items-center justify-center"><span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-xl text-primary-700 shadow-pop"><i class="bi bi-play-fill"></i></span></span>
                 <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-sm font-semibold leading-snug text-white">{{ v|tx:"title"|truncatechars:70 }}</span>
             </a>
@@ -206,7 +208,7 @@
                 <div class="flex gap-4"><span class="feature-icon"><i class="bi bi-clock" aria-hidden="true"></i></span><div><dt class="text-sm font-semibold text-gray-900">{% translate "Opening hours" %}</dt><dd class="mt-1 whitespace-pre-line text-sm text-gray-600">{{ clinic|tx:"working_hours" }}</dd></div></div>
                 {% if clinic.phone_list %}<div class="flex gap-4"><span class="feature-icon"><i class="bi bi-telephone" aria-hidden="true"></i></span><div><dt class="text-sm font-semibold text-gray-900">{% translate "Phone" %}</dt><dd class="mt-1 flex flex-wrap gap-x-4 text-sm">{% for p in clinic.phone_list %}<a href="tel:{{ p|cut:' ' }}" class="font-semibold text-primary-700 no-underline" dir="ltr">{{ p }}</a>{% endfor %}</dd></div></div>{% endif %}
             </dl>
-            {% if clinic.map_iframe_url %}<div class="aspect-[4/3] overflow-hidden rounded-2xl border border-gray-200 [&>iframe]:h-full [&>iframe]:w-full [&>iframe]:border-0">{{ clinic.map_iframe_url|safe }}</div>{% endif %}
+            {% if clinic.map_embed_src %}<div class="aspect-[4/3] overflow-hidden rounded-2xl border border-gray-200"><iframe src="{{ clinic.map_embed_src }}" title="{% translate 'Map to the clinic' %}" class="h-full w-full border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>{% endif %}
         </div>
 
         <div id="book" class="scroll-mt-28 lg:col-span-7">

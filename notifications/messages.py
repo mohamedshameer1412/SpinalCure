@@ -47,6 +47,9 @@ CATALOGUE = {
     'payment_failed': (
         N_('Payment failed'),
         N_('A payment of %(amount)s for %(who)s did not go through and needs attention.')),
+    'online_payment_received': (
+        N_('Online payment received: %(who)s'),
+        N_('%(who)s paid %(amount)s online (receipt %(receipt)s).')),
     'invoice_created': (
         N_('Invoice %(invoice)s'),
         N_('An invoice for %(amount)s has been created.')),

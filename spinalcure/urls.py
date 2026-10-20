@@ -3,7 +3,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 
+from django.contrib.sitemaps.views import sitemap as sitemap_view
+from django.views.decorators.cache import cache_page
+
+from . import seo
 from .i18n_views import set_language
+from clinic.views import clinic_portfolio_view
 from payments.online_views import webhook as razorpay_webhook
 from .decorators import superadmin_required
 from django.views.generic import RedirectView, TemplateView
@@ -41,6 +46,8 @@ urlpatterns = [
     # Internationalization
     path('i18n/setlang/', set_language, name='set_language'),
     path('payments/razorpay/webhook/', razorpay_webhook, name='razorpay_webhook'),
+    path('robots.txt', seo.robots_txt, name='robots_txt'),
+    path('sitemap.xml', cache_page(3600)(sitemap_view), {'sitemaps': seo.SITEMAPS}, name='sitemap'),
     
     # API Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
@@ -59,7 +66,8 @@ urlpatterns += [
 
 # Localized URLs (with language prefix)
 urlpatterns += i18n_patterns(
-    path('', RedirectView.as_view(pattern_name='login', permanent=False), name='index'),
+    # The public home page lives at the language root (/en/, /ta/ ...); staff sign in from the header link.
+    path('', clinic_portfolio_view, name='clinic_portfolio'),
     path('accounts/', include('accounts.urls')),
     path('clinic/', include('clinic.urls')),
     path('patients/', include('patients.urls')),
@@ -72,6 +80,9 @@ urlpatterns += i18n_patterns(
     path('idcards/', include('idcards.urls')),
     path('ui-kit/', superadmin_required(TemplateView.as_view(template_name='ui/kit.html')), name='ui_kit'),
 )
+
+handler404 = 'spinalcure.views_errors.page_not_found'
+handler500 = 'spinalcure.views_errors.server_error'
 
 # Static and Media files
 if settings.DEBUG:

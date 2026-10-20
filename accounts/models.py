@@ -77,7 +77,7 @@ class CustomUser(AbstractUser):
     @property
     def is_doctor_role(self):
         """Check if user is a doctor."""
-        return self.role in ('superadmin', 'doctor') or self.is_staff
+        return self.role in ('superadmin', 'doctor') or self.is_superuser
 
     def save(self, *args, **kwargs):
         """Enforce role-based permissions on save."""

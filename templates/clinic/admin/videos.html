@@ -33,33 +33,56 @@
         <label class="label block mb-1.5">{% trans "Display order" %}</label>
         <input type="number" name="display_order" min="0" value="0" class="w-full">
     </div>
+    <div>
+        <label for="nv-lang" class="label block mb-1.5">{% trans "Language" %}</label>
+        <select id="nv-lang" name="language">{% for code, name in language_choices %}<option value="{{ code }}">{{ name }}</option>{% endfor %}</select>
+    </div>
+    <div>
+        <label for="nv-consent" class="label block mb-1.5">{% trans "Patient consent" %}</label>
+        <select id="nv-consent" name="consent_status">{% for code, name in consent_choices %}{% if code != 'withdrawn' %}<option value="{{ code }}">{{ name }}</option>{% endif %}{% endfor %}</select>
+    </div>
     <div class="md:col-span-2">
         <label class="label block mb-1.5">{% trans "Short description (searchable)" %}</label>
         <textarea name="description" rows="2" class="w-full resize-none"></textarea>
     </div>
-    <div class="md:col-span-2"><button class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>{% trans "Add video" %}</button></div>
+    <div class="md:col-span-2 flex flex-wrap items-center gap-4">
+        <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_published"> {% trans "Publish now (only if consent is on file)" %}</label>
+        <button class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>{% trans "Add video" %}</button>
+    </div>
 </form>
 
-<div class="card overflow-hidden">
-    <table class="w-full text-sm">
-        <thead class="bg-gray-50 text-xs uppercase text-gray-500"><tr>
-            <th class="text-start px-4 py-3">{% trans "Video" %}</th><th class="text-start px-4 py-3 hidden md:table-cell">{% trans "Problem" %}</th>
-            <th class="text-start px-4 py-3">{% trans "Status" %}</th><th class="px-4 py-3"></th></tr></thead>
-        <tbody class="divide-y divide-gray-50">
+<form method="get" role="search" class="mb-3 flex flex-wrap gap-2">
+    <label for="vq" class="sr-only">{% trans "Search videos" %}</label>
+    <input id="vq" type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search title, patient, description…' %}" class="w-full sm:w-72">
+    <label for="vc" class="sr-only">{% trans "Patient consent" %}</label>
+    <select id="vc" name="consent" class="w-auto"><option value="">{% trans "Any consent status" %}</option>{% for code, name in consent_choices %}<option value="{{ code }}" {% if consent == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select>
+    <button class="btn btn-outline">{% trans "Filter" %}</button>
+</form>
+<div class="table-wrap">
+    <table class="ui-table">
+        <thead><tr>
+            <th scope="col">{% trans "Video" %}</th><th scope="col" class="hidden md:table-cell">{% trans "Problem" %}</th>
+            <th scope="col">{% trans "Consent" %}</th><th scope="col">{% trans "Status" %}</th><th scope="col"><span class="sr-only">{% trans "Actions" %}</span></th></tr></thead>
+        <tbody>
         {% for v in videos %}
         <tr>
-            <td class="px-4 py-3"><p class="font-semibold text-gray-900">{{ v.title }}</p>
-                <a href="{{ v.url }}" target="_blank" rel="noopener" class="text-xs text-primary-600 hover:underline"><i class="bi bi-{{ v.platform }} me-1"></i>{{ v.get_platform_display }} · {{ v.video_id }}</a></td>
-            <td class="px-4 py-3 hidden md:table-cell text-gray-600">{{ v.problem.name|default:"—" }}</td>
-            <td class="px-4 py-3"><form method="post" action="{% url 'admin_video_toggle' v.pk %}">{% csrf_token %}
-                <button class="text-xs font-bold px-3 py-1 rounded-full {% if v.is_published %}bg-green-100 text-green-700{% else %}bg-gray-100 text-gray-500{% endif %}">{% if v.is_published %}{% trans "Published" %}{% else %}{% trans "Hidden" %}{% endif %}</button></form></td>
-            <td class="px-4 py-3 text-end"><form method="post" action="{% url 'admin_video_delete' v.pk %}" data-confirm="{% trans 'Delete this video?' %}">{% csrf_token %}
-                <button class="text-xs font-bold text-red-600 hover:underline"><i class="bi bi-trash"></i> {% trans "Delete" %}</button></form></td>
+            <td><div class="flex items-center gap-3">
+                {% if v.thumbnail_url %}<img src="{{ v.thumbnail_url }}" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-12 w-12 shrink-0 rounded-lg object-cover">{% else %}<span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-400" aria-hidden="true"><i class="bi bi-film"></i></span>{% endif %}
+                <div class="min-w-0"><a href="{% url 'admin_video_edit' v.pk %}" class="font-semibold text-gray-900 hover:underline">{{ v.title }}</a>
+                <p class="text-xs text-gray-500"><i class="bi bi-{{ v.platform }} me-1" aria-hidden="true"></i>{{ v.get_platform_display }} · {{ v.get_language_display }}{% if v.transcript %} · {% trans "transcript" %}{% endif %}</p></div></div></td>
+            <td class="hidden md:table-cell text-gray-600">{{ v.problem.name|default:"—" }}</td>
+            <td><span class="badge {% if v.consent_status == 'obtained' %}badge-success{% elif v.consent_status == 'withdrawn' %}badge-danger{% else %}badge-warning{% endif %}">{{ v.get_consent_status_display }}</span></td>
+            <td><form method="post" action="{% url 'admin_video_toggle' v.pk %}">{% csrf_token %}
+                <button class="badge {% if v.is_published %}badge-success{% else %}badge-outline{% endif %}" aria-label="{% if v.is_published %}{% trans 'Published — click to hide' %}{% else %}{% trans 'Hidden — click to publish' %}{% endif %}">{% if v.is_published %}{% trans "Published" %}{% else %}{% trans "Hidden" %}{% endif %}</button></form></td>
+            <td class="text-end whitespace-nowrap"><a href="{% url 'admin_video_edit' v.pk %}" class="btn btn-ghost btn-sm"><i class="bi bi-pencil" aria-hidden="true"></i>{% trans "Edit" %}</a>
+                <form method="post" action="{% url 'admin_video_delete' v.pk %}" data-confirm="{% trans 'Delete this video?' %}" class="inline">{% csrf_token %}
+                <button class="btn btn-ghost btn-sm text-red-600" aria-label="{% trans 'Delete' %}"><i class="bi bi-trash" aria-hidden="true"></i></button></form></td>
         </tr>
         {% empty %}
-        <tr><td colspan="4" class="px-4 py-12 text-center text-gray-400">{% trans "No videos yet. Paste a YouTube Short or Instagram reel link above." %}</td></tr>
+        <tr><td colspan="5" class="py-12 text-center text-gray-500">{% trans "No videos yet. Paste a YouTube Short or Instagram reel link above." %}</td></tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
+{% include "components/pagination.html" with page=page_obj %}
 {% endblock %}

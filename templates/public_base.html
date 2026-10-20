@@ -1,4 +1,4 @@
-{% load i18n static content_i18n %}{% get_current_language as LANGUAGE_CODE %}{% get_available_languages as LANGUAGES %}
+{% load i18n static content_i18n seo_tags %}{% get_current_language as LANGUAGE_CODE %}{% get_available_languages as LANGUAGES %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="scroll-smooth" data-fixed-theme>
 <head>
@@ -8,8 +8,19 @@
     <meta name="description" content="{% block description %}{% if clinic %}{{ clinic|tx:"hero_subtitle"|default:clinic.tagline|striptags|truncatewords:30 }}{% endif %}{% endblock %}">
     <meta property="og:site_name" content="{{ clinic|tx:"name"|default:"Spinal Cure" }}">
     {% block meta %}{% endblock %}
+    {% if seo_indexable %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% for code, url in hreflang_alternates %}<link rel="alternate" hreflang="{{ code }}" href="{{ url }}">
+    {% endfor %}<link rel="alternate" hreflang="x-default" href="{{ hreflang_default }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:locale" content="{{ og_locale }}">
+    {% block og_defaults %}<meta property="og:type" content="website">
+    <meta property="og:title" content="{{ clinic|tx:"name"|default:"Spinal Cure" }}">
+    {% if clinic.hero_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ clinic.hero_image.url }}">{% endif %}{% endblock %}
+    <meta name="twitter:card" content="summary_large_image">
+    {% endif %}
+    {% block jsonld %}{% endblock %}
     {% if clinic_logo_url %}<link rel="icon" href="{{ clinic_logo_url }}">{% endif %}
-    {% for code, name in LANGUAGES %}<link rel="alternate" hreflang="{{ code }}" href="/{{ code }}{{ request.path|slice:'3:' }}">{% endfor %}
     <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">

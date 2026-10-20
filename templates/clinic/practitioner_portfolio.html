@@ -1,7 +1,11 @@
 {% extends "public_base.html" %}
-{% load i18n content_i18n %}
+{% load i18n content_i18n seo_tags story_tags %}
 {% block title %}{{ practitioner|tx:"title" }} {{ practitioner|tx:"name" }} — {{ clinic|tx:"name"|default:"Spinal Cure" }}{% endblock %}
 {% block description %}{{ practitioner|tx:"specialization" }}. {{ practitioner|tx:"bio"|truncatewords:25 }}{% endblock %}
+{% block og_defaults %}<meta property="og:type" content="profile">
+<meta property="og:title" content="{{ practitioner|tx:'title' }} {{ practitioner|tx:'name' }}">
+{% if practitioner.photo %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ practitioner.photo.url }}">{% endif %}{% endblock %}
+{% block jsonld %}{% ld "practitioner" practitioner %}{% endblock %}
 
 {% block content %}
 <section class="bg-gradient-to-b from-primary-50/70 to-white">
@@ -43,7 +47,7 @@
         <div class="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {% for v in videos %}
             <a href="{% url 'public_testimonials' %}?type=videos" class="group relative block aspect-[9/14] overflow-hidden rounded-2xl bg-slate-900 no-underline">
-                {% if v.thumbnail_url %}<img src="{{ v.thumbnail_url }}" alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-90 transition group-hover:scale-105">{% endif %}
+                {% if v.thumbnail_url %}<div class="absolute inset-0 opacity-90 transition group-hover:scale-105 [&_picture]:h-full [&_picture]:w-full">{% story_picture v "9:16" "(min-width: 1024px) 20vw, 50vw" %}</div>{% endif %}
                 <span class="absolute inset-0 flex items-center justify-center"><span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-xl text-primary-700"><i class="bi bi-play-fill"></i></span></span>
                 <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-sm font-semibold text-white">{{ v|tx:"title"|truncatechars:70 }}</span>
             </a>

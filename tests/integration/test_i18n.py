@@ -59,3 +59,10 @@ def test_catalogue_is_complete_and_compiled_mo_is_current(lang):
     compiled = {e.msgid for e in mo}
     stale = [e.msgid for e in live if e.msgid not in compiled]
     assert not stale, f'run scripts/i18n_compile.py ({len(stale)} strings missing from .mo)'
+
+
+def test_language_labels_are_native_script_whatever_the_django_version():
+    from django.utils.translation import get_language_info
+    from spinalcure.languages import NATIVE_CHOICES
+    assert dict(NATIVE_CHOICES)['kn'] == 'ಕನ್ನಡ' and get_language_info('kn')['name_local'] == 'ಕನ್ನಡ'
+    assert [c for c, _ in NATIVE_CHOICES] == ['en', 'ta', 'hi', 'te', 'ml', 'kn']

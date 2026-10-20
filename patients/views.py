@@ -1,3 +1,4 @@
+from spinalcure.uploads import checked_image, reject_bad_uploads
 from django.utils.translation import gettext
 from django.contrib.auth.decorators import login_required
 from spinalcure.rbac import has_capability, require_capability, capability_rw_permission
@@ -404,6 +405,7 @@ def review_create_view(request):
 
 
 @login_required
+@reject_bad_uploads
 def patient_create_view(request):
     """Create a new patient."""
     if not has_capability(request.user, 'patients.edit'):
@@ -463,7 +465,7 @@ def patient_create_view(request):
                 )
                 
             if request.FILES.get('photo'):
-                patient.photo = request.FILES['photo']
+                patient.photo = checked_image(request.FILES['photo'])
                 patient.save()
             log_action(request, 'create', 'Patient', patient.name, object_id=patient.id)
             messages.success(request, gettext('Patient %(name)s registered successfully.') % {'name': patient.name})
@@ -485,6 +487,7 @@ def patient_create_view(request):
 
 @login_required
 @require_pin_auth('patient-list')
+@reject_bad_uploads
 def patient_edit_view(request, pk):
     """Edit an existing patient."""
     if not has_capability(request.user, 'patients.edit'):
@@ -562,7 +565,7 @@ def patient_edit_view(request, pk):
             patient.is_active = update_field('Status (Active)', 'is_active', patient.is_active, new_is_active)
             
             if request.FILES.get('photo'):
-                patient.photo = request.FILES['photo']
+                patient.photo = checked_image(request.FILES['photo'])
                 changes['Photo'] = {"old": "Old Photo", "new": "New Photo Uploaded"}
                 
             patient.save()

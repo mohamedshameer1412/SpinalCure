@@ -15,7 +15,7 @@ from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthentic
 
 from spinalcure.decorators import require_pin_auth
 from spinalcure.rbac import has_capability, require_capability
-from spinalcure.utils import SpinalCureExport, log_action, parse_uuid_param
+from spinalcure.utils import safe_next, SpinalCureExport, log_action, parse_uuid_param
 
 from . import service
 from .forms import EventForm
@@ -179,7 +179,7 @@ def event_status(request, pk):
             raise
     else:
         log_action(request, 'update', 'Event', event.title, object_id=pk, changes={'status': {'new': event.status}})
-    return redirect(request.POST.get('next') or 'event_list')
+    return redirect(safe_next(request, reverse('event_list')))
 
 
 @require_POST
@@ -271,7 +271,7 @@ def registration_action(request, pk, reg_pk):
         messages.error(request, exc.message)
     log_action(request, 'update', 'EventRegistration', f'{reg.name} / {event.title}', object_id=reg.pk,
                changes={'action': {'new': action}})
-    return redirect(request.POST.get('next') or reverse('event_registrations', kwargs={'pk': pk}))
+    return redirect(safe_next(request, reverse('event_registrations', kwargs={'pk': pk})))
 
 
 @require_capability('events.manage')

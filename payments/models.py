@@ -370,6 +370,8 @@ class PaymentRefund(models.Model):
     mode = models.CharField(max_length=20, choices=Payment.PAYMENT_MODE_CHOICES, default='cash')
     refunded_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name='+')
     created_at = models.DateTimeField(auto_now_add=True)
+    gateway_refund_id = models.CharField(max_length=40, blank=True, help_text=_('Razorpay refund id when the money went back through the gateway.'))
+    gateway_status = models.CharField(max_length=20, blank=True)
 
     class Meta:
         ordering = ['-created_at']
@@ -394,12 +396,21 @@ class OnlineOrder(models.Model):
     created_by = models.CharField(max_length=150, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     paid_at = models.DateTimeField(null=True, blank=True)
+    expires_at = models.DateTimeField(null=True, blank=True, help_text=_('The public page stops offering checkout after this.'))
+    amount_captured = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    failure_reason = models.CharField(max_length=300, blank=True)
+    reconciliation_note = models.CharField(max_length=300, blank=True)
 
     class Meta:
         ordering = ['-created_at']
 
     def __str__(self):
         return f'{self.order_id} ({self.status})'
+
+    @property
+    def is_expired(self):
+        from django.utils import timezone
+        return self.expires_at is not None and self.expires_at < timezone.now()
 
     @property
     def payment(self):

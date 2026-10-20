@@ -1,15 +1,15 @@
 {% extends "public_base.html" %}
-{% load content_i18n %}
+{% load content_i18n seo_tags %}
 {% load i18n %}
 {% block title %}{{ event|tx:"title" }} — {{ clinic|tx:"name"|default:"SpinalCure" }}{% endblock %}
 {% block description %}{{ event|tx:"description"|striptags|truncatewords:30 }}{% endblock %}
-{% block meta %}
+{% block og_defaults %}
 <meta property="og:title" content="{{ event|tx:"title" }}">
 <meta property="og:description" content="{{ event|tx:"description"|striptags|truncatewords:30 }}">
-<meta property="og:type" content="event">
-<meta property="og:url" content="{{ og_url }}">
+<meta property="og:type" content="website">
 {% if event.image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ event.image.url }}">{% endif %}
 {% endblock %}
+{% block jsonld %}{% ld "event" event %}{% endblock %}
 {% block content %}
 <div class="max-w-5xl mx-auto px-4 py-8 grid lg:grid-cols-3 gap-8"
      x-data="eventPage({ start: '{{ start_iso }}', end: '{{ event.ends_at.isoformat }}', status: '{{ event.status }}', url: '{% url 'event_register_ajax' event.pk %}', csrf: '{{ csrf_token }}' })">

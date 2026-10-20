@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load i18n story_tags %}
+{% block title %}{{ video.title }} — SpinalCure{% endblock %}
+{% block page_title %}{% translate "Patient story video" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'admin_videos' %}" class="btn btn-ghost btn-sm"><i class="bi bi-arrow-left rtl:rotate-180" aria-hidden="true"></i>{% translate "All videos" %}</a>{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data" class="grid gap-6 xl:grid-cols-[1fr_24rem]"
+      x-data="{ fx: {{ video.focal_x }}, fy: {{ video.focal_y }}, preview: '{{ video.thumbnail_url|escapejs }}',
+                pick(e) { const r = e.currentTarget.getBoundingClientRect(); this.fx = Math.round((e.clientX - r.left) / r.width * 100); this.fy = Math.round((e.clientY - r.top) / r.height * 100); },
+                nudge(dx, dy) { this.fx = Math.min(100, Math.max(0, this.fx + dx)); this.fy = Math.min(100, Math.max(0, this.fy + dy)); },
+                file(e) { const f = e.target.files[0]; if (f) this.preview = URL.createObjectURL(f); } }">
+    {% csrf_token %}
+    <div class="grid content-start gap-6">
+        <section class="card p-6" aria-labelledby="h-details">
+            <h2 id="h-details" class="card-title">{% translate "Details" %}</h2>
+            <div class="mt-4 grid gap-4 md:grid-cols-2">
+                <div class="md:col-span-2"><label for="f-url" class="label">{% translate "Video / Reel / Short link" %}</label>
+                    <input id="f-url" type="url" name="url" value="{{ video.url }}" required></div>
+                <div><label for="f-title" class="label">{% translate "Title" %}</label><input id="f-title" type="text" name="title" value="{{ video.title }}" required maxlength="200"></div>
+                <div><label for="f-name" class="label">{% translate "Patient name (optional)" %}</label><input id="f-name" type="text" name="patient_name" value="{{ video.patient_name }}" maxlength="200"></div>
+                <div><label for="f-problem" class="label">{% translate "Problem treated" %}</label>
+                    <select id="f-problem" name="problem"><option value="">{% translate "— None —" %}</option>{% for p in problems %}<option value="{{ p.pk }}" {% if video.problem_id == p.pk %}selected{% endif %}>{{ p.name }}</option>{% endfor %}</select></div>
+                <div><label for="f-lang" class="label">{% translate "Language" %}</label>
+                    <select id="f-lang" name="language">{% for code, name in language_choices %}<option value="{{ code }}" {% if video.language == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select></div>
+                <div class="md:col-span-2"><label for="f-desc" class="label">{% translate "Short description (searchable)" %}</label>
+                    <textarea id="f-desc" name="description" rows="2">{{ video.description }}</textarea></div>
+                <div class="md:col-span-2"><label for="f-tr" class="label">{% translate "Transcript" %}</label>
+                    <textarea id="f-tr" name="transcript" rows="6" aria-describedby="f-tr-h">{{ video.transcript }}</textarea>
+                    <p id="f-tr-h" class="field-hint">{% translate "What is said in the video. Helps people who cannot play sound, and makes the story searchable." %}</p></div>
+                <div><label for="f-order" class="label">{% translate "Display order" %}</label><input id="f-order" type="number" name="display_order" min="0" value="{{ video.display_order }}"></div>
+            </div>
+        </section>
+
+        <section class="card p-6" aria-labelledby="h-consent">
+            <h2 id="h-consent" class="card-title">{% translate "Consent and publication" %}</h2>
+            <p class="card-description mt-1">{% translate "A video can go live only when the patient's consent is on file. Marking consent as withdrawn hides it immediately." %}</p>
+            <div class="mt-4 grid gap-4 md:grid-cols-3">
+                <div><label for="f-cs" class="label">{% translate "Patient consent" %}</label>
+                    <select id="f-cs" name="consent_status">{% for code, name in consent_choices %}<option value="{{ code }}" {% if video.consent_status == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select></div>
+                <div><label for="f-cd" class="label">{% translate "Consent date" %}</label><input id="f-cd" type="date" name="consent_date" value="{{ video.consent_date|date:'Y-m-d' }}"></div>
+                <div><label for="f-cn" class="label">{% translate "Where consent is recorded" %}</label><input id="f-cn" type="text" name="consent_note" value="{{ video.consent_note }}" maxlength="300"></div>
+            </div>
+            <label class="mt-4 flex items-center gap-2 text-sm"><input type="checkbox" name="is_published" {% if video.is_published %}checked{% endif %}> {% translate "Published on the website" %}</label>
+        </section>
+
+        <section class="card p-6" aria-labelledby="h-thumb">
+            <h2 id="h-thumb" class="card-title">{% translate "Thumbnail" %}</h2>
+            <p class="card-description mt-1">{% translate "Upload your own image or use a frame from the YouTube video, then click the image to set the focal point that every crop keeps in view." %}</p>
+            <div class="mt-4 grid gap-6 lg:grid-cols-2">
+                <div>
+                    <template x-if="preview">
+                        <button type="button" class="relative block w-full cursor-crosshair overflow-hidden rounded-xl bg-gray-900" @click="pick($event)"
+                                @keydown.left.prevent="nudge(-2, 0)" @keydown.right.prevent="nudge(2, 0)" @keydown.up.prevent="nudge(0, -2)" @keydown.down.prevent="nudge(0, 2)"
+                                aria-label="{% translate 'Focal point: click, or use the arrow keys' %}">
+                            <img :src="preview" alt="" class="w-full" referrerpolicy="no-referrer">
+                            <span class="pointer-events-none absolute h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-pop ring-2 ring-primary-600" :style="{ left: fx + '%', top: fy + '%' }" aria-hidden="true"></span>
+                        </button>
+                    </template>
+                    <p x-show="!preview" class="rounded-xl border border-dashed border-gray-300 p-8 text-center text-sm text-gray-500">{% translate "No thumbnail yet." %}</p>
+                    <p class="field-hint" aria-live="polite">{% translate "Focal point" %}: <span x-text="fx"></span>% / <span x-text="fy"></span>%</p>
+                    <input type="hidden" name="focal_x" :value="fx"><input type="hidden" name="focal_y" :value="fy">
+                    <div class="mt-4"><label for="f-thumb" class="label">{% translate "Upload image (JPEG, PNG or WebP, max 8 MB)" %}</label>
+                        <input id="f-thumb" type="file" name="thumbnail" accept="image/jpeg,image/png,image/webp" @change="file($event)"></div>
+                    {% if frames %}
+                    <fieldset class="mt-4"><legend class="label">{% translate "Or use a frame from the video" %}</legend>
+                        <div class="grid grid-cols-4 gap-2">
+                            {% for key, url in frames %}
+                            <label class="cursor-pointer"><input type="radio" name="thumbnail_action" value="{{ key }}" class="peer sr-only" @change="preview = '{{ url|escapejs }}'">
+                                <img src="{{ url }}" alt="{% if key == 'platform' %}{% translate 'Cover image' %}{% else %}{% blocktranslate with n=forloop.counter0 %}Frame {{ n }}{% endblocktranslate %}{% endif %}" loading="lazy" referrerpolicy="no-referrer" class="aspect-video w-full rounded-lg object-cover ring-offset-2 peer-checked:ring-2 peer-checked:ring-primary-600 peer-focus-visible:ring-2 peer-focus-visible:ring-primary-500"></label>
+                            {% endfor %}
+                        </div>
+                    </fieldset>
+                    {% endif %}
+                    {% if video.thumbnail %}<label class="mt-3 flex items-center gap-2 text-sm text-gray-600"><input type="radio" name="thumbnail_action" value="remove"> {% translate "Remove the custom thumbnail" %}</label>{% endif %}
+                </div>
+                <div>
+                    <p class="label">{% translate "Card layouts" %}</p>
+                    <div class="grid grid-cols-3 items-start gap-3">
+                        {% for a in aspects %}
+                        <figure>
+                            <div class="{% if a == '16:9' %}aspect-video{% elif a == '4:5' %}aspect-[4/5]{% else %}aspect-[9/16]{% endif %} overflow-hidden rounded-lg bg-gray-900">
+                                <img x-show="preview" :src="preview" alt="" class="h-full w-full object-cover" :style="{ objectPosition: fx + '% ' + fy + '%' }" referrerpolicy="no-referrer">
+                            </div>
+                            <figcaption class="mt-1 text-center text-xs text-gray-500">{{ a }}</figcaption>
+                        </figure>
+                        {% endfor %}
+                    </div>
+                    <div class="mt-4"><label for="f-layout" class="label">{% translate "Card layout" %}</label>
+                        <select id="f-layout" name="layout">{% for code, name in layout_choices %}<option value="{{ code }}" {% if video.layout == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select>
+                        <p class="field-hint">{% translate "Automatic uses 9:16 for Shorts and reels, 16:9 for other videos." %}</p></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <aside class="grid content-start gap-4">
+        <div class="card p-5 xl:sticky xl:top-20">
+            <p class="label">{% translate "On the website" %}</p>
+            <div class="mt-2 max-w-[14rem] overflow-hidden rounded-xl">{% story_picture video eager=True %}</div>
+            <dl class="mt-4 grid grid-cols-2 gap-y-1 text-sm">
+                <dt class="text-gray-500">{% translate "Status" %}</dt><dd class="text-end">{% if video.is_published %}<span class="badge badge-success">{% translate "Published" %}</span>{% else %}<span class="badge badge-outline">{% translate "Hidden" %}</span>{% endif %}</dd>
+                <dt class="text-gray-500">{% translate "Consent" %}</dt><dd class="text-end">{{ video.get_consent_status_display }}</dd>
+                <dt class="text-gray-500">{% translate "Thumbnail" %}</dt><dd class="text-end">{{ video.get_thumbnail_source_display }}</dd>
+            </dl>
+            <button type="submit" class="btn btn-primary mt-5 w-full"><i class="bi bi-check-lg" aria-hidden="true"></i>{% translate "Save" %}</button>
+        </div>
+    </aside>
+</form>
+{% endblock %}
