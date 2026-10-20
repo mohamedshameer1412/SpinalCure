@@ -1,0 +1,100 @@
+{% load i18n static %}
+{% comment %}
+  Studio credit banner.
+  Usage:
+    {% include "components/credits.html" %}              ← light surface
+    {% include "components/credits.html" with on_dark=True %}  ← dark surface
+{% endcomment %}
+
+{# ── Outer wrapper ─────────────────────────────────────────────────────── #}
+<div class="flex flex-col items-center gap-2 text-center sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-3 sm:gap-y-1.5">
+
+  {# ── "Designed & developed by" line ──────────────────────────────────── #}
+  <p class="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1
+            {% if on_dark %}text-slate-400{% else %}text-gray-500{% endif %}
+            text-sm">
+
+    <span>{% translate "Designed & developed by" %}</span>
+
+    {# Deep Aspects brand link with logo ─────────────────────────────────── #}
+    <a href="https://deepaspects.vercel.app/"
+       target="_blank" rel="noopener noreferrer"
+       title="Visit Deep Aspects — Turning Ideas into Impact"
+       class="group relative inline-flex items-center gap-1.5 font-semibold no-underline
+              transition-all duration-200
+              {% if on_dark %}text-amber-300 hover:text-amber-200{% else %}text-gray-800 hover:text-amber-600{% endif %}">
+
+      {# Logo image — the new Deep Aspects Lightbulb Emblem #}
+      <img src="{% static 'img/deep-aspects-logo.png' %}"
+           alt="Deep Aspects logo"
+           width="22" height="22"
+           class="h-[22px] w-auto rounded-full object-cover ring-1 ring-amber-400/50
+                  group-hover:ring-amber-400 transition-all duration-200
+                  {% if on_dark %}{% else %}dark:hidden{% endif %}">
+      {% if not on_dark %}
+      <img src="{% static 'img/deep-aspects-logo-light.png' %}"
+           alt="Deep Aspects logo"
+           width="22" height="22"
+           class="hidden h-[22px] w-auto rounded-full object-cover ring-1 ring-amber-400/50
+                  group-hover:ring-amber-400 transition-all duration-200 dark:inline">
+      {% endif %}
+
+      <span>Deep Aspects</span>
+
+      {# Hover tooltip ────────────────────────────────────────────────────── #}
+      <span class="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2
+                   whitespace-nowrap rounded-lg border border-amber-400/30
+                   bg-gray-900 px-3 py-2 text-xs font-normal text-slate-200
+                   opacity-0 shadow-xl transition-opacity duration-150
+                   group-hover:opacity-100 group-focus:opacity-100"
+            role="tooltip">
+        <span class="block font-semibold text-amber-300">Deep Aspects</span>
+        <span class="block text-slate-400">Turning Ideas into Impact</span>
+        <span class="mt-1 block text-amber-400/80">↗ Visit deepaspects.vercel.app</span>
+      </span>
+    </a>
+
+    <span aria-hidden="true" class="{% if on_dark %}text-slate-600{% else %}text-gray-300{% endif %}">·</span>
+    <span>{% translate "Developer" %}</span>
+
+    {# Mohamed Shameer M portfolio link ──────────────────────────────────── #}
+    <a href="https://shameer-room-portfolio.netlify.app/"
+       target="_blank" rel="noopener noreferrer"
+       title="Mohamed Shameer M — Developer Portfolio"
+       class="group relative inline-flex items-center gap-1 font-semibold no-underline
+              transition-all duration-200
+              {% if on_dark %}text-white hover:text-amber-300{% else %}text-gray-800 hover:text-primary-700{% endif %}">
+      <span>Mohamed Shameer M</span>
+
+      {# Portfolio tooltip ─────────────────────────────────────────────────── #}
+      <span class="pointer-events-none absolute bottom-full right-0 mb-2
+                   whitespace-nowrap rounded-lg border border-slate-700
+                   bg-gray-900 px-3 py-2 text-xs font-normal text-slate-200
+                   opacity-0 shadow-xl transition-opacity duration-150
+                   group-hover:opacity-100 group-focus:opacity-100"
+            role="tooltip">
+        <span class="block font-semibold text-white">Mohamed Shameer M</span>
+        <span class="block text-slate-400">Full-Stack Developer</span>
+        <span class="mt-1 block text-blue-400/80">↗ View Dev Portfolio</span>
+      </span>
+    </a>
+  </p>
+
+  {# ── "Need a system like this?" CTA pill ──────────────────────────────── #}
+  <a href="https://deepaspects.vercel.app/#contact"
+     target="_blank" rel="noopener noreferrer"
+     class="inline-flex items-center gap-1.5 rounded-full border px-3 py-0.5 text-xs font-medium
+            no-underline transition-all duration-200 hover:scale-105
+            {% if on_dark %}
+              border-amber-400/40 text-amber-300 hover:border-amber-400 hover:bg-amber-400/10
+            {% else %}
+              border-amber-400/60 text-amber-700 hover:border-amber-500 hover:bg-amber-50
+            {% endif %}">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+         class="h-3.5 w-3.5 flex-shrink-0" aria-hidden="true">
+      <path d="M10 1a6 6 0 0 1 3.439 10.891l.001.109H6.56l.001-.109A6 6 0 0 1 10 1ZM6.5 15a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7Zm1 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Z"/>
+    </svg>
+    {% translate "Need a system like this?" %} <span class="font-semibold">{% translate "Contact Deep Aspects" %}</span>
+  </a>
+
+</div>
