@@ -1,0 +1,53 @@
+{% load i18n %}
+{# Global search (command palette). Opens with the button or Ctrl/Cmd+K. #}
+<div class="hidden max-w-md flex-1 sm:block"
+     x-data="{
+         query: '', results: [], isOpen: false, loading: false,
+         open() { this.isOpen = true; this.$nextTick(() => this.$refs.searchInput.focus()); },
+         search() {
+             if (this.query.length < 2) { this.results = []; return; }
+             this.loading = true;
+             fetch(`/{{ LANGUAGE_CODE }}/clinic/api/global-search/?q=${encodeURIComponent(this.query)}`)
+                 .then(r => r.json()).then(d => { this.results = d.results; this.loading = false; })
+                 .catch(() => { this.loading = false; });
+         }
+     }"
+     @keydown.window.prevent.ctrl.k="open()" @keydown.window.prevent.meta.k="open()" @keydown.window.escape="isOpen = false">
+    <button @click="open()" type="button"
+        class="flex h-9 w-full items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 text-sm text-gray-500 transition hover:bg-gray-100">
+        <i class="bi bi-search text-gray-400" aria-hidden="true"></i>
+        <span class="flex-1 truncate text-start">{% trans "Search patients, appointments…" %}</span>
+        <span class="kbd">Ctrl K</span>
+    </button>
+
+    <div x-show="isOpen" x-cloak class="dialog-overlay !items-start !pt-[12vh]" role="dialog" aria-modal="true" aria-label="{% translate 'Search' %}"
+         x-transition.opacity>
+        <div @click.outside="isOpen = false" class="w-full max-w-xl overflow-hidden rounded-2xl border border-gray-200 bg-surface shadow-pop">
+            <div class="flex items-center gap-3 border-b border-gray-200 px-4">
+                <i class="bi bi-search text-gray-400" aria-hidden="true"></i>
+                <input x-ref="searchInput" type="text" x-model="query" @input.debounce.300ms="search()" autocomplete="off"
+                    class="!h-12 !flex-1 !border-0 !bg-transparent !px-0 !text-base !ring-0 focus:!ring-0" placeholder="{% trans 'What are you looking for?' %}">
+                <div x-show="loading" class="h-4 w-4 animate-spin rounded-full border-2 border-primary-500 border-t-transparent"></div>
+                <button @click="isOpen = false" type="button" class="kbd">Esc</button>
+            </div>
+            <div class="max-h-[50vh] overflow-y-auto p-2" x-show="query.length >= 2">
+                <template x-for="res in results" :key="res.url + res.title">
+                    <a :href="res.url" class="menu-item !gap-3 !py-2.5">
+                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500"><i :class="res.icon"></i></span>
+                        <span class="min-w-0 flex-1">
+                            <span class="block truncate font-semibold text-gray-900" x-text="res.title"></span>
+                            <span class="block truncate text-xs text-gray-500" x-text="res.subtitle"></span>
+                        </span>
+                        <span class="badge" x-text="res.type"></span>
+                    </a>
+                </template>
+                <div x-show="results.length === 0 && !loading" class="px-6 py-10 text-center">
+                    <i class="bi bi-search text-3xl text-gray-300" aria-hidden="true"></i>
+                    <p class="mt-2 font-semibold text-gray-900">{% trans "No results found" %}</p>
+                    <p class="text-sm text-gray-500">{% trans "Try a name, phone number or appointment ID." %}</p>
+                </div>
+            </div>
+            <div x-show="query.length < 2" class="px-6 py-8 text-center text-sm text-gray-500">{% trans "Start typing to search across your clinic." %}</div>
+        </div>
+    </div>
+</div>

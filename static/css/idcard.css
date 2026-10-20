@@ -1,4 +1,4 @@
-/* ID card component. Faces are authored at exactly 900x560 CSS px; the stage scales them to fit. */
+/* ID card component. Faces are authored at exactly 560x900 CSS px (vertical); the stage scales them to fit. */
 @font-face { font-family: 'IDC Sans'; src: url('../fonts/NotoSans-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'IDC Sans'; src: url('../fonts/NotoSans-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
 @font-face { font-family: 'IDC Tamil'; src: url('../fonts/NotoSansTamil-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
@@ -8,9 +8,9 @@
 @font-face { font-family: 'IDC Arabic'; src: url('../fonts/NotoSansArabic-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'IDC Arabic'; src: url('../fonts/NotoSansArabic-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
 
-.idc-stage { width: 100%; max-width: 900px; direction: ltr; position: relative; }   /* container is always LTR so scaling maths is predictable */
-.idc-scale { width: 900px; height: 560px; transform-origin: top left; }
-.idc-flip { width: 900px; height: 560px; perspective: 1600px; cursor: pointer; border-radius: 28px; outline-offset: 6px; }
+.idc-stage { width: 100%; max-width: 560px; direction: ltr; position: relative; margin-inline: auto; }   /* container is always LTR so scaling maths is predictable */
+.idc-scale { width: 560px; height: 900px; transform-origin: top left; }
+.idc-flip { width: 560px; height: 900px; perspective: 1600px; cursor: pointer; border-radius: 28px; outline-offset: 6px; }
 .idc-flip:focus-visible { outline: 3px solid #16a34a; }
 .idc-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
 .idc-flip.is-flipped .idc-inner { transform: rotateY(180deg); }
@@ -21,54 +21,59 @@
   .idc-inner { transition: none; }
 }
 
-/* ---- face artwork (shared by the on-screen faces, the off-screen export faces and print) ---- */
-.idc-art { position: relative; width: 900px; height: 560px; overflow: hidden; background: #fff; color: #111827; border-radius: 28px;
+/* ---- face artwork: vertical 560x900, shared by on-screen faces, off-screen export faces and print.
+   Positions match idcards/render.py so the browser card and the server image agree. ---- */
+.idc-art { position: relative; width: 560px; height: 900px; overflow: hidden; background: #fff; color: #111827; border-radius: 28px;
   box-shadow: 0 10px 30px rgba(0,0,0,.18); box-sizing: border-box; font-family: 'IDC Sans', 'IDC Tamil', 'IDC Deva', 'IDC Arabic', system-ui, sans-serif; line-height: 1.25; }
 .idc-art[dir=rtl] { text-align: right; }
 .idc-art * { box-sizing: border-box; }
+.idc-art > * { position: absolute; }
 .idc-num { unicode-bidi: isolate; direction: ltr; display: inline-block; }       /* ids, phone numbers, dates keep their order inside RTL text */
+.idc-art i { font-style: normal; color: #6b7280; }
 
-.idc-band { position: absolute; left: 0; right: 0; top: 0; height: 110px; background: var(--idc-primary); color: #fff; display: flex; align-items: center; padding: 0 36px; gap: 20px; }
-.idc-band.slim { height: 56px; }
-.idc-logo { width: 64px; height: 64px; border-radius: 12px; background: #fff; color: var(--idc-primary); font-weight: 700; font-size: 40px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex: none; }
+.idc-band { left: 0; right: 0; top: 0; height: 128px; background: var(--idc-primary); color: #fff; display: flex; align-items: center; padding: 0 36px; gap: 16px; }
+.idc-band.center { height: 110px; flex-direction: column; justify-content: center; gap: 4px; text-align: center; }
+.idc-logo { width: 72px; height: 72px; border-radius: 14px; background: #fff; color: var(--idc-primary); font-weight: 700; font-size: 44px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex: none; }
 .idc-logo img { width: 100%; height: 100%; object-fit: contain; }
 .idc-org { flex: 1; min-width: 0; }
-.idc-org b { display: block; font-size: 32px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.idc-org span { display: block; font-size: 20px; opacity: .85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.idc-pill { background: var(--idc-accent); color: #fff; border-radius: 19px; padding: 7px 18px; font-size: 22px; font-weight: 700; text-transform: uppercase; flex: none; }
-.idc-photo { position: absolute; top: 140px; width: 200px; height: 250px; border-radius: 18px; background: #ecfdf5; overflow: hidden; display: flex; align-items: center; justify-content: center; color: var(--idc-primary); font-size: 110px; font-weight: 700; }
+.idc-org b { display: block; font-size: 30px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.idc-org span { display: block; font-size: 16px; opacity: .85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px; }
+
+.idc-photo { top: 150px; left: 170px; width: 220px; height: 260px; border-radius: 20px; background: #ecfdf5; overflow: hidden; display: flex; align-items: center; justify-content: center;
+  color: var(--idc-primary); font-size: 120px; font-weight: 700; outline: 4px solid var(--idc-accent); outline-offset: 3px; }
 .idc-photo img { width: 100%; height: 100%; object-fit: cover; }
-.idc-art:not([dir=rtl]) .idc-photo { left: 36px; }
-.idc-art[dir=rtl] .idc-photo { right: 36px; }
-.idc-id { position: absolute; top: 140px; width: 600px; }
-.idc-art:not([dir=rtl]) .idc-id { left: 268px; }
-.idc-art[dir=rtl] .idc-id { right: 268px; }
-.idc-name { font-size: 40px; font-weight: 700; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 596px; }
-.idc-badge { display: inline-block; margin-top: 10px; padding: 3px 16px; border: 2px solid var(--idc-accent); border-radius: 10px; background: #f0fdf4; color: var(--idc-primary); font-weight: 700; font-size: 24px; }
-.idc-desig { margin-top: 14px; font-size: 28px; font-weight: 700; color: #1f2937; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 420px; }
-.idc-line { margin-top: 6px; font-size: 22px; color: #1f2937; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 420px; }
-.idc-line i { font-style: normal; color: #6b7280; }
-.idc-qr { position: absolute; top: 296px; width: 156px; text-align: center; font-size: 18px; color: #4b5563; }
-.idc-art:not([dir=rtl]) .idc-qr { right: 36px; }
-.idc-art[dir=rtl] .idc-qr { left: 36px; }
-.idc-qr img { width: 156px; height: 156px; display: block; image-rendering: pixelated; }
-.idc-foot { position: absolute; left: 36px; right: 36px; top: 492px; border-top: 1px solid #e5e7eb; padding-top: 14px; display: flex; align-items: center; gap: 20px; font-size: 20px; color: #4b5563; }
-.idc-status { color: #fff; border-radius: 17px; padding: 3px 14px; font-weight: 700; font-size: 20px; background: #6b7280; flex: none; }
+.idc-name { top: 424px; left: 36px; right: 36px; text-align: center; font-size: 34px; font-weight: 700; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.idc-desig { top: 470px; left: 36px; right: 36px; text-align: center; font-size: 21px; color: #1f2937; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.idc-ids { top: 508px; left: 0; right: 0; display: flex; justify-content: center; gap: 12px; }
+.idc-badge { padding: 4px 14px; border: 2px solid var(--idc-accent); border-radius: 10px; background: #f0fdf4; color: var(--idc-primary); font-weight: 700; font-size: 20px; }
+.idc-pill { background: var(--idc-accent); color: #fff; border-radius: 18px; padding: 6px 14px; font-size: 17px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; }
+.idc-cell { font-size: 19px; font-weight: 700; color: #1f2937; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.idc-cell small { display: block; font-size: 14px; font-weight: 400; color: #6b7280; margin-bottom: 2px; }
+.idc-art:not([dir=rtl]) .c1 { left: 36px; width: 140px; } .idc-art:not([dir=rtl]) .c2 { left: 188px; width: 200px; }
+.idc-art[dir=rtl] .c1 { right: 36px; width: 140px; } .idc-art[dir=rtl] .c2 { right: 188px; width: 200px; }
+.idc-qr { width: 112px; text-align: center; font-size: 14px; color: #4b5563; }
+.idc-art:not([dir=rtl]) .idc-qr { right: 36px; } .idc-art[dir=rtl] .idc-qr { left: 36px; }
+.idc-qr img { width: 112px; height: 112px; display: block; image-rendering: pixelated; margin-bottom: 2px; }
+.idc-addr { top: 716px; left: 36px; right: 36px; font-size: 19px; font-weight: 700; color: #1f2937; line-height: 24px; max-height: 66px; overflow: hidden; }
+.idc-addr small { display: block; font-size: 14px; font-weight: 400; color: #6b7280; line-height: 20px; }
+.idc-foot { left: 36px; right: 36px; top: 808px; border-top: 1px solid #e5e7eb; padding-top: 16px; display: flex; align-items: center; gap: 16px; font-size: 16px; color: #4b5563; }
+.idc-status { color: #fff; border-radius: 15px; padding: 4px 14px; font-weight: 700; font-size: 17px; background: #6b7280; flex: none; }
 .idc-status.s-active { background: #16a34a; } .idc-status.s-deactivated { background: #d97706; }
 .idc-status.s-revoked, .idc-status.s-expired { background: #dc2626; }
-.idc-foot i { font-style: normal; color: #6b7280; }
 
-.idc-back-body { position: absolute; left: 36px; right: 36px; top: 74px; bottom: 100px; font-size: 20px; color: #1f2937; }
-.idc-back-body h4 { margin: 0; font-size: 17px; font-weight: 700; color: var(--idc-accent); }
-.idc-back-body p { margin: 0 0 0; line-height: 26px; }
-.idc-back-body .gap { height: 8px; }
-.idc-back-body i { font-style: normal; color: #6b7280; }
-.idc-back-ids { position: absolute; left: 36px; right: 36px; top: 390px; font-size: 21px; color: #1f2937; }
-.idc-back-ids .sm { font-size: 19px; color: #4b5563; margin-top: 6px; }
-.idc-back-ids i { font-style: normal; color: #6b7280; }
-.idc-qr.back { top: 100px; width: 150px; font-size: 16px; }
-.idc-qr.back img { width: 150px; height: 150px; }
-.idc-legal { position: absolute; left: 36px; right: 36px; top: 466px; border-top: 1px solid #e5e7eb; padding-top: 10px; font-size: 17px; color: #6b7280; line-height: 24px; max-height: 80px; overflow: hidden; }
+/* back */
+.idc-band.center b { font-size: 30px; font-weight: 700; } .idc-band.center span { font-size: 16px; opacity: .85; }
+.idc-yy-disc { top: 114px; left: 176px; width: 208px; height: 208px; border-radius: 50%; background: #ecfdf5; display: flex; align-items: center; justify-content: center; }
+.idc-yy-disc svg { width: 168px; height: 168px; }
+.idc-quote { top: 346px; left: 36px; right: 36px; text-align: center; font-size: 27px; font-weight: 700; line-height: 38px; color: var(--idc-primary); }
+.idc-bar { top: 470px; left: 250px; width: 60px; height: 4px; border-radius: 2px; background: var(--idc-accent); }
+.idc-contact { top: 490px; width: 350px; font-size: 16px; line-height: 22px; color: #1f2937; }
+.idc-art:not([dir=rtl]) .idc-contact { left: 36px; } .idc-art[dir=rtl] .idc-contact { right: 36px; }
+.idc-contact h4 { margin: 0 0 4px; font-size: 14px; font-weight: 700; color: var(--idc-accent); }
+.idc-contact p { margin: 0; overflow: hidden; text-overflow: ellipsis; }
+.idc-ids2 { top: 700px; left: 36px; right: 36px; font-size: 20px; color: #1f2937; }
+.idc-ids2 .sm { font-size: 17px; color: #4b5563; margin-top: 8px; display: flex; gap: 28px; }
+.idc-legal { left: 36px; right: 36px; top: 786px; border-top: 1px solid #e5e7eb; padding-top: 10px; font-size: 15px; color: #6b7280; line-height: 21px; max-height: 84px; overflow: hidden; }
 
 /* ---- toolbar ---- */
 .idc-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
@@ -80,7 +85,7 @@
 .idc-hint { margin: 10px 0 0; font: 13px/1.4 system-ui, sans-serif; color: #6b7280; }
 
 /* ---- off-screen faces used for pixel-exact export, and the print layout ---- */
-.idc-offscreen { position: absolute; left: -10000px; top: 0; width: 900px; pointer-events: none; }
+.idc-offscreen { position: absolute; left: -10000px; top: 0; width: 560px; pointer-events: none; }
 .idc-offscreen .idc-art { box-shadow: none; border-radius: 0; margin-bottom: 20px; }
 .idc-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #111827; color: #fff; padding: 10px 18px; border-radius: 12px; font-size: 14px; z-index: 200; max-width: 90vw; }
 @media print {
@@ -88,5 +93,5 @@
   .idc-offscreen, .idc-offscreen * { visibility: visible !important; }
   .idc-offscreen { position: absolute; left: 0; top: 0; }
   .idc-offscreen .idc-art { page-break-after: always; margin: 0 0 24px; border: 1px solid #d1d5db; }
-  @page { size: landscape; margin: 12mm; }
+  @page { size: portrait; margin: 12mm; }
 }

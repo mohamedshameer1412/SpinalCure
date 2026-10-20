@@ -8,9 +8,9 @@
     <h2 class="text-xl font-bold text-gray-900 mb-1">{% blocktranslate trimmed with name=request.user.get_full_name|default:request.user.email %}Hello, {{ name }}{% endblocktranslate %}</h2>
     <p class="text-sm text-gray-500 mb-6">{% trans "Your workspace" %}</p>
     <div class="grid sm:grid-cols-2 gap-4">
-        <a href="{% url 'notification_center' %}" class="no-underline bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-sm flex items-center gap-3">
+        <a href="{% url 'notification_center' %}" class="card no-underline p-5 hover:shadow-sm flex items-center gap-3">
             <i class="bi bi-bell text-2xl text-primary-600" aria-hidden="true"></i><span class="font-semibold text-gray-800">{% trans "Notifications" %}</span></a>
-        <a href="{% url 'idcard_mine' %}" class="no-underline bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-sm flex items-center gap-3">
+        <a href="{% url 'idcard_mine' %}" class="card no-underline p-5 hover:shadow-sm flex items-center gap-3">
             <i class="bi bi-person-vcard text-2xl text-primary-600" aria-hidden="true"></i><span class="font-semibold text-gray-800">{% trans "My ID card" %}</span></a>
     </div>
 </div>

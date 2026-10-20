@@ -6,7 +6,7 @@
 
 {% block header_actions %}
 <a href="{% url 'expense_create' %}"
-    class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-semibold rounded-xl hover:bg-primary-700 transition-all shadow-sm">
+    class="btn btn-primary inline-flex items-center gap-2">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
     </svg>
@@ -17,22 +17,22 @@
 {% block content %}
 <!-- Summary Cards -->
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+    <div class="card p-5">
         <p class="text-sm text-gray-500 font-medium">{% trans "Total Expenses" %}</p>
         <p class="text-2xl font-bold text-red-600 mt-1">₹{{ total_expenses|floatformat:2 }}</p>
     </div>
-    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+    <div class="card p-5">
         <p class="text-sm text-gray-500 font-medium">{% trans "This Month" %}</p>
         <p class="text-2xl font-bold text-orange-500 mt-1">₹{{ monthly_total|floatformat:"2"|default:"0.00" }}</p>
     </div>
-    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+    <div class="card p-5">
         <p class="text-sm text-gray-500 font-medium">{% trans "Total Records" %}</p>
         <p class="text-2xl font-bold text-gray-800 mt-1" id="total-count">{{ expenses.paginator.count }}</p>
     </div>
 </div>
 
 <!-- Search & Filters -->
-<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 mb-4 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="card p-4 mb-4 flex flex-col md:flex-row justify-between items-center gap-4">
     <form method="GET" 
           hx-get="{% url 'expense_list' %}"
           hx-trigger="keyup changed delay:500ms from:#search-input, change from:#category-select"
@@ -44,11 +44,11 @@
                 <i class="bi bi-search text-gray-400"></i>
             </div>
             <input type="text" name="q" id="search-input" value="{{ search_query|default:'' }}"
-                class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-200 rounded-xl bg-gray-50 focus:ring-primary-500 focus:border-primary-500"
+                class="block w-full ps-10"
                 placeholder="{% trans 'Search description or title...' %}">
         </div>
         <select name="category" id="category-select"
-            class="premium-select text-sm border border-gray-200 rounded-xl px-3 py-2 text-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+            class="premium-select">
             <option value="">{% trans "All Categories" %}</option>
             {% for value, label in categories %}
             <option value="{{ value }}" {% if value == selected_category %}selected{% endif %}>{{ label }}</option>
@@ -69,7 +69,7 @@
 </div>
 
 <!-- Expense Table -->
-<div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+<div class="card overflow-hidden">
     {% include 'payments/partials/expense_list_partial.html' %}
 </div>
 {% endblock %}

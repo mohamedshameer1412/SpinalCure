@@ -1,252 +1,72 @@
-{% load i18n %}
-<!DOCTYPE html>
-<html>
+{% load i18n email_tags %}{% get_current_language as LANG %}{% email_brand as brand %}<!DOCTYPE html>
+<html lang="{{ LANG }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-        .email-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .header {
-            background: linear-gradient(135deg, #059669 0%, #064e3b 100%);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .header-logo {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .header-subtitle {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        .content {
-            padding: 40px 30px;
-            color: #333;
-        }
-        .content h1 {
-            color: #059669;
-            font-size: 26px;
-            margin-bottom: 24px;
-            margin-top: 0;
-            font-weight: 800;
-        }
-        .content p {
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 15px;
-        }
-        .highlight-box {
-            background-color: #ecfdf5;
-            border-left: 4px solid #059669;
-            padding: 24px;
-            margin: 25px 0;
-            border-radius: 8px;
-        }
-        .highlight-box strong {
-            color: #064e3b;
-        }
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
-            color: white;
-            padding: 14px 30px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            margin: 20px 0;
-            transition: transform 0.2s;
-        }
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
-        }
-        .code-display {
-            background-color: #f0f0f0;
-            border: 1px solid #ddd;
-            padding: 20px;
-            text-align: center;
-            border-radius: 4px;
-            margin: 20px 0;
-            font-family: 'Courier New', monospace;
-        }
-        .code-display .otp-code {
-            font-size: 32px;
-            letter-spacing: 8px;
-            color: #667eea;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .code-display .expiry-info {
-            font-size: 12px;
-            color: #999;
-            margin-top: 10px;
-        }
-        .appointment-details {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 25px;
-            margin: 25px 0;
-        }
-        .appointment-details .detail-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .appointment-details .detail-row:last-child {
-            border-bottom: none;
-        }
-        .appointment-details .detail-label {
-            font-weight: 700;
-            color: #0f172a;
-            width: 40%;
-        }
-        .appointment-details .detail-value {
-            color: #475569;
-            text-align: right;
-            width: 60%;
-            font-weight: 500;
-        }
-        .payment-summary {
-            background-color: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            border-radius: 8px;
-            padding: 25px;
-            margin: 25px 0;
-        }
-        .payment-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            font-weight: 500;
-        }
-        .payment-row.total {
-            border-top: 2px solid #059669;
-            padding-top: 15px;
-            margin-top: 15px;
-            color: #059669;
-            font-size: 20px;
-            font-weight: 800;
-        }
-        .footer {
-            background-color: #1e293b;
-            border-top: 1px solid #0f172a;
-            padding: 30px;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 13px;
-        }
-        .clinic-contact {
-            margin: 20px 0;
-            color: #777;
-        }
-        .clinic-contact strong {
-            color: #333;
-        }
-        .warning-banner {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-            color: #856404;
-        }
-        .success-banner {
-            background-color: #d4edda;
-            border-left: 4px solid #28a745;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-            color: #155724;
-        }
-        .action-required {
-            background-color: #f8d7da;
-            border-left: 4px solid #dc3545;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-            color: #721c24;
-        }
-        @media only screen and (max-width: 600px) {
-            .content {
-                padding: 20px 15px;
-            }
-            .header {
-                padding: 20px 15px;
-            }
-            .code-display .otp-code {
-                font-size: 24px;
-                letter-spacing: 6px;
-            }
-            .appointment-details .detail-row,
-            .appointment-details .detail-label,
-            .appointment-details .detail-value {
-                display: block;
-                width: 100%;
-            }
-            .appointment-details .detail-label {
-                margin-bottom: 5px;
-                font-weight: 600;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light only">
+<title>{% block title %}{{ brand.name }}{% endblock %}</title>
+<style>
+  body { margin:0; padding:0; background:#f3f5f4; -webkit-text-size-adjust:100%; }
+  table { border-collapse:collapse; }
+  img { border:0; line-height:100%; outline:none; text-decoration:none; }
+  a { color:#15803d; }
+  .content p { margin:0 0 16px; font-size:15px; line-height:1.65; color:#374151; }
+  .content h1 { margin:0 0 16px; font-size:22px; line-height:1.3; color:#111827; font-weight:700; }
+  .content h2, .content h3 { margin:24px 0 10px; font-size:16px; color:#111827; }
+  .appointment-details, .payment-summary, .highlight-box { background:#f8faf9; border:1px solid #e5e7eb; border-radius:10px; padding:16px 18px; margin:20px 0; }
+  .detail-row, .payment-row { display:block; padding:8px 0; border-bottom:1px solid #eef0ef; font-size:14px; }
+  .detail-row:last-child, .payment-row:last-child { border-bottom:0; }
+  .detail-label { display:inline-block; min-width:130px; color:#6b7280; }
+  .detail-value { color:#111827; font-weight:600; }
+  .payment-row.total { font-size:16px; font-weight:700; }
+  .success-banner { background:#ecfdf5; border-left:4px solid #16a34a; color:#14532d; padding:12px 16px; border-radius:6px; margin:16px 0; }
+  .warning-banner, .action-required { background:#fffbeb; border-left:4px solid #d97706; color:#78350f; padding:12px 16px; border-radius:6px; margin:16px 0; }
+  .cta-button { display:inline-block; background:#16a34a; color:#ffffff !important; text-decoration:none; font-weight:600; padding:12px 22px; border-radius:8px; }
+  .code-display, .otp-code { display:inline-block; font-family:Consolas,Menlo,monospace; font-size:26px; letter-spacing:6px; font-weight:700; color:#14532d; background:#ecfdf5; padding:12px 20px; border-radius:8px; }
+  .expiry-info { font-size:13px; color:#6b7280; }
+  @media (max-width:620px) { .container { width:100% !important; border-radius:0 !important; } .px { padding-left:20px !important; padding-right:20px !important; } .detail-label { display:block; } }
+</style>
 </head>
-<body>
-    <div class="email-container">
-        <div class="header">
-            <div class="header-logo">
-                {% if clinic and clinic.logo %}
-                <img src="{{ request.scheme }}://{{ request.get_host }}{{ clinic.logo.url }}" alt="{{ clinic.name }}" style="max-height: 50px; display: block; margin: 0 auto;">
-                {% else %}
-                {{ clinic.name|default:"SpinalCure" }}
-                {% endif %}
-            </div>
-        </div>
-        
-        <div class="content">
-            {% block body %}{% endblock %}
-        </div>
-        
-        <div class="footer">
-            <div class="clinic-contact">
-                <strong style="color: #f8fafc; font-size: 16px; margin-bottom: 12px; display: block;">{{ clinic.name|default:"SpinalCure Clinic" }}</strong>
-                
-                <div style="display: inline-block; text-align: left; margin: 0 auto; color: #cbd5e1;">
-                    <div style="margin-bottom: 6px;">
-                        <span style="color: #38bdf8; font-weight: bold; width: 45px; display: inline-block;">{% trans "TEL" %}</span> 
-                        {% block phone %}{{ clinic.phone|default:"Available 24/7" }}{% endblock %}
-                    </div>
-                    <div style="margin-bottom: 6px;">
-                        <span style="color: #38bdf8; font-weight: bold; width: 45px; display: inline-block;">{% trans "MAIL" %}</span> 
-                        <a href="mailto:{% block email %}{{ clinic.email|default:'support@spinalcure.com' }}{% endblock %}" style="color: #cbd5e1; text-decoration: none;">
-                            {% block email_text %}{{ clinic.email|default:"support@spinalcure.com" }}{% endblock %}
-                        </a>
-                    </div>
-                    <div>
-                        <span style="color: #38bdf8; font-weight: bold; width: 45px; display: inline-block; vertical-align: top;">{% trans "ADD" %}</span> 
-                        <span style="display: inline-block; max-width: 250px;">{% block address %}{{ clinic.address|default:"123 Health Street, Medical District" }}{% endblock %}</span>
-                    </div>
-                </div>
-            </div>
-            
-            <p>© {% now "Y" %} {% blocktranslate trimmed with name=clinic.name|default:"SpinalCure" %}{{ name }}. All rights reserved.{% endblocktranslate %}<br>
-            {% trans "This is an automated email. Please do not reply directly." %}</p>
-        </div>
-    </div>
+<body style="margin:0;padding:0;background:#f3f5f4;font-family:'Segoe UI','Noto Sans','Noto Sans Tamil','Noto Sans Devanagari','Noto Sans Telugu','Noto Sans Malayalam','Noto Sans Kannada',Arial,sans-serif;color:#1f2937;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">{% block preheader %}{% endblock %}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f5f4;">
+<tr><td align="center" style="padding:28px 12px;">
+  <table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e5e7eb;">
+    <!-- brand -->
+    <tr><td style="height:4px;background:#16a34a;font-size:0;line-height:0;">&nbsp;</td></tr>
+    <tr><td class="px" style="padding:22px 32px;border-bottom:1px solid #eef0ef;">
+      <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+        {% if brand.logo %}<td style="padding-right:12px;"><img src="{{ brand.logo }}" width="44" height="44" alt="" style="display:block;width:44px;height:44px;"></td>{% endif %}
+        <td><div style="font-size:18px;font-weight:700;color:#111827;">{{ brand.name }}</div>{% if brand.tagline %}<div style="font-size:12px;color:#6b7280;">{{ brand.tagline }}</div>{% endif %}</td>
+      </tr></table>
+    </td></tr>
+    <!-- message -->
+    <tr><td class="px content" style="padding:30px 32px 10px;">
+      {% block body %}{% endblock %}
+    </td></tr>
+    <!-- help -->
+    <tr><td class="px" style="padding:10px 32px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f8faf9;border:1px solid #eef0ef;border-radius:10px;">
+        <tr><td style="padding:16px 18px;font-size:13px;line-height:1.6;color:#4b5563;">
+          <div style="font-weight:600;color:#111827;margin-bottom:4px;">{% translate "Need help? Contact the clinic" %}</div>
+          {% for p in brand.phones %}<a href="tel:{{ p|cut:' ' }}" style="color:#15803d;text-decoration:none;font-weight:600;">{{ p }}</a>{% if not forloop.last %} · {% endif %}{% endfor %}
+          {% if brand.email %}{% if brand.phones %} · {% endif %}<a href="mailto:{{ brand.email }}" style="color:#15803d;text-decoration:none;">{{ brand.email }}</a>{% endif %}
+          {% if brand.address %}<div style="margin-top:6px;">{{ brand.address }}</div>{% endif %}
+          {% if brand.hours %}<div style="margin-top:6px;color:#6b7280;">{{ brand.hours|linebreaksbr }}</div>{% endif %}
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+  <!-- footer -->
+  <table role="presentation" width="600" class="container" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;">
+    <tr><td class="px" style="padding:18px 32px;text-align:center;font-size:12px;line-height:1.6;color:#9ca3af;">
+      {% block footer_note %}{% translate "You are receiving this email because of an appointment, payment or registration with us." %}{% endblock %}<br>
+      {% if brand.instagram %}<a href="{{ brand.instagram }}" style="color:#6b7280;">Instagram</a> · {% endif %}{% if brand.youtube %}<a href="{{ brand.youtube }}" style="color:#6b7280;">YouTube</a> · {% endif %}<a href="{{ brand.site }}" style="color:#6b7280;">{% translate "Website" %}</a><br>
+      © {% now "Y" %} {{ brand.name }}
+    </td></tr>
+  </table>
+</td></tr>
+</table>
 </body>
 </html>

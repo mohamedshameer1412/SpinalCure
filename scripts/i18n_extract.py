@@ -22,9 +22,11 @@ LOCALE = ROOT / 'locale'
 LANGS = {
     'ta': ('Tamil', 'nplurals=2; plural=(n != 1);'),
     'hi': ('Hindi', 'nplurals=2; plural=(n != 1);'),
-    'ar': ('Arabic', 'nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);'),
+    'te': ('Telugu', 'nplurals=2; plural=(n != 1);'),
+    'ml': ('Malayalam', 'nplurals=2; plural=(n != 1);'),
+    'kn': ('Kannada', 'nplurals=2; plural=(n != 1);'),
 }
-SKIP_DIRS = {'migrations', 'tests', 'node_modules', '.git', 'venv', 'static', 'staticfiles', 'locale', 'scripts'}
+SKIP_DIRS = {'tmp', 'migrations', 'tests', 'node_modules', '.git', 'venv', 'static', 'staticfiles', 'locale', 'scripts'}
 PY_FUNCS = {'gettext', 'gettext_lazy', 'gettext_noop', 'N_', '_', 'ugettext', 'ugettext_lazy'}
 PY_PLURAL = {'ngettext', 'ngettext_lazy'}
 PY_CTX = {'pgettext', 'pgettext_lazy'}

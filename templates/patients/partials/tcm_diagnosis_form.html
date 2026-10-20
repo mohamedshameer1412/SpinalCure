@@ -1,5 +1,5 @@
 {% load i18n %}
-<div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm mt-6" x-data="tcmDiagnosis()">
+<div class="card p-6 mt-6" x-data="tcmDiagnosis()">
     <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5 flex justify-between items-center">
         <span>{% trans "Acupuncture Case Sheet (TCM Diagnosis)" %}</span>
     </h2>
@@ -287,13 +287,10 @@ document.addEventListener('alpine:init', () => {
         },
         init() {
             // Pre-fill existing data if editing
-            const existingDataRaw = '{{ patient.acupuncture_diagnosis.diagnosis_data|escapejs|default:"null" }}';
-            if (existingDataRaw && existingDataRaw !== "null" && existingDataRaw !== "{}") {
+            if (document.getElementById('acupuncture_data_json')) {
                 try {
                     // Django json output has html entities if we are not careful, but escapejs handles it usually
                     // Or it might be stringified. We use a more robust way:
-                    let rawStr = '{{ patient.acupuncture_diagnosis.diagnosis_data|safe|escapejs }}';
-                    // The above isn't standard Django. We can safely render JSON like this:
                     const rawJson = JSON.parse(document.getElementById('acupuncture_data_json')?.textContent || '{}');
                     this.data = { ...this.data, ...rawJson };
                 } catch (e) {

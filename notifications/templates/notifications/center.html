@@ -4,9 +4,9 @@
 {% block page_title %}{% translate "Notifications" %}{% endblock %}
 {% block header_actions %}
 <form method="post" action="{% url 'notification_mark_all_read' %}">{% csrf_token %}
-    <button type="submit" class="text-sm font-semibold px-3 py-2 rounded-lg border border-gray-200 bg-white hover:bg-gray-50">{% translate "Mark all as read" %}</button>
+    <button type="submit" class="btn btn-outline">{% translate "Mark all as read" %}</button>
 </form>
-<a href="{% url 'notification_preferences' %}" class="text-sm font-semibold px-3 py-2 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 no-underline text-gray-700">{% translate "Preferences" %}</a>
+<a href="{% url 'notification_preferences' %}" class="btn btn-outline no-underline">{% translate "Preferences" %}</a>
 {% endblock %}
 {% block content %}
 <div class="max-w-3xl">

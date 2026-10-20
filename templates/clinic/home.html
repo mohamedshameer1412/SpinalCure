@@ -1,0 +1,217 @@
+{% extends "public_base.html" %}
+{% load i18n static content_i18n %}
+{% block meta %}
+<meta property="og:title" content="{{ clinic|tx:'name' }} — {{ clinic|tx:'tagline' }}">
+<meta property="og:description" content="{{ clinic|tx:'hero_subtitle'|striptags|truncatewords:30 }}">
+{% if hero_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ hero_image.image.url }}">{% endif %}
+{% endblock %}
+
+{% block content %}
+<!-- ============ HERO ============ -->
+<section class="relative overflow-hidden bg-gradient-to-b from-primary-50/70 via-white to-white">
+    <div class="container-site grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:py-20">
+        <div class="lg:col-span-6">
+            <span class="eyebrow"><i class="bi bi-shield-check" aria-hidden="true"></i>{% translate "Neck & back pain special care centre" %}</span>
+            <h1 class="display mt-5 text-gray-900">{{ clinic|tx:"hero_title"|default:_("No surgery. No medicine. No diet.") }}</h1>
+            <p class="lead mt-5 max-w-xl">{{ clinic|tx:"hero_subtitle" }}</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+                <a href="#book" class="btn btn-primary btn-lg"><i class="bi bi-calendar-check" aria-hidden="true"></i>{% translate "Book appointment" %}</a>
+                {% if clinic.phone_list %}<a href="tel:{{ clinic.phone_list.0|cut:' ' }}" class="btn btn-outline btn-lg"><i class="bi bi-telephone" aria-hidden="true"></i><span dir="ltr">{{ clinic.phone_list.0 }}</span></a>{% endif %}
+            </div>
+            <dl class="mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-gray-200 pt-6">
+                <div><dt class="text-xs text-gray-500">{{ clinic|tx:"about_stat1_label" }}</dt><dd class="mt-1 flex items-center gap-1 text-2xl font-extrabold text-gray-900"><i class="bi bi-star-fill text-lg text-amber-400" aria-hidden="true"></i>{{ clinic.about_stat1_number }}</dd></div>
+                <div><dt class="text-xs text-gray-500">{% translate "Patient videos" %}</dt><dd class="mt-1 text-2xl font-extrabold text-gray-900">{{ video_count }}+</dd></div>
+                <div><dt class="text-xs text-gray-500">{% translate "Conditions treated" %}</dt><dd class="mt-1 text-2xl font-extrabold text-gray-900">{{ problems|length }}+</dd></div>
+            </dl>
+        </div>
+        <div class="lg:col-span-6">
+            <div class="relative">
+                {% if hero_image %}<img src="{{ hero_image.image.url }}" alt="{% translate 'The Spinal Cure clinic in Arumbakkam, Chennai' %}" class="aspect-[4/3] w-full rounded-2xl object-cover shadow-pop ring-1 ring-black/5">
+                {% else %}<div class="aspect-[4/3] w-full rounded-2xl bg-primary-100"></div>{% endif %}
+                {% if doctor %}
+                <div class="absolute -bottom-6 start-4 end-4 flex items-center gap-3 rounded-xl border border-gray-200 bg-white/95 p-3 shadow-pop backdrop-blur sm:start-6 sm:end-auto sm:max-w-sm">
+                    {% if doctor.photo %}<img src="{{ doctor.photo.url }}" alt="" class="h-12 w-12 shrink-0 rounded-full object-cover">{% endif %}
+                    <div class="min-w-0">
+                        <p class="truncate text-sm font-bold text-gray-900">{{ doctor|tx:"title" }} {{ doctor|tx:"name" }}</p>
+                        <p class="truncate text-xs text-gray-500">{{ doctor|tx:"specialization" }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ PROMISE ============ -->
+<section class="border-y border-gray-100 bg-white">
+    <div class="container-site grid gap-4 py-12 sm:grid-cols-3">
+        <div class="flex gap-4 rounded-xl p-2"><span class="feature-icon"><i class="bi bi-scissors" aria-hidden="true"></i></span><div><h2 class="h-card">{% translate "Without surgery" %}</h2><p class="mt-1 text-sm text-gray-600">{% translate "Non-invasive care that works with your body instead of operating on it." %}</p></div></div>
+        <div class="flex gap-4 rounded-xl p-2"><span class="feature-icon"><i class="bi bi-capsule" aria-hidden="true"></i></span><div><h2 class="h-card">{% translate "Without medicine" %}</h2><p class="mt-1 text-sm text-gray-600">{% translate "Drug-free relief: no painkillers, no side effects." %}</p></div></div>
+        <div class="flex gap-4 rounded-xl p-2"><span class="feature-icon"><i class="bi bi-egg-fried" aria-hidden="true"></i></span><div><h2 class="h-card">{% translate "Without diet restrictions" %}</h2><p class="mt-1 text-sm text-gray-600">{% translate "Keep eating the food you enjoy while you recover." %}</p></div></div>
+    </div>
+</section>
+
+<!-- ============ TREATMENTS ============ -->
+<section id="treatments" class="section scroll-mt-28 bg-gray-50">
+    <div class="container-site">
+        <div class="section-head">
+            <p class="eyebrow">{{ clinic|tx:"services_label"|default:_("What we treat") }}</p>
+            <h2 class="h-section mt-4 text-gray-900">{% translate "Conditions we treat" %}</h2>
+            <p class="lead mt-4">{% translate "Classical acupuncture for the spine, joints, nerves and much more. Every plan starts by finding the root cause of your pain." %}</p>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {% for s in services %}
+            <article class="card flex flex-col p-6 transition hover:shadow-pop">
+                <span class="feature-icon"><i class="bi {{ s.icon|default:'bi-heart-pulse' }}" aria-hidden="true"></i></span>
+                <h3 class="h-card mt-4">{{ s|tx:"title" }}</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-gray-600">{{ s|tx:"description" }}</p>
+            </article>
+            {% empty %}<p class="text-center text-gray-500 sm:col-span-2 lg:col-span-3">{% translate "Treatment details will be added soon." %}</p>{% endfor %}
+        </div>
+        {% if problems %}
+        <div class="mt-10 text-center">
+            <p class="text-sm font-semibold text-gray-700">{% translate "See real patient stories for your problem" %}</p>
+            <div class="mt-3 flex flex-wrap justify-center gap-2">
+                {% for p in problems %}<a href="{% url 'public_testimonials' %}?problem={{ p.slug }}" class="badge badge-outline !px-3 !py-1.5 !text-sm no-underline hover:border-primary-400 hover:text-primary-700">{{ p|tx:"name" }}</a>{% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ============ DOCTOR ============ -->
+{% if doctor %}
+<section id="doctor" class="section scroll-mt-28">
+    <div class="container-site grid items-center gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+            {% if doctor.photo %}<img src="{{ doctor.photo.url }}" alt="{{ doctor|tx:'title' }} {{ doctor|tx:'name' }}" class="mx-auto aspect-[4/5] w-full max-w-sm rounded-2xl object-cover shadow-pop lg:max-w-none">{% endif %}
+        </div>
+        <div class="lg:col-span-7">
+            <p class="eyebrow">{{ doctor|tx:"designation_tag"|default:_("Our doctor") }}</p>
+            <h2 class="h-section mt-4 text-gray-900">{{ doctor|tx:"title" }} {{ doctor|tx:"name" }}</h2>
+            <p class="mt-2 text-lg font-semibold text-primary-700">{{ doctor|tx:"specialization" }}</p>
+            {% if doctor.qualifications %}<p class="mt-4 text-sm leading-relaxed text-gray-600"><span class="font-semibold text-gray-800">{% translate "Qualifications" %}:</span> {{ doctor|tx:"qualifications" }}</p>{% endif %}
+            <p class="lead mt-5">{{ doctor|tx:"bio" }}</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+                <a href="#book" class="btn btn-primary"><i class="bi bi-calendar-check" aria-hidden="true"></i>{% translate "Book a consultation" %}</a>
+                <a href="{% url 'practitioner_detail' doctor.pk %}" class="btn btn-outline">{% translate "Full profile" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section bg-slate-950 text-white">
+    <div class="container-site">
+        <div class="section-head">
+            <h2 class="h-section text-white">{% translate "How your treatment works" %}</h2>
+            <p class="mt-4 text-slate-300">{% translate "A clear path from the first visit to lasting relief." %}</p>
+        </div>
+        <ol class="grid gap-5 md:grid-cols-3">
+            <li class="rounded-2xl border border-white/10 bg-white/5 p-6"><span class="flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 font-bold">1</span><h3 class="mt-4 text-lg font-semibold">{% translate "Consultation" %}</h3><p class="mt-2 text-sm leading-relaxed text-slate-300">{% translate "We listen to your history and examine you to find what is really causing the pain." %}</p></li>
+            <li class="rounded-2xl border border-white/10 bg-white/5 p-6"><span class="flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 font-bold">2</span><h3 class="mt-4 text-lg font-semibold">{% translate "Treatment sessions" %}</h3><p class="mt-2 text-sm leading-relaxed text-slate-300">{% translate "Classical acupuncture sessions planned around your condition, at the clinic or online." %}</p></li>
+            <li class="rounded-2xl border border-white/10 bg-white/5 p-6"><span class="flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 font-bold">3</span><h3 class="mt-4 text-lg font-semibold">{% translate "Recovery and follow-up" %}</h3><p class="mt-2 text-sm leading-relaxed text-slate-300">{% translate "We track your progress and share simple habits that keep the pain away." %}</p></li>
+        </ol>
+    </div>
+</section>
+
+<!-- ============ STORIES ============ -->
+<section id="stories" class="section scroll-mt-28">
+    <div class="container-site">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div class="max-w-2xl">
+                <p class="eyebrow">{% translate "Patient stories" %}</p>
+                <h2 class="h-section mt-4 text-gray-900">{% translate "Real people. Real recovery." %}</h2>
+            </div>
+            <a href="{% url 'public_testimonials' %}" class="btn btn-outline shrink-0">{% translate "All stories" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </div>
+
+        {% if videos %}
+        <div class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {% for v in videos %}
+            <a href="{% url 'public_testimonials' %}?type=videos" class="group relative block aspect-[9/14] overflow-hidden rounded-2xl bg-slate-900 no-underline shadow-card">
+                {% if v.thumbnail_url %}<img src="{{ v.thumbnail_url }}" alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-105">{% endif %}
+                <span class="absolute inset-0 flex items-center justify-center"><span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-xl text-primary-700 shadow-pop"><i class="bi bi-play-fill"></i></span></span>
+                <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-sm font-semibold leading-snug text-white">{{ v|tx:"title"|truncatechars:70 }}</span>
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if testimonials %}
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+            {% for r in testimonials %}
+            <figure class="card flex flex-col p-6">
+                <div class="flex gap-0.5 text-amber-400" role="img" aria-label="{{ r.rating }} / 5">{% for i in "12345" %}<i class="bi bi-star-fill{% if forloop.counter > r.rating %} text-gray-200{% endif %}"></i>{% endfor %}</div>
+                <blockquote class="mt-4 flex-1 text-sm leading-relaxed text-gray-700">“{{ r|tx:"review_text"|truncatechars:260 }}”</blockquote>
+                <figcaption class="mt-5 flex items-center gap-3 border-t border-gray-100 pt-4">
+                    <span class="avatar">{{ r.patient_name|slice:":1"|upper }}</span>
+                    <span class="min-w-0"><span class="block truncate text-sm font-semibold text-gray-900">{{ r|tx:"patient_name" }}</span>
+                        <span class="block truncate text-xs text-gray-500">{% if r.problem %}{{ r.problem|tx:"name" }}{% endif %}{% if r.source == 'google' %} · Google{% endif %}</span></span>
+                </figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ============ COURSES & EVENTS ============ -->
+{% if courses or events %}
+<section class="section bg-gray-50">
+    <div class="container-site">
+        <div class="section-head">
+            <p class="eyebrow">{% translate "Learn with us" %}</p>
+            <h2 class="h-section mt-4 text-gray-900">{% translate "Courses and free health events" %}</h2>
+        </div>
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {% for c in courses %}
+            <a href="{% url 'course_detail' c.pk %}" class="card group flex flex-col overflow-hidden no-underline transition hover:shadow-pop">
+                {% if c.image %}<img src="{{ c.image.url }}" alt="" loading="lazy" class="aspect-video w-full object-cover">{% endif %}
+                <div class="flex flex-1 flex-col p-5">
+                    <span class="badge badge-primary self-start">{% translate "Course" %}{% if c.duration %} · {{ c|tx:"duration" }}{% endif %}</span>
+                    <h3 class="h-card mt-3 group-hover:text-primary-700">{{ c|tx:"title" }}</h3>
+                    <p class="mt-2 line-clamp-3 flex-1 text-sm text-gray-600">{{ c|tx:"short_description"|default:c.description|truncatechars:160 }}</p>
+                    <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary-700">{% translate "View course" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></span>
+                </div>
+            </a>
+            {% endfor %}
+            {% for e in events %}
+            <a href="{% url 'event_detail' e.pk %}" class="card group flex flex-col overflow-hidden no-underline transition hover:shadow-pop">
+                {% if e.image %}<img src="{{ e.image.url }}" alt="" loading="lazy" class="aspect-video w-full object-cover">{% endif %}
+                <div class="flex flex-1 flex-col p-5">
+                    <span class="badge badge-info self-start">{% if e.is_online %}{% translate "Online event" %}{% else %}{% translate "Event" %}{% endif %} · {{ e.date|date:"j M Y" }}</span>
+                    <h3 class="h-card mt-3 group-hover:text-primary-700">{{ e|tx:"title" }}</h3>
+                    <p class="mt-2 line-clamp-3 flex-1 text-sm text-gray-600">{{ e|tx:"description"|striptags|truncatechars:160 }}</p>
+                    <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary-700">{% translate "Details and registration" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ============ VISIT & BOOK ============ -->
+<section id="visit" class="section scroll-mt-28">
+    <div class="container-site grid gap-10 lg:grid-cols-12">
+        <div class="space-y-6 lg:col-span-5">
+            <div>
+                <p class="eyebrow">{% translate "Visit us" %}</p>
+                <h2 class="h-section mt-4 text-gray-900">{% translate "We are here to help" %}</h2>
+            </div>
+            <dl class="space-y-5">
+                <div class="flex gap-4"><span class="feature-icon"><i class="bi bi-geo-alt" aria-hidden="true"></i></span><div><dt class="text-sm font-semibold text-gray-900">{% translate "Address" %}</dt><dd class="mt-1 text-sm text-gray-600">{{ clinic|tx:"address" }}</dd></div></div>
+                <div class="flex gap-4"><span class="feature-icon"><i class="bi bi-clock" aria-hidden="true"></i></span><div><dt class="text-sm font-semibold text-gray-900">{% translate "Opening hours" %}</dt><dd class="mt-1 whitespace-pre-line text-sm text-gray-600">{{ clinic|tx:"working_hours" }}</dd></div></div>
+                {% if clinic.phone_list %}<div class="flex gap-4"><span class="feature-icon"><i class="bi bi-telephone" aria-hidden="true"></i></span><div><dt class="text-sm font-semibold text-gray-900">{% translate "Phone" %}</dt><dd class="mt-1 flex flex-wrap gap-x-4 text-sm">{% for p in clinic.phone_list %}<a href="tel:{{ p|cut:' ' }}" class="font-semibold text-primary-700 no-underline" dir="ltr">{{ p }}</a>{% endfor %}</dd></div></div>{% endif %}
+            </dl>
+            {% if clinic.map_iframe_url %}<div class="aspect-[4/3] overflow-hidden rounded-2xl border border-gray-200 [&>iframe]:h-full [&>iframe]:w-full [&>iframe]:border-0">{{ clinic.map_iframe_url|safe }}</div>{% endif %}
+        </div>
+
+        <div id="book" class="scroll-mt-28 lg:col-span-7">
+            {% include "clinic/partials/booking_form.html" %}
+        </div>
+    </div>
+</section>
+{% endblock %}

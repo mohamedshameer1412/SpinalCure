@@ -21,7 +21,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
-    'compressor',
     'drf_spectacular',
     'django_filters',
     'django_ratelimit',
@@ -118,11 +117,14 @@ USE_L10N = True
 USE_TZ = True
 
 from django.utils.translation import gettext_lazy as _
+# Site languages, in the order shown in the language menu. Arabic was removed (its catalogue stays in locale/ar).
 LANGUAGES = [
     ('en', _('English')),
-    ('ar', _('Arabic')),
-    ('hi', _('Hindi')),
     ('ta', _('Tamil')),
+    ('hi', _('Hindi')),
+    ('te', _('Telugu')),
+    ('ml', _('Malayalam')),
+    ('kn', _('Kannada')),
 ]
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
@@ -134,7 +136,6 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 ]
 
 # Media files
@@ -199,16 +200,20 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='SpinalCure <noreply@spinalcure.com>')
 
 # Site Configuration
+# Website content translation (clinic/content_i18n.py): Claude if a key is set, else Google, else the free MyMemory API
+ANTHROPIC_API_KEY = config('ANTHROPIC_API_KEY', default='')
+ANTHROPIC_MODEL = config('ANTHROPIC_MODEL', default='claude-haiku-5-5')
+GOOGLE_TRANSLATE_API_KEY = config('GOOGLE_TRANSLATE_API_KEY', default='')
+TRANSLATION_FREE = config('TRANSLATION_FREE', default=True, cast=bool)
+MYMEMORY_EMAIL = config('MYMEMORY_EMAIL', default='')
+
+# Razorpay online payments (payments/razorpay.py). Leave empty to hide online payment.
+RAZORPAY_KEY_ID = config('RAZORPAY_KEY_ID', default='')
+RAZORPAY_KEY_SECRET = config('RAZORPAY_KEY_SECRET', default='')
+RAZORPAY_WEBHOOK_SECRET = config('RAZORPAY_WEBHOOK_SECRET', default='')
+
 SITE_URL = config('SITE_URL', default='http://127.0.0.1:8000')
 SITE_NAME = config('SITE_NAME', default='SpinalCure')
-
-# Compressor settings
-COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = False
-COMPRESS_CSS_FILTERS = [
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    'compressor.filters.cssmin.rCSSMinFilter',
-]
 
 # Tailwind
 TAILWIND_APP_NAME = 'theme'

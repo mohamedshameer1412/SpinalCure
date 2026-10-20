@@ -1,0 +1,55 @@
+{% load i18n %}
+<nav class="flex-1 overflow-y-auto px-3 pb-4" aria-label="{% translate 'Main navigation' %}">
+    <div class="px-0 pt-3 sm:hidden">{% include "components/lang_switch.html" with align="start" %}</div>
+    <p class="nav-label !pt-2">{% translate "Overview" %}</p>
+    {% url 'dashboard' as u %}{% include "ui/nav_item.html" with url=u label=_("Dashboard") icon="grid-1x2" exact="dashboard" %}
+
+    <p class="nav-label">{% translate "Clinical" %}</p>
+    {% if request.user|can:'appointments.manage' %}{% url 'appointment_calendar' as u %}{% include "ui/nav_item.html" with url=u label=_("Appointments") icon="calendar-check" match="appointment" %}{% endif %}
+    {% if request.user|can:'schedule.manage' %}{% url 'doctor_availability' as u %}{% include "ui/nav_item.html" with url=u label=_("Availability") icon="clock" exact="doctor_availability" %}{% endif %}
+    {% if request.user|can:'patients.view' %}{% url 'patient-list' as u %}{% include "ui/nav_item.html" with url=u label=_("Patients") icon="people" match="patient" exclude="review" %}{% endif %}
+
+    {% if request.user|can:'billing.view' or request.user|can:'reports.view' or request.user|can:'expenses.manage' %}
+    <p class="nav-label">{% translate "Financials" %}</p>
+    {% if request.user|can:'billing.view' %}{% url 'payment_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Payments") icon="credit-card" exact="payment_list" %}{% endif %}
+    {% if request.user|can:'reports.view' %}{% url 'payments_report' as u %}{% include "ui/nav_item.html" with url=u label=_("Payments Report") icon="bar-chart" exact="payments_report" %}{% endif %}
+    {% if request.user|can:'expenses.manage' %}{% url 'expense_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Expenses") icon="receipt" match="expense" %}{% endif %}
+    {% endif %}
+
+    {% if request.user|can:'events.registrations' %}
+    <p class="nav-label">{% translate "Education" %}</p>
+    {% url 'course_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Courses") icon="mortarboard" match="course" %}
+    {% url 'event_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Events") icon="calendar-event" match="event" %}
+    {% endif %}
+
+    <p class="nav-label">{% translate "Content & Reputation" %}</p>
+    {% if request.user|can:'reviews.manage' %}
+    {% url 'patient-reviews' as u %}{% include "ui/nav_item.html" with url=u label=_("Reviews") icon="star" match="review" %}
+    {% url 'admin_testimonials' as u %}{% include "ui/nav_item.html" with url=u label=_("Testimonials") icon="chat-quote" match="testimonial" %}
+    {% url 'admin_videos' as u %}{% include "ui/nav_item.html" with url=u label=_("Reels & Shorts") icon="play-btn" exact="admin_videos" %}
+    {% url 'admin_problems' as u %}{% include "ui/nav_item.html" with url=u label=_("Problem Categories") icon="tags" exact="admin_problems" %}
+    {% url 'admin_translations' as u %}{% include "ui/nav_item.html" with url=u label=_("Translations") icon="translate" exact="admin_translations" %}
+    {% endif %}
+    {% url 'admin_blog_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Health Articles") icon="journal-text" match="blog" %}
+
+    <p class="nav-label">{% translate "Workspace" %}</p>
+    {% url 'notification_center' as u %}{% include "ui/nav_item.html" with url=u label=_("Notifications") icon="bell" exact="notification_center" %}
+    {% url 'idcard_mine' as u %}{% include "ui/nav_item.html" with url=u label=_("My ID card") icon="person-vcard" exact="idcard_mine" %}
+    {% if request.user|can:'idcards.manage' %}{% url 'idcard_dashboard' as u %}{% include "ui/nav_item.html" with url=u label=_("ID cards") icon="postcard" match="idcard" exclude="_mine" %}{% endif %}
+
+    {% if request.user|can:'audit.view' %}
+    <p class="nav-label">{% translate "Administration" %}</p>
+    {% url 'admin_practitioners' as u %}{% include "ui/nav_item.html" with url=u label=_("Specialists") icon="person-badge" match="admin_practitioner" %}
+    {% url 'admin_users' as u %}{% include "ui/nav_item.html" with url=u label=_("Team Accounts") icon="person-gear" match="admin_user" %}
+    {% url 'admin_clinic_setup' as u %}{% include "ui/nav_item.html" with url=u label=_("Clinic Setup") icon="gear" exact="admin_clinic_setup" %}
+    {% url 'admin_activity_log' as u %}{% include "ui/nav_item.html" with url=u label=_("Activity Log") icon="shield-check" exact="admin_activity_log" %}
+    {% endif %}
+</nav>
+
+<div class="border-t border-gray-200 px-3 pb-3">
+    <p class="nav-label">{% translate "Public Site" %}</p>
+    {% url 'clinic_portfolio' as u %}{% include "ui/nav_item.html" with url=u label=_("Clinic Website") icon="globe2" external=True %}
+    {% url 'public_testimonials' as u %}{% include "ui/nav_item.html" with url=u label=_("Patient Stories") icon="chat-heart" external=True %}
+    {% url 'blog_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Health Blog") icon="journal-richtext" external=True %}
+    {% url 'public_event_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Public Events") icon="calendar2-event" external=True %}
+</div>

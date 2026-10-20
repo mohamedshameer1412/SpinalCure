@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import BookingSettings, DoctorAvailability, TimeOff
 
-CSS = 'w-full rounded-xl border-gray-200 text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500'
+CSS = 'w-full'  # the kit styles native fields
 
 
 class _Styled(forms.ModelForm):

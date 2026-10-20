@@ -1,4 +1,4 @@
-/* Self-hosted web fonts (SIL OFL; see static/fonts/OFL.txt). Latin + Tamil/Devanagari/Arabic subsets only. */
+/* Self-hosted web fonts (SIL OFL; see static/fonts/OFL.txt). Latin + Tamil/Devanagari/Telugu/Malayalam/Kannada subsets. */
 @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/web/inter-latin-400-normal.woff2') format('woff2');}
 @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/web/inter-latin-500-normal.woff2') format('woff2');}
 @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/inter-latin-600-normal.woff2') format('woff2');}
@@ -15,3 +15,12 @@
 @font-face{font-family:'Noto Sans Tamil';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/noto-sans-tamil-tamil-600-normal.woff2') format('woff2');}
 @font-face{font-family:'Noto Sans Devanagari';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/noto-sans-devanagari-devanagari-600-normal.woff2') format('woff2');}
 @font-face{font-family:'Noto Naskh Arabic';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/noto-naskh-arabic-arabic-600-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Telugu';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/web/noto-sans-telugu-telugu-400-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Telugu';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/noto-sans-telugu-telugu-600-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Telugu';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/web/noto-sans-telugu-telugu-700-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Malayalam';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/web/noto-sans-malayalam-malayalam-400-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Malayalam';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/noto-sans-malayalam-malayalam-600-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Malayalam';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/web/noto-sans-malayalam-malayalam-700-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Kannada';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/web/noto-sans-kannada-kannada-400-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Kannada';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/web/noto-sans-kannada-kannada-600-normal.woff2') format('woff2');}
+@font-face{font-family:'Noto Sans Kannada';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/web/noto-sans-kannada-kannada-700-normal.woff2') format('woff2');}

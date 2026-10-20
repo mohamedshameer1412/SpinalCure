@@ -1,0 +1,167 @@
+- generic [active] [ref=f7e1]:
+  - link "Skip to content" [ref=f7e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f7e3]:
+    - generic [ref=f7e5]:
+      - generic [ref=f7e6]:
+        - link "+91 81480 38363" [ref=f7e7] [cursor=pointer]:
+          - /url: tel:+918148038363
+          - generic [aria-hidden] [ref=f7e8]: 
+        - generic [ref=f7e10]:
+          - generic [aria-hidden] [ref=f7e11]: 
+          - generic [ref=f7e12]: "No: 194/4, 1st Floor, JN Salai, 100ft Main Rd, near Aladipattiyaan Ka…"
+      - generic [ref=f7e13]:
+        - generic [ref=f7e14]:
+          - generic [aria-hidden] [ref=f7e15]: 
+          - text: 5.0 on Google
+        - link "Instagram" [ref=f7e16] [cursor=pointer]:
+          - /url: https://www.instagram.com/spinalcure_chennai/
+          - generic [ref=f7e17]: 
+        - link "YouTube" [ref=f7e18] [cursor=pointer]:
+          - /url: https://www.youtube.com/@SpinalCure
+          - generic [ref=f7e19]: 
+    - generic [ref=f7e20]:
+      - link "Spinal Cure — Home" [ref=f7e21] [cursor=pointer]:
+        - /url: /en/clinic/portfolio/
+        - generic [ref=f7e22]:
+          - generic [ref=f7e23]: Spinal Cure
+          - generic [ref=f7e24]: Advanced Holistic Spine & Pain Care
+      - navigation "Main" [ref=f7e25]:
+        - link "Treatments" [ref=f7e26] [cursor=pointer]:
+          - /url: /en/clinic/portfolio/#treatments
+        - link "Our doctor" [ref=f7e27] [cursor=pointer]:
+          - /url: /en/clinic/portfolio/#doctor
+        - link "Patient stories" [ref=f7e28] [cursor=pointer]:
+          - /url: /en/clinic/testimonials/
+        - link "Events" [ref=f7e29] [cursor=pointer]:
+          - /url: /en/clinic/events/
+        - link "Health articles" [ref=f7e30] [cursor=pointer]:
+          - /url: /en/clinic/blog/
+        - link "Contact" [ref=f7e31] [cursor=pointer]:
+          - /url: /en/clinic/portfolio/#visit
+      - generic [ref=f7e32]:
+        - generic [ref=f7e34]:
+          - 'button "Language: English" [ref=f7e35] [cursor=pointer]':
+            - generic [aria-hidden] [ref=f7e36]: 
+            - generic [ref=f7e37]: English
+            - generic [aria-hidden] [ref=f7e38]: 
+          - text: 
+        - link "Book appointment" [ref=f7e39] [cursor=pointer]:
+          - /url: /en/clinic/portfolio/#book
+          - generic [aria-hidden] [ref=f7e40]: 
+          - text: Book appointment
+        - text: 
+  - text:             
+  - main [ref=f7e41]:
+    - generic [ref=f7e42]:
+      - heading "Events, workshops & webinars" [level=1] [ref=f7e43]
+      - paragraph [ref=f7e44]: Learn, practise and connect with our practitioners.
+      - generic [ref=f7e45]:
+        - generic [ref=f7e46]:
+          - generic [ref=f7e47]: Search
+          - searchbox "Search" [ref=f7e48]
+        - generic [ref=f7e49]:
+          - generic [ref=f7e50]: Type
+          - combobox "Type" [ref=f7e51]:
+            - option "All types" [selected]
+            - option "Class"
+            - option "Workshop"
+            - option "Meeting"
+            - option "Seminar"
+            - option "Health Camp"
+            - option "Webinar"
+            - option "Other"
+        - generic [ref=f7e52]:
+          - generic [ref=f7e53]: Format
+          - combobox "Format" [ref=f7e54]:
+            - option "Online or in person" [selected]
+            - option "Online"
+            - option "In person"
+        - generic [ref=f7e55]:
+          - combobox "Event language" [ref=f7e56]:
+            - option "Any language" [selected]
+            - option "English"
+            - option "தமிழ்"
+            - option "हिन्दी"
+            - option "العربية"
+            - option "العربية"
+            - option "العربية"
+          - button "Filter" [ref=f7e57] [cursor=pointer]
+      - tablist [ref=f7e58]:
+        - tab "Upcoming 1" [selected] [ref=f7e59] [cursor=pointer]
+        - tab "Live now 0" [ref=f7e60] [cursor=pointer]
+        - tab "Past 0" [ref=f7e61] [cursor=pointer]
+        - tab "Cancelled 0" [ref=f7e62] [cursor=pointer]
+      - list [ref=f7e63]:
+        - listitem [ref=f7e64]:
+          - generic [ref=f7e65]:
+            - generic [ref=f7e66]:
+              - generic [ref=f7e67]: Class
+              - generic [ref=f7e68]: In person
+            - heading [level=2] [ref=f7e69]:
+              - link "camp" [ref=f7e70] [cursor=pointer]:
+                - /url: /en/clinic/events/54z8efagRY6X8XAVdWEb5A/
+            - paragraph [ref=f7e71]:
+              - generic [aria-hidden] [ref=f7e72]: 
+              - text: Oct. 20, 2026 · 22:50–23:50 (Asia/Kolkata)
+            - generic [ref=f7e73]:
+              - generic [ref=f7e74]: ₹1999.98
+              - link "Details & register →" [ref=f7e75] [cursor=pointer]:
+                - /url: /en/clinic/events/54z8efagRY6X8XAVdWEb5A/
+  - contentinfo [ref=f7e76]:
+    - generic [ref=f7e77]:
+      - generic [ref=f7e78]:
+        - link "Spinal Cure" [ref=f7e79] [cursor=pointer]:
+          - /url: /en/clinic/portfolio/
+        - paragraph [ref=f7e81]: Neck & Back Pain Special Care Center. Specialist in Classical Acupuncture Science.
+        - paragraph [ref=f7e82]: Without Surgery, Without Medicine and Without Diet.
+        - generic [ref=f7e83]:
+          - link "Instagram" [ref=f7e84] [cursor=pointer]:
+            - /url: https://www.instagram.com/spinalcure_chennai/
+            - generic [ref=f7e85]: 
+          - link "YouTube" [ref=f7e86] [cursor=pointer]:
+            - /url: https://www.youtube.com/@SpinalCure
+            - generic [ref=f7e87]: 
+      - generic [ref=f7e88]:
+        - heading "Visit us" [level=2] [ref=f7e89]
+        - list [ref=f7e90]:
+          - listitem [ref=f7e91]:
+            - generic [aria-hidden] [ref=f7e92]: 
+            - generic [ref=f7e93]: "No: 194/4, 1st Floor, JN Salai, 100ft Main Rd, near Aladipattiyaan Karupatti Coffee, Sri Sakthi Nagar, Arumbakkam, Chennai, Tamil Nadu 600106"
+          - listitem [ref=f7e94]:
+            - generic [aria-hidden] [ref=f7e95]: 
+            - link "+91 81480 38363" [ref=f7e96] [cursor=pointer]:
+              - /url: tel:+918148038363
+          - listitem [ref=f7e97]:
+            - generic [aria-hidden] [ref=f7e98]: 
+            - link "+91 90876 28476" [ref=f7e99] [cursor=pointer]:
+              - /url: tel:+919087628476
+          - listitem [ref=f7e100]:
+            - generic [aria-hidden] [ref=f7e101]: 
+            - link "spinalcure2015@gmail.com" [ref=f7e102] [cursor=pointer]:
+              - /url: mailto:spinalcure2015@gmail.com
+      - generic [ref=f7e103]:
+        - heading "Opening hours" [level=2] [ref=f7e104]
+        - paragraph [ref=f7e105]: "Mon, Tue, Wed, Thu, Sat: 5:30 pm – 8:30 pm Fri: 10:00 am – 1:00 pm Sun: Closed"
+      - generic [ref=f7e106]:
+        - heading "Explore" [level=2] [ref=f7e107]
+        - list [ref=f7e108]:
+          - listitem [ref=f7e109]:
+            - link "Treatments" [ref=f7e110] [cursor=pointer]:
+              - /url: /en/clinic/portfolio/#treatments
+          - listitem [ref=f7e111]:
+            - link "Patient stories" [ref=f7e112] [cursor=pointer]:
+              - /url: /en/clinic/testimonials/
+          - listitem [ref=f7e113]:
+            - link "Events" [ref=f7e114] [cursor=pointer]:
+              - /url: /en/clinic/events/
+          - listitem [ref=f7e115]:
+            - link "Health articles" [ref=f7e116] [cursor=pointer]:
+              - /url: /en/clinic/blog/
+          - listitem [ref=f7e117]:
+            - link "Book appointment" [ref=f7e118] [cursor=pointer]:
+              - /url: /en/clinic/portfolio/#book
+    - generic [ref=f7e120]:
+      - paragraph [ref=f7e121]: © 2026 Spinal Cure · Arumbakkam, Chennai
+      - link "Staff sign in" [ref=f7e122] [cursor=pointer]:
+        - /url: /en/accounts/login/

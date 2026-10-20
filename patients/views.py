@@ -447,7 +447,9 @@ def patient_create_view(request):
             diagnosis_str = request.POST.get('diagnosis_data', '{}')
             try:
                 diagnosis_data = json.loads(diagnosis_str)
-            except:
+            except ValueError:
+                diagnosis_data = {}
+            if not isinstance(diagnosis_data, dict):
                 diagnosis_data = {}
             AcupunctureDiagnosis.objects.create(patient=patient, diagnosis_data=diagnosis_data)
             if patient.total_sittings > 0:
@@ -546,6 +548,8 @@ def patient_edit_view(request, pk):
             if diagnosis_str is not None:
                 try:
                     diagnosis_data = json.loads(diagnosis_str)
+                    if not isinstance(diagnosis_data, dict):
+                        raise ValueError('diagnosis must be a JSON object')
                     diag, created = AcupunctureDiagnosis.objects.get_or_create(patient=patient)
                     if diag.diagnosis_data != diagnosis_data:
                         diag.diagnosis_data = diagnosis_data

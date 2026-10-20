@@ -1,0 +1,55 @@
+{% load i18n %}{% if obj %}
+<section id="{{ uid }}" class="card scroll-mt-24" x-data="{ lang: '{{ langs.0.lang }}' }">
+    <header class="px-6 pt-5 pb-3 flex flex-wrap items-start justify-between gap-3">
+        <div>
+            <h3 class="text-base font-bold text-gray-800"><i class="bi bi-translate text-green-600 me-1"></i>{% if title %}{{ title }}{% else %}{% trans "Translations" %}{% endif %}</h3>
+            <p class="text-xs text-gray-500 mt-0.5">{% trans "The fields above are the English text. Fill in the other languages here, or auto-translate and then edit." %}</p>
+        </div>
+        <a href="{% url 'admin_translations' %}" class="text-xs font-semibold text-green-700 hover:underline">{% trans "All translations & stats" %} →</a>
+    </header>
+
+    <!-- language tabs with % complete -->
+    <div class="px-6 flex flex-wrap gap-2" role="tablist">
+        {% for l in langs %}
+        <button type="button" role="tab" @click="lang = '{{ l.lang }}'" :aria-selected="lang === '{{ l.lang }}'"
+            :class="lang === '{{ l.lang }}' ? 'border-green-500 bg-green-50 ring-2 ring-green-100' : 'border-gray-200 hover:bg-gray-50'"
+            class="min-w-[9rem] text-start rounded-xl border px-3 py-2 transition">
+            <span class="flex items-baseline justify-between gap-3"><span class="font-semibold text-sm" lang="{{ l.lang }}">{{ l.name }}</span>
+                <span class="text-sm font-extrabold {% if l.pct == 100 %}text-green-600{% else %}text-gray-800{% endif %}">{{ l.pct }}%</span></span>
+            <span class="mt-1.5 block h-1.5 rounded-full bg-gray-100 overflow-hidden"><span class="block h-full bg-green-500" style="width: {{ l.pct }}%"></span></span>
+        </button>
+        {% endfor %}
+    </div>
+
+    {% for l in langs %}
+    <form x-show="lang === '{{ l.lang }}'" {% if not forloop.first %}x-cloak{% endif %} method="post" action="{% url 'admin_translation_action' %}" class="px-6 pb-6 pt-4 grid gap-3">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <input type="hidden" name="lang" value="{{ l.lang }}"><input type="hidden" name="model_label" value="{{ label }}">
+        <input type="hidden" name="object_id" value="{{ obj.pk }}"><input type="hidden" name="next" value="{{ next }}">
+        {% for u in l.units %}
+        <div class="rounded-xl border p-3 {% if u.status == 'stale' %}border-amber-300{% elif u.status == 'missing' %}border-red-200{% else %}border-gray-100{% endif %}">
+            <div class="flex items-center justify-between gap-3 mb-1">
+                <label for="{{ uid }}-{{ l.lang }}-{{ u.field }}" class="label">{{ u.label }}{% if u.is_name %} · {% trans "name" %}{% endif %}</label>
+                <span class="text-[11px] font-bold rounded-full px-2.5 py-0.5
+                    {% if u.status == 'missing' %}bg-red-50 text-red-700{% elif u.status == 'stale' %}bg-amber-50 text-amber-700{% elif u.status == 'auto' %}bg-blue-50 text-blue-700{% else %}bg-green-50 text-green-700{% endif %}">
+                    {% if u.status == 'missing' %}{% trans "Missing" %}{% elif u.status == 'stale' %}{% trans "English changed" %}{% elif u.status == 'auto' %}{% trans "Auto-translated" %}{% elif u.status == 'edited' %}{% trans "Edited" %}{% else %}{% trans "Reviewed" %}{% endif %}</span>
+            </div>
+            <p class="text-xs text-gray-400 whitespace-pre-line line-clamp-2 mb-1.5">{{ u.source|truncatechars:240 }}</p>
+            <textarea id="{{ uid }}-{{ l.lang }}-{{ u.field }}" name="t__{{ u.field }}" rows="{% if u.source|length > 100 %}3{% else %}1{% endif %}" lang="{{ l.lang }}" dir="{% if l.lang == 'ar' %}rtl{% else %}ltr{% endif %}"
+                placeholder="{% trans 'Type the translation (blank = show English)' %}"
+                class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-300 resize-y">{{ u.value }}</textarea>
+        </div>
+        {% empty %}<p class="text-sm text-gray-400">{% trans "Nothing to translate yet: fill in the English text first." %}</p>{% endfor %}
+        {% if l.units %}
+        <div class="flex flex-wrap items-center gap-2 pt-1">
+            <button name="action" value="save_object" class="btn btn-primary">{% trans "Save translations" %}</button>
+            <button name="action" value="translate_object" {% if not provider %}disabled{% endif %}
+                class="btn btn-soft disabled:opacity-50"><i class="bi bi-stars me-1"></i>{% blocktrans with name=l.name %}Auto-translate missing into {{ name }}{% endblocktrans %}</button>
+            <button name="action" value="final_object" class="btn btn-secondary"><i class="bi bi-check2"></i> {% trans "Mark all reviewed" %}</button>
+            {% if l.todo %}<span class="text-xs text-amber-600 font-semibold">{{ l.todo }} {% trans "need attention" %}</span>{% endif %}
+        </div>
+        {% endif %}
+    </form>
+    {% endfor %}
+</section>
+{% endif %}

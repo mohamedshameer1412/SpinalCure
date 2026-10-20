@@ -1,6 +1,7 @@
 {% extends "public_base.html" %}
+{% load content_i18n %}
 {% load i18n %}
-{% block title %}{% translate "Events, workshops & webinars" %} — {{ clinic.name|default:"SpinalCure" }}{% endblock %}
+{% block title %}{% translate "Events, workshops & webinars" %} — {{ clinic|tx:"name"|default:"SpinalCure" }}{% endblock %}
 {% block content %}
 <div class="max-w-6xl mx-auto px-4 py-8">
     <h1 class="text-2xl font-bold">{% translate "Events, workshops & webinars" %}</h1>
@@ -45,8 +46,8 @@
                     {% if e.phase == 'cancelled' %}<span class="rounded-full bg-red-100 text-red-700 px-2 py-0.5 font-semibold">{% translate "Cancelled" %}</span>{% endif %}
                     {% if e.phase == 'upcoming' and e.is_full %}<span class="rounded-full bg-amber-100 text-amber-800 px-2 py-0.5">{% if e.waitlist_enabled %}{% translate "Waitlist" %}{% else %}{% translate "Full" %}{% endif %}</span>{% endif %}
                 </div>
-                <h2 class="mt-3 font-semibold text-lg leading-snug"><a href="{% url 'event_detail' e.pk %}" class="no-underline text-gray-900 hover:underline">{{ e.title }}</a></h2>
-                {% if e.presenter %}<p class="text-sm text-gray-500">{{ e.presenter }}</p>{% endif %}
+                <h2 class="mt-3 font-semibold text-lg leading-snug"><a href="{% url 'event_detail' e.pk %}" class="no-underline text-gray-900 hover:underline">{{ e|tx:"title" }}</a></h2>
+                {% if e.presenter %}<p class="text-sm text-gray-500">{{ e|tx:"presenter" }}</p>{% endif %}
                 <p class="mt-2 text-sm text-gray-600"><i class="bi bi-clock me-1" aria-hidden="true"></i>{{ e.starts_at|date:"DATE_FORMAT" }} · <span class="ltr-isolate">{{ e.starts_at|time:"H:i" }}–{{ e.ends_at|time:"H:i" }}</span> <span class="text-gray-400">({{ e.timezone }})</span></p>
                 <div class="mt-auto pt-4 flex items-center justify-between text-sm">
                     <span class="font-semibold">{% if e.fees > 0 %}₹{{ e.fees|floatformat:"-2" }}{% else %}<span class="text-green-700">{% translate "Free" %}</span>{% endif %}</span>

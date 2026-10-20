@@ -140,10 +140,10 @@ def test_notify_staff_fans_out_by_capability_and_dedupes():
     assert Notification.objects.count() == 1
 
 
-def test_localised_notification_arabic_digits_and_language(patient):
-    patient.preferred_language = 'ar'; patient.save()
+def test_localised_notification_uses_patient_language(patient):
+    patient.preferred_language = 'te'; patient.save()
     n = service.notify('appointment_booked', patient=patient, context=CTX)
-    assert n.language == 'ar'
+    assert n.language == 'te'
     assert n.body  # catalogue falls back to English until translated, but never empty
 
 

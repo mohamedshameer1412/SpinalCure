@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Reels & Shorts — SpinalCure Admin" %}{% endblock %}
+{% block page_title %}{% trans "Reels & Shorts" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'admin_problems' %}" class="text-sm font-semibold text-primary-700 hover:underline"><i class="bi bi-tags me-1"></i>{% trans "Manage problems" %}</a>{% endblock %}
+
+{% block content %}
+
+
+<form method="post" class="card p-6 mb-6 grid gap-4 md:grid-cols-2">
+    {% csrf_token %}
+    <div class="md:col-span-2">
+        <label class="label block mb-1.5">{% trans "YouTube Short / video or Instagram reel link *" %}</label>
+        <input type="url" name="url" required placeholder="https://www.youtube.com/shorts/…  or  https://www.instagram.com/reel/…"
+            class="w-full">
+    </div>
+    <div>
+        <label class="label block mb-1.5">{% trans "Title *" %}</label>
+        <input type="text" name="title" required maxlength="200" class="w-full">
+    </div>
+    <div>
+        <label class="label block mb-1.5">{% trans "Patient name (optional)" %}</label>
+        <input type="text" name="patient_name" class="w-full">
+    </div>
+    <div>
+        <label class="label block mb-1.5">{% trans "Problem treated" %}</label>
+        <select name="problem" data-placeholder="{% trans 'Select a problem' %}">
+            <option value="">{% trans "— None —" %}</option>
+            {% for p in problems %}<option value="{{ p.pk }}">{{ p.name }}</option>{% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="label block mb-1.5">{% trans "Display order" %}</label>
+        <input type="number" name="display_order" min="0" value="0" class="w-full">
+    </div>
+    <div class="md:col-span-2">
+        <label class="label block mb-1.5">{% trans "Short description (searchable)" %}</label>
+        <textarea name="description" rows="2" class="w-full resize-none"></textarea>
+    </div>
+    <div class="md:col-span-2"><button class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>{% trans "Add video" %}</button></div>
+</form>
+
+<div class="card overflow-hidden">
+    <table class="w-full text-sm">
+        <thead class="bg-gray-50 text-xs uppercase text-gray-500"><tr>
+            <th class="text-start px-4 py-3">{% trans "Video" %}</th><th class="text-start px-4 py-3 hidden md:table-cell">{% trans "Problem" %}</th>
+            <th class="text-start px-4 py-3">{% trans "Status" %}</th><th class="px-4 py-3"></th></tr></thead>
+        <tbody class="divide-y divide-gray-50">
+        {% for v in videos %}
+        <tr>
+            <td class="px-4 py-3"><p class="font-semibold text-gray-900">{{ v.title }}</p>
+                <a href="{{ v.url }}" target="_blank" rel="noopener" class="text-xs text-primary-600 hover:underline"><i class="bi bi-{{ v.platform }} me-1"></i>{{ v.get_platform_display }} · {{ v.video_id }}</a></td>
+            <td class="px-4 py-3 hidden md:table-cell text-gray-600">{{ v.problem.name|default:"—" }}</td>
+            <td class="px-4 py-3"><form method="post" action="{% url 'admin_video_toggle' v.pk %}">{% csrf_token %}
+                <button class="text-xs font-bold px-3 py-1 rounded-full {% if v.is_published %}bg-green-100 text-green-700{% else %}bg-gray-100 text-gray-500{% endif %}">{% if v.is_published %}{% trans "Published" %}{% else %}{% trans "Hidden" %}{% endif %}</button></form></td>
+            <td class="px-4 py-3 text-end"><form method="post" action="{% url 'admin_video_delete' v.pk %}" data-confirm="{% trans 'Delete this video?' %}">{% csrf_token %}
+                <button class="text-xs font-bold text-red-600 hover:underline"><i class="bi bi-trash"></i> {% trans "Delete" %}</button></form></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="px-4 py-12 text-center text-gray-400">{% trans "No videos yet. Paste a YouTube Short or Instagram reel link above." %}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

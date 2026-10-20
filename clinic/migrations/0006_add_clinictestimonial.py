@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `clinic_clinictestimonial` (
         FOREIGN KEY (`clinic_id`)
         REFERENCES `clinic_clinicprofile` (`id`)
         ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 """
 
 DROP_SQL = "DROP TABLE IF EXISTS `clinic_clinictestimonial`;"

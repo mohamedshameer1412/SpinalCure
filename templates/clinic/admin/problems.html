@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Problems — SpinalCure Admin" %}{% endblock %}
+{% block page_title %}{% trans "Problem Categories" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'admin_videos' %}" class="text-sm font-semibold text-primary-700 hover:underline"><i class="bi bi-play-btn me-1"></i>{% trans "Reels & Shorts" %}</a>{% endblock %}
+
+{% block content %}
+
+<p class="text-sm text-gray-500 mb-4">{% trans "These fill the problem dropdown on the public testimonials page. Keywords help the search box match (e.g. “disc, herniated” for Slip Disc)." %}</p>
+
+<form method="post" class="card p-5 mb-6 grid gap-3 md:grid-cols-[1fr_1fr_auto] items-end">
+    {% csrf_token %}
+    <div><label class="label block mb-1.5">{% trans "Problem" %}</label>
+        <input type="text" name="name" required maxlength="100" class="w-full"></div>
+    <div><label class="label block mb-1.5">{% trans "Search keywords" %}</label>
+        <input type="text" name="keywords" maxlength="300" class="w-full"></div>
+    <button class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>{% trans "Add" %}</button>
+</form>
+
+<div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
+    {% for p in problems %}
+    <div class="card p-4 flex items-start justify-between gap-3">
+        <div class="min-w-0"><p class="font-bold text-gray-900">{{ p.name }}</p><p class="text-xs text-gray-500 truncate">{{ p.keywords|default:"—" }}</p></div>
+        <form method="post" action="{% url 'admin_problem_delete' p.pk %}" data-confirm="{% trans 'Delete this problem? Linked reviews and videos are kept.' %}">{% csrf_token %}
+            <button class="text-red-500 hover:text-red-700" aria-label="{% trans 'Delete' %}"><i class="bi bi-trash"></i></button></form>
+    </div>
+    {% empty %}<p class="text-gray-400">{% trans "No problems yet." %}</p>{% endfor %}
+</div>
+{% endblock %}

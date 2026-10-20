@@ -6,6 +6,25 @@ from django.db import migrations, models
 from spinalcure.migration_utils import mysql_ddl_or_schema_editor
 
 
+def add_missing_columns(apps, schema_editor):
+    """These columns were originally added by hand, so this migration only changed Django's
+    state. Add them when absent (fresh installs) and skip when present (the original database)."""
+    Patient = apps.get_model('patients', 'Patient')
+    table = Patient._meta.db_table
+    with schema_editor.connection.cursor() as cur:
+        existing = {c.name for c in schema_editor.connection.introspection.get_table_description(cur, table)}
+    fields = {
+        'patient_id_str': models.CharField(blank=True, max_length=50, null=True, unique=True),
+        'reason_for_visit': models.TextField(blank=True),
+        'registration_number': models.CharField(blank=True, max_length=50, null=True),
+        'whatsapp_no': models.CharField(blank=True, max_length=20, null=True),
+    }
+    for name, field in fields.items():
+        if name not in existing:
+            field.set_attributes_from_name(name)
+            schema_editor.add_field(Patient, field)
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -14,7 +33,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.SeparateDatabaseAndState(
-            database_operations=[],
+            database_operations=[migrations.RunPython(add_missing_columns, migrations.RunPython.noop)],
             state_operations=[
                 migrations.AddField(
                     model_name='patient',

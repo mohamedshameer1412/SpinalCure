@@ -3,38 +3,20 @@
 
 {% block title %}{% trans "Activity Log — SpinalCure Admin" %}{% endblock %}
 
-{% block content %}
-<div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+{% block page_title %}{% trans "Activity Log" %}{% endblock %}
+{% block header_actions %}
+<span class="badge"><i class="bi bi-list-ul"></i>{% blocktranslate trimmed with total_count=total_count|default:"0" %}{{ total_count }} total records{% endblocktranslate %}</span>
+{% endblock %}
 
-    <!-- Page Header -->
-    <div class="max-w-7xl mx-auto mb-8">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center shadow-lg">
-                    <i class="bi bi-shield-check text-white text-lg"></i>
-                </div>
-                <div class="flex flex-col gap-1">
-                    <h1 class="text-2xl font-black text-gray-900">{% trans "Activity Log" %}</h1>
-                    <p class="text-xs text-gray-400 font-medium">{% trans "Complete CRUD audit trail — superadmin only" %}</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-3">
-                <span class="px-4 py-2 bg-slate-100 text-slate-600 text-sm font-bold rounded-xl">
-                    <i class="bi bi-list-ul me-2"></i>{% blocktranslate trimmed with total_count=total_count|default:"0" %}{{ total_count }} total records{% endblocktranslate %}
-                </span>
-                <a href="{% url 'dashboard' %}" class="px-4 py-2 bg-white border border-gray-200 text-gray-600 text-sm font-semibold rounded-xl hover:bg-gray-50 transition-all">
-                    <i class="bi bi-arrow-left me-2"></i>{% trans "Dashboard" %}
-                </a>
-            </div>
-        </div>
-    </div>
+{% block content %}
+<div class="space-y-5">
 
     <!-- Filters Bar -->
-    <div class="max-w-7xl mx-auto mb-5">
-        <form method="get" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-col sm:flex-row gap-3 items-end">
+    <div>
+        <form method="get" class="card p-4 flex flex-col sm:flex-row gap-3 items-end">
             <div class="flex-1">
-                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{% trans "Action" %}</label>
-                <select name="action" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-slate-500">
+                <label class="label block mb-1">{% trans "Action" %}</label>
+                <select name="action" class="w-full">
                     <option value="">{% trans "All Actions" %}</option>
                     <option value="create" {% if action_filter == 'create' %}selected{% endif %}>{% trans "Create" %}</option>
                     <option value="update" {% if action_filter == 'update' %}selected{% endif %}>{% trans "Update" %}</option>
@@ -42,8 +24,8 @@
                 </select>
             </div>
             <div class="flex-1">
-                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{% trans "Module" %}</label>
-                <select name="module" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-slate-500">
+                <label class="label block mb-1">{% trans "Module" %}</label>
+                <select name="module" class="w-full">
                     <option value="">{% trans "All Modules" %}</option>
                     {% for mod in modules %}
                     <option value="{{ mod }}" {% if module_filter == mod %}selected{% endif %}>{{ mod }}</option>
@@ -51,8 +33,8 @@
                 </select>
             </div>
             <div class="flex-1">
-                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{% trans "Staff Member" %}</label>
-                <select name="user" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-slate-500">
+                <label class="label block mb-1">{% trans "Staff Member" %}</label>
+                <select name="user" class="w-full">
                     <option value="">{% trans "All Staff" %}</option>
                     {% for u in staff_users %}
                     <option value="{{ u.id }}" {% if user_filter == u.id|stringformat:'s' %}selected{% endif %}>{{ u.get_full_name|default:u.email }}</option>
@@ -63,14 +45,14 @@
                 <button type="submit" class="px-5 py-2.5 bg-slate-800 text-white text-sm font-bold rounded-xl hover:bg-slate-900 transition-all">
                     <i class="bi bi-funnel me-1"></i>{% trans "Filter" %}
                 </button>
-                <a href="{% url 'admin_activity_log' %}" class="px-4 py-2.5 bg-gray-100 text-gray-600 text-sm font-semibold rounded-xl hover:bg-gray-200 transition-all">{% trans "Clear" %}</a>
+                <a href="{% url 'admin_activity_log' %}" class="btn btn-secondary">{% trans "Clear" %}</a>
             </div>
         </form>
     </div>
 
     <!-- Logs Table -->
-    <div class="max-w-7xl mx-auto">
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+    <div>
+        <div class="card overflow-hidden">
             {% if logs %}
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
@@ -178,7 +160,7 @@
                 <div class="flex gap-2">
                     {% if logs.has_previous %}
                     <a href="?page={{ logs.previous_page_number }}&action={{ action_filter }}&module={{ module_filter }}&user={{ user_filter }}"
-                        class="px-4 py-2 text-sm font-semibold bg-gray-100 text-gray-600 rounded-xl hover:bg-gray-200 transition-all">
+                        class="btn btn-secondary">
                         <i class="bi bi-chevron-left"></i> {% trans "Previous" %}
                     </a>
                     {% endif %}

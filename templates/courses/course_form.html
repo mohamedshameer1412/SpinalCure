@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load content_i18n %}
 {% load b64uuid_tags %}
 
 {% block title %}{% blocktranslate trimmed with title=title %}{{ title }} - SpinalCure{% endblocktranslate %}{% endblock %}
@@ -177,20 +178,20 @@
 
                     <div class="space-y-6">
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Full Course Title *" %}</label>
+                            <label class="label block ms-1">{% trans "Full Course Title *" %}</label>
                             {{ form.title }}
                             {% if form.title.errors %}<p class="text-[10px] text-red-500 font-bold ms-1 mt-1">{{ form.title.errors.0 }}</p>{% endif %}
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Card Summary (Short Description) *" %}</label>
+                            <label class="label block ms-1">{% trans "Card Summary (Short Description) *" %}</label>
                             {{ form.short_description }}
                             <p class="text-[10px] text-slate-400 italic ms-1">{% trans "This appears on the portfolio listing cards." %}</p>
                             {% if form.short_description.errors %}<p class="text-[10px] text-red-500 font-bold ms-1 mt-1">{{ form.short_description.errors.0 }}</p>{% endif %}
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "In-Depth Description *" %}</label>
+                            <label class="label block ms-1">{% trans "In-Depth Description *" %}</label>
                             {{ form.description }}
                             {% if form.description.errors %}<p class="text-[10px] text-red-500 font-bold ms-1 mt-1">{{ form.description.errors.0 }}</p>{% endif %}
                         </div>
@@ -211,12 +212,12 @@
 
                     <div class="space-y-6">
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Key Learning Outcomes (One per line) *" %}</label>
+                            <label class="label block ms-1">{% trans "Key Learning Outcomes (One per line) *" %}</label>
                             {{ form.outcomes }}
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Full Syllabus / Modules *" %}</label>
+                            <label class="label block ms-1">{% trans "Full Syllabus / Modules *" %}</label>
                             {{ form.course_content }}
                         </div>
                     </div>
@@ -233,12 +234,12 @@
                     
                     <div class="space-y-6">
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Delivery Platform *" %}</label>
+                            <label class="label block ms-1">{% trans "Delivery Platform *" %}</label>
                             {{ form.platform }}
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Course Investment (₹) *" %}</label>
+                            <label class="label block ms-1">{% trans "Course Investment (₹) *" %}</label>
                             <div class="currency-wrapper">
                                 <span class="currency-symbol">₹</span>
                                 {{ form.fees }}
@@ -246,18 +247,18 @@
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Estimated Duration *" %}</label>
+                            <label class="label block ms-1">{% trans "Estimated Duration *" %}</label>
                             {{ form.duration }}
                         </div>
 
                         <div class="space-y-2">
-                            <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Owning Clinic" %}</label>
+                            <label class="label block ms-1">{% trans "Owning Clinic" %}</label>
                             {{ form.clinic }}
                         </div>
 
                         <div class="flex items-center gap-3 p-4 bg-green-50/50 rounded-2xl border border-green-100/50 transition-all hover:bg-green-50">
                             {{ form.is_published }}
-                            <label class="text-xs font-black text-green-800 uppercase tracking-widest cursor-pointer mb-0">{% trans "Show this course on public site" %}</label>
+                            <label class="label cursor-pointer mb-0">{% trans "Show this course on public site" %}</label>
                         </div>
                     </div>
                 </div>
@@ -286,7 +287,7 @@
                 </div>
 
                 <!-- Form Action -->
-                <button type="submit" class="w-full py-5 bg-slate-900 text-white font-black uppercase tracking-widest rounded-[1.5rem] hover:bg-green-600 hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-300 flex items-center justify-center gap-3 active:scale-[0.98]">
+                <button type="submit" class="btn btn-primary btn-lg w-full flex items-center justify-center gap-3 active:scale-[0.98]">
                     <i class="bi bi-rocket-takeoff-fill"></i>
                     {% if course %}{% trans "Update Program" %}{% else %}{% trans "Launch Course" %}{% endif %}
                 </button>
@@ -332,5 +333,7 @@
         });
     });
 </script>
+
+<div class="mt-8 max-w-4xl">{% translation_panel course %}</div>
 {% endblock %}
 {% endblock %}

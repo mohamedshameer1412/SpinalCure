@@ -1,6 +1,8 @@
 {% load i18n %}
 {% if patient.acupuncture_diagnosis and patient.acupuncture_diagnosis.diagnosis_data %}
-<div class="p-8" x-data="{ data: {{ patient.acupuncture_diagnosis.diagnosis_data|safe|default:'{}' }} }">
+{{ patient.acupuncture_diagnosis.diagnosis_data|json_script:"tcm-display-data" }}
+{# data goes through json_script (escaped JSON), never raw into the attribute: values are staff-entered free JSON #}
+<div class="p-8" x-data="{ data: JSON.parse(document.getElementById('tcm-display-data').textContent || '{}') }">
     <div class="flex justify-between items-center border-b pb-4 mb-8">
         <h2 class="text-xl font-bold text-gray-800">{% trans "Acupuncture Case Sheet" %}</h2>
         <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">{% trans "TCM Diagnosis" %}</span>

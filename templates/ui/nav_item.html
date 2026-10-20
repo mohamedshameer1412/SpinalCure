@@ -1,0 +1,8 @@
+{% comment %}Sidebar link. Params: url, label, icon (bootstrap-icons name), exact (url_name) or match (+ optional exclude) to mark it active, external.{% endcomment %}
+{% with n=request.resolver_match.url_name|default:'' %}
+<a href="{{ url }}" class="nav-item{% if exact %}{% if n == exact %} is-active{% endif %}{% elif match and match in n %}{% if not exclude or exclude not in n %} is-active{% endif %}{% endif %}"
+   {% if exact %}{% if n == exact %}aria-current="page"{% endif %}{% elif match and match in n %}{% if not exclude or exclude not in n %}aria-current="page"{% endif %}{% endif %}
+   {% if external %}target="_blank" rel="noopener"{% endif %}>
+    <i class="bi bi-{{ icon }}" aria-hidden="true"></i><span class="truncate">{{ label }}</span>{% if external %}<i class="bi bi-box-arrow-up-right ms-auto !w-auto text-[10px] opacity-60" aria-hidden="true"></i>{% endif %}
+</a>
+{% endwith %}

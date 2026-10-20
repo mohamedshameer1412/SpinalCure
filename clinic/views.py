@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.utils.translation import gettext
 from django.shortcuts import render, get_object_or_404, redirect
 from django_ratelimit.decorators import ratelimit
@@ -13,7 +14,6 @@ from .models import ClinicProfile, Practitioner
 from patients.models import PatientReview, Patient
 from appointments.models import Appointment
 from events.models import Event, EventRegistration, EventFeedback
-from events.models import Event, EventRegistration, EventFeedback
 from .serializers import ClinicProfileSerializer, PractitionerSerializer
 from spinalcure.permissions import IsSuperAdmin, IsDoctor
 import json
@@ -24,52 +24,25 @@ logger = logging.getLogger(__name__)
 
 
 def clinic_portfolio_view(request):
-    """Public clinic portfolio single-page view."""
-    clinic = ClinicProfile.objects.first()
-    if not clinic:
-        return render(request, 'clinic/portfolio_spa.html', {
-            'clinic': None,
-            'practitioners': [],
-            'reviews': [],
-            'avg_rating': 0,
-            'rating_range': range(1, 6)
-        })
-
-    # Fetch active practitioners for this clinic
-    practitioners = Practitioner.objects.filter(is_active=True)
-    
-    # Fetch published reviews
-    reviews = PatientReview.objects.filter(is_published=True).order_by('-created_at')[:6]
-    
-    # Calculate average rating
-    avg_rating = 0
-    if reviews.exists():
-        total_rating = sum([r.rating for r in reviews])
-        avg_rating = total_rating / reviews.count()
-
-    # Fetch published events
-    events = Event.objects.filter(is_published=True).order_by('date', 'start_time')
-
-    # Fetch published courses
+    """Public home page."""
     from courses.models import Course
-    courses = Course.objects.filter(is_published=True).order_by('-created_at')
-
-    # Fetch published admin-curated testimonials
-    from .models import ClinicTestimonial
-    testimonials = ClinicTestimonial.objects.filter(
-        clinic=clinic, is_published=True
-    ).order_by('display_order', '-created_at')
-
-    return render(request, 'clinic/portfolio_spa.html', {
+    from .models import ClinicTestimonial, ProblemCategory, TestimonialVideo
+    clinic = ClinicProfile.objects.first()
+    doctors = list(Practitioner.objects.filter(is_active=True).order_by('-is_chief', 'name'))
+    return render(request, 'clinic/home.html', {
         'clinic': clinic,
-        'practitioners': practitioners,
-        'reviews': reviews,
-        'events': events,
-        'courses': courses,
-        'testimonials': testimonials,
-        'avg_rating': avg_rating,
-        'rating_range': range(1, 6)
+        'hero_image': clinic.hero_carousel_images.first() if clinic else None,
+        'services': clinic.services.all() if clinic else [],
+        'doctor': doctors[0] if doctors else None,
+        'other_doctors': doctors[1:],
+        'problems': ProblemCategory.objects.filter(is_active=True).order_by('order')[:12],
+        'videos': TestimonialVideo.objects.filter(is_published=True, platform='youtube').select_related('problem')[:4],
+        'testimonials': ClinicTestimonial.objects.filter(is_published=True).select_related('problem')[:3],
+        'events': Event.objects.filter(is_published=True, date__gte=timezone.localdate()).order_by('date', 'start_time')[:3],
+        'courses': Course.objects.filter(is_published=True).order_by('-created_at')[:3],
+        'video_count': TestimonialVideo.objects.filter(is_published=True).count(),
     })
+
 
 def clinic_about_page_view(request):
     """Dedicated About Us page."""
@@ -82,67 +55,49 @@ def clinic_about_page_view(request):
 def practitioner_detail_view(request, pk):
     """Public practitioner detail view."""
     practitioner = get_object_or_404(Practitioner, pk=pk, is_active=True)
-    reviews = PatientReview.objects.filter(practitioner=practitioner, is_published=True)
+    from .models import ClinicTestimonial, TestimonialVideo
     return render(request, 'clinic/practitioner_portfolio.html', {
         'practitioner': practitioner,
-        'reviews': reviews,
-        'rating_range': range(1, 6)
+        'reviews': PatientReview.objects.filter(practitioner=practitioner, is_published=True).select_related('patient'),
+        'testimonials': ClinicTestimonial.objects.filter(is_published=True).select_related('problem')[:4],
+        'videos': TestimonialVideo.objects.filter(is_published=True, platform='youtube')[:4],
     })
 
 
 @require_http_methods(["POST"])
+@ratelimit(key='ip', rate='5/h', method='POST', block=True)
 def submit_review_ajax(request):
-    """AJAX endpoint for submitting reviews from public portal."""
+    """Public "share your experience" form. Stored as an unpublished testimonial for staff to approve; it never
+    creates or touches patient records (a visitor must not be able to write under a real patient's identity)."""
+    from .models import ClinicTestimonial, ProblemCategory
     try:
-        data = json.loads(request.body)
-        patient_name = data.get('name', '').strip()
-        patient_phone = data.get('phone', '').strip()
-        practitioner_id = decode_b64uuid(data.get('practitioner_id'))
-        rating = data.get('rating')
-        review_text = data.get('review', '').strip()
-
-        # Validate required fields
-        if not all([patient_name, patient_phone, practitioner_id, rating]):
-            return JsonResponse({
-                'status': 'error',
-                'message': gettext('All fields are required.')
-            }, status=400)
-
-        # Validate rating range
-        if rating not in [1, 2, 3, 4, 5]:
-            return JsonResponse({
-                'status': 'error',
-                'message': gettext('Invalid rating value.')
-            }, status=400)
-
-        # Get or create patient
-        patient, _ = Patient.objects.get_or_create(
-            phone=patient_phone,
-            defaults={'name': patient_name, 'chief_complaint': 'Review submission'}
-        )
-        
-        practitioner = get_object_or_404(Practitioner, id=practitioner_id, is_active=True)
-        
-        # Create review (unpublished by default)
-        PatientReview.objects.create(
-            patient=patient,
-            practitioner=practitioner,
-            rating=int(rating),
-            review_text=review_text,
-            is_published=False
-        )
-        
-        logger.info(f'New review submitted by {patient_name} for {practitioner.name}')
-        
-        return JsonResponse({
-            'status': 'success',
-            'message': gettext('Thank you! Your review has been submitted for approval.')
-        })
+        data = json.loads(request.body or b'{}')
     except json.JSONDecodeError:
         return JsonResponse({'status': 'error', 'message': gettext('Invalid JSON.')}, status=400)
-    except Exception as e:
-        logger.error(f'Error in submit_review_ajax: {str(e)}')
-        return JsonResponse({'status': 'error', 'message': gettext('An error occurred. Please try again.')}, status=500)
+    if not isinstance(data, dict):
+        return JsonResponse({'status': 'error', 'message': gettext('Invalid request.')}, status=400)
+    if str(data.get('website', '')).strip():          # honeypot
+        return JsonResponse({'status': 'success', 'message': gettext('Thank you! Your review has been submitted for approval.')})
+    name = str(data.get('name', '')).strip()[:120]
+    text = str(data.get('review', '')).strip()[:2000]
+    place = str(data.get('place', '')).strip()[:120]
+    try:
+        rating = int(data.get('rating'))
+    except (TypeError, ValueError):
+        rating = 0
+    if len(name) < 2 or len(text) < 10:
+        return JsonResponse({'status': 'error', 'message': gettext('Please enter your name and a few words about your experience.')}, status=400)
+    if rating not in range(1, 6):
+        return JsonResponse({'status': 'error', 'message': gettext('Invalid rating value.')}, status=400)
+    clinic = ClinicProfile.objects.first()
+    if clinic is None:
+        return JsonResponse({'status': 'error', 'message': gettext('An error occurred. Please try again.')}, status=503)
+    ClinicTestimonial.objects.create(
+        clinic=clinic, patient_name=name, patient_designation=place, rating=rating, review_text=text,
+        problem=ProblemCategory.objects.filter(slug=str(data.get('problem', ''))[:120]).first(),
+        source='internal', is_published=False)
+    logger.info('Public review submitted (pending approval)')
+    return JsonResponse({'status': 'success', 'message': gettext('Thank you! Your review has been submitted for approval.')})
 
 
 @require_http_methods(["POST"])
@@ -165,9 +120,9 @@ def book_appointment_ajax(request):
     try:
         data = json.loads(request.body or b'{}')
     except json.JSONDecodeError:
-        return fail('Invalid JSON.')
+        return fail(gettext('Invalid JSON.'))
     if not isinstance(data, dict):
-        return fail('Invalid request.')
+        return fail(gettext('Invalid request.'))
     if str(data.get('website', '')).strip():          # honeypot field: humans never fill it
         return JsonResponse({'status': 'success', 'message': gettext('Appointment booked successfully!')})
 
@@ -177,7 +132,7 @@ def book_appointment_ajax(request):
     notes = str(data.get('notes', '')).strip()[:300]
     appt_type = data.get('type', 'physical')
     if len(name) < 2 or not phone:
-        return fail('Please enter your name and phone number.')
+        return fail(gettext('Please enter your name and phone number.'))
     try:
         validate_phone_number(phone)
         if email:
@@ -185,11 +140,11 @@ def book_appointment_ajax(request):
         day = _dt.strptime(str(data.get('date', '')), '%Y-%m-%d').date()
         start = _dt.strptime(str(data.get('time', ''))[:5], '%H:%M').time()
     except ValidationError:
-        return fail('Please check your phone number and email address.')
+        return fail(gettext('Please check your phone number and email address.'))
     except ValueError:
-        return fail('Please choose a valid date and time.')
+        return fail(gettext('Please choose a valid date and time.'))
     if appt_type not in ('physical', 'online'):
-        return fail('Invalid appointment type.')
+        return fail(gettext('Invalid appointment type.'))
 
     practitioner = None
     raw = str(data.get('practitioner_id', '')).strip()
@@ -200,7 +155,7 @@ def book_appointment_ajax(request):
             pass
         practitioner = Practitioner.objects.filter(id=raw, is_active=True).first()
         if practitioner is None:
-            return fail('That practitioner is not available.', 404, 'unknown_practitioner')
+            return fail(gettext('That practitioner is not available.'), 404, 'unknown_practitioner')
 
     request_key = str(data.get('request_key', ''))[:64] or None
     try:
@@ -214,7 +169,8 @@ def book_appointment_ajax(request):
     logger.info('Public appointment %s booked for %s', appt.pk, day)
     return JsonResponse({
         'status': 'success',
-        'message': 'Appointment booked! ' + ('A confirmation email is on its way.' if email else 'Please keep this time free.'),
+        'message': gettext('Appointment booked! A confirmation email is on its way.') if email
+                   else gettext('Appointment booked! Please keep this time free.'),
         'manage_url': request.build_absolute_uri(sch._manage_path(appt)) if email else '',
     })
 
@@ -309,12 +265,14 @@ def global_search_ajax(request):
     # Search Appointments
     appointments = Appointment.objects.filter(
         patient_q(query, 'patient__', ('name',)) |
+        Q(guest_name__icontains=query) |
         Q(reason__icontains=query)
     ).select_related('patient')[:5]
     for a in appointments:
+        who = a.patient.name if a.patient_id else a.guest_name   # public bookings are guests without a patient record
         results.append({
             'type': 'Appointment',
-            'title': f"{a.patient.name} - {a.get_status_display()}",
+            'title': f"{who} - {a.get_status_display()}",
             'subtitle': f"{a.appointment_date} at {a.appointment_time.strftime('%I:%M %p')}",
             'url': reverse('appointment_calendar'),
             'icon': 'bi-calendar-event'

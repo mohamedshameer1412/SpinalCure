@@ -73,7 +73,7 @@
                     <div class="flex items-center gap-2">
                         {% if request.user.role == 'superadmin' or request.user.is_superuser %}
                         <a href="{% url 'course_edit' course.id %}"
-                            class="flex-1 inline-flex items-center justify-center px-4 py-2 text-xs font-bold text-white bg-slate-900 rounded-xl hover:bg-slate-800 transition-all">
+                            class="btn btn-primary btn-sm flex-1 inline-flex items-center justify-center">
                             <i class="bi bi-pencil me-1.5"></i>
                             {% trans "Edit Course" %}
                         </a>
@@ -84,18 +84,18 @@
                             </button>
                         </form>
                         <button onclick="openDeleteModal('{{ course.id }}', '{{ course.title|escapejs }}')"
-                            class="p-2 text-red-600 bg-red-50 rounded-xl hover:bg-red-100 transition-all border border-red-100">
+                            class="btn btn-soft !bg-red-50 !text-red-700 hover:!bg-red-100">
                             <i class="bi bi-trash text-lg"></i>
                         </button>
                         {% else %}
                         <button onclick="openSecurityModal('edit', `/{{ LANGUAGE_CODE }}/courses/${'{{ course.id }}'}/edit/`, '{{ course.title|escapejs }}')"
-                            class="flex-1 inline-flex items-center justify-center px-4 py-2 text-xs font-bold text-white bg-slate-900 rounded-xl hover:bg-slate-800 transition-all">
+                            class="btn btn-primary btn-sm flex-1 inline-flex items-center justify-center">
                             <i class="bi bi-pencil me-1.5"></i>
                             {% trans "Edit Course" %}
                         </button>
                         <button
                             onclick="openSecurityModal('delete', `/{{ LANGUAGE_CODE }}/courses/${'{{ course.id }}'}/delete/`, '{{ course.title|escapejs }}')"
-                            class="p-2 text-red-600 bg-red-50 rounded-xl hover:bg-red-100 transition-all border border-red-100">
+                            class="btn btn-soft !bg-red-50 !text-red-700 hover:!bg-red-100">
                             <i class="bi bi-trash text-lg"></i>
                         </button>
                         {% endif %}

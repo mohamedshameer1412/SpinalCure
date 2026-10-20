@@ -67,7 +67,7 @@
             <button hx-get="?page={{ expenses.previous_page_number }}&q={{ search_query }}&category={{ selected_category }}"
                     hx-target="#expense-list-container"
                     hx-swap="outerHTML"
-                    class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
+                    class="btn btn-secondary">
                 {% trans "Previous" %}
             </button>
             {% endif %}
@@ -75,7 +75,7 @@
             <button hx-get="?page={{ expenses.next_page_number }}&q={{ search_query }}&category={{ selected_category }}"
                     hx-target="#expense-list-container"
                     hx-swap="outerHTML"
-                    class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
+                    class="btn btn-secondary">
                 {% trans "Next" %}
             </button>
             {% endif %}

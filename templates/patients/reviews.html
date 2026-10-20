@@ -6,7 +6,7 @@
 
 {% block header_actions %}
 <a href="{% url 'review-create' %}"
-    class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-semibold rounded-xl hover:bg-primary-700 transition-all shadow-sm">
+    class="btn btn-primary inline-flex items-center gap-2">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
     </svg>
@@ -17,7 +17,7 @@
 {% block content %}
 <!-- Search & Export -->
 <div
-    class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+    class="card flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 p-4">
     <form method="GET" class="relative w-full max-w-sm">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -26,7 +26,7 @@
             </svg>
         </div>
         <input type="text" name="q" value="{{ search_query|default:'' }}"
-            class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-200 rounded-xl bg-gray-50 focus:ring-primary-500 focus:border-primary-500"
+            class="block w-full ps-10"
             placeholder="{% trans 'Search patient name or feedback...' %}">
     </form>
 
@@ -34,7 +34,7 @@
 </div>
 <!-- Stats -->
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex items-center gap-4">
+    <div class="card p-5 flex items-center gap-4">
         <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center">
             <svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
                 <path
@@ -47,7 +47,7 @@
                     class="text-sm font-normal text-gray-400">/5</span></p>
         </div>
     </div>
-    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex items-center gap-4">
+    <div class="card p-5 flex items-center gap-4">
         <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
             <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -59,7 +59,7 @@
             <p class="text-2xl font-bold text-gray-800">{{ total_reviews }}</p>
         </div>
     </div>
-    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex items-center gap-4">
+    <div class="card p-5 flex items-center gap-4">
         <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
             <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -77,7 +77,7 @@
 {% if reviews %}
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
     {% for review in reviews %}
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+    <div class="card p-5">
         <!-- Header -->
         <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
@@ -141,7 +141,7 @@
     {% endfor %}
 </div>
 {% else %}
-<div class="bg-white rounded-2xl border border-gray-100 shadow-sm text-center py-20">
+<div class="card text-center py-20">
     <div class="w-16 h-16 bg-yellow-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
             <path

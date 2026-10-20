@@ -1,0 +1,400 @@
+- generic [active] [ref=f3e1]:
+  - link "உள்ளடக்கத்திற்குச் செல்" [ref=f3e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f3e3]:
+    - generic [ref=f3e5]:
+      - generic [ref=f3e6]:
+        - link "+91 81480 38363" [ref=f3e7] [cursor=pointer]:
+          - /url: tel:+918148038363
+          - generic [aria-hidden] [ref=f3e8]: 
+        - generic [ref=f3e10]:
+          - generic [aria-hidden] [ref=f3e11]: 
+          - generic [ref=f3e12]: "எண்: 194/4, 1 வது மாடி, ஜே .என். சாலை, 100 அடி பிரதான சாலை, ஆலடிப்பட்டியன்…"
+      - generic [ref=f3e13]:
+        - generic [ref=f3e14]:
+          - generic [aria-hidden] [ref=f3e15]: 
+          - text: 5.0 on Google
+        - link "Instagram" [ref=f3e16] [cursor=pointer]:
+          - /url: https://www.instagram.com/spinalcure_chennai/
+          - generic [ref=f3e17]: 
+        - link "YouTube" [ref=f3e18] [cursor=pointer]:
+          - /url: https://www.youtube.com/@SpinalCure
+          - generic [ref=f3e19]: 
+    - generic [ref=f3e20]:
+      - link "ஸ்பைனல் கியூர் — முகப்பு" [ref=f3e21] [cursor=pointer]:
+        - /url: /ta/clinic/portfolio/
+        - generic [ref=f3e22]:
+          - generic [ref=f3e23]: ஸ்பைனல் கியூர்
+          - generic [ref=f3e24]: மேம்பட்ட முழுமையான முதுகெலும்பு & வலி பராமரிப்பு
+      - navigation "முதன்மை" [ref=f3e25]:
+        - link "சிகிச்சைகள்" [ref=f3e26] [cursor=pointer]:
+          - /url: /ta/clinic/portfolio/#treatments
+        - link "Our doctor" [ref=f3e27] [cursor=pointer]:
+          - /url: /ta/clinic/portfolio/#doctor
+        - link "Patient stories" [ref=f3e28] [cursor=pointer]:
+          - /url: /ta/clinic/testimonials/
+        - link "நிகழ்வுகள்" [ref=f3e29] [cursor=pointer]:
+          - /url: /ta/clinic/events/
+        - link "Health articles" [ref=f3e30] [cursor=pointer]:
+          - /url: /ta/clinic/blog/
+        - link "தொடர்பு" [ref=f3e31] [cursor=pointer]:
+          - /url: /ta/clinic/portfolio/#visit
+      - generic [ref=f3e32]:
+        - generic [ref=f3e34]:
+          - 'button "மொழி: தமிழ்" [ref=f3e35] [cursor=pointer]':
+            - generic [aria-hidden] [ref=f3e36]: 
+            - generic [ref=f3e37]: தமிழ்
+            - generic [aria-hidden] [ref=f3e38]: 
+          - text: 
+        - link "Book appointment" [ref=f3e39] [cursor=pointer]:
+          - /url: /ta/clinic/portfolio/#book
+          - generic [aria-hidden] [ref=f3e40]: 
+          - text: Book appointment
+        - text: 
+  - text:             
+  - main [ref=f3e41]:
+    - generic [ref=f3e43]:
+      - generic [ref=f3e44]:
+        - generic [ref=f3e45]:
+          - generic [aria-hidden] [ref=f3e46]: 
+          - text: Neck & back pain special care centre
+        - heading "அறுவை சிகிச்சை இல்லை. மருந்து இல்லை. உணவு இல்லை." [level=1] [ref=f3e47]
+        - paragraph [ref=f3e48]: "சென்னை, அரிம்பாக்கத்தில் உள்ள கழுத்து மற்றும் முதுகுவலி சிறப்பு பராமரிப்பு மையம். முதுகு, கழுத்து, சளியாட்டா மற்றும் மூட்டு கோளாறுகள், வட்டு மற்றும் நரம்பு நிலைமைகளுக்கான கிளாசிக்கல் குத்தூசி மருத்துவ அறிவியலில் நிபுணர்கள்: மருந்து இல்லாதது, உங்கள் வலியின் மூல காரணத்தைக் கண்டறிதல்."
+        - generic [ref=f3e49]:
+          - link "Book appointment" [ref=f3e50] [cursor=pointer]:
+            - /url: "#book"
+            - generic [aria-hidden] [ref=f3e51]: 
+            - text: Book appointment
+          - link "+91 81480 38363" [ref=f3e52] [cursor=pointer]:
+            - /url: tel:+918148038363
+            - generic [aria-hidden] [ref=f3e53]: 
+        - generic [ref=f3e55]:
+          - generic [ref=f3e56]:
+            - term [ref=f3e57]: Google rating (113 reviews)
+            - definition [ref=f3e58]:
+              - generic [aria-hidden] [ref=f3e59]: 
+              - text: "5.0"
+          - generic [ref=f3e60]:
+            - term [ref=f3e61]: Patient videos
+            - definition [ref=f3e62]: 111+
+          - generic [ref=f3e63]:
+            - term [ref=f3e64]: Conditions treated
+            - definition [ref=f3e65]: 12+
+      - generic [ref=f3e67]:
+        - img "The Spinal Cure clinic in Arumbakkam, Chennai" [ref=f3e68]
+        - generic [ref=f3e70]:
+          - paragraph [ref=f3e71]: Dr. ஆர். பஷீர் பாஷா
+          - paragraph [ref=f3e72]: கிளாசிக்கல் குத்தூசி மருத்துவ அறிவியலில் நிபுணர்
+    - generic [ref=f3e74]:
+      - generic [ref=f3e75]:
+        - generic [aria-hidden] [ref=f3e77]: 
+        - generic [ref=f3e78]:
+          - heading "Without surgery" [level=2] [ref=f3e79]
+          - paragraph [ref=f3e80]: Non-invasive care that works with your body instead of operating on it.
+      - generic [ref=f3e81]:
+        - generic [aria-hidden] [ref=f3e83]: 
+        - generic [ref=f3e84]:
+          - heading "Without medicine" [level=2] [ref=f3e85]
+          - paragraph [ref=f3e86]: "Drug-free relief: no painkillers, no side effects."
+      - generic [ref=f3e87]:
+        - generic [aria-hidden] [ref=f3e89]: 
+        - generic [ref=f3e90]:
+          - heading "Without diet restrictions" [level=2] [ref=f3e91]
+          - paragraph [ref=f3e92]: Keep eating the food you enjoy while you recover.
+    - generic [ref=f3e94]:
+      - generic [ref=f3e95]:
+        - paragraph [ref=f3e96]: எங்கள் நிபுணத்துவம்
+        - heading "Conditions we treat" [level=2] [ref=f3e97]
+        - paragraph [ref=f3e98]: Classical acupuncture for the spine, joints, nerves and much more. Every plan starts by finding the root cause of your pain.
+      - generic [ref=f3e99]:
+        - article [ref=f3e100]:
+          - generic [aria-hidden] [ref=f3e102]: 
+          - heading "கழுத்து வலி மற்றும் கர்ப்பப்பை வாய் பிரச்சினைகள்" [level=3] [ref=f3e103]
+          - paragraph [ref=f3e104]: கர்ப்பப்பை வாய் கழுத்து வலி, C1 முதல் C8 வட்டு சிக்கல்கள், கடுமையான கழுத்து மற்றும் ஸ்பான்டிலிடிஸ், தோள்பட்டை வலி, தைராய்டு மற்றும் வெர்டிகோ.
+        - article [ref=f3e105]:
+          - generic [aria-hidden] [ref=f3e107]: 
+          - heading "முதுகு வலி, வட்டு & சியாட்டிகா" [level=3] [ref=f3e108]
+          - paragraph [ref=f3e109]: L1 முதல் L5 வட்டு வீக்கம், ஹெர்னியேட்டட் வட்டு, சியாட்டிகா மற்றும் வட்டு சரிவு, முழங்கால், கால் மற்றும் குதிகால் வலி.
+        - article [ref=f3e110]:
+          - generic [aria-hidden] [ref=f3e112]: 
+          - heading "தலைவலி, ஒற்றைத் தலைவலி மற்றும் தூக்கம்" [level=3] [ref=f3e113]
+          - paragraph [ref=f3e114]: ஒற்றைத் தலைவலி, தூக்கமின்மை மற்றும் மனச்சோர்வு, ஆஸ்துமா மற்றும் சைனஸ், டான்சில்லிடிஸ் பிரச்சினைகள்.
+        - article [ref=f3e115]:
+          - generic [aria-hidden] [ref=f3e117]: 
+          - heading "பெண்களின் உடல்நலம் மற்றும் கருவுறுதல்" [level=3] [ref=f3e118]
+          - paragraph [ref=f3e119]: மாதவிடாய் கோளாறுகள் மற்றும் PCOD, இயலாமை மற்றும் மலட்டுத்தன்மை, முடக்கு வாதம் மற்றும் பக்கவாதம், நரம்பியல் பிரச்சினைகள் மற்றும் சுருள் நரம்புகள்.
+        - article [ref=f3e120]:
+          - generic [aria-hidden] [ref=f3e122]: 
+          - heading "செரிமானம், தோல் மற்றும் முடி" [level=3] [ref=f3e123]
+          - paragraph [ref=f3e124]: அமிலத்தன்மை மற்றும் இரைப்பைக் கோளாறுகள், குவியல்கள் மற்றும் ரத்தக்கசிவுகள், பித்தப்பைக் கல், முடி உதிர்தல் மற்றும் தோல் ஒவ்வாமை.
+      - generic [ref=f3e125]:
+        - paragraph [ref=f3e126]: See real patient stories for your problem
+        - generic [ref=f3e127]:
+          - link "முதுகுவலி" [ref=f3e128] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=back-pain
+          - link "கழுத்து வலி" [ref=f3e129] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=neck-pain
+          - link "மருத்துவ கலைச்சொற்கள்" [ref=f3e130] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=sciatica
+          - link "சீட்டு வட்டு" [ref=f3e131] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=slip-disc
+          - link "mutti vali" [ref=f3e132] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=knee-pain
+          - link "உறைந்த தோள்பட்டை" [ref=f3e133] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=frozen-shoulder
+          - link "ஒற்றைத் தலைவலி மற்றும் தலைவலி" [ref=f3e134] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=migraine-headache
+          - link "தோரணை சிக்கல்கள்" [ref=f3e135] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=posture-problems
+          - link "தசை வலி" [ref=f3e136] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=muscle-pain
+          - link "வீக்கம் & கட்டிகள்" [ref=f3e137] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=swelling-lumps
+          - link "கால் வலி மற்றும் சுழற்சி" [ref=f3e138] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=leg-pain-circulation
+          - link "மன அழுத்தம் & பதட்டம்" [ref=f3e139] [cursor=pointer]:
+            - /url: /ta/clinic/testimonials/?problem=stress-anxiety
+    - generic [ref=f3e141]:
+      - img "Dr. ஆர். பஷீர் பாஷா" [ref=f3e143]
+      - generic [ref=f3e144]:
+        - paragraph [ref=f3e145]: தலைமை அக்குபஞ்சர் மருத்துவர்
+        - heading "Dr. ஆர். பஷீர் பாஷா" [level=2] [ref=f3e146]
+        - paragraph [ref=f3e147]: கிளாசிக்கல் குத்தூசி மருத்துவ அறிவியலில் நிபுணர்
+        - paragraph [ref=f3e148]: "தகுதிகள்: பி.எஸ் .சி, மாஸ்டர் டிப்ளோமா (ஏ.சி.யூ), மாஸ்டர் டிப்ளோமா இன் கிளாசிக்கல் (ஏ.சி.யூ), டாக்டர் ஆஃப் மெடிசின் இன் (ஏ.சி.யூ), கொழும்பு பல்கலைக்கழகம், இலங்கை. பொதுச் செயலாளர், CASMA (கிளாசிக்கல் அக்குபஞ்சர் சயின்ஸ் மெடிக்கல் அசோசியேஷன்)."
+        - paragraph [ref=f3e149]: "டாக்டர் ஆர். பஷீர் பாஷா கிளாசிக்கல் குத்தூசி மருத்துவ அறிவியலில் நிபுணர் மற்றும் அரும்பாக்கம் முதுகெலும்பு சிகிச்சை நிறுவனர் ஆவார். அவர் கழுத்து வலி, குறைந்த முதுகு வலி, வட்டு வீக்கம், சளியாட்டா, முழங்கால் மற்றும் மூட்டு வலி மற்றும் வலியின் மூல காரணத்தைக் கண்டறிந்து இயற்கையான, மருந்து இல்லாத பராமரிப்பை வழங்குவதன் மூலம் பல நிலைமைகளுக்கு சிகிச்சையளிக்கிறார்: அறுவை சிகிச்சை இல்லை, மருந்து இல்லை மற்றும் உணவு கட்டுப்பாடுகள் இல்லை. அவர் முதுகெலும்பு குணப்படுத்தும் அகாடமியில் உள்ள மாணவர்களுக்கு கிளாசிக்கல் குத்தூசி மருத்துவத்தையும் கற்பிக்கிறார்."
+        - generic [ref=f3e150]:
+          - link "Book a consultation" [ref=f3e151] [cursor=pointer]:
+            - /url: "#book"
+            - generic [aria-hidden] [ref=f3e152]: 
+            - text: Book a consultation
+          - link "Full profile" [ref=f3e153] [cursor=pointer]:
+            - /url: /ta/clinic/practitioners/8OMr3p9_Q5edXen91vlkwA/
+            - text: Full profile
+            - generic [aria-hidden] [ref=f3e154]: 
+    - generic [ref=f3e156]:
+      - generic [ref=f3e157]:
+        - heading "How your treatment works" [level=2] [ref=f3e158]
+        - paragraph [ref=f3e159]: A clear path from the first visit to lasting relief.
+      - list [ref=f3e160]:
+        - listitem [ref=f3e161]:
+          - generic [ref=f3e162]: "1"
+          - heading "Consultation" [level=3] [ref=f3e163]
+          - paragraph [ref=f3e164]: We listen to your history and examine you to find what is really causing the pain.
+        - listitem [ref=f3e165]:
+          - generic [ref=f3e166]: "2"
+          - heading "Treatment sessions" [level=3] [ref=f3e167]
+          - paragraph [ref=f3e168]: Classical acupuncture sessions planned around your condition, at the clinic or online.
+        - listitem [ref=f3e169]:
+          - generic [ref=f3e170]: "3"
+          - heading "Recovery and follow-up" [level=3] [ref=f3e171]
+          - paragraph [ref=f3e172]: We track your progress and share simple habits that keep the pain away.
+    - generic [ref=f3e174]:
+      - generic [ref=f3e175]:
+        - generic [ref=f3e176]:
+          - paragraph [ref=f3e177]: Patient stories
+          - heading "Real people. Real recovery." [level=2] [ref=f3e178]
+        - link "All stories" [ref=f3e179] [cursor=pointer]:
+          - /url: /ta/clinic/testimonials/
+          - text: All stories
+          - generic [aria-hidden] [ref=f3e180]: 
+      - generic [ref=f3e181]:
+        - link " மகிழ்ச்சியான நோயாளி கதை · நவம்பர் 2025" [ref=f3e182] [cursor=pointer]:
+          - /url: /ta/clinic/testimonials/?type=videos
+          - generic [ref=f3e183]: 
+          - generic [ref=f3e186]: மகிழ்ச்சியான நோயாளி கதை · நவம்பர் 2025
+        - link " மகிழ்ச்சியான நோயாளி கதை · நவம்பர் 2025" [ref=f3e187] [cursor=pointer]:
+          - /url: /ta/clinic/testimonials/?type=videos
+          - generic [ref=f3e188]: 
+          - generic [ref=f3e191]: மகிழ்ச்சியான நோயாளி கதை · நவம்பர் 2025
+        - link " மகிழ்ச்சியான நோயாளி கதை · நவம்பர் 2025" [ref=f3e192] [cursor=pointer]:
+          - /url: /ta/clinic/testimonials/?type=videos
+          - generic [ref=f3e193]: 
+          - generic [ref=f3e196]: மகிழ்ச்சியான நோயாளி கதை · நவம்பர் 2025
+        - link " மகிழ்ச்சியான நோயாளி கதை · நவம்பர் 2025" [ref=f3e197] [cursor=pointer]:
+          - /url: /ta/clinic/testimonials/?type=videos
+          - generic [ref=f3e198]: 
+          - generic [ref=f3e201]: மகிழ்ச்சியான நோயாளி கதை · நவம்பர் 2025
+      - generic [ref=f3e202]:
+        - figure "B பானு அர்ஜுனன் வீக்கம் & கட்டிகள் · Google" [ref=f3e203]:
+          - img "5 / 5" [ref=f3e204]:
+            - generic [ref=f3e205]: 
+            - generic [ref=f3e206]: 
+            - generic [ref=f3e207]: 
+            - generic [ref=f3e208]: 
+            - generic [ref=f3e209]: 
+          - blockquote [ref=f3e210]: “வணக்கம், இது சென்னை போரூரைச் சேர்ந்த பானுப்ரியா. என் தலையின் பின்புறத்தில் இடது பக்கத்தில் எனக்கு ஒரு பிரச்சினை இருந்தது. அங்கு சுமார் 4 செ.மீ அளவு வீக்கம் இருப்பதை நான் திடீரென்று கவனித்தேன். வலி தொடங்கியது, எனவே நான் மருத்துவமனைக்குச் சென்றேன், அங்கு அவர்கள் எனக்கு ஒரு ஊசி மற்றும் மருந்துகளைக் கொடு…”
+          - generic [ref=f3e211]:
+            - generic [ref=f3e212]: B
+            - generic [ref=f3e213]:
+              - generic [ref=f3e214]: பானு அர்ஜுனன்
+              - generic [ref=f3e215]: வீக்கம் & கட்டிகள் · Google
+        - figure "K கலைவாணி நாகராஜன் கால் வலி மற்றும் சுழற்சி · Google" [ref=f3e216]:
+          - img "5 / 5" [ref=f3e217]:
+            - generic [ref=f3e218]: 
+            - generic [ref=f3e219]: 
+            - generic [ref=f3e220]: 
+            - generic [ref=f3e221]: 
+            - generic [ref=f3e222]: 
+          - blockquote [ref=f3e223]: “வணக்கம் நான் கலைவாணி நான் மாதவரம் சென்னையைச் சேர்ந்தவன் ஆசிரியராக பணிபுரிகிறேன். இரத்த ஓட்டம் இல்லாததால் எனக்கு கடுமையான காலில் வலி ஏற்பட்டுள்ளது, 2 நிமிடங்கள் கூட என்னால் நிற்கவும் நடக்கவும் முடியவில்லை, நான் ஆர்த்தோ மருத்துவமனைக்குச் சென்றேன், அப்போது எனது பிரச்சினை குணமடையவில்லை. பின்னர் இறுதியாக ந…”
+          - generic [ref=f3e224]:
+            - generic [ref=f3e225]: K
+            - generic [ref=f3e226]:
+              - generic [ref=f3e227]: கலைவாணி நாகராஜன்
+              - generic [ref=f3e228]: கால் வலி மற்றும் சுழற்சி · Google
+        - figure "V விஜி ஸ்ரீதர் மருத்துவ கலைச்சொற்கள் · Google" [ref=f3e229]:
+          - img "5 / 5" [ref=f3e230]:
+            - generic [ref=f3e231]: 
+            - generic [ref=f3e232]: 
+            - generic [ref=f3e233]: 
+            - generic [ref=f3e234]: 
+            - generic [ref=f3e235]: 
+          - blockquote [ref=f3e236]: “நான் விஜயகுமாரி ஸ்ரீதரன் வயது 70. 7 நாட்களுக்குள் இடது பக்க இடுப்பு முதல் கால் வரை கடுமையான வலியுடன் நான் இங்கு வந்தேன். இப்போது நான் நன்றாக உணர்கிறேன். D0CTOR க்கு நன்றி,பஷீர் பாஷா குறிப்பாக உதவியாளர் ரஜதிக்கு மிகவும் நேர்மறையான அணுகுமுறைக்கு நன்றி. முதுகெலும்பு குணப்படுத்தலுக்கு எனது நன்றி. …”
+          - generic [ref=f3e237]:
+            - generic [ref=f3e238]: V
+            - generic [ref=f3e239]:
+              - generic [ref=f3e240]: விஜி ஸ்ரீதர்
+              - generic [ref=f3e241]: மருத்துவ கலைச்சொற்கள் · Google
+    - generic [ref=f3e243]:
+      - generic [ref=f3e244]:
+        - paragraph [ref=f3e245]: Learn with us
+        - heading "Courses and free health events" [level=2] [ref=f3e246]
+      - generic [ref=f3e247]:
+        - link "பாடநெறி · 3 மாதம் அடிப்படை குத்தூசி மருத்துவச் சான்றிதழ் குத்தூசி மருத்துவத்தின் அடிப்படைகளில் தேர்ச்சி பெற விரும்பும் தொடக்கநிலையாளர்களுக்கான ஒரு விரிவான 3 மாத பாடநெறி. View course" [ref=f3e248] [cursor=pointer]:
+          - /url: /ta/clinic/courses/JyvZZR8HRiuUT4xwBJbL7w/
+          - generic [ref=f3e249]:
+            - generic [ref=f3e250]: பாடநெறி · 3 மாதம்
+            - heading "அடிப்படை குத்தூசி மருத்துவச் சான்றிதழ்" [level=3] [ref=f3e251]
+            - paragraph [ref=f3e252]: குத்தூசி மருத்துவத்தின் அடிப்படைகளில் தேர்ச்சி பெற விரும்பும் தொடக்கநிலையாளர்களுக்கான ஒரு விரிவான 3 மாத பாடநெறி.
+            - generic [ref=f3e253]:
+              - text: View course
+              - generic [aria-hidden] [ref=f3e254]: 
+        - link "நிகழ்வு · 20 அக் 2026 வாய்ப்பு மாஸ்டர் கிளாஸ் Details and registration" [ref=f3e255] [cursor=pointer]:
+          - /url: /ta/clinic/events/54z8efagRY6X8XAVdWEb5A/
+          - generic [ref=f3e256]:
+            - generic [ref=f3e257]: நிகழ்வு · 20 அக் 2026
+            - heading "வாய்ப்பு" [level=3] [ref=f3e258]
+            - paragraph [ref=f3e259]: மாஸ்டர் கிளாஸ்
+            - generic [ref=f3e260]:
+              - text: Details and registration
+              - generic [aria-hidden] [ref=f3e261]: 
+    - generic [ref=f3e263]:
+      - generic [ref=f3e264]:
+        - generic [ref=f3e265]:
+          - paragraph [ref=f3e266]: Visit us
+          - heading "We are here to help" [level=2] [ref=f3e267]
+        - generic [ref=f3e268]:
+          - generic [ref=f3e269]:
+            - generic [aria-hidden] [ref=f3e271]: 
+            - generic [ref=f3e272]:
+              - term [ref=f3e273]: முகவரி
+              - definition [ref=f3e274]: "எண்: 194/4, 1 வது மாடி, ஜே .என். சாலை, 100 அடி பிரதான சாலை, ஆலடிப்பட்டியன் கருபட்டி காபி அருகில், ஸ்ரீ சக்தி நகர், அரும்பாக்கம், சென்னை, தமிழ்நாடு 600106"
+          - generic [ref=f3e275]:
+            - generic [aria-hidden] [ref=f3e277]: 
+            - generic [ref=f3e278]:
+              - term [ref=f3e279]: Opening hours
+              - definition [ref=f3e280]: "திங்கள், செவ்வாய், புதன், வியா, சனி: 5:30 மணி – 8:30 மணி வெள்ளி: காலை 10:00 மணி – 1:00 மணி ஞாயிறு: மூடப்பட்டது"
+          - generic [ref=f3e281]:
+            - generic [aria-hidden] [ref=f3e283]: 
+            - generic [ref=f3e284]:
+              - term [ref=f3e285]: தொலைபேசி
+              - definition [ref=f3e286]:
+                - link "+91 81480 38363" [ref=f3e287] [cursor=pointer]:
+                  - /url: tel:+918148038363
+                - link "+91 90876 28476" [ref=f3e288] [cursor=pointer]:
+                  - /url: tel:+919087628476
+        - iframe [ref=f3e290]
+      - generic [ref=f3e292]:
+        - generic [ref=f3e293]:
+          - heading "Book an appointment" [level=2] [ref=f3e294]
+          - paragraph [ref=f3e295]: Choose a time that suits you. We will confirm by phone or email.
+          - generic [ref=f3e296]:
+            - group "Consultation type" [ref=f3e297]:
+              - generic [ref=f3e299]:
+                - generic [ref=f3e300] [cursor=pointer]:
+                  - radio "At the clinic" [checked] [ref=f3e301]
+                  - generic [aria-hidden] [ref=f3e302]: 
+                  - generic [ref=f3e303]: At the clinic
+                - generic [ref=f3e304] [cursor=pointer]:
+                  - radio "இணையவழி" [ref=f3e305]
+                  - generic [aria-hidden] [ref=f3e306]: 
+                  - generic [ref=f3e307]: இணையவழி
+            - generic [ref=f3e308]:
+              - generic [ref=f3e309]:
+                - generic [ref=f3e310]: முழுப் பெயர்
+                - textbox "முழுப் பெயர்" [ref=f3e311]
+              - generic [ref=f3e312]:
+                - generic [ref=f3e313]: தொலைபேசி எண்
+                - textbox "தொலைபேசி எண்" [ref=f3e314]
+              - generic [ref=f3e315]:
+                - generic [ref=f3e316]: Email (for the confirmation)
+                - textbox "Email (for the confirmation)" [ref=f3e317]
+              - generic [ref=f3e318]:
+                - generic [ref=f3e319]: தேதி
+                - textbox "தேதி" [ref=f3e320]
+            - generic [ref=f3e321]:
+              - paragraph [ref=f3e322]: நேரம்
+              - paragraph [ref=f3e323]: Choose a date to see the free times.
+            - generic [ref=f3e324]:
+              - generic [ref=f3e325]: What brings you in? (optional)
+              - textbox "What brings you in? (optional)" [ref=f3e326]
+            - text: 
+            - button "Confirm appointment" [ref=f3e327] [cursor=pointer]
+            - paragraph [ref=f3e329]: Free first consultation. We never share your details.
+        - text: 
+  - contentinfo [ref=f3e330]:
+    - generic [ref=f3e331]:
+      - generic [ref=f3e332]:
+        - link "ஸ்பைனல் கியூர்" [ref=f3e333] [cursor=pointer]:
+          - /url: /ta/clinic/portfolio/
+        - paragraph [ref=f3e335]: கழுத்து மற்றும் முதுகு வலி சிறப்பு பராமரிப்பு மையம். கிளாசிக்கல் அக்குபஞ்சர் சயின்ஸில் நிபுணர்.
+        - paragraph [ref=f3e336]: அறுவை சிகிச்சை இல்லாமல், மருந்து இல்லாமல் மற்றும் உணவு இல்லாமல்.
+        - generic [ref=f3e337]:
+          - link "Instagram" [ref=f3e338] [cursor=pointer]:
+            - /url: https://www.instagram.com/spinalcure_chennai/
+            - generic [ref=f3e339]: 
+          - link "YouTube" [ref=f3e340] [cursor=pointer]:
+            - /url: https://www.youtube.com/@SpinalCure
+            - generic [ref=f3e341]: 
+      - generic [ref=f3e342]:
+        - heading "Visit us" [level=2] [ref=f3e343]
+        - list [ref=f3e344]:
+          - listitem [ref=f3e345]:
+            - generic [aria-hidden] [ref=f3e346]: 
+            - generic [ref=f3e347]: "எண்: 194/4, 1 வது மாடி, ஜே .என். சாலை, 100 அடி பிரதான சாலை, ஆலடிப்பட்டியன் கருபட்டி காபி அருகில், ஸ்ரீ சக்தி நகர், அரும்பாக்கம், சென்னை, தமிழ்நாடு 600106"
+          - listitem [ref=f3e348]:
+            - generic [aria-hidden] [ref=f3e349]: 
+            - link "+91 81480 38363" [ref=f3e350] [cursor=pointer]:
+              - /url: tel:+918148038363
+          - listitem [ref=f3e351]:
+            - generic [aria-hidden] [ref=f3e352]: 
+            - link "+91 90876 28476" [ref=f3e353] [cursor=pointer]:
+              - /url: tel:+919087628476
+          - listitem [ref=f3e354]:
+            - generic [aria-hidden] [ref=f3e355]: 
+            - link "spinalcure2015@gmail.com" [ref=f3e356] [cursor=pointer]:
+              - /url: mailto:spinalcure2015@gmail.com
+      - generic [ref=f3e357]:
+        - heading "Opening hours" [level=2] [ref=f3e358]
+        - paragraph [ref=f3e359]: "திங்கள், செவ்வாய், புதன், வியா, சனி: 5:30 மணி – 8:30 மணி வெள்ளி: காலை 10:00 மணி – 1:00 மணி ஞாயிறு: மூடப்பட்டது"
+      - generic [ref=f3e360]:
+        - heading "Explore" [level=2] [ref=f3e361]
+        - list [ref=f3e362]:
+          - listitem [ref=f3e363]:
+            - link "சிகிச்சைகள்" [ref=f3e364] [cursor=pointer]:
+              - /url: /ta/clinic/portfolio/#treatments
+          - listitem [ref=f3e365]:
+            - link "Patient stories" [ref=f3e366] [cursor=pointer]:
+              - /url: /ta/clinic/testimonials/
+          - listitem [ref=f3e367]:
+            - link "நிகழ்வுகள்" [ref=f3e368] [cursor=pointer]:
+              - /url: /ta/clinic/events/
+          - listitem [ref=f3e369]:
+            - link "Health articles" [ref=f3e370] [cursor=pointer]:
+              - /url: /ta/clinic/blog/
+          - listitem [ref=f3e371]:
+            - link "Book appointment" [ref=f3e372] [cursor=pointer]:
+              - /url: /ta/clinic/portfolio/#book
+    - generic [ref=f3e374]:
+      - paragraph [ref=f3e375]: © 2026 ஸ்பைனல் கியூர் · Arumbakkam, Chennai
+      - link "Staff sign in" [ref=f3e376] [cursor=pointer]:
+        - /url: /ta/accounts/login/

@@ -6,32 +6,32 @@
 {% block content %}
 <div x-data="availabilityPage()" class="space-y-6">
 
-    <form method="get" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-wrap gap-3 items-end">
+    <form method="get" class="card p-4 flex flex-wrap gap-3 items-end">
         <div class="min-w-[14rem] flex-1 sm:flex-none">
             <label for="practitioner_id" class="block text-sm font-medium text-gray-700 mb-1">{% translate "Practitioner" %}</label>
-            <select id="practitioner_id" name="practitioner_id" class="no-ts w-full rounded-xl border-gray-200 text-sm" onchange="this.form.submit()">
+            <select id="practitioner_id" name="practitioner_id" class="no-ts w-full" onchange="this.form.submit()">
                 {% for doc in practitioners %}
                 <option value="{{ doc.id|b64uuid }}" {% if selected_doc and doc.id == selected_doc.id %}selected{% endif %}>{{ doc.name }}{% if doc.specialization %} — {{ doc.specialization }}{% endif %}</option>
                 {% endfor %}
             </select>
         </div>
-        <noscript><button class="px-4 py-2.5 rounded-xl bg-green-600 text-white text-sm font-semibold">{% translate "View" %}</button></noscript>
+        <noscript><button class="btn btn-primary">{% translate "View" %}</button></noscript>
         {% if selected_doc %}
-        <button type="button" @click="openShift()" class="ms-auto px-4 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-semibold">
+        <button type="button" @click="openShift()" class="btn btn-primary ms-auto">
             <i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Add shift" %}
         </button>
         {% endif %}
     </form>
 
     {% if not practitioners %}
-    <div class="bg-white rounded-2xl border border-gray-100 p-12 text-center">
+    <div class="card p-12 text-center">
         <i class="bi bi-person-x text-3xl text-gray-300" aria-hidden="true"></i>
         <p class="mt-3 font-semibold text-gray-800">{% translate "No practitioner profile is linked to your account" %}</p>
         <p class="text-sm text-gray-500">{% translate "Ask an administrator to add a practitioner with your email address." %}</p>
     </div>
     {% elif selected_doc %}
 
-    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden" aria-labelledby="weekly-h">
+    <section class="card overflow-hidden" aria-labelledby="weekly-h">
         <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
             <h2 id="weekly-h" class="font-semibold text-gray-900">{% blocktranslate with name=selected_doc.name %}Weekly schedule — {{ name }}{% endblocktranslate %}</h2>
             <p class="text-xs text-gray-500">{% translate "Several shifts per day are allowed (e.g. morning and evening)." %}</p>
@@ -68,7 +68,7 @@
     </section>
 
     <div class="grid lg:grid-cols-2 gap-6">
-        <section class="bg-white rounded-2xl border border-gray-100 shadow-sm" aria-labelledby="leave-h">
+        <section class="card" aria-labelledby="leave-h">
             <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
                 <h2 id="leave-h" class="font-semibold text-gray-900">{% translate "Leave" %}</h2>
                 <button type="button" @click="openOff('{{ selected_doc.id|b64uuid }}')" class="text-sm font-semibold text-green-700 hover:underline">{% translate "Add leave" %}</button>
@@ -85,7 +85,7 @@
             </ul>
         </section>
 
-        <section class="bg-white rounded-2xl border border-gray-100 shadow-sm" aria-labelledby="closure-h">
+        <section class="card" aria-labelledby="closure-h">
             <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
                 <h2 id="closure-h" class="font-semibold text-gray-900">{% translate "Clinic holidays & closures" %}</h2>
                 {% if is_management %}<button type="button" @click="openOff('clinic')" class="text-sm font-semibold text-green-700 hover:underline">{% translate "Add closure" %}</button>{% endif %}
@@ -104,7 +104,7 @@
     {% endif %}
 
     {% if is_management and settings_form %}
-    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm" aria-labelledby="rules-h">
+    <section class="card" aria-labelledby="rules-h">
         <div class="px-5 py-4 border-b border-gray-100"><h2 id="rules-h" class="font-semibold text-gray-900">{% translate "Booking rules & reminders" %}</h2></div>
         <form method="post" action="{% url 'booking_settings_save' %}" class="p-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">{% csrf_token %}
             {% for f in settings_form %}
@@ -113,7 +113,7 @@
                 {% else %}<label for="{{ f.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ f.label }}</label>{{ f }}{% endif %}
             </div>
             {% endfor %}
-            <div class="sm:col-span-2 lg:col-span-3"><button class="px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-semibold">{% translate "Save rules" %}</button></div>
+            <div class="sm:col-span-2 lg:col-span-3"><button class="btn btn-primary">{% translate "Save rules" %}</button></div>
         </form>
     </section>
     {% endif %}
@@ -133,8 +133,8 @@
                 {% endfor %}
             </div>
             <div class="flex justify-end gap-2 pt-2">
-                <button type="button" @click="shiftOpen=false" class="px-4 py-2 rounded-xl border border-gray-200 text-sm font-semibold">{% translate "Cancel" %}</button>
-                <button class="px-5 py-2 rounded-xl bg-green-600 text-white text-sm font-semibold">{% translate "Save shift" %}</button>
+                <button type="button" @click="shiftOpen=false" class="btn btn-outline">{% translate "Cancel" %}</button>
+                <button class="btn btn-primary">{% translate "Save shift" %}</button>
             </div>
         </form>
     </div>
@@ -150,8 +150,8 @@
                 {% endfor %}
             </div>
             <div class="flex justify-end gap-2 pt-2">
-                <button type="button" @click="offOpen=false" class="px-4 py-2 rounded-xl border border-gray-200 text-sm font-semibold">{% translate "Cancel" %}</button>
-                <button class="px-5 py-2 rounded-xl bg-green-600 text-white text-sm font-semibold">{% translate "Save" %}</button>
+                <button type="button" @click="offOpen=false" class="btn btn-outline">{% translate "Cancel" %}</button>
+                <button class="btn btn-primary">{% translate "Save" %}</button>
             </div>
         </form>
     </div>

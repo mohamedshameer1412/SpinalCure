@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load content_i18n %}
 {% block title %}{% if is_edit %}{% translate "Edit event" %}{% else %}{% translate "New event" %}{% endif %} {% trans "— SpinalCure" %}{% endblock %}
 {% block page_title %}{% if is_edit %}{% translate "Edit event" %}{% else %}{% translate "New event" %}{% endif %}{% endblock %}
 {% block header_actions %}<a href="{% url 'event_list' %}" class="text-sm text-gray-500 hover:text-gray-900 no-underline">← {% translate "Back to events" %}</a>{% endblock %}
@@ -16,7 +17,7 @@
     {% endif %}
     {% if is_edit and event.status != 'draft' %}<p class="rounded-xl bg-amber-50 text-amber-800 text-sm p-3">{% translate "Changing the date, time, venue or meeting link of a published event emails everyone who is registered." %}</p>{% endif %}
 
-    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 grid sm:grid-cols-2 gap-5">
+    <section class="card p-6 grid sm:grid-cols-2 gap-5">
         <h2 class="sm:col-span-2 text-sm font-semibold text-gray-400 uppercase tracking-widest">{% translate "Basics" %}</h2>
         <div class="sm:col-span-2"><label for="{{ form.title.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.title.label }} *</label>{{ form.title }}</div>
         <div><label for="{{ form.event_type.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.event_type.label }}</label>{{ form.event_type }}</div>
@@ -26,7 +27,7 @@
         <div><label for="{{ form.image.id_for_label }}" class="block text-sm font-medium mb-1">{% translate "Cover image" %}</label>{{ form.image }}<p class="text-xs text-gray-500 mt-1">{% trans "JPEG, PNG or WebP, up to 5 MB." %}</p></div>
     </section>
 
-    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 grid sm:grid-cols-3 gap-5">
+    <section class="card p-6 grid sm:grid-cols-3 gap-5">
         <h2 class="sm:col-span-3 text-sm font-semibold text-gray-400 uppercase tracking-widest">{% translate "Schedule" %}</h2>
         <div><label for="{{ form.date.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.date.label }} *</label>{{ form.date }}</div>
         <div><label for="{{ form.start_time.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.start_time.label }} *</label>{{ form.start_time }}</div>
@@ -34,7 +35,7 @@
         <div class="sm:col-span-3"><label for="{{ form.timezone.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.timezone.label }}</label>{{ form.timezone }}<p class="text-xs text-gray-500 mt-1">{% translate "Times above are in this time zone; visitors see it alongside every time." %}</p></div>
     </section>
 
-    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 grid sm:grid-cols-2 gap-5">
+    <section class="card p-6 grid sm:grid-cols-2 gap-5">
         <h2 class="sm:col-span-2 text-sm font-semibold text-gray-400 uppercase tracking-widest">{% translate "Location & access" %}</h2>
         <label class="sm:col-span-2 flex items-center gap-2 text-sm"><input type="checkbox" name="{{ form.is_online.html_name }}" id="{{ form.is_online.id_for_label }}" x-model="online" {% if form.is_online.value %}checked{% endif %} class="rounded border-gray-300 text-green-600"> {% translate "This is an online event" %}</label>
         <div class="sm:col-span-2" x-show="!online"><label for="{{ form.venue.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.venue.label }}</label>{{ form.venue }}</div>
@@ -46,7 +47,7 @@
         </div></template>
     </section>
 
-    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 grid sm:grid-cols-2 gap-5">
+    <section class="card p-6 grid sm:grid-cols-2 gap-5">
         <h2 class="sm:col-span-2 text-sm font-semibold text-gray-400 uppercase tracking-widest">{% translate "Registration" %}</h2>
         <div><label for="{{ form.max_participants.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.max_participants.label }}</label>{{ form.max_participants }}<p class="text-xs text-gray-500 mt-1">{% translate "Leave empty for unlimited." %}</p></div>
         <div><label for="{{ form.fees.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.fees.label }}</label>{{ form.fees }}</div>
@@ -57,8 +58,10 @@
     </section>
 
     <div class="flex gap-3">
-        <button class="px-6 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold">{% if is_edit %}{% translate "Save changes" %}{% else %}{% translate "Save as draft" %}{% endif %}</button>
-        <a href="{% url 'event_list' %}" class="px-6 py-2.5 rounded-xl border border-gray-200 font-semibold no-underline text-gray-700">{% translate "Cancel" %}</a>
+        <button class="btn btn-primary">{% if is_edit %}{% translate "Save changes" %}{% else %}{% translate "Save as draft" %}{% endif %}</button>
+        <a href="{% url 'event_list' %}" class="btn btn-outline no-underline">{% translate "Cancel" %}</a>
     </div>
 </form>
+
+<div class="mt-8 max-w-4xl">{% translation_panel event %}</div>
 {% endblock %}

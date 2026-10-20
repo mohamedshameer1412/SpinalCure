@@ -1,16 +1,8 @@
-{% load static %}
-{% load i18n %}{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as RTL %}
-<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" dir="{% if RTL %}rtl{% else %}ltr{% endif %}">
-<head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">
-    <title>{% translate "Your appointment" %}</title>
-<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
-    <script defer src="{% static 'vendor/alpine.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}">
-</head>
-<body class="bg-slate-50 text-gray-900 antialiased min-h-screen">
+{% extends "public_base.html" %}
+{% load i18n static %}
+{% block title %}{% translate "Your appointment" %}{% endblock %}
+{% block content %}
+<div class="container-site flex justify-center py-12 sm:py-16">
 <main class="max-w-lg mx-auto px-4 py-8">
     <h1 class="text-xl font-bold mb-1">{{ clinic_info.name|default:"SpinalCure" }}</h1>
     <p class="text-sm text-gray-500 mb-6">{% translate "Manage your appointment" %}</p>
@@ -73,4 +65,5 @@
     {% endif %}
     <p class="mt-6 text-xs text-gray-400 text-center">{% translate "Keep this link private: anyone with it can change this appointment." %}</p>
 </main>
-</body></html>
+</div>
+{% endblock %}

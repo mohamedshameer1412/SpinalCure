@@ -1,288 +1,65 @@
-{% load i18n %}
-{% load static %}
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+{% extends "public_base.html" %}
+{% load i18n content_i18n %}
+{% block title %}{{ practitioner|tx:"title" }} {{ practitioner|tx:"name" }} — {{ clinic|tx:"name"|default:"Spinal Cure" }}{% endblock %}
+{% block description %}{{ practitioner|tx:"specialization" }}. {{ practitioner|tx:"bio"|truncatewords:25 }}{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% blocktranslate trimmed with title=practitioner.title name=practitioner.name name_2=clinic.name|default:"SpinalCure" %}{{ title }} {{ name }} — Specialist at {{ name_2 }}{% endblocktranslate %}
-    </title>
-<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
-<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
-    <script defer src="{% static 'vendor/alpine.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fcfdfd;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4 {
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #166534 0%, #22c55e 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
-</head>
-
-<body class="text-gray-900 antialiased">
-
-    <!-- Header / Navigation -->
-    <nav class="glass py-4 fixed top-0 w-full z-50">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <a href="{% url 'clinic_portfolio' %}" class="flex items-center gap-2 group">
-                {% if clinic_logo_url %}
-                <img src="{{ clinic_logo_url }}" alt="{{ clinic_info.name }}"
-                    class="w-8 h-8 rounded-lg object-contain bg-white shadow-sm border border-slate-100 p-0.5 group-hover:scale-110 transition-transform">
-                {% else %}
-                <div
-                    class="w-8 h-8 bg-gradient-to-br from-green-600 to-green-800 rounded-lg flex items-center justify-center text-white font-bold shadow-sm group-hover:scale-110 transition-transform">
-                    {{ clinic_info.name|default:"S"|slice:":1" }}</div>
+{% block content %}
+<section class="bg-gradient-to-b from-primary-50/70 to-white">
+    <div class="container-site py-10">
+        <nav class="text-sm text-gray-500" aria-label="{% translate 'Breadcrumb' %}"><a href="{% url 'clinic_portfolio' %}" class="text-gray-500 no-underline hover:text-gray-900">{% translate "Home" %}</a> <span aria-hidden="true">/</span> {% translate "Our doctor" %}</nav>
+        <div class="mt-6 grid items-start gap-10 lg:grid-cols-12">
+            <div class="lg:col-span-4">
+                {% if practitioner.photo %}<img src="{{ practitioner.photo.url }}" alt="{{ practitioner|tx:'title' }} {{ practitioner|tx:'name' }}" class="aspect-[4/5] w-full max-w-sm rounded-2xl object-cover shadow-pop">
+                {% else %}<div class="flex aspect-[4/5] w-full max-w-sm items-center justify-center rounded-2xl bg-primary-100 text-7xl font-bold text-primary-700">{{ practitioner.name|slice:":1" }}</div>{% endif %}
+            </div>
+            <div class="lg:col-span-8">
+                {% if practitioner.designation_tag %}<p class="eyebrow">{{ practitioner|tx:"designation_tag" }}</p>{% endif %}
+                <h1 class="display mt-4 text-gray-900">{{ practitioner|tx:"title" }} {{ practitioner|tx:"name" }}</h1>
+                <p class="mt-3 text-lg font-semibold text-primary-700">{{ practitioner|tx:"specialization" }}</p>
+                {% if practitioner.qualifications %}
+                <div class="mt-6 card p-5">
+                    <h2 class="text-sm font-semibold text-gray-900"><i class="bi bi-mortarboard me-1 text-primary-600" aria-hidden="true"></i>{% translate "Qualifications" %}</h2>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-700">{{ practitioner|tx:"qualifications" }}</p>
+                </div>
                 {% endif %}
-                <span class="text-xl font-extrabold tracking-tight text-slate-900">
-                    {{ clinic.name|default:"SpinalCure"}}</span>
+                <div class="lead mt-6 whitespace-pre-line">{{ practitioner|tx:"bio" }}</div>
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <a href="{% url 'clinic_portfolio' %}#book" class="btn btn-primary btn-lg"><i class="bi bi-calendar-check" aria-hidden="true"></i>{% translate "Book a consultation" %}</a>
+                    {% if practitioner.youtube_url %}<a href="{{ practitioner.youtube_url }}" target="_blank" rel="noopener" class="btn btn-outline btn-lg"><i class="bi bi-youtube text-red-600" aria-hidden="true"></i>YouTube</a>{% endif %}
+                    {% if practitioner.instagram %}<a href="{{ practitioner.instagram }}" target="_blank" rel="noopener" class="btn btn-outline btn-lg"><i class="bi bi-instagram text-pink-600" aria-hidden="true"></i>Instagram</a>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container-site">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <h2 class="h-section text-gray-900">{% translate "What patients say" %}</h2>
+            <a href="{% url 'public_testimonials' %}" class="btn btn-outline shrink-0">{% translate "All stories" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        {% if videos %}
+        <div class="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {% for v in videos %}
+            <a href="{% url 'public_testimonials' %}?type=videos" class="group relative block aspect-[9/14] overflow-hidden rounded-2xl bg-slate-900 no-underline">
+                {% if v.thumbnail_url %}<img src="{{ v.thumbnail_url }}" alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-90 transition group-hover:scale-105">{% endif %}
+                <span class="absolute inset-0 flex items-center justify-center"><span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-xl text-primary-700"><i class="bi bi-play-fill"></i></span></span>
+                <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-sm font-semibold text-white">{{ v|tx:"title"|truncatechars:70 }}</span>
             </a>
-            <a href="{% url 'clinic_portfolio' %}#courses"
-                class="flex items-center gap-2 text-sm text-slate-600 hover:text-green-600 transition-colors no-underline">
-                <i class="bi bi-arrow-left"></i> {% trans "Back to Courses" %}
-            </a>
+            {% endfor %}
         </div>
-    </nav>
-
-    <main class="pt-32 pb-20">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-3 gap-16 items-start">
-                <!-- Left: Profile Info -->
-                <div class="lg:col-span-1">
-                    <div class="sticky top-32">
-                        <div class="aspect-[4/5] rounded-[3rem] overflow-hidden bg-slate-100 mb-8 shadow-2xl relative">
-                            {% if practitioner.photo %}
-                            <img src="{{ practitioner.photo.url }}" alt="{{ practitioner.name }}"
-                                class="w-full h-full object-cover">
-                            {% else %}
-                            <div
-                                class="w-full h-full flex items-center justify-center text-slate-300 font-bold text-9xl uppercase">
-                                {{ practitioner.name|slice:":1" }}</div>
-                            {% endif %}
-                            <div class="absolute bottom-6 end-6 glass px-6 py-3 rounded-2xl shadow-xl">
-                                <p class="text-xs font-bold text-green-600 uppercase tracking-widest mb-1">{% trans "Experience" %}
-                                </p>
-                                <p class="text-lg font-bold text-slate-900">
-                                    {% blocktranslate trimmed with experience_years=practitioner.experience_years|default:"10" %}{{ experience_years }}+ Years{% endblocktranslate %}</p>
-                            </div>
-                        </div>
-
-                        <div class="space-y-6 px-4">
-                            <div>
-                                <h1 class="text-4xl font-extrabold text-slate-900 mb-2">
-                                    {{ practitioner.title }} {{ practitioner.name }}</h1>
-                                <p class="text-green-600 font-bold tracking-widest uppercase text-sm mb-4">
-                                    {{ practitioner.specialization }}</p>
-                            </div>
-
-                            <div class="flex gap-4">
-                                {% if practitioner.email %}
-                                <a href="mailto:{{ practitioner.email }}"
-                                    class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-green-600 hover:text-white transition-all"><svg
-                                        class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                        </path>
-                                    </svg></a>
-                                {% endif %}
-                                <a href="#"
-                                    class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-green-600 hover:text-white transition-all"><svg
-                                        class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                                    </svg></a>
-                            </div>
-
-                            <hr class="border-slate-100">
-
-                            <div class="space-y-3">
-                                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">{% trans "Expertise" %}</p>
-                                <div class="flex flex-wrap gap-2">
-                                    {% for skill in practitioner.skills.split|slice:":6" %}
-                                    <span class="px-4 py-2 bg-slate-100 text-slate-700 text-xs font-bold rounded-xl">{{
-                                        skill|cut:"," }}</span>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right: Bio & Stats -->
-                <div class="lg:col-span-2 space-y-16">
-                    <section>
-                        <h2 class="text-3xl font-extrabold text-slate-900 mb-6">{% trans "About the Specialist" %}</h2>
-                        <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed text-lg">
-                            {{ practitioner.bio|linebreaks }}
-                        </div>
-                    </section>
-
-                    <section class="grid sm:grid-cols-3 gap-8">
-                        <div class="glass p-8 rounded-3xl">
-                            <p class="text-4xl font-extrabold text-green-600 mb-2">500+</p>
-                            <p class="text-sm font-bold text-slate-500 uppercase">{% trans "Consultations" %}</p>
-                        </div>
-                        <div class="glass p-8 rounded-3xl">
-                            <p class="text-4xl font-extrabold text-green-600 mb-2">99%</p>
-                            <p class="text-sm font-bold text-slate-500 uppercase">{% trans "Success Rate" %}</p>
-                        </div>
-                        <div class="glass p-8 rounded-3xl">
-                            <p class="text-4xl font-extrabold text-green-600 mb-2">4.9</p>
-                            <p class="text-sm font-bold text-slate-500 uppercase">{% trans "Avg. Rating" %}</p>
-                        </div>
-                    </section>
-
-                    <section id="reviews">
-                        <div class="flex items-center justify-between mb-8">
-                            <h2 class="text-3xl font-extrabold text-slate-900">{% trans "Patient Feedbacks" %}</h2>
-                            <div class="flex items-center gap-1">
-                                {% for i in rating_range %}
-                                <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                                    </path>
-                                </svg>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                        <div class="space-y-6">
-                            {% for review in reviews %}
-                            <div class="glass p-8 rounded-3xl">
-                                <div class="flex items-center justify-between mb-4">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-slate-200"></div>
-                                        <div>
-                                            <p class="text-sm font-bold text-slate-900">
-                                                {{ review.patient.name }}</p>
-                                            <p class="text-xs text-slate-400 font-semibold">
-                                                {{ review.created_at|date:"M Y" }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex gap-1">
-                                        {% for i in rating_range %}
-                                        <svg class="w-4 h-4 {% if i <= review.rating %}text-yellow-400{% else %}text-slate-200{% endif %}"
-                                            fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                                            </path>
-                                        </svg>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                <p class="text-slate-600 leading-relaxed italic">"{{ review.review_text }}"</p>
-                            </div>
-                            {% empty %}
-                            <div class="p-12 text-center glass rounded-3xl text-slate-400 font-medium">{% trans "No public reviews yet for this specialist." %}</div>
-                            {% endfor %}
-                        </div>
-                    </section>
-
-                    <a href="{% url 'clinic_portfolio' %}#appointment"
-                        class="block w-full py-6 bg-slate-900 text-white text-center rounded-3xl font-extrabold text-xl hover:bg-green-600 transition-all shadow-2xl shadow-green-100/50">{% blocktranslate trimmed with name=practitioner.name %}Book a Consultation with {{ name }}{% endblocktranslate %}</a>
-                </div>
-            </div>
+        {% endif %}
+        <div class="mt-6 grid gap-5 md:grid-cols-2">
+            {% for r in reviews %}
+            <figure class="card p-6"><div class="flex gap-0.5 text-amber-400">{% for i in "12345" %}<i class="bi bi-star-fill{% if forloop.counter > r.rating %} text-gray-200{% endif %}"></i>{% endfor %}</div>
+                <blockquote class="mt-3 text-sm text-gray-700">“{{ r.review_text }}”</blockquote><figcaption class="mt-3 text-sm font-semibold text-gray-900">{{ r.patient.name }}</figcaption></figure>
+            {% endfor %}
+            {% for r in testimonials %}
+            <figure class="card p-6"><div class="flex gap-0.5 text-amber-400">{% for i in "12345" %}<i class="bi bi-star-fill{% if forloop.counter > r.rating %} text-gray-200{% endif %}"></i>{% endfor %}</div>
+                <blockquote class="mt-3 text-sm text-gray-700">“{{ r|tx:"review_text"|truncatechars:300 }}”</blockquote><figcaption class="mt-3 text-sm font-semibold text-gray-900">{{ r|tx:"patient_name" }}{% if r.problem %} <span class="font-normal text-gray-500">· {{ r.problem|tx:"name" }}</span>{% endif %}</figcaption></figure>
+            {% endfor %}
         </div>
-    </main>
-
-    <footer class="bg-slate-900 text-white py-20">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
-            <div class="col-span-1 md:col-span-2">
-                <div class="flex items-center gap-2 mb-8">
-                    {% if clinic_logo_url %}
-                    <img src="{{ clinic_logo_url }}" alt="{{ clinic_info.name }}" class="w-10 h-10 rounded-xl object-contain bg-white shadow-sm p-0.5">
-                    {% else %}
-                    <div
-                        class="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center text-white font-bold">
-                        {{ clinic_info.name|default:"S"|slice:":1" }}</div>
-                    {% endif %}
-                    <span class="text-2xl font-extrabold tracking-tight">{{ clinic.name|default:"SpinalCure" }}</span>
-                </div>
-                <p class="text-slate-400 max-w-sm leading-relaxed mb-8">
-                    {% if clinic.footer_text %}
-                    {{ clinic.footer_text }}
-                    {% else %}
-                    {% trans "Expert spinal care and acupuncture treatments in Kerala. We specialize in natural healing and pain management." %}
-                    {% endif %}
-                </p>
-                <div class="flex gap-4">
-                    {% if clinic.facebook %}
-                    <a href="{{ clinic.facebook }}" target="_blank"
-                        class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-green-600 hover:border-green-600 transition-all">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                        </svg>
-                    </a>
-                    {% endif %}
-                    {% if clinic.twitter %}
-                    <a href="{{ clinic.twitter }}" target="_blank"
-                        class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-green-600 hover:border-green-600 transition-all">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-                        </svg>
-                    </a>
-                    {% endif %}
-                    {% if clinic.instagram %}
-                    <a href="{{ clinic.instagram }}" target="_blank"
-                        class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-green-600 hover:border-green-600 transition-all">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-                        </svg>
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
-            <div>
-                <h5 class="font-bold mb-6">{% trans "Quick Links" %}</h5>
-                <ul class="space-y-4 text-slate-400 text-sm">
-                    <li><a href="{% url 'clinic_portfolio' %}#about" class="hover:text-white transition-colors">{% trans "Our Story" %}</a></li>
-                    <li><a href="{% url 'clinic_portfolio' %}#services"
-                            class="hover:text-white transition-colors">{% trans "Treatments" %}</a></li>
-                    <li><a href="{% url 'clinic_portfolio' %}#events"
-                            class="hover:text-white transition-colors">{% trans "Events" %}</a></li>
-                    <li><a href="{% url 'clinic_portfolio' %}#team"
-                            class="hover:text-white transition-colors">{% trans "Doctors" %}</a></li>
-                    <li><a href="{% url 'clinic_portfolio' %}#appointment"
-                            class="hover:text-white transition-colors">{% trans "Booking" %}</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5 class="font-bold mb-6">{% trans "Legal" %}</h5>
-                <ul class="space-y-4 text-slate-400 text-sm">
-                    <li><a href="#" class="hover:text-white transition-colors">{% trans "Privacy Policy" %}</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">{% trans "Terms of Service" %}</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">{% trans "GST Compliance" %}</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-6 pt-16 mt-16 border-t border-slate-800 text-center text-slate-500 text-sm">
-            <p>{% blocktranslate trimmed with name=clinic.name|default:"SpinalCure" %}&copy; 2026 {{ name }}. Developed with &hearts; for Kerala Health.{% endblocktranslate %}</p>
-        </div>
-    </footer>
-
-</body>
-
-</html>
+    </div>
+</section>
+{% endblock %}

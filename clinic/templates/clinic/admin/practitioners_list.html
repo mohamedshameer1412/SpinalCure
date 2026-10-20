@@ -5,7 +5,7 @@
 
 {% block header_actions %}
 <a href="{% url 'admin_practitioner_create' %}"
-    class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-sm font-semibold rounded-xl hover:bg-green-700 transition-all shadow-md shadow-green-100">
+    class="btn btn-primary inline-flex items-center gap-2">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
     </svg>
@@ -17,7 +17,7 @@
 {% if practitioners %}
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
     {% for p in practitioners %}
-    <div class="bg-white rounded-2xl border border-gray-100 hover:border-green-200 transition-all p-5 shadow-sm">
+    <div class="card hover:border-green-200 transition-all p-5">
         <div class="flex items-start gap-4">
             {% if p.photo %}
             <img src="{{ p.photo.url }}" class="w-14 h-14 rounded-xl object-cover flex-shrink-0" alt="{{ p.name }}">
@@ -50,14 +50,14 @@
                 data-confirm="Are you sure you want to delete {{ p.title }} {{ p.name }}?">
                 {% csrf_token %}
                 <button type="submit"
-                    class="px-3 py-2 text-xs font-semibold bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition-all border border-red-100">{% trans "Delete" %}</button>
+                    class="btn btn-soft !bg-red-50 !text-red-700 hover:!bg-red-100 btn-sm">{% trans "Delete" %}</button>
             </form>
         </div>
     </div>
     {% endfor %}
 </div>
 {% else %}
-<div class="bg-white rounded-2xl border border-gray-200 text-center py-20 shadow-sm">
+<div class="card text-center py-20">
     <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

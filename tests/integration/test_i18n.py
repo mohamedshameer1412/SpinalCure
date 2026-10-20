@@ -12,7 +12,7 @@ def test_catalogue_lookup(lang, expected):
         assert translation.gettext('Participant') == expected
 
 
-@pytest.mark.parametrize('lang,rtl', [('en', False), ('ta', False), ('hi', False), ('ar', True)])
+@pytest.mark.parametrize('lang,rtl', [('en', False), ('ta', False), ('hi', False), ('te', False), ('ml', False), ('kn', False)])
 @pytest.mark.django_db
 def test_public_page_lang_and_dir(lang, rtl):
     r = Client().get(f'/{lang}/clinic/events/')
@@ -44,7 +44,7 @@ def test_set_language_rejects_unknown_code():
     assert u.language == 'en'
 
 
-@pytest.mark.parametrize('lang', ['ta', 'hi', 'ar'])
+@pytest.mark.parametrize('lang', ['ta', 'hi', 'te', 'ml', 'kn'])
 def test_catalogue_is_complete_and_compiled_mo_is_current(lang):
     """Every extracted string has a translation, and the committed .mo (what production loads, since there is
     no msgfmt there) contains all of them."""

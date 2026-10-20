@@ -1,0 +1,360 @@
+- generic [active] [ref=f5e1]:
+  - link "Skip to content" [ref=f5e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f5e3]:
+    - text:     
+    - generic [ref=f5e4]:
+      - link "Spinal Cure — പൂമുഖം" [ref=f5e5] [cursor=pointer]:
+        - /url: /ml/clinic/portfolio/
+        - generic [ref=f5e6]: Spinal Cure
+      - generic [ref=f5e8]:
+        - text:    
+        - button "Open menu" [ref=f5e9] [cursor=pointer]:
+          - generic [aria-hidden] [ref=f5e10]: 
+  - text:             
+  - main [ref=f5e11]:
+    - generic [ref=f5e13]:
+      - generic [ref=f5e14]:
+        - generic [ref=f5e15]:
+          - generic [aria-hidden] [ref=f5e16]: 
+          - text: Neck & back pain special care centre
+        - heading "No Surgery. No Medicine. No Diet." [level=1] [ref=f5e17]
+        - paragraph [ref=f5e18]: "Neck & back pain special care centre in Arumbakkam, Chennai. Specialists in classical acupuncture science for back, neck, sciatica and joint disorders, disc and nerve conditions: drug-free, finding the root cause of your pain."
+        - generic [ref=f5e19]:
+          - link "Book appointment" [ref=f5e20] [cursor=pointer]:
+            - /url: "#book"
+            - generic [aria-hidden] [ref=f5e21]: 
+            - text: Book appointment
+          - link "+91 81480 38363" [ref=f5e22] [cursor=pointer]:
+            - /url: tel:+918148038363
+            - generic [aria-hidden] [ref=f5e23]: 
+        - generic [ref=f5e25]:
+          - generic [ref=f5e26]:
+            - term [ref=f5e27]: Google rating (113 reviews)
+            - definition [ref=f5e28]:
+              - generic [aria-hidden] [ref=f5e29]: 
+              - text: "5.0"
+          - generic [ref=f5e30]:
+            - term [ref=f5e31]: Patient videos
+            - definition [ref=f5e32]: 111+
+          - generic [ref=f5e33]:
+            - term [ref=f5e34]: Conditions treated
+            - definition [ref=f5e35]: 12+
+      - generic [ref=f5e37]:
+        - img "The Spinal Cure clinic in Arumbakkam, Chennai" [ref=f5e38]
+        - generic [ref=f5e40]:
+          - paragraph [ref=f5e41]: Dr. R. Basheer Basha
+          - paragraph [ref=f5e42]: Specialist in Classical Acupuncture Science
+    - generic [ref=f5e44]:
+      - generic [ref=f5e45]:
+        - generic [aria-hidden] [ref=f5e47]: 
+        - generic [ref=f5e48]:
+          - heading "Without surgery" [level=2] [ref=f5e49]
+          - paragraph [ref=f5e50]: Non-invasive care that works with your body instead of operating on it.
+      - generic [ref=f5e51]:
+        - generic [aria-hidden] [ref=f5e53]: 
+        - generic [ref=f5e54]:
+          - heading "Without medicine" [level=2] [ref=f5e55]
+          - paragraph [ref=f5e56]: "Drug-free relief: no painkillers, no side effects."
+      - generic [ref=f5e57]:
+        - generic [aria-hidden] [ref=f5e59]: 
+        - generic [ref=f5e60]:
+          - heading "Without diet restrictions" [level=2] [ref=f5e61]
+          - paragraph [ref=f5e62]: Keep eating the food you enjoy while you recover.
+    - generic [ref=f5e64]:
+      - generic [ref=f5e65]:
+        - paragraph [ref=f5e66]: Our Expertise
+        - heading "Conditions we treat" [level=2] [ref=f5e67]
+        - paragraph [ref=f5e68]: Classical acupuncture for the spine, joints, nerves and much more. Every plan starts by finding the root cause of your pain.
+      - generic [ref=f5e69]:
+        - article [ref=f5e70]:
+          - generic [aria-hidden] [ref=f5e72]: 
+          - heading "Neck Pain & Cervical Problems" [level=3] [ref=f5e73]
+          - paragraph [ref=f5e74]: Cervical neck pain, C1 to C8 disc issues, stiff neck and spondylitis, shoulder pain, thyroid and vertigo.
+        - article [ref=f5e75]:
+          - generic [aria-hidden] [ref=f5e77]: 
+          - heading "Back Pain, Disc & Sciatica" [level=3] [ref=f5e78]
+          - paragraph [ref=f5e79]: L1 to L5 disc bulge, herniated disc, sciatica and disc prolapse, knee, leg and heel pain.
+        - article [ref=f5e80]:
+          - generic [aria-hidden] [ref=f5e82]: 
+          - heading "Headache, Migraine & Sleep" [level=3] [ref=f5e83]
+          - paragraph [ref=f5e84]: Migraine, insomnia and depression, asthma and sinuses, tonsillitis issues.
+        - article [ref=f5e85]:
+          - generic [aria-hidden] [ref=f5e87]: 
+          - heading "Women's Health & Fertility" [level=3] [ref=f5e88]
+          - paragraph [ref=f5e89]: Menstrual disorders and PCOD, impotence and infertility, rheumatoid arthritis and paralysis, neurology issues and varicose veins.
+        - article [ref=f5e90]:
+          - generic [aria-hidden] [ref=f5e92]: 
+          - heading "Digestive, Skin & Hair" [level=3] [ref=f5e93]
+          - paragraph [ref=f5e94]: Acidity and gastro disorders, piles and haemorrhoids, gallbladder stone, hair fall and skin allergy.
+      - generic [ref=f5e95]:
+        - paragraph [ref=f5e96]: See real patient stories for your problem
+        - generic [ref=f5e97]:
+          - link "Back Pain" [ref=f5e98] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=back-pain
+          - link "Neck Pain" [ref=f5e99] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=neck-pain
+          - link "Sciatica" [ref=f5e100] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=sciatica
+          - link "Slip Disc" [ref=f5e101] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=slip-disc
+          - link "Knee Pain" [ref=f5e102] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=knee-pain
+          - link "Frozen Shoulder" [ref=f5e103] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=frozen-shoulder
+          - link "Migraine & Headache" [ref=f5e104] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=migraine-headache
+          - link "Posture Problems" [ref=f5e105] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=posture-problems
+          - link "Muscle Pain" [ref=f5e106] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=muscle-pain
+          - link "Swelling & Lumps" [ref=f5e107] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=swelling-lumps
+          - link "Leg Pain & Circulation" [ref=f5e108] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=leg-pain-circulation
+          - link "Stress & Anxiety" [ref=f5e109] [cursor=pointer]:
+            - /url: /ml/clinic/testimonials/?problem=stress-anxiety
+    - generic [ref=f5e111]:
+      - img "Dr. R. Basheer Basha" [ref=f5e113]
+      - generic [ref=f5e114]:
+        - paragraph [ref=f5e115]: Chief Acupuncture Doctor
+        - heading "Dr. R. Basheer Basha" [level=2] [ref=f5e116]
+        - paragraph [ref=f5e117]: Specialist in Classical Acupuncture Science
+        - paragraph [ref=f5e118]: "Qualifications: B.Sc., Master Diploma (Acu), Master Diploma in Classical (Acu), Doctor of Medicine in (Acu), Colombo University, Sri Lanka. General Secretary, CASMA (Classical Acupuncture Science Medical Association)."
+        - paragraph [ref=f5e119]: "Dr. R. Basheer Basha is a specialist in Classical Acupuncture Science and the founder of Spinal Cure, Arumbakkam. He treats neck pain, low back pain, disc bulge, sciatica, knee and joint pain and many other conditions by finding the root cause of the pain and giving natural, drug-free care: no surgery, no medicine and no diet restrictions. He also teaches classical acupuncture to students at the Spinal Cure academy."
+        - generic [ref=f5e120]:
+          - link "Book a consultation" [ref=f5e121] [cursor=pointer]:
+            - /url: "#book"
+            - generic [aria-hidden] [ref=f5e122]: 
+            - text: Book a consultation
+          - link "Full profile" [ref=f5e123] [cursor=pointer]:
+            - /url: /ml/clinic/practitioners/8OMr3p9_Q5edXen91vlkwA/
+            - text: Full profile
+            - generic [aria-hidden] [ref=f5e124]: 
+    - generic [ref=f5e126]:
+      - generic [ref=f5e127]:
+        - heading "How your treatment works" [level=2] [ref=f5e128]
+        - paragraph [ref=f5e129]: A clear path from the first visit to lasting relief.
+      - list [ref=f5e130]:
+        - listitem [ref=f5e131]:
+          - generic [ref=f5e132]: "1"
+          - heading "Consultation" [level=3] [ref=f5e133]
+          - paragraph [ref=f5e134]: We listen to your history and examine you to find what is really causing the pain.
+        - listitem [ref=f5e135]:
+          - generic [ref=f5e136]: "2"
+          - heading "Treatment sessions" [level=3] [ref=f5e137]
+          - paragraph [ref=f5e138]: Classical acupuncture sessions planned around your condition, at the clinic or online.
+        - listitem [ref=f5e139]:
+          - generic [ref=f5e140]: "3"
+          - heading "Recovery and follow-up" [level=3] [ref=f5e141]
+          - paragraph [ref=f5e142]: We track your progress and share simple habits that keep the pain away.
+    - generic [ref=f5e144]:
+      - generic [ref=f5e145]:
+        - generic [ref=f5e146]:
+          - paragraph [ref=f5e147]: Patient stories
+          - heading "Real people. Real recovery." [level=2] [ref=f5e148]
+        - link "All stories" [ref=f5e149] [cursor=pointer]:
+          - /url: /ml/clinic/testimonials/
+          - text: All stories
+          - generic [aria-hidden] [ref=f5e150]: 
+      - generic [ref=f5e151]:
+        - link " Happy patient story · Nov 2025" [ref=f5e152] [cursor=pointer]:
+          - /url: /ml/clinic/testimonials/?type=videos
+          - generic [ref=f5e153]: 
+          - generic [ref=f5e156]: Happy patient story · Nov 2025
+        - link " Happy patient story · Nov 2025" [ref=f5e157] [cursor=pointer]:
+          - /url: /ml/clinic/testimonials/?type=videos
+          - generic [ref=f5e158]: 
+          - generic [ref=f5e161]: Happy patient story · Nov 2025
+        - link " Happy patient story · Nov 2025" [ref=f5e162] [cursor=pointer]:
+          - /url: /ml/clinic/testimonials/?type=videos
+          - generic [ref=f5e163]: 
+          - generic [ref=f5e166]: Happy patient story · Nov 2025
+        - link " Happy patient story · Nov 2025" [ref=f5e167] [cursor=pointer]:
+          - /url: /ml/clinic/testimonials/?type=videos
+          - generic [ref=f5e168]: 
+          - generic [ref=f5e171]: Happy patient story · Nov 2025
+      - generic [ref=f5e172]:
+        - figure "B banu arjunan Swelling & Lumps · Google" [ref=f5e173]:
+          - img "5 / 5" [ref=f5e174]:
+            - generic [ref=f5e175]: 
+            - generic [ref=f5e176]: 
+            - generic [ref=f5e177]: 
+            - generic [ref=f5e178]: 
+            - generic [ref=f5e179]: 
+          - blockquote [ref=f5e180]: “Hi, this is Banupriya from Chennai Porur. I had a problem on the left side at the back of my head. I suddenly noticed a swelling about 4 cm in size there. Pain started, so I went to the hospital, where they gave me an injection and medicines. The pain was mil…”
+          - generic [ref=f5e181]:
+            - generic [ref=f5e182]: B
+            - generic [ref=f5e183]:
+              - generic [ref=f5e184]: banu arjunan
+              - generic [ref=f5e185]: Swelling & Lumps · Google
+        - figure "K Kalaivani Nagarajan Leg Pain & Circulation · Google" [ref=f5e186]:
+          - img "5 / 5" [ref=f5e187]:
+            - generic [ref=f5e188]: 
+            - generic [ref=f5e189]: 
+            - generic [ref=f5e190]: 
+            - generic [ref=f5e191]: 
+            - generic [ref=f5e192]: 
+          - blockquote [ref=f5e193]: “Hi all I am Kalaivani I'm from Madhavaram chennai working as a teacher . I have suffered from severe leg pain due to lack of blood circulation and I can't able to stand and walk for even 2 minutes I went to ortho hospital then to my problem was not cured. The…”
+          - generic [ref=f5e194]:
+            - generic [ref=f5e195]: K
+            - generic [ref=f5e196]:
+              - generic [ref=f5e197]: Kalaivani Nagarajan
+              - generic [ref=f5e198]: Leg Pain & Circulation · Google
+        - figure "V Viji Sridar Sciatica · Google" [ref=f5e199]:
+          - img "5 / 5" [ref=f5e200]:
+            - generic [ref=f5e201]: 
+            - generic [ref=f5e202]: 
+            - generic [ref=f5e203]: 
+            - generic [ref=f5e204]: 
+            - generic [ref=f5e205]: 
+          - blockquote [ref=f5e206]: “I am Vijayakumari Sridaran age 70 years. I came here with sever pain in left side Hip to toe within 7 days pain reduced. Now I am feeling well. I st thanks to D0CTOR ,BASHEER BASHA especially thanks to assistant Rajathi for her very positive approach. My tha…”
+          - generic [ref=f5e207]:
+            - generic [ref=f5e208]: V
+            - generic [ref=f5e209]:
+              - generic [ref=f5e210]: Viji Sridar
+              - generic [ref=f5e211]: Sciatica · Google
+    - generic [ref=f5e213]:
+      - generic [ref=f5e214]:
+        - paragraph [ref=f5e215]: Learn with us
+        - heading "Courses and free health events" [level=2] [ref=f5e216]
+      - generic [ref=f5e217]:
+        - link "Course · 3 Months Basic Acupuncture Certification A comprehensive 3-month course for beginners wanting to master the basics of acupuncture. View course" [ref=f5e218] [cursor=pointer]:
+          - /url: /ml/clinic/courses/JyvZZR8HRiuUT4xwBJbL7w/
+          - generic [ref=f5e219]:
+            - generic [ref=f5e220]: Course · 3 Months
+            - heading "Basic Acupuncture Certification" [level=3] [ref=f5e221]
+            - paragraph [ref=f5e222]: A comprehensive 3-month course for beginners wanting to master the basics of acupuncture.
+            - generic [ref=f5e223]:
+              - text: View course
+              - generic [aria-hidden] [ref=f5e224]: 
+        - link "Event · 20 ഒക്ടോ. 2026 camp master class Details and registration" [ref=f5e225] [cursor=pointer]:
+          - /url: /ml/clinic/events/54z8efagRY6X8XAVdWEb5A/
+          - generic [ref=f5e226]:
+            - generic [ref=f5e227]: Event · 20 ഒക്ടോ. 2026
+            - heading "camp" [level=3] [ref=f5e228]
+            - paragraph [ref=f5e229]: master class
+            - generic [ref=f5e230]:
+              - text: Details and registration
+              - generic [aria-hidden] [ref=f5e231]: 
+    - generic [ref=f5e233]:
+      - generic [ref=f5e234]:
+        - generic [ref=f5e235]:
+          - paragraph [ref=f5e236]: Visit us
+          - heading "We are here to help" [level=2] [ref=f5e237]
+        - generic [ref=f5e238]:
+          - generic [ref=f5e239]:
+            - generic [aria-hidden] [ref=f5e241]: 
+            - generic [ref=f5e242]:
+              - term [ref=f5e243]: Address
+              - definition [ref=f5e244]: "No: 194/4, 1st Floor, JN Salai, 100ft Main Rd, near Aladipattiyaan Karupatti Coffee, Sri Sakthi Nagar, Arumbakkam, Chennai, Tamil Nadu 600106"
+          - generic [ref=f5e245]:
+            - generic [aria-hidden] [ref=f5e247]: 
+            - generic [ref=f5e248]:
+              - term [ref=f5e249]: Opening hours
+              - definition [ref=f5e250]: "Mon, Tue, Wed, Thu, Sat: 5:30 pm – 8:30 pm Fri: 10:00 am – 1:00 pm Sun: Closed"
+          - generic [ref=f5e251]:
+            - generic [aria-hidden] [ref=f5e253]: 
+            - generic [ref=f5e254]:
+              - term [ref=f5e255]: Phone
+              - definition [ref=f5e256]:
+                - link "+91 81480 38363" [ref=f5e257] [cursor=pointer]:
+                  - /url: tel:+918148038363
+                - link "+91 90876 28476" [ref=f5e258] [cursor=pointer]:
+                  - /url: tel:+919087628476
+        - iframe [ref=f5e260]
+      - generic [ref=f5e262]:
+        - generic [ref=f5e263]:
+          - heading "Book an appointment" [level=2] [ref=f5e264]
+          - paragraph [ref=f5e265]: Choose a time that suits you. We will confirm by phone or email.
+          - generic [ref=f5e266]:
+            - group "Consultation type" [ref=f5e267]:
+              - generic [ref=f5e269]:
+                - generic [ref=f5e270] [cursor=pointer]:
+                  - radio "At the clinic" [checked] [ref=f5e271]
+                  - generic [aria-hidden] [ref=f5e272]: 
+                  - generic [ref=f5e273]: At the clinic
+                - generic [ref=f5e274] [cursor=pointer]:
+                  - radio "Online" [ref=f5e275]
+                  - generic [aria-hidden] [ref=f5e276]: 
+                  - generic [ref=f5e277]: Online
+            - generic [ref=f5e278]:
+              - generic [ref=f5e279]:
+                - generic [ref=f5e280]: Full name
+                - textbox "Full name" [ref=f5e281]
+              - generic [ref=f5e282]:
+                - generic [ref=f5e283]: Phone number
+                - textbox "Phone number" [ref=f5e284]
+              - generic [ref=f5e285]:
+                - generic [ref=f5e286]: Email (for the confirmation)
+                - textbox "Email (for the confirmation)" [ref=f5e287]
+              - generic [ref=f5e288]:
+                - generic [ref=f5e289]: Date
+                - textbox "Date" [ref=f5e290]
+            - generic [ref=f5e291]:
+              - paragraph [ref=f5e292]: സമയം
+              - paragraph [ref=f5e293]: Choose a date to see the free times.
+            - generic [ref=f5e294]:
+              - generic [ref=f5e295]: What brings you in? (optional)
+              - textbox "What brings you in? (optional)" [ref=f5e296]
+            - text: 
+            - button "Confirm appointment" [ref=f5e297] [cursor=pointer]
+            - paragraph [ref=f5e299]: Free first consultation. We never share your details.
+        - text: 
+  - contentinfo [ref=f5e300]:
+    - generic [ref=f5e301]:
+      - generic [ref=f5e302]:
+        - link "Spinal Cure" [ref=f5e303] [cursor=pointer]:
+          - /url: /ml/clinic/portfolio/
+        - paragraph [ref=f5e305]: Neck & Back Pain Special Care Center. Specialist in Classical Acupuncture Science.
+        - paragraph [ref=f5e306]: Without Surgery, Without Medicine and Without Diet.
+        - generic [ref=f5e307]:
+          - link "Instagram" [ref=f5e308] [cursor=pointer]:
+            - /url: https://www.instagram.com/spinalcure_chennai/
+            - generic [ref=f5e309]: 
+          - link "YouTube" [ref=f5e310] [cursor=pointer]:
+            - /url: https://www.youtube.com/@SpinalCure
+            - generic [ref=f5e311]: 
+      - generic [ref=f5e312]:
+        - heading "Visit us" [level=2] [ref=f5e313]
+        - list [ref=f5e314]:
+          - listitem [ref=f5e315]:
+            - generic [aria-hidden] [ref=f5e316]: 
+            - generic [ref=f5e317]: "No: 194/4, 1st Floor, JN Salai, 100ft Main Rd, near Aladipattiyaan Karupatti Coffee, Sri Sakthi Nagar, Arumbakkam, Chennai, Tamil Nadu 600106"
+          - listitem [ref=f5e318]:
+            - generic [aria-hidden] [ref=f5e319]: 
+            - link "+91 81480 38363" [ref=f5e320] [cursor=pointer]:
+              - /url: tel:+918148038363
+          - listitem [ref=f5e321]:
+            - generic [aria-hidden] [ref=f5e322]: 
+            - link "+91 90876 28476" [ref=f5e323] [cursor=pointer]:
+              - /url: tel:+919087628476
+          - listitem [ref=f5e324]:
+            - generic [aria-hidden] [ref=f5e325]: 
+            - link "spinalcure2015@gmail.com" [ref=f5e326] [cursor=pointer]:
+              - /url: mailto:spinalcure2015@gmail.com
+      - generic [ref=f5e327]:
+        - heading "Opening hours" [level=2] [ref=f5e328]
+        - paragraph [ref=f5e329]: "Mon, Tue, Wed, Thu, Sat: 5:30 pm – 8:30 pm Fri: 10:00 am – 1:00 pm Sun: Closed"
+      - generic [ref=f5e330]:
+        - heading "Explore" [level=2] [ref=f5e331]
+        - list [ref=f5e332]:
+          - listitem [ref=f5e333]:
+            - link "Treatments" [ref=f5e334] [cursor=pointer]:
+              - /url: /ml/clinic/portfolio/#treatments
+          - listitem [ref=f5e335]:
+            - link "Patient stories" [ref=f5e336] [cursor=pointer]:
+              - /url: /ml/clinic/testimonials/
+          - listitem [ref=f5e337]:
+            - link "Events" [ref=f5e338] [cursor=pointer]:
+              - /url: /ml/clinic/events/
+          - listitem [ref=f5e339]:
+            - link "Health articles" [ref=f5e340] [cursor=pointer]:
+              - /url: /ml/clinic/blog/
+          - listitem [ref=f5e341]:
+            - link "Book appointment" [ref=f5e342] [cursor=pointer]:
+              - /url: /ml/clinic/portfolio/#book
+    - generic [ref=f5e344]:
+      - paragraph [ref=f5e345]: © 2026 Spinal Cure · Arumbakkam, Chennai
+      - link "Staff sign in" [ref=f5e346] [cursor=pointer]:
+        - /url: /ml/accounts/login/

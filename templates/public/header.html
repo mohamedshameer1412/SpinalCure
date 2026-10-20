@@ -1,0 +1,70 @@
+{% load i18n content_i18n %}{% url 'clinic_portfolio' as home %}{% with n=request.resolver_match.url_name|default:'' %}
+<header class="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur">
+    <!-- utility bar -->
+    <div class="hidden border-b border-gray-100 bg-gray-50 text-xs text-gray-600 md:block">
+        <div class="container-site flex h-9 items-center justify-between gap-6">
+            <div class="flex min-w-0 items-center gap-5">
+                {% if clinic.phone_list %}<a href="tel:{{ clinic.phone_list.0|cut:' ' }}" class="inline-flex items-center gap-1.5 whitespace-nowrap no-underline hover:text-primary-700"><i class="bi bi-telephone" aria-hidden="true"></i><span dir="ltr">{{ clinic.phone_list.0 }}</span></a>{% endif %}
+                {% if clinic.address %}<span class="hidden min-w-0 items-center gap-1.5 truncate lg:inline-flex"><i class="bi bi-geo-alt" aria-hidden="true"></i><span class="truncate">{{ clinic|tx:"address"|truncatechars:70 }}</span></span>{% endif %}
+            </div>
+            <div class="flex shrink-0 items-center gap-4">
+                <span class="inline-flex items-center gap-1 whitespace-nowrap"><i class="bi bi-star-fill text-amber-400" aria-hidden="true"></i>{{ clinic.about_stat1_number|default:"5.0" }} {% translate "on Google" %}</span>
+                {% if clinic.instagram %}<a href="{{ clinic.instagram }}" target="_blank" rel="noopener" class="text-gray-500 hover:text-primary-700" aria-label="Instagram"><i class="bi bi-instagram"></i></a>{% endif %}
+                {% if clinic.youtube %}<a href="{{ clinic.youtube }}" target="_blank" rel="noopener" class="text-gray-500 hover:text-primary-700" aria-label="YouTube"><i class="bi bi-youtube"></i></a>{% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container-site flex h-16 items-center gap-4">
+        <a href="{{ home }}" class="flex min-w-0 items-center gap-2.5 no-underline" aria-label="{{ clinic|tx:'name'|default:'Spinal Cure' }} — {% translate 'Home' %}">
+            {% if clinic_logo_url %}<img src="{{ clinic_logo_url }}" alt="" class="h-10 w-10 shrink-0 object-contain" width="40" height="40">{% endif %}
+            <span class="min-w-0">
+                <span class="block truncate font-display text-lg font-extrabold leading-tight text-gray-900" style="font-family:'Outfit',inherit">{{ clinic|tx:"name"|default:"Spinal Cure" }}</span>
+                <span class="hidden truncate text-[11px] leading-tight text-gray-500 sm:block">{{ clinic|tx:"tagline" }}</span>
+            </span>
+        </a>
+
+        <nav class="ms-auto hidden items-center gap-0.5 xl:flex" aria-label="{% translate 'Main' %}">
+            <a href="{{ home }}#treatments" class="site-link">{% translate "Treatments" %}</a>
+            <a href="{{ home }}#doctor" class="site-link">{% translate "Our doctor" %}</a>
+            {% url 'public_testimonials' as u %}<a href="{{ u }}" class="site-link{% if n == 'public_testimonials' %} is-active{% endif %}">{% translate "Patient stories" %}</a>
+            {% url 'public_event_list' as u %}<a href="{{ u }}" class="site-link{% if 'event' in n %} is-active{% endif %}">{% translate "Events" %}</a>
+            {% url 'blog_list' as u %}<a href="{{ u }}" class="site-link{% if 'blog' in n %} is-active{% endif %}">{% translate "Health articles" %}</a>
+            <a href="{{ home }}#visit" class="site-link">{% translate "Contact" %}</a>
+        </nav>
+
+        <div class="ms-auto flex shrink-0 items-center gap-2 xl:ms-2">
+            <div class="hidden sm:block">{% include "components/lang_switch.html" %}</div>
+            <a href="{{ home }}#book" class="btn btn-primary hidden sm:inline-flex"><i class="bi bi-calendar-check" aria-hidden="true"></i>{% translate "Book appointment" %}</a>
+            <button type="button" class="btn btn-ghost btn-icon xl:hidden" @click="menu = true" aria-label="{% translate 'Open menu' %}" :aria-expanded="menu" aria-controls="site-drawer">
+                <i class="bi bi-list text-2xl" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- mobile / tablet drawer -->
+<div x-show="menu" x-cloak class="fixed inset-0 z-[60] xl:hidden" role="dialog" aria-modal="true" aria-label="{% translate 'Menu' %}">
+    <div class="absolute inset-0 bg-slate-950/50" @click="menu = false" x-transition.opacity></div>
+    <div id="site-drawer" class="absolute inset-y-0 end-0 flex w-80 max-w-[88vw] flex-col bg-white shadow-pop" x-transition:enter="transition duration-200" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0">
+        <div class="flex h-16 items-center justify-between border-b border-gray-200 px-4">
+            <span class="font-bold text-gray-900">{% translate "Menu" %}</span>
+            <button type="button" class="btn btn-ghost btn-icon" @click="menu = false" aria-label="{% translate 'Close menu' %}"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <nav class="flex-1 overflow-y-auto p-3" aria-label="{% translate 'Main' %}" @click="if ($event.target.closest('a')) menu = false">
+            <a href="{{ home }}" class="nav-item"><i class="bi bi-house"></i>{% translate "Home" %}</a>
+            <a href="{{ home }}#treatments" class="nav-item"><i class="bi bi-heart-pulse"></i>{% translate "Treatments" %}</a>
+            <a href="{{ home }}#doctor" class="nav-item"><i class="bi bi-person-badge"></i>{% translate "Our doctor" %}</a>
+            {% url 'public_testimonials' as u %}<a href="{{ u }}" class="nav-item"><i class="bi bi-chat-heart"></i>{% translate "Patient stories" %}</a>
+            {% url 'public_event_list' as u %}<a href="{{ u }}" class="nav-item"><i class="bi bi-calendar-event"></i>{% translate "Events" %}</a>
+            {% url 'blog_list' as u %}<a href="{{ u }}" class="nav-item"><i class="bi bi-journal-text"></i>{% translate "Health articles" %}</a>
+            <a href="{{ home }}#visit" class="nav-item"><i class="bi bi-geo-alt"></i>{% translate "Contact" %}</a>
+        </nav>
+        <div class="space-y-3 border-t border-gray-200 p-4">
+            {% include "components/lang_switch.html" with align="start" up=True %}
+            <a href="{{ home }}#book" class="btn btn-primary w-full" @click="menu = false"><i class="bi bi-calendar-check"></i>{% translate "Book appointment" %}</a>
+            {% if clinic.phone_list %}<a href="tel:{{ clinic.phone_list.0|cut:' ' }}" class="btn btn-outline w-full"><i class="bi bi-telephone"></i><span dir="ltr">{{ clinic.phone_list.0 }}</span></a>{% endif %}
+        </div>
+    </div>
+</div>
+{% endwith %}

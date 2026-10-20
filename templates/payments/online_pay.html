@@ -1,0 +1,74 @@
+{% extends "public_base.html" %}
+{% load i18n content_i18n %}
+{% block title %}{% translate "Pay online" %} — {{ clinic|tx:"name"|default:"Spinal Cure" }}{% endblock %}
+{% block meta %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<div class="container-site flex justify-center py-12 sm:py-16">
+    <div class="card w-full max-w-md p-6 shadow-pop sm:p-8" x-data="onlinePay()">
+        {% if not payment %}
+        <div class="text-center">
+            <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gray-100 text-2xl text-gray-500"><i class="bi bi-link-45deg"></i></span>
+            <h1 class="mt-4 text-xl font-bold text-gray-900">{% translate "This payment link is no longer valid" %}</h1>
+            <p class="mt-2 text-sm text-gray-600">{% translate "Please contact the clinic for a new link." %}</p>
+        </div>
+        {% elif order.status == 'paid' %}
+        <div class="text-center" role="status">
+            <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100 text-2xl text-green-600"><i class="bi bi-check-lg"></i></span>
+            <h1 class="mt-4 text-xl font-bold text-gray-900">{% translate "Paid. Thank you!" %}</h1>
+            <p class="mt-2 text-sm text-gray-600">{% blocktranslate with no=payment.receipt_number %}Receipt {{ no }}{% endblocktranslate %}</p>
+        </div>
+        {% else %}
+        <p class="text-sm text-gray-500">{% translate "Payment to" %}</p>
+        <p class="font-semibold text-gray-900">{{ clinic|tx:"name"|default:"Spinal Cure" }}</p>
+        <div class="mt-6 rounded-xl bg-gray-50 p-5">
+            <div class="flex justify-between text-sm"><span class="text-gray-500">{% translate "Name" %}</span><span class="font-medium text-gray-900">{{ payment.payer_name }}</span></div>
+            <div class="mt-2 flex justify-between text-sm"><span class="text-gray-500">{% translate "Reference" %}</span><span class="font-medium text-gray-900">{{ payment.receipt_number }}</span></div>
+            {% if payment.description %}<div class="mt-2 flex justify-between gap-4 text-sm"><span class="text-gray-500">{% translate "For" %}</span><span class="text-end font-medium text-gray-900">{{ payment.description }}</span></div>{% endif %}
+            <div class="mt-4 flex items-end justify-between border-t border-gray-200 pt-4"><span class="text-sm text-gray-500">{% translate "Amount" %}</span><span class="text-3xl font-extrabold text-gray-900" dir="ltr">₹{{ order.amount }}</span></div>
+        </div>
+        <template x-if="!done"><div>
+            <p x-show="error" x-cloak class="alert alert-danger mt-4" role="alert" x-text="error"></p>
+            <button type="button" class="btn btn-primary btn-lg mt-6 w-full" @click="pay()" :disabled="busy"><i class="bi bi-shield-lock" aria-hidden="true"></i>{% translate "Pay securely" %}</button>
+            <p class="mt-3 text-center text-xs text-gray-500">{% translate "UPI, cards, net banking and wallets via Razorpay. We never see your card details." %}</p>
+        </div></template>
+        <div x-show="done" x-cloak class="alert alert-success mt-6" role="status"><i class="bi bi-check-circle"></i><span x-text="message"></span></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if payment and order.status != 'paid' %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+function onlinePay() {
+    return {
+        busy: false, done: false, error: '', message: '',
+        pay() {
+            this.error = '';
+            const rzp = new Razorpay({
+                key: '{{ key_id|escapejs }}', amount: {{ amount_paise }}, currency: 'INR', order_id: '{{ order.order_id|escapejs }}',
+                name: '{{ clinic.name|default:"Spinal Cure"|escapejs }}', description: '{{ payment.receipt_number|escapejs }}',
+                prefill: { name: '{{ payment.payer_name|escapejs }}', contact: '{{ payment.payer_phone|default:""|escapejs }}' },
+                theme: { color: '#16a34a' },
+                handler: (resp) => this.verify(resp),
+                modal: { ondismiss: () => { this.busy = false; } },
+            });
+            rzp.on('payment.failed', (r) => { this.busy = false; this.error = (r.error && r.error.description) || '{{ _("Payment failed. Please try again.")|escapejs }}'; });
+            this.busy = true; rzp.open();
+        },
+        async verify(resp) {
+            try {
+                const r = await fetch('{% url "online_pay_verify" order.token %}', { method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' }, body: JSON.stringify(resp) });
+                const d = await r.json();
+                if (d.status === 'success') { this.done = true; this.message = d.message; } else this.error = d.message;
+            } catch (e) { this.error = '{{ _("Could not confirm the payment. It will be confirmed automatically shortly.")|escapejs }}'; }
+            finally { this.busy = false; }
+        },
+    };
+}
+</script>
+{% endif %}
+{% endblock %}

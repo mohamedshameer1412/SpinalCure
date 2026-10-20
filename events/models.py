@@ -6,6 +6,7 @@ from zoneinfo import ZoneInfo
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from spinalcure.languages import NATIVE_CHOICES
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -95,7 +96,7 @@ class Event(models.Model):
     timezone = models.CharField(max_length=64, default=settings.TIME_ZONE, verbose_name=_('Time zone'))
     language = models.CharField(
         max_length=5, default='en', verbose_name=_('Language'),
-        choices=[('en', 'English'), ('ta', 'தமிழ்'), ('hi', 'हिन्दी'), ('ar', 'العربية')])
+        choices=NATIVE_CHOICES)
     registration_deadline = models.DateTimeField(null=True, blank=True, verbose_name=_('Registration deadline'))
     waitlist_enabled = models.BooleanField(default=True, verbose_name=_('Waitlist when full'))
     reminder_offsets_minutes = models.CharField(

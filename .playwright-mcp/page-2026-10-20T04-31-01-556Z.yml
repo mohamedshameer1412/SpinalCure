@@ -1,0 +1,47 @@
+- generic [active] [ref=f8e1]:
+  - generic [ref=f8e2]: Spinal Cure
+  - generic [ref=f8e3]: Advanced Holistic Spine & Pain Care
+  - heading "Payment received" [level=1] [ref=f8e4]
+  - paragraph [ref=f8e5]: Dear Kavitha,
+  - paragraph [ref=f8e6]: Thank you. We have received your payment. Please keep this email as your receipt.
+  - generic [ref=f8e7]:
+    - generic [ref=f8e8]:
+      - generic [ref=f8e9]: Receipt number
+      - text: SC20260627838
+    - generic [ref=f8e10]:
+      - generic [ref=f8e11]: Date
+      - text: 27 Jun 2026
+    - generic [ref=f8e12]:
+      - generic [ref=f8e13]: Payment method
+      - text: Cash
+    - generic [ref=f8e14]:
+      - generic [ref=f8e15]: Total amount
+      - text: ₹10000.00
+    - generic [ref=f8e16]:
+      - generic [ref=f8e17]: Amount paid
+      - text: ₹1000.00
+    - generic [ref=f8e18]:
+      - generic [ref=f8e19]: Balance due
+      - text: ₹9000.00
+  - paragraph [ref=f8e20]: If any detail looks wrong, reply to this email or call the clinic.
+  - generic [ref=f8e21]: Need help? Contact the clinic
+  - link "+91 81480 38363" [ref=f8e22] [cursor=pointer]:
+    - /url: tel:+918148038363
+  - text: ·
+  - link "+91 90876 28476" [ref=f8e23] [cursor=pointer]:
+    - /url: tel:+919087628476
+  - text: ·
+  - link "spinalcure2015@gmail.com" [ref=f8e24] [cursor=pointer]:
+    - /url: mailto:spinalcure2015@gmail.com
+  - generic [ref=f8e25]: "No: 194/4, 1st Floor, JN Salai, 100ft Main Rd, near Aladipattiyaan Karupatti Coffee, Sri Sakthi Nagar, Arumbakkam, Chennai, Tamil Nadu 600106"
+  - generic [ref=f8e26]: "Mon, Tue, Wed, Thu, Sat: 5:30 pm – 8:30 pmFri: 10:00 am – 1:00 pmSun: Closed"
+  - text: You are receiving this email because of an appointment, payment or registration with us.
+  - link "Instagram" [ref=f8e27] [cursor=pointer]:
+    - /url: https://www.instagram.com/spinalcure_chennai/
+  - text: ·
+  - link "YouTube" [ref=f8e28] [cursor=pointer]:
+    - /url: https://www.youtube.com/@SpinalCure
+  - text: ·
+  - link "Website" [ref=f8e29] [cursor=pointer]:
+    - /url: http://localhost:8000
+  - text: © 2026 Spinal Cure

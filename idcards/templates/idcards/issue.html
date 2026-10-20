@@ -4,7 +4,7 @@
 {% block page_title %}{% translate "Issue ID card" %}{% endblock %}
 {% block header_actions %}<a href="{% url 'idcard_dashboard' %}" class="text-sm text-gray-500 hover:text-gray-900 no-underline">← {% translate "Back" %}</a>{% endblock %}
 {% block content %}
-<form method="post" class="max-w-xl bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4" novalidate>{% csrf_token %}
+<form method="post" class="card max-w-xl p-6 space-y-4" novalidate>{% csrf_token %}
     {% if form.errors %}<div role="alert" class="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
         {% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}{% for f in form %}{% for e in f.errors %}<p>{{ f.label }}: {{ e }}</p>{% endfor %}{% endfor %}</div>{% endif %}
     <div><label for="{{ form.holder.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.holder.label }}</label>{{ form.holder }}
@@ -13,6 +13,6 @@
     <fieldset class="space-y-2"><legend class="text-sm font-medium mb-1">{% translate "What the card shows" %}</legend>
         {% for f in form %}{% if f.field.widget.input_type == 'checkbox' %}<label class="flex items-center gap-2 text-sm">{{ f }} {{ f.label }}</label>{% endif %}{% endfor %}
         <p class="text-xs text-gray-500">{% translate "Name, ID, designation, photo and the verification QR always appear. Contact and personal details appear only if ticked." %}</p></fieldset>
-    <button class="px-5 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-white text-sm font-semibold">{% translate "Issue card" %}</button>
+    <button class="btn btn-primary">{% translate "Issue card" %}</button>
 </form>
 {% endblock %}

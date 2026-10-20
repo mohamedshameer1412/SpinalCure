@@ -96,7 +96,7 @@ def send_invoice_email_view(request, pk):
         return JsonResponse({'status': 'error', 'message': gettext('Payment record not found.')}, status=404)
     except Exception as e:
         logger.error(f"Error in send_invoice_email_view: {str(e)}")
-        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+        return JsonResponse({'status': 'error', 'message': gettext('Could not send the email. Please try again.')}, status=500)
 
 
 def payment_pdf_download_view(request, pk):
@@ -139,8 +139,10 @@ def payment_invoice_view(request, pk):
         messages.error(request, gettext('You do not have permission to view this page.'))
         return redirect('dashboard')
     
-    payment = Payment.objects.select_related('patient', 'clinic', 'course_registration', 'event_registration').get(pk=pk)
+    payment = get_object_or_404(Payment.objects.select_related('patient', 'clinic', 'course_registration', 'event_registration'), pk=pk)
     from clinic.models import ClinicProfile
+    from . import razorpay as rzp
+    from .models import OnlineOrder
     clinic = ClinicProfile.objects.first()
     
     context = {
@@ -148,6 +150,8 @@ def payment_invoice_view(request, pk):
         'clinic': clinic,
         'refunds': payment.refunds.select_related('refunded_by'),
         'refund_modes': Payment.PAYMENT_MODE_CHOICES,
+        'razorpay_enabled': rzp.enabled(),
+        'online_orders': OnlineOrder.objects.filter(payment_ref=str(payment.pk))[:10],
     }
     return render(request, 'payments/invoice.html', context)
 
@@ -196,7 +200,11 @@ def payments_report_view(request):
     billed = sum((p.grand_total for p in payments), Decimal('0'))
     collected = sum((p.amount_paid for p in payments), Decimal('0'))
     gst = sum((p.tax_amount for p in payments), Decimal('0'))
-    refunds = PaymentRefund.objects.filter(created_at__date__range=(start, end))
+    # aware bounds, not created_at__date: MySQL/MariaDB without timezone tables turns __date into NULL
+    from datetime import time, timedelta
+    from django.utils import timezone
+    lo, hi = (timezone.make_aware(datetime.combine(d, time.min)) for d in (start, end + timedelta(days=1)))
+    refunds = PaymentRefund.objects.filter(created_at__gte=lo, created_at__lt=hi)
     refunded = refunds.aggregate(t=Sum('amount'))['t'] or Decimal('0')
     expenses = Expense.objects.filter(expense_date__range=(start, end)).aggregate(t=Sum('amount'))['t'] or Decimal('0')
     outstanding = sum((p.balance for p in payments if p.balance > 0), Decimal('0'))

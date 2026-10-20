@@ -6,7 +6,7 @@
 <div class="flex gap-1 mb-4">
     {% for s in statuses %}<a href="?status={{ s }}" class="px-3 py-1.5 rounded-lg text-sm font-semibold no-underline {% if s == status %}bg-green-600 text-white{% else %}bg-white border border-gray-200 text-gray-600{% endif %}">{{ s|capfirst }}</a>{% endfor %}
 </div>
-<div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-x-auto">
+<div class="card overflow-x-auto">
     <table class="w-full text-sm">
         <thead><tr class="text-xs uppercase tracking-wider text-gray-500 border-b border-gray-100">
             <th class="px-4 py-3 text-start">{% translate "When" %}</th><th class="px-4 py-3 text-start">{% translate "Event" %}</th>
@@ -22,7 +22,7 @@
                 <td class="px-4 py-3">{{ d.status }}</td>
                 <td class="px-4 py-3">{{ d.attempts }}{% if d.next_attempt_at %} <span class="text-xs text-gray-400">→ {{ d.next_attempt_at|date:"SHORT_DATETIME_FORMAT" }}</span>{% endif %}</td>
                 <td class="px-4 py-3 text-gray-500 max-w-xs truncate" title="{{ d.last_error }}">{{ d.last_error }}</td>
-                <td class="px-4 py-3 text-end">{% if d.status == 'failed' %}<form method="post" action="{% url 'notification_retry' d.pk %}">{% csrf_token %}<button class="text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50">{% translate "Retry now" %}</button></form>{% endif %}</td>
+                <td class="px-4 py-3 text-end">{% if d.status == 'failed' %}<form method="post" action="{% url 'notification_retry' d.pk %}">{% csrf_token %}<button class="btn btn-outline btn-sm">{% translate "Retry now" %}</button></form>{% endif %}</td>
             </tr>
             {% empty %}
             <tr><td colspan="7" class="px-4 py-12 text-center text-gray-500">{% translate "No deliveries with this status." %}</td></tr>

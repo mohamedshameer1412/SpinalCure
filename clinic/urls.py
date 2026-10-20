@@ -9,6 +9,9 @@ from .admin_views import (clinic_setup_view, practitioners_list,
                           practitioner_create, practitioner_edit, practitioner_delete,
                           testimonials_list, testimonial_create, testimonial_edit,
                           testimonial_delete, testimonial_toggle_publish, activity_log_view, revert_audit_log_view)
+from .testimonial_views import (testimonials_page, admin_videos, admin_video_toggle, admin_video_delete,
+                                admin_problems, admin_problem_delete)
+from .translation_views import translations_page, translation_action
 from .blog_views import blog_list_view, blog_detail_view
 from .blog_admin_views import (admin_blog_list, admin_blog_create, admin_blog_edit,
                                 admin_blog_delete, admin_tag_list)
@@ -19,6 +22,7 @@ urlpatterns = [
 
     # ── Public Views ──────────────────────────────────────────────────
     path('portfolio/', clinic_portfolio_view, name='clinic_portfolio'),
+    path('testimonials/', testimonials_page, name='public_testimonials'),
     path('about/', clinic_about_page_view, name='clinic_about_page'),
     path('practitioners/<b64uuid:pk>/', practitioner_detail_view, name='practitioner_detail'),
     path('ajax/submit-review/', submit_review_ajax, name='submit_review_ajax'),
@@ -61,6 +65,15 @@ urlpatterns = [
     path('admin/testimonials/<uuid:pk>/edit/', testimonial_edit, name='admin_testimonial_edit'),
     path('admin/testimonials/<uuid:pk>/delete/', testimonial_delete, name='admin_testimonial_delete'),
     path('admin/testimonials/<uuid:pk>/toggle/', testimonial_toggle_publish, name='admin_testimonial_toggle'),
+
+    path('admin/videos/', admin_videos, name='admin_videos'),
+    path('admin/videos/<uuid:pk>/toggle/', admin_video_toggle, name='admin_video_toggle'),
+    path('admin/videos/<uuid:pk>/delete/', admin_video_delete, name='admin_video_delete'),
+    path('admin/problems/', admin_problems, name='admin_problems'),
+    path('admin/problems/<uuid:pk>/delete/', admin_problem_delete, name='admin_problem_delete'),
+
+    path('admin/translations/', translations_page, name='admin_translations'),
+    path('admin/translations/action/', translation_action, name='admin_translation_action'),
 
     # ── Admin Activity Log ──────────────────────────────────────────
     path('admin/activity-log/', activity_log_view, name='admin_activity_log'),

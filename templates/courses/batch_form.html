@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load content_i18n %}
 {% load b64uuid_tags %}
 
 {% block title %}{% blocktranslate trimmed with title=title %}{{ title }} - SpinalCure{% endblocktranslate %}{% endblock %}
@@ -117,31 +118,31 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Batch Identity -->
                 <div class="md:col-span-2 space-y-2">
-                    <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Batch Name / Intake Period *" %}</label>
+                    <label class="label block ms-1">{% trans "Batch Name / Intake Period *" %}</label>
                     {{ form.name }}
                     <p class="text-[10px] text-slate-400 italic ms-1">{% trans "e.g. \"Spring Intake 2025\" or \"Advanced Certification — Batch 3\"" %}</p>
                 </div>
 
                 <!-- Timeline -->
                 <div class="space-y-2">
-                    <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Starting On *" %}</label>
+                    <label class="label block ms-1">{% trans "Starting On *" %}</label>
                     {{ form.start_date }}
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Ending On (Optional)" %}</label>
+                    <label class="label block ms-1">{% trans "Ending On (Optional)" %}</label>
                     {{ form.end_date }}
                 </div>
 
                 <!-- Logistics -->
                 <div class="space-y-2">
-                    <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Max Capacity (Seats)" %}</label>
+                    <label class="label block ms-1">{% trans "Max Capacity (Seats)" %}</label>
                     {{ form.max_participants }}
                     <p class="text-[10px] text-slate-400 italic ms-1">{% trans "Leave blank for unlimited enrollment." %}</p>
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-[11px] font-black text-slate-500 uppercase tracking-widest ms-1">{% trans "Brief Schedule Info" %}</label>
+                    <label class="label block ms-1">{% trans "Brief Schedule Info" %}</label>
                     <div class="textarea-icon-wrapper">
                         <i class="bi bi-clock text-slate-400"></i>
                         {{ form.schedule_details }}
@@ -211,5 +212,7 @@
         });
     });
 </script>
+
+<div class="mt-8 max-w-4xl">{% translation_panel batch %}</div>
 {% endblock %}
 {% endblock %}

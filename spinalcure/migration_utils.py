@@ -23,4 +23,4 @@ def mysql_ddl_or_schema_editor(app_label, model_name, create_sql, drop_sql):
         else:
             schema_editor.delete_model(apps.get_model(app_label, model_name))
 
-    return migrations.RunPython(forwards, backwards)
+    return migrations.RunPython(forwards, backwards, atomic=False)

@@ -5,7 +5,7 @@
 
 {% block header_actions %}
 <a href="{% url 'admin_blog_list' %}"
-    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors">
+    class="btn btn-outline inline-flex items-center gap-2">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
     {% trans "Back to Posts" %}
 </a>
@@ -15,7 +15,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
     <!-- Add Tag form -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <div class="card p-6">
         <h2 class="text-base font-bold text-gray-800 mb-4 flex items-center gap-2">
             <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/>
@@ -27,9 +27,9 @@
             <input type="hidden" name="action" value="add">
             <div class="flex gap-3">
                 <input type="text" name="name" required placeholder="{% trans 'e.g. Acupuncture, Back Pain, Nutrition' %}"
-                    class="flex-1 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all">
+                    class="flex-1">
                 <button type="submit"
-                    class="px-5 py-2.5 bg-primary-600 text-white text-sm font-semibold rounded-lg hover:bg-primary-700 transition-colors shadow-sm">
+                    class="btn btn-primary">
                     {% trans "Add" %}
                 </button>
             </div>
@@ -37,7 +37,7 @@
     </div>
 
     <!-- All Tags list -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <div class="card p-6">
         <h2 class="text-base font-bold text-gray-800 mb-4 flex items-center gap-2">
             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>

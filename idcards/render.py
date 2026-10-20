@@ -19,11 +19,12 @@ from django.utils.formats import date_format
 from django.utils.translation import gettext as _
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
-BASE_W, BASE_H = 900, 560
+BASE_W, BASE_H = 560, 900          # vertical card
 FONT_DIR = Path(settings.BASE_DIR) / 'static' / 'fonts'
 RAQM = ImageFont.Layout.RAQM
 
-SCRIPT_FONT = {'latin': 'NotoSans', 'tamil': 'NotoSansTamil', 'deva': 'NotoSansDevanagari', 'arabic': 'NotoSansArabic'}
+SCRIPT_FONT = {'latin': 'NotoSans', 'tamil': 'NotoSansTamil', 'deva': 'NotoSansDevanagari', 'arabic': 'NotoSansArabic',
+               'telugu': 'NotoSansTelugu', 'kannada': 'NotoSansKannada', 'malayalam': 'NotoSansMalayalam'}
 
 
 def _script(ch):
@@ -32,6 +33,12 @@ def _script(ch):
         return 'tamil'
     if 0x0900 <= cp <= 0x097F:
         return 'deva'
+    if 0x0C00 <= cp <= 0x0C7F:
+        return 'telugu'
+    if 0x0C80 <= cp <= 0x0CFF:
+        return 'kannada'
+    if 0x0D00 <= cp <= 0x0D7F:
+        return 'malayalam'
     if 0x0600 <= cp <= 0x06FF or 0x0750 <= cp <= 0x077F or 0xFB50 <= cp <= 0xFDFF or 0xFE70 <= cp <= 0xFEFF:
         return 'arabic'
     return 'latin'
@@ -69,8 +76,18 @@ def _font_has(script, ch):
     return ord(ch) in _cmap(script)
 
 
+from PIL import features as _pil_features
+
+_RAQM = _pil_features.check('raqm')
+
+
+def _dir(script):
+    """Text-direction kwargs; Pillow only accepts them when built with libraqm (else basic layout, no shaping)."""
+    return {'direction': 'rtl' if script == 'arabic' else 'ltr'} if _RAQM else {}
+
+
 def text_width(text, px, bold=False):
-    return sum(_font(sc, bold, px).getlength(run, direction='rtl' if sc == 'arabic' else 'ltr') for sc, run in _runs(text))
+    return sum(_font(sc, bold, px).getlength(run, **_dir(sc)) for sc, run in _runs(text))
 
 
 def fit(text, px, max_w, bold=False):
@@ -96,9 +113,8 @@ def draw_text(draw, x, y, text, px, fill, bold=False, align='left', max_w=None, 
     baseline = y + _font('latin', bold, px).getmetrics()[0]        # one baseline for every font in the line
     for sc, run in runs:
         font = _font(sc, bold, px)
-        direction = 'rtl' if sc == 'arabic' else 'ltr'
-        draw.text((cx, baseline), run, font=font, fill=fill, direction=direction, anchor='ls')
-        cx += font.getlength(run, direction=direction)
+        draw.text((cx, baseline), run, font=font, fill=fill, anchor='ls', **_dir(sc))
+        cx += font.getlength(run, **_dir(sc))
     return width
 
 
@@ -205,17 +221,22 @@ def card_data(card, lang, public=False):
             'card_id': card.display_id,
             'emergency': (h.emergency_contact_name, h.emergency_contact_phone) if card.show_emergency_contact and h.emergency_contact_name else None,
             'blood': h.blood_group if card.show_blood_group else '', 'skills': h.skills if card.show_skills else '',
+            'gender': str(dict(h.GENDER_CHOICES).get(h.gender, '')),
+            'dob': fmt(h.date_of_birth), 'home_address': h.address,
+            'quote': [_('Without Surgery,'), _('Without Medicine'), _('and Without Diet')],
             'labels': {
                 'employee_id': _('Owner ID') if card.card_type == 'owner' else _('Staff ID'),
                 'department': _('Department'), 'phone': _('Phone'), 'email': _('Email'), 'joined': _('Joined'),
                 'issued': _('Issued'), 'valid_until': _('Valid until'), 'scan': _('Scan to verify'),
                 'about': _('About the organisation'), 'emergency': _('Emergency contact'), 'blood': _('Blood group'),
                 'skills': _('Skills'), 'card_id': _('Card ID'), 'tel': _('Tel'),
+                'gender': _('Gender'), 'dob': _('Date of birth'), 'home': _('Address'), 'clinic': _('Clinic'),
+                'site': _('Our website'),
             },
             'footer': brand.legal_footer,
         }
     if public:   # share image / link previews: identity + authenticity only, never contact or personal details
-        data.update(phone='', email='', emergency=None, blood='', skills='')
+        data.update(phone='', email='', emergency=None, blood='', skills='', gender='', dob='', home_address='')
     return data
 
 
@@ -226,124 +247,147 @@ def render_face(card, side, verify_url, org_url, scale=1, lang='en', public=Fals
         return _front(d, verify_url, scale) if side == 'front' else _back(d, verify_url, org_url, scale)
 
 
-def _front(d, verify_url, s):
-    W, H = BASE_W * s, BASE_H * s
-    primary, accent = hex_rgb(d['brand'].primary_color), hex_rgb(d['brand'].accent_color, (22, 163, 74))
-    img = Image.new('RGB', (W, H), (255, 255, 255))
-    dr = ImageDraw.Draw(img)
-    rtl = d['rtl']
-    X = (lambda x: W - x * s) if rtl else (lambda x: x * s)        # mirrors anchors for RTL
+def yin_yang(size, dark, light=(255, 255, 255)):
+    """Yin-yang emblem as an RGBA image of `size` px (drawn at 4x and downsampled for smooth edges)."""
+    S = size * 4
+    im = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    r, c = S // 2, S // 2
+    d.ellipse((0, 0, S - 1, S - 1), fill=light + (255,))
+    d.pieslice((0, 0, S - 1, S - 1), 270, 90, fill=dark + (255,))                 # right half dark
+    d.ellipse((c - r // 2, 0, c + r // 2, r), fill=light + (255,))                # top bulb light
+    d.ellipse((c - r // 2, r, c + r // 2, S - 1), fill=dark + (255,))             # bottom bulb dark
+    dot = r // 6
+    d.ellipse((c - dot, r // 2 - dot, c + dot, r // 2 + dot), fill=dark + (255,))
+    d.ellipse((c - dot, 3 * r // 2 - dot, c + dot, 3 * r // 2 + dot), fill=light + (255,))
+    d.ellipse((0, 0, S - 1, S - 1), outline=dark + (255,), width=max(2, S // 40))
+    return im.resize((size, size), Image.LANCZOS)
+
+
+def _field(dr, x, y, label, value, s, grey, dark, rtl, w):
+    """Small grey label above a bold value (one detail cell)."""
+    if not value:
+        return
     align = 'right' if rtl else 'left'
-    dr.rectangle((0, 0, W, 110 * s), fill=primary)
-    # logo / initial
-    lx = (W - (36 + 64) * s) if rtl else 36 * s
-    if d['logo']:
-        _rounded_paste(img, Image.open(d['logo']), (lx, 23 * s, lx + 64 * s, 87 * s), 12 * s)
-    else:
-        dr.ellipse((lx, 23 * s, lx + 64 * s, 87 * s), fill=(255, 255, 255))
-        draw_text(dr, lx + 32 * s, 32 * s, (d['org'] or 'S')[:1], 40 * s, primary, True, 'center')
-    tx = X(120)
-    draw_text(dr, tx, 24 * s, d['org'], 32 * s, (255, 255, 255), True, align, max_w=520 * s, rtl=rtl)
-    if d['tagline']:
-        draw_text(dr, tx, 66 * s, d['tagline'], 20 * s, (220, 235, 225), False, align, max_w=520 * s, rtl=rtl)
-    # type pill
-    pill_w = int(text_width(d['card_type'].upper() if d['lang'] != 'ar' else d['card_type'], 22 * s, True)) + 36 * s
-    px0 = 36 * s if rtl else W - 36 * s - pill_w
-    dr.rounded_rectangle((px0, 36 * s, px0 + pill_w, 74 * s), 19 * s, fill=accent)
-    draw_text(dr, px0 + pill_w / 2, 42 * s, d['card_type'].upper() if d['lang'] != 'ar' else d['card_type'],
-              22 * s, (255, 255, 255), True, 'center')
-    # photo
-    ph = (W - 36 * s - 200 * s, 140 * s, W - 36 * s, 390 * s) if rtl else (36 * s, 140 * s, 236 * s, 390 * s)
-    if d['photo']:
-        _rounded_paste(img, Image.open(d['photo']), ph, 18 * s)
-    else:
-        dr.rounded_rectangle(ph, 18 * s, fill=(236, 253, 245))
-        draw_text(dr, (ph[0] + ph[2]) / 2, ph[1] + 70 * s, (d['name'] or '?')[:1].upper(), 110 * s, primary, True, 'center')
-    # identity
-    text_max = (W - 36 * s) - 270 * s if not rtl else (W - 270 * s) - 36 * s
-    draw_text(dr, X(268), 150 * s, d['name'], 40 * s, (17, 24, 39), True, align, max_w=text_max, rtl=rtl)
-    badge = f"{d['employee_id']}"
-    bw = int(text_width(badge, 24 * s, True)) + 32 * s
-    bx = W - 268 * s - bw if rtl else 268 * s
-    dr.rounded_rectangle((bx, 212 * s, bx + bw, 250 * s), 10 * s, fill=(240, 253, 244), outline=accent, width=2 * s)
-    draw_text(dr, bx + bw / 2, 216 * s, badge, 24 * s, primary, True, 'center')
-    draw_text(dr, X(268), 268 * s, d['designation'], 28 * s, (31, 41, 55), True, align, max_w=text_max, rtl=rtl)
-    y = 306 * s
-    grey, dark = (107, 114, 128), (31, 41, 55)
-    for key in ('department', 'phone', 'email'):
-        if d[key]:
-            draw_pair(dr, X(268), y, d['labels'][key], d[key], 22 * s, grey, dark, rtl, max_w=400 * s)
-            y += 34 * s
-    # QR (kept clear of the footer rule so it scans cleanly)
-    q = 156 * s
-    qx = 36 * s if rtl else W - 36 * s - q
-    img.paste(qr_image(verify_url, q), (qx, 296 * s))
-    draw_text(dr, qx + q / 2, 296 * s + q + 4 * s, d['labels']['scan'], 18 * s, (75, 85, 99), False, 'center')
-    # footer
-    dr.line((36 * s, 492 * s, W - 36 * s, 492 * s), fill=(229, 231, 235), width=s)
-    sc = STATUS_COLORS.get(d['status'], (107, 114, 128))
-    sw = int(text_width(d['status_label'], 20 * s, True)) + 28 * s
-    sx = W - 36 * s - sw if rtl else 36 * s
-    dr.rounded_rectangle((sx, 506 * s, sx + sw, 540 * s), 17 * s, fill=sc)
-    draw_text(dr, sx + sw / 2, 510 * s, d['status_label'], 20 * s, (255, 255, 255), True, 'center')
-    mx = sx - 20 * s if rtl else sx + sw + 20 * s
-    draw_pair(dr, mx, 511 * s, d['labels']['joined'], d['joined'], 20 * s, grey, (75, 85, 99), rtl, max_w=300 * s)
-    if d['expires']:
-        mx2 = (mx - 330 * s) if rtl else (mx + 330 * s)
-        draw_pair(dr, mx2, 511 * s, d['labels']['valid_until'], d['expires'], 20 * s, grey, (75, 85, 99), rtl,
-                  max_w=260 * s)
-    return img
+    draw_text(dr, x, y, label, 14 * s, grey, False, align, max_w=w, rtl=rtl)
+    draw_text(dr, x, y + 19 * s, value, 19 * s, dark, True, align, max_w=w, rtl=rtl)
 
 
-def _back(d, verify_url, org_url, s):
+def _front(d, verify_url, s):
+    """Identity side: photo, name, role, gender, date of birth, blood group, phone, home address, verify QR."""
     W, H = BASE_W * s, BASE_H * s
     primary, accent = hex_rgb(d['brand'].primary_color), hex_rgb(d['brand'].accent_color, (22, 163, 74))
+    grey, dark = (107, 114, 128), (31, 41, 55)
     img = Image.new('RGB', (W, H), (255, 255, 255))
     dr = ImageDraw.Draw(img)
     rtl = d['rtl']
     X = (lambda x: W - x * s) if rtl else (lambda x: x * s)
     align = 'right' if rtl else 'left'
-    dr.rectangle((0, 0, W, 56 * s), fill=primary)
-    draw_text(dr, X(36), 10 * s, d['org'], 28 * s, (255, 255, 255), True, align, max_w=820 * s, rtl=rtl)
+    dr.rectangle((0, 0, W, 128 * s), fill=primary)
+    lx = (W - (36 + 72) * s) if rtl else 36 * s
+    if d['logo']:
+        _rounded_paste(img, Image.open(d['logo']), (lx, 28 * s, lx + 72 * s, 100 * s), 14 * s)
+    else:
+        dr.ellipse((lx, 28 * s, lx + 72 * s, 100 * s), fill=(255, 255, 255))
+        draw_text(dr, lx + 36 * s, 38 * s, (d['org'] or 'S')[:1], 44 * s, primary, True, 'center')
+    draw_text(dr, X(124), 34 * s, d['org'], 30 * s, (255, 255, 255), True, align, max_w=400 * s, rtl=rtl)
+    if d['tagline']:
+        draw_text(dr, X(124), 76 * s, d['tagline'], 16 * s, (220, 235, 225), False, align, max_w=400 * s, rtl=rtl)
+    # photo with accent ring
+    pw, ph, px, py = 220 * s, 260 * s, (W - 220 * s) // 2, 150 * s
+    dr.rounded_rectangle((px - 7 * s, py - 7 * s, px + pw + 7 * s, py + ph + 7 * s), 26 * s, outline=accent, width=4 * s)
+    if d['photo']:
+        _rounded_paste(img, Image.open(d['photo']), (px, py, px + pw, py + ph), 20 * s)
+    else:
+        dr.rounded_rectangle((px, py, px + pw, py + ph), 20 * s, fill=(236, 253, 245))
+        draw_text(dr, W / 2, py + 70 * s, (d['name'] or '?')[:1].upper(), 120 * s, primary, True, 'center')
+    # identity
+    draw_text(dr, W / 2, 428 * s, d['name'], 34 * s, (17, 24, 39), True, 'center', max_w=488 * s)
+    draw_text(dr, W / 2, 472 * s, d['designation'], 21 * s, dark, False, 'center', max_w=488 * s)
+    badge, ptxt = d['employee_id'], (d['card_type'].upper() if d['lang'] != 'ar' else d['card_type'])
+    bw, pw2 = int(text_width(badge, 20 * s, True)) + 28 * s, int(text_width(ptxt, 17 * s, True)) + 28 * s
+    gap = 12 * s
+    bx = (W - (bw + gap + pw2)) // 2
+    dr.rounded_rectangle((bx, 508 * s, bx + bw, 544 * s), 10 * s, fill=(240, 253, 244), outline=accent, width=2 * s)
+    draw_text(dr, bx + bw / 2, 514 * s, badge, 20 * s, primary, True, 'center')
+    dr.rounded_rectangle((bx + bw + gap, 508 * s, bx + bw + gap + pw2, 544 * s), 18 * s, fill=accent)
+    draw_text(dr, bx + bw + gap + pw2 / 2, 516 * s, ptxt, 17 * s, (255, 255, 255), True, 'center')
+    # details (two columns + QR)
+    L = d['labels']
+    c1, c2 = X(36), X(188)
+    _field(dr, c1, 574 * s, L['gender'], d['gender'], s, grey, dark, rtl, 140 * s)
+    _field(dr, c2, 574 * s, L['dob'], d['dob'], s, grey, dark, rtl, 200 * s)
+    _field(dr, c1, 634 * s, L['blood'], d['blood'], s, grey, dark, rtl, 140 * s)
+    _field(dr, c2, 634 * s, L['phone'], d['phone'], s, grey, dark, rtl, 200 * s)
+    q = 112 * s
+    qx = 36 * s if rtl else W - 36 * s - q
+    img.paste(qr_image(verify_url, q), (qx, 570 * s))
+    draw_text(dr, qx + q / 2, 570 * s + q + 2 * s, L['scan'], 14 * s, (75, 85, 99), False, 'center', max_w=q + 30 * s)
+    if d['home_address']:
+        draw_text(dr, X(36), 716 * s, L['home'], 14 * s, grey, False, align, rtl=rtl)
+        for i, line in enumerate(wrap(d['home_address'].replace('\n', ' '), 19 * s, 488 * s, 2, True)):
+            draw_text(dr, X(36), (736 + i * 24) * s, line, 19 * s, dark, True, align, rtl=rtl)
+    # footer
+    dr.line((36 * s, 808 * s, W - 36 * s, 808 * s), fill=(229, 231, 235), width=s)
+    sc = STATUS_COLORS.get(d['status'], (107, 114, 128))
+    sw = int(text_width(d['status_label'], 17 * s, True)) + 26 * s
+    sx = W - 36 * s - sw if rtl else 36 * s
+    dr.rounded_rectangle((sx, 824 * s, sx + sw, 854 * s), 15 * s, fill=sc)
+    draw_text(dr, sx + sw / 2, 828 * s, d['status_label'], 17 * s, (255, 255, 255), True, 'center')
+    mx = sx - 16 * s if rtl else sx + sw + 16 * s
+    draw_pair(dr, mx, 829 * s, L['joined'], d['joined'], 16 * s, grey, (75, 85, 99), rtl, max_w=190 * s)
+    return img
+
+
+def _back(d, verify_url, org_url, s):
+    """Clinic side: yin-yang, the clinic's promise, clinic address/contact/website, QR, card id and validity."""
+    W, H = BASE_W * s, BASE_H * s
+    primary, accent = hex_rgb(d['brand'].primary_color), hex_rgb(d['brand'].accent_color, (22, 163, 74))
     grey, dark = (107, 114, 128), (31, 41, 55)
-    y = 74 * s
-    draw_text(dr, X(36), y, d['labels']['about'], 17 * s, accent, True, align, rtl=rtl)
-    y += 26 * s
-    for line in wrap(d['address'], 20 * s, 520 * s, 3):
-        draw_text(dr, X(36), y, line, 20 * s, dark, False, align, rtl=rtl)
-        y += 26 * s
+    img = Image.new('RGB', (W, H), (255, 255, 255))
+    dr = ImageDraw.Draw(img)
+    rtl = d['rtl']
+    X = (lambda x: W - x * s) if rtl else (lambda x: x * s)
+    align = 'right' if rtl else 'left'
+    L = d['labels']
+    dr.rectangle((0, 0, W, 110 * s), fill=primary)
+    draw_text(dr, W / 2, 28 * s, d['org'], 30 * s, (255, 255, 255), True, 'center', max_w=488 * s)
+    if d['tagline']:
+        draw_text(dr, W / 2, 70 * s, d['tagline'], 16 * s, (220, 235, 225), False, 'center', max_w=488 * s)
+    # yin-yang on a soft disc
+    cx, cy, R = W // 2, 218 * s, 104 * s
+    dr.ellipse((cx - R, cy - R, cx + R, cy + R), fill=(236, 253, 245))
+    ys = 168 * s
+    emblem = yin_yang(ys, primary)
+    img.paste(emblem, (cx - ys // 2, cy - ys // 2), emblem)
+    # the clinic's promise
+    for i, line in enumerate(d['quote']):
+        draw_text(dr, W / 2, (350 + i * 38) * s, line, 27 * s, primary, True, 'center', max_w=488 * s)
+    dr.rounded_rectangle((W // 2 - 30 * s, 470 * s, W // 2 + 30 * s, 474 * s), 2 * s, fill=accent)
+    # clinic contact + website QR
+    y = 492 * s
+    draw_text(dr, X(36), y, L['clinic'], 14 * s, accent, True, align, rtl=rtl)
+    y += 24 * s
+    for line in wrap(d['address'], 16 * s, 350 * s, 4):
+        draw_text(dr, X(36), y, line, 16 * s, dark, False, align, rtl=rtl)
+        y += 22 * s
     for val in (d['org_phone'], d['org_email'], d['website']):
         if val:
-            draw_text(dr, X(36), y, val, 20 * s, dark, False, align, max_w=520 * s, rtl=rtl)
-            y += 26 * s
-    y += 8 * s
-    if d['emergency']:
-        draw_text(dr, X(36), y, d['labels']['emergency'], 17 * s, accent, True, align, rtl=rtl)
-        y += 24 * s
-        name, phone = d['emergency']
-        draw_pair(dr, X(36), y, '', name, 20 * s, grey, dark, rtl, max_w=300 * s)
-        if phone:
-            draw_text(dr, X(36 + 320), y, phone, 20 * s, dark, False, align, max_w=230 * s)
-        y += 30 * s
-    for key in ('blood', 'skills'):
-        if d[key]:
-            draw_pair(dr, X(36), y, d['labels'][key], d[key], 20 * s, grey, dark, rtl, max_w=520 * s)
-            y += 26 * s
-    # issue info (anchored low so it never collides with the flowing content above)
-    draw_pair(dr, X(36), 396 * s, d['labels']['card_id'], d['card_id'], 21 * s, grey, dark, rtl, bold_value=True)
-    draw_pair(dr, X(36), 428 * s, d['labels']['issued'], d['issued'], 19 * s, grey, (75, 85, 99), rtl, max_w=280 * s)
-    if d['expires']:
-        draw_pair(dr, X(36 + 300), 428 * s, d['labels']['valid_until'], d['expires'], 19 * s, grey, (75, 85, 99), rtl,
-                  max_w=260 * s)
-    # org QR
-    q = 150 * s
+            draw_text(dr, X(36), y, val, 16 * s, dark, False, align, max_w=350 * s, rtl=rtl)
+            y += 22 * s
+    q = 112 * s
     qx = 36 * s if rtl else W - 36 * s - q
-    img.paste(qr_image(org_url or verify_url, q), (qx, 100 * s))
-    draw_text(dr, qx + q / 2, 100 * s + q + 4 * s, d['labels']['about'], 16 * s, (75, 85, 99), False, 'center', max_w=q + 40 * s)
+    img.paste(qr_image(org_url or verify_url, q), (qx, 492 * s))
+    draw_text(dr, qx + q / 2, 492 * s + q + 2 * s, L['site'], 14 * s, (75, 85, 99), False, 'center', max_w=q + 30 * s)
+    # card id and validity
+    draw_pair(dr, X(36), 706 * s, L['card_id'], d['card_id'], 20 * s, grey, dark, rtl, bold_value=True)
+    draw_pair(dr, X(36), 738 * s, L['issued'], d['issued'], 17 * s, grey, (75, 85, 99), rtl, max_w=240 * s)
+    if d['expires']:
+        draw_pair(dr, X(36 + 250), 738 * s, L['valid_until'], d['expires'], 17 * s, grey, (75, 85, 99), rtl, max_w=240 * s)
     # legal footer
-    dr.line((36 * s, 466 * s, W - 36 * s, 466 * s), fill=(229, 231, 235), width=s)
-    for i, line in enumerate(wrap(d['footer'], 17 * s, W - 72 * s, 3)):
-        draw_text(dr, X(36), 478 * s + i * 24 * s, line, 17 * s, (107, 114, 128), False, align, rtl=rtl)
+    dr.line((36 * s, 786 * s, W - 36 * s, 786 * s), fill=(229, 231, 235), width=s)
+    for i, line in enumerate(wrap(d['footer'], 15 * s, W - 72 * s, 4)):
+        draw_text(dr, X(36), (798 + i * 21) * s, line, 15 * s, (107, 114, 128), False, align, rtl=rtl)
     return img
 
 
@@ -354,10 +398,10 @@ def to_png_bytes(img):
 
 
 def to_pdf_bytes(front, back):
-    """Two landscape pages (front, back), each page exactly the card face."""
+    """Two portrait pages (front, back), each page exactly the card face."""
     from reportlab.lib.utils import ImageReader
     from reportlab.pdfgen import canvas
-    pw, ph = BASE_W * 0.75, BASE_H * 0.75
+    pw, ph = BASE_W * 0.75, BASE_H * 0.75     # portrait pages
     out = io.BytesIO()
     c = canvas.Canvas(out, pagesize=(pw, ph))
     c.setTitle('ID card')

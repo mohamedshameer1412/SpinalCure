@@ -6,7 +6,7 @@
 
 {% block header_actions %}
 <a href="{% url 'patient-create' %}"
-    class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none no-underline">
+    class="btn btn-primary no-underline">
     {% trans "Add New Patient" %}
 </a>
 {% endblock %}
@@ -27,7 +27,7 @@
                 hx-trigger="keyup changed delay:500ms"
                 hx-target="#patient-table-container"
                 hx-swap="outerHTML"
-                class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-white focus:ring-primary-500 focus:border-primary-500"
+                class="block ps-10 w-80"
                 placeholder="{% trans 'Search for patients...' %}">
             <!-- HTMX Indicator -->
             <div class="htmx-indicator absolute inset-y-0 end-0 flex items-center pe-3">

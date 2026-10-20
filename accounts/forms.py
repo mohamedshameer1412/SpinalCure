@@ -14,10 +14,17 @@ class UserAdminForm(forms.ModelForm):
     department = forms.CharField(required=False, max_length=120)
     joined_on = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
     employment_status = forms.ChoiceField(required=False, choices=StaffProfile.STATUS_CHOICES)
+    # personal details printed on the ID card
+    gender = forms.ChoiceField(required=False, choices=[('', '---------')] + StaffProfile.GENDER_CHOICES)
+    date_of_birth = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+    blood_group = forms.ChoiceField(required=False, choices=[('', '---------')] + StaffProfile.BLOOD_CHOICES)
+    address = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows': 3}))
+    emergency_contact_name = forms.CharField(required=False, max_length=120)
+    emergency_contact_phone = forms.CharField(required=False, max_length=20)
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'first_name', 'last_name', 'email', 'phone', 'role', 'language']
+        fields = ['username', 'first_name', 'last_name', 'email', 'phone', 'photo', 'role', 'language']
 
     def __init__(self, *args, actor=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -25,16 +32,15 @@ class UserAdminForm(forms.ModelForm):
         self.fields['email'].required = True
         if self.instance.pk:
             self.fields['username'].disabled = True  # not editable after creation
-        css = ('w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm '
-               'focus:ring-2 focus:ring-green-500')
         for field in self.fields.values():
-            field.widget.attrs.setdefault('class', css)
+            field.widget.attrs.setdefault('class', 'w-full')  # the kit styles native fields
         if not (actor and actor.is_superuser):
             # Only a super admin can mint another super admin.
             self.fields['role'].choices = [c for c in CustomUser.ROLE_CHOICES if c[0] != 'superadmin']
         profile = getattr(self.instance, 'staff_profile', None) if self.instance.pk else None
         if profile:
-            for f in ('designation', 'department', 'joined_on', 'employment_status'):
+            for f in ('designation', 'department', 'joined_on', 'employment_status', 'gender', 'date_of_birth', 'blood_group',
+                      'address', 'emergency_contact_name', 'emergency_contact_phone'):
                 self.fields[f].initial = getattr(profile, f)
 
     def clean_email(self):
@@ -80,5 +86,7 @@ class UserAdminForm(forms.ModelForm):
                 profile.joined_on = data.get('joined_on') or profile.joined_on or timezone.localdate()
                 if data.get('employment_status'):
                     profile.employment_status = data['employment_status']
+                for f in ('gender', 'date_of_birth', 'blood_group', 'address', 'emergency_contact_name', 'emergency_contact_phone'):
+                    setattr(profile, f, data.get(f) or ('' if f != 'date_of_birth' else None))
                 profile.save()
         return user

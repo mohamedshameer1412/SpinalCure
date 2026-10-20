@@ -1,0 +1,55 @@
+{% load i18n %}
+<header class="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-gray-200 bg-surface/85 px-4 backdrop-blur lg:px-6">
+    <button @click="sidebarOpen = !sidebarOpen" type="button" class="btn btn-ghost btn-icon" aria-label="{% translate 'Toggle sidebar' %}" :aria-expanded="sidebarOpen">
+        <i class="bi bi-layout-sidebar text-lg" aria-hidden="true"></i>
+    </button>
+
+    {% if request.user|can:'patients.view' %}{% include "ui/command_search.html" %}{% else %}<div class="flex-1"></div>{% endif %}
+    <div class="flex-1 sm:hidden"></div>
+
+    <div class="flex items-center gap-1.5">
+        <!-- theme -->
+        <div class="relative" x-data="{ open: false }" @keydown.escape.window="open = false">
+            <button @click="open = !open" @click.outside="open = false" type="button" class="btn btn-ghost btn-icon" aria-haspopup="menu" :aria-expanded="open" aria-label="{% translate 'Theme' %}">
+                <i class="bi text-lg" :class="$store.theme.isDark ? 'bi-moon-stars' : 'bi-sun'" aria-hidden="true"></i>
+            </button>
+            <div x-show="open" x-cloak class="menu absolute end-0 top-11 w-40" role="menu">
+                <button type="button" class="menu-item" :class="$store.theme.mode === 'light' && 'is-active'" @click="$store.theme.set('light'); open = false" role="menuitem"><i class="bi bi-sun"></i>{% translate "Light" %}</button>
+                <button type="button" class="menu-item" :class="$store.theme.mode === 'dark' && 'is-active'" @click="$store.theme.set('dark'); open = false" role="menuitem"><i class="bi bi-moon-stars"></i>{% translate "Dark" %}</button>
+                <button type="button" class="menu-item" :class="$store.theme.mode === 'system' && 'is-active'" @click="$store.theme.set('system'); open = false" role="menuitem"><i class="bi bi-display"></i>{% translate "System" %}</button>
+            </div>
+        </div>
+
+        <div class="hidden sm:block">{% include "components/lang_switch.html" %}</div>
+        {% include "notifications/_bell.html" %}
+
+        <!-- user -->
+        <div class="relative ms-1" x-data="{ open: false }" @keydown.escape.window="open = false">
+            <button @click="open = !open" @click.outside="open = false" type="button" class="flex items-center gap-2 rounded-lg p-1 pe-2 transition hover:bg-gray-100" aria-haspopup="menu" :aria-expanded="open">
+                <span class="avatar">{{ request.user.first_name|default:request.user.email|default:"U"|slice:":1"|upper }}</span>
+                <span class="hidden text-start md:block">
+                    <span class="block max-w-[10rem] truncate text-sm font-semibold leading-none text-gray-900">{% firstof request.user.get_full_name request.user.email request.user.username %}</span>
+                    <span class="mt-0.5 block text-xs text-gray-500">{{ request.user.get_role_display|default:"Administrator" }}</span>
+                </span>
+                <i class="bi bi-chevron-down hidden text-[10px] text-gray-400 md:block" aria-hidden="true"></i>
+            </button>
+            <div x-show="open" x-cloak class="menu absolute end-0 top-11 w-60" role="menu">
+                <div class="px-2.5 py-2">
+                    <p class="truncate text-sm font-semibold text-gray-900">{% firstof request.user.get_full_name request.user.username %}</p>
+                    <p class="truncate text-xs text-gray-500">{{ request.user.email }}</p>
+                </div>
+                <div class="menu-separator"></div>
+                <a href="{% url 'idcard_mine' %}" class="menu-item" role="menuitem"><i class="bi bi-person-vcard"></i>{% translate "My ID card" %}</a>
+                <a href="{% url 'notification_preferences' %}" class="menu-item" role="menuitem"><i class="bi bi-bell"></i>{% translate "Notification preferences" %}</a>
+                {% if request.user|can:'users.manage' %}
+                <a href="{% url 'admin_clinic_setup' %}" class="menu-item" role="menuitem"><i class="bi bi-gear"></i>{% translate "Clinic Settings" %}</a>
+                <a href="{% url 'admin_users' %}" class="menu-item" role="menuitem"><i class="bi bi-people"></i>{% translate "Staff Management" %}</a>
+                {% endif %}
+                <div class="menu-separator"></div>
+                <form method="POST" action="{% url 'logout' %}">{% csrf_token %}
+                    <button type="submit" class="menu-item is-danger" role="menuitem"><i class="bi bi-box-arrow-right"></i>{% translate "Sign out" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>

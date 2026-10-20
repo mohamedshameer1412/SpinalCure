@@ -1,7 +1,7 @@
 /* ID card behaviour: responsive scaling, flip, PNG/PDF export, sharing. Vanilla JS; libraries are vendored. */
 (function () {
   'use strict';
-  var FACE_W = 900, FACE_H = 560, EXPORT_SCALE = 3;
+  var FACE_W = 560, FACE_H = 900, EXPORT_SCALE = 3;
 
   function toast(msg) {
     var t = document.createElement('div');
@@ -73,9 +73,9 @@
     var front = root.querySelector('[data-idc-export="front"]'), back = root.querySelector('[data-idc-export="back"]');
     return renderFace(front).then(function (fc) {
       return renderFace(back).then(function (bc) {
-        var pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [FACE_W, FACE_H], compress: true, hotfixes: ['px_scaling'] });
+        var pdf = new jsPDF({ orientation: 'portrait', unit: 'px', format: [FACE_W, FACE_H], compress: true, hotfixes: ['px_scaling'] });
         pdf.addImage(fc.toDataURL('image/png'), 'PNG', 0, 0, FACE_W, FACE_H);
-        pdf.addPage([FACE_W, FACE_H], 'landscape');
+        pdf.addPage([FACE_W, FACE_H], 'portrait');
         pdf.addImage(bc.toDataURL('image/png'), 'PNG', 0, 0, FACE_W, FACE_H);
         releaseCanvas(fc); releaseCanvas(bc);
         var blob = pdf.output('blob'); download(blob, filename); return { pages: pdf.getNumberOfPages() };

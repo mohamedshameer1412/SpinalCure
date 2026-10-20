@@ -1,0 +1,114 @@
+{% load i18n %}{% get_current_language as LANGUAGE_CODE %}
+{# Public booking card. API: GET appointments/api/available-slots/?date&type, POST clinic/ajax/book-appointment/ (JSON). #}
+<div class="card p-6 shadow-pop sm:p-8" x-data="bookingForm()">
+    <div x-show="!booked">
+        <h2 class="text-xl font-bold text-gray-900">{% translate "Book an appointment" %}</h2>
+        <p class="mt-1 text-sm text-gray-500">{% translate "Choose a time that suits you. We will confirm by phone or email." %}</p>
+
+        <form @submit.prevent="submit()" class="mt-6 grid gap-5" novalidate>
+            <fieldset>
+                <legend class="label">{% translate "Consultation type" %}</legend>
+                <div class="grid grid-cols-2 gap-3">
+                    <label class="flex cursor-pointer items-center gap-3 rounded-xl border p-3 transition" :class="type === 'physical' ? 'border-primary-500 bg-primary-50 ring-2 ring-primary-500/20' : 'border-gray-200 hover:border-gray-300'">
+                        <input type="radio" name="type" value="physical" x-model="type" @change="fetchSlots()" class="sr-only">
+                        <i class="bi bi-hospital text-xl text-primary-600" aria-hidden="true"></i>
+                        <span class="text-sm font-semibold text-gray-900">{% translate "At the clinic" %}</span>
+                    </label>
+                    <label class="flex cursor-pointer items-center gap-3 rounded-xl border p-3 transition" :class="type === 'online' ? 'border-primary-500 bg-primary-50 ring-2 ring-primary-500/20' : 'border-gray-200 hover:border-gray-300'">
+                        <input type="radio" name="type" value="online" x-model="type" @change="fetchSlots()" class="sr-only">
+                        <i class="bi bi-camera-video text-xl text-primary-600" aria-hidden="true"></i>
+                        <span class="text-sm font-semibold text-gray-900">{% translate "Online" %}</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+                <div><label for="bk-name" class="label">{% translate "Full name" %}</label><input id="bk-name" x-ref="name" type="text" required autocomplete="name" maxlength="120"></div>
+                <div><label for="bk-phone" class="label">{% translate "Phone number" %}</label><input id="bk-phone" x-ref="phone" type="tel" required autocomplete="tel" inputmode="tel" maxlength="20" dir="ltr"></div>
+                <div class="sm:col-span-2"><label for="bk-email" class="label">{% translate "Email (for the confirmation)" %}</label><input id="bk-email" x-ref="email" type="email" autocomplete="email" maxlength="254" dir="ltr"></div>
+                <div class="sm:col-span-2"><label for="bk-date" class="label">{% translate "Date" %}</label><input id="bk-date" x-model="date" type="date" :min="minDate" required @change="fetchSlots()"></div>
+            </div>
+
+            <div>
+                <p class="label">{% translate "Time" %}</p>
+                <p x-show="!date" class="rounded-lg border border-dashed border-gray-300 px-4 py-3 text-sm text-gray-500">{% translate "Choose a date to see the free times." %}</p>
+                <div x-show="date && loadingSlots" class="grid grid-cols-3 gap-2 sm:grid-cols-4"><template x-for="i in 8"><div class="skeleton h-10"></div></template></div>
+                <div x-show="date && !loadingSlots && slots.length" class="grid grid-cols-3 gap-2 sm:grid-cols-4" role="radiogroup" aria-label="{% translate 'Time' %}">
+                    <template x-for="s in slots" :key="s.value">
+                        <button type="button" role="radio" :aria-checked="time === s.value" @click="time = s.value; error = ''"
+                            class="h-10 rounded-lg border text-sm font-semibold transition" dir="ltr"
+                            :class="time === s.value ? 'border-primary-600 bg-primary-600 text-white' : 'border-gray-200 bg-white text-gray-700 hover:border-primary-400'" x-text="s.label"></button>
+                    </template>
+                </div>
+            </div>
+
+            <div><label for="bk-notes" class="label">{% translate "What brings you in? (optional)" %}</label><textarea id="bk-notes" x-ref="notes" rows="3" maxlength="300"></textarea></div>
+            <div class="hidden" aria-hidden="true"><label>Website <input type="text" x-ref="website" tabindex="-1" autocomplete="off"></label></div>
+
+            <p x-show="error" x-cloak class="alert alert-danger" role="alert"><i class="bi bi-exclamation-circle" aria-hidden="true"></i><span x-text="error"></span></p>
+
+            <button type="submit" class="btn btn-primary btn-lg w-full" :disabled="sending">
+                <span x-show="!sending">{% translate "Confirm appointment" %}</span>
+                <span x-show="sending" class="inline-flex items-center gap-2"><span class="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>{% translate "Booking…" %}</span>
+            </button>
+            <p class="text-center text-xs text-gray-500">{% translate "Free first consultation. We never share your details." %}</p>
+        </form>
+    </div>
+
+    <div x-show="booked" x-cloak class="py-10 text-center" role="status">
+        <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-3xl text-green-600"><i class="bi bi-check-lg"></i></span>
+        <h2 class="mt-5 text-2xl font-bold text-gray-900">{% translate "You're booked" %}</h2>
+        <p class="mx-auto mt-2 max-w-sm text-gray-600" x-text="message"></p>
+        <a x-show="manageUrl" :href="manageUrl" class="btn btn-outline mt-6">{% translate "View or change my booking" %}</a>
+        <button type="button" class="btn btn-ghost mt-2" @click="reset()">{% translate "Book another appointment" %}</button>
+    </div>
+</div>
+
+<script>
+function bookingForm() {
+    const T = {
+        noSlots: '{{ _("No free times on this day. Please try another date.")|escapejs }}',
+        loadFailed: '{{ _("Could not load the free times. Please try again.")|escapejs }}',
+        chooseTime: '{{ _("Please choose a time.")|escapejs }}',
+        required: '{{ _("Please enter your name and phone number.")|escapejs }}',
+        failed: '{{ _("Booking failed. Please try again or call us.")|escapejs }}',
+    };
+    const newKey = () => (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random()).replace(/[^a-zA-Z0-9]/g, '');
+    return {
+        type: 'physical', date: '', time: '', slots: [], loadingSlots: false, error: '', sending: false,
+        booked: false, message: '', manageUrl: '', key: newKey(),
+        minDate: new Date().toISOString().split('T')[0],
+        async fetchSlots() {
+            this.time = ''; this.slots = []; this.error = '';
+            if (!this.date) return;
+            this.loadingSlots = true;
+            try {
+                const r = await fetch(`/{{ LANGUAGE_CODE }}/appointments/api/available-slots/?date=${encodeURIComponent(this.date)}&type=${this.type}`);
+                const d = await r.json();
+                if (d.error) this.error = d.error;
+                else if (!d.slots || !d.slots.length) this.error = d.message || T.noSlots;
+                else this.slots = d.slots;
+            } catch (e) { this.error = T.loadFailed; }
+            finally { this.loadingSlots = false; }
+        },
+        async submit() {
+            const name = this.$refs.name.value.trim(), phone = this.$refs.phone.value.trim();
+            if (name.length < 2 || !phone) { this.error = T.required; return; }
+            if (!this.time) { this.error = T.chooseTime; return; }
+            this.sending = true; this.error = '';
+            try {
+                const r = await fetch('{% url "book_appointment_ajax" %}', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+                    body: JSON.stringify({ name, phone, email: this.$refs.email.value.trim(), type: this.type, date: this.date, time: this.time,
+                        notes: this.$refs.notes.value, request_key: this.key, website: this.$refs.website.value }),
+                });
+                const d = await r.json();
+                if (d.status === 'success') { this.booked = true; this.message = d.message; this.manageUrl = d.manage_url || ''; }
+                else { this.error = d.message || T.failed; if (d.code === 'conflict' || d.code === 'unavailable') this.fetchSlots(); }
+            } catch (e) { this.error = T.failed; }
+            finally { this.sending = false; }
+        },
+        reset() { this.booked = false; this.date = ''; this.time = ''; this.slots = []; this.key = newKey(); },
+    };
+}
+</script>

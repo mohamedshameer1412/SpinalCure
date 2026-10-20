@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 import uuid
 from django.db import models
+from spinalcure.uploads import RandomName
+from spinalcure.languages import NATIVE_CHOICES
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from datetime import timedelta
@@ -39,7 +41,7 @@ class CustomUser(AbstractUser):
         verbose_name=_('Phone')
     )
     photo = models.ImageField(
-        upload_to='users/',
+        upload_to=RandomName('users'),
         blank=True,
         null=True,
         verbose_name=_('Profile Photo')
@@ -47,7 +49,7 @@ class CustomUser(AbstractUser):
     bio = models.TextField(blank=True, verbose_name=_('Biography'))
     language = models.CharField(
         max_length=5,
-        choices=[('en', 'English'), ('ta', 'தமிழ்'), ('hi', 'हिन्दी'), ('ar', 'العربية')],
+        choices=NATIVE_CHOICES,
         default='en',
         verbose_name=_('Preferred language'),
     )
@@ -334,7 +336,12 @@ class StaffProfile(models.Model):
     ended_on = models.DateField(null=True, blank=True)
     contact_phone = models.CharField(max_length=20, blank=True, validators=[validate_phone_number])
     contact_email = models.EmailField(blank=True)
-    blood_group = models.CharField(max_length=5, blank=True)
+    GENDER_CHOICES = [('M', _('Male')), ('F', _('Female')), ('O', _('Other'))]
+    BLOOD_CHOICES = [(b, b) for b in ('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-')]
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    address = models.TextField(blank=True, help_text=_('Home address, printed on the ID card.'))
+    blood_group = models.CharField(max_length=5, blank=True, choices=[('', '---------')] + BLOOD_CHOICES)
     skills = models.CharField(max_length=250, blank=True)
     emergency_contact_name = models.CharField(max_length=120, blank=True)
     emergency_contact_phone = models.CharField(max_length=20, blank=True, validators=[validate_phone_number])

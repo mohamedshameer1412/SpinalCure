@@ -1,18 +1,9 @@
-{% load static %}
-{% load i18n %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "Patient Login — SpinalCure" %}</title>
-<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
-<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
-    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}">
-</head>
-<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
-
-    <div class="max-w-md w-full bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+{% extends "public_base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Patient Login — SpinalCure" %}{% endblock %}
+{% block content %}
+<div class="container-site flex justify-center py-12 sm:py-16">
+<div class="max-w-md w-full bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
         <div class="p-8">
             <div class="text-center mb-8">
                 <div class="w-16 h-16 bg-gradient-to-br from-primary-400 to-primary-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg mb-4 text-white text-2xl font-bold">
@@ -58,6 +49,5 @@
             </div>
         </div>
     </div>
-
-</body>
-</html>
+</div>
+{% endblock %}

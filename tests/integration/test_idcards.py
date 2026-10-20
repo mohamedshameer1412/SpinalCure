@@ -299,7 +299,7 @@ def test_share_image_is_front_only_without_contact_details_and_stops_when_invali
     assert full['phone'] and full['email'] and full['emergency']                    # the owner's own view keeps them
     r = client.get(reverse('idcard_share_image', args=[c.share_token]))
     assert r.status_code == 200 and r['Content-Type'] == 'image/png'
-    assert Image.open(io.BytesIO(r.content)).size == (900, 560)
+    assert Image.open(io.BytesIO(r.content)).size == (560, 900)
     service.revoke(c, boss, 'x')
     assert client.get(reverse('idcard_share_image', args=[c.share_token])).status_code == 404
     page = client.get(reverse('idcard_share', args=[c.share_token])).content.decode()
@@ -323,7 +323,7 @@ def test_front_qr_decodes_to_verification_url_and_back_qr_to_org_page(clinic, bo
     assert 'verify' not in _decode_qr(back)
 
 
-@pytest.mark.parametrize('scale,size', [(1, (900, 560)), (2, (1800, 1120)), (3, (2700, 1680))])
+@pytest.mark.parametrize('scale,size', [(1, (560, 900)), (2, (1120, 1800)), (3, (1680, 2700))])
 def test_server_png_dimensions(client, clinic, boss, scale, size):
     c = _issued(clinic, boss)
     client.force_login(boss)
@@ -333,7 +333,7 @@ def test_server_png_dimensions(client, clinic, boss, scale, size):
         assert 'no-store' in r['Cache-Control']
 
 
-def test_server_pdf_is_two_landscape_pages_one_face_each(client, clinic, boss):
+def test_server_pdf_is_two_portrait_pages_one_face_each(client, clinic, boss):
     c = _issued(clinic, boss)
     client.force_login(boss)
     r = client.get(reverse('idcard_pdf', args=[c.pk]))
@@ -341,18 +341,18 @@ def test_server_pdf_is_two_landscape_pages_one_face_each(client, clinic, boss):
     assert r['Content-Type'] == 'application/pdf' and len(reader.pages) == 2
     for page in reader.pages:
         w, h = float(page.mediabox.width), float(page.mediabox.height)
-        assert w > h and abs(w / h - 900 / 560) < 0.01
+        assert w < h and abs(w / h - 560 / 900) < 0.01
         assert len(page.images) == 1                                                   # one face per page
 
 
-@pytest.mark.parametrize('lang,name', [('ta', 'பிரியா நடராஜன்'), ('hi', 'प्रिया नटराजन'), ('ar', 'بريا ناتاراجان'), ('en', 'Priya')])
+@pytest.mark.parametrize('lang,name', [('ta', 'பிரியா நடராஜன்'), ('hi', 'प्रिया नटराजन'), ('te', 'ప్రియ నటరాజన్'), ('ml', 'പ്രിയ നടരാജൻ'), ('kn', 'ಪ್ರಿಯಾ ನಟರಾಜನ್'), ('en', 'Priya')])
 def test_non_latin_names_render_with_real_glyphs_not_boxes(clinic, boss, lang, name):
     first, _, last = name.partition(' ')
     p = StaffProfile.objects.create(user=mk('staff', 'nl', first_name=first, last_name=last or 'x'), clinic=clinic,
                                     designation='x', joined_on=date(2024, 1, 1))
     c = service.issue(p, boss)
     img = render.render_face(c, 'front', ui.verify_url(c), ui.org_url(c), 1, lang)
-    band = img.crop((268, 150, 870, 205)).convert('L')
+    band = img.crop((36, 420, 524, 470)).convert('L')
     ink = np.array(band) < 128
     assert ink.sum() > 400                                                              # text was actually drawn
     assert render.text_width(name, 40, True) > 60
@@ -367,7 +367,7 @@ def test_text_fitting_never_overflows_and_handles_extreme_names(clinic, boss):
                                     designation='D' * 200, department='E' * 200, joined_on=date(2024, 1, 1))
     c = service.issue(p, boss)
     img = render.render_face(c, 'front', ui.verify_url(c), ui.org_url(c), 1, 'en')
-    assert img.size == (900, 560)
+    assert img.size == (560, 900)
     assert render.text_width(render.fit(long_name, 40, 596, True), 40, True) <= 596
     arr = np.array(img.convert('L'))
     assert (arr[115:, 890:] < 200).sum() == 0                                           # nothing bleeds past the right margin (header band excluded)
@@ -484,14 +484,14 @@ def test_flip_css_matches_the_specification():
     assert 'rotateY(180deg)' in css
     assert '0.8s cubic-bezier(0.4, 0, 0.2, 1)' in css
     assert '@media (prefers-reduced-motion: reduce)' in css and 'transition: none' in css
-    assert 'width: 900px' in css and 'height: 560px' in css
+    assert 'width: 560px' in css and 'height: 900px' in css
 
 
 def _qr_region(img, scale, back=False):
     """The pixels where the finished card carries its QR (what a phone camera would frame)."""
-    q, pad = (150 if back else 156) * scale, 12 * scale
+    q, pad = 112 * scale, 12 * scale
     x1 = img.width - 36 * scale
-    y0 = (100 if back else 296) * scale
+    y0 = (492 if back else 570) * scale
     return img.crop((x1 - q - pad, y0 - pad, x1 + pad // 2, y0 + q + pad))
 
 

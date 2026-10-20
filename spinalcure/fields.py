@@ -76,12 +76,15 @@ class EncryptedJSONField(models.JSONField):
         return "TextField"  # Store as text because DB JSON validation will fail on ciphertext
 
     def get_prep_value(self, value):
-        # We want to encrypt the JSON string
-        value_str = super().get_prep_value(value)
-        if value_str is None or value_str == '':
-            return value_str
-        f = get_fernet()
-        return f.encrypt(value_str.encode('utf-8')).decode('utf-8')
+        # Serialise ourselves: since Django 4.2 JSONField.get_prep_value returns the Python object, not a string
+        if value is None:
+            return None
+        value_str = json.dumps(value, cls=self.encoder)
+        return get_fernet().encrypt(value_str.encode('utf-8')).decode('utf-8')
+
+    def get_db_prep_value(self, value, connection, prepared=False):
+        # store the ciphertext as plain text; JSONField would JSON-encode it a second time
+        return value if prepared else self.get_prep_value(value)
 
     def from_db_value(self, value, expression, connection):
         if value is None or value == '':

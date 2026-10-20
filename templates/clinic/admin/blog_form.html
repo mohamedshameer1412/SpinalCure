@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load content_i18n %}
 {% block title %}{% if is_edit %}{% trans "Edit Post" %}{% else %}{% trans "New Blog Post" %}{% endif %} {% trans "— SpinalCure" %}{% endblock %}
 {% block page_title %}{% if is_edit %}{% blocktranslate trimmed with title=post.title|truncatewords:6 %}Edit: {{ title }}{% endblocktranslate %}{% else %}{% trans "New Blog Post" %}{% endif %}{% endblock %}
 
 {% block header_actions %}
 <a href="{% url 'admin_blog_list' %}"
-    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors">
+    class="btn btn-outline inline-flex items-center gap-2">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
     {% trans "Back to Posts" %}
 </a>
@@ -20,15 +21,15 @@
         <div class="lg:col-span-2 space-y-6">
 
             <!-- Title -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="card p-6">
                 <label class="block text-sm font-semibold text-gray-700 mb-2">{% trans "Article Title" %} <span class="text-red-500">*</span></label>
                 <input type="text" name="title" value="{{ post.title|default:'' }}" required
                     placeholder="{% trans 'e.g. How Acupuncture Relieves Chronic Back Pain' %}"
-                    class="w-full border border-gray-200 rounded-lg px-4 py-3 text-lg font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all">
+                    class="w-full">
             </div>
 
             <!-- Body Content -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="card p-6">
                 <div class="flex items-center justify-between mb-2">
                     <label class="text-sm font-semibold text-gray-700">{% trans "Article Content" %} <span class="text-red-500">*</span></label>
                     <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-green-50 text-[10px] font-bold text-green-700 border border-green-100">
@@ -39,7 +40,7 @@
                 <p class="text-xs text-gray-400 mb-3">{% trans "SEO descriptions and summaries are automatically generated from your content for Google and social media." %}</p>
                 <textarea name="content" id="postContent" rows="18" required
                     placeholder="{% trans 'Write your article here. You can use standard text or HTML...' %}"
-                    class="w-full border border-gray-200 rounded-lg px-4 py-3 text-gray-700 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary-400 transition-all resize-y leading-relaxed">{{ post.content|default:'' }}</textarea>
+                    class="w-full resize-y">{{ post.content|default:'' }}</textarea>
                 <p class="text-xs text-gray-400 mt-2" id="wordCount">{% trans "Word count: 0" %}</p>
             </div>
 
@@ -52,7 +53,7 @@
         <div class="space-y-6">
 
             <!-- Publish Settings -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="card p-6">
                 <h3 class="text-sm font-semibold text-gray-700 mb-4">{% trans "Publish Settings" %}</h3>
                 <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Status" %}</label>
                 <select name="status">
@@ -61,13 +62,13 @@
                     {% endfor %}
                 </select>
                 <button type="submit"
-                    class="w-full py-3 bg-primary-600 text-white font-bold rounded-lg hover:bg-primary-700 transition-colors shadow-sm">
+                    class="btn btn-primary w-full">
                     {% if is_edit %}{% trans "Update Post" %}{% else %}{% trans "Publish Post" %}{% endif %}
                 </button>
             </div>
 
             <!-- Cover Image -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="card p-6">
                 <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Cover Image" %}</h3>
                 {% if is_edit and post.cover_image %}
                 <div class="mb-3">
@@ -88,7 +89,7 @@
             </div>
 
             <!-- Author -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6" x-data="{ showOverride: {% if post.author_name_override %}true{% else %}false{% endif %} }">
+            <div class="card p-6" x-data="{ showOverride: {% if post.author_name_override %}true{% else %}false{% endif %} }">
                 <h3 class="text-sm font-semibold text-gray-700 mb-3">{% trans "Author" %}</h3>
                 <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Practitioner" %}</label>
                 <select name="author" data-placeholder="{% trans 'Select practitioner' %}">
@@ -106,13 +107,13 @@
                         <label class="block text-xs font-medium text-gray-600 mb-1">{% trans "Manual Author Name" %}</label>
                         <input type="text" name="author_name_override" value="{{ post.author_name_override|default:'' }}"
                             placeholder="{% trans 'e.g. Dr. Priya Sharma' %}"
-                            class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-400">
+                            class="w-full">
                     </div>
                 </div>
             </div>
 
             <!-- Tags -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="card p-6">
                 <div class="flex items-center justify-between mb-3">
                     <h3 class="text-sm font-semibold text-gray-700">{% trans "Tags" %}</h3>
                     <a href="{% url 'admin_blog_tags' %}" class="text-xs text-primary-600 hover:underline">{% trans "Manage tags" %}</a>
@@ -133,6 +134,8 @@
         </div>
     </div>
 </form>
+
+<div class="mt-8 max-w-4xl">{% translation_panel post %}</div>
 {% endblock %}
 
 {% block extra_scripts %}

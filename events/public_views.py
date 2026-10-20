@@ -1,3 +1,4 @@
+from django.conf import settings
 """Public event pages. Registrants act through a secret per-registration token, never through guessable ids."""
 from django.utils.translation import gettext
 import json
@@ -41,7 +42,7 @@ def public_event_list(request):
         qs = qs.filter(title__icontains=q) | qs.filter(presenter__icontains=q) | qs.filter(description__icontains=q)
     if etype in dict(Event.EVENT_TYPE_CHOICES):
         qs = qs.filter(event_type=etype)
-    if lang in ('en', 'ta', 'hi', 'ar'):
+    if lang in dict(settings.LANGUAGES):
         qs = qs.filter(language=lang)
     if online in ('online', 'in_person'):
         qs = qs.filter(is_online=(online == 'online'))

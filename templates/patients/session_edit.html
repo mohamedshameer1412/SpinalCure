@@ -19,7 +19,7 @@
         </a>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+    <div class="card shadow-xl shadow-gray-200/50 overflow-hidden">
         <!-- Header -->
         <div class="px-8 py-6 border-b border-gray-100 flex items-center gap-4 bg-primary-50/30">
             <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center">
@@ -49,22 +49,22 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label
-                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Session Date" %}</label>
+                                class="label block mb-1.5">{% trans "Session Date" %}</label>
                             <input type="date" name="session_date" value="{{ session.session_date|date:'Y-m-d' }}"
                                 required
-                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 transition-all">
+                                class="w-full">
                         </div>
                         <div>
                             <label
-                                class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Session Time" %}</label>
+                                class="label block mb-1.5">{% trans "Session Time" %}</label>
                             <input type="time" name="session_time" value="{{ session.session_time|default:'' }}"
-                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 transition-all">
+                                class="w-full">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Treatment Plan" %}</label>
-                        <select name="treatment_plan" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 transition-all">
+                        <label class="label block mb-1.5">{% trans "Treatment Plan" %}</label>
+                        <select name="treatment_plan" class="w-full">
                             <option value="">{% trans "-- No specific plan --" %}</option>
                             {% for plan in treatment_plans %}
                             <option value="{{ plan.id }}" {% if session.treatment_plan_id == plan.id %}selected{% endif %}>{{ plan.name }}</option>
@@ -74,9 +74,9 @@
 
                     <div>
                         <label
-                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Consulted By" %}</label>
+                            class="label block mb-1.5">{% trans "Consulted By" %}</label>
                         <select name="consulted_by" data-placeholder="{% trans 'Select Practitioner' %}"
-                            class="premium-select w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500">
+                            class="premium-select w-full">
                             <option value="">{% trans "Select Practitioner" %}</option>
                             {% for dr in practitioners %}
                             <option value="{{ dr.id }}">
@@ -91,10 +91,10 @@
 
                     <div>
                         <label
-                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Duration (Minutes)" %}</label>
+                            class="label block mb-1.5">{% trans "Duration (Minutes)" %}</label>
                         <input type="number" name="duration_minutes" value="{{ session.duration_minutes }}" min="5"
                             required
-                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 transition-all">
+                            class="w-full">
                     </div>
                 </div>
 
@@ -105,24 +105,24 @@
 
                     <div>
                         <label
-                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Acupoints Used" %}</label>
+                            class="label block mb-1.5">{% trans "Acupoints Used" %}</label>
                         <textarea name="acupoints_used" rows="2" required
-                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 placeholder-gray-400"
+                            class="w-full"
                             placeholder="{% trans 'e.g. GB30, BL40, BL23...' %}">{{ session.acupoints_used }}</textarea>
                     </div>
 
                     <div>
                         <label
-                            class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Techniques Used" %}</label>
+                            class="label block mb-1.5">{% trans "Techniques Used" %}</label>
                         <input type="text" name="techniques_used" value="{{ session.techniques_used }}"
-                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 placeholder-gray-400"
+                            class="w-full"
                             placeholder="{% trans 'e.g. Dry Needling, Tui Na...' %}">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Notes (Internal)" %}</label>
+                        <label class="label block mb-1.5">{% trans "Notes (Internal)" %}</label>
                         <textarea name="practitioner_notes" rows="2"
-                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 placeholder-gray-400"
+                            class="w-full"
                             placeholder="{% trans 'Notes...' %}">{{ session.practitioner_notes|default:"" }}</textarea>
                     </div>
                 </div>
@@ -131,24 +131,24 @@
             <!-- Full Width -->
             <div class="mt-8 space-y-6">
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Patient Feedback" %}</label>
+                    <label class="label block mb-1.5">{% trans "Patient Feedback" %}</label>
                     <textarea name="patient_feedback" rows="2"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 placeholder-gray-400"
+                        class="w-full"
                         placeholder="{% trans 'How is the patient feeling after today\'s session?' %}">{{ session.patient_feedback|default:"" }}</textarea>
                 </div>
                 <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Next Appointment (Optional)" %}</label>
+                        <label class="label block mb-1.5">{% trans "Next Appointment (Optional)" %}</label>
                         <input type="date" name="next_appointment_date"
                             value="{{ session.next_appointment_date|date:'Y-m-d'|default:'' }}"
-                            class="w-full max-w-xs px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-primary-500 transition-all">
+                            class="w-full max-w-xs">
                     </div>
 
                     <!-- Visual Progress Scales -->
                     <div class="space-y-6">
                         <div x-data="{ pain: {{ session.pain_scale|default:5 }} }">
                             <div class="flex justify-between items-center mb-1.5">
-                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">{% trans "Pain Scale (0-10)" %}</label>
+                                <label class="label block">{% trans "Pain Scale (0-10)" %}</label>
                                 <span class="text-sm font-bold text-red-600" x-text="pain"></span>
                             </div>
                             <input type="range" name="pain_scale" min="0" max="10" x-model="pain"
@@ -161,7 +161,7 @@
 
                         <div x-data="{ mobility: {{ session.mobility_score|default:3 }} }">
                             <div class="flex justify-between items-center mb-1.5">
-                                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">{% trans "Mobility Score (1-5)" %}</label>
+                                <label class="label block">{% trans "Mobility Score (1-5)" %}</label>
                                 <span class="text-sm font-bold text-green-600" x-text="mobility"></span>
                             </div>
                             <input type="range" name="mobility_score" min="1" max="5" x-model="mobility"
@@ -180,7 +180,7 @@
                 <a href="{% url 'patient-detail' patient.id %}"
                     class="px-6 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">{% trans "Cancel" %}</a>
                 <button type="submit"
-                    class="px-10 py-3 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl shadow-lg shadow-primary-200 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                    class="btn btn-primary transform hover:-translate-y-0.5 active:translate-y-0">
                     {% trans "Save Changes" %}
                 </button>
             </div>

@@ -1,23 +1,17 @@
 {% load i18n %}
-<div id="global-confirm-modal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center bg-gray-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300">
-    <div class="bg-white rounded-[2rem] w-full max-w-sm p-8 shadow-2xl transform scale-95 transition-transform duration-300 relative border border-gray-100" id="global-confirm-card">
-        
-        <div class="absolute top-0 end-0 p-4">
-            <button id="global-confirm-close" class="text-gray-400 hover:text-gray-600 transition-colors">
-                <i class="bi bi-x-lg"></i>
-            </button>
+<div id="global-confirm-modal" class="dialog-overlay !z-[9999] hidden opacity-0 transition-opacity duration-200" role="alertdialog" aria-modal="true" aria-labelledby="global-confirm-title" aria-describedby="global-confirm-message">
+    <div class="dialog !max-w-md scale-95 transition-transform duration-200" id="global-confirm-card">
+        <div class="flex items-start gap-4">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red-100 text-red-600"><i class="bi bi-exclamation-triangle-fill text-xl" aria-hidden="true"></i></span>
+            <div class="min-w-0 flex-1">
+                <h3 class="dialog-title" id="global-confirm-title">{% trans "Are you sure?" %}</h3>
+                <p class="dialog-description" id="global-confirm-message">{% trans "You are about to delete this item." %}</p>
+            </div>
+            <button id="global-confirm-close" type="button" class="text-gray-400 hover:text-gray-700" aria-label="{% trans 'Close' %}"><i class="bi bi-x-lg"></i></button>
         </div>
-
-        <div class="flex items-center justify-center w-16 h-16 bg-red-50 text-red-500 rounded-2xl mb-6 mx-auto shadow-inner border border-red-100">
-            <i class="bi bi-exclamation-triangle-fill text-3xl"></i>
-        </div>
-        
-        <h3 class="text-center text-xl font-black text-gray-900 mb-3">{% trans "Are you sure?" %}</h3>
-        <p class="text-center text-sm text-gray-500 font-medium mb-8 leading-relaxed" id="global-confirm-message">{% trans "You are about to delete this item." %}</p>
-        
-        <div class="flex gap-3">
-            <button id="global-confirm-cancel" class="flex-1 py-3 bg-gray-50 hover:bg-gray-100 text-gray-600 text-sm font-bold rounded-xl transition-all border border-gray-200">{% trans "Cancel" %}</button>
-            <button id="global-confirm-ok" class="flex-1 py-3 bg-red-500 hover:bg-red-600 text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-red-200 focus:ring-4 focus:ring-red-100">{% trans "Confirm" %}</button>
+        <div class="dialog-footer">
+            <button id="global-confirm-cancel" type="button" class="btn btn-outline">{% trans "Cancel" %}</button>
+            <button id="global-confirm-ok" type="button" class="btn btn-destructive">{% trans "Confirm" %}</button>
         </div>
     </div>
 </div>
@@ -51,7 +45,7 @@ function closeCustomConfirm() {
     setTimeout(() => {
         modal.classList.add('hidden');
         globalConfirmCallback = null;
-    }, 300);
+    }, 200);
 }
 
 document.addEventListener('DOMContentLoaded', function() {

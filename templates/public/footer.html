@@ -1,0 +1,49 @@
+{% load i18n content_i18n %}{% url 'clinic_portfolio' as home %}
+<footer class="mt-auto bg-slate-950 text-slate-300">
+    <div class="container-site grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+            <a href="{{ home }}" class="flex items-center gap-3 no-underline">
+                {% if clinic_logo_dark_url %}<img src="{{ clinic_logo_dark_url }}" alt="" class="h-12 w-12 object-contain" width="48" height="48">{% endif %}
+                <span class="text-xl font-extrabold text-white" style="font-family:'Outfit',inherit">{{ clinic|tx:"name"|default:"Spinal Cure" }}</span>
+            </a>
+            {% if clinic %}<p class="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">{{ clinic|tx:"footer_text"|default:clinic.tagline }}</p>{% endif %}
+            <p class="mt-4 text-sm font-semibold text-primary-300">{{ clinic|tx:"about_quote" }}</p>
+            <div class="mt-5 flex gap-2">
+                {% if clinic.instagram %}<a href="{{ clinic.instagram }}" target="_blank" rel="noopener" class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-primary-600" aria-label="Instagram"><i class="bi bi-instagram"></i></a>{% endif %}
+                {% if clinic.youtube %}<a href="{{ clinic.youtube }}" target="_blank" rel="noopener" class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-primary-600" aria-label="YouTube"><i class="bi bi-youtube"></i></a>{% endif %}
+                {% if clinic.facebook %}<a href="{{ clinic.facebook }}" target="_blank" rel="noopener" class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-primary-600" aria-label="Facebook"><i class="bi bi-facebook"></i></a>{% endif %}
+            </div>
+        </div>
+
+        <div class="lg:col-span-3">
+            <h2 class="text-sm font-semibold text-white">{% translate "Visit us" %}</h2>
+            <ul class="mt-4 space-y-3 text-sm">
+                {% if clinic.address %}<li class="flex gap-2.5"><i class="bi bi-geo-alt mt-0.5 text-primary-400" aria-hidden="true"></i><span>{{ clinic|tx:"address" }}</span></li>{% endif %}
+                {% for p in clinic.phone_list %}<li class="flex gap-2.5"><i class="bi bi-telephone mt-0.5 text-primary-400" aria-hidden="true"></i><a href="tel:{{ p|cut:' ' }}" class="text-slate-300 no-underline hover:text-white" dir="ltr">{{ p }}</a></li>{% endfor %}
+                {% if clinic.email %}<li class="flex gap-2.5"><i class="bi bi-envelope mt-0.5 text-primary-400" aria-hidden="true"></i><a href="mailto:{{ clinic.email }}" class="break-all text-slate-300 no-underline hover:text-white">{{ clinic.email }}</a></li>{% endif %}
+            </ul>
+        </div>
+
+        <div class="lg:col-span-3">
+            <h2 class="text-sm font-semibold text-white">{% translate "Opening hours" %}</h2>
+            <p class="mt-4 whitespace-pre-line text-sm leading-relaxed text-slate-400">{{ clinic|tx:"working_hours" }}</p>
+        </div>
+
+        <div class="lg:col-span-2">
+            <h2 class="text-sm font-semibold text-white">{% translate "Explore" %}</h2>
+            <ul class="mt-4 space-y-2.5 text-sm">
+                <li><a href="{{ home }}#treatments" class="text-slate-300 no-underline hover:text-white">{% translate "Treatments" %}</a></li>
+                <li><a href="{% url 'public_testimonials' %}" class="text-slate-300 no-underline hover:text-white">{% translate "Patient stories" %}</a></li>
+                <li><a href="{% url 'public_event_list' %}" class="text-slate-300 no-underline hover:text-white">{% translate "Events" %}</a></li>
+                <li><a href="{% url 'blog_list' %}" class="text-slate-300 no-underline hover:text-white">{% translate "Health articles" %}</a></li>
+                <li><a href="{{ home }}#book" class="text-slate-300 no-underline hover:text-white">{% translate "Book appointment" %}</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="border-t border-white/10">
+        <div class="container-site flex flex-col gap-2 py-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+            <p>© {% now "Y" %} {{ clinic|tx:"name"|default:"Spinal Cure" }} · {% translate "Arumbakkam, Chennai" %}</p>
+            <a href="{% url 'login' %}" class="text-slate-500 no-underline hover:text-slate-300">{% translate "Staff sign in" %}</a>
+        </div>
+    </div>
+</footer>

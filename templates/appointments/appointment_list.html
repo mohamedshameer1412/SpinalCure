@@ -7,12 +7,12 @@
 {% block header_actions %}
 <div class="flex items-center gap-3">
     <a href="{% url 'appointment_calendar' %}"
-        class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center gap-2">
+        class="btn btn-outline inline-flex items-center gap-2">
         <i class="bi bi-calendar3"></i>
         {% trans "Calendar View" %}
     </a>
     <a href="{% url 'appointment_calendar' %}"
-        class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center gap-2">
+        class="btn btn-primary inline-flex items-center gap-2">
         <i class="bi bi-plus-circle"></i>
         {% trans "New Appointment" %}
     </a>
@@ -28,13 +28,13 @@
             hx-swap="outerHTML" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
             <!-- Search -->
             <div class="w-full relative">
-                <label class="block mb-2 text-xs font-bold text-gray-500 uppercase tracking-widest">{% trans "Search" %}</label>
+                <label class="label block mb-2">{% trans "Search" %}</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <i class="bi bi-search text-gray-400"></i>
                     </div>
                     <input type="text" name="q" value="{{ filters.q|default:'' }}"
-                        class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-primary-500 focus:border-primary-500"
+                        class="block w-full ps-10"
                         placeholder="{% trans 'Patient name or reason...' %}">
                     <!-- HTMX Indicator -->
                     <div class="htmx-indicator absolute inset-y-0 end-0 flex items-center pe-3">
@@ -45,7 +45,7 @@
 
             <!-- Status Filter -->
             <div class="w-full">
-                <label class="block mb-2 text-xs font-bold text-gray-500 uppercase tracking-widest">{% trans "Status" %}</label>
+                <label class="label block mb-2">{% trans "Status" %}</label>
                 <select name="status">
                     <option value="">{% trans "All Statuses" %}</option>
                     {% for val, label in status_choices %}
@@ -56,7 +56,7 @@
 
             <!-- Practitioner Filter -->
             <div class="w-full">
-                <label class="block mb-2 text-xs font-bold text-gray-500 uppercase tracking-widest">{% trans "Practitioner" %}</label>
+                <label class="label block mb-2">{% trans "Practitioner" %}</label>
                 <select name="practitioner">
                     <option value="">{% trans "All Practitioners" %}</option>
                     {% for doc in practitioners %}
@@ -69,15 +69,15 @@
 
             <!-- Date Filter -->
             <div class="w-full">
-                <label class="block mb-2 text-xs font-bold text-gray-500 uppercase tracking-widest">{% trans "Date" %}</label>
+                <label class="label block mb-2">{% trans "Date" %}</label>
                 <input type="date" name="date" value="{{ filters.date|default:'' }}"
-                    class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-primary-500 focus:border-primary-500">
+                    class="block w-full">
             </div>
 
             <!-- Action Buttons -->
             <div class="flex items-center gap-2">
                 <button type="submit"
-                    class="p-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors shadow-sm focus:ring-4 focus:ring-primary-200">
+                    class="btn btn-primary">
                     <i class="bi bi-filter"></i> {% trans "Apply" %}
                 </button>
                 <a href="{% url 'appointment_list' %}"

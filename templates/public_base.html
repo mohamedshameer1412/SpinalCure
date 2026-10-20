@@ -1,61 +1,45 @@
-{% load i18n static %}{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as RTL %}{% get_available_languages as LANGUAGES %}
+{% load i18n static content_i18n %}{% get_current_language as LANGUAGE_CODE %}{% get_available_languages as LANGUAGES %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" dir="{% if RTL %}rtl{% else %}ltr{% endif %}">
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="scroll-smooth" data-fixed-theme>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ clinic.name|default:"SpinalCure" }}{% endblock %}</title>
-    <meta name="description" content="{% block description %}{{ clinic.tagline|default:'' }}{% endblock %}">
+    <title>{% block title %}{{ clinic|tx:"name"|default:"Spinal Cure" }} — {{ clinic|tx:"tagline" }}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% if clinic %}{{ clinic|tx:"hero_subtitle"|default:clinic.tagline|striptags|truncatewords:30 }}{% endif %}{% endblock %}">
+    <meta property="og:site_name" content="{{ clinic|tx:"name"|default:"Spinal Cure" }}">
     {% block meta %}{% endblock %}
     {% if clinic_logo_url %}<link rel="icon" href="{{ clinic_logo_url }}">{% endif %}
-<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    {% for code, name in LANGUAGES %}<link rel="alternate" hreflang="{{ code }}" href="/{{ code }}{{ request.path|slice:'3:' }}">{% endfor %}
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
-    <script defer src="{% static 'vendor/alpine.min.js' %}"></script>
-    <style>
-        body { font-family: 'Inter','Noto Sans Tamil','Noto Sans Devanagari','Noto Naskh Arabic',system-ui,sans-serif; }
-        [x-cloak] { display: none !important; }
-        :focus-visible { outline: 2px solid #16a34a; outline-offset: 2px; }
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
-        /* numbers, phone numbers, ids stay left-to-right inside RTL text */
-        .ltr-isolate { unicode-bidi: isolate; direction: ltr; display: inline-block; }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     {% block extra_head %}{% endblock %}
+    <script defer src="{% static 'js/ui.js' %}"></script>
+    <script defer src="{% static 'vendor/alpine.min.js' %}"></script>
 </head>
-<body class="bg-slate-50 text-gray-900 antialiased min-h-screen flex flex-col">
-<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:p-3 focus:rounded">{% translate "Skip to content" %}</a>
-<header class="bg-white border-b border-gray-200">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center gap-4">
-        <a href="{% url 'clinic_portfolio' %}" class="flex items-center gap-2 no-underline text-gray-900 min-w-0">
-            {% if clinic_logo_url %}<img src="{{ clinic_logo_url }}" alt="" class="w-9 h-9 rounded-lg object-contain">{% endif %}
-            <span class="font-bold truncate">{{ clinic.name|default:"SpinalCure" }}</span>
-        </a>
-        <nav class="ms-auto flex items-center gap-1 text-sm" aria-label="{% translate 'Main' %}">
-            <a href="{% url 'clinic_portfolio' %}" class="px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100 no-underline hidden sm:block">{% translate "Home" %}</a>
-            <a href="{% url 'public_event_list' %}" class="px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100 no-underline">{% translate "Events" %}</a>
-            <a href="{% url 'blog_list' %}" class="px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100 no-underline hidden sm:block">{% translate "Blog" %}</a>
-            <form action="{% url 'set_language' %}" method="post" class="ms-2">{% csrf_token %}
-                <input type="hidden" name="next" value="{{ request.get_full_path }}">
-                <label for="lang" class="sr-only">{% translate "Language" %}</label>
-                <select id="lang" name="language" onchange="this.form.submit()" class="no-ts text-sm rounded-lg border-gray-200 py-1.5">
-                    {% for code, name in LANGUAGES %}<option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %}>{% if code == 'en' %}English{% elif code == 'ta' %}தமிழ்{% elif code == 'hi' %}हिन्दी{% elif code == 'ar' %}العربية{% else %}{{ name }}{% endif %}</option>{% endfor %}
-                </select>
-            </form>
-        </nav>
-    </div>
-</header>
+<body class="flex min-h-screen flex-col bg-white font-sans text-gray-900 antialiased" x-data="{ menu: false }" @keydown.escape.window="menu = false">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:start-3 focus:top-3 focus:z-[200] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow-pop">{% translate "Skip to content" %}</a>
+
+{% include "public/header.html" %}
+
 <main id="main" class="flex-1">
-    {% if messages %}<div class="max-w-6xl mx-auto px-4 mt-4 space-y-2">{% for m in messages %}
-        <div role="status" class="rounded-xl px-4 py-3 text-sm {% if m.tags == 'success' %}bg-green-50 text-green-800{% elif m.tags == 'error' %}bg-red-50 text-red-800{% else %}bg-amber-50 text-amber-800{% endif %}">{{ m }}</div>{% endfor %}</div>{% endif %}
+    {% if messages %}<div class="container-site mt-4 space-y-2">{% for m in messages %}
+        <div role="status" class="alert {% if m.tags == 'success' %}alert-success{% elif m.tags == 'error' %}alert-danger{% else %}alert-warning{% endif %}">{{ m }}</div>{% endfor %}</div>{% endif %}
     {% block content %}{% endblock %}
 </main>
-<footer class="border-t border-gray-200 bg-white mt-12">
-    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-gray-500 flex flex-wrap gap-x-6 gap-y-1">
-        <span>© {% now "Y" %} {{ clinic.name|default:"SpinalCure" }}</span>
-        {% if clinic.phone %}<span><span class="ltr-isolate">{{ clinic.phone }}</span></span>{% endif %}
-        {% if clinic.address %}<span>{{ clinic.address|truncatechars:80 }}</span>{% endif %}
-    </div>
-</footer>
+
+{% include "public/footer.html" %}
+
+<!-- toasts (used by the public forms) -->
+<div class="pointer-events-none fixed bottom-4 end-4 z-[120] flex flex-col gap-2" aria-live="polite">
+    <template x-for="t in $store.toast.items" :key="t.id">
+        <div class="toast" role="status">
+            <i class="bi mt-0.5 text-lg" :class="t.type === 'success' ? 'bi-check-circle-fill text-green-600' : (t.type === 'error' ? 'bi-x-circle-fill text-red-600' : 'bi-info-circle-fill text-blue-500')" aria-hidden="true"></i>
+            <p class="flex-1 text-gray-800" x-text="t.message"></p>
+            <button @click="$store.toast.dismiss(t.id)" class="text-gray-400 hover:text-gray-700" aria-label="{% translate 'Dismiss' %}"><i class="bi bi-x-lg"></i></button>
+        </div>
+    </template>
+</div>
 {% block extra_scripts %}{% endblock %}
 </body>
 </html>

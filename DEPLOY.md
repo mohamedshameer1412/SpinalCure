@@ -41,7 +41,7 @@ If you had data encrypted under the old key: set `FERNET_KEYS=<new>,<old>` then 
 ## 4. Frontend assets
 
 Everything is self-hosted (no CDN at runtime): Alpine, HTMX, Bootstrap Icons, Tom Select, Chart.js, FullCalendar,
-html2canvas, jsPDF and the web fonts live in `static/`. Tailwind is compiled to `static/css/tailwind.css` and **committed**.
+html2canvas, jsPDF and the web fonts live in `static/`. The UI kit (tokens, light/dark theme, components) is defined in `theme/static_src/tailwind.config.js` and `src/styles.css`; its markup is in `templates/ui/` (reference page: `/ui-kit/`), behaviour in `static/js/ui.js`. After changing either file run `npm run build` in `theme/static_src`. Tailwind is compiled to `static/css/tailwind.css` and **committed**.
 After adding new utility classes to templates, rebuild it:
 
 ```bash
@@ -59,6 +59,13 @@ python scripts/i18n_compile.py      # rebuild .mo
 ```
 
 The Tamil/Hindi/Arabic text was drafted by an AI assistant and **needs review by native speakers**, especially medical wording.
+
+### Website content (clinic details, blog, reviews, events, names...)
+
+Managed in the staff area under **Translations** (English is the source; per-language coverage %, auto-translate, edit/review).
+Provider is picked from env: `ANTHROPIC_API_KEY` (best, transliterates names; `ANTHROPIC_MODEL` optional) → `GOOGLE_TRANSLATE_API_KEY` →
+free MyMemory (no key, ~5,000 chars/day, `MYMEMORY_EMAIL` raises it; set `TRANSLATION_FREE=0` to disable). Use a shared cache
+(`CACHE_BACKEND`, e.g. Redis) if you run several workers, otherwise edits take up to 60 s to appear on other workers.
 
 ## 6. Tests
 

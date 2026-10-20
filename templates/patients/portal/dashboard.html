@@ -1,47 +1,17 @@
-{% load static %}
-{% load i18n %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "My Health Portal — SpinalCure" %}</title>
-<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
-<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
-    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}">
-    <!-- Chart.js for Pain Scale -->
-    <script src="{% static 'vendor/chart.umd.min.js' %}"></script>
-</head>
-<body class="bg-gray-50 text-gray-900 font-sans antialiased">
-
-    <!-- Topbar -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
-                        {{ clinic.name|default:"S"|slice:":1" }}
-                    </div>
-                    <div>
-                        <span class="text-xl font-bold text-gray-900 block leading-tight">{{ clinic.name|default:"SpinalCure" }}</span>
-                        <span class="text-[10px] uppercase tracking-wider font-bold text-primary-600">{% trans "Patient Portal" %}</span>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4">
-                    <div class="hidden sm:block text-end">
-                        <p class="text-sm font-bold text-gray-900 leading-none">{{ patient.name }}</p>
-                        <p class="text-xs text-gray-500 mt-1">{{ patient.phone }}</p>
-                    </div>
-                    <a href="{% url 'portal_logout' %}" class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="{% trans 'Log Out' %}">
-                        <i class="bi bi-box-arrow-right text-xl"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+{% extends "public_base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "My Health Portal — SpinalCure" %}{% endblock %}
+{% block extra_head %}<script src="{% static 'vendor/chart.umd.min.js' %}"></script>{% endblock %}
+{% block content %}
+<div class="container-site py-8 sm:py-10">
+<div class="card mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
+    <div class="min-w-0"><p class="text-xs font-semibold text-primary-700">{% trans "Patient Portal" %}</p>
+        <p class="truncate text-sm font-bold text-gray-900">{{ patient.name }} <span class="font-normal text-gray-500" dir="ltr">· {{ patient.phone }}</span></p></div>
+    <a href="{% url 'portal_logout' %}" class="btn btn-outline btn-sm shrink-0"><i class="bi bi-box-arrow-right"></i>{% trans "Log Out" %}</a>
+</div>
 
     <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div class="max-w-6xl mx-auto py-8 space-y-8">
         
         <!-- Welcome Banner -->
         <div class="bg-gradient-to-r from-primary-900 to-primary-700 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
@@ -218,7 +188,7 @@
 
             </div>
         </div>
-    </main>
+    </div>
 
     {% if sessions %}
     <!-- Chart Script for Pain Scale -->
@@ -266,5 +236,5 @@
         });
     </script>
     {% endif %}
-</body>
-</html>
+</div>
+{% endblock %}

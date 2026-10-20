@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}UI kit — SpinalCure{% endblock %}
+{% block page_title %}UI kit{% endblock %}
+{% block header_actions %}<span class="badge badge-primary">Reference for staff and developers</span>{% endblock %}
+
+{% block content %}
+<div class="grid gap-6 lg:grid-cols-2" x-data="{ dialog: false, tab: 'one' }">
+
+    <section class="card"><div class="card-header"><h2 class="card-title">Buttons</h2><p class="card-description">.btn + .btn-primary | secondary | outline | ghost | soft | destructive, sizes .btn-sm .btn-lg .btn-icon</p></div>
+        <div class="card-content flex flex-wrap items-center gap-2">
+            <button class="btn btn-primary">Primary</button><button class="btn btn-secondary">Secondary</button><button class="btn btn-outline">Outline</button>
+            <button class="btn btn-ghost">Ghost</button><button class="btn btn-soft">Soft</button><button class="btn btn-destructive">Delete</button>
+            <button class="btn btn-primary btn-sm">Small</button><button class="btn btn-outline btn-icon" aria-label="Settings"><i class="bi bi-gear"></i></button>
+        </div></section>
+
+    <section class="card"><div class="card-header"><h2 class="card-title">Badges and alerts</h2></div>
+        <div class="card-content space-y-3">
+            <div class="flex flex-wrap gap-2"><span class="badge">Default</span><span class="badge badge-primary">Primary</span><span class="badge badge-success">Paid</span><span class="badge badge-warning">Partial</span><span class="badge badge-danger">Overdue</span><span class="badge badge-info">Info</span><span class="badge badge-outline">Outline</span></div>
+            <div class="alert alert-success"><i class="bi bi-check-circle"></i>Saved successfully.</div>
+            <div class="alert alert-warning"><i class="bi bi-exclamation-triangle"></i>Check the dates before saving.</div>
+        </div></section>
+
+    <section class="card"><div class="card-header"><h2 class="card-title">Form controls</h2><p class="card-description">Plain inputs, selects (searchable), textareas and files are styled automatically.</p></div>
+        <div class="card-content grid gap-4">
+            <div><label class="label" for="k1">Name</label><input id="k1" type="text" placeholder="Full name"></div>
+            <div><label class="label" for="k2">Problem</label><select id="k2"><option>Back pain</option><option>Neck pain</option><option>Sciatica</option></select></div>
+            <div><label class="label" for="k3">Notes</label><textarea id="k3" rows="2"></textarea></div>
+            <div><label class="label">Photo</label><input type="file" accept="image/*"></div>
+        </div></section>
+
+    <section class="card"><div class="card-header"><h2 class="card-title">Menu, dialog, toast, tabs</h2></div>
+        <div class="card-content flex flex-wrap items-start gap-3">
+            <div class="relative" x-data="{ open: false }">
+                <button class="btn btn-outline" @click="open = !open" @click.outside="open = false">Menu <i class="bi bi-chevron-down text-[10px]"></i></button>
+                <div x-show="open" x-cloak class="menu absolute start-0 top-11 w-48"><p class="menu-label">Actions</p><a class="menu-item" href="#"><i class="bi bi-pencil"></i>Edit</a><a class="menu-item" href="#"><i class="bi bi-files"></i>Duplicate</a><div class="menu-separator"></div><a class="menu-item is-danger" href="#"><i class="bi bi-trash"></i>Delete</a></div>
+            </div>
+            <button class="btn btn-outline" @click="dialog = true">Open dialog</button>
+            <button class="btn btn-outline" @click="$store.toast.push('Settings saved', 'success')">Show toast</button>
+            <button class="btn btn-outline" onclick="showCustomConfirm('Delete this record?', () => Alpine.store('toast').push('Deleted', 'success'))">Confirm dialog</button>
+            <div class="tabs"><button class="tab" :class="tab === 'one' && 'is-active'" @click="tab = 'one'">Overview</button><button class="tab" :class="tab === 'two' && 'is-active'" @click="tab = 'two'">Details</button></div>
+        </div>
+
+        <div x-show="dialog" x-cloak class="dialog-overlay" @keydown.escape.window="dialog = false" x-transition.opacity role="dialog" aria-modal="true">
+            <div class="dialog" @click.outside="dialog = false">
+                <h3 class="dialog-title">Edit profile</h3><p class="dialog-description">Make changes here. Click save when you are done.</p>
+                <div class="mt-4 grid gap-3"><div><label class="label">Name</label><input type="text"></div></div>
+                <div class="dialog-footer"><button class="btn btn-outline" @click="dialog = false">Cancel</button><button class="btn btn-primary" @click="dialog = false">Save changes</button></div>
+            </div>
+        </div></section>
+
+    <section class="card lg:col-span-2"><div class="card-header"><h2 class="card-title">Stat cards and table</h2></div>
+        <div class="card-content space-y-4">
+            <div class="grid gap-4 sm:grid-cols-3"><div class="stat"><p class="stat-label">Patients</p><p class="stat-value">128</p></div><div class="stat"><p class="stat-label">Sessions today</p><p class="stat-value">14</p></div><div class="stat"><p class="stat-label">Revenue</p><p class="stat-value">₹48,200</p></div></div>
+            <div class="table-wrap"><table class="ui-table"><thead><tr><th>Patient</th><th>Plan</th><th>Status</th></tr></thead>
+                <tbody><tr><td>Anjali K.</td><td>Back pain · 10 sittings</td><td><span class="badge badge-success">Active</span></td></tr><tr><td>Murugan P.</td><td>Sciatica · 5 sittings</td><td><span class="badge badge-warning">Pending</span></td></tr></tbody></table></div>
+        </div></section>
+</div>
+{% endblock %}

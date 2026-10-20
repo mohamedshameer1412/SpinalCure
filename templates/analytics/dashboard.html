@@ -3,97 +3,58 @@
 {% load i18n %}
 {% block title %}{% trans "Dashboard - SpinalCure" %}{% endblock %}
 {% block page_title %}{% trans "Dashboard Overview" %}{% endblock %}
+{% block header_actions %}
+{% if request.user|can:'appointments.manage' %}<a href="{% url 'appointment_calendar' %}" class="btn btn-outline"><i class="bi bi-calendar-plus"></i>{% trans "Appointment" %}</a>{% endif %}
+{% if request.user|can:'patients.view' %}<a href="{% url 'patient-create' %}" class="btn btn-outline"><i class="bi bi-person-plus"></i>{% trans "Patient" %}</a>{% endif %}
+{% if request.user|can:'billing.view' %}<a href="{% url 'payment_create' %}" class="btn btn-primary"><i class="bi bi-plus-lg"></i>{% trans "Record payment" %}</a>{% endif %}
+{% endblock %}
 
 {% block content %}
 
-{# ── Row 1: 4 Primary Stat Cards ────────────────────────────────────────── #}
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
-
-    <div class="relative overflow-hidden bg-gradient-to-br from-primary-600 to-primary-800 rounded-2xl p-5 text-white shadow-lg">
-        <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
-        <p class="text-primary-100 text-xs font-semibold uppercase tracking-wide">{% trans "Total Patients" %}</p>
-        <h3 class="text-4xl font-black mt-1">{{ total_patients }}</h3>
-        <p class="text-primary-200 text-xs mt-2 flex items-center gap-1">
-            <i class="bi bi-people-fill"></i> {% trans "All time registered" %}
-        </p>
+{# ── Key figures ─────────────────────────────────────────────────────── #}
+<div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div class="card flex items-start gap-4 p-5">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-lg text-primary-600 ring-1 ring-inset ring-primary-100"><i class="bi bi-people" aria-hidden="true"></i></span>
+        <div class="min-w-0"><p class="text-sm text-gray-500">{% trans "Total Patients" %}</p><p class="mt-1 text-2xl font-bold tracking-tight text-gray-900">{{ total_patients }}</p><p class="mt-0.5 truncate text-xs text-gray-500">{% trans "All time registered" %}</p></div>
     </div>
-
-    <div class="relative overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-5 text-white shadow-lg">
-        <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
-        <p class="text-blue-100 text-xs font-semibold uppercase tracking-wide">{% trans "Sessions Today" %}</p>
-        <h3 class="text-4xl font-black mt-1">{{ sessions_today }}</h3>
-        <p class="text-blue-200 text-xs mt-2 flex items-center gap-1">
-            <i class="bi bi-clipboard2-pulse"></i> {% trans "Completed today" %}
-        </p>
+    <div class="card flex items-start gap-4 p-5">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-lg text-blue-600 ring-1 ring-inset ring-blue-100"><i class="bi bi-clipboard2-pulse" aria-hidden="true"></i></span>
+        <div class="min-w-0"><p class="text-sm text-gray-500">{% trans "Sessions Today" %}</p><p class="mt-1 text-2xl font-bold tracking-tight text-gray-900">{{ sessions_today }}</p><p class="mt-0.5 truncate text-xs text-gray-500">{% trans "Completed today" %}</p></div>
     </div>
-
-    <div class="relative overflow-hidden bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-2xl p-5 text-white shadow-lg">
-        <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
-        <p class="text-emerald-100 text-xs font-semibold uppercase tracking-wide">{% trans "Revenue Today" %}</p>
-        <h3 class="text-4xl font-black mt-1">₹{{ revenue_today }}</h3>
-        <p class="text-emerald-200 text-xs mt-2 flex items-center gap-1">
-            <i class="bi bi-currency-rupee"></i> {% trans "Collections so far" %}
-        </p>
+    <div class="card flex items-start gap-4 p-5">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-lg text-emerald-600 ring-1 ring-inset ring-emerald-100"><i class="bi bi-currency-rupee" aria-hidden="true"></i></span>
+        <div class="min-w-0"><p class="text-sm text-gray-500">{% trans "Revenue Today" %}</p><p class="mt-1 text-2xl font-bold tracking-tight text-gray-900">₹{{ revenue_today }}</p><p class="mt-0.5 truncate text-xs text-gray-500">{% trans "Collections so far" %}</p></div>
     </div>
-
-    {% if can_expenses %}
-    <div class="relative overflow-hidden bg-gradient-to-br from-rose-500 to-rose-700 rounded-2xl p-5 text-white shadow-lg">
-        <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
-        <p class="text-rose-100 text-xs font-semibold uppercase tracking-wide">{% trans "Expenses Today" %}</p>
-        <h3 class="text-4xl font-black mt-1">₹{{ expenses_today }}</h3>
-        <p class="text-rose-200 text-xs mt-2 flex items-center gap-1">
-            <i class="bi bi-receipt-cutoff"></i> {% trans "Outgoing today" %}
-        </p>
+{% if can_expenses %}
+    <div class="card flex items-start gap-4 p-5">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-rose-50 text-lg text-rose-600 ring-1 ring-inset ring-rose-100"><i class="bi bi-receipt" aria-hidden="true"></i></span>
+        <div class="min-w-0"><p class="text-sm text-gray-500">{% trans "Expenses Today" %}</p><p class="mt-1 text-2xl font-bold tracking-tight text-gray-900">₹{{ expenses_today }}</p><p class="mt-0.5 truncate text-xs text-gray-500">{% trans "Outgoing today" %}</p></div>
     </div>
-    {% endif %}
-</div>
-
-{# ── Row 2: 3 New Insight Stat Cards ─────────────────────────────────────── #}
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600 flex-shrink-0">
-            <i class="bi bi-hourglass-split text-xl"></i>
-        </div>
-        <div>
-            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">{% trans "Pending Dues" %}</p>
-            <p class="text-2xl font-black text-gray-900">₹{{ pending_dues|floatformat:0 }}</p>
-            <p class="text-xs text-orange-500 mt-0.5">{% trans "Partial + unpaid payments" %}</p>
-        </div>
+{% endif %}
+    <div class="card flex items-start gap-4 p-5">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-50 text-lg text-amber-600 ring-1 ring-inset ring-amber-100"><i class="bi bi-hourglass-split" aria-hidden="true"></i></span>
+        <div class="min-w-0"><p class="text-sm text-gray-500">{% trans "Pending Dues" %}</p><p class="mt-1 text-2xl font-bold tracking-tight text-gray-900">₹{{ pending_dues|floatformat:0 }}</p><p class="mt-0.5 truncate text-xs text-gray-500">{% trans "Partial + unpaid payments" %}</p></div>
     </div>
-
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center text-red-600 flex-shrink-0">
-            <i class="bi bi-person-x text-xl"></i>
-        </div>
-        <div>
-            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">{% trans "No-Show Rate" %}</p>
-            <p class="text-2xl font-black text-gray-900">{{ no_show_rate }}%</p>
-            <p class="text-xs text-red-500 mt-0.5">{% trans "Of past appointments" %}</p>
-        </div>
+    <div class="card flex items-start gap-4 p-5">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-50 text-lg text-red-600 ring-1 ring-inset ring-red-100"><i class="bi bi-person-x" aria-hidden="true"></i></span>
+        <div class="min-w-0"><p class="text-sm text-gray-500">{% trans "No-Show Rate" %}</p><p class="mt-1 text-2xl font-bold tracking-tight text-gray-900">{{ no_show_rate }}%</p><p class="mt-0.5 truncate text-xs text-gray-500">{% trans "Of past appointments" %}</p></div>
     </div>
-
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 flex-shrink-0">
-            <i class="bi bi-award text-xl"></i>
-        </div>
-        <div>
-            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">{% trans "Top Doctor This Month" %}</p>
-            <p class="text-lg font-black text-gray-900 leading-tight">{{ top_practitioner_name }}</p>
-            <p class="text-xs text-purple-500 mt-0.5">{% blocktranslate trimmed with top_practitioner_sessions=top_practitioner_sessions %}{{ top_practitioner_sessions }} sessions{% endblocktranslate %}</p>
-        </div>
+    <div class="card flex items-start gap-4 p-5">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-50 text-lg text-purple-600 ring-1 ring-inset ring-purple-100"><i class="bi bi-award" aria-hidden="true"></i></span>
+        <div class="min-w-0"><p class="text-sm text-gray-500">{% trans "Top Doctor This Month" %}</p><p class="mt-1 text-2xl font-bold tracking-tight text-gray-900"><span class="text-lg">{{ top_practitioner_name }}</span></p><p class="mt-0.5 truncate text-xs text-gray-500">{% blocktranslate trimmed with top_practitioner_sessions=top_practitioner_sessions %}{{ top_practitioner_sessions }} sessions{% endblocktranslate %}</p></div>
     </div>
 </div>
 
 {# ── Row 3: P&L Chart + Payment Mode Pie ─────────────────────────────────── #}
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+    <div class="lg:col-span-2 card p-5">
         <h2 class="text-base font-bold text-gray-900 mb-1">{% trans "Monthly P&amp;L — Revenue vs. Expenses" %}</h2>
         <p class="text-xs text-gray-400 mb-4">{% trans "Last 6 months comparison" %}</p>
         <div class="relative h-64 w-full">
             <canvas id="plChart"></canvas>
         </div>
     </div>
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+    <div class="card p-5">
         <h2 class="text-base font-bold text-gray-900 mb-1">{% trans "Payment Modes" %}</h2>
         <p class="text-xs text-gray-400 mb-4">{% trans "Last 30 days breakdown" %}</p>
         <div class="relative h-56 w-full">
@@ -104,14 +65,14 @@
 
 {# ── Row 4: New Patients Trend + Sessions Monthly ─────────────────────────── #}
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+    <div class="card p-5">
         <h2 class="text-base font-bold text-gray-900 mb-1">{% trans "New Patients Trend" %}</h2>
         <p class="text-xs text-gray-400 mb-4">{% trans "Last 6 months" %}</p>
         <div class="relative h-56 w-full">
             <canvas id="newPatientsChart"></canvas>
         </div>
     </div>
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+    <div class="card p-5">
         <h2 class="text-base font-bold text-gray-900 mb-1">{% trans "Monthly Sessions" %}</h2>
         <p class="text-xs text-gray-400 mb-4">{% trans "Last 12 months" %}</p>
         <div class="relative h-56 w-full">
@@ -122,7 +83,7 @@
 
 {# ── Row 5: Revenue (30d) + Upcoming Appointments ────────────────────────── #}
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100">
+    <div class="lg:col-span-2 card">
         <div class="p-4 border-b border-gray-100 flex justify-between items-center">
             <h2 class="text-base font-bold text-gray-900">{% trans "Upcoming Appointments" %}</h2>
             <a href="{% url 'appointment_calendar' %}" class="text-xs text-primary-600 hover:text-primary-700 font-semibold">{% trans "View all →" %}</a>
@@ -159,7 +120,7 @@
         </table>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
+    <div class="card">
         <div class="p-4 border-b border-gray-100">
             <h2 class="text-base font-bold text-gray-900">{% trans "Quick Actions" %}</h2>
         </div>
@@ -197,7 +158,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const GRID = '#f3f4f6';
+    const GRID = document.documentElement.classList.contains('dark') ? 'rgba(148,163,184,.15)' : '#f1f5f9';
 
     function monthLabel(isoStr) {
         const d = new Date(isoStr);

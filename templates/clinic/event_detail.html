@@ -1,10 +1,11 @@
 {% extends "public_base.html" %}
+{% load content_i18n %}
 {% load i18n %}
-{% block title %}{{ event.title }} — {{ clinic.name|default:"SpinalCure" }}{% endblock %}
-{% block description %}{{ event.description|striptags|truncatewords:30 }}{% endblock %}
+{% block title %}{{ event|tx:"title" }} — {{ clinic|tx:"name"|default:"SpinalCure" }}{% endblock %}
+{% block description %}{{ event|tx:"description"|striptags|truncatewords:30 }}{% endblock %}
 {% block meta %}
-<meta property="og:title" content="{{ event.title }}">
-<meta property="og:description" content="{{ event.description|striptags|truncatewords:30 }}">
+<meta property="og:title" content="{{ event|tx:"title" }}">
+<meta property="og:description" content="{{ event|tx:"description"|striptags|truncatewords:30 }}">
 <meta property="og:type" content="event">
 <meta property="og:url" content="{{ og_url }}">
 {% if event.image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ event.image.url }}">{% endif %}
@@ -21,7 +22,7 @@
             {% if event.phase == 'completed' %}<span class="rounded-full bg-gray-200 px-2.5 py-1">{% translate "Completed" %}</span>{% endif %}
             {% if event.status == 'cancelled' %}<span class="rounded-full bg-red-100 text-red-700 px-2.5 py-1 font-semibold">{% translate "Cancelled" %}</span>{% endif %}
         </div>
-        <h1 class="text-3xl font-bold leading-tight">{{ event.title }}</h1>
+        <h1 class="text-3xl font-bold leading-tight">{{ event|tx:"title" }}</h1>
         {% if event.presenter %}<p class="mt-1 text-gray-600">{% blocktranslate with name=event.presenter %}Presented by {{ name }}{% endblocktranslate %}</p>{% endif %}
         {% if event.status == 'cancelled' %}
         <div role="alert" class="mt-5 rounded-xl bg-red-50 border border-red-200 text-red-800 p-4 text-sm"><strong>{% translate "This event was cancelled." %}</strong>{% if event.cancel_reason %} {{ event.cancel_reason }}{% endif %}</div>
@@ -36,13 +37,13 @@
             <div><dt class="text-gray-500">{% translate "When" %}</dt>
                 <dd class="font-medium">{{ event.starts_at|date:"DATE_FORMAT" }}<br><span class="ltr-isolate">{{ event.starts_at|time:"H:i" }}–{{ event.ends_at|time:"H:i" }}</span> <span class="text-gray-500 font-normal">{{ event.timezone }} · {{ event.duration_minutes }} {% translate "min" %}</span></dd></div>
             <div><dt class="text-gray-500">{% translate "Where" %}</dt>
-                <dd class="font-medium">{% if event.is_online %}{% translate "Online — joining details are sent to registered attendees" %}{% else %}{{ event.venue }}{% endif %}</dd></div>
+                <dd class="font-medium">{% if event.is_online %}{% translate "Online — joining details are sent to registered attendees" %}{% else %}{{ event|tx:"venue" }}{% endif %}</dd></div>
             <div><dt class="text-gray-500">{% translate "Language" %}</dt><dd class="font-medium">{{ event.get_language_display }}</dd></div>
             <div><dt class="text-gray-500">{% translate "Fee" %}</dt><dd class="font-medium">{% if event.fees > 0 %}₹{{ event.fees|floatformat:"-2" }}{% else %}{% translate "Free" %}{% endif %}</dd></div>
             {% if event.registration_deadline %}<div><dt class="text-gray-500">{% translate "Register by" %}</dt><dd class="font-medium">{{ event.registration_deadline|date:"DATETIME_FORMAT" }}</dd></div>{% endif %}
             {% if event.seats_left is not None %}<div><dt class="text-gray-500">{% translate "Places" %}</dt><dd class="font-medium">{% if event.is_full %}{% translate "Full" %}{% else %}{% blocktranslate with n=event.seats_left %}{{ n }} left{% endblocktranslate %}{% endif %}</dd></div>{% endif %}
         </dl>
-        <div class="prose max-w-none mt-6 text-gray-700 whitespace-pre-line">{{ event.description }}</div>
+        <div class="prose max-w-none mt-6 text-gray-700 whitespace-pre-line">{{ event|tx:"description" }}</div>
         <p class="mt-6"><a href="{{ ics_url }}" class="inline-flex items-center gap-2 text-sm font-semibold text-green-700 no-underline hover:underline"><i class="bi bi-calendar-plus" aria-hidden="true"></i>{% translate "Add to calendar" %}</a></p>
 
         {% if feedbacks %}

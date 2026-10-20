@@ -28,8 +28,8 @@ def _named_urls():
 # Everything a restricted employee legitimately needs.
 ALLOWED = {'dashboard', 'notification_center', 'notification_summary', 'notification_preferences', 'idcard_mine', 'logout',
            # own profile, and pages/APIs that are public by design
-           'auth-me', 'blog_list', 'clinic_about_page', 'clinic_portfolio', 'event-list', 'login', 'portal_login',
-           'practitioner-list', 'public_event_list'}
+           'auth-me', 'blog_list', 'clinic_about_page', 'clinic_portfolio', 'event-list', 'login', 'portal_login', 'settings',  # own profile
+           'practitioner-list', 'public_event_list', 'public_testimonials'}
 # Pages a receptionist must NOT reach (management, clinical, website and finance-admin areas).
 RECEPTIONIST_BLOCKED = {'expense_list', 'expense_create', 'payments_report', 'admin_users', 'admin_activity_log', 'admin_practitioners',
                         'admin_clinic_setup', 'admin_blog_list', 'admin_testimonials', 'idcard_dashboard', 'idcard_issue',
@@ -66,3 +66,14 @@ def test_receptionist_cannot_reach_management_areas():
         if r.status_code == 200:
             reached.append(name)
     assert not reached, reached
+
+
+def test_profile_email_cannot_take_another_users_login():
+    """Login is by email: a user must not be able to copy someone else's email onto their own account."""
+    admin = User.objects.create_user(username='boss', email='boss@x.com', password='x-Str0ng-pass!', role='superadmin')
+    u = User.objects.create_user(username='st', email='st@x.com', password='x-Str0ng-pass!', role='staff')
+    c = Client()
+    c.force_login(u)
+    c.post('/en/accounts/settings/', {'first_name': 'S', 'last_name': 'T', 'email': 'BOSS@x.com', 'phone': '', 'bio': ''})
+    u.refresh_from_db()
+    assert u.email == 'st@x.com'

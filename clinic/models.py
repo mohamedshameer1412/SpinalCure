@@ -293,6 +293,33 @@ class HeroCarouselImage(models.Model):
         return f"Hero Image for {self.clinic.name} ({self.id})"
 
 
+class ProblemCategory(models.Model):
+    """Health problem a testimonial or video relates to; drives the public search dropdown."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100, unique=True, verbose_name=_('Problem'))
+    slug = models.SlugField(max_length=120, unique=True, blank=True)
+    keywords = models.CharField(
+        max_length=300, blank=True, verbose_name=_('Search keywords'),
+        help_text=_('Comma-separated extra words that should match this problem, e.g. "disc, herniated".')
+    )
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['order', 'name']
+        verbose_name = _('Problem Category')
+        verbose_name_plural = _('Problem Categories')
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+
 class ClinicTestimonial(models.Model):
     """
     Curated testimonials displayed on the public portfolio.
@@ -334,6 +361,16 @@ class ClinicTestimonial(models.Model):
         max_length=20, choices=SOURCE_CHOICES, default='internal',
         verbose_name=_('Source')
     )
+    problem = models.ForeignKey(
+        ProblemCategory, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='testimonials', verbose_name=_('Problem treated')
+    )
+    owner_reply = models.TextField(blank=True, verbose_name=_('Clinic reply'))
+    source_url = models.URLField(blank=True, verbose_name=_('Source link'))
+    posted_label = models.CharField(
+        max_length=50, blank=True, verbose_name=_('Posted'),
+        help_text=_('Free text shown on the card, e.g. "2 months ago".')
+    )
     is_published = models.BooleanField(default=False, verbose_name=_('Published'), db_index=True)
     display_order = models.PositiveIntegerField(default=0, verbose_name=_('Display Order'))
     created_at = models.DateTimeField(auto_now_add=True)
@@ -345,6 +382,73 @@ class ClinicTestimonial(models.Model):
 
     def __str__(self):
         return f"{self.patient_name} — {self.rating}★"
+
+
+class TestimonialVideo(models.Model):
+    """Patient story shared as a YouTube Short/video or Instagram reel; embedded, never downloaded."""
+    PLATFORM_CHOICES = [('youtube', 'YouTube'), ('instagram', 'Instagram')]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=200, verbose_name=_('Title'))
+    patient_name = models.CharField(max_length=200, blank=True, verbose_name=_('Patient name'))
+    url = models.URLField(verbose_name=_('Video / Reel / Short link'))
+    platform = models.CharField(max_length=10, choices=PLATFORM_CHOICES, blank=True, editable=False)
+    video_id = models.CharField(max_length=64, blank=True, editable=False)
+    problem = models.ForeignKey(
+        ProblemCategory, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='videos', verbose_name=_('Problem treated')
+    )
+    description = models.TextField(blank=True, verbose_name=_('Short description'))
+    is_published = models.BooleanField(default=True, db_index=True)
+    display_order = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('Testimonial Video')
+        verbose_name_plural = _('Testimonial Videos')
+        ordering = ['display_order', '-created_at']
+
+    def __str__(self):
+        return self.title
+
+    @staticmethod
+    def parse_url(url):
+        """Return (platform, id) for a YouTube/Shorts/Instagram reel link, or ('', '')."""
+        import re
+        m = re.search(r'(?:youtube\.com/(?:shorts/|watch\?v=|embed/)|youtu\.be/)([\w-]{6,20})', url)
+        if m:
+            return 'youtube', m.group(1)
+        m = re.search(r'instagram\.com/(?:[\w.]+/)?(?:reels?|p|tv)/([\w-]+)', url)
+        if m:
+            return 'instagram', m.group(1)
+        return '', ''
+
+    def clean(self):
+        self.platform, self.video_id = self.parse_url(self.url or '')
+        if not self.platform:
+            raise ValidationError({'url': _('Enter a YouTube, YouTube Shorts or Instagram reel link.')})
+
+    def save(self, *args, **kwargs):
+        self.platform, self.video_id = self.parse_url(self.url or '')
+        super().save(*args, **kwargs)
+
+    @property
+    def embed_url(self):
+        if self.platform == 'youtube':
+            return f'https://www.youtube-nocookie.com/embed/{self.video_id}?rel=0'
+        if self.platform == 'instagram':
+            return f'https://www.instagram.com/reel/{self.video_id}/embed'
+        return ''
+
+    @property
+    def is_vertical(self):
+        return self.platform == 'instagram' or '/shorts/' in self.url
+
+    @property
+    def thumbnail_url(self):
+        if self.platform == 'youtube':
+            return f'https://i.ytimg.com/vi/{self.video_id}/hqdefault.jpg'
+        return ''
 
 
 class AuditLog(models.Model):
@@ -441,3 +545,37 @@ class AuditLog(models.Model):
     def __str__(self):
         user_str = self.user.get_full_name() if self.user else 'Unknown'
         return f"[{self.get_action_display()}] {self.model_name}: {self.object_repr} by {user_str}"
+
+
+class Translation(models.Model):
+    """One translated text unit (model + object + field + language). English lives on the model itself.
+    A person's words (edited/final) are never overwritten by a machine; see clinic/content_i18n.py."""
+    STATUS_CHOICES = [('auto', _('Auto-translated')), ('edited', _('Edited by staff')), ('final', _('Reviewed'))]
+
+    model_label = models.CharField(max_length=60)
+    object_id = models.CharField(max_length=64)
+    field = models.CharField(max_length=60)
+    lang = models.CharField(max_length=5, db_index=True)
+    value = models.TextField(blank=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='auto')
+    method = models.CharField(max_length=40, blank=True, help_text='manual, or machine:<provider>')
+    source_hash = models.CharField(max_length=16, blank=True, help_text='Hash of the English text this was made from.')
+    updated_by = models.CharField(max_length=150, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = [('model_label', 'object_id', 'field', 'lang')]
+        indexes = [models.Index(fields=['lang', 'model_label'])]
+
+    def __str__(self):
+        return f'{self.model_label}:{self.field} [{self.lang}]'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        from django.core.cache import cache
+        cache.delete(f'content_tr_{self.lang}')
+
+    def delete(self, *args, **kwargs):
+        from django.core.cache import cache
+        cache.delete(f'content_tr_{self.lang}')
+        return super().delete(*args, **kwargs)

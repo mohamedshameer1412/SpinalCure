@@ -1,5 +1,5 @@
 {% load i18n %}
-<div id="event-registrations-container" class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+<div id="event-registrations-container" class="card overflow-hidden">
     {% if registrations %}
     <div class="overflow-x-auto">
         <table class="w-full text-sm text-start">
@@ -28,10 +28,10 @@
                             {% if reg.status == 'confirmed' %}
                             <form method="post" action="{% url 'event_registration_action' event.id reg.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
                                 <input type="hidden" name="action" value="{% if reg.attended %}not_attended{% else %}attended{% endif %}">
-                                <button class="text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50">{% if reg.attended %}{% trans "Undo attended" %}{% else %}{% trans "Mark attended" %}{% endif %}</button></form>
+                                <button class="btn btn-outline btn-sm">{% if reg.attended %}{% trans "Undo attended" %}{% else %}{% trans "Mark attended" %}{% endif %}</button></form>
                             {% elif reg.status == 'waitlisted' %}
                             <form method="post" action="{% url 'event_registration_action' event.id reg.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><input type="hidden" name="action" value="promote">
-                                <button class="text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-green-50 text-green-700 hover:bg-green-100">{% trans "Confirm" %}</button></form>
+                                <button class="btn btn-soft btn-sm">{% trans "Confirm" %}</button></form>
                             {% endif %}
                             {% if reg.status != 'cancelled' %}
                             <form method="post" action="{% url 'event_registration_action' event.id reg.pk %}" onsubmit="return confirm('Cancel this registration?')">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><input type="hidden" name="action" value="cancel">
@@ -48,8 +48,8 @@
     <div class="flex items-center justify-between p-4 border-t border-gray-50">
         <span class="text-sm text-gray-500 font-medium">{% blocktranslate trimmed with start_index=registrations.start_index end_index=registrations.end_index count=registrations.paginator.count %}Showing {{ start_index }}–{{ end_index }} of {{ count }}{% endblocktranslate %}</span>
         <div class="inline-flex gap-2">
-            {% if registrations.has_previous %}<button hx-get="?page={{ registrations.previous_page_number }}&q={{ search_query|urlencode }}&status={{ status }}" hx-target="#event-registrations-container" hx-swap="outerHTML" class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100">{% trans "Previous" %}</button>{% endif %}
-            {% if registrations.has_next %}<button hx-get="?page={{ registrations.next_page_number }}&q={{ search_query|urlencode }}&status={{ status }}" hx-target="#event-registrations-container" hx-swap="outerHTML" class="px-4 py-2 text-sm font-bold text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100">{% trans "Next" %}</button>{% endif %}
+            {% if registrations.has_previous %}<button hx-get="?page={{ registrations.previous_page_number }}&q={{ search_query|urlencode }}&status={{ status }}" hx-target="#event-registrations-container" hx-swap="outerHTML" class="btn btn-secondary">{% trans "Previous" %}</button>{% endif %}
+            {% if registrations.has_next %}<button hx-get="?page={{ registrations.next_page_number }}&q={{ search_query|urlencode }}&status={{ status }}" hx-target="#event-registrations-container" hx-swap="outerHTML" class="btn btn-secondary">{% trans "Next" %}</button>{% endif %}
         </div>
     </div>
     {% endif %}

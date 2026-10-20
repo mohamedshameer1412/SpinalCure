@@ -84,7 +84,7 @@
             <button hx-get="?page={{ appointments.previous_page_number }}&q={{ filters.q }}&status={{ filters.status }}&practitioner={{ filters.practitioner }}&date={{ filters.date }}"
                     hx-target="#appointment-table-container"
                     hx-swap="outerHTML"
-                    class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                    class="btn btn-outline btn-sm">
                 {% trans "Previous" %}
             </button>
             {% endif %}
@@ -92,7 +92,7 @@
             <button hx-get="?page={{ appointments.next_page_number }}&q={{ filters.q }}&status={{ filters.status }}&practitioner={{ filters.practitioner }}&date={{ filters.date }}"
                     hx-target="#appointment-table-container"
                     hx-swap="outerHTML"
-                    class="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
+                    class="btn btn-outline btn-sm">
                 {% trans "Next" %}
             </button>
             {% endif %}

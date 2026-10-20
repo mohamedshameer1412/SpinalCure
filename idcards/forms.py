@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from accounts.models import StaffProfile
 from .models import IDCard, IDCardBranding
 
-CSS = 'w-full rounded-xl border-gray-200 text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500'
+CSS = 'w-full'  # the kit styles native fields
 
 
 class IssueForm(forms.Form):
@@ -13,7 +13,7 @@ class IssueForm(forms.Form):
     show_phone = forms.BooleanField(required=False, initial=True, label=_('Show phone on the card'))
     show_email = forms.BooleanField(required=False, label=_('Show email on the card'))
     show_emergency_contact = forms.BooleanField(required=False, label=_('Show emergency contact on the back'))
-    show_blood_group = forms.BooleanField(required=False, label=_('Show blood group on the back'))
+    show_blood_group = forms.BooleanField(required=False, initial=True, label=_('Show blood group on the card'))
     show_skills = forms.BooleanField(required=False, label=_('Show skills on the back'))
 
     def __init__(self, *args, **kwargs):

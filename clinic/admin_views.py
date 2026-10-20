@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from spinalcure.decorators import superadmin_required
-from .models import ClinicProfile, Practitioner, ClinicService, ClinicAboutImage, ClinicTestimonial
+from .models import ClinicProfile, Practitioner, ClinicService, ClinicAboutImage, ClinicTestimonial, ProblemCategory
 
 @superadmin_required
 def clinic_setup_view(request):
@@ -234,7 +234,7 @@ def practitioner_delete(request, pk):
 @superadmin_required
 def testimonials_list(request):
     clinic = ClinicProfile.objects.first()
-    testimonials = ClinicTestimonial.objects.filter(clinic=clinic).order_by('display_order', '-created_at') if clinic else []
+    testimonials = ClinicTestimonial.objects.filter(clinic=clinic).select_related('problem').order_by('display_order', '-created_at') if clinic else []
     return render(request, 'clinic/admin/testimonials_list.html', {
         'testimonials': testimonials,
         'clinic': clinic,
@@ -259,6 +259,10 @@ def testimonial_create(request):
                 source=request.POST.get('source', 'internal'),
                 display_order=int(request.POST.get('display_order', 0) or 0),
                 is_published=request.POST.get('is_published') == 'on',
+                problem_id=request.POST.get('problem') or None,
+                owner_reply=request.POST.get('owner_reply', '').strip(),
+                source_url=request.POST.get('source_url', '').strip(),
+                posted_label=request.POST.get('posted_label', '').strip(),
             )
             if request.FILES.get('photo'):
                 t.photo = request.FILES['photo']
@@ -271,6 +275,7 @@ def testimonial_create(request):
     return render(request, 'clinic/admin/testimonial_form.html', {
         'testimonial': None,
         'source_choices': ClinicTestimonial.SOURCE_CHOICES,
+        'problems': ProblemCategory.objects.filter(is_active=True),
     })
 
 
@@ -286,6 +291,10 @@ def testimonial_edit(request, pk):
             t.source = request.POST.get('source', t.source)
             t.display_order = int(request.POST.get('display_order', t.display_order) or 0)
             t.is_published = request.POST.get('is_published') == 'on'
+            t.problem_id = request.POST.get('problem') or None
+            t.owner_reply = request.POST.get('owner_reply', '').strip()
+            t.source_url = request.POST.get('source_url', '').strip()
+            t.posted_label = request.POST.get('posted_label', '').strip()
             if request.FILES.get('photo'):
                 t.photo = request.FILES['photo']
             t.save()
@@ -297,6 +306,7 @@ def testimonial_edit(request, pk):
     return render(request, 'clinic/admin/testimonial_form.html', {
         'testimonial': t,
         'source_choices': ClinicTestimonial.SOURCE_CHOICES,
+        'problems': ProblemCategory.objects.filter(is_active=True),
     })
 
 

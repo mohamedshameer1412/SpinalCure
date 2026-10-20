@@ -4,7 +4,9 @@ from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 
 from .i18n_views import set_language
-from django.views.generic import RedirectView
+from payments.online_views import webhook as razorpay_webhook
+from .decorators import superadmin_required
+from django.views.generic import RedirectView, TemplateView
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from .converters import B64UUIDConverter
@@ -38,6 +40,7 @@ api_router.register(r'events', EventViewSet, basename='event')
 urlpatterns = [
     # Internationalization
     path('i18n/setlang/', set_language, name='set_language'),
+    path('payments/razorpay/webhook/', razorpay_webhook, name='razorpay_webhook'),
     
     # API Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
@@ -67,6 +70,7 @@ urlpatterns += i18n_patterns(
     path('analytics/', include('analytics.urls')),
     path('notifications/', include('notifications.urls')),
     path('idcards/', include('idcards.urls')),
+    path('ui-kit/', superadmin_required(TemplateView.as_view(template_name='ui/kit.html')), name='ui_kit'),
 )
 
 # Static and Media files

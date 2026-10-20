@@ -10,13 +10,11 @@ mysqlclient>=2.2.0
 
 # File handling
 Pillow>=10.1.0
-openpyxl==3.11.0
-python-docx==0.8.11
+openpyxl>=3.1.2
 reportlab>=4.0
 
 # Frontend & Styling
 django-tailwind==3.6.0
-django-compressor>=4.1.1
 
 # Filtering & Search
 django-filter==23.5
@@ -40,16 +38,10 @@ python-json-logger==2.0.7
 # Internationalisation tooling (scripts/i18n_*.py; .mo files are committed)
 polib>=1.2.0
 
-# Email
-django-anymail==10.2
-
 # Testing
 pytest==7.4.3
 pytest-django==4.7.0
 pytest-cov==4.1.0
-pytest-xdist==3.5.0
-factory-boy==3.3.0
-faker==20.1.0
 pytest-timeout==2.2.0
 
 # Development Tools

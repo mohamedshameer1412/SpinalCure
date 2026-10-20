@@ -5,14 +5,14 @@
 
 {% block header_actions %}
 <a href="{% url 'admin_blog_tags' %}"
-    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors">
+    class="btn btn-outline inline-flex items-center gap-2">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/>
     </svg>
     {% trans "Manage Tags" %}
 </a>
 <a href="{% url 'admin_blog_create' %}"
-    class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white text-sm font-semibold rounded-lg hover:bg-primary-700 transition-colors shadow-sm">
+    class="btn btn-primary inline-flex items-center gap-2">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
     </svg>
@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="card overflow-hidden">
     {% if posts %}
     <table class="w-full text-sm text-start text-gray-600">
         <thead class="text-xs font-bold text-gray-500 uppercase bg-gray-50 border-b border-gray-100">
@@ -135,7 +135,7 @@
         <h3 class="text-xl font-bold text-gray-800 mb-2">{% trans "No blog posts yet" %}</h3>
         <p class="text-gray-500 mb-6">{% trans "Create your first research article or health guide." %}</p>
         <a href="{% url 'admin_blog_create' %}"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow">
+            class="btn btn-primary inline-flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             {% trans "Write First Post" %}
         </a>

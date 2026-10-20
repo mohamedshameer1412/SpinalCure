@@ -1,4 +1,6 @@
+import secrets
 from django.db import models
+from spinalcure.uploads import RandomName
 import uuid
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
@@ -21,6 +23,7 @@ class Payment(models.Model):
         ('upi', _('UPI')),
         ('bank_transfer', _('Bank Transfer')),
         ('cheque', _('Cheque')),
+        ('razorpay', _('Online (Razorpay)')),
         ('other', _('Other')),
     ]
     PAYMENT_STATUS_CHOICES = [
@@ -325,7 +328,7 @@ class Expense(models.Model):
     )
     paid_to = models.CharField(max_length=200, blank=True, verbose_name=_('Paid To'))
     receipt = models.ImageField(
-        upload_to='expenses/',
+        upload_to=RandomName('expenses'),
         blank=True,
         null=True,
         verbose_name=_('Receipt Photo')
@@ -373,3 +376,31 @@ class PaymentRefund(models.Model):
 
     def __str__(self):
         return f'Refund {self.amount} on {self.payment.receipt_number}'
+
+
+class OnlineOrder(models.Model):
+    """A Razorpay order for (part of) a payment's balance, reachable through a secret public link.
+    payment_ref holds the Payment's id as text: the legacy payments table has char(32) ids, so a database foreign
+    key from a new table cannot be created on existing installations."""
+    STATUS_CHOICES = [('created', _('Waiting for payment')), ('paid', _('Paid')), ('cancelled', _('Cancelled'))]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    payment_ref = models.CharField(max_length=36, db_index=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    token = models.CharField(max_length=43, unique=True, editable=False, default=secrets.token_urlsafe)
+    order_id = models.CharField(max_length=40, unique=True)
+    gateway_payment_id = models.CharField(max_length=40, blank=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='created', db_index=True)
+    created_by = models.CharField(max_length=150, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    paid_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.order_id} ({self.status})'
+
+    @property
+    def payment(self):
+        return Payment.objects.filter(pk=self.payment_ref).first()

@@ -14,7 +14,18 @@ def clinic_info(request):
         except Exception:
             clinic_logo_url = None
             
+    # optional variant for dark backgrounds, stored next to the logo as <name>_on_dark.<ext>
+    clinic_logo_dark_url = clinic_logo_url
+    if clinic_logo_url:
+        try:
+            import os
+            stem, ext = os.path.splitext(clinic.logo.name)
+            if clinic.logo.storage.exists(f'{stem}_on_dark{ext}'):
+                clinic_logo_dark_url = clinic.logo.storage.url(f'{stem}_on_dark{ext}')
+        except Exception:
+            pass
     return {
+        'clinic_logo_dark_url': clinic_logo_dark_url,
         'clinic': clinic,
         'clinic_info': clinic,
         'clinic_logo_url': clinic_logo_url,

@@ -9,7 +9,7 @@
 {% block content %}
 <div class="max-w-6xl mx-auto space-y-8">
     <!-- Header Card -->
-    <div class="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 p-8">
+    <div class="card shadow-xl shadow-gray-200/50 p-8">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div class="flex items-center gap-6">
                 <!-- Avatar -->
@@ -42,25 +42,25 @@
             <div class="flex items-center gap-3">
                 {% if request.user.role == 'superadmin' or request.user.is_superuser %}
                 <a href="{% url 'patient-edit' patient.id %}"
-                    class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 transition-all shadow-sm">
+                    class="card inline-flex items-center px-5 py-2.5 text-gray-700 text-sm font-bold hover:bg-gray-50 transition-all">
                     <i class="bi bi-pencil-square me-2 text-primary-600"></i>
                     {% trans "Edit Profile" %}
                 </a>
                 <button data-direct-delete data-url="{% url 'patient-delete' patient.id %}" data-name="{{ patient.name|escapejs }}"
                     onclick="directDelete(this.dataset.url, this.dataset.name)"
-                    class="inline-flex items-center px-4 py-2.5 bg-red-50 border border-red-100 text-red-600 text-sm font-bold rounded-xl hover:bg-red-100 transition-all shadow-sm">
+                    class="btn btn-soft !bg-red-50 !text-red-700 hover:!bg-red-100 inline-flex items-center">
                     <i class="bi bi-trash"></i>
                 </button>
                 {% else %}
                 <button data-security-modal data-action="edit" data-url="{% url 'patient-edit' patient.id %}" data-name="{{ patient.name|escapejs }}"
                     onclick="openSecurityModal('edit', this.dataset.url, this.dataset.name)"
-                    class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-50 transition-all shadow-sm">
+                    class="card inline-flex items-center px-5 py-2.5 text-gray-700 text-sm font-bold hover:bg-gray-50 transition-all">
                     <i class="bi bi-pencil-square me-2 text-primary-600"></i>
                     {% trans "Edit Profile" %}
                 </button>
                 <button data-security-modal data-action="delete" data-url="{% url 'patient-delete' patient.id %}" data-name="{{ patient.name|escapejs }}"
                     onclick="openSecurityModal('delete', this.dataset.url, this.dataset.name)"
-                    class="inline-flex items-center px-4 py-2.5 bg-red-50 border border-red-100 text-red-600 text-sm font-bold rounded-xl hover:bg-red-100 transition-all shadow-sm">
+                    class="btn btn-soft !bg-red-50 !text-red-700 hover:!bg-red-100 inline-flex items-center">
                     <i class="bi bi-trash"></i>
                 </button>
                 {% endif %}
@@ -72,7 +72,7 @@
         <!-- Sidebar: Contact & Vitals -->
         <div class="space-y-6">
             <!-- Contact Info -->
-            <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+            <div class="card p-6">
                 <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">{% trans "Contact Information" %}</h4>
                 <div class="space-y-5">
                     {% if patient.patient_id_str %}
@@ -242,9 +242,9 @@
         ">
             
             <!-- Treatment Plan Dropdown Header -->
-            <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm flex flex-col md:flex-row gap-4 justify-between items-center relative">
+            <div class="card p-6 flex flex-col md:flex-row gap-4 justify-between items-center relative">
                 <div class="w-full md:w-1/2 flex flex-col sm:flex-row sm:items-center gap-3">
-                    <label class="text-xs font-bold text-gray-400 uppercase tracking-widest whitespace-nowrap">{% trans "Treatment Plan:" %}</label>
+                    <label class="label whitespace-nowrap">{% trans "Treatment Plan:" %}</label>
                     <div class="relative flex-1 w-full sm:w-64">
                         {% include 'components/alpine_select.html' with id="plan_select" name="plan" options_json=treatment_plans_json placeholder="All Plans / General" x_model="activePlan" selected="all" %}
                     </div>
@@ -259,13 +259,13 @@
                         </button>
                         <form method="POST" action="{% url 'treatment-plan-delete' patient.id plan.id %}" data-confirm="Delete this plan? Sessions must be moved or deleted first." class="inline m-0">
                             {% csrf_token %}
-                            <button type="submit" class="px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl font-bold text-xs transition-colors shadow-sm">
+                            <button type="submit" class="btn btn-soft !bg-red-50 !text-red-700 hover:!bg-red-100 btn-sm">
                                 <i class="bi bi-trash3 me-1"></i> {% trans "Delete" %}
                             </button>
                         </form>
                     </div>
                     {% endfor %}
-                    <button onclick="openPlanModal()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold text-sm shadow-md transition-colors ms-2">
+                    <button onclick="openPlanModal()" class="btn btn-primary ms-2">
                         <i class="bi bi-plus-lg me-1"></i> {% trans "New Plan" %}
                     </button>
                 </div>
@@ -273,19 +273,19 @@
 
             <!-- Stats -->
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+                <div class="card p-5">
                     <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">{% trans "Total Fee" %}</p>
                     <p class="text-xl font-black text-gray-900">
                         ₹{{ total_amount }}
                     </p>
                 </div>
-                <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+                <div class="card p-5">
                     <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">{% trans "Paid Amount" %}</p>
                     <p class="text-xl font-black text-green-600">
                         ₹{{ amount_paid }}
                     </p>
                 </div>
-                <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm col-span-2 md:col-span-1">
+                <div class="card p-5 col-span-2 md:col-span-1">
                     <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">{% trans "Balance" %}</p>
                     <p class="text-xl font-black text-red-600">
                         ₹{{ remaining_amount }}
@@ -294,7 +294,7 @@
             </div>
 
             <!-- Tabs Area -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="card overflow-hidden">
                 <div class="border-b border-gray-100">
                     <nav class="flex overflow-x-auto no-scrollbar" id="patient-tabs">
                         <button onclick="switchTab('sessions')" id="tab-btn-sessions"
@@ -328,7 +328,7 @@
                     <div class="px-6 py-4 bg-gray-50/50 border-b border-gray-100 flex justify-between items-center">
                         <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest">{% trans "Session History" %}</h4>
                         <a href="{% url 'session-create' patient.id %}"
-                            class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-[11px] font-bold rounded-lg shadow-md transition-all">
+                            class="btn btn-primary inline-flex items-center">
                             <i class="bi bi-plus-lg me-1.5"></i> {% trans "Add Session" %}
                         </a>
                     </div>
@@ -473,7 +473,7 @@
                                                     class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
                                                     {% trans "Medical Notes (Internal)" %}</h5>
                                                 <div
-                                                    class="p-4 bg-white border border-gray-200 rounded-2xl text-sm text-gray-600 italic leading-relaxed shadow-sm">
+                                                    class="card p-4 text-sm text-gray-600 italic leading-relaxed">
                                                     {{ session.practitioner_notes|default:"No notes recorded." }}
                                                 </div>
                                             </div>
@@ -482,7 +482,7 @@
                                                     class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
                                                     {% trans "Patient Feedback" %}</h5>
                                                 <div
-                                                    class="p-4 bg-white border border-gray-200 rounded-2xl text-sm text-gray-600 leading-relaxed shadow-sm">
+                                                    class="card p-4 text-sm text-gray-600 leading-relaxed">
                                                     {{ session.patient_feedback|default:"No feedback provided." }}
                                                 </div>
                                             </div>
@@ -557,7 +557,7 @@
                     <div class="px-6 py-4 bg-gray-50/50 border-b border-gray-100 flex justify-between items-center">
                         <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest">{% trans "Payment History" %}</h4>
                         {% comment %} <a href="{% url 'payment_create'  %}"
-                            class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-[11px] font-bold rounded-lg shadow-md transition-all">
+                            class="btn btn-primary inline-flex items-center">
                             <i class="bi bi-plus-lg me-1.5"></i> Add Payment
                         </a> {% endcomment %}
                     </div>
@@ -749,19 +749,19 @@
             {% csrf_token %}
             <div class="p-6 space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{% trans "Plan Name" %} <span class="text-red-500">*</span></label>
+                    <label class="label block mb-1.5">{% trans "Plan Name" %} <span class="text-red-500">*</span></label>
                     <input type="text" id="planName" name="name" required placeholder="{% trans 'e.g. Lower Back Pain 2026' %}"
-                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 text-sm font-semibold">
+                        class="w-full">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{% trans "Chief Complaint" %}</label>
+                    <label class="label block mb-1.5">{% trans "Chief Complaint" %}</label>
                     <textarea id="planChiefComplaint" name="chief_complaint" rows="3" placeholder="{% trans 'Symptoms, diagnosis, etc.' %}"
-                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 text-sm font-semibold"></textarea>
+                        class="w-full"></textarea>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{% trans "Total Sittings" %} <span class="text-red-500">*</span></label>
+                    <label class="label block mb-1.5">{% trans "Total Sittings" %} <span class="text-red-500">*</span></label>
                     <input type="number" id="planTotalSittings" name="total_sittings" required min="1"
-                        class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 text-sm font-semibold">
+                        class="w-full">
                 </div>
                 <div class="flex items-center">
                     <input type="checkbox" id="planIsActive" name="is_active" class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">
@@ -770,7 +770,7 @@
             </div>
             <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end gap-3">
                 <button type="button" onclick="closePlanModal()" class="px-5 py-2.5 text-sm font-bold text-gray-600 hover:bg-gray-100 rounded-xl transition-all">{% trans "Cancel" %}</button>
-                <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 rounded-xl transition-all shadow-md">{% trans "Save Plan" %}</button>
+                <button type="submit" class="btn btn-primary">{% trans "Save Plan" %}</button>
             </div>
         </form>
     </div>

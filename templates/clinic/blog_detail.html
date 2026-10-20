@@ -1,235 +1,47 @@
-{% load i18n %}
-{% load static %}
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ post.title }} — {{ clinic.name|default:"SpinalCure" }}</title>
-    <meta name="description" content="{{ post.meta_description|default:post.excerpt|default:post.content|striptags|truncatewords:30 }}">
-    <meta name="author" content="{{ post.display_author }}">
-    <meta name="robots" content="index, follow">
-    <!-- Open Graph -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="{{ post.title }}">
-    <meta property="og:description" content="{{ post.excerpt|default:post.content|striptags|truncatewords:30 }}">
-    {% if post.cover_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.cover_image.url }}">{% endif %}
-    <meta property="article:published_time" content="{{ post.published_at|date:'c' }}">
-    <meta property="article:author" content="{{ post.display_author }}">
+{% extends "public_base.html" %}
+{% load i18n content_i18n %}
+{% block title %}{{ post|tx:"title" }} — {{ clinic|tx:"name"|default:"Spinal Cure" }}{% endblock %}
+{% block description %}{{ post|tx:"meta_description"|default:post.excerpt|default:post.content|striptags|truncatewords:30 }}{% endblock %}
+{% block meta %}
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ post|tx:'title' }}">
+{% if post.cover_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.cover_image.url }}">{% endif %}
+{% endblock %}
 
-<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
-<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
-    <script defer src="{% static 'vendor/alpine.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
-        h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; }
-        .glass { background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.4); }
-        .gradient-text { background: linear-gradient(135deg,#166534 0%,#22c55e 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-        [x-cloak] { display: none !important; }
-        /* Rich article body typography */
-        .article-body { font-family: 'Lora', Georgia, serif; font-size: 1.1rem; line-height: 1.85; color: #334155; }
-        .article-body h2 { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 700; color: #0f172a; margin: 2.2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #dcfce7; }
-        .article-body h3 { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 700; color: #1e293b; margin: 1.8rem 0 0.8rem; }
-        .article-body p { margin-bottom: 1.4rem; }
-        .article-body ul, .article-body ol { padding-left: 1.5rem; margin-bottom: 1.4rem; }
-        .article-body li { margin-bottom: 0.5rem; }
-        .article-body blockquote { border-left: 4px solid #22c55e; margin: 2rem 0; padding: 1rem 1.5rem; background: #f0fdf4; border-radius: 0 0.75rem 0.75rem 0; font-style: italic; color: #166534; }
-        .article-body strong { color: #0f172a; }
-        .article-body a { color: #16a34a; text-decoration: underline; }
-        .article-body a:hover { color: #166534; }
-        .card-hover { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15); }
-        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    </style>
-</head>
-<body x-data="{ mobileMenu: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
-
-    <!-- ── Navbar ──────────────────────────────────────────────────────── -->
-    <nav :class="scrolled ? 'glass shadow-sm py-3' : 'bg-white/90 py-5 border-b border-slate-100'"
-        class="fixed top-0 w-full z-50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <a href="{% url 'clinic_portfolio' %}" class="flex items-center gap-2 group">
-                {% if clinic_logo_url %}
-                <img src="{{ clinic_logo_url }}" alt="{{ clinic.name }}"
-                    class="w-10 h-10 rounded-xl object-contain bg-white shadow-sm border border-slate-100 p-0.5 group-hover:scale-110 transition-transform">
-                {% else %}
-                <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-xl flex items-center justify-center text-white font-bold shadow-sm">
-                    {{ clinic.name|default:"S"|slice:":1" }}</div>
-                {% endif %}
-                <span class="text-xl font-extrabold tracking-tight text-slate-900">{{ clinic.name|default:"SpinalCure" }}</span>
-            </a>
-            <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
-                <a href="{% url 'clinic_portfolio' %}#about" class="hover:text-green-600 transition-colors">{% trans "About" %}</a>
-                <a href="{% url 'clinic_portfolio' %}#team" class="hover:text-green-600 transition-colors">{% trans "Team" %}</a>
-                <a href="{% url 'blog_list' %}" class="text-green-600 font-bold">{% trans "Blog" %}</a>
-                <a href="{% url 'clinic_portfolio' %}#appointment"
-                    class="px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-green-700 transition-all shadow-md">{% trans "Book Session" %}</a>
-            </div>
-            <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2">
-                <svg x-show="!mobileMenu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                <svg x-show="mobileMenu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
+{% block content %}
+<article>
+    <header class="bg-gradient-to-b from-primary-50/70 to-white">
+        <div class="container-site max-w-3xl py-12">
+            <nav class="text-sm text-gray-500" aria-label="{% translate 'Breadcrumb' %}"><a href="{% url 'blog_list' %}" class="text-gray-500 no-underline hover:text-gray-900">{% translate "Health articles" %}</a></nav>
+            <div class="mt-4 flex flex-wrap gap-2">{% for tag in post.tags.all %}<a href="{% url 'blog_list' %}?tag={{ tag.slug }}" class="badge badge-primary no-underline">{{ tag|tx:"name" }}</a>{% endfor %}</div>
+            <h1 class="display mt-4 text-gray-900">{{ post|tx:"title" }}</h1>
+            <p class="mt-4 text-sm text-gray-500">{{ post.display_author }} · {{ post.published_at|date:"j M Y" }} · {% blocktranslate count n=post.read_time_minutes %}{{ n }} min read{% plural %}{{ n }} min read{% endblocktranslate %}</p>
         </div>
-    </nav>
-
-    <!-- ── Hero Cover Image ────────────────────────────────────────────── -->
-    <div class="pt-16">
-        {% if post.cover_image %}
-        <div class="h-72 md:h-96 w-full relative overflow-hidden">
-            <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
-                class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent"></div>
-            <div class="absolute bottom-0 start-0 end-0 p-8 max-w-4xl mx-auto">
-                <div class="flex flex-wrap gap-2 mb-3">
-                    {% for tag in post.tags.all %}
-                    <a href="{% url 'blog_list' %}?tag={{ tag.slug }}"
-                        class="px-3 py-1 text-xs font-semibold rounded-full bg-green-500/90 text-white hover:bg-green-400 transition-colors">
-                        {{ tag.name }}
-                    </a>
-                    {% endfor %}
-                </div>
-                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight">{{ post.title }}</h1>
-            </div>
+    </header>
+    <div class="container-site max-w-3xl pb-16">
+        {% if post.cover_image %}<img src="{{ post.cover_image.url }}" alt="" class="mb-10 aspect-video w-full rounded-2xl object-cover shadow-card">{% endif %}
+        {% if post.excerpt %}<p class="lead mb-8 font-medium text-gray-800">{{ post|tx:"excerpt" }}</p>{% endif %}
+        <div class="prose-site">{{ post|tx:"content"|linebreaks }}</div>
+        <div class="mt-12 rounded-2xl bg-primary-50 p-6 ring-1 ring-inset ring-primary-100 sm:flex sm:items-center sm:justify-between sm:gap-6">
+            <div><p class="font-semibold text-gray-900">{% translate "Living with pain?" %}</p><p class="mt-1 text-sm text-gray-600">{% translate "Book a free first consultation and find the root cause." %}</p></div>
+            <a href="{% url 'clinic_portfolio' %}#book" class="btn btn-primary mt-4 shrink-0 sm:mt-0">{% translate "Book appointment" %}</a>
         </div>
-        {% else %}
-        <!-- No image: gradient header instead -->
-        <div class="bg-gradient-to-br from-slate-900 via-green-950 to-slate-900 py-20 px-6 text-center">
-            <div class="flex flex-wrap justify-center gap-2 mb-4">
-                {% for tag in post.tags.all %}
-                <a href="{% url 'blog_list' %}?tag={{ tag.slug }}"
-                    class="px-3 py-1 text-xs font-semibold rounded-full bg-green-500/20 text-green-300 border border-green-500/30">
-                    {{ tag.name }}
-                </a>
-                {% endfor %}
-            </div>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight max-w-4xl mx-auto">{{ post.title }}</h1>
-        </div>
-        {% endif %}
     </div>
+</article>
 
-    <!-- ── Article Content ─────────────────────────────────────────────── -->
-    <main class="max-w-4xl mx-auto px-6 py-12">
-        <!-- Meta bar -->
-        <div class="flex flex-wrap items-center gap-4 mb-10 pb-6 border-b border-slate-100">
-            <!-- Author -->
-            <div class="flex items-center gap-3">
-                {% if post.author and post.author.photo %}
-                <img src="{{ post.author.photo.url }}" alt="{{ post.display_author }}"
-                    class="w-12 h-12 rounded-full object-cover border-2 border-green-100 shadow-sm">
-                {% else %}
-                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center text-white font-bold shadow-sm">
-                    {{ post.display_author|slice:":1" }}</div>
-                {% endif %}
-                <div>
-                    <p class="font-bold text-slate-900 text-sm">{{ post.display_author }}</p>
-                    {% if post.author %}
-                    <p class="text-xs text-slate-500">{{ post.author.title }} {% if post.author.specialization %} · {{ post.author.specialization }}{% endif %}</p>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="flex items-center gap-4 text-sm text-slate-500 ms-auto">
-                {% if post.published_at %}
-                <span><i class="bi bi-calendar3 me-1"></i>{{ post.published_at|date:"F j, Y" }}</span>
-                {% endif %}
-                <span><i class="bi bi-clock me-1"></i>{% blocktranslate trimmed with read_time_minutes=post.read_time_minutes %}{{ read_time_minutes }} min read{% endblocktranslate %}</span>
-            </div>
-        </div>
-
-        <!-- Excerpt / Lead -->
-        {% if post.excerpt %}
-        <p class="text-xl text-slate-600 font-medium leading-relaxed mb-10 border-s-4 border-green-500 ps-5 bg-green-50 py-4 pe-4 rounded-e-xl">
-            {{ post.excerpt }}
-        </p>
-        {% endif %}
-
-        <!-- Main body content -->
-        <div class="article-body">
-            {{ post.content|linebreaks }}
-        </div>
-
-        <!-- Tags footer -->
-        {% if post.tags.all %}
-        <div class="mt-12 pt-6 border-t border-slate-100 flex flex-wrap gap-2 items-center">
-            <span class="text-sm font-semibold text-slate-500 me-2"><i class="bi bi-tags me-1"></i>{% trans "Tags:" %}</span>
-            {% for tag in post.tags.all %}
-            <a href="{% url 'blog_list' %}?tag={{ tag.slug }}"
-                class="px-3 py-1 text-sm rounded-full bg-slate-100 text-slate-700 hover:bg-green-100 hover:text-green-700 border border-slate-200 transition-colors">
-                {{ tag.name }}
+{% if related_posts %}
+<section class="section bg-gray-50">
+    <div class="container-site">
+        <h2 class="h-section text-gray-900">{% translate "Related articles" %}</h2>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {% for r in related_posts %}
+            <a href="{% url 'blog_detail' r.slug %}" class="card block p-5 no-underline transition hover:shadow-pop">
+                <p class="text-xs text-gray-500">{{ r.published_at|date:"j M Y" }}</p>
+                <h3 class="h-card mt-2">{{ r|tx:"title" }}</h3>
             </a>
             {% endfor %}
         </div>
-        {% endif %}
-
-        <!-- Author Bio Card (if practitioner) -->
-        {% if post.author %}
-        <div class="mt-12 bg-gradient-to-br from-green-50 to-slate-50 border border-green-100 rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-start">
-            {% if post.author.photo %}
-            <img src="{{ post.author.photo.url }}" alt="{{ post.author.name }}"
-                class="w-20 h-20 rounded-xl object-cover border-2 border-green-200 shadow-md flex-shrink-0">
-            {% else %}
-            <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
-                {{ post.author.name|slice:":1" }}</div>
-            {% endif %}
-            <div>
-                <p class="text-xs font-semibold uppercase tracking-wider text-green-600 mb-1">{% trans "About the Author" %}</p>
-                <h3 class="text-lg font-bold text-slate-900">{{ post.author }}</h3>
-                {% if post.author.title %}<p class="text-sm text-green-700 font-medium mb-2">{{ post.author.title }}{% if post.author.specialization %} · {{ post.author.specialization }}{% endif %}</p>{% endif %}
-                {% if post.author.bio %}<p class="text-sm text-slate-600 leading-relaxed">{{ post.author.bio|truncatewords:50 }}</p>{% endif %}
-            </div>
-        </div>
-        {% endif %}
-    </main>
-
-    <!-- ── Related Posts ───────────────────────────────────────────────── -->
-    {% if related_posts %}
-    <section class="bg-white border-t border-slate-100 py-16">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-2xl font-bold text-slate-900 mb-8">{% trans "Related Articles" %}</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {% for rpost in related_posts %}
-                <article class="card-hover bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100">
-                    <a href="{% url 'blog_detail' rpost.slug %}" class="block aspect-[16/9] bg-slate-100 overflow-hidden">
-                        {% if rpost.cover_image %}
-                        <img src="{{ rpost.cover_image.url }}" alt="{{ rpost.title }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                        {% else %}
-                        <div class="w-full h-full flex items-center justify-center" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7)">
-                            <i class="bi bi-journal-medical text-5xl text-green-400 opacity-50"></i>
-                        </div>
-                        {% endif %}
-                    </a>
-                    <div class="p-5">
-                        <h3 class="font-bold text-slate-800 line-clamp-2 mb-2 hover:text-green-700 transition-colors">
-                            <a href="{% url 'blog_detail' rpost.slug %}">{{ rpost.title }}</a>
-                        </h3>
-                        <p class="text-xs text-slate-500"><i class="bi bi-clock me-1"></i>{% blocktranslate trimmed with read_time_minutes=rpost.read_time_minutes %}{{ read_time_minutes }} min{% endblocktranslate %}</p>
-                    </div>
-                </article>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-    {% endif %}
-
-    <!-- ── Footer ──────────────────────────────────────────────────────── -->
-    <footer class="bg-slate-900 text-slate-300 py-10">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-3">
-                {% if clinic_logo_url %}
-                <img src="{{ clinic_logo_url }}" alt="{{ clinic.name }}" class="w-9 h-9 rounded-lg object-contain border border-white/10 p-0.5 bg-white/5">
-                {% else %}
-                <div class="w-9 h-9 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                    {{ clinic.name|default:"S"|slice:":1" }}</div>
-                {% endif %}
-                <span class="font-bold text-white">{{ clinic.name|default:"SpinalCure" }}</span>
-            </div>
-            <p class="text-sm text-slate-500">© {{ clinic.name|default:"SpinalCure" }} {% now "Y" %}{% trans ". All rights reserved." %}</p>
-            <div class="flex items-center gap-4 text-sm">
-                <a href="{% url 'blog_list' %}" class="text-green-400 hover:text-green-300 font-semibold transition-colors">{% trans "← All Articles" %}</a>
-                <a href="{% url 'clinic_portfolio' %}" class="text-slate-400 hover:text-slate-200 transition-colors">{% trans "Portfolio" %}</a>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

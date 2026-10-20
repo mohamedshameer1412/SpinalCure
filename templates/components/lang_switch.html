@@ -1,0 +1,23 @@
+{% load i18n %}{% get_current_language as LANG %}{% get_available_languages as LANGS %}{% get_language_info for LANG as cur %}
+{# Language menu. Include with {% include "components/lang_switch.html" %}; optional: align="start" (menu opens to the start side), up=True (opens upwards). #}
+<form action="{% url 'set_language' %}" method="post" class="relative inline-block" x-data="{ open: false }" @keydown.escape.window="open = false" @click.outside="open = false">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+    <button type="button" @click="open = !open" :aria-expanded="open" aria-haspopup="listbox" aria-label="{% translate 'Language' %}: {{ cur.name_local }}"
+        class="inline-flex h-9 items-center gap-2 whitespace-nowrap rounded-lg border border-gray-200 bg-surface px-3 text-sm font-medium text-gray-700 transition hover:bg-gray-100">
+        <i class="bi bi-translate text-primary-600" aria-hidden="true"></i>
+        <span>{{ cur.name_local }}</span>
+        <i class="bi bi-chevron-down text-[10px] text-gray-400 transition-transform" :class="open && 'rotate-180'" aria-hidden="true"></i>
+    </button>
+    <ul x-show="open" x-cloak role="listbox" aria-label="{% translate 'Language' %}"
+        class="menu absolute w-48 {% if align == 'start' %}start-0{% else %}end-0{% endif %} {% if up %}bottom-full mb-2{% else %}top-full mt-2{% endif %}">
+        {% for code, name in LANGS %}{% get_language_info for code as li %}
+        <li role="option" aria-selected="{% if code == LANG %}true{% else %}false{% endif %}">
+            <button type="submit" name="language" value="{{ code }}" lang="{{ code }}" class="menu-item justify-between{% if code == LANG %} is-active{% endif %}">
+                <span>{{ li.name_local }}</span>
+                {% if code == LANG %}<i class="bi bi-check2" aria-hidden="true"></i>{% else %}<span class="text-xs text-gray-400" lang="en">{{ li.name }}</span>{% endif %}
+            </button>
+        </li>
+        {% endfor %}
+    </ul>
+</form>

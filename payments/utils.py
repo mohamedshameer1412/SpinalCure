@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 import logging
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -30,7 +31,7 @@ def send_payment_receipt_email(payment, request=None):
 
     clinic = ClinicProfile.objects.first()
     
-    subject = f"Invoice Received: {payment.receipt_number} — {clinic.name if clinic else 'SpinalCure'}"
+    subject = gettext('Payment receipt %(no)s — %(clinic)s') % {'no': payment.receipt_number, 'clinic': clinic.name if clinic else 'Spinal Cure'}
     from_email = settings.DEFAULT_FROM_EMAIL
     to = [payer_email]
 

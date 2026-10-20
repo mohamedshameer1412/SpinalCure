@@ -17,7 +17,7 @@ def users_list(request):
 
 @require_capability('users.manage')
 def user_create(request):
-    form = UserAdminForm(request.POST or None, actor=request.user)
+    form = UserAdminForm(request.POST or None, request.FILES or None, actor=request.user)
     if request.method == 'POST' and form.is_valid():
         user = form.save()
         log_action(request, 'create', 'User', f'{user.username} ({user.get_role_display()})', object_id=user.pk)
@@ -32,7 +32,7 @@ def user_edit(request, pk):
     if edit_user.is_superuser and not request.user.is_superuser:
         messages.error(request, gettext('Only a super admin can edit a super admin.'))
         return redirect('admin_users')
-    form = UserAdminForm(request.POST or None, instance=edit_user, actor=request.user)
+    form = UserAdminForm(request.POST or None, request.FILES or None, instance=edit_user, actor=request.user)
     if request.method == 'POST' and form.is_valid():
         old_role = CustomUser.objects.get(pk=pk).role
         user = form.save()

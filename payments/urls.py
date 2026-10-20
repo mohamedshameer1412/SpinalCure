@@ -1,3 +1,4 @@
+from . import online_views
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
@@ -14,6 +15,9 @@ router.register(r'', PaymentViewSet, basename='api-payment')
 
 urlpatterns = [
     path('', payment_list_view, name='payment_list'),
+    path('<b64uuid:pk>/online-link/', online_views.create_online_link, name='payment_online_link'),
+    path('pay/<str:token>/', online_views.pay_page, name='online_pay'),
+    path('pay/<str:token>/verify/', online_views.pay_verify, name='online_pay_verify'),
     path('report/', payments_report_view, name='payments_report'),
     path('<b64uuid:pk>/refund/', payment_refund_view, name='payment_refund'),
     path('<b64uuid:pk>/invoice/', payment_invoice_view, name='payment_invoice'),

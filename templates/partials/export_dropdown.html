@@ -1,52 +1,16 @@
 {% load i18n %}
-<div class="flex gap-2 relative" x-data="{ exportOpen: false }">
-    <button @click="exportOpen = !exportOpen" @click.away="exportOpen = false"
-        class="bg-white text-gray-700 border border-gray-300 px-3 py-2 rounded-lg text-sm hover:bg-gray-50 cursor-pointer flex gap-1.5 items-center transition-all">
-        <i class="bi bi-box-arrow-up text-sm"></i>
-        {% trans "Export" %}
-        <i class="bi bi-chevron-down text-[10px] ms-1 opacity-50"></i>
+<div class="relative" x-data="{ exportOpen: false }" @keydown.escape.window="exportOpen = false">
+    <button @click="exportOpen = !exportOpen" @click.outside="exportOpen = false" type="button" class="btn btn-outline" aria-haspopup="menu" :aria-expanded="exportOpen">
+        <i class="bi bi-box-arrow-up" aria-hidden="true"></i>{% trans "Export" %}<i class="bi bi-chevron-down text-[10px] opacity-60" aria-hidden="true"></i>
     </button>
-    <div x-show="exportOpen" x-transition
-        class="absolute end-0 top-full mt-2 z-50 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
-        <div class="px-3 py-2 bg-gray-50 border-b border-gray-100">
-            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{% trans "Available Formats" %}</span>
-        </div>
-        <ul class="py-1 text-sm text-gray-700">
-            <li>
-                <a href="{{ excel_url }}"
-                    class="flex items-center gap-3 py-2.5 px-4 hover:bg-blue-50 transition-colors">
-                    <i class="bi bi-file-earmark-excel text-green-600"></i>
-                    <span>{% trans "Excel Spreadsheet" %}</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ csv_url }}" class="flex items-center gap-3 py-2.5 px-4 hover:bg-blue-50 transition-colors">
-                    <i class="bi bi-file-earmark-spreadsheet text-blue-600"></i>
-                    <span>{% trans "CSV Document" %}</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ pdf_url }}" class="flex items-center gap-3 py-2.5 px-4 hover:bg-blue-50 transition-colors">
-                    <i class="bi bi-file-earmark-pdf text-red-600"></i>
-                    <span>{% trans "PDF Report (ReportLab)" %}</span>
-                </a>
-            </li>
-            <div class="h-px bg-gray-100 mx-2 my-1"></div>
-            <li>
-                <button onclick="handleExportAction('print', '{{ print_url }}')"
-                    class="w-full flex items-center gap-3 py-2.5 px-4 hover:bg-blue-50 transition-colors text-start">
-                    <i class="bi bi-printer text-gray-600"></i>
-                    <span>{% trans "Print Records" %}</span>
-                </button>
-            </li>
-            <li>
-                <button onclick="handleExportAction('copy', '{{ copy_url }}')"
-                    class="w-full flex items-center gap-3 py-2.5 px-4 hover:bg-blue-50 transition-colors text-start">
-                    <i class="bi bi-clipboard text-amber-600"></i>
-                    <span>{% trans "Copy to Clipboard" %}</span>
-                </button>
-            </li>
-        </ul>
+    <div x-show="exportOpen" x-cloak class="menu absolute end-0 top-full mt-2 w-56" role="menu">
+        <p class="menu-label">{% trans "Available formats" %}</p>
+        <a href="{{ excel_url }}" class="menu-item" role="menuitem"><i class="bi bi-file-earmark-excel text-green-600"></i>{% trans "Excel Spreadsheet" %}</a>
+        <a href="{{ csv_url }}" class="menu-item" role="menuitem"><i class="bi bi-file-earmark-spreadsheet text-blue-600"></i>{% trans "CSV Document" %}</a>
+        <a href="{{ pdf_url }}" class="menu-item" role="menuitem"><i class="bi bi-file-earmark-pdf text-red-600"></i>{% trans "PDF Report" %}</a>
+        <div class="menu-separator"></div>
+        <button type="button" onclick="handleExportAction('print', '{{ print_url }}')" class="menu-item" role="menuitem"><i class="bi bi-printer text-gray-500"></i>{% trans "Print Records" %}</button>
+        <button type="button" onclick="handleExportAction('copy', '{{ copy_url }}')" class="menu-item" role="menuitem"><i class="bi bi-clipboard text-amber-600"></i>{% trans "Copy to Clipboard" %}</button>
     </div>
 </div>
 
@@ -74,7 +38,7 @@
                 })
                 .catch(err => {
                     console.error('Copy failed:', err);
-                    alert('Failed to copy data.');
+                    window.Alpine ? Alpine.store('toast').push('Failed to copy data.', 'error') : alert('Failed to copy data.');
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                 });

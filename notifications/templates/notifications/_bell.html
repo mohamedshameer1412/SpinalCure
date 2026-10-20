@@ -1,7 +1,7 @@
 {% load i18n static %}
 <div class="relative" x-data="notifBell({ summaryUrl: '{% url 'notification_summary' %}', markAllUrl: '{% url 'notification_mark_all_read' %}', preferencesUrl: '{% url 'notification_preferences' %}', csrf: '{{ csrf_token }}', unread: {{ notif_unread|default:0 }} })" @keydown.escape.window="open = false">
     <button type="button" @click="open = !open; if (open) refresh()" @click.away="open = false"
-        class="relative p-2 text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+        class="btn btn-ghost btn-icon relative"
         aria-haspopup="true" :aria-expanded="open" aria-controls="notif-panel">
         <i class="bi bi-bell text-xl" aria-hidden="true"></i>
         <span class="sr-only">{% translate "Notifications" %}</span>
@@ -11,7 +11,7 @@
     </button>
     <span class="sr-only" role="status" aria-live="polite" x-text="unread > 0 ? unread + ' {% translate 'unread notifications' %}' : ''"></span>
     <div id="notif-panel" x-show="open" x-cloak x-transition.opacity
-        class="absolute end-0 top-12 w-[22rem] max-w-[calc(100vw-1.5rem)] bg-white border border-gray-100 rounded-xl shadow-xl z-50 overflow-hidden"
+        class="menu absolute end-0 top-11 w-[22rem] max-w-[calc(100vw-1.5rem)] !p-0"
         role="dialog" aria-label="{% translate 'Notifications' %}">
         <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
             <p class="text-sm font-semibold text-gray-900">{% translate "Notifications" %}</p>

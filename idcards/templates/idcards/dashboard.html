@@ -3,8 +3,8 @@
 {% block title %}{% translate "ID cards" %} — SpinalCure{% endblock %}
 {% block page_title %}{% translate "ID cards" %}{% endblock %}
 {% block header_actions %}
-<a href="{% url 'idcard_branding' %}" class="text-sm font-semibold px-3 py-2 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 no-underline text-gray-700">{% translate "Branding" %}</a>
-<a href="{% url 'idcard_issue' %}" class="text-sm font-semibold px-3 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white no-underline"><i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Issue card" %}</a>
+<a href="{% url 'idcard_branding' %}" class="btn btn-outline no-underline">{% translate "Branding" %}</a>
+<a href="{% url 'idcard_issue' %}" class="btn btn-primary no-underline"><i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Issue card" %}</a>
 {% endblock %}
 {% block content %}
 <div class="flex flex-wrap gap-2 mb-4">
@@ -15,12 +15,12 @@
 <form method="get" class="mb-4 flex flex-wrap gap-2">
     <input type="hidden" name="status" value="{{ status }}">
     <label class="sr-only" for="q">{% translate "Search" %}</label>
-    <input id="q" type="search" name="q" value="{{ q }}" placeholder="{% translate 'Search name, ID, designation…' %}" class="rounded-xl border-gray-200 text-sm w-64">
+    <input id="q" type="search" name="q" value="{{ q }}" placeholder="{% translate 'Search name, ID, designation…' %}" class="w-64">
     <label class="sr-only" for="type">{% translate "Type" %}</label>
-    <select id="type" name="type" class="no-ts rounded-xl border-gray-200 text-sm"><option value="">{% translate "Owners and staff" %}</option><option value="owner" {% if ctype == 'owner' %}selected{% endif %}>{% translate "Owners" %}</option><option value="staff" {% if ctype == 'staff' %}selected{% endif %}>{% translate "Staff" %}</option></select>
-    <button class="px-4 rounded-xl bg-white border border-gray-200 text-sm font-semibold">{% translate "Filter" %}</button>
+    <select id="type" name="type" class="no-ts !w-auto"><option value="">{% translate "Owners and staff" %}</option><option value="owner" {% if ctype == 'owner' %}selected{% endif %}>{% translate "Owners" %}</option><option value="staff" {% if ctype == 'staff' %}selected{% endif %}>{% translate "Staff" %}</option></select>
+    <button class="btn btn-outline">{% translate "Filter" %}</button>
 </form>
-<div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-x-auto">
+<div class="card overflow-x-auto">
     <table class="w-full text-sm">
         <caption class="sr-only">{% translate "People and their ID cards" %}</caption>
         <thead><tr class="text-xs uppercase tracking-wider text-gray-500 border-b border-gray-100">
@@ -45,9 +45,9 @@
 </div>
 {% if page.has_other_pages %}
 <nav class="mt-4 flex justify-between text-sm" aria-label="{% translate 'Pagination' %}">
-    {% if page.has_previous %}<a class="px-3 py-2 rounded-lg border bg-white no-underline" href="?page={{ page.previous_page_number }}&q={{ q|urlencode }}&type={{ ctype }}&status={{ status }}">{% translate "Previous" %}</a>{% else %}<span></span>{% endif %}
+    {% if page.has_previous %}<a class="btn btn-outline no-underline" href="?page={{ page.previous_page_number }}&q={{ q|urlencode }}&type={{ ctype }}&status={{ status }}">{% translate "Previous" %}</a>{% else %}<span></span>{% endif %}
     <span class="text-gray-500">{{ page.number }} / {{ page.paginator.num_pages }}</span>
-    {% if page.has_next %}<a class="px-3 py-2 rounded-lg border bg-white no-underline" href="?page={{ page.next_page_number }}&q={{ q|urlencode }}&type={{ ctype }}&status={{ status }}">{% translate "Next" %}</a>{% else %}<span></span>{% endif %}
+    {% if page.has_next %}<a class="btn btn-outline no-underline" href="?page={{ page.next_page_number }}&q={{ q|urlencode }}&type={{ ctype }}&status={{ status }}">{% translate "Next" %}</a>{% else %}<span></span>{% endif %}
 </nav>
 {% endif %}
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load content_i18n %}
 {% block title %}{% if practitioner %}{% trans "Edit" %}{% else %}{% trans "Add" %}{% endif %} {% trans "Practitioner — SpinalCure" %}{% endblock %}
 {% block page_title %}{% if practitioner %}{% trans "Edit Practitioner" %}{% else %}{% trans "Add New Practitioner" %}{% endif %}{% endblock %}
 
@@ -14,25 +15,25 @@
 <div class="max-w-3xl">
     <form method="POST" enctype="multipart/form-data" class="space-y-6">
         {% csrf_token %}
-        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+        <div class="card p-6">
             <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">{% trans "Personal Details" %}</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Full Name *" %}</label>
+                    <label class="label block mb-1.5">{% trans "Full Name *" %}</label>
                     <input type="text" name="name" value="{{ practitioner.name|default:'' }}" required
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                        class="w-full">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Title / Designation" %}</label>
+                    <label class="label block mb-1.5">{% trans "Title / Designation" %}</label>
                     <input type="text" name="title" value="{{ practitioner.title|default:'' }}"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
+                        class="w-full"
                         placeholder="{% trans 'Dr., Prof., etc.' %}">
                 </div>
                 <div>
                     <label
-                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Gender" %}</label>
+                        class="label block mb-1.5">{% trans "Gender" %}</label>
                     <select name="gender"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+                        class="w-full">
                         <option value="">{% trans "Select" %}</option>
                         <option value="M" {% if practitioner.gender == 'M' %} selected {% endif %}>{% trans "Male" %}</option>
                         <option value="F" {% if practitioner.gender == 'F' %} selected {% endif %}>{% trans "Female" %}</option>
@@ -40,27 +41,27 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Years of Experience" %}</label>
+                    <label class="label block mb-1.5">{% trans "Years of Experience" %}</label>
                     <input type="number" name="experience_years" value="{{ practitioner.experience_years|default:'0' }}"
                         min="0"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+                        class="w-full">
                 </div>
                 <div>
                     <label
-                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Phone" %}</label>
+                        class="label block mb-1.5">{% trans "Phone" %}</label>
                     <input type="text" name="phone" value="{{ practitioner.phone|default:'' }}"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                        class="w-full">
                 </div>
                 <div>
                     <label
-                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Email" %}</label>
+                        class="label block mb-1.5">{% trans "Email" %}</label>
                     <input type="email" name="email" value="{{ practitioner.email|default:'' }}"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                        class="w-full">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Join Date" %}</label>
+                    <label class="label block mb-1.5">{% trans "Join Date" %}</label>
                     <input type="date" name="joined_date" value="{{ practitioner.joined_date|date:'Y-m-d'|default:'' }}"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500">
+                        class="w-full">
                 </div>
 
                 <div class="flex items-center gap-3 pt-6">
@@ -78,64 +79,64 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+        <div class="card p-6">
             <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">{% trans "Profile Tags & Social Links" %}
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div class="sm:col-span-2">
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Designation Tag (e.g. Chief Acupuncture Doctor)" %}</label>
+                    <label class="label block mb-1.5">{% trans "Designation Tag (e.g. Chief Acupuncture Doctor)" %}</label>
                     <input type="text" name="designation_tag" value="{{ practitioner.designation_tag|default:'' }}"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
+                        class="w-full"
                         placeholder="{% trans 'Chief Acupuncture Doctor / Senior Consultant' %}">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "YouTube URL" %}</label>
+                    <label class="label block mb-1.5">{% trans "YouTube URL" %}</label>
                     <input type="url" name="youtube_url" value="{{ practitioner.youtube_url|default:'' }}"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                        class="w-full">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Instagram URL" %}</label>
+                    <label class="label block mb-1.5">{% trans "Instagram URL" %}</label>
                     <input type="url" name="instagram" value="{{ practitioner.instagram|default:'' }}"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                        class="w-full">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Twitter URL" %}</label>
+                    <label class="label block mb-1.5">{% trans "Twitter URL" %}</label>
                     <input type="url" name="twitter" value="{{ practitioner.twitter|default:'' }}"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                        class="w-full">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Facebook URL" %}</label>
+                    <label class="label block mb-1.5">{% trans "Facebook URL" %}</label>
                     <input type="url" name="facebook" value="{{ practitioner.facebook|default:'' }}"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400">
+                        class="w-full">
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+        <div class="card p-6">
             <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-5">{% trans "Professional Info" %}</h2>
             <div class="space-y-4">
                 <div>
                     <label
-                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Specialization" %}</label>
+                        class="label block mb-1.5">{% trans "Specialization" %}</label>
                     <input type="text" name="specialization" value="{{ practitioner.specialization|default:'' }}"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 placeholder-gray-400"
+                        class="w-full"
                         placeholder="{% trans 'Auricular Acupuncture, Scalp Acupuncture, etc.' %}">
                 </div>
                 <div>
                     <label
-                        class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Qualifications" %}</label>
+                        class="label block mb-1.5">{% trans "Qualifications" %}</label>
                     <textarea name="qualifications" rows="2"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 resize-none placeholder-gray-400"
+                        class="w-full resize-none"
                         placeholder="{% trans 'BAMS, MD (Acupuncture), etc.' %}">{{ practitioner.qualifications|default:'' }}</textarea>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Bio" %}</label>
+                    <label class="label block mb-1.5">{% trans "Bio" %}</label>
                     <textarea name="bio" rows="4"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl text-sm focus:ring-2 focus:ring-green-500 resize-none placeholder-gray-400"
+                        class="w-full resize-none"
                         placeholder="{% trans 'Brief professional bio...' %}">{{ practitioner.bio|default:'' }}</textarea>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{% trans "Profile Photo" %}</label>
+                    <label class="label block mb-1.5">{% trans "Profile Photo" %}</label>
                     {% if practitioner.photo %}
                     <div class="mb-2 flex items-center gap-2">
                         <img src="{{ practitioner.photo.url }}"
@@ -151,13 +152,15 @@
 
         <div class="flex gap-3">
             <button type="submit"
-                class="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all shadow-md shadow-green-100">
+                class="btn btn-primary">
                 {% if practitioner %}{% trans "Update Practitioner" %}{% else %}{% trans "Add Practitioner" %}{% endif %}
             </button>
             <a href="{% url 'admin_practitioners' %}"
-                class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all no-underline">{% trans "Cancel" %}</a>
+                class="btn btn-secondary no-underline">{% trans "Cancel" %}</a>
         </div>
     </form>
 </div>
+
+<div class="mt-8 max-w-4xl">{% translation_panel practitioner %}</div>
 {% endblock %}
 

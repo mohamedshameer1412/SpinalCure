@@ -76,7 +76,7 @@ class IDCard(models.Model):
     show_phone = models.BooleanField(default=True)
     show_email = models.BooleanField(default=False)
     show_emergency_contact = models.BooleanField(default=False)
-    show_blood_group = models.BooleanField(default=False)
+    show_blood_group = models.BooleanField(default=True)
     show_skills = models.BooleanField(default=False)
     # Optional public sharing.
     share_enabled = models.BooleanField(default=False)

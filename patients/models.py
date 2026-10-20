@@ -1,4 +1,6 @@
 from django.db import models
+from spinalcure.uploads import RandomName
+from spinalcure.languages import NATIVE_CHOICES
 import uuid
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
@@ -31,7 +33,7 @@ class Patient(models.Model):
     )
     preferred_language = models.CharField(
         max_length=5, default='en', verbose_name=_('Preferred language'),
-        choices=[('en', 'English'), ('ta', 'தமிழ்'), ('hi', 'हिन्दी'), ('ar', 'العربية')])
+        choices=NATIVE_CHOICES)
     notify_email = models.BooleanField(default=True, verbose_name=_('Email notifications'))
     notify_sms = models.BooleanField(default=False, verbose_name=_('SMS notifications (opt-in)'))
     notify_whatsapp = models.BooleanField(default=False, verbose_name=_('WhatsApp notifications (opt-in)'))
@@ -55,7 +57,7 @@ class Patient(models.Model):
         validators=[validate_not_in_future],
         verbose_name=_('Date of Birth')
     )
-    photo = models.ImageField(upload_to='patients/', blank=True, null=True, verbose_name=_('Photo'))
+    photo = models.ImageField(upload_to=RandomName('patients'), blank=True, null=True, verbose_name=_('Photo'))
 
     # Attender Info (optional)
     attender_name = models.CharField(max_length=200, blank=True, verbose_name=_('Attender Name'))

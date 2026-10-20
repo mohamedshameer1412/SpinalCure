@@ -9,7 +9,7 @@
 {% if valid %}
 <meta property="og:type" content="profile"><meta property="og:title" content="{{ name }} — {{ org }}">
 <meta property="og:description" content="{% blocktranslate with t=card_type %}Verified {{ t }} ID card{% endblocktranslate %}">
-<meta property="og:image" content="{{ image_url }}"><meta property="og:image:width" content="900"><meta property="og:image:height" content="560">
+<meta property="og:image" content="{{ image_url }}"><meta property="og:image:width" content="560"><meta property="og:image:height" content="900">
 <meta property="og:url" content="{{ page_url }}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{{ name }} — {{ org }}">
 <meta name="twitter:description" content="{% blocktranslate with t=card_type %}Verified {{ t }} ID card{% endblocktranslate %}"><meta name="twitter:image" content="{{ image_url }}">
@@ -24,7 +24,7 @@
 <body><main>
  <h1 style="font-size:22px;margin:0 0 4px">{{ name }}</h1>
  <p style="margin:0 0 18px;color:#6b7280">{{ card_type }} · {{ org }}</p>
- {% if valid %}<img src="{{ image_url }}" alt="{% blocktranslate %}ID card of {{ name }}{% endblocktranslate %}" width="900" height="560">
+ {% if valid %}<img src="{{ image_url }}" alt="{% blocktranslate %}ID card of {{ name }}{% endblocktranslate %}" width="560" height="900">
  <p><a class="btn" href="{{ verify_url }}">{% translate "Verify this card" %}</a></p>
  {% else %}<div class="bad" role="alert">{% translate "This card is no longer valid." %}</div>{% endif %}
 </main></body></html>

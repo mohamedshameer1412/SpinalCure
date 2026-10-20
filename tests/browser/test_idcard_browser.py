@@ -169,7 +169,7 @@ def test_export_captures_the_face_even_when_card_is_flipped_or_scaled_down(brows
     assert abs(header[0] - 22) < 12 and abs(header[1] - 101) < 12            # the front's green header, not a mirrored back
 
 
-def test_pdf_export_has_two_landscape_pages_front_then_back(browser_ctx):
+def test_pdf_export_has_two_portrait_pages_front_then_back(browser_ctx):
     page, errors, card = open_card(browser_ctx)
     with page.expect_download(timeout=40000) as dl:
         page.get_by_role('button', name='Download PDF').click()
@@ -178,7 +178,7 @@ def test_pdf_export_has_two_landscape_pages_front_then_back(browser_ctx):
     drawn = []
     for pg in reader.pages:
         w, h = float(pg.mediabox.width), float(pg.mediabox.height)
-        assert w > h and abs(w / h - 900 / 560) < 0.02
+        assert w < h and abs(w / h - 560 / 900) < 0.02
         # jsPDF lists every image in a shared resource dictionary; what matters is which one each page DRAWS
         names = re.findall(rb'/(\w+) Do', pg.get_contents().get_data())
         assert len(names) == 1, names                                                      # exactly one face per page

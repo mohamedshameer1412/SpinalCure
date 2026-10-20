@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load content_i18n %}
 {% block title %}{% if testimonial %}{% trans "Edit" %}{% else %}{% trans "Add" %}{% endif %} {% trans "Testimonial — SpinalCure Admin" %}{% endblock %}
 {% block page_title %}{% if testimonial %}{% trans "Edit Testimonial" %}{% else %}{% trans "Add Testimonial" %}{% endif %}{% endblock %}
 
@@ -9,41 +10,33 @@
         <i class="bi bi-arrow-left"></i> {% trans "Back to Testimonials" %}
     </a>
 
-    {% if messages %}
-        {% for message in messages %}
-        <div class="mb-4 px-4 py-3 rounded-xl text-sm font-medium
-            {% if message.tags == 'success' %}bg-green-50 text-green-700 border border-green-200
-            {% else %}bg-red-50 text-red-700 border border-red-200{% endif %}">
-            {{ message }}
-        </div>
-        {% endfor %}
-    {% endif %}
+    
 
     <form method="post" enctype="multipart/form-data"
-        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-6">
+        class="card p-8 space-y-6">
         {% csrf_token %}
 
         <!-- Personal Details -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">{% trans "Patient / Client Name *" %}</label>
+                <label class="label block mb-1.5">{% trans "Patient / Client Name *" %}</label>
                 <input type="text" name="patient_name" required
                     value="{{ testimonial.patient_name|default:'' }}"
                     placeholder="{% trans 'e.g., Rahul Sharma' %}"
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 transition">
+                    class="w-full">
             </div>
             <div>
-                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">{% trans "Designation / Location" %}</label>
+                <label class="label block mb-1.5">{% trans "Designation / Location" %}</label>
                 <input type="text" name="patient_designation"
                     value="{{ testimonial.patient_designation|default:'' }}"
                     placeholder="{% trans 'e.g., Teacher, Chennai' %}"
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 transition">
+                    class="w-full">
             </div>
         </div>
 
         <!-- Photo Upload -->
         <div>
-            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">{% trans "Profile Photo (optional)" %}</label>
+            <label class="label block mb-1.5">{% trans "Profile Photo (optional)" %}</label>
             {% if testimonial and testimonial.photo %}
             <div class="flex items-center gap-4 mb-3">
                 <img src="{{ testimonial.photo.url }}" alt="{{ testimonial.patient_name }}"
@@ -57,7 +50,7 @@
 
         <!-- Star Rating -->
         <div>
-            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">{% trans "Rating *" %}</label>
+            <label class="label block mb-2">{% trans "Rating *" %}</label>
             <div class="flex gap-2" id="star-picker">
                 {% for i in "12345" %}
                 <label class="cursor-pointer">
@@ -74,28 +67,54 @@
 
         <!-- Review Text -->
         <div>
-            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">{% trans "Testimonial Text *" %}</label>
+            <label class="label block mb-1.5">{% trans "Testimonial Text *" %}</label>
             <textarea name="review_text" rows="4" required
                 placeholder="{% trans 'Patient\'s experience in their words...' %}"
-                class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 transition resize-none">{{ testimonial.review_text|default:'' }}</textarea>
+                class="w-full resize-none">{{ testimonial.review_text|default:'' }}</textarea>
+        </div>
+
+        <!-- Problem & Posted -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+                <label class="label block mb-1.5">{% trans "Problem treated" %}</label>
+                <select name="problem" data-placeholder="{% trans 'Select a problem' %}">
+                    <option value="">{% trans "— None —" %}</option>
+                    {% for p in problems %}<option value="{{ p.pk }}" {% if testimonial and testimonial.problem_id == p.pk %}selected{% endif %}>{{ p.name }}</option>{% endfor %}
+                </select>
+                <p class="text-xs text-gray-400 mt-1">{% trans "Powers the problem filter on the public testimonials page." %}</p>
+            </div>
+            <div>
+                <label class="label block mb-1.5">{% trans "Posted (text)" %}</label>
+                <input type="text" name="posted_label" value="{{ testimonial.posted_label|default:'' }}" placeholder="{% trans 'e.g., 2 months ago' %}"
+                    class="w-full">
+            </div>
+        </div>
+        <div>
+            <label class="label block mb-1.5">{% trans "Clinic reply (optional)" %}</label>
+            <textarea name="owner_reply" rows="3" class="w-full resize-none">{{ testimonial.owner_reply|default:'' }}</textarea>
+        </div>
+        <div>
+            <label class="label block mb-1.5">{% trans "Source link (optional)" %}</label>
+            <input type="url" name="source_url" value="{{ testimonial.source_url|default:'' }}" placeholder="https://..."
+                class="w-full">
         </div>
 
         <!-- Source & Order -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">{% trans "Source" %}</label>
+                <label class="label block mb-1.5">{% trans "Source" %}</label>
                 <select name="source"
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 transition bg-white">
+                    class="card w-full">
                     {% for val, label in source_choices %}
                     <option value="{{ val }}" {% if testimonial and testimonial.source == val %}selected{% endif %}>{{ label }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div>
-                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">{% trans "Display Order" %}</label>
+                <label class="label block mb-1.5">{% trans "Display Order" %}</label>
                 <input type="number" name="display_order" min="0"
                     value="{{ testimonial.display_order|default:'0' }}"
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-primary-400 transition">
+                    class="w-full">
                 <p class="text-xs text-gray-400 mt-1">{% trans "Lower number = shown first" %}</p>
             </div>
         </div>
@@ -114,16 +133,18 @@
         <!-- Submit -->
         <div class="flex gap-3 pt-2">
             <button type="submit"
-                class="flex-1 py-3 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700 transition-all shadow-md">
+                class="btn btn-primary flex-1">
                 {% if testimonial %}{% trans "Update Testimonial" %}{% else %}{% trans "Add Testimonial" %}{% endif %}
             </button>
             <a href="{% url 'admin_testimonials' %}"
-                class="px-6 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all text-center">
+                class="btn btn-secondary text-center">
                 {% trans "Cancel" %}
             </a>
         </div>
     </form>
 </div>
+
+<div class="mt-8 max-w-4xl">{% translation_panel testimonial %}</div>
 {% endblock %}
 
 {% block extra_scripts %}
