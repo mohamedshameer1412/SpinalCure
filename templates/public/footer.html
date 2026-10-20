@@ -36,14 +36,23 @@
                 <li><a href="{% url 'public_testimonials' %}" class="text-slate-300 no-underline hover:text-white">{% translate "Patient stories" %}</a></li>
                 <li><a href="{% url 'public_event_list' %}" class="text-slate-300 no-underline hover:text-white">{% translate "Events" %}</a></li>
                 <li><a href="{% url 'blog_list' %}" class="text-slate-300 no-underline hover:text-white">{% translate "Health articles" %}</a></li>
+                <li><a href="{% url 'public_gallery' %}" class="text-slate-300 no-underline hover:text-white">{% translate "Gallery" %}</a></li>
+                <li><a href="{% url 'clinic_faq' %}" class="text-slate-300 no-underline hover:text-white">{% translate "Questions & answers" %}</a></li>
+                <li><a href="{% url 'clinic_review' %}" @click.prevent="$dispatch('open-feedback')" class="text-slate-300 no-underline hover:text-white">{% translate "Share your experience" %}</a></li>
+                <li><a href="{% url 'clinic_terms' %}" class="text-slate-300 no-underline hover:text-white">{% translate "Terms and conditions" %}</a></li>
                 <li><a href="{{ home }}#book" class="text-slate-300 no-underline hover:text-white">{% translate "Book appointment" %}</a></li>
             </ul>
         </div>
     </div>
     <div class="border-t border-white/10">
-        <div class="container-site flex flex-col gap-2 py-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-            <p>© {% now "Y" %} {{ clinic|tx:"name"|default:"Spinal Cure" }} · {% translate "Arumbakkam, Chennai" %}</p>
-            <a href="{% url 'login' %}" class="text-slate-500 no-underline hover:text-slate-300">{% translate "Staff sign in" %}</a>
+        <div class="container-site flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-5 text-xs text-slate-500">
+            <p class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span>© {% now "Y" %} {{ clinic|tx:"name"|default:"Spinal Cure" }}, {% translate "Arumbakkam, Chennai" %}. {% translate "All rights reserved." %}</span>
+                <a href="{% url 'clinic_terms' %}" class="text-slate-500 no-underline hover:text-slate-300">{% translate "Terms" %}</a>
+                <a href="{% url 'login' %}" class="text-slate-500 no-underline hover:text-slate-300">{% translate "Staff sign in" %}</a>
+            </p>
+            {% include "components/credits.html" with on_dark=True %}
         </div>
     </div>
 </footer>
+

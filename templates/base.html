@@ -2,13 +2,23 @@
 {% load static %}
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as RTL %}{% get_available_languages as LANGUAGES %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" dir="{% if RTL %}rtl{% else %}ltr{% endif %}">
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if RTL %}rtl{% else %}ltr{% endif %}" data-ts-placeholder="{% translate 'Select an option' %}" data-ts-no-results="{% translate 'No results found' %}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
     <title>{% block title %}SpinalCure{% endblock %}</title>
+
+    {# ── Open Graph / Social meta ───────────────────────────────────── #}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ clinic.name|default:'SpinalCure' }}">
+    <meta property="og:title" content="{% block og_title %}{{ clinic.name|default:'SpinalCure' }} — Clinic Management{% endblock %}">
+    <meta property="og:description" content="Built by Deep Aspects · deepaspects.vercel.app">
+    <meta name="author" content="Mohamed Shameer M — Deep Aspects">
+    {# rel=me: links this site to Deep Aspects portfolio for SEO graph #}
+    <link rel="me" href="https://deepaspects.vercel.app/">
+    <link rel="me" href="https://shameer-room-portfolio.netlify.app/">
 
     {% if clinic and clinic.logo %}<link rel="icon" href="{{ clinic.logo.url }}">
     {% elif clinic_logo_url %}<link rel="icon" href="{{ clinic_logo_url }}">
@@ -20,6 +30,8 @@
     <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/flatpickr/flatpickr.min.css' %}">
+    <script defer src="{% static 'vendor/flatpickr/flatpickr.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'vendor/tom-select/tom-select.css' %}">
     <script src="{% static 'vendor/tom-select/tom-select.complete.min.js' %}"></script>
     <script src="{% static 'vendor/chart.umd.min.js' %}"></script>
@@ -76,6 +88,10 @@
 
             {% block content %}{% endblock %}
         </main>
+        <footer class="mx-auto flex w-full max-w-[1600px] flex-col gap-2 border-t border-gray-200 px-4 py-4 text-xs text-gray-500 md:flex-row md:items-center md:justify-between md:px-6">
+            <p>© {% now "Y" %} {{ clinic.name|default:"Spinal Cure" }}. {% translate "All rights reserved." %}</p>
+            {% include "components/credits.html" %}
+        </footer>
     </div>
 
     <!-- Toasts: Django messages are shown here -->
@@ -94,23 +110,29 @@
 
     {% block extra_scripts %}{% endblock %}
 
-    <script>
-        // Searchable dropdowns: every <select> except those marked .no-ts
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('select:not(.no-ts)').forEach(function (el) {
-                var ts = new TomSelect(el, {
-                    create: false,
-                    placeholder: el.getAttribute('data-placeholder') || '{% trans "Select an option" %}',
-                    sortField: (el.name === 'category' || el.classList.contains('no-sort')) ? null : { field: 'text', direction: 'asc' },
-                });
-                ts.on('change', function () { el.dispatchEvent(new Event('change')); });   // keeps onchange="this.form.submit()" working
-            });
-        });
-    </script>
 
     {% include "partials/security_modal.html" %}
     {% include "partials/three_step_confirm.html" %}
     {% include 'components/confirm_modal.html' %}
+
+    {# ── WhatsApp floating contact button ─────────────────────────── #}
+    <a href="https://wa.me/916380652935?text=Hi%2C%20I%20saw%20your%20SpinalCure%20system%20and%20I%27m%20interested!"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Chat on WhatsApp"
+       title="Chat on WhatsApp — Deep Aspects"
+       style="position:fixed;bottom:24px;right:24px;z-index:9999;
+              display:flex;align-items:center;justify-content:center;
+              width:48px;height:48px;border-radius:50%;
+              background:#25D366;box-shadow:0 4px 18px rgba(37,211,102,.45);
+              text-decoration:none;transition:transform .2s,box-shadow .2s"
+       onmouseover="this.style.transform='scale(1.12)';this.style.boxShadow='0 6px 24px rgba(37,211,102,.65)'"
+       onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 18px rgba(37,211,102,.45)'">
+      {# WhatsApp SVG icon #}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"
+           style="width:26px;height:26px;flex-shrink:0" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
 </body>
 
 </html>
