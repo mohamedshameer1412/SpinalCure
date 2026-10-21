@@ -118,6 +118,20 @@
                 <div><label for="id_emergency_contact_phone" class="label block mb-1.5">{% trans "Emergency contact phone" %}</label>{{ form.emergency_contact_phone }}</div>
             </div>
         </div>
+        <div class="card p-6" x-data="{ mode: '{{ form.practitioner_mode.value|default:'none' }}' }">
+            <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-1">{% trans "Practitioner profile" %}</h2>
+            <p class="text-xs text-gray-400 mb-5">{% trans "For doctors and therapists shown on the website and booked for appointments. Name, photo, phone and email are taken from this account, so nothing is typed twice." %}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div class="sm:col-span-2"><label for="id_practitioner_mode" class="label block mb-1.5">{% trans "Practitioner" %}</label>
+                    <select name="practitioner_mode" id="id_practitioner_mode" x-model="mode">{% for v, l in form.practitioner_mode.field.choices %}<option value="{{ v }}">{{ l }}</option>{% endfor %}</select></div>
+                <div class="sm:col-span-2" x-show="mode === 'link'"><label for="id_link_practitioner" class="label block mb-1.5">{% trans "Existing practitioner" %}</label>{{ form.link_practitioner }}</div>
+                <template x-if="mode !== 'none'"><div class="contents">
+                    <div class="sm:col-span-2"><label for="id_specialization" class="label block mb-1.5">{% trans "Specialization" %}</label>{{ form.specialization }}</div>
+                    <div><label for="id_experience_years" class="label block mb-1.5">{% trans "Years of experience" %}</label>{{ form.experience_years }}</div>
+                    <div class="sm:col-span-2"><label for="id_qualifications" class="label block mb-1.5">{% trans "Qualifications" %}</label>{{ form.qualifications }}</div>
+                </div></template>
+            </div>
+        </div>
         <div class="flex gap-3">
             <button type="submit"
                 class="btn btn-primary">

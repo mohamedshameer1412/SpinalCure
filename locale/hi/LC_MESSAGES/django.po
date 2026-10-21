@@ -30,6 +30,15 @@ msgstr "\"%(title)s\" संग्रहीत किया गया।"
 msgid "\"%(title)s\" was cancelled and registrants were notified."
 msgstr "\"%(title)s\" रद्द कर दिया गया और पंजीकृत लोगों को सूचित किया गया।"
 
+#: accounts\admin_views.py:78
+#, python-format
+msgid ""
+"\"%(username)s\" has ID cards or records that depend on it. Disable the "
+"account instead."
+msgstr ""
+"\"%(username)s\" से ID कार्ड या रिकॉर्ड जुड़े हैं। इसके बजाय खाते को अक्षम "
+"करें।"
+
 #: templates\courses\batch_list.html:149
 msgid "\"Batch:"
 msgstr "\"बैच:"
@@ -83,7 +92,7 @@ msgstr "%(count)s सबमिशन%(count_2)s"
 msgid "%(count)s Total"
 msgstr "कुल %(count)s"
 
-#: notifications\messages.py:101
+#: notifications\messages.py:102
 #, python-format
 msgid "%(detail)s"
 msgstr "%(detail)s"
@@ -98,7 +107,7 @@ msgstr "%(duration_minutes)s मिनट"
 msgid "%(duration_minutes)s minutes"
 msgstr "%(duration_minutes)s मिनट"
 
-#: notifications\messages.py:95
+#: notifications\messages.py:96
 #, python-format
 msgid ""
 "%(event)s (%(batch)s) is full. You are on the waitlist and will be told if a"
@@ -107,7 +116,7 @@ msgstr ""
 "%(event)s (%(batch)s) भर चुका है। आप प्रतीक्षा सूची में हैं और जगह खाली होने"
 " पर आपको बताया जाएगा।"
 
-#: notifications\messages.py:77
+#: notifications\messages.py:78
 #, python-format
 msgid ""
 "%(event)s is full. You are on the waitlist and will be told if a place "
@@ -116,12 +125,12 @@ msgstr ""
 "%(event)s भर चुका है। आप प्रतीक्षा सूची में हैं और जगह खाली होने पर आपको "
 "बताया जाएगा।"
 
-#: notifications\messages.py:86
+#: notifications\messages.py:87
 #, python-format
 msgid "%(event)s on %(date)s has been cancelled."
 msgstr "%(date)s को होने वाला %(event)s रद्द कर दिया गया है।"
 
-#: notifications\messages.py:89
+#: notifications\messages.py:90
 #, python-format
 msgid "%(event)s starts on %(date)s at %(time)s."
 msgstr "%(event)s %(date)s को %(time)s बजे शुरू होता है।"
@@ -236,7 +245,7 @@ msgstr "%(s)s: समाप्ति समय शुरू के समय क
 msgid "%(site)s patient portal sign-in code"
 msgstr "%(site)s रोगी पोर्टल साइन-इन कोड"
 
-#: notifications\messages.py:100
+#: notifications\messages.py:101
 #, python-format
 msgid "%(subject)s"
 msgstr "%(subject)s"
@@ -262,17 +271,17 @@ msgstr "%(top_practitioner_sessions)s सत्र"
 msgid "%(total_count)s total records"
 msgstr "कुल %(total_count)s रिकॉर्ड"
 
-#: notifications\messages.py:19 notifications\messages.py:22
+#: notifications\messages.py:20 notifications\messages.py:23
 #, python-format
 msgid "%(who)s booked %(date)s at %(time)s with %(practitioner)s."
 msgstr "%(who)s ने %(practitioner)s के साथ %(date)s को %(time)s बजे बुक किया।"
 
-#: notifications\messages.py:62
+#: notifications\messages.py:63
 #, python-format
 msgid "%(who)s has %(amount)s outstanding on invoice %(invoice)s."
 msgstr "%(who)s का चालान %(invoice)s पर %(amount)s बकाया है।"
 
-#: notifications\messages.py:56
+#: notifications\messages.py:57
 #, python-format
 msgid "%(who)s paid %(amount)s online (receipt %(receipt)s)."
 msgstr "%(who)s ने ऑनलाइन %(amount)s का भुगतान किया (रसीद %(receipt)s)।"
@@ -499,14 +508,14 @@ msgstr ""
 "लेकिन भुगतान विफल रहा, तो Razorpay उसे आमतौर पर 5 से 7 कार्य दिवसों में आपके"
 " खाते में लौटा देता है।"
 
-#: notifications\messages.py:53
+#: notifications\messages.py:54
 #, python-format
 msgid ""
 "A payment of %(amount)s for %(who)s did not go through and needs attention."
 msgstr ""
 "%(who)s के %(amount)s का भुगतान पूरा नहीं हुआ और ध्यान देने की आवश्यकता है।"
 
-#: notifications\messages.py:98
+#: notifications\messages.py:99
 #, python-format
 msgid ""
 "A place opened and you are now registered for %(event)s (%(batch)s), "
@@ -515,7 +524,7 @@ msgstr ""
 "जगह खाली हुई और अब आप %(event)s (%(batch)s) के लिए पंजीकृत हैं, जो %(date)s "
 "से शुरू होगा।"
 
-#: notifications\messages.py:80
+#: notifications\messages.py:81
 #, python-format
 msgid ""
 "A place opened and you are now registered for %(event)s on %(date)s at "
@@ -523,7 +532,7 @@ msgid ""
 msgstr ""
 "जगह खाली हुई और अब आप %(date)s को %(time)s बजे %(event)s के लिए पंजीकृत हैं।"
 
-#: notifications\messages.py:79 notifications\messages.py:97
+#: notifications\messages.py:80 notifications\messages.py:98
 #, python-format
 msgid "A place opened: %(event)s"
 msgstr "जगह खाली हुई: %(event)s"
@@ -570,7 +579,7 @@ msgstr "एक संवेदनशील रिकॉर्ड अभी"
 msgid "A staff member is requesting your approval to"
 msgstr "एक कर्मचारी आपकी स्वीकृति माँग रहा है:"
 
-#: accounts\forms.py:50
+#: accounts\forms.py:65
 msgid "A user with this email already exists."
 msgstr "इस ईमेल वाला उपयोगकर्ता पहले से मौजूद है।"
 
@@ -587,7 +596,7 @@ msgstr ""
 msgid "A/C: %(bank_account)s | IFSC: %(bank_ifsc)s"
 msgstr "खाता: %(bank_account)s | IFSC: %(bank_ifsc)s"
 
-#: clinic\models.py:37
+#: clinic\models.py:38
 msgid "About"
 msgstr "परिचय"
 
@@ -599,19 +608,19 @@ msgstr "परिचय और क्लिनिक की विरासत"
 msgid "About & Legacy"
 msgstr "परिचय और विरासत"
 
-#: clinic\models.py:281 clinic\models.py:276
+#: clinic\models.py:285 clinic\models.py:280
 msgid "About Image"
 msgstr "परिचय की इमेज"
 
-#: clinic\models.py:282
+#: clinic\models.py:286
 msgid "About Images"
 msgstr "परिचय की इमेज"
 
-#: clinic\models.py:96
+#: clinic\models.py:97
 msgid "About Label"
 msgstr "परिचय लेबल"
 
-#: clinic\models.py:103
+#: clinic\models.py:104
 msgid "About Quote"
 msgstr "परिचय उद्धरण"
 
@@ -627,7 +636,7 @@ msgstr "संस्था के बारे में"
 msgid "About this course"
 msgstr "इस कोर्स के बारे में"
 
-#: clinic\models.py:97
+#: clinic\models.py:98
 msgid "About Title"
 msgstr "परिचय शीर्षक"
 
@@ -644,11 +653,11 @@ msgstr "फ़ीडबैक स्वीकार करें"
 msgid "Account Details"
 msgstr "खाते का विवरण"
 
-#: clinic\models.py:140
+#: clinic\models.py:141
 msgid "Account Number"
 msgstr "खाता संख्या"
 
-#: clinic\models.py:743 clinic\templates\clinic\admin\activity_log.html:18
+#: clinic\models.py:749 clinic\templates\clinic\admin\activity_log.html:18
 #: clinic\templates\clinic\admin\activity_log.html:62
 #: templates\appointments\partials\appointment_list_partial.html:11
 msgid "Action"
@@ -674,7 +683,7 @@ msgid "Actions"
 msgstr "कार्रवाइयाँ"
 
 #: accounts\models.py:321 accounts\templates\accounts\admin\users_list.html:68
-#: clinic\models.py:249
+#: clinic\models.py:250
 #: clinic\templates\clinic\admin\practitioners_list.html:35
 msgid "Active"
 msgstr "सक्रिय"
@@ -896,7 +905,7 @@ msgstr "अपना पहला पैकेज जोड़ें, जैस�
 msgid "Add your first practitioner →"
 msgstr "अपना पहला चिकित्सक जोड़ें →"
 
-#: clinic\models.py:433
+#: clinic\models.py:437
 msgid "Added by staff"
 msgstr "स्टाफ़ द्वारा जोड़ा गया"
 
@@ -920,7 +929,7 @@ msgstr "अतिरिक्त जानकारी"
 msgid "Additional Notes"
 msgstr "अतिरिक्त नोट्स"
 
-#: clinic\models.py:38 clinic\templates\clinic\admin\clinic_setup.html:262
+#: clinic\models.py:39 clinic\templates\clinic\admin\clinic_setup.html:262
 #: idcards\render.py:233 patients\models.py:53
 msgid "Address"
 msgstr "पता"
@@ -937,7 +946,7 @@ msgstr "प्रशासन"
 msgid "Alerts"
 msgstr "अलर्ट"
 
-#: clinic\admin_views.py:259 clinic\testimonial_views.py:58
+#: clinic\admin_views.py:259 clinic\testimonial_views.py:69
 #: idcards\templates\idcards\dashboard.html:11
 #: notifications\templates\notifications\center.html:17
 msgid "All"
@@ -1103,7 +1112,7 @@ msgstr "बदलाव वापस लेते समय गड़बड़�
 msgid "An error occurred. Please try again."
 msgstr "एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
 
-#: notifications\messages.py:59
+#: notifications\messages.py:60
 #, python-format
 msgid "An invoice for %(amount)s has been created."
 msgstr "%(amount)s का चालान बनाया गया है।"
@@ -1112,7 +1121,7 @@ msgstr "%(amount)s का चालान बनाया गया है।"
 msgid "and Without Diet"
 msgstr "और बिना परहेज़ के"
 
-#: clinic\models.py:356
+#: clinic\models.py:360
 msgid "Answer"
 msgstr "उत्तर"
 
@@ -1158,7 +1167,7 @@ msgstr "लागू करें"
 msgid "Appointment"
 msgstr "अपॉइंटमेंट"
 
-#: notifications\messages.py:15
+#: notifications\messages.py:16
 msgid "Appointment booked"
 msgstr "अपॉइंटमेंट बुक हो गई"
 
@@ -1179,11 +1188,11 @@ msgstr "अपॉइंटमेंट बुक हो गया! कृपय�
 msgid "Appointment Booking Confirmation - %(clinic_name)s"
 msgstr "अपॉइंटमेंट बुकिंग की पुष्टि - %(clinic_name)s"
 
-#: notifications\messages.py:30
+#: notifications\messages.py:31
 msgid "Appointment cancelled"
 msgstr "अपॉइंटमेंट रद्द हो गई"
 
-#: notifications\messages.py:24
+#: notifications\messages.py:25
 msgid "Appointment confirmed"
 msgstr "अपॉइंटमेंट की पुष्टि हो गई"
 
@@ -1209,16 +1218,16 @@ msgstr "%(date)s को %(patient_name)s का अपॉइंटमेंट �
 msgid "Appointment length"
 msgstr "अपॉइंटमेंट की अवधि"
 
-#: notifications\messages.py:39
+#: notifications\messages.py:40
 #, python-format
 msgid "Appointment not completed: %(who)s"
 msgstr "अपॉइंटमेंट पूरी नहीं हुई: %(who)s"
 
-#: notifications\messages.py:33
+#: notifications\messages.py:34
 msgid "Appointment reminder"
 msgstr "अपॉइंटमेंट अनुस्मारक"
 
-#: notifications\messages.py:27
+#: notifications\messages.py:28
 msgid "Appointment rescheduled"
 msgstr "अपॉइंटमेंट का समय बदला गया"
 
@@ -1271,7 +1280,7 @@ msgstr ""
 msgid "Approve & publish"
 msgstr "स्वीकृत करें और प्रकाशित करें"
 
-#: clinic\models.py:434
+#: clinic\models.py:438
 msgid "Approved"
 msgstr "स्वीकृत"
 
@@ -1353,7 +1362,7 @@ msgstr "परिचारक का नाम"
 msgid "Attender Phone"
 msgstr "परिचारक का फ़ोन"
 
-#: clinic\models.py:798
+#: clinic\models.py:804
 msgid "Audit Log"
 msgstr "ऑडिट लॉग"
 
@@ -1361,7 +1370,7 @@ msgstr "ऑडिट लॉग"
 msgid "Audit Log Notification"
 msgstr "ऑडिट लॉग सूचना"
 
-#: clinic\models.py:799
+#: clinic\models.py:805
 msgid "Audit Logs"
 msgstr "ऑडिट लॉग"
 
@@ -1381,7 +1390,7 @@ msgstr "ऑरिकुलर एक्यूपंक्चर, स्कैल
 msgid "Author"
 msgstr "लेखक"
 
-#: clinic\models.py:438
+#: clinic\models.py:442
 msgid "Author agreed to publication"
 msgstr "लेखक ने प्रकाशन की सहमति दी"
 
@@ -1415,12 +1424,12 @@ msgstr "न देने पर स्वतः बनेगा"
 msgid "Auto-translate missing into %(name)s"
 msgstr "छूटे हुए को %(name)s में स्वतः अनुवाद करें"
 
-#: clinic\models.py:815 templates\clinic\admin\translations.html:73
+#: clinic\models.py:821 templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 msgid "Auto-translated"
 msgstr "स्वतः अनूदित"
 
-#: clinic\models.py:504
+#: clinic\models.py:508
 msgid "Automatic"
 msgstr "स्वचालित"
 
@@ -1540,7 +1549,7 @@ msgstr "बकाया राशि"
 msgid "BAMS, MD (Acupuncture), etc."
 msgstr "BAMS, MD (Acupuncture), etc."
 
-#: clinic\models.py:139
+#: clinic\models.py:140
 msgid "Bank Name"
 msgstr "बैंक का नाम"
 
@@ -1616,7 +1625,7 @@ msgstr "बिलिंग और कर कॉन्फ़िगरेशन"
 msgid "Billing & tax information updated."
 msgstr "बिलिंग और कर जानकारी अपडेट हुई।"
 
-#: clinic\models.py:231
+#: clinic\models.py:232
 #: clinic\templates\clinic\admin\practitioner_form.html:133
 msgid "Bio"
 msgstr "जीवनी"
@@ -1802,7 +1811,7 @@ msgstr "SpinalCure HMS द्वारा। अत्यंत गोपनी�
 msgid "Calendar View"
 msgstr "कैलेंडर दृश्य"
 
-#: accounts\templates\accounts\admin\user_form.html:127
+#: accounts\templates\accounts\admin\user_form.html:141
 #: clinic\templates\clinic\admin\practitioner_form.html:159
 #: templates\accounts\settings.html:57 templates\clinic\admin\faq_form.html:13
 msgid "Cancel"
@@ -1862,7 +1871,7 @@ msgstr ""
 msgid "Capacity must be at least 1."
 msgstr "क्षमता कम से कम 1 होनी चाहिए।"
 
-#: clinic\models.py:658
+#: clinic\models.py:664
 msgid "Caption"
 msgstr "कैप्शन"
 
@@ -1902,7 +1911,7 @@ msgstr "कार्ड आईडी"
 msgid "Card language"
 msgstr "कार्ड की भाषा"
 
-#: clinic\models.py:518 templates\clinic\admin\video_form.html:89
+#: clinic\models.py:524 templates\clinic\admin\video_form.html:89
 msgid "Card layout"
 msgstr "कार्ड लेआउट"
 
@@ -1960,7 +1969,7 @@ msgstr "फ़ोन नंबर बदलें"
 msgid "Change the time"
 msgstr "समय बदलें"
 
-#: clinic\models.py:765
+#: clinic\models.py:771
 msgid "Changes"
 msgstr "परिवर्तन"
 
@@ -1993,7 +2002,7 @@ msgstr ""
 msgid "Channel"
 msgstr "चैनल"
 
-#: clinic\models.py:363
+#: clinic\models.py:367
 msgid "Checked by"
 msgstr "जाँचकर्ता"
 
@@ -2047,7 +2056,7 @@ msgstr "खाली समय देखने के लिए एक तार
 msgid "Choose a morning or an evening session, or switch the day off."
 msgstr "सुबह या शाम का सत्र चुनें, या उस दिन को बंद करें।"
 
-#: clinic\models.py:680
+#: clinic\models.py:686
 msgid "Choose a photo."
 msgstr "एक फ़ोटो चुनें।"
 
@@ -2071,6 +2080,10 @@ msgstr "चुनें कि आपको हर घटना के बार
 msgid "Choose the appointment length from the list."
 msgstr "सूची में से अपॉइंटमेंट की अवधि चुनें।"
 
+#: accounts\forms.py:87
+msgid "Choose the practitioner to link."
+msgstr "जोड़ने के लिए प्रैक्टिशनर चुनें।"
+
 #: templates\clinic\admin\gallery.html:14
 msgid ""
 "Choose up to 30 photos at once. Edit each one afterwards to add a caption or"
@@ -2082,6 +2095,10 @@ msgstr ""
 #: clinic\templates\clinic\admin\clinic_setup.html:1075
 msgid "Choose..."
 msgstr "चुनें..."
+
+#: accounts\forms.py:28
+msgid "Choose…"
+msgstr "चुनें…"
 
 #: events\models.py:24
 msgid "Class"
@@ -2120,7 +2137,7 @@ msgstr "फ़िल्टर हटाएँ"
 msgid "Clear ✕"
 msgstr "साफ़ करें ✕"
 
-#: clinic\models.py:395 courses\models.py:63 events\models.py:45
+#: clinic\models.py:399 courses\models.py:63 events\models.py:45
 #: idcards\render.py:233
 msgid "Clinic"
 msgstr "क्लिनिक"
@@ -2141,7 +2158,7 @@ msgstr "क्लिनिक की छुट्टियाँ और बं�
 msgid "Clinic Logo"
 msgstr "क्लिनिक लोगो"
 
-#: clinic\models.py:23
+#: clinic\models.py:24
 msgid "Clinic Name"
 msgstr "क्लिनिक का नाम"
 
@@ -2149,7 +2166,7 @@ msgstr "क्लिनिक का नाम"
 msgid "Clinic Name *"
 msgstr "क्लिनिक का नाम *"
 
-#: clinic\models.py:155
+#: clinic\models.py:156
 msgid "Clinic Profile"
 msgstr "क्लिनिक प्रोफ़ाइल"
 
@@ -2157,11 +2174,11 @@ msgstr "क्लिनिक प्रोफ़ाइल"
 msgid "Clinic Profile Settings"
 msgstr "क्लिनिक प्रोफ़ाइल सेटिंग्स"
 
-#: clinic\models.py:156
+#: clinic\models.py:157
 msgid "Clinic Profiles"
 msgstr "क्लिनिक प्रोफ़ाइल"
 
-#: clinic\models.py:421
+#: clinic\models.py:425
 msgid "Clinic reply"
 msgstr "क्लिनिक का जवाब"
 
@@ -2248,13 +2265,17 @@ msgstr "प्राप्तकर्ता:"
 msgid "Collections so far"
 msgstr "अब तक का संग्रह"
 
-#: clinic\models.py:328
+#: clinic\models.py:332
 msgid ""
 "Comma-separated extra words that should match this problem, e.g. \"disc, "
 "herniated\"."
 msgstr ""
 "इस समस्या से मेल खाने वाले अतिरिक्त शब्द, अल्पविराम से अलग करें, जैसे "
 "\"disc, herniated\"।"
+
+#: clinic\models.py:514
+msgid "Comma-separated; imported from YouTube."
+msgstr "कॉमा से अलग करें; YouTube से आयात किया गया।"
 
 #: courses\models.py:220 events\models.py:298
 #: templates\courses\registration_manage.html:21
@@ -2266,7 +2287,7 @@ msgstr "टिप्पणी"
 msgid "Compare the name and photo with the person presenting the card."
 msgstr "कार्ड दिखाने वाले व्यक्ति से नाम और फ़ोटो का मिलान करें।"
 
-#: clinic\models.py:778
+#: clinic\models.py:784
 msgid "Complete serialized JSON representation of the object before deletion"
 msgstr "हटाने से पहले ऑब्जेक्ट का संपूर्ण सीरियलाइज़्ड JSON रूप"
 
@@ -2312,7 +2333,7 @@ msgstr "बुकिंग की पुष्टि करें"
 msgid "Confirm new password"
 msgstr "नए पासवर्ड की पुष्टि करें"
 
-#: clinic\models.py:646
+#: clinic\models.py:652
 msgid "Confirm the permission is on file before publishing."
 msgstr "प्रकाशित करने से पहले पुष्टि करें कि अनुमति रिकॉर्ड में है।"
 
@@ -2340,11 +2361,11 @@ msgstr "सहमति"
 msgid "Consent and publication"
 msgstr "सहमति और प्रकाशन"
 
-#: clinic\models.py:513 templates\clinic\admin\video_form.html:41
+#: clinic\models.py:519 templates\clinic\admin\video_form.html:41
 msgid "Consent date"
 msgstr "सहमति की तारीख"
 
-#: clinic\models.py:503
+#: clinic\models.py:507
 msgid "Consent on file"
 msgstr "सहमति रिकॉर्ड में है"
 
@@ -2454,7 +2475,7 @@ msgstr "समय लोड नहीं हो सके। कृपया प
 msgid "Could not reach the server. Check your connection and try again."
 msgstr "सर्वर तक नहीं पहुँच सका। अपना कनेक्शन जाँचें और पुनः प्रयास करें।"
 
-#: clinic\testimonial_views.py:120 clinic\testimonial_views.py:173
+#: clinic\testimonial_views.py:131 clinic\testimonial_views.py:184
 #, python-format
 msgid "Could not save: %(e)s"
 msgstr "सहेजा नहीं जा सका: %(e)s"
@@ -2536,7 +2557,7 @@ msgstr "कोर्स पंजीकरण"
 msgid "Course Registrations"
 msgstr "कोर्स पंजीकरण"
 
-#: clinic\models.py:386 payments\models.py:43
+#: clinic\models.py:390 payments\models.py:43
 msgid "Course Student"
 msgstr "कोर्स छात्र"
 
@@ -2567,10 +2588,14 @@ msgstr "कवर इमेज"
 msgid "Cover image"
 msgstr "कवर छवि"
 
-#: clinic\models.py:726 clinic\templates\clinic\admin\activity_log.html:21
+#: clinic\models.py:732 clinic\templates\clinic\admin\activity_log.html:21
 #: clinic\templates\clinic\admin\activity_log.html:79
 msgid "Create"
 msgstr "बनाएँ"
+
+#: accounts\forms.py:26
+msgid "Create a practitioner profile from this account"
+msgstr "इस खाते से प्रैक्टिशनर प्रोफ़ाइल बनाएँ"
 
 #: templates\courses\batch_list.html:127
 msgid "Create Batch"
@@ -2604,7 +2629,7 @@ msgstr ""
 msgid "Create Treatment Plan"
 msgstr "उपचार योजना बनाएँ"
 
-#: accounts\templates\accounts\admin\user_form.html:124
+#: accounts\templates\accounts\admin\user_form.html:138
 msgid "Create User"
 msgstr "उपयोगकर्ता बनाएं"
 
@@ -2753,7 +2778,7 @@ msgstr "निष्क्रिय"
 msgid "Dear %(name)s,"
 msgstr "प्रिय %(name)s,"
 
-#: clinic\models.py:135 clinic\templates\clinic\admin\clinic_setup.html:328
+#: clinic\models.py:136 clinic\templates\clinic\admin\clinic_setup.html:328
 msgid "Default Tax %"
 msgstr "डिफ़ॉल्ट कर %"
 
@@ -2761,9 +2786,9 @@ msgstr "डिफ़ॉल्ट कर %"
 msgid "Define the core name and public summary of your course."
 msgstr "अपने कोर्स का मुख्य नाम और सार्वजनिक सारांश तय करें।"
 
-#: clinic\models.py:728 clinic\templates\clinic\admin\activity_log.html:23
+#: accounts\templates\accounts\admin\users_list.html:92 clinic\models.py:734
+#: clinic\templates\clinic\admin\activity_log.html:23
 #: clinic\templates\clinic\admin\activity_log.html:87
-#: clinic\templates\clinic\admin\practitioners_list.html:53
 msgid "Delete"
 msgstr "हटाएँ"
 
@@ -2791,6 +2816,10 @@ msgstr "स्थायी रूप से हटाएं"
 #: templates\clinic\admin\blog_tags.html:59
 msgid "Delete tag"
 msgstr "टैग हटाएँ"
+
+#: accounts\templates\accounts\admin\users_list.html:90
+msgid "Delete this account permanently?"
+msgstr "यह खाता स्थायी रूप से हटाएँ?"
 
 #: templates\patients\packages.html:23
 msgid "Delete this package? Existing plans keep their price and sittings."
@@ -2882,15 +2911,15 @@ msgstr "सेवा का विवरण"
 msgid "Designation"
 msgstr "पद"
 
-#: clinic\models.py:400 templates\clinic\admin\testimonial_form.html:29
+#: clinic\models.py:404 templates\clinic\admin\testimonial_form.html:29
 msgid "Designation / Location"
 msgstr "पदनाम / स्थान"
 
-#: accounts\forms.py:70
+#: accounts\forms.py:85
 msgid "Designation is required for owners and staff."
 msgstr "मालिकों और कर्मचारियों के लिए पद आवश्यक है।"
 
-#: clinic\models.py:240
+#: clinic\models.py:241
 msgid "Designation Tag"
 msgstr "पदनाम टैग"
 
@@ -2938,7 +2967,7 @@ msgstr "विवरण और पंजीकरण"
 msgid "Details and registration"
 msgstr "विवरण और पंजीकरण"
 
-#: notifications\messages.py:83
+#: notifications\messages.py:84
 #, python-format
 msgid "Details of %(event)s changed. It is now on %(date)s at %(time)s."
 msgstr "%(event)s का विवरण बदल गया है। अब यह %(date)s को %(time)s बजे है।"
@@ -2972,11 +3001,11 @@ msgstr "फीडबैक फ़ॉर्म अक्षम करें"
 msgid "Dismiss"
 msgstr "खारिज करें"
 
-#: clinic\models.py:428 templates\clinic\admin\testimonial_form.html:114
+#: clinic\models.py:432 templates\clinic\admin\testimonial_form.html:114
 msgid "Display Order"
 msgstr "प्रदर्शन क्रम"
 
-#: clinic\models.py:359 clinic\models.py:632 clinic\models.py:666
+#: clinic\models.py:363 clinic\models.py:638 clinic\models.py:672
 #: patients\models.py:160
 msgid "Display order"
 msgstr "दिखाने का क्रम"
@@ -3102,11 +3131,11 @@ msgstr "अवधि:"
 msgid "e.g. \"2025 Batch\", \"Batch 3 — June 2024\""
 msgstr "उदा., \"2025 बैच\", \"बैच 3 — जून 2024\""
 
-#: clinic\models.py:625
+#: clinic\models.py:631
 msgid "e.g. \"Actor\", \"Cricketer\"."
 msgstr "जैसे \"अभिनेता\", \"क्रिकेटर\"।"
 
-#: clinic\models.py:512
+#: clinic\models.py:518
 msgid ""
 "e.g. \"Signed media consent form, file 2026/14\". Never upload the form "
 "itself here."
@@ -3156,7 +3185,7 @@ msgstr "उदा., एक्यूपंक्चर पुरानी पी�
 msgid "e.g. Lower Back Pain 2026"
 msgstr "उदा., कमर के निचले हिस्से का दर्द 2026"
 
-#: clinic\models.py:749
+#: clinic\models.py:755
 msgid "e.g. Patient, Payment, Session, Course, Event, Appointment"
 msgstr "उदा., रोगी, भुगतान, सत्र, कोर्स, इवेंट, अपॉइंटमेंट"
 
@@ -3294,7 +3323,7 @@ msgstr "संपादित करें: %(title)s"
 msgid "Edited"
 msgstr "संपादित"
 
-#: clinic\models.py:815
+#: clinic\models.py:821
 msgid "Edited by staff"
 msgstr "स्टाफ़ द्वारा संपादित"
 
@@ -3315,7 +3344,7 @@ msgid "Either email or phone number is required."
 msgstr "ईमेल या फ़ोन नंबर आवश्यक है।"
 
 #: accounts\models.py:98 accounts\templates\accounts\admin\user_form.html:53
-#: clinic\models.py:44 clinic\templates\clinic\admin\clinic_setup.html:252
+#: clinic\models.py:45 clinic\templates\clinic\admin\clinic_setup.html:252
 msgid "Email"
 msgstr "ईमेल"
 
@@ -3429,7 +3458,7 @@ msgstr "समाप्ति तिथि (वैकल्पिक)"
 msgid "Engagement"
 msgstr "सहभागिता"
 
-#: spinalcure\settings\base.py:126
+#: spinalcure\settings\base.py:129
 msgid "English"
 msgstr "अंग्रेज़ी"
 
@@ -3462,7 +3491,7 @@ msgstr "नामांकन खुला है"
 msgid "Enter 6-digit Code"
 msgstr "6 अंकों का कोड दर्ज करें"
 
-#: clinic\testimonial_views.py:234
+#: clinic\testimonial_views.py:245
 msgid "Enter a problem name."
 msgstr "समस्या का नाम लिखें।"
 
@@ -3482,7 +3511,7 @@ msgstr "सही पैकेज कीमत डालें।"
 msgid "Enter a valid refund amount."
 msgstr "मान्य रिफ़ंड राशि दर्ज करें।"
 
-#: clinic\models.py:544 clinic\models.py:685
+#: clinic\models.py:550 clinic\models.py:691
 msgid "Enter a YouTube, YouTube Shorts or Instagram reel link."
 msgstr "YouTube, YouTube Shorts या Instagram reel का लिंक डालें।"
 
@@ -3511,7 +3540,7 @@ msgstr ""
 msgid "Equipment & Instruments"
 msgstr "उपकरण और यंत्र"
 
-#: payments\views.py:302
+#: payments\views.py:306
 #, python-format
 msgid "Error creating expense: %(value1)s"
 msgstr "खर्च बनाने में त्रुटि: %(value1)s"
@@ -3536,7 +3565,7 @@ msgstr "सत्र बनाने में त्रुटि: %(value1)s"
 msgid "Error creating treatment plan: %(value1)s"
 msgstr "उपचार योजना बनाने में त्रुटि: %(value1)s"
 
-#: payments\views.py:493
+#: payments\views.py:497
 #, python-format
 msgid "Error recording payment: %(value1)s"
 msgstr "भुगतान दर्ज करने में त्रुटि: %(value1)s"
@@ -3555,7 +3584,7 @@ msgstr "पूर्ववत करने में त्रुटि: %(value
 msgid "Error saving testimonial: %(e)s"
 msgstr "प्रशंसा सहेजने में त्रुटि: %(e)s"
 
-#: payments\views.py:340
+#: payments\views.py:344
 #, python-format
 msgid "Error updating expense: %(value1)s"
 msgstr "खर्च अपडेट करने में त्रुटि: %(value1)s"
@@ -3565,7 +3594,7 @@ msgstr "खर्च अपडेट करने में त्रुटि: 
 msgid "Error updating patient: %(value1)s"
 msgstr "रोगी अपडेट करने में त्रुटि: %(value1)s"
 
-#: payments\views.py:594
+#: payments\views.py:598
 #, python-format
 msgid "Error updating payment: %(value1)s"
 msgstr "भुगतान अपडेट करने में त्रुटि: %(value1)s"
@@ -3628,11 +3657,11 @@ msgstr ""
 "इवेंट \"%(title)s\" ड्राफ़्ट के रूप में सहेजा गया। तैयार होने पर प्रकाशित "
 "करें।"
 
-#: clinic\models.py:385
+#: clinic\models.py:389
 msgid "Event Attendee"
 msgstr "इवेंट प्रतिभागी"
 
-#: notifications\messages.py:85
+#: notifications\messages.py:86
 #, python-format
 msgid "Event cancelled: %(event)s"
 msgstr "कार्यक्रम रद्द: %(event)s"
@@ -3665,7 +3694,7 @@ msgstr "इवेंट पंजीकरण"
 msgid "Event status"
 msgstr "कार्यक्रम की स्थिति"
 
-#: notifications\messages.py:82
+#: notifications\messages.py:83
 #, python-format
 msgid "Event updated: %(event)s"
 msgstr "कार्यक्रम अपडेट: %(event)s"
@@ -3715,6 +3744,10 @@ msgstr "Excel स्प्रेडशीट"
 msgid "Excerpt"
 msgstr "अंश"
 
+#: accounts\templates\accounts\admin\user_form.html:127
+msgid "Existing practitioner"
+msgstr "मौजूदा प्रैक्टिशनर"
+
 #: templates\clinic\admin\blog_tags.html:45
 #, python-format
 msgid "Existing Tags (%(count)s)"
@@ -3724,17 +3757,17 @@ msgstr "मौजूदा टैग (%(count)s)"
 msgid "Expense"
 msgstr "खर्च"
 
-#: payments\views.py:369
+#: payments\views.py:373
 #, python-format
 msgid "Expense \"%(title)s\" deleted."
 msgstr "खर्च \"%(title)s\" हटाया गया।"
 
-#: payments\views.py:298
+#: payments\views.py:302
 #, python-format
 msgid "Expense \"%(title)s\" recorded successfully."
 msgstr "खर्च \"%(title)s\" सफलतापूर्वक दर्ज किया गया।"
 
-#: payments\views.py:337
+#: payments\views.py:341
 #, python-format
 msgid "Expense \"%(title)s\" updated."
 msgstr "खर्च \"%(title)s\" अपडेट किया गया।"
@@ -3799,12 +3832,12 @@ msgstr "कोर्स एक्सपोर्ट करें"
 msgid "Facebook Profile URL"
 msgstr "Facebook प्रोफ़ाइल URL"
 
-#: clinic\models.py:246
+#: clinic\models.py:247
 #: clinic\templates\clinic\admin\practitioner_form.html:108
 msgid "Facebook URL"
 msgstr "Facebook URL"
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Failed"
 msgstr "विफल"
 
@@ -3832,24 +3865,24 @@ msgstr "PIN भेजने में विफल। ईमेल सेटि�
 msgid "Failed Verification Attempts"
 msgstr "असफल सत्यापन प्रयास"
 
-#: clinic\models.py:369
+#: clinic\models.py:373
 msgid "FAQ"
 msgstr "सामान्य प्रश्न"
 
-#: clinic\models.py:370 templates\clinic\admin\faqs.html:3
+#: clinic\models.py:374 templates\clinic\admin\faqs.html:3
 msgid "FAQs"
 msgstr "सामान्य प्रश्न"
 
-#: clinic\models.py:663 templates\clinic\admin\gallery.html:29
+#: clinic\models.py:669 templates\clinic\admin\gallery.html:29
 #: templates\clinic\gallery.html:34
 msgid "Featured"
 msgstr "विशेष"
 
-#: clinic\models.py:664
+#: clinic\models.py:670
 msgid "Featured label"
 msgstr "विशेष लेबल"
 
-#: clinic\models.py:638 templates\clinic\partials\featured_patients.html:15
+#: clinic\models.py:644 templates\clinic\partials\featured_patients.html:15
 msgid "Featured patient"
 msgstr "विशेष मरीज़"
 
@@ -3865,7 +3898,7 @@ msgstr "विशेष मरीज़ हटाया गया।"
 msgid "Featured patient saved."
 msgstr "विशेष मरीज़ सहेजा गया।"
 
-#: clinic\models.py:639 templates\clinic\admin\featured.html:3
+#: clinic\models.py:645 templates\clinic\admin\featured.html:3
 #: templates\clinic\admin\featured.html:4
 #: templates\clinic\admin\featured_form.html:5
 msgid "Featured patients"
@@ -3969,7 +4002,7 @@ msgstr "शुल्क (₹)"
 msgid "Fees are non-refundable."
 msgstr "शुल्क वापस नहीं किया जाता।"
 
-#: accounts\models.py:340 clinic\models.py:190
+#: accounts\models.py:340 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:39
 #: patients\models.py:20
 msgid "Female"
@@ -4031,7 +4064,7 @@ msgstr "फॉलो-अप अनुस्मारक कितने दि�
 msgid "Food, drug allergies..."
 msgstr "भोजन, दवा से एलर्जी..."
 
-#: clinic\models.py:87 clinic\templates\clinic\admin\clinic_setup.html:410
+#: clinic\models.py:88 clinic\templates\clinic\admin\clinic_setup.html:410
 msgid "Footer Text"
 msgstr "फ़ुटर पाठ"
 
@@ -4046,6 +4079,16 @@ msgstr "इन शर्तों के बारे में किसी भ
 #: templates\clinic\event_detail.html:73
 msgid "for confirmation"
 msgstr "पुष्टि के लिए"
+
+#: accounts\templates\accounts\admin\user_form.html:123
+msgid ""
+"For doctors and therapists shown on the website and booked for appointments."
+" Name, photo, phone and email are taken from this account, so nothing is "
+"typed twice."
+msgstr ""
+"वेबसाइट पर दिखने वाले और अपॉइंटमेंट के लिए बुक होने वाले डॉक्टरों और "
+"थेरेपिस्टों के लिए। नाम, फ़ोटो, फ़ोन और ईमेल इसी खाते से लिए जाते हैं, इसलिए"
+" कुछ भी दोबारा टाइप नहीं करना पड़ता।"
 
 #: notifications\templates\notifications\email.html:13
 msgid "For your privacy this email contains no medical details."
@@ -4080,7 +4123,7 @@ msgstr ""
 "मुफ़्त सेवा, सामान्य गुणवत्ता और दैनिक सीमा। बेहतर परिणाम के लिए, ख़ासकर "
 "नामों के लिए, ANTHROPIC_API_KEY या GOOGLE_TRANSLATE_API_KEY सेट करें।"
 
-#: clinic\models.py:425
+#: clinic\models.py:429
 msgid "Free text shown on the card, e.g. \"2 months ago\"."
 msgstr "कार्ड पर दिखने वाला टेक्स्ट, जैसे \"2 महीने पहले\"।"
 
@@ -4094,7 +4137,7 @@ msgstr "शुक्रवार"
 msgid "From"
 msgstr "से"
 
-#: clinic\models.py:53
+#: clinic\models.py:54
 msgid ""
 "From Google Business Profile: \"Ask for reviews\". Patients are sent here "
 "after their treatment."
@@ -4123,7 +4166,7 @@ msgstr "पूर्ण विवरण"
 msgid "Full Mobility"
 msgstr "पूर्ण गतिशीलता"
 
-#: clinic\models.py:194 courses\models.py:174 events\models.py:247
+#: clinic\models.py:195 courses\models.py:174 events\models.py:247
 #: patients\models.py:27
 msgid "Full Name"
 msgstr "पूरा नाम"
@@ -4170,13 +4213,13 @@ msgstr "पूरा पाठ्यक्रम / मॉड्यूल *"
 msgid "Fully Paid"
 msgstr "पूर्ण भुगतान"
 
-#: clinic\models.py:673 templates\clinic\admin\gallery.html:3
+#: clinic\models.py:679 templates\clinic\admin\gallery.html:3
 #: templates\clinic\admin\gallery.html:4
 #: templates\clinic\admin\gallery_form.html:5
 msgid "Gallery"
 msgstr "गैलरी"
 
-#: clinic\models.py:672
+#: clinic\models.py:678
 msgid "Gallery item"
 msgstr "गैलरी आइटम"
 
@@ -4245,7 +4288,7 @@ msgstr "होम पेज पर जाएँ"
 msgid "Google Calendar"
 msgstr "Google Calendar"
 
-#: clinic\models.py:82
+#: clinic\models.py:83
 msgid "Google Maps Iframe URL"
 msgstr "Google Maps Iframe URL"
 
@@ -4257,11 +4300,11 @@ msgstr "Google Maps एकीकरण"
 msgid "Google Maps integration and social profile links."
 msgstr "Google Maps एकीकरण और सोशल प्रोफ़ाइल लिंक।"
 
-#: clinic\models.py:382
+#: clinic\models.py:386
 msgid "Google Review"
 msgstr "Google समीक्षा"
 
-#: clinic\models.py:52 clinic\templates\clinic\admin\clinic_setup.html:997
+#: clinic\models.py:53 clinic\templates\clinic\admin\clinic_setup.html:997
 msgid "Google review link"
 msgstr "Google समीक्षा लिंक"
 
@@ -4270,7 +4313,7 @@ msgstr "Google समीक्षा लिंक"
 msgid "GST (%(tax_percent)s%% %(get_tax_type_display)s)"
 msgstr "GST (%(tax_percent)s%% %(get_tax_type_display)s)"
 
-#: clinic\models.py:127
+#: clinic\models.py:128
 msgid "GSTIN"
 msgstr "GSTIN"
 
@@ -4286,7 +4329,7 @@ msgstr "अतिथि का नाम"
 msgid "Guest Phone"
 msgstr "अतिथि फ़ोन"
 
-#: notifications\models.py:19
+#: notifications\models.py:21
 msgid "Guest recipient with no account."
 msgstr "बिना खाते वाला अतिथि प्राप्तकर्ता।"
 
@@ -4345,23 +4388,23 @@ msgstr "नमस्ते, %(name)s"
 msgid "Hello, %(v_0)s! 👋"
 msgstr "नमस्ते, %(v_0)s! 👋"
 
-#: clinic\models.py:310
+#: clinic\models.py:314
 msgid "Hero Carousel Image"
 msgstr "हीरो कैरोसेल इमेज"
 
-#: clinic\models.py:311 clinic\templates\clinic\admin\clinic_setup.html:460
+#: clinic\models.py:315 clinic\templates\clinic\admin\clinic_setup.html:460
 msgid "Hero Carousel Images"
 msgstr "हीरो कैरोसेल इमेज"
 
-#: clinic\models.py:78 clinic\models.py:304
+#: clinic\models.py:79 clinic\models.py:308
 msgid "Hero Image"
 msgstr "हीरो इमेज"
 
-#: clinic\models.py:71 clinic\templates\clinic\admin\clinic_setup.html:401
+#: clinic\models.py:72 clinic\templates\clinic\admin\clinic_setup.html:401
 msgid "Hero Subtitle"
 msgstr "हीरो उपशीर्षक"
 
-#: clinic\models.py:66 clinic\templates\clinic\admin\clinic_setup.html:392
+#: clinic\models.py:67 clinic\templates\clinic\admin\clinic_setup.html:392
 msgid "Hero Title"
 msgstr "हीरो शीर्षक"
 
@@ -4384,7 +4427,7 @@ msgstr "पासवर्ड छिपाएँ"
 msgid "High resolution JPG/WebP preferred. Aspect 16:9."
 msgstr "उच्च रिज़ॉल्यूशन JPG/WebP बेहतर। अनुपात 16:9।"
 
-#: spinalcure\settings\base.py:128
+#: spinalcure\settings\base.py:131
 msgid "Hindi"
 msgstr "हिन्दी"
 
@@ -4421,7 +4464,7 @@ msgstr ""
 msgid "How is the patient feeling after today's session?"
 msgstr "आज के सत्र के बाद रोगी कैसा महसूस कर रहा है?"
 
-#: notifications\messages.py:45 templates\clinic\review.html:12
+#: notifications\messages.py:46 templates\clinic\review.html:12
 msgid "How is your recovery going?"
 msgstr "आपकी रिकवरी कैसी चल रही है?"
 
@@ -4437,7 +4480,7 @@ msgstr "कोर्स कैसा रहा?"
 msgid "How your treatment works"
 msgstr "आपका इलाज कैसे होता है"
 
-#: clinic\models.py:760
+#: clinic\models.py:766
 msgid "Human-readable string of the affected record"
 msgstr "प्रभावित रिकॉर्ड का मानव-पठनीय विवरण"
 
@@ -4463,7 +4506,7 @@ msgstr ""
 "primary-700 underline\">नियम और शर्तों</a> से सहमत हूँ। शुल्क वापस नहीं किया"
 " जाता।"
 
-#: clinic\models.py:290
+#: clinic\models.py:294
 msgid "Icon Name"
 msgstr "आइकन का नाम"
 
@@ -4476,7 +4519,7 @@ msgstr "पहचान पत्र"
 msgid "ID card branding"
 msgstr "पहचान पत्र ब्रांडिंग"
 
-#: notifications\messages.py:67
+#: notifications\messages.py:68
 msgid "ID card issued"
 msgstr "पहचान पत्र जारी किया गया"
 
@@ -4490,7 +4533,7 @@ msgstr "%(value1)s को पहचान पत्र जारी किया
 msgid "ID card of %(name)s"
 msgstr "%(name)s का पहचान पत्र"
 
-#: notifications\messages.py:70
+#: notifications\messages.py:71
 msgid "ID card revoked"
 msgstr "पहचान पत्र निरस्त किया गया"
 
@@ -4560,7 +4603,7 @@ msgid "If you need to reschedule or cancel, please inform us at least"
 msgstr ""
 "यदि आपको समय बदलना या रद्द करना हो, तो कृपया कम से कम इतना पहले सूचित करें:"
 
-#: clinic\models.py:145
+#: clinic\models.py:146
 msgid "IFSC Code"
 msgstr "IFSC कोड"
 
@@ -4660,7 +4703,7 @@ msgstr "प्रारंभिक बनाम नवीनतम सत्र
 msgid "Instagram Profile URL"
 msgstr "Instagram प्रोफ़ाइल URL"
 
-#: clinic\models.py:245
+#: clinic\models.py:246
 #: clinic\templates\clinic\admin\practitioner_form.html:98
 msgid "Instagram URL"
 msgstr "Instagram URL"
@@ -4669,7 +4712,7 @@ msgstr "Instagram URL"
 msgid "Insurance"
 msgstr "बीमा"
 
-#: clinic\models.py:383
+#: clinic\models.py:387
 msgid "Internal / Direct"
 msgstr "आंतरिक / प्रत्यक्ष"
 
@@ -4764,12 +4807,12 @@ msgstr "इनवॉइस"
 msgid "Invoice #%(receipt_number)s — SpinalCure"
 msgstr "इनवॉइस #%(receipt_number)s — SpinalCure"
 
-#: notifications\messages.py:58
+#: notifications\messages.py:59
 #, python-format
 msgid "Invoice %(invoice)s"
 msgstr "चालान %(invoice)s"
 
-#: clinic\models.py:789 clinic\templates\clinic\admin\activity_log.html:66
+#: clinic\models.py:795 clinic\templates\clinic\admin\activity_log.html:66
 msgid "IP Address"
 msgstr "IP पता"
 
@@ -4777,7 +4820,7 @@ msgstr "IP पता"
 msgid "Is Active"
 msgstr "सक्रिय है"
 
-#: clinic\models.py:234
+#: clinic\models.py:235
 msgid "Is Chief Doctor"
 msgstr "मुख्य डॉक्टर"
 
@@ -4816,7 +4859,7 @@ msgstr "जारी किया गया"
 msgid "It is no longer shown and its text and your name have been deleted."
 msgstr "अब यह दिखाई नहीं देगी और इसका पाठ व आपका नाम हटा दिया गया है।"
 
-#: notifications\messages.py:43
+#: notifications\messages.py:44
 #, python-format
 msgid ""
 "It is time for your follow-up visit. Please book a slot with %(clinic)s."
@@ -4847,7 +4890,7 @@ msgstr "प्रतीक्षा सूची में शामिल ह�
 msgid "Joined"
 msgstr "शामिल हुए"
 
-#: clinic\models.py:270
+#: clinic\models.py:274
 msgid "Joined date cannot be in the future."
 msgstr "जुड़ने की तिथि भविष्य में नहीं हो सकती।"
 
@@ -4867,17 +4910,17 @@ msgstr "ऑनलाइन जुड़ना"
 msgid "JPEG, PNG or WebP, up to 5 MB."
 msgstr "JPEG, PNG या WebP, अधिकतम 5 MB।"
 
-#: clinic\models.py:772
+#: clinic\models.py:778
 msgid "JSON of actual database field changes for programmatic reverting"
 msgstr ""
 "प्रोग्रामेटिक रूप से पूर्ववत करने के लिए वास्तविक डेटाबेस फ़ील्ड परिवर्तनों "
 "का JSON"
 
-#: clinic\models.py:766
+#: clinic\models.py:772
 msgid "JSON of changed fields (human-readable): {\"field\": {\"old\": \"...\", \"new\": \"...\"}}"
 msgstr "बदले गए फ़ील्ड का JSON (मानव-पठनीय): {\"field\": {\"old\": \"...\", \"new\": \"...\"}}"
 
-#: spinalcure\settings\base.py:131
+#: spinalcure\settings\base.py:134
 msgid "Kannada"
 msgstr "कन्नड़"
 
@@ -4920,7 +4963,7 @@ msgstr ""
 msgid "Key Learning Outcomes (One per line) *"
 msgstr "मुख्य सीखने के परिणाम (प्रति पंक्ति एक) *"
 
-#: clinic\models.py:624
+#: clinic\models.py:630
 msgid "Known as"
 msgstr "पहचान"
 
@@ -4929,7 +4972,7 @@ msgstr "पहचान"
 msgid "Label"
 msgstr "लेबल"
 
-#: accounts\templates\accounts\admin\user_form.html:82 clinic\models.py:507
+#: accounts\templates\accounts\admin\user_form.html:82 clinic\models.py:511
 #: events\models.py:102 templates\clinic\admin\video_form.html:24
 msgid "Language"
 msgstr "भाषा"
@@ -5046,6 +5089,10 @@ msgstr "लाइट"
 msgid "Limited seats. We will call you to confirm."
 msgstr "सीटें सीमित हैं। पुष्टि के लिए हम आपको कॉल करेंगे।"
 
+#: accounts\forms.py:27
+msgid "Link an existing practitioner"
+msgstr "मौजूदा प्रैक्टिशनर को जोड़ें"
+
 #: idcards\templates\idcards\_card.html:14
 msgid "Link copied to the clipboard"
 msgstr "लिंक क्लिपबोर्ड पर कॉपी किया गया"
@@ -5057,6 +5104,10 @@ msgstr "इस भुगतान को किसी विशिष्ट उ�
 #: templates\patients\review_form.html:43
 msgid "Link this review to a specific doctor."
 msgstr "इस समीक्षा को किसी विशिष्ट डॉक्टर से जोड़ें।"
+
+#: accounts\forms.py:51
+msgid "Linked practitioner profile (keep)"
+msgstr "जुड़ी प्रैक्टिशनर प्रोफ़ाइल (रखें)"
 
 #: templates\appointments\calendar.html:439
 msgid "List View"
@@ -5090,7 +5141,7 @@ msgstr "लोड हो रहा है..."
 msgid "Loading…"
 msgstr "लोड हो रहा है…"
 
-#: notifications\models.py:24
+#: notifications\models.py:26
 msgid "Local deep link, e.g. /appointments/"
 msgstr "स्थानीय डीप लिंक, जैसे /appointments/"
 
@@ -5110,7 +5161,7 @@ msgstr "लॉग आउट"
 msgid "Logistics & Enrollment"
 msgstr "लॉजिस्टिक्स और नामांकन"
 
-#: clinic\models.py:35 clinic\templates\clinic\admin\clinic_setup.html:434
+#: clinic\models.py:36 clinic\templates\clinic\admin\clinic_setup.html:434
 msgid "Logo"
 msgstr "लोगो"
 
@@ -5167,11 +5218,11 @@ msgstr "मुख्य अनुभाग शीर्षक"
 msgid "Main Title"
 msgstr "मुख्य शीर्षक"
 
-#: spinalcure\settings\base.py:130
+#: spinalcure\settings\base.py:133
 msgid "Malayalam"
 msgstr "मलयालम"
 
-#: accounts\models.py:340 clinic\models.py:190
+#: accounts\models.py:340 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:38
 #: patients\models.py:20
 msgid "Male"
@@ -5387,7 +5438,7 @@ msgstr "तरीका"
 msgid "Model %(model_name)s not found."
 msgstr "मॉडल %(model_name)s नहीं मिला।"
 
-#: clinic\models.py:748
+#: clinic\models.py:754
 msgid "Model / Module"
 msgstr "मॉडल / मॉड्यूल"
 
@@ -5470,7 +5521,7 @@ msgstr "मेरा स्वास्थ्य पोर्टल — SpinalCu
 msgid "My ID card"
 msgstr "मेरा पहचान पत्र"
 
-#: clinic\models.py:623 courses\models.py:218 events\models.py:293
+#: clinic\models.py:629 courses\models.py:218 events\models.py:293
 #: templates\events\event_feedback_admin.html:55
 msgid "Name"
 msgstr "नाम"
@@ -5529,7 +5580,7 @@ msgstr "नया अपॉइंटमेंट बुक हुआ"
 msgid "New Appointment Booking — Admin Notification"
 msgstr "नई अपॉइंटमेंट बुकिंग — एडमिन सूचना"
 
-#: notifications\messages.py:18 notifications\messages.py:21
+#: notifications\messages.py:19 notifications\messages.py:22
 #, python-format
 msgid "New appointment: %(who)s"
 msgstr "नई अपॉइंटमेंट: %(who)s"
@@ -5849,7 +5900,7 @@ msgstr "अभी तक कोई सत्र दर्ज नहीं हु
 msgid "No Show"
 msgstr "अनुपस्थित"
 
-#: accounts\templates\accounts\admin\users_list.html:95
+#: accounts\templates\accounts\admin\users_list.html:101
 msgid "No staff members found."
 msgstr "कोई कर्मचारी नहीं मिला।"
 
@@ -5857,7 +5908,7 @@ msgstr "कोई कर्मचारी नहीं मिला।"
 msgid "No staff profile is linked to your account"
 msgstr "आपके खाते से कोई स्टाफ प्रोफ़ाइल जुड़ी नहीं है"
 
-#: templates\clinic\partials\testimonial_results.html:57
+#: templates\clinic\partials\testimonial_results.html:62
 msgid "No stories match your search"
 msgstr "आपकी खोज से कोई कहानी मेल नहीं खाती"
 
@@ -5943,12 +5994,16 @@ msgstr "कोई नहीं"
 msgid "None reported"
 msgstr "कोई रिपोर्ट नहीं"
 
+#: accounts\forms.py:26
+msgid "Not a practitioner"
+msgstr "प्रैक्टिशनर नहीं"
+
 #: templates\appointments\partials\appointment_list_partial.html:33
 #: templates\patients\partials\patient_list_partial.html:38
 msgid "Not Assigned"
 msgstr "आवंटित नहीं"
 
-#: clinic\testimonial_views.py:161
+#: clinic\testimonial_views.py:172
 msgid "Not published: record the patient's consent first."
 msgstr "प्रकाशित नहीं: पहले मरीज़ की सहमति दर्ज करें।"
 
@@ -5960,7 +6015,7 @@ msgstr ""
 "प्रकाशित नहीं: लेखक ने सहमति नहीं दी है, या समीक्षा वापस ले ली गई या "
 "अस्वीकार कर दी गई।"
 
-#: clinic\models.py:503
+#: clinic\models.py:507
 msgid "Not recorded"
 msgstr "दर्ज नहीं"
 
@@ -6129,7 +6184,7 @@ msgstr "ऑनलाइन या व्यक्तिगत"
 msgid "Online payment"
 msgstr "ऑनलाइन भुगतान"
 
-#: notifications\messages.py:55
+#: notifications\messages.py:56
 #, python-format
 msgid "Online payment received: %(who)s"
 msgstr "ऑनलाइन भुगतान प्राप्त: %(who)s"
@@ -6154,23 +6209,27 @@ msgstr "ऑनलाइन — जॉइनिंग विवरण पंज�
 msgid "ONLY"
 msgstr "केवल"
 
-#: accounts\admin_views.py:53
+#: accounts\admin_views.py:54
 msgid "Only a super admin can change a super admin."
 msgstr "सुपर एडमिन को केवल सुपर एडमिन ही बदल सकता है।"
 
-#: accounts\admin_views.py:33
+#: accounts\admin_views.py:70
+msgid "Only a super admin can delete accounts."
+msgstr "केवल सुपर एडमिन ही खाते हटा सकता है।"
+
+#: accounts\admin_views.py:34
 msgid "Only a super admin can edit a super admin."
 msgstr "सुपर एडमिन को केवल सुपर एडमिन ही संपादित कर सकता है।"
 
-#: payments\views.py:355
+#: payments\views.py:359
 msgid "Only admins and authorized staff can delete expenses."
 msgstr "केवल एडमिन और अधिकृत कर्मचारी ही खर्च हटा सकते हैं।"
 
-#: payments\views.py:315
+#: payments\views.py:319
 msgid "Only admins and authorized staff can edit expenses."
 msgstr "केवल एडमिन और अधिकृत कर्मचारी ही खर्च संपादित कर सकते हैं।"
 
-#: payments\views.py:275
+#: payments\views.py:279
 msgid "Only admins can create expenses."
 msgstr "केवल एडमिन ही खर्च बना सकते हैं।"
 
@@ -6182,7 +6241,7 @@ msgstr "केवल एडमिन ही समीक्षाएँ बन�
 msgid "Only admins can manage reviews."
 msgstr "केवल एडमिन ही समीक्षाएँ प्रबंधित कर सकते हैं।"
 
-#: payments\views.py:223
+#: payments\views.py:227
 msgid "Only admins can view expenses."
 msgstr "केवल एडमिन ही खर्च देख सकते हैं।"
 
@@ -6252,7 +6311,7 @@ msgstr ""
 "लिंक पूर्वावलोकन के साथ वैकल्पिक पृष्ठ। यह केवल नाम, प्रकार और स्थिति के साथ"
 " आगे का भाग दिखाता है; संपर्क विवरण कभी शामिल नहीं होते।"
 
-#: clinic\models.py:628
+#: clinic\models.py:634
 msgid "Optional, factual and brief. No treatment claims."
 msgstr "वैकल्पिक, तथ्यात्मक और संक्षिप्त। इलाज के दावे न करें।"
 
@@ -6268,7 +6327,7 @@ msgstr ""
 msgid "Or use a frame from the video"
 msgstr "या वीडियो से कोई फ़्रेम इस्तेमाल करें"
 
-#: clinic\models.py:662
+#: clinic\models.py:668
 msgid "or YouTube / Instagram link"
 msgstr "या YouTube / Instagram लिंक"
 
@@ -6280,7 +6339,7 @@ msgstr "संस्था"
 msgid "Organizer"
 msgstr "आयोजक"
 
-#: accounts\models.py:340 appointments\models.py:94 clinic\models.py:190
+#: accounts\models.py:340 appointments\models.py:94 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:40
 msgid "Other"
 msgstr "अन्य"
@@ -6336,7 +6395,7 @@ msgstr "बाहरी लेखक?"
 msgid "Outstanding"
 msgstr "बकाया"
 
-#: notifications\messages.py:61
+#: notifications\messages.py:62
 #, python-format
 msgid "Outstanding payment: %(who)s"
 msgstr "बकाया भुगतान: %(who)s"
@@ -6493,7 +6552,7 @@ msgid ""
 msgstr ""
 "पासवर्ड सफलतापूर्वक रीसेट हो गया। अब आप नए पासवर्ड से लॉग इन कर सकते हैं।"
 
-#: accounts\forms.py:56
+#: accounts\forms.py:71
 msgid "Password is required."
 msgstr "पासवर्ड आवश्यक है।"
 
@@ -6533,7 +6592,7 @@ msgstr "रोगी %(name)s सफलतापूर्वक अपडेट 
 msgid "Patient - SpinalCure"
 msgstr "रोगी - SpinalCure"
 
-#: clinic\models.py:397
+#: clinic\models.py:401
 msgid "Patient / Client Name"
 msgstr "रोगी / ग्राहक का नाम"
 
@@ -6546,7 +6605,7 @@ msgstr "रोगी / ग्राहक का नाम *"
 msgid "Patient Card - %(name)s - SpinalCure"
 msgstr "रोगी कार्ड - %(name)s - SpinalCure"
 
-#: clinic\models.py:510 templates\clinic\admin\video_form.html:39
+#: clinic\models.py:516 templates\clinic\admin\video_form.html:39
 #: templates\clinic\admin\videos.html:42 templates\clinic\admin\videos.html:58
 msgid "Patient consent"
 msgstr "मरीज़ की सहमति"
@@ -6587,7 +6646,7 @@ msgstr "रोगी लॉगिन — SpinalCure"
 msgid "Patient Name"
 msgstr "रोगी का नाम"
 
-#: clinic\models.py:488
+#: clinic\models.py:492
 msgid "Patient name"
 msgstr "मरीज़ का नाम"
 
@@ -6634,7 +6693,7 @@ msgstr "रोगी समीक्षा"
 msgid "Patient Reviews"
 msgstr "रोगी समीक्षाएँ"
 
-#: templates\clinic\partials\testimonial_results.html:19
+#: templates\clinic\partials\testimonial_results.html:24
 msgid "Patient reviews"
 msgstr "मरीज़ों की समीक्षाएँ"
 
@@ -6727,7 +6786,7 @@ msgstr "भुगतानकर्ता का प्रकार"
 msgid "Payment"
 msgstr "भुगतान"
 
-#: payments\views.py:639
+#: payments\views.py:643
 #, python-format
 msgid "Payment %(receipt)s deleted successfully."
 msgstr "भुगतान %(receipt)s सफलतापूर्वक हटाया गया।"
@@ -6736,7 +6795,7 @@ msgstr "भुगतान %(receipt)s सफलतापूर्वक हट�
 msgid "Payment Date"
 msgstr "भुगतान की तिथि"
 
-#: notifications\messages.py:52
+#: notifications\messages.py:53
 msgid "Payment failed"
 msgstr "भुगतान विफल"
 
@@ -6769,7 +6828,7 @@ msgstr "भुगतान का तरीका"
 msgid "Payment Modes"
 msgstr "भुगतान के तरीके"
 
-#: payments\views.py:489
+#: payments\views.py:493
 #, python-format
 msgid ""
 "Payment of ₹%(amount_paid)s recorded for %(payer_name)s. Email receipt sent."
@@ -6791,7 +6850,7 @@ msgstr "भुगतान रसीद %(no)s — %(clinic)s"
 msgid "Payment Receipts"
 msgstr "भुगतान रसीदें"
 
-#: notifications\messages.py:49 templates\payments\emails\receipt_email.html:6
+#: notifications\messages.py:50 templates\payments\emails\receipt_email.html:6
 msgid "Payment received"
 msgstr "भुगतान प्राप्त हुआ"
 
@@ -6803,7 +6862,7 @@ msgstr "भुगतान मिल गया। धन्यवाद! रस�
 msgid "Payment record not found."
 msgstr "भुगतान रिकॉर्ड नहीं मिला।"
 
-#: payments\views.py:589
+#: payments\views.py:593
 msgid "Payment record updated successfully."
 msgstr "भुगतान रिकॉर्ड सफलतापूर्वक अपडेट हुआ।"
 
@@ -6850,7 +6909,7 @@ msgstr "भुगतान रिपोर्ट - SpinalCure"
 msgid "PDF Report"
 msgstr "PDF रिपोर्ट"
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Pending"
 msgstr "लंबित"
 
@@ -6858,7 +6917,7 @@ msgstr "लंबित"
 msgid "Pending Dues"
 msgstr "लंबित बकाया"
 
-#: clinic\models.py:434
+#: clinic\models.py:438
 msgid "Pending review"
 msgstr "समीक्षा लंबित"
 
@@ -6879,7 +6938,7 @@ msgstr "अनुमति अस्वीकृत।"
 msgid "Permission not recorded"
 msgstr "अनुमति दर्ज नहीं"
 
-#: clinic\models.py:630
+#: clinic\models.py:636
 msgid "Permission to feature is on file"
 msgstr "दिखाने की अनुमति रिकॉर्ड में है"
 
@@ -6900,7 +6959,7 @@ msgid "Personal Information"
 msgstr "व्यक्तिगत जानकारी"
 
 #: accounts\models.py:42 accounts\templates\accounts\admin\user_form.html:112
-#: clinic\models.py:42 clinic\templates\clinic\admin\practitioner_form.html:51
+#: clinic\models.py:43 clinic\templates\clinic\admin\practitioner_form.html:51
 msgid "Phone"
 msgstr "फ़ोन"
 
@@ -6930,12 +6989,12 @@ msgstr "फ़ोन नंबर *"
 msgid "Phone: %(phone)s | Email: %(email)s"
 msgstr "फ़ोन: %(phone)s | ईमेल: %(email)s"
 
-#: accounts\templates\accounts\admin\user_form.html:110 clinic\models.py:405
-#: clinic\models.py:626 clinic\models.py:654
+#: accounts\templates\accounts\admin\user_form.html:110 clinic\models.py:409
+#: clinic\models.py:632 clinic\models.py:660
 msgid "Photo"
 msgstr "फ़ोटो"
 
-#: clinic\models.py:659
+#: clinic\models.py:665
 msgid "Photo / cover image"
 msgstr "फ़ोटो / कवर इमेज"
 
@@ -6999,7 +7058,7 @@ msgstr "नियोजित"
 msgid "Platform"
 msgstr "प्लेटफ़ॉर्म"
 
-#: clinic\models.py:505
+#: clinic\models.py:509
 msgid "Platform thumbnail"
 msgstr "प्लेटफ़ॉर्म का थंबनेल"
 
@@ -7076,7 +7135,7 @@ msgstr "कृपया अपना नाम और अपने अनुभ�
 msgid "Please enter your name and phone number."
 msgstr "कृपया अपना नाम और फ़ोन नंबर दर्ज करें।"
 
-#: payments\views.py:305
+#: payments\views.py:309
 msgid "Please fill in all required fields."
 msgstr "कृपया सभी आवश्यक फ़ील्ड भरें।"
 
@@ -7110,7 +7169,7 @@ msgstr "कृपया पहले क्लिनिक प्रोफ़ा
 msgid "Please wait…"
 msgstr "कृपया प्रतीक्षा करें…"
 
-#: clinic\models.py:424
+#: clinic\models.py:428
 msgid "Posted"
 msgstr "पोस्ट किया गया"
 
@@ -7126,8 +7185,8 @@ msgstr "सार्वजनिक अनुभव पेज पर समस�
 msgid "Practical advice on pain, posture and recovery, written by our team."
 msgstr "दर्द, मुद्रा और रिकवरी पर हमारी टीम की लिखी व्यावहारिक सलाह।"
 
-#: appointments\models.py:211 clinic\models.py:255 patients\models.py:337
-#: templates\appointments\appointment_list.html:59
+#: accounts\templates\accounts\admin\user_form.html:125
+#: appointments\models.py:211 clinic\models.py:259 patients\models.py:337
 msgid "Practitioner"
 msgstr "चिकित्सक"
 
@@ -7154,11 +7213,15 @@ msgstr "चिकित्सक (वैकल्पिक)"
 msgid "Practitioner Notes"
 msgstr "चिकित्सक के नोट्स"
 
+#: accounts\templates\accounts\admin\user_form.html:122
+msgid "Practitioner profile"
+msgstr "प्रैक्टिशनर प्रोफ़ाइल"
+
 #: clinic\templates\clinic\admin\practitioner_form.html:4
 msgid "Practitioner — SpinalCure"
 msgstr "चिकित्सक — SpinalCure"
 
-#: clinic\models.py:256
+#: clinic\models.py:260
 msgid "Practitioners"
 msgstr "चिकित्सक"
 
@@ -7282,30 +7345,30 @@ msgstr ""
 "निजी: इवेंट से कुछ पहले केवल पुष्टि किए गए पंजीकृत प्रतिभागियों को दिखाया "
 "जाता है।"
 
-#: clinic\models.py:324 clinic\models.py:358
+#: clinic\models.py:328 clinic\models.py:362
 #: templates\clinic\admin\faqs.html:16 templates\clinic\admin\problems.html:13
 msgid "Problem"
 msgstr "समस्या"
 
-#: clinic\testimonial_views.py:241
+#: clinic\testimonial_views.py:252
 #, python-format
 msgid "Problem \"%(name)s\" added."
 msgstr "समस्या \"%(name)s\" जोड़ी गई।"
 
-#: clinic\models.py:336 templates\clinic\admin\problems.html:4
+#: clinic\models.py:340 templates\clinic\admin\problems.html:4
 #: templates\ui\sidebar.html:31
 msgid "Problem Categories"
 msgstr "समस्या श्रेणियाँ"
 
-#: clinic\models.py:335
+#: clinic\models.py:339
 msgid "Problem Category"
 msgstr "समस्या श्रेणी"
 
-#: clinic\testimonial_views.py:250
+#: clinic\testimonial_views.py:261
 msgid "Problem deleted."
 msgstr "समस्या हटाई गई।"
 
-#: clinic\models.py:419 clinic\models.py:494
+#: clinic\models.py:423 clinic\models.py:498
 #: templates\clinic\admin\testimonial_form.html:79
 #: templates\clinic\admin\video_form.html:22
 msgid "Problem treated"
@@ -7407,7 +7470,7 @@ msgstr "तुरंत प्रकाशित करें"
 msgid "Publish now (only if consent is on file)"
 msgstr "अभी प्रकाशित करें (केवल तभी जब सहमति रिकॉर्ड में हो)"
 
-#: clinic\models.py:362
+#: clinic\models.py:366
 msgid "Publish only after the doctor has checked the answer."
 msgstr "डॉक्टर के उत्तर जाँचने के बाद ही प्रकाशित करें।"
 
@@ -7431,8 +7494,8 @@ msgstr "वेबसाइट पर प्रकाशित करें"
 msgid "Publish to website (doctor's page and Patient Stories)"
 msgstr "वेबसाइट पर प्रकाशित करें (डॉक्टर का पेज और मरीज़ों की कहानियाँ)"
 
-#: clinic\blog_models.py:32 clinic\models.py:361 clinic\models.py:427
-#: clinic\models.py:633
+#: clinic\blog_models.py:32 clinic\models.py:365 clinic\models.py:431
+#: clinic\models.py:639
 msgid "Published"
 msgstr "प्रकाशित"
 
@@ -7456,14 +7519,13 @@ msgstr "वेबसाइट पर प्रकाशित"
 msgid "Published — click to hide"
 msgstr "प्रकाशित — छिपाने के लिए क्लिक करें"
 
-#: clinic\models.py:225
+#: accounts\templates\accounts\admin\user_form.html:131 clinic\models.py:226
 #: clinic\templates\clinic\admin\practitioner_form.html:127
 #: templates\clinic\home.html:116
-#: templates\clinic\practitioner_portfolio.html:25
 msgid "Qualifications"
 msgstr "योग्यताएँ"
 
-#: clinic\models.py:355 templates\clinic\admin\faqs.html:16
+#: clinic\models.py:359 templates\clinic\admin\faqs.html:16
 msgid "Question"
 msgstr "प्रश्न"
 
@@ -7501,7 +7563,7 @@ msgstr "त्वरित कार्य"
 msgid "Quick add photos"
 msgstr "फ़ोटो जल्दी जोड़ें"
 
-#: clinic\models.py:410 courses\models.py:219 events\models.py:296
+#: clinic\models.py:414 courses\models.py:219 events\models.py:296
 #: patients\models.py:342
 msgid "Rating"
 msgstr "रेटिंग"
@@ -7510,7 +7572,7 @@ msgstr "रेटिंग"
 msgid "Rating *"
 msgstr "रेटिंग *"
 
-#: clinic\models.py:771
+#: clinic\models.py:777
 msgid "Raw Changes"
 msgstr "रॉ परिवर्तन"
 
@@ -7529,7 +7591,7 @@ msgstr "गेटवे के माध्यम से पैसा लौट�
 msgid "Reactivate"
 msgstr "फिर से सक्रिय करें"
 
-#: templates\clinic\partials\testimonial_results.html:37
+#: templates\clinic\partials\testimonial_results.html:42
 msgid "Read more"
 msgstr "और पढ़ें"
 
@@ -7653,7 +7715,7 @@ msgstr "रिकॉर्ड"
 msgid "Record Collection"
 msgstr "संग्रह दर्ज करें"
 
-#: clinic\models.py:759
+#: clinic\models.py:765
 msgid "Record Description"
 msgstr "रिकॉर्ड विवरण"
 
@@ -7661,7 +7723,7 @@ msgstr "रिकॉर्ड विवरण"
 msgid "Record Expense"
 msgstr "खर्च दर्ज करें"
 
-#: clinic\models.py:754
+#: clinic\models.py:760
 msgid "Record ID"
 msgstr "रिकॉर्ड आईडी"
 
@@ -7695,7 +7757,7 @@ msgstr "इस पैकेज का भुगतान दर्ज करे�
 msgid "Record Session"
 msgstr "सत्र दर्ज करें"
 
-#: clinic\testimonial_views.py:188
+#: clinic\testimonial_views.py:199
 msgid "Record the patient's consent before publishing this video."
 msgstr "इस वीडियो को प्रकाशित करने से पहले मरीज़ की सहमति दर्ज करें।"
 
@@ -7731,7 +7793,7 @@ msgstr "रिकवरी मेट्रिक्स"
 msgid "Recovery Trends"
 msgstr "रिकवरी के रुझान"
 
-#: clinic\testimonial_views.py:58 templates\clinic\admin\problems.html:5
+#: clinic\testimonial_views.py:69 templates\clinic\admin\problems.html:5
 #: templates\clinic\admin\videos.html:4
 #: templates\clinic\partials\testimonial_results.html:10
 msgid "Reels & Shorts"
@@ -7824,7 +7886,7 @@ msgstr "पंजीकरण हो रहा है…"
 msgid "Registration"
 msgstr "पंजीकरण"
 
-#: notifications\messages.py:73 notifications\messages.py:91
+#: notifications\messages.py:74 notifications\messages.py:92
 #, python-format
 msgid "Registration confirmed: %(event)s"
 msgstr "पंजीकरण की पुष्टि: %(event)s"
@@ -7892,7 +7954,7 @@ msgstr "कार्ड फिर से जारी करें"
 msgid "Reject"
 msgstr "अस्वीकार करें"
 
-#: clinic\models.py:434
+#: clinic\models.py:438
 msgid "Rejected"
 msgstr "अस्वीकृत"
 
@@ -7908,7 +7970,7 @@ msgstr "संबंध"
 msgid "Reminder Sent"
 msgstr "अनुस्मारक भेजा गया"
 
-#: notifications\messages.py:34
+#: notifications\messages.py:35
 #, python-format
 msgid ""
 "Reminder: you have an appointment on %(date)s at %(time)s with "
@@ -7975,7 +8037,7 @@ msgstr "लिंक बदलें"
 msgid "Replace with a fresh machine translation"
 msgstr "नए मशीन अनुवाद से बदलें"
 
-#: templates\clinic\partials\testimonial_results.html:41
+#: templates\clinic\partials\testimonial_results.html:46
 msgid "Reply from the clinic"
 msgstr "क्लिनिक का जवाब"
 
@@ -8030,7 +8092,7 @@ msgstr "आज का राजस्व"
 msgid "Revert"
 msgstr "पूर्ववत करें"
 
-#: clinic\models.py:783 clinic\templates\clinic\admin\activity_log.html:108
+#: clinic\models.py:789 clinic\templates\clinic\admin\activity_log.html:108
 msgid "Reverted"
 msgstr "पूर्ववत किया गया"
 
@@ -8069,7 +8131,7 @@ msgstr "समीक्षा अपडेट की गई।"
 msgid "Review us on Google"
 msgstr "Google पर हमारी समीक्षा करें"
 
-#: clinic\models.py:815 templates\clinic\admin\translations.html:73
+#: clinic\models.py:821 templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 msgid "Reviewed"
 msgstr "समीक्षित"
@@ -8078,7 +8140,7 @@ msgstr "समीक्षित"
 msgid "reviewed"
 msgstr "समीक्षित"
 
-#: clinic\testimonial_views.py:58 templates\ui\sidebar.html:28
+#: clinic\testimonial_views.py:69 templates\ui\sidebar.html:28
 msgid "Reviews"
 msgstr "समीक्षाएं"
 
@@ -8201,7 +8263,7 @@ msgstr ""
 "अपना व्यक्तिगत लिंक सहेज लें — इसी से आप रद्द कर सकते हैं, जॉइनिंग विवरण देख"
 " सकते हैं और फ़ीडबैक दे सकते हैं:"
 
-#: clinic\testimonial_views.py:117
+#: clinic\testimonial_views.py:128
 msgid "Saved as hidden. Record the patient's consent to publish it."
 msgstr ""
 "छिपे हुए के रूप में सहेजा गया। इसे प्रकाशित करने के लिए मरीज़ की सहमति दर्ज "
@@ -8258,7 +8320,7 @@ msgstr "इवेंट खोजें…"
 msgid "Search for patients..."
 msgstr "रोगी खोजें..."
 
-#: clinic\models.py:327 templates\clinic\admin\problems.html:15
+#: clinic\models.py:331 templates\clinic\admin\problems.html:15
 msgid "Search keywords"
 msgstr "खोज शब्द"
 
@@ -8443,7 +8505,7 @@ msgstr "ग्राहक को भेजें"
 msgid "Sending…"
 msgstr "भेजा जा रहा है…"
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Sent"
 msgstr "भेजा गया"
 
@@ -8459,11 +8521,11 @@ msgstr ""
 msgid "SEO: AUTO"
 msgstr "SEO: स्वचालित"
 
-#: clinic\models.py:295
+#: clinic\models.py:299
 msgid "Service"
 msgstr "सेवा"
 
-#: clinic\models.py:289 templates\payments\payment_form.html:244
+#: clinic\models.py:293 templates\payments\payment_form.html:244
 msgid "Service Description"
 msgstr "सेवा विवरण"
 
@@ -8476,7 +8538,7 @@ msgstr "सेवा का नाम"
 msgid "Service short description..."
 msgstr "सेवा का संक्षिप्त विवरण..."
 
-#: clinic\models.py:288
+#: clinic\models.py:292
 msgid "Service Title"
 msgstr "सेवा शीर्षक"
 
@@ -8484,11 +8546,11 @@ msgstr "सेवा शीर्षक"
 msgid "Service:"
 msgstr "सेवा:"
 
-#: clinic\models.py:296 clinic\templates\clinic\admin\clinic_setup.html:89
+#: clinic\models.py:300 clinic\templates\clinic\admin\clinic_setup.html:89
 msgid "Services"
 msgstr "सेवाएँ"
 
-#: clinic\models.py:109
+#: clinic\models.py:110
 msgid "Services Description"
 msgstr "सेवाओं का विवरण"
 
@@ -8500,11 +8562,11 @@ msgstr "सेवाओं का शीर्षक"
 msgid "Services header updated."
 msgstr "सेवाओं का शीर्षक अपडेट हुआ।"
 
-#: clinic\models.py:107
+#: clinic\models.py:108
 msgid "Services Label"
 msgstr "सेवा लेबल"
 
-#: clinic\models.py:108
+#: clinic\models.py:109
 msgid "Services Title"
 msgstr "सेवा शीर्षक"
 
@@ -8648,7 +8710,7 @@ msgstr "शिफ़्ट सहेजी गई।"
 msgid "Short Description"
 msgstr "संक्षिप्त विवरण"
 
-#: clinic\models.py:496
+#: clinic\models.py:500
 msgid "Short description"
 msgstr "संक्षिप्त विवरण"
 
@@ -8657,7 +8719,7 @@ msgstr "संक्षिप्त विवरण"
 msgid "Short description (searchable)"
 msgstr "संक्षिप्त विवरण (खोज योग्य)"
 
-#: clinic\models.py:627
+#: clinic\models.py:633
 msgid "Short note"
 msgstr "छोटी टिप्पणी"
 
@@ -8682,13 +8744,17 @@ msgstr "कार्ड पर ईमेल दिखाएं"
 msgid "Show emergency contact on the back"
 msgstr "पीछे आपातकालीन संपर्क दिखाएं"
 
-#: templates\clinic\partials\testimonial_results.html:37
+#: templates\clinic\partials\testimonial_results.html:42
 msgid "Show less"
 msgstr "कम दिखाएँ"
 
-#: templates\clinic\partials\testimonial_results.html:51
-msgid "Show more"
-msgstr "और दिखाएँ"
+#: templates\clinic\partials\testimonial_results.html:18
+msgid "Show more reels"
+msgstr "और रील दिखाएँ"
+
+#: templates\clinic\partials\testimonial_results.html:55
+msgid "Show more reviews"
+msgstr "और समीक्षाएँ दिखाएँ"
 
 #: templates\accounts\login.html:64
 msgid "Show password"
@@ -8761,7 +8827,7 @@ msgstr "अंतिम 5 सत्र दिखा रहे हैं"
 msgid "Shown in Google search results (max 160 chars)."
 msgstr "Google खोज परिणामों में दिखाया जाता है (अधिकतम 160 अक्षर)।"
 
-#: clinic\models.py:665
+#: clinic\models.py:671
 msgid "Shown on the spotlight, e.g. \"Featured patient\"."
 msgstr "स्पॉटलाइट पर दिखता है, जैसे \"विशेष मरीज़\"।"
 
@@ -8814,7 +8880,7 @@ msgstr "कौशल"
 msgid "Skip to content"
 msgstr "सामग्री पर जाएँ"
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Skipped"
 msgstr "छोड़ा गया"
 
@@ -8846,7 +8912,7 @@ msgstr "इस क्लिनिक के लिए SMS और WhatsApp कॉ
 msgid "SMS notifications (opt-in)"
 msgstr "SMS सूचनाएँ (ऑप्ट-इन)"
 
-#: clinic\models.py:777
+#: clinic\models.py:783
 msgid "Snapshot"
 msgstr "स्नैपशॉट"
 
@@ -8862,7 +8928,7 @@ msgstr "सोशल और मानचित्र"
 msgid "Social Connections & Map"
 msgstr "सोशल कनेक्शन और मानचित्र"
 
-#: clinic\models.py:387
+#: clinic\models.py:391
 msgid "Social Media"
 msgstr "सोशल मीडिया"
 
@@ -8873,12 +8939,12 @@ msgid ""
 msgstr ""
 "कुछ सुधारना चाहिए? “निजी प्रतिक्रिया” चुनें: इसे सिर्फ़ हमारी टीम पढ़ेगी।"
 
-#: clinic\models.py:415 templates\clinic\admin\testimonial_form.html:105
+#: clinic\models.py:419 templates\clinic\admin\testimonial_form.html:105
 #: templates\clinic\admin\testimonials_list.html:46
 msgid "Source"
 msgstr "स्रोत"
 
-#: clinic\models.py:422
+#: clinic\models.py:426
 msgid "Source link"
 msgstr "स्रोत लिंक"
 
@@ -8891,7 +8957,7 @@ msgstr "स्रोत लिंक (वैकल्पिक)"
 msgid "SP"
 msgstr "SP"
 
-#: clinic\models.py:435 templates\clinic\admin\testimonials_list.html:58
+#: clinic\models.py:439 templates\clinic\admin\testimonials_list.html:58
 msgid "Spam"
 msgstr "स्पैम"
 
@@ -8903,7 +8969,7 @@ msgstr "विशेषज्ञ"
 msgid "Specialists"
 msgstr "विशेषज्ञ"
 
-#: clinic\models.py:221
+#: accounts\templates\accounts\admin\user_form.html:129 clinic\models.py:222
 #: clinic\templates\clinic\admin\practitioner_form.html:120
 msgid "Specialization"
 msgstr "विशेषज्ञता"
@@ -8986,7 +9052,7 @@ msgstr "अपने क्लिनिक में खोजने के ल�
 msgid "Starting On *"
 msgstr "आरंभ तिथि *"
 
-#: notifications\messages.py:88
+#: notifications\messages.py:89
 #, python-format
 msgid "Starting soon: %(event)s"
 msgstr "जल्द शुरू हो रहा है: %(event)s"
@@ -9004,19 +9070,19 @@ msgstr "शुरू: %(d)s"
 msgid "Starts in"
 msgstr "शुरू होने में"
 
-#: clinic\models.py:99
+#: clinic\models.py:100
 msgid "Stat 1 Label"
 msgstr "आँकड़ा 1 लेबल"
 
-#: clinic\models.py:98
+#: clinic\models.py:99
 msgid "Stat 1 Number"
 msgstr "आँकड़ा 1 संख्या"
 
-#: clinic\models.py:101
+#: clinic\models.py:102
 msgid "Stat 2 Label"
 msgstr "आँकड़ा 2 लेबल"
 
-#: clinic\models.py:100
+#: clinic\models.py:101
 msgid "Stat 2 Number"
 msgstr "आँकड़ा 2 संख्या"
 
@@ -9147,16 +9213,17 @@ msgstr "टैग हटाया गया।"
 msgid "Tag Name"
 msgstr "टैग का नाम"
 
-#: clinic\models.py:29 clinic\templates\clinic\admin\clinic_setup.html:178
+#: clinic\models.py:30 clinic\templates\clinic\admin\clinic_setup.html:178
 msgid "Tagline"
 msgstr "टैगलाइन"
 
-#: clinic\blog_models.py:70 templates\clinic\admin\blog_form.html:118
+#: clinic\blog_models.py:70 clinic\models.py:513
+#: templates\clinic\admin\blog_form.html:118
 #: templates\clinic\admin\blog_list.html:31
 msgid "Tags"
 msgstr "टैग"
 
-#: spinalcure\settings\base.py:127
+#: spinalcure\settings\base.py:130
 msgid "Tamil"
 msgstr "तमिल"
 
@@ -9192,15 +9259,15 @@ msgstr "TCM निदान"
 msgid "Team Accounts"
 msgstr "टीम खाते"
 
-#: clinic\models.py:116
+#: clinic\models.py:117
 msgid "Team Description"
 msgstr "टीम विवरण"
 
-#: clinic\models.py:114
+#: clinic\models.py:115
 msgid "Team Label"
 msgstr "टीम लेबल"
 
-#: clinic\models.py:115
+#: clinic\models.py:116
 msgid "Team Title"
 msgstr "टीम शीर्षक"
 
@@ -9230,7 +9297,7 @@ msgstr ""
 "बताएँ आपका इलाज कैसा रहा: दूसरे मरीज़ों के लिए सार्वजनिक समीक्षा, या हमारी "
 "टीम के लिए निजी प्रतिक्रिया।"
 
-#: spinalcure\settings\base.py:129
+#: spinalcure\settings\base.py:132
 msgid "Telugu"
 msgstr "तेलुगु"
 
@@ -9256,7 +9323,7 @@ msgstr ""
 "Spinal Cure, अरुम्बाक्कम, चेन्नई में अपॉइंटमेंट, कोर्स, कार्यक्रम, भुगतान और"
 " रिफ़ंड की शर्तें।"
 
-#: clinic\models.py:445
+#: clinic\models.py:449
 msgid "Testimonial"
 msgstr "प्रशंसा"
 
@@ -9275,7 +9342,7 @@ msgstr "%(patient_name)s की प्रशंसा जोड़ी गई।"
 msgid "Testimonial from %(patient_name)s updated."
 msgstr "%(patient_name)s की प्रशंसा अपडेट की गई।"
 
-#: clinic\models.py:412
+#: clinic\models.py:416
 msgid "Testimonial Text"
 msgstr "प्रशंसा पाठ"
 
@@ -9283,11 +9350,11 @@ msgstr "प्रशंसा पाठ"
 msgid "Testimonial Text *"
 msgstr "प्रशंसा पाठ *"
 
-#: clinic\models.py:522
+#: clinic\models.py:528
 msgid "Testimonial Video"
 msgstr "अनुभव वीडियो"
 
-#: clinic\models.py:523
+#: clinic\models.py:529
 msgid "Testimonial Videos"
 msgstr "अनुभव वीडियो"
 
@@ -9295,17 +9362,17 @@ msgstr "अनुभव वीडियो"
 msgid "Testimonial — SpinalCure Admin"
 msgstr "प्रशंसा — SpinalCure एडमिन"
 
-#: clinic\models.py:446 templates\analytics\dashboard.html:142
+#: clinic\models.py:450 templates\analytics\dashboard.html:142
 #: templates\clinic\admin\testimonials_list.html:3
 #: templates\clinic\admin\testimonials_list.html:4
 msgid "Testimonials"
 msgstr "प्रशंसाएँ"
 
-#: clinic\models.py:119
+#: clinic\models.py:120
 msgid "Testimonials Label"
 msgstr "प्रशंसा लेबल"
 
-#: clinic\models.py:120
+#: clinic\models.py:121
 msgid "Testimonials Title"
 msgstr "प्रशंसा शीर्षक"
 
@@ -9321,7 +9388,7 @@ msgstr ""
 "हमारे साथ अपना अपॉइंटमेंट बुक करने के लिए धन्यवाद। बेहतर स्वास्थ्य की आपकी "
 "राह में मदद करने के लिए हम उत्साहित हैं।"
 
-#: notifications\messages.py:46
+#: notifications\messages.py:47
 #, python-format
 msgid ""
 "Thank you for choosing %(clinic)s. If our treatment has helped you, a short "
@@ -9360,7 +9427,7 @@ msgstr "यह कार्रवाई इस पंजीकरण के ल�
 msgid "That practitioner is not available."
 msgstr "वह चिकित्सक उपलब्ध नहीं है।"
 
-#: clinic\testimonial_views.py:236
+#: clinic\testimonial_views.py:247
 msgid "That problem already exists."
 msgstr "यह समस्या पहले से मौजूद है।"
 
@@ -9389,7 +9456,7 @@ msgstr "वह समय कार्य समय के बाहर है।
 msgid "The active batch is open for new registrations."
 msgstr "सक्रिय बैच नए पंजीकरण के लिए खुला है।"
 
-#: notifications\messages.py:40
+#: notifications\messages.py:41
 #, python-format
 msgid ""
 "The appointment for %(who)s on %(date)s at %(time)s was not marked completed"
@@ -9469,7 +9536,7 @@ msgstr ""
 "धारक का खाता अक्षम है या उनकी सेवा सक्रिय नहीं है, इसलिए यह कार्ड सत्यापित "
 "नहीं होता।"
 
-#: notifications\messages.py:71
+#: notifications\messages.py:72
 #, python-format
 msgid "The ID card %(employee_id)s has been revoked and no longer verifies."
 msgstr ""
@@ -9665,7 +9732,7 @@ msgstr ""
 msgid "This shift overlaps another shift on the same day."
 msgstr "यह शिफ़्ट उसी दिन की दूसरी शिफ़्ट से टकराती है।"
 
-#: clinic\models.py:514 templates\clinic\admin\video_form.html:48
+#: clinic\models.py:520 templates\clinic\admin\video_form.html:48
 #: templates\clinic\admin\video_form.html:104
 msgid "Thumbnail"
 msgstr "थंबनेल"
@@ -9674,7 +9741,7 @@ msgstr "थंबनेल"
 msgid "Thursday"
 msgstr "गुरुवार"
 
-#: clinic\models.py:631
+#: clinic\models.py:637
 msgid ""
 "Tick only when the patient (or their team) has agreed in writing to be named"
 " on the website."
@@ -9710,7 +9777,7 @@ msgid ""
 msgstr ""
 "ऊपर के समय इसी टाइम ज़ोन में हैं; आगंतुकों को हर समय के साथ यह दिखता है।"
 
-#: clinic\models.py:794 clinic\templates\clinic\admin\activity_log.html:61
+#: clinic\models.py:800 clinic\templates\clinic\admin\activity_log.html:61
 #: templates\emails\audit_log_notification.html:30
 msgid "Timestamp"
 msgstr "टाइमस्टैम्प"
@@ -9723,7 +9790,7 @@ msgstr "जब OTP अमान्य हो जाता है उसका �
 msgid "Timing & Duration"
 msgstr "समय और अवधि"
 
-#: clinic\blog_models.py:36 clinic\models.py:487 clinic\models.py:657
+#: clinic\blog_models.py:36 clinic\models.py:491 clinic\models.py:663
 #: courses\models.py:24
 msgid "Title"
 msgstr "शीर्षक"
@@ -9752,7 +9819,7 @@ msgstr "शीर्षक और सामग्री आवश्यक ह�
 msgid "Title for these photos (optional)"
 msgstr "इन फ़ोटो का शीर्षक (वैकल्पिक)"
 
-#: clinic\models.py:200
+#: clinic\models.py:201
 msgid "Title/Designation"
 msgstr "शीर्षक/पदनाम"
 
@@ -9860,7 +9927,7 @@ msgstr "इस सप्ताह कुल"
 msgid "Training Courses"
 msgstr "प्रशिक्षण कोर्स"
 
-#: clinic\models.py:508 templates\clinic\admin\video_form.html:28
+#: clinic\models.py:512 templates\clinic\admin\video_form.html:28
 msgid "Transcript"
 msgstr "ट्रांसक्रिप्ट"
 
@@ -9918,7 +9985,7 @@ msgstr "उपचार विवरण"
 msgid "Treatment details will be added soon."
 msgstr "उपचार का विवरण जल्द जोड़ा जाएगा।"
 
-#: notifications\messages.py:42
+#: notifications\messages.py:43
 msgid "Treatment follow-up due"
 msgstr "उपचार फॉलो-अप देय है"
 
@@ -9965,7 +10032,7 @@ msgstr "उपचार सत्र"
 msgid "Treatments"
 msgstr "उपचार"
 
-#: templates\clinic\partials\testimonial_results.html:58
+#: templates\clinic\partials\testimonial_results.html:63
 msgid "Try a different word or choose All problems."
 msgstr "कोई दूसरा शब्द आज़माएँ या सभी समस्याएँ चुनें।"
 
@@ -10014,12 +10081,12 @@ msgstr "TW"
 msgid "Twitter / X Profile URL"
 msgstr "Twitter / X प्रोफ़ाइल URL"
 
-#: clinic\models.py:244
+#: clinic\models.py:245
 #: clinic\templates\clinic\admin\practitioner_form.html:103
 msgid "Twitter URL"
 msgstr "Twitter URL"
 
-#: clinic\models.py:656 events\models.py:59
+#: clinic\models.py:662 events\models.py:59
 #: idcards\templates\idcards\dashboard.html:19
 #: idcards\templates\idcards\detail.html:22
 msgid "Type"
@@ -10070,6 +10137,10 @@ msgstr "अज्ञात रिकॉर्ड।"
 msgid "Unknown time zone."
 msgstr "अज्ञात टाइम ज़ोन।"
 
+#: accounts\forms.py:51
+msgid "Unlink"
+msgstr "लिंक हटाएँ"
+
 #: payments\models.py:33
 msgid "Unpaid"
 msgstr "अवैतनिक"
@@ -10104,7 +10175,7 @@ msgstr "आगामी"
 msgid "Upcoming Appointments"
 msgstr "आगामी अपॉइंटमेंट"
 
-#: clinic\models.py:727 clinic\templates\clinic\admin\activity_log.html:22
+#: clinic\models.py:733 clinic\templates\clinic\admin\activity_log.html:22
 #: clinic\templates\clinic\admin\activity_log.html:83
 msgid "Update"
 msgstr "अपडेट करें"
@@ -10161,7 +10232,7 @@ msgstr "कार्यक्रम अपडेट करें"
 msgid "Update Testimonial"
 msgstr "प्रशंसा अपडेट करें"
 
-#: accounts\templates\accounts\admin\user_form.html:124
+#: accounts\templates\accounts\admin\user_form.html:138
 msgid "Update User"
 msgstr "उपयोगकर्ता अपडेट करें"
 
@@ -10169,7 +10240,7 @@ msgstr "उपयोगकर्ता अपडेट करें"
 msgid "UPI"
 msgstr "UPI"
 
-#: clinic\models.py:151
+#: clinic\models.py:152
 msgid "UPI ID"
 msgstr "UPI ID"
 
@@ -10189,7 +10260,7 @@ msgstr "अपलोड करें"
 msgid "Upload a JPEG, PNG or WebP image."
 msgstr "JPEG, PNG या WebP इमेज अपलोड करें।"
 
-#: clinic\models.py:683
+#: clinic\models.py:689
 msgid "Upload a video or paste a YouTube / Instagram link."
 msgstr "वीडियो अपलोड करें या YouTube / Instagram लिंक चिपकाएँ।"
 
@@ -10221,7 +10292,7 @@ msgstr ""
 "अपनी छवि अपलोड करें या YouTube वीडियो से कोई फ़्रेम चुनें, फिर छवि पर क्लिक "
 "करके फ़ोकस बिंदु तय करें — हर क्रॉप में यह हिस्सा दिखाई देता रहेगा।"
 
-#: clinic\models.py:505
+#: clinic\models.py:509
 msgid "Uploaded image"
 msgstr "अपलोड की गई छवि"
 
@@ -10246,21 +10317,26 @@ msgid "Used"
 msgstr "उपयोग किया गया"
 
 #: accounts\models.py:64 accounts\models.py:105
-#: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:737
+#: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:743
 msgid "User"
 msgstr "उपयोगकर्ता"
 
-#: accounts\admin_views.py:24
+#: accounts\admin_views.py:25
 #, python-format
 msgid "User \"%(username)s\" created successfully."
 msgstr "उपयोगकर्ता \"%(username)s\" सफलतापूर्वक बनाया गया।"
 
-#: accounts\admin_views.py:59
+#: accounts\admin_views.py:82
+#, python-format
+msgid "User \"%(username)s\" deleted."
+msgstr "उपयोगकर्ता \"%(username)s\" हटाया गया।"
+
+#: accounts\admin_views.py:60
 #, python-format
 msgid "User \"%(username)s\" has been %(value3)s."
 msgstr "उपयोगकर्ता \"%(username)s\" %(value3)s।"
 
-#: accounts\admin_views.py:41
+#: accounts\admin_views.py:42
 #, python-format
 msgid "User \"%(username)s\" updated."
 msgstr "उपयोगकर्ता \"%(username)s\" अपडेट किया गया।"
@@ -10274,7 +10350,7 @@ msgstr "उपयोगकर्ता: %(username)s"
 msgid "Username *"
 msgstr "उपयोगकर्ता नाम *"
 
-#: clinic\models.py:471
+#: clinic\models.py:475
 msgid "Username, or \"author\" / \"system\"."
 msgstr "उपयोगकर्ता नाम, या \"author\" / \"system\"।"
 
@@ -10359,42 +10435,42 @@ msgstr "इस पहचान पत्र को सत्यापित क�
 msgid "via %(get_payment_mode_display)s"
 msgstr "%(get_payment_mode_display)s के माध्यम से"
 
-#: clinic\models.py:654 templates\clinic\admin\gallery.html:30
+#: clinic\models.py:660 templates\clinic\admin\gallery.html:30
 #: templates\clinic\admin\videos.html:67
 msgid "Video"
 msgstr "वीडियो"
 
-#: clinic\testimonial_views.py:115
+#: clinic\testimonial_views.py:126
 #, python-format
 msgid "Video \"%(title)s\" added."
 msgstr "वीडियो \"%(title)s\" जोड़ा गया।"
 
-#: clinic\testimonial_views.py:168
+#: clinic\testimonial_views.py:179
 #, python-format
 msgid "Video \"%(title)s\" saved."
 msgstr "वीडियो \"%(title)s\" सहेजा गया।"
 
-#: clinic\models.py:489 templates\clinic\admin\video_form.html:18
+#: clinic\models.py:493 templates\clinic\admin\video_form.html:18
 msgid "Video / Reel / Short link"
 msgstr "वीडियो / Reel / Short लिंक"
 
-#: clinic\testimonial_views.py:223
+#: clinic\testimonial_views.py:234
 msgid "Video deleted."
 msgstr "वीडियो हटाया गया।"
 
-#: clinic\models.py:661
+#: clinic\models.py:667
 msgid "Video file"
 msgstr "वीडियो फ़ाइल"
 
-#: clinic\models.py:506
+#: clinic\models.py:510
 msgid "Video frame 1"
 msgstr "वीडियो फ़्रेम 1"
 
-#: clinic\models.py:506
+#: clinic\models.py:510
 msgid "Video frame 2"
 msgstr "वीडियो फ़्रेम 2"
 
-#: clinic\models.py:506
+#: clinic\models.py:510
 msgid "Video frame 3"
 msgstr "वीडियो फ़्रेम 3"
 
@@ -10497,12 +10573,12 @@ msgstr "प्रतीक्षा सूची में"
 msgid "waitlisted"
 msgstr "प्रतीक्षा सूची में"
 
-#: notifications\messages.py:76 notifications\messages.py:94
+#: notifications\messages.py:77 notifications\messages.py:95
 #, python-format
 msgid "Waitlisted: %(event)s"
 msgstr "प्रतीक्षा सूची में: %(event)s"
 
-#: clinic\models.py:384
+#: clinic\models.py:388
 msgid "Walk-in Patient"
 msgstr "वॉक-इन रोगी"
 
@@ -10574,11 +10650,11 @@ msgstr ""
 msgid "We look forward to seeing you!"
 msgstr "हम आपसे मिलने की प्रतीक्षा कर रहे हैं!"
 
-#: notifications\messages.py:36
+#: notifications\messages.py:37
 msgid "We missed you"
 msgstr "हमें आपकी कमी खली"
 
-#: notifications\messages.py:50
+#: notifications\messages.py:51
 #, python-format
 msgid ""
 "We received your payment of %(amount)s (receipt %(receipt)s). Thank you."
@@ -10610,12 +10686,12 @@ msgstr ""
 msgid "Webinar"
 msgstr "वेबिनार"
 
-#: clinic\models.py:45 templates\clinic\event_detail.html:74
+#: clinic\models.py:46 templates\clinic\event_detail.html:74
 #: templates\emails\base_email.html:65
 msgid "Website"
 msgstr "वेबसाइट"
 
-#: clinic\models.py:433
+#: clinic\models.py:437
 msgid "Website form"
 msgstr "वेबसाइट फ़ॉर्म"
 
@@ -10759,7 +10835,7 @@ msgstr ""
 msgid "Where"
 msgstr "कहाँ"
 
-#: clinic\models.py:511 templates\clinic\admin\video_form.html:42
+#: clinic\models.py:517 templates\clinic\admin\video_form.html:42
 msgid "Where consent is recorded"
 msgstr "सहमति कहाँ दर्ज है"
 
@@ -10767,7 +10843,7 @@ msgstr "सहमति कहाँ दर्ज है"
 msgid "Where the QR on the back leads. Defaults to the clinic website."
 msgstr "पीछे का QR कहां ले जाता है। डिफ़ॉल्ट रूप से क्लिनिक की वेबसाइट।"
 
-#: clinic\models.py:784
+#: clinic\models.py:790
 msgid "Whether this action has been reverted"
 msgstr "क्या यह कार्रवाई पूर्ववत की गई है"
 
@@ -10805,11 +10881,11 @@ msgstr "मेरी समीक्षा वापस लें"
 msgid "Withdraw your review"
 msgstr "अपनी समीक्षा वापस लें"
 
-#: clinic\models.py:503 clinic\stories.py:118
+#: clinic\models.py:507 clinic\stories.py:118
 msgid "Withdrawn"
 msgstr "वापस लिया गया"
 
-#: clinic\models.py:435
+#: clinic\models.py:439
 msgid "Withdrawn by author"
 msgstr "लेखक द्वारा वापस लिया गया"
 
@@ -10842,7 +10918,7 @@ msgstr "काष्ठ"
 msgid "Word count: 0"
 msgstr "शब्द संख्या: 0"
 
-#: clinic\models.py:91
+#: clinic\models.py:92
 msgid "Working Hours"
 msgstr "कार्य समय"
 
@@ -10883,13 +10959,17 @@ msgstr "Y+ Ya-"
 msgid "Y- Ya+"
 msgstr "Y- Ya+"
 
-#: clinic\models.py:182
+#: clinic\models.py:183
 msgid "Year cannot be in the future."
 msgstr "वर्ष भविष्य में नहीं हो सकता।"
 
-#: clinic\models.py:229
+#: clinic\models.py:230
 #: clinic\templates\clinic\admin\practitioner_form.html:44
 msgid "Years of Experience"
+msgstr "अनुभव के वर्ष"
+
+#: accounts\templates\accounts\admin\user_form.html:130
+msgid "Years of experience"
 msgstr "अनुभव के वर्ष"
 
 #: templates\appointments\manage.html:60
@@ -10941,13 +11021,13 @@ msgstr ""
 "आपको यह ईमेल हमारे साथ किसी अपॉइंटमेंट, भुगतान या पंजीकरण के कारण मिल रहा "
 "है।"
 
-#: notifications\messages.py:92
+#: notifications\messages.py:93
 #, python-format
 msgid "You are registered for %(event)s (%(batch)s), starting %(date)s."
 msgstr ""
 "आप %(event)s (%(batch)s) के लिए पंजीकृत हैं, जो %(date)s से शुरू होगा।"
 
-#: notifications\messages.py:74
+#: notifications\messages.py:75
 #, python-format
 msgid "You are registered for %(event)s on %(date)s at %(time)s."
 msgstr "आप %(date)s को %(time)s बजे %(event)s के लिए पंजीकृत हैं।"
@@ -10965,15 +11045,19 @@ msgstr ""
 "पुष्टि ईमेल के लिंक से, उस पेज पर दिखाए गए समय तक, आप अपॉइंटमेंट बदल या रद्द"
 " कर सकते हैं।"
 
-#: accounts\forms.py:64
+#: accounts\forms.py:79
 msgid "You cannot change your own role."
 msgstr "आप अपनी भूमिका नहीं बदल सकते।"
 
-#: accounts\admin_views.py:51
+#: accounts\admin_views.py:52
 msgid "You cannot deactivate your own account."
 msgstr "आप अपना खाता निष्क्रिय नहीं कर सकते।"
 
-#: notifications\messages.py:37
+#: accounts\admin_views.py:72
+msgid "You cannot delete your own account."
+msgstr "आप अपना खाता नहीं हटा सकते।"
+
+#: notifications\messages.py:38
 #, python-format
 msgid ""
 "You did not attend your appointment on %(date)s at %(time)s. Contact "
@@ -11002,7 +11086,7 @@ msgstr "आपको ब्लॉग पोस्ट बनाने की अ�
 msgid "You do not have permission to delete blog posts."
 msgstr "आपको ब्लॉग पोस्ट हटाने की अनुमति नहीं है।"
 
-#: payments\views.py:624
+#: payments\views.py:628
 msgid "You do not have permission to delete payments."
 msgstr "आपको भुगतान हटाने की अनुमति नहीं है।"
 
@@ -11031,7 +11115,7 @@ msgid "You do not have permission to manage reviews."
 msgstr "आपको समीक्षाएँ प्रबंधित करने की अनुमति नहीं है।"
 
 #: events\views.py:72 patients\views.py:1103 payments\online_views.py:27
-#: payments\views.py:387
+#: payments\views.py:391
 msgid "You do not have permission to perform this action."
 msgstr "आपको यह कार्रवाई करने की अनुमति नहीं है।"
 
@@ -11052,12 +11136,12 @@ msgstr "आपके पास अभी तक पहचान पत्र न
 msgid "You have already sent feedback. Thank you!"
 msgstr "आप पहले ही फ़ीडबैक भेज चुके हैं। धन्यवाद!"
 
-#: notifications\messages.py:64
+#: notifications\messages.py:65
 #, python-format
 msgid "You have been added to %(clinic)s"
 msgstr "आपको %(clinic)s में जोड़ा गया है"
 
-#: notifications\messages.py:65
+#: notifications\messages.py:66
 #, python-format
 msgid "You were added as %(role)s. Sign in to get started."
 msgstr "आपको %(role)s के रूप में जोड़ा गया। शुरू करने के लिए साइन इन करें।"
@@ -11070,7 +11154,7 @@ msgstr "आप पूरी तरह अपडेट हैं।"
 msgid "You're booked"
 msgstr "आपकी बुकिंग हो गई"
 
-#: notifications\messages.py:68
+#: notifications\messages.py:69
 #, python-format
 msgid "Your %(card_type)s ID card (%(employee_id)s) has been issued."
 msgstr "आपका %(card_type)s पहचान पत्र (%(employee_id)s) जारी कर दिया गया है।"
@@ -11087,7 +11171,7 @@ msgstr "आपका अपॉइंटमेंट रद्द कर दि�
 msgid "Your appointment has been moved."
 msgstr "आपका अपॉइंटमेंट स्थानांतरित कर दिया गया है।"
 
-#: notifications\messages.py:28
+#: notifications\messages.py:29
 #, python-format
 msgid ""
 "Your appointment has moved to %(date)s at %(time)s with %(practitioner)s."
@@ -11095,7 +11179,7 @@ msgstr ""
 "आपकी अपॉइंटमेंट %(practitioner)s के साथ %(date)s को %(time)s बजे कर दी गई "
 "है।"
 
-#: notifications\messages.py:31
+#: notifications\messages.py:32
 #, python-format
 msgid ""
 "Your appointment on %(date)s at %(time)s has been cancelled. Contact "
@@ -11104,7 +11188,7 @@ msgstr ""
 "%(date)s को %(time)s बजे की आपकी अपॉइंटमेंट रद्द कर दी गई है। दोबारा बुक "
 "करने के लिए %(clinic)s से संपर्क करें।"
 
-#: notifications\messages.py:25
+#: notifications\messages.py:26
 #, python-format
 msgid ""
 "Your appointment on %(date)s at %(time)s with %(practitioner)s is confirmed."
@@ -11112,7 +11196,7 @@ msgstr ""
 "%(date)s को %(time)s बजे %(practitioner)s के साथ आपकी अपॉइंटमेंट की पुष्टि "
 "हो गई है।"
 
-#: notifications\messages.py:16
+#: notifications\messages.py:17
 #, python-format
 msgid ""
 "Your appointment with %(practitioner)s at %(clinic)s is booked for %(date)s "
@@ -11214,16 +11298,16 @@ msgstr "YouTube चैनल URL"
 msgid "YouTube Short / video or Instagram reel link *"
 msgstr "YouTube Short / वीडियो या Instagram रील लिंक *"
 
-#: clinic\testimonial_views.py:260
+#: clinic\testimonial_views.py:271
 #, python-format
 msgid "YouTube synced: %(n)s new video(s) added."
 msgstr "YouTube सिंक हुआ: %(n)s नए वीडियो जोड़े गए।"
 
-#: clinic\testimonial_views.py:261
+#: clinic\testimonial_views.py:272
 msgid "YouTube synced: nothing new."
 msgstr "YouTube सिंक हुआ: कुछ नया नहीं।"
 
-#: clinic\models.py:243
+#: clinic\models.py:244
 #: clinic\templates\clinic\admin\practitioner_form.html:93
 msgid "YouTube URL"
 msgstr "YouTube URL"
@@ -12117,6 +12201,9 @@ msgstr "📅 Google Calendar में जोड़ें"
 
 #~ msgid "Show blood group on the back"
 #~ msgstr "पीछे रक्त समूह दिखाएं"
+
+#~ msgid "Show more"
+#~ msgstr "और दिखाएँ"
 
 #~ msgid "Sign in to Dashboard"
 #~ msgstr "डैशबोर्ड में साइन इन करें"

@@ -86,6 +86,12 @@
                                     {% if u.is_active %}{% trans "Disable" %}{% else %}{% trans "Enable" %}{% endif %}
                                 </button>
                             </form>
+                            {% if request.user.is_superuser %}
+                            <form method="post" action="{% url 'admin_user_delete' u.pk %}" data-confirm="{% trans 'Delete this account permanently?' %}" class="inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-secondary btn-sm text-red-600" aria-label="{% trans 'Delete' %}"><i class="bi bi-trash" aria-hidden="true"></i></button>
+                            </form>
+                            {% endif %}
                             {% endif %}
                         </div>
                     </td>

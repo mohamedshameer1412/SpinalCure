@@ -65,3 +65,18 @@ def test_api_path_imports_everything_with_tags_and_sorts_into_a_problem(clinic, 
     youtube_sync.sync(clinic)
     v.refresh_from_db()
     assert v.tags and v.description == 'mine'
+
+
+def test_testimonials_page_pages_reels_and_reviews_separately(client, clinic):
+    from django.urls import reverse
+    from clinic.models import ClinicTestimonial
+    for i in range(30):
+        TestimonialVideo.objects.create(title=f'v{i}', url=f'https://www.youtube.com/shorts/{i:011d}', is_published=True)
+    for i in range(30):
+        ClinicTestimonial.objects.create(clinic=clinic, patient_name=f'p{i}', review_text='good', rating=5, is_published=True)
+    r = client.get(reverse('public_testimonials'))
+    assert len(r.context['videos']) == 24 and len(r.context['reviews']) == 24
+    assert r.context['n_videos'] == 30 and r.context['more_videos_url'] and r.context['more_reviews_url']
+    r = client.get(reverse('public_testimonials'), {'vl': 48})
+    assert len(r.context['videos']) == 30 and not r.context['more_videos_url']
+    assert len(r.context['reviews']) == 24 and r.context['more_reviews_url']

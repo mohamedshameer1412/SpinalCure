@@ -1,6 +1,8 @@
 import uuid
 
 from django.conf import settings
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
@@ -96,3 +98,9 @@ class NotificationPreference(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['user', 'event_type', 'channel'], name='notif_pref_unique'),
         ]
+
+
+@receiver(pre_delete, sender=settings.AUTH_USER_MODEL)
+def _drop_user_notifications(sender, instance, **kwargs):
+    """Django would null Notification.user first (it breaks a delete cycle), which the has-recipient constraint forbids."""
+    Notification.objects.filter(user=instance).delete()

@@ -1,6 +1,7 @@
 from django.utils.translation import gettext
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
+from django.db.models import ProtectedError
 from django.views.decorators.http import require_POST
 
 from spinalcure.rbac import require_capability
@@ -57,4 +58,26 @@ def user_toggle_active(request, pk):
         log_action(request, 'update', 'User', user.username, object_id=user.pk,
                    changes={'is_active': {'old': not user.is_active, 'new': user.is_active}})
         messages.success(request, gettext('User "%(username)s" has been %(value3)s.') % {'username': user.username, 'value3': "activated" if user.is_active else "deactivated"})
+    return redirect('admin_users')
+
+
+@require_POST
+@require_capability('users.manage')
+def user_delete(request, pk):
+    """Permanently remove an account. Super admins only; the account's history is kept where it matters."""
+    user = get_object_or_404(CustomUser, pk=pk)
+    if not request.user.is_superuser:
+        messages.error(request, gettext('Only a super admin can delete accounts.'))
+    elif user == request.user:
+        messages.error(request, gettext('You cannot delete your own account.'))
+    else:
+        name = user.username
+        try:
+            user.delete()
+        except ProtectedError:
+            messages.error(request, gettext('"%(username)s" has ID cards or records that depend on it. Disable the account instead.')
+                           % {'username': name})
+        else:
+            log_action(request, 'delete', 'User', name)
+            messages.success(request, gettext('User "%(username)s" deleted.') % {'username': name})
     return redirect('admin_users')

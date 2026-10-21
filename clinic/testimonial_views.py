@@ -41,18 +41,29 @@ def testimonials_page(request):
             Q(title__icontains=q) | Q(patient_name__icontains=q) | Q(description__icontains=q) | Q(transcript__icontains=q)
             | _problem_q('problem', q))
 
-    try:
-        limit = min(max(int(request.GET.get('limit', PAGE)), PAGE), 500)
-    except ValueError:
-        limit = PAGE
-    reviews = list(reviews.distinct()) if kind != 'videos' else []
-    videos = list(videos.distinct()) if kind != 'reviews' else []
-    total = len(reviews) + len(videos)
-    more = len(reviews) > limit or len(videos) > limit
-    params = {'q': q, 'problem': problem.slug if problem else '', 'type': kind, 'limit': limit + PAGE}
+    def window(name):
+        try:
+            return min(max(int(request.GET.get(name, PAGE)), PAGE), 5000)
+        except ValueError:
+            return PAGE
+    rl, vl = window('rl'), window('vl')
+    # count in the database and fetch only the visible window: the lists stay fast with thousands of rows
+    n_reviews = reviews.count() if kind != 'videos' else 0
+    n_videos = videos.count() if kind != 'reviews' else 0
+    reviews = list(reviews[:rl]) if n_reviews else []
+    videos = list(videos[:vl]) if n_videos else []
+    total = n_reviews + n_videos
+    base = {'q': q, 'problem': problem.slug if problem else '', 'type': kind, 'rl': rl, 'vl': vl}
+
+    def more_link(**over):
+        return '?' + urlencode({k: v for k, v in {**base, **over}.items() if v})
+
     ctx = {
         'q': q, 'kind': kind, 'selected_problem': problem,
-        'reviews': reviews[:limit], 'videos': stories.with_slots(videos[:limit]), 'more_url': '?' + urlencode({k: v for k, v in params.items() if v}) if more else '',
+        'reviews': reviews, 'videos': stories.with_slots(videos),
+        'n_reviews': n_reviews, 'n_videos': n_videos,
+        'more_reviews_url': more_link(rl=rl + PAGE) if n_reviews > rl else '',
+        'more_videos_url': more_link(vl=vl + PAGE) if n_videos > vl else '',
         'problems': ProblemCategory.objects.filter(is_active=True),
         'rating_range': range(1, 6),
         'kinds': [('all', gettext('All')), ('reviews', gettext('Reviews')), ('videos', gettext('Reels & Shorts'))],

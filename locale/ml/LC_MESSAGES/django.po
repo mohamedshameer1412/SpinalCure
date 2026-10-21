@@ -30,6 +30,15 @@ msgstr "\"%(title)s\" ആർക്കൈവ് ചെയ്തു."
 msgid "\"%(title)s\" was cancelled and registrants were notified."
 msgstr "\"%(title)s\" റദ്ദാക്കി, രജിസ്ട്രന്റുകളെ അറിയിച്ചു."
 
+#: accounts\admin_views.py:78
+#, python-format
+msgid ""
+"\"%(username)s\" has ID cards or records that depend on it. Disable the "
+"account instead."
+msgstr ""
+"\"%(username)s\" എന്നതുമായി ID കാർഡുകളോ രേഖകളോ ബന്ധപ്പെട്ടിരിക്കുന്നു. പകരം "
+"അക്കൗണ്ട് പ്രവർത്തനരഹിതമാക്കുക."
+
 #: templates\courses\batch_list.html:149
 msgid "\"Batch:"
 msgstr "\"ബാച്ച്:"
@@ -83,7 +92,7 @@ msgstr "%(count)s സമർപ്പണം%(count_2)s"
 msgid "%(count)s Total"
 msgstr "ആകെ %(count)s"
 
-#: notifications\messages.py:101
+#: notifications\messages.py:102
 #, python-format
 msgid "%(detail)s"
 msgstr "%(detail)s"
@@ -98,7 +107,7 @@ msgstr "%(duration_minutes)s മിനിറ്റ്"
 msgid "%(duration_minutes)s minutes"
 msgstr "%(duration_minutes)s മിനിറ്റ്"
 
-#: notifications\messages.py:95
+#: notifications\messages.py:96
 #, python-format
 msgid ""
 "%(event)s (%(batch)s) is full. You are on the waitlist and will be told if a"
@@ -107,7 +116,7 @@ msgstr ""
 "%(event)s (%(batch)s) നിറഞ്ഞു. നിങ്ങൾ വെയിറ്റ്‌ലിസ്റ്റിലാണ്, സ്ഥലം ഒഴിഞ്ഞാൽ "
 "അറിയിക്കും."
 
-#: notifications\messages.py:77
+#: notifications\messages.py:78
 #, python-format
 msgid ""
 "%(event)s is full. You are on the waitlist and will be told if a place "
@@ -115,12 +124,12 @@ msgid ""
 msgstr ""
 "%(event)s നിറഞ്ഞു. നിങ്ങൾ വെയിറ്റ്‌ലിസ്റ്റിലാണ്, സ്ഥലം ഒഴിഞ്ഞാൽ അറിയിക്കും."
 
-#: notifications\messages.py:86
+#: notifications\messages.py:87
 #, python-format
 msgid "%(event)s on %(date)s has been cancelled."
 msgstr "%(date)s-ലെ %(event)s റദ്ദാക്കി."
 
-#: notifications\messages.py:89
+#: notifications\messages.py:90
 #, python-format
 msgid "%(event)s starts on %(date)s at %(time)s."
 msgstr "%(event)s %(date)s-ന് %(time)s-ന് ആരംഭിക്കും."
@@ -237,7 +246,7 @@ msgstr "%(s)s: അവസാന സമയം ആരംഭ സമയത്തി�
 msgid "%(site)s patient portal sign-in code"
 msgstr "%(site)s രോഗി പോർട്ടൽ സൈൻ-ഇൻ കോഡ്"
 
-#: notifications\messages.py:100
+#: notifications\messages.py:101
 #, python-format
 msgid "%(subject)s"
 msgstr "%(subject)s"
@@ -263,18 +272,18 @@ msgstr "%(top_practitioner_sessions)s സെഷനുകൾ"
 msgid "%(total_count)s total records"
 msgstr "ആകെ %(total_count)s റെക്കോർഡുകൾ"
 
-#: notifications\messages.py:19 notifications\messages.py:22
+#: notifications\messages.py:20 notifications\messages.py:23
 #, python-format
 msgid "%(who)s booked %(date)s at %(time)s with %(practitioner)s."
 msgstr ""
 "%(who)s %(practitioner)s-നൊപ്പം %(date)s-ന് %(time)s-ന് ബുക്ക് ചെയ്തു."
 
-#: notifications\messages.py:62
+#: notifications\messages.py:63
 #, python-format
 msgid "%(who)s has %(amount)s outstanding on invoice %(invoice)s."
 msgstr "%(who)s-ന് ഇൻവോയ്സ് %(invoice)s-ൽ %(amount)s കുടിശ്ശികയുണ്ട്."
 
-#: notifications\messages.py:56
+#: notifications\messages.py:57
 #, python-format
 msgid "%(who)s paid %(amount)s online (receipt %(receipt)s)."
 msgstr "%(who)s ഓൺലൈനായി %(amount)s അടച്ചു (രസീത് %(receipt)s)."
@@ -499,13 +508,13 @@ msgstr ""
 " പേയ്മെന്റ് പരാജയപ്പെട്ടാൽ, Razorpay സാധാരണ 5 മുതൽ 7 പ്രവൃത്തി ദിവസത്തിനകം "
 "അത് നിങ്ങളുടെ അക്കൗണ്ടിലേക്ക് തിരികെ നൽകും."
 
-#: notifications\messages.py:53
+#: notifications\messages.py:54
 #, python-format
 msgid ""
 "A payment of %(amount)s for %(who)s did not go through and needs attention."
 msgstr "%(who)s-നുള്ള %(amount)s പേയ്‌മെന്റ് നടന്നില്ല, ശ്രദ്ധ ആവശ്യമാണ്."
 
-#: notifications\messages.py:98
+#: notifications\messages.py:99
 #, python-format
 msgid ""
 "A place opened and you are now registered for %(event)s (%(batch)s), "
@@ -514,7 +523,7 @@ msgstr ""
 "ഒരു സ്ഥലം ഒഴിഞ്ഞു, നിങ്ങൾ ഇപ്പോൾ %(event)s (%(batch)s)-ന് രജിസ്റ്റർ ചെയ്തു, "
 "%(date)s മുതൽ."
 
-#: notifications\messages.py:80
+#: notifications\messages.py:81
 #, python-format
 msgid ""
 "A place opened and you are now registered for %(event)s on %(date)s at "
@@ -523,7 +532,7 @@ msgstr ""
 "ഒരു സ്ഥലം ഒഴിഞ്ഞു, നിങ്ങൾ ഇപ്പോൾ %(date)s-ന് %(time)s-ന് %(event)s-ന് "
 "രജിസ്റ്റർ ചെയ്തു."
 
-#: notifications\messages.py:79 notifications\messages.py:97
+#: notifications\messages.py:80 notifications\messages.py:98
 #, python-format
 msgid "A place opened: %(event)s"
 msgstr "ഒരു സ്ഥലം ഒഴിഞ്ഞു: %(event)s"
@@ -568,7 +577,7 @@ msgstr "ഒരു സെൻസിറ്റീവ് റെക്കോർഡ് 
 msgid "A staff member is requesting your approval to"
 msgstr "ഒരു സ്റ്റാഫ് അംഗം നിങ്ങളുടെ അംഗീകാരം ആവശ്യപ്പെടുന്നു:"
 
-#: accounts\forms.py:50
+#: accounts\forms.py:65
 msgid "A user with this email already exists."
 msgstr "ഈ ഇമെയിലുള്ള ഒരു ഉപയോക്താവ് ഇതിനകം നിലവിലുണ്ട്."
 
@@ -586,7 +595,7 @@ msgstr ""
 msgid "A/C: %(bank_account)s | IFSC: %(bank_ifsc)s"
 msgstr "അക്കൗണ്ട്: %(bank_account)s | IFSC: %(bank_ifsc)s"
 
-#: clinic\models.py:37
+#: clinic\models.py:38
 msgid "About"
 msgstr "കുറിച്ച്"
 
@@ -598,19 +607,19 @@ msgstr "ആമുഖവും ക്ലിനിക് പാരമ്പര്�
 msgid "About & Legacy"
 msgstr "ആമുഖവും പാരമ്പര്യവും"
 
-#: clinic\models.py:281 clinic\models.py:276
+#: clinic\models.py:285 clinic\models.py:280
 msgid "About Image"
 msgstr "ആമുഖ ചിത്രം"
 
-#: clinic\models.py:282
+#: clinic\models.py:286
 msgid "About Images"
 msgstr "ആമുഖ ചിത്രങ്ങൾ"
 
-#: clinic\models.py:96
+#: clinic\models.py:97
 msgid "About Label"
 msgstr "ആമുഖ ലേബൽ"
 
-#: clinic\models.py:103
+#: clinic\models.py:104
 msgid "About Quote"
 msgstr "ആമുഖ ഉദ്ധരണി"
 
@@ -626,7 +635,7 @@ msgstr "സ്ഥാപനത്തെക്കുറിച്ച്"
 msgid "About this course"
 msgstr "ഈ കോഴ്സിനെക്കുറിച്ച്"
 
-#: clinic\models.py:97
+#: clinic\models.py:98
 msgid "About Title"
 msgstr "ആമുഖ തലക്കെട്ട്"
 
@@ -643,11 +652,11 @@ msgstr "ഫീഡ്ബാക്ക് സ്വീകരിക്കുക"
 msgid "Account Details"
 msgstr "അക്കൗണ്ട് വിവരങ്ങൾ"
 
-#: clinic\models.py:140
+#: clinic\models.py:141
 msgid "Account Number"
 msgstr "അക്കൗണ്ട് നമ്പർ"
 
-#: clinic\models.py:743 clinic\templates\clinic\admin\activity_log.html:18
+#: clinic\models.py:749 clinic\templates\clinic\admin\activity_log.html:18
 #: clinic\templates\clinic\admin\activity_log.html:62
 #: templates\appointments\partials\appointment_list_partial.html:11
 msgid "Action"
@@ -673,7 +682,7 @@ msgid "Actions"
 msgstr "പ്രവർത്തനങ്ങൾ"
 
 #: accounts\models.py:321 accounts\templates\accounts\admin\users_list.html:68
-#: clinic\models.py:249
+#: clinic\models.py:250
 #: clinic\templates\clinic\admin\practitioners_list.html:35
 msgid "Active"
 msgstr "സജീവം"
@@ -897,7 +906,7 @@ msgstr ""
 msgid "Add your first practitioner →"
 msgstr "നിങ്ങളുടെ ആദ്യ പ്രാക്ടീഷണറെ ചേർക്കുക →"
 
-#: clinic\models.py:433
+#: clinic\models.py:437
 msgid "Added by staff"
 msgstr "ജീവനക്കാർ ചേർത്തത്"
 
@@ -921,7 +930,7 @@ msgstr "അധിക വിവരങ്ങൾ"
 msgid "Additional Notes"
 msgstr "അധിക കുറിപ്പുകൾ"
 
-#: clinic\models.py:38 clinic\templates\clinic\admin\clinic_setup.html:262
+#: clinic\models.py:39 clinic\templates\clinic\admin\clinic_setup.html:262
 #: idcards\render.py:233 patients\models.py:53
 msgid "Address"
 msgstr "വിലാസം"
@@ -938,7 +947,7 @@ msgstr "ഭരണനിർവഹണം"
 msgid "Alerts"
 msgstr "അലേർട്ടുകൾ"
 
-#: clinic\admin_views.py:259 clinic\testimonial_views.py:58
+#: clinic\admin_views.py:259 clinic\testimonial_views.py:69
 #: idcards\templates\idcards\dashboard.html:11
 #: notifications\templates\notifications\center.html:17
 msgid "All"
@@ -1106,7 +1115,7 @@ msgstr "മാറ്റം പിൻവലിക്കുന്നതിനി�
 msgid "An error occurred. Please try again."
 msgstr "ഒരു പിശക് സംഭവിച്ചു. വീണ്ടും ശ്രമിക്കുക."
 
-#: notifications\messages.py:59
+#: notifications\messages.py:60
 #, python-format
 msgid "An invoice for %(amount)s has been created."
 msgstr "%(amount)s-നുള്ള ഇൻവോയ്സ് സൃഷ്ടിച്ചു."
@@ -1115,7 +1124,7 @@ msgstr "%(amount)s-നുള്ള ഇൻവോയ്സ് സൃഷ്ടി�
 msgid "and Without Diet"
 msgstr "ഭക്ഷണനിയന്ത്രണവുമില്ലാതെ"
 
-#: clinic\models.py:356
+#: clinic\models.py:360
 msgid "Answer"
 msgstr "ഉത്തരം"
 
@@ -1161,7 +1170,7 @@ msgstr "പ്രയോഗിക്കുക"
 msgid "Appointment"
 msgstr "അപ്പോയിന്റ്മെന്റ്"
 
-#: notifications\messages.py:15
+#: notifications\messages.py:16
 msgid "Appointment booked"
 msgstr "അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്തു"
 
@@ -1182,11 +1191,11 @@ msgstr "അപ്പോയിന്റ്മെന്റ് ബുക്ക് �
 msgid "Appointment Booking Confirmation - %(clinic_name)s"
 msgstr "അപ്പോയിന്റ്മെന്റ് ബുക്കിംഗ് സ്ഥിരീകരണം - %(clinic_name)s"
 
-#: notifications\messages.py:30
+#: notifications\messages.py:31
 msgid "Appointment cancelled"
 msgstr "അപ്പോയിന്റ്മെന്റ് റദ്ദാക്കി"
 
-#: notifications\messages.py:24
+#: notifications\messages.py:25
 msgid "Appointment confirmed"
 msgstr "അപ്പോയിന്റ്മെന്റ് സ്ഥിരീകരിച്ചു"
 
@@ -1212,16 +1221,16 @@ msgstr "%(date)s-ലെ %(patient_name)s-ന്റെ അപ്പോയിന�
 msgid "Appointment length"
 msgstr "അപ്പോയിന്റ്മെന്റ് ദൈർഘ്യം"
 
-#: notifications\messages.py:39
+#: notifications\messages.py:40
 #, python-format
 msgid "Appointment not completed: %(who)s"
 msgstr "അപ്പോയിന്റ്മെന്റ് പൂർത്തിയായില്ല: %(who)s"
 
-#: notifications\messages.py:33
+#: notifications\messages.py:34
 msgid "Appointment reminder"
 msgstr "അപ്പോയിന്റ്മെന്റ് ഓർമ്മപ്പെടുത്തൽ"
 
-#: notifications\messages.py:27
+#: notifications\messages.py:28
 msgid "Appointment rescheduled"
 msgstr "അപ്പോയിന്റ്മെന്റ് പുനഃക്രമീകരിച്ചു"
 
@@ -1275,7 +1284,7 @@ msgstr ""
 msgid "Approve & publish"
 msgstr "അംഗീകരിച്ച് പ്രസിദ്ധീകരിക്കുക"
 
-#: clinic\models.py:434
+#: clinic\models.py:438
 msgid "Approved"
 msgstr "അംഗീകരിച്ചു"
 
@@ -1359,7 +1368,7 @@ msgstr "കൂട്ടിരിപ്പുകാരന്റെ പേര്"
 msgid "Attender Phone"
 msgstr "കൂട്ടിരിപ്പുകാരന്റെ ഫോൺ"
 
-#: clinic\models.py:798
+#: clinic\models.py:804
 msgid "Audit Log"
 msgstr "ഓഡിറ്റ് ലോഗ്"
 
@@ -1367,7 +1376,7 @@ msgstr "ഓഡിറ്റ് ലോഗ്"
 msgid "Audit Log Notification"
 msgstr "ഓഡിറ്റ് ലോഗ് അറിയിപ്പ്"
 
-#: clinic\models.py:799
+#: clinic\models.py:805
 msgid "Audit Logs"
 msgstr "ഓഡിറ്റ് ലോഗുകൾ"
 
@@ -1387,7 +1396,7 @@ msgstr "ചെവി അക്യുപങ്ചർ, ശിരോചർമ്മ
 msgid "Author"
 msgstr "രചയിതാവ്"
 
-#: clinic\models.py:438
+#: clinic\models.py:442
 msgid "Author agreed to publication"
 msgstr "പ്രസിദ്ധീകരണത്തിന് എഴുതിയയാൾ സമ്മതിച്ചു"
 
@@ -1421,12 +1430,12 @@ msgstr "നൽകിയില്ലെങ്കിൽ സ്വയം സൃഷ�
 msgid "Auto-translate missing into %(name)s"
 msgstr "ഇല്ലാത്തവ %(name)s ലേക്ക് സ്വയം വിവർത്തനം ചെയ്യുക"
 
-#: clinic\models.py:815 templates\clinic\admin\translations.html:73
+#: clinic\models.py:821 templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 msgid "Auto-translated"
 msgstr "സ്വയം വിവർത്തനം ചെയ്തത്"
 
-#: clinic\models.py:504
+#: clinic\models.py:508
 msgid "Automatic"
 msgstr "ഓട്ടോമാറ്റിക്"
 
@@ -1547,7 +1556,7 @@ msgstr "ബാക്കി തുക"
 msgid "BAMS, MD (Acupuncture), etc."
 msgstr "BAMS, MD (Acupuncture), etc."
 
-#: clinic\models.py:139
+#: clinic\models.py:140
 msgid "Bank Name"
 msgstr "ബാങ്കിന്റെ പേര്"
 
@@ -1623,7 +1632,7 @@ msgstr "ബില്ലിംഗ് & നികുതി ക്രമീകര�
 msgid "Billing & tax information updated."
 msgstr "ബില്ലിംഗ് & നികുതി വിവരങ്ങൾ അപ്ഡേറ്റ് ചെയ്തു."
 
-#: clinic\models.py:231
+#: clinic\models.py:232
 #: clinic\templates\clinic\admin\practitioner_form.html:133
 msgid "Bio"
 msgstr "ബയോ"
@@ -1811,7 +1820,7 @@ msgstr "SpinalCure HMS. അതീവ രഹസ്യമായ മെഡിക്
 msgid "Calendar View"
 msgstr "കലണ്ടർ കാഴ്ച"
 
-#: accounts\templates\accounts\admin\user_form.html:127
+#: accounts\templates\accounts\admin\user_form.html:141
 #: clinic\templates\clinic\admin\practitioner_form.html:159
 #: templates\accounts\settings.html:57 templates\clinic\admin\faq_form.html:13
 msgid "Cancel"
@@ -1873,7 +1882,7 @@ msgstr ""
 msgid "Capacity must be at least 1."
 msgstr "ശേഷി കുറഞ്ഞത് 1 ആയിരിക്കണം."
 
-#: clinic\models.py:658
+#: clinic\models.py:664
 msgid "Caption"
 msgstr "അടിക്കുറിപ്പ്"
 
@@ -1912,7 +1921,7 @@ msgstr "കാർഡ് ID"
 msgid "Card language"
 msgstr "കാർഡ് ഭാഷ"
 
-#: clinic\models.py:518 templates\clinic\admin\video_form.html:89
+#: clinic\models.py:524 templates\clinic\admin\video_form.html:89
 msgid "Card layout"
 msgstr "കാർഡ് ലേഔട്ട്"
 
@@ -1970,7 +1979,7 @@ msgstr "ഫോൺ നമ്പർ മാറ്റുക"
 msgid "Change the time"
 msgstr "സമയം മാറ്റുക"
 
-#: clinic\models.py:765
+#: clinic\models.py:771
 msgid "Changes"
 msgstr "മാറ്റങ്ങൾ"
 
@@ -2003,7 +2012,7 @@ msgstr ""
 msgid "Channel"
 msgstr "ചാനൽ"
 
-#: clinic\models.py:363
+#: clinic\models.py:367
 msgid "Checked by"
 msgstr "പരിശോധിച്ചത്"
 
@@ -2059,7 +2068,7 @@ msgstr ""
 "രാവിലെയോ വൈകുന്നേരമോ ഉള്ള സെഷൻ തിരഞ്ഞെടുക്കുക, അല്ലെങ്കിൽ ആ ദിവസം ഓഫ് "
 "ചെയ്യുക."
 
-#: clinic\models.py:680
+#: clinic\models.py:686
 msgid "Choose a photo."
 msgstr "ഒരു ഫോട്ടോ തിരഞ്ഞെടുക്കുക."
 
@@ -2085,6 +2094,10 @@ msgstr "ഓരോ സംഭവത്തെക്കുറിച്ചും എ�
 msgid "Choose the appointment length from the list."
 msgstr "പട്ടികയിൽ നിന്ന് അപ്പോയിന്റ്മെന്റ് ദൈർഘ്യം തിരഞ്ഞെടുക്കുക."
 
+#: accounts\forms.py:87
+msgid "Choose the practitioner to link."
+msgstr "ലിങ്ക് ചെയ്യേണ്ട പ്രാക്ടീഷണറെ തിരഞ്ഞെടുക്കുക."
+
 #: templates\clinic\admin\gallery.html:14
 msgid ""
 "Choose up to 30 photos at once. Edit each one afterwards to add a caption or"
@@ -2096,6 +2109,10 @@ msgstr ""
 #: clinic\templates\clinic\admin\clinic_setup.html:1075
 msgid "Choose..."
 msgstr "തിരഞ്ഞെടുക്കുക..."
+
+#: accounts\forms.py:28
+msgid "Choose…"
+msgstr "തിരഞ്ഞെടുക്കുക…"
 
 #: events\models.py:24
 msgid "Class"
@@ -2134,7 +2151,7 @@ msgstr "ഫിൽട്ടറുകൾ മായ്ക്കുക"
 msgid "Clear ✕"
 msgstr "മായ്ക്കുക ✕"
 
-#: clinic\models.py:395 courses\models.py:63 events\models.py:45
+#: clinic\models.py:399 courses\models.py:63 events\models.py:45
 #: idcards\render.py:233
 msgid "Clinic"
 msgstr "ക്ലിനിക്"
@@ -2155,7 +2172,7 @@ msgstr "ക്ലിനിക് അവധികളും അടച്ചിട�
 msgid "Clinic Logo"
 msgstr "ക്ലിനിക് ലോഗോ"
 
-#: clinic\models.py:23
+#: clinic\models.py:24
 msgid "Clinic Name"
 msgstr "ക്ലിനിക്കിന്റെ പേര്"
 
@@ -2163,7 +2180,7 @@ msgstr "ക്ലിനിക്കിന്റെ പേര്"
 msgid "Clinic Name *"
 msgstr "ക്ലിനിക്കിന്റെ പേര് *"
 
-#: clinic\models.py:155
+#: clinic\models.py:156
 msgid "Clinic Profile"
 msgstr "ക്ലിനിക് പ്രൊഫൈൽ"
 
@@ -2171,11 +2188,11 @@ msgstr "ക്ലിനിക് പ്രൊഫൈൽ"
 msgid "Clinic Profile Settings"
 msgstr "ക്ലിനിക് പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ"
 
-#: clinic\models.py:156
+#: clinic\models.py:157
 msgid "Clinic Profiles"
 msgstr "ക്ലിനിക് പ്രൊഫൈലുകൾ"
 
-#: clinic\models.py:421
+#: clinic\models.py:425
 msgid "Clinic reply"
 msgstr "ക്ലിനിക്കിന്റെ മറുപടി"
 
@@ -2262,13 +2279,17 @@ msgstr "ശേഖരിച്ചത്:"
 msgid "Collections so far"
 msgstr "ഇതുവരെയുള്ള ശേഖരണം"
 
-#: clinic\models.py:328
+#: clinic\models.py:332
 msgid ""
 "Comma-separated extra words that should match this problem, e.g. \"disc, "
 "herniated\"."
 msgstr ""
 "ഈ പ്രശ്നവുമായി പൊരുത്തപ്പെടേണ്ട അധിക വാക്കുകൾ, കോമ ഇട്ട് വേർതിരിക്കുക, ഉദാ. "
 "\"disc, herniated\"."
+
+#: clinic\models.py:514
+msgid "Comma-separated; imported from YouTube."
+msgstr "കോമ ഉപയോഗിച്ച് വേർതിരിക്കുക; YouTube-ൽ നിന്ന് ഇറക്കുമതി ചെയ്തത്."
 
 #: courses\models.py:220 events\models.py:298
 #: templates\courses\registration_manage.html:21
@@ -2280,7 +2301,7 @@ msgstr "അഭിപ്രായം"
 msgid "Compare the name and photo with the person presenting the card."
 msgstr "കാർഡ് കാണിക്കുന്ന വ്യക്തിയുമായി പേരും ഫോട്ടോയും താരതമ്യം ചെയ്യുക."
 
-#: clinic\models.py:778
+#: clinic\models.py:784
 msgid "Complete serialized JSON representation of the object before deletion"
 msgstr "ഇല്ലാതാക്കുന്നതിന് മുമ്പുള്ള വസ്തുവിന്റെ പൂർണ്ണ JSON രൂപം"
 
@@ -2326,7 +2347,7 @@ msgstr "ബുക്കിംഗ് സ്ഥിരീകരിക്കുക"
 msgid "Confirm new password"
 msgstr "പുതിയ പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക"
 
-#: clinic\models.py:646
+#: clinic\models.py:652
 msgid "Confirm the permission is on file before publishing."
 msgstr "പ്രസിദ്ധീകരിക്കുന്നതിന് മുമ്പ് അനുമതി രേഖയിലുണ്ടെന്ന് ഉറപ്പാക്കുക."
 
@@ -2354,11 +2375,11 @@ msgstr "സമ്മതം"
 msgid "Consent and publication"
 msgstr "സമ്മതവും പ്രസിദ്ധീകരണവും"
 
-#: clinic\models.py:513 templates\clinic\admin\video_form.html:41
+#: clinic\models.py:519 templates\clinic\admin\video_form.html:41
 msgid "Consent date"
 msgstr "സമ്മത തീയതി"
 
-#: clinic\models.py:503
+#: clinic\models.py:507
 msgid "Consent on file"
 msgstr "സമ്മതം രേഖപ്പെടുത്തിയിട്ടുണ്ട്"
 
@@ -2471,7 +2492,7 @@ msgstr "സമയങ്ങൾ ലോഡ് ചെയ്യാനായില്�
 msgid "Could not reach the server. Check your connection and try again."
 msgstr "സെർവറിൽ എത്താനായില്ല. കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
 
-#: clinic\testimonial_views.py:120 clinic\testimonial_views.py:173
+#: clinic\testimonial_views.py:131 clinic\testimonial_views.py:184
 #, python-format
 msgid "Could not save: %(e)s"
 msgstr "സേവ് ചെയ്യാനായില്ല: %(e)s"
@@ -2553,7 +2574,7 @@ msgstr "കോഴ്സ് രജിസ്ട്രേഷൻ"
 msgid "Course Registrations"
 msgstr "കോഴ്സ് രജിസ്ട്രേഷനുകൾ"
 
-#: clinic\models.py:386 payments\models.py:43
+#: clinic\models.py:390 payments\models.py:43
 msgid "Course Student"
 msgstr "കോഴ്സ് വിദ്യാർത്ഥി"
 
@@ -2584,10 +2605,14 @@ msgstr "കവർ ചിത്രം"
 msgid "Cover image"
 msgstr "കവർ ചിത്രം"
 
-#: clinic\models.py:726 clinic\templates\clinic\admin\activity_log.html:21
+#: clinic\models.py:732 clinic\templates\clinic\admin\activity_log.html:21
 #: clinic\templates\clinic\admin\activity_log.html:79
 msgid "Create"
 msgstr "സൃഷ്ടിക്കുക"
+
+#: accounts\forms.py:26
+msgid "Create a practitioner profile from this account"
+msgstr "ഈ അക്കൗണ്ടിൽ നിന്ന് പ്രാക്ടീഷണർ പ്രൊഫൈൽ സൃഷ്ടിക്കുക"
 
 #: templates\courses\batch_list.html:127
 msgid "Create Batch"
@@ -2621,7 +2646,7 @@ msgstr ""
 msgid "Create Treatment Plan"
 msgstr "ചികിത്സാ പദ്ധതി സൃഷ്ടിക്കുക"
 
-#: accounts\templates\accounts\admin\user_form.html:124
+#: accounts\templates\accounts\admin\user_form.html:138
 msgid "Create User"
 msgstr "ഉപയോക്താവിനെ സൃഷ്ടിക്കുക"
 
@@ -2770,7 +2795,7 @@ msgstr "നിർജ്ജീവമാക്കി"
 msgid "Dear %(name)s,"
 msgstr "പ്രിയ %(name)s,"
 
-#: clinic\models.py:135 clinic\templates\clinic\admin\clinic_setup.html:328
+#: clinic\models.py:136 clinic\templates\clinic\admin\clinic_setup.html:328
 msgid "Default Tax %"
 msgstr "സ്ഥിര നികുതി %"
 
@@ -2778,9 +2803,9 @@ msgstr "സ്ഥിര നികുതി %"
 msgid "Define the core name and public summary of your course."
 msgstr "നിങ്ങളുടെ കോഴ്സിന്റെ പ്രധാന പേരും പൊതു സംഗ്രഹവും നിർവ്വചിക്കുക."
 
-#: clinic\models.py:728 clinic\templates\clinic\admin\activity_log.html:23
+#: accounts\templates\accounts\admin\users_list.html:92 clinic\models.py:734
+#: clinic\templates\clinic\admin\activity_log.html:23
 #: clinic\templates\clinic\admin\activity_log.html:87
-#: clinic\templates\clinic\admin\practitioners_list.html:53
 msgid "Delete"
 msgstr "ഇല്ലാതാക്കുക"
 
@@ -2808,6 +2833,10 @@ msgstr "സ്ഥിരമായി ഇല്ലാതാക്കുക"
 #: templates\clinic\admin\blog_tags.html:59
 msgid "Delete tag"
 msgstr "ടാഗ് ഇല്ലാതാക്കുക"
+
+#: accounts\templates\accounts\admin\users_list.html:90
+msgid "Delete this account permanently?"
+msgstr "ഈ അക്കൗണ്ട് എന്നെന്നേക്കുമായി ഇല്ലാതാക്കണോ?"
 
 #: templates\patients\packages.html:23
 msgid "Delete this package? Existing plans keep their price and sittings."
@@ -2902,15 +2931,15 @@ msgstr "സേവന വിവരണം"
 msgid "Designation"
 msgstr "പദവി"
 
-#: clinic\models.py:400 templates\clinic\admin\testimonial_form.html:29
+#: clinic\models.py:404 templates\clinic\admin\testimonial_form.html:29
 msgid "Designation / Location"
 msgstr "പദവി / സ്ഥലം"
 
-#: accounts\forms.py:70
+#: accounts\forms.py:85
 msgid "Designation is required for owners and staff."
 msgstr "ഉടമകൾക്കും സ്റ്റാഫിനും പദവി ആവശ്യമാണ്."
 
-#: clinic\models.py:240
+#: clinic\models.py:241
 msgid "Designation Tag"
 msgstr "പദവി ടാഗ്"
 
@@ -2959,7 +2988,7 @@ msgstr "വിവരങ്ങളും രജിസ്ട്രേഷനും"
 msgid "Details and registration"
 msgstr "വിശദാംശങ്ങളും രജിസ്ട്രേഷനും"
 
-#: notifications\messages.py:83
+#: notifications\messages.py:84
 #, python-format
 msgid "Details of %(event)s changed. It is now on %(date)s at %(time)s."
 msgstr ""
@@ -2994,11 +3023,11 @@ msgstr "ഫീഡ്ബാക്ക് ഫോം പ്രവർത്തനര�
 msgid "Dismiss"
 msgstr "ഒഴിവാക്കുക"
 
-#: clinic\models.py:428 templates\clinic\admin\testimonial_form.html:114
+#: clinic\models.py:432 templates\clinic\admin\testimonial_form.html:114
 msgid "Display Order"
 msgstr "പ്രദർശന ക്രമം"
 
-#: clinic\models.py:359 clinic\models.py:632 clinic\models.py:666
+#: clinic\models.py:363 clinic\models.py:638 clinic\models.py:672
 #: patients\models.py:160
 msgid "Display order"
 msgstr "പ്രദർശന ക്രമം"
@@ -3125,11 +3154,11 @@ msgstr "ദൈർഘ്യം:"
 msgid "e.g. \"2025 Batch\", \"Batch 3 — June 2024\""
 msgstr "ഉദാ. \"2025 ബാച്ച്\", \"ബാച്ച് 3 — ജൂൺ 2024\""
 
-#: clinic\models.py:625
+#: clinic\models.py:631
 msgid "e.g. \"Actor\", \"Cricketer\"."
 msgstr "ഉദാ. \"നടൻ\", \"ക്രിക്കറ്റ് താരം\"."
 
-#: clinic\models.py:512
+#: clinic\models.py:518
 msgid ""
 "e.g. \"Signed media consent form, file 2026/14\". Never upload the form "
 "itself here."
@@ -3179,7 +3208,7 @@ msgstr "ഉദാ. വിട്ടുമാറാത്ത നടുവേദന
 msgid "e.g. Lower Back Pain 2026"
 msgstr "ഉദാ. നടുവിന്റെ താഴ്ഭാഗത്തെ വേദന 2026"
 
-#: clinic\models.py:749
+#: clinic\models.py:755
 msgid "e.g. Patient, Payment, Session, Course, Event, Appointment"
 msgstr "ഉദാ. രോഗി, പേയ്‌മെന്റ്, സെഷൻ, കോഴ്സ്, ഇവന്റ്, അപ്പോയിന്റ്മെന്റ്"
 
@@ -3317,7 +3346,7 @@ msgstr "തിരുത്തുക: %(title)s"
 msgid "Edited"
 msgstr "തിരുത്തിയത്"
 
-#: clinic\models.py:815
+#: clinic\models.py:821
 msgid "Edited by staff"
 msgstr "ജീവനക്കാർ തിരുത്തിയത്"
 
@@ -3338,7 +3367,7 @@ msgid "Either email or phone number is required."
 msgstr "ഇമെയിൽ അല്ലെങ്കിൽ ഫോൺ നമ്പർ ആവശ്യമാണ്."
 
 #: accounts\models.py:98 accounts\templates\accounts\admin\user_form.html:53
-#: clinic\models.py:44 clinic\templates\clinic\admin\clinic_setup.html:252
+#: clinic\models.py:45 clinic\templates\clinic\admin\clinic_setup.html:252
 msgid "Email"
 msgstr "ഇമെയിൽ"
 
@@ -3455,7 +3484,7 @@ msgstr "അവസാനിക്കുന്നത് (ഓപ്ഷണൽ)"
 msgid "Engagement"
 msgstr "ഇടപഴകൽ"
 
-#: spinalcure\settings\base.py:126
+#: spinalcure\settings\base.py:129
 msgid "English"
 msgstr "ഇംഗ്ലീഷ്"
 
@@ -3488,7 +3517,7 @@ msgstr "പ്രവേശനം തുറന്നിരിക്കുന്�
 msgid "Enter 6-digit Code"
 msgstr "6 അക്ക കോഡ് നൽകുക"
 
-#: clinic\testimonial_views.py:234
+#: clinic\testimonial_views.py:245
 msgid "Enter a problem name."
 msgstr "പ്രശ്നത്തിന്റെ പേര് നൽകുക."
 
@@ -3508,7 +3537,7 @@ msgstr "സാധുവായ പാക്കേജ് വില നൽകുക
 msgid "Enter a valid refund amount."
 msgstr "സാധുവായ റീഫണ്ട് തുക നൽകുക."
 
-#: clinic\models.py:544 clinic\models.py:685
+#: clinic\models.py:550 clinic\models.py:691
 msgid "Enter a YouTube, YouTube Shorts or Instagram reel link."
 msgstr "YouTube, YouTube Shorts അല്ലെങ്കിൽ Instagram reel ലിങ്ക് നൽകുക."
 
@@ -3537,7 +3566,7 @@ msgstr ""
 msgid "Equipment & Instruments"
 msgstr "ഉപകരണങ്ങൾ"
 
-#: payments\views.py:302
+#: payments\views.py:306
 #, python-format
 msgid "Error creating expense: %(value1)s"
 msgstr "ചെലവ് സൃഷ്ടിക്കുന്നതിൽ പിശക്: %(value1)s"
@@ -3562,7 +3591,7 @@ msgstr "സെഷൻ സൃഷ്ടിക്കുന്നതിൽ പിശ�
 msgid "Error creating treatment plan: %(value1)s"
 msgstr "ചികിത്സാ പദ്ധതി സൃഷ്ടിക്കുന്നതിൽ പിശക്: %(value1)s"
 
-#: payments\views.py:493
+#: payments\views.py:497
 #, python-format
 msgid "Error recording payment: %(value1)s"
 msgstr "പേയ്‌മെന്റ് രേഖപ്പെടുത്തുന്നതിൽ പിശക്: %(value1)s"
@@ -3581,7 +3610,7 @@ msgstr "പഴയപടിയാക്കുന്നതിൽ പിശക്: 
 msgid "Error saving testimonial: %(e)s"
 msgstr "സാക്ഷ്യപത്രം സേവ് ചെയ്യുന്നതിൽ പിശക്: %(e)s"
 
-#: payments\views.py:340
+#: payments\views.py:344
 #, python-format
 msgid "Error updating expense: %(value1)s"
 msgstr "ചെലവ് അപ്ഡേറ്റ് ചെയ്യുന്നതിൽ പിശക്: %(value1)s"
@@ -3591,7 +3620,7 @@ msgstr "ചെലവ് അപ്ഡേറ്റ് ചെയ്യുന്ന�
 msgid "Error updating patient: %(value1)s"
 msgstr "രോഗിയെ അപ്ഡേറ്റ് ചെയ്യുന്നതിൽ പിശക്: %(value1)s"
 
-#: payments\views.py:594
+#: payments\views.py:598
 #, python-format
 msgid "Error updating payment: %(value1)s"
 msgstr "പേയ്‌മെന്റ് അപ്ഡേറ്റ് ചെയ്യുന്നതിൽ പിശക്: %(value1)s"
@@ -3654,11 +3683,11 @@ msgstr ""
 "ഇവന്റ് \"%(title)s\" ഡ്രാഫ്റ്റായി സേവ് ചെയ്തു. തയ്യാറാകുമ്പോൾ "
 "പ്രസിദ്ധീകരിക്കുക."
 
-#: clinic\models.py:385
+#: clinic\models.py:389
 msgid "Event Attendee"
 msgstr "ഇവന്റിൽ പങ്കെടുക്കുന്നയാൾ"
 
-#: notifications\messages.py:85
+#: notifications\messages.py:86
 #, python-format
 msgid "Event cancelled: %(event)s"
 msgstr "ഇവന്റ് റദ്ദാക്കി: %(event)s"
@@ -3691,7 +3720,7 @@ msgstr "ഇവന്റ് രജിസ്ട്രേഷനുകൾ"
 msgid "Event status"
 msgstr "ഇവന്റ് നില"
 
-#: notifications\messages.py:82
+#: notifications\messages.py:83
 #, python-format
 msgid "Event updated: %(event)s"
 msgstr "ഇവന്റ് അപ്ഡേറ്റ് ചെയ്തു: %(event)s"
@@ -3741,6 +3770,10 @@ msgstr "Excel സ്പ്രെഡ്ഷീറ്റ്"
 msgid "Excerpt"
 msgstr "ഉദ്ധരണി"
 
+#: accounts\templates\accounts\admin\user_form.html:127
+msgid "Existing practitioner"
+msgstr "നിലവിലുള്ള പ്രാക്ടീഷണർ"
+
 #: templates\clinic\admin\blog_tags.html:45
 #, python-format
 msgid "Existing Tags (%(count)s)"
@@ -3750,17 +3783,17 @@ msgstr "നിലവിലുള്ള ടാഗുകൾ (%(count)s)"
 msgid "Expense"
 msgstr "ചെലവ്"
 
-#: payments\views.py:369
+#: payments\views.py:373
 #, python-format
 msgid "Expense \"%(title)s\" deleted."
 msgstr "ചെലവ് \"%(title)s\" ഇല്ലാതാക്കി."
 
-#: payments\views.py:298
+#: payments\views.py:302
 #, python-format
 msgid "Expense \"%(title)s\" recorded successfully."
 msgstr "ചെലവ് \"%(title)s\" വിജയകരമായി രേഖപ്പെടുത്തി."
 
-#: payments\views.py:337
+#: payments\views.py:341
 #, python-format
 msgid "Expense \"%(title)s\" updated."
 msgstr "ചെലവ് \"%(title)s\" അപ്ഡേറ്റ് ചെയ്തു."
@@ -3825,12 +3858,12 @@ msgstr "കോഴ്സുകൾ എക്സ്പോർട്ട് ചെയ�
 msgid "Facebook Profile URL"
 msgstr "Facebook പ്രൊഫൈൽ URL"
 
-#: clinic\models.py:246
+#: clinic\models.py:247
 #: clinic\templates\clinic\admin\practitioner_form.html:108
 msgid "Facebook URL"
 msgstr "Facebook URL"
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Failed"
 msgstr "പരാജയപ്പെട്ടു"
 
@@ -3858,24 +3891,24 @@ msgstr "PIN അയയ്ക്കാനായില്ല. ഇമെയിൽ �
 msgid "Failed Verification Attempts"
 msgstr "പരാജയപ്പെട്ട സ്ഥിരീകരണ ശ്രമങ്ങൾ"
 
-#: clinic\models.py:369
+#: clinic\models.py:373
 msgid "FAQ"
 msgstr "പതിവുചോദ്യം"
 
-#: clinic\models.py:370 templates\clinic\admin\faqs.html:3
+#: clinic\models.py:374 templates\clinic\admin\faqs.html:3
 msgid "FAQs"
 msgstr "പതിവുചോദ്യങ്ങൾ"
 
-#: clinic\models.py:663 templates\clinic\admin\gallery.html:29
+#: clinic\models.py:669 templates\clinic\admin\gallery.html:29
 #: templates\clinic\gallery.html:34
 msgid "Featured"
 msgstr "വിശേഷം"
 
-#: clinic\models.py:664
+#: clinic\models.py:670
 msgid "Featured label"
 msgstr "വിശേഷ ലേബൽ"
 
-#: clinic\models.py:638 templates\clinic\partials\featured_patients.html:15
+#: clinic\models.py:644 templates\clinic\partials\featured_patients.html:15
 msgid "Featured patient"
 msgstr "വിശേഷ രോഗി"
 
@@ -3891,7 +3924,7 @@ msgstr "വിശേഷ രോഗിയെ നീക്കി."
 msgid "Featured patient saved."
 msgstr "വിശേഷ രോഗിയെ സേവ് ചെയ്തു."
 
-#: clinic\models.py:639 templates\clinic\admin\featured.html:3
+#: clinic\models.py:645 templates\clinic\admin\featured.html:3
 #: templates\clinic\admin\featured.html:4
 #: templates\clinic\admin\featured_form.html:5
 msgid "Featured patients"
@@ -3995,7 +4028,7 @@ msgstr "ഫീസ് (₹)"
 msgid "Fees are non-refundable."
 msgstr "ഫീസ് തിരികെ നൽകില്ല."
 
-#: accounts\models.py:340 clinic\models.py:190
+#: accounts\models.py:340 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:39
 #: patients\models.py:20
 msgid "Female"
@@ -4057,7 +4090,7 @@ msgstr "ഫോളോ-അപ്പ് ഓർമ്മപ്പെടുത്ത�
 msgid "Food, drug allergies..."
 msgstr "ഭക്ഷണം, മരുന്ന് അലർജികൾ..."
 
-#: clinic\models.py:87 clinic\templates\clinic\admin\clinic_setup.html:410
+#: clinic\models.py:88 clinic\templates\clinic\admin\clinic_setup.html:410
 msgid "Footer Text"
 msgstr "ഫൂട്ടർ ടെക്സ്റ്റ്"
 
@@ -4073,6 +4106,16 @@ msgstr ""
 #: templates\clinic\event_detail.html:73
 msgid "for confirmation"
 msgstr "സ്ഥിരീകരണത്തിനായി"
+
+#: accounts\templates\accounts\admin\user_form.html:123
+msgid ""
+"For doctors and therapists shown on the website and booked for appointments."
+" Name, photo, phone and email are taken from this account, so nothing is "
+"typed twice."
+msgstr ""
+"വെബ്സൈറ്റിൽ കാണിക്കുന്നതും അപ്പോയിന്റ്മെന്റിനായി ബുക്ക് ചെയ്യുന്നതുമായ "
+"ഡോക്ടർമാർക്കും തെറാപ്പിസ്റ്റുകൾക്കും. പേര്, ഫോട്ടോ, ഫോൺ, ഇമെയിൽ എന്നിവ ഈ "
+"അക്കൗണ്ടിൽ നിന്ന് എടുക്കുന്നു, അതിനാൽ ഒന്നും രണ്ടുതവണ ടൈപ്പ് ചെയ്യേണ്ടതില്ല."
 
 #: notifications\templates\notifications\email.html:13
 msgid "For your privacy this email contains no medical details."
@@ -4109,7 +4152,7 @@ msgstr ""
 "പ്രത്യേകിച്ച് പേരുകൾക്ക്, ANTHROPIC_API_KEY അല്ലെങ്കിൽ "
 "GOOGLE_TRANSLATE_API_KEY സജ്ജമാക്കുക."
 
-#: clinic\models.py:425
+#: clinic\models.py:429
 msgid "Free text shown on the card, e.g. \"2 months ago\"."
 msgstr "കാർഡിൽ കാണിക്കുന്ന വാചകം, ഉദാ. \"2 മാസം മുമ്പ്\"."
 
@@ -4123,7 +4166,7 @@ msgstr "വെള്ളിയാഴ്ച"
 msgid "From"
 msgstr "മുതൽ"
 
-#: clinic\models.py:53
+#: clinic\models.py:54
 msgid ""
 "From Google Business Profile: \"Ask for reviews\". Patients are sent here "
 "after their treatment."
@@ -4152,7 +4195,7 @@ msgstr "പൂർണ്ണ വിവരണം"
 msgid "Full Mobility"
 msgstr "പൂർണ്ണ ചലനശേഷി"
 
-#: clinic\models.py:194 courses\models.py:174 events\models.py:247
+#: clinic\models.py:195 courses\models.py:174 events\models.py:247
 #: patients\models.py:27
 msgid "Full Name"
 msgstr "പൂർണ്ണ നാമം"
@@ -4199,13 +4242,13 @@ msgstr "പൂർണ്ണ സിലബസ് / മൊഡ്യൂളുകൾ *
 msgid "Fully Paid"
 msgstr "പൂർണ്ണമായി അടച്ചു"
 
-#: clinic\models.py:673 templates\clinic\admin\gallery.html:3
+#: clinic\models.py:679 templates\clinic\admin\gallery.html:3
 #: templates\clinic\admin\gallery.html:4
 #: templates\clinic\admin\gallery_form.html:5
 msgid "Gallery"
 msgstr "ഗാലറി"
 
-#: clinic\models.py:672
+#: clinic\models.py:678
 msgid "Gallery item"
 msgstr "ഗാലറി ഇനം"
 
@@ -4274,7 +4317,7 @@ msgstr "ഹോം പേജിലേക്ക് പോകുക"
 msgid "Google Calendar"
 msgstr "Google Calendar"
 
-#: clinic\models.py:82
+#: clinic\models.py:83
 msgid "Google Maps Iframe URL"
 msgstr "Google Maps Iframe URL"
 
@@ -4286,11 +4329,11 @@ msgstr "Google Maps സംയോജനം"
 msgid "Google Maps integration and social profile links."
 msgstr "Google Maps സംയോജനവും സോഷ്യൽ പ്രൊഫൈൽ ലിങ്കുകളും."
 
-#: clinic\models.py:382
+#: clinic\models.py:386
 msgid "Google Review"
 msgstr "Google അവലോകനം"
 
-#: clinic\models.py:52 clinic\templates\clinic\admin\clinic_setup.html:997
+#: clinic\models.py:53 clinic\templates\clinic\admin\clinic_setup.html:997
 msgid "Google review link"
 msgstr "Google അവലോകന ലിങ്ക്"
 
@@ -4299,7 +4342,7 @@ msgstr "Google അവലോകന ലിങ്ക്"
 msgid "GST (%(tax_percent)s%% %(get_tax_type_display)s)"
 msgstr "GST (%(tax_percent)s%% %(get_tax_type_display)s)"
 
-#: clinic\models.py:127
+#: clinic\models.py:128
 msgid "GSTIN"
 msgstr "GSTIN"
 
@@ -4315,7 +4358,7 @@ msgstr "അതിഥിയുടെ പേര്"
 msgid "Guest Phone"
 msgstr "അതിഥി ഫോൺ"
 
-#: notifications\models.py:19
+#: notifications\models.py:21
 msgid "Guest recipient with no account."
 msgstr "അക്കൗണ്ടില്ലാത്ത അതിഥി സ്വീകർത്താവ്."
 
@@ -4374,23 +4417,23 @@ msgstr "നമസ്കാരം, %(name)s"
 msgid "Hello, %(v_0)s! 👋"
 msgstr "നമസ്കാരം, %(v_0)s! 👋"
 
-#: clinic\models.py:310
+#: clinic\models.py:314
 msgid "Hero Carousel Image"
 msgstr "ഹീറോ കറൗസൽ ചിത്രം"
 
-#: clinic\models.py:311 clinic\templates\clinic\admin\clinic_setup.html:460
+#: clinic\models.py:315 clinic\templates\clinic\admin\clinic_setup.html:460
 msgid "Hero Carousel Images"
 msgstr "ഹീറോ കറൗസൽ ചിത്രങ്ങൾ"
 
-#: clinic\models.py:78 clinic\models.py:304
+#: clinic\models.py:79 clinic\models.py:308
 msgid "Hero Image"
 msgstr "ഹീറോ ചിത്രം"
 
-#: clinic\models.py:71 clinic\templates\clinic\admin\clinic_setup.html:401
+#: clinic\models.py:72 clinic\templates\clinic\admin\clinic_setup.html:401
 msgid "Hero Subtitle"
 msgstr "ഹീറോ ഉപതലക്കെട്ട്"
 
-#: clinic\models.py:66 clinic\templates\clinic\admin\clinic_setup.html:392
+#: clinic\models.py:67 clinic\templates\clinic\admin\clinic_setup.html:392
 msgid "Hero Title"
 msgstr "ഹീറോ തലക്കെട്ട്"
 
@@ -4413,7 +4456,7 @@ msgstr "പാസ്‌വേഡ് മറയ്ക്കുക"
 msgid "High resolution JPG/WebP preferred. Aspect 16:9."
 msgstr "ഉയർന്ന റെസല്യൂഷൻ JPG/WebP അഭികാമ്യം. അനുപാതം 16:9."
 
-#: spinalcure\settings\base.py:128
+#: spinalcure\settings\base.py:131
 msgid "Hindi"
 msgstr "ഹിന്ദി"
 
@@ -4451,7 +4494,7 @@ msgstr ""
 msgid "How is the patient feeling after today's session?"
 msgstr "ഇന്നത്തെ സെഷന് ശേഷം രോഗിക്ക് എങ്ങനെയുണ്ട്?"
 
-#: notifications\messages.py:45 templates\clinic\review.html:12
+#: notifications\messages.py:46 templates\clinic\review.html:12
 msgid "How is your recovery going?"
 msgstr "നിങ്ങളുടെ സൗഖ്യം എങ്ങനെ പോകുന്നു?"
 
@@ -4467,7 +4510,7 @@ msgstr "കോഴ്സ് എങ്ങനെയുണ്ടായിരുന�
 msgid "How your treatment works"
 msgstr "നിങ്ങളുടെ ചികിത്സ എങ്ങനെ"
 
-#: clinic\models.py:760
+#: clinic\models.py:766
 msgid "Human-readable string of the affected record"
 msgstr "ബാധിച്ച റെക്കോർഡിന്റെ വായിക്കാവുന്ന വിവരണം"
 
@@ -4493,7 +4536,7 @@ msgstr ""
 "primary-700 underline\">നിബന്ധനകളും വ്യവസ്ഥകളും</a> അംഗീകരിക്കുന്നു. ഫീസ് "
 "തിരികെ നൽകില്ല."
 
-#: clinic\models.py:290
+#: clinic\models.py:294
 msgid "Icon Name"
 msgstr "ഐക്കൺ പേര്"
 
@@ -4506,7 +4549,7 @@ msgstr "ID കാർഡ്"
 msgid "ID card branding"
 msgstr "ID കാർഡ് ബ്രാൻഡിംഗ്"
 
-#: notifications\messages.py:67
+#: notifications\messages.py:68
 msgid "ID card issued"
 msgstr "ID കാർഡ് നൽകി"
 
@@ -4520,7 +4563,7 @@ msgstr "%(value1)s-ന് ID കാർഡ് നൽകി."
 msgid "ID card of %(name)s"
 msgstr "%(name)s-ന്റെ ID കാർഡ്"
 
-#: notifications\messages.py:70
+#: notifications\messages.py:71
 msgid "ID card revoked"
 msgstr "ID കാർഡ് റദ്ദാക്കി"
 
@@ -4593,7 +4636,7 @@ msgstr ""
 "പുനഃക്രമീകരിക്കാനോ റദ്ദാക്കാനോ ഉണ്ടെങ്കിൽ, കുറഞ്ഞത് ഇത്രയും മുമ്പ് "
 "അറിയിക്കുക:"
 
-#: clinic\models.py:145
+#: clinic\models.py:146
 msgid "IFSC Code"
 msgstr "IFSC കോഡ്"
 
@@ -4693,7 +4736,7 @@ msgstr "ആദ്യത്തെയും അവസാനത്തെയും �
 msgid "Instagram Profile URL"
 msgstr "Instagram പ്രൊഫൈൽ URL"
 
-#: clinic\models.py:245
+#: clinic\models.py:246
 #: clinic\templates\clinic\admin\practitioner_form.html:98
 msgid "Instagram URL"
 msgstr "Instagram URL"
@@ -4702,7 +4745,7 @@ msgstr "Instagram URL"
 msgid "Insurance"
 msgstr "ഇൻഷുറൻസ്"
 
-#: clinic\models.py:383
+#: clinic\models.py:387
 msgid "Internal / Direct"
 msgstr "ആന്തരികം / നേരിട്ട്"
 
@@ -4797,12 +4840,12 @@ msgstr "ഇൻവോയ്സ്"
 msgid "Invoice #%(receipt_number)s — SpinalCure"
 msgstr "ഇൻവോയ്സ് #%(receipt_number)s — SpinalCure"
 
-#: notifications\messages.py:58
+#: notifications\messages.py:59
 #, python-format
 msgid "Invoice %(invoice)s"
 msgstr "ഇൻവോയ്സ് %(invoice)s"
 
-#: clinic\models.py:789 clinic\templates\clinic\admin\activity_log.html:66
+#: clinic\models.py:795 clinic\templates\clinic\admin\activity_log.html:66
 msgid "IP Address"
 msgstr "IP വിലാസം"
 
@@ -4810,7 +4853,7 @@ msgstr "IP വിലാസം"
 msgid "Is Active"
 msgstr "സജീവമാണ്"
 
-#: clinic\models.py:234
+#: clinic\models.py:235
 msgid "Is Chief Doctor"
 msgstr "മുഖ്യ ഡോക്ടർ"
 
@@ -4849,7 +4892,7 @@ msgstr "നൽകി"
 msgid "It is no longer shown and its text and your name have been deleted."
 msgstr "ഇത് ഇനി കാണിക്കില്ല, അതിലെ എഴുത്തും നിങ്ങളുടെ പേരും ഇല്ലാതാക്കി."
 
-#: notifications\messages.py:43
+#: notifications\messages.py:44
 #, python-format
 msgid ""
 "It is time for your follow-up visit. Please book a slot with %(clinic)s."
@@ -4881,7 +4924,7 @@ msgstr "വെയിറ്റ്‌ലിസ്റ്റിൽ ചേരുക"
 msgid "Joined"
 msgstr "ചേർന്നു"
 
-#: clinic\models.py:270
+#: clinic\models.py:274
 msgid "Joined date cannot be in the future."
 msgstr "ചേർന്ന തീയതി ഭാവിയിലാകരുത്."
 
@@ -4901,17 +4944,17 @@ msgstr "ഓൺലൈനായി ചേരുന്നു"
 msgid "JPEG, PNG or WebP, up to 5 MB."
 msgstr "JPEG, PNG അല്ലെങ്കിൽ WebP, 5 MB വരെ."
 
-#: clinic\models.py:772
+#: clinic\models.py:778
 msgid "JSON of actual database field changes for programmatic reverting"
 msgstr "പ്രോഗ്രാമാറ്റിക് റിവേർട്ടിംഗിനുള്ള ഡാറ്റാബേസ് ഫീൽഡ് മാറ്റങ്ങളുടെ JSON"
 
-#: clinic\models.py:766
+#: clinic\models.py:772
 msgid "JSON of changed fields (human-readable): {\"field\": {\"old\": \"...\", \"new\": \"...\"}}"
 msgstr ""
 "മാറിയ ഫീൽഡുകളുടെ JSON (വായിക്കാവുന്നത്): {\"field\": {\"old\": \"...\", "
 "\"new\": \"...\"}}"
 
-#: spinalcure\settings\base.py:131
+#: spinalcure\settings\base.py:134
 msgid "Kannada"
 msgstr "കന്നഡ"
 
@@ -4956,7 +4999,7 @@ msgstr ""
 msgid "Key Learning Outcomes (One per line) *"
 msgstr "പ്രധാന പഠന ഫലങ്ങൾ (ഓരോ വരിയിലും ഒന്ന്) *"
 
-#: clinic\models.py:624
+#: clinic\models.py:630
 msgid "Known as"
 msgstr "അറിയപ്പെടുന്നത്"
 
@@ -4965,7 +5008,7 @@ msgstr "അറിയപ്പെടുന്നത്"
 msgid "Label"
 msgstr "ലേബൽ"
 
-#: accounts\templates\accounts\admin\user_form.html:82 clinic\models.py:507
+#: accounts\templates\accounts\admin\user_form.html:82 clinic\models.py:511
 #: events\models.py:102 templates\clinic\admin\video_form.html:24
 msgid "Language"
 msgstr "ഭാഷ"
@@ -5082,6 +5125,10 @@ msgstr "തെളിഞ്ഞ"
 msgid "Limited seats. We will call you to confirm."
 msgstr "സീറ്റുകൾ പരിമിതം. സ്ഥിരീകരിക്കാൻ ഞങ്ങൾ വിളിക്കും."
 
+#: accounts\forms.py:27
+msgid "Link an existing practitioner"
+msgstr "നിലവിലുള്ള പ്രാക്ടീഷണറെ ലിങ്ക് ചെയ്യുക"
+
 #: idcards\templates\idcards\_card.html:14
 msgid "Link copied to the clipboard"
 msgstr "ലിങ്ക് ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി"
@@ -5093,6 +5140,10 @@ msgstr "ഈ പേയ്‌മെന്റ് ഒരു നിർദ്ദിഷ
 #: templates\patients\review_form.html:43
 msgid "Link this review to a specific doctor."
 msgstr "ഈ അവലോകനം ഒരു നിർദ്ദിഷ്ട ഡോക്ടറുമായി ബന്ധിപ്പിക്കുക."
+
+#: accounts\forms.py:51
+msgid "Linked practitioner profile (keep)"
+msgstr "ലിങ്ക് ചെയ്ത പ്രാക്ടീഷണർ പ്രൊഫൈൽ (നിലനിർത്തുക)"
 
 #: templates\appointments\calendar.html:439
 msgid "List View"
@@ -5126,7 +5177,7 @@ msgstr "ലോഡ് ചെയ്യുന്നു..."
 msgid "Loading…"
 msgstr "ലോഡ് ചെയ്യുന്നു…"
 
-#: notifications\models.py:24
+#: notifications\models.py:26
 msgid "Local deep link, e.g. /appointments/"
 msgstr "ലോക്കൽ ഡീപ് ലിങ്ക്, ഉദാ. /appointments/"
 
@@ -5146,7 +5197,7 @@ msgstr "ലോഗ് ഔട്ട്"
 msgid "Logistics & Enrollment"
 msgstr "ലോജിസ്റ്റിക്സും പ്രവേശനവും"
 
-#: clinic\models.py:35 clinic\templates\clinic\admin\clinic_setup.html:434
+#: clinic\models.py:36 clinic\templates\clinic\admin\clinic_setup.html:434
 msgid "Logo"
 msgstr "ലോഗോ"
 
@@ -5203,11 +5254,11 @@ msgstr "പ്രധാന വിഭാഗ തലക്കെട്ട്"
 msgid "Main Title"
 msgstr "പ്രധാന തലക്കെട്ട്"
 
-#: spinalcure\settings\base.py:130
+#: spinalcure\settings\base.py:133
 msgid "Malayalam"
 msgstr "മലയാളം"
 
-#: accounts\models.py:340 clinic\models.py:190
+#: accounts\models.py:340 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:38
 #: patients\models.py:20
 msgid "Male"
@@ -5423,7 +5474,7 @@ msgstr "രീതി"
 msgid "Model %(model_name)s not found."
 msgstr "മോഡൽ %(model_name)s കണ്ടെത്തിയില്ല."
 
-#: clinic\models.py:748
+#: clinic\models.py:754
 msgid "Model / Module"
 msgstr "മോഡൽ / മൊഡ്യൂൾ"
 
@@ -5506,7 +5557,7 @@ msgstr "എന്റെ ആരോഗ്യ പോർട്ടൽ — SpinalCure"
 msgid "My ID card"
 msgstr "എന്റെ ID കാർഡ്"
 
-#: clinic\models.py:623 courses\models.py:218 events\models.py:293
+#: clinic\models.py:629 courses\models.py:218 events\models.py:293
 #: templates\events\event_feedback_admin.html:55
 msgid "Name"
 msgstr "പേര്"
@@ -5565,7 +5616,7 @@ msgstr "പുതിയ അപ്പോയിന്റ്മെന്റ് ബ�
 msgid "New Appointment Booking — Admin Notification"
 msgstr "പുതിയ അപ്പോയിന്റ്മെന്റ് ബുക്കിംഗ് — അഡ്മിൻ അറിയിപ്പ്"
 
-#: notifications\messages.py:18 notifications\messages.py:21
+#: notifications\messages.py:19 notifications\messages.py:22
 #, python-format
 msgid "New appointment: %(who)s"
 msgstr "പുതിയ അപ്പോയിന്റ്മെന്റ്: %(who)s"
@@ -5891,7 +5942,7 @@ msgstr "ഇതുവരെ സെഷനുകളൊന്നും രേഖപ�
 msgid "No Show"
 msgstr "ഹാജരായില്ല"
 
-#: accounts\templates\accounts\admin\users_list.html:95
+#: accounts\templates\accounts\admin\users_list.html:101
 msgid "No staff members found."
 msgstr "സ്റ്റാഫ് അംഗങ്ങളെ കണ്ടെത്തിയില്ല."
 
@@ -5899,7 +5950,7 @@ msgstr "സ്റ്റാഫ് അംഗങ്ങളെ കണ്ടെത്�
 msgid "No staff profile is linked to your account"
 msgstr "നിങ്ങളുടെ അക്കൗണ്ടുമായി സ്റ്റാഫ് പ്രൊഫൈൽ ബന്ധിപ്പിച്ചിട്ടില്ല"
 
-#: templates\clinic\partials\testimonial_results.html:57
+#: templates\clinic\partials\testimonial_results.html:62
 msgid "No stories match your search"
 msgstr "നിങ്ങളുടെ തിരയലുമായി പൊരുത്തപ്പെടുന്ന അനുഭവങ്ങളില്ല"
 
@@ -5987,12 +6038,16 @@ msgstr "ഒന്നുമില്ല"
 msgid "None reported"
 msgstr "ഒന്നും റിപ്പോർട്ട് ചെയ്തിട്ടില്ല"
 
+#: accounts\forms.py:26
+msgid "Not a practitioner"
+msgstr "പ്രാക്ടീഷണർ അല്ല"
+
 #: templates\appointments\partials\appointment_list_partial.html:33
 #: templates\patients\partials\patient_list_partial.html:38
 msgid "Not Assigned"
 msgstr "നിയോഗിച്ചിട്ടില്ല"
 
-#: clinic\testimonial_views.py:161
+#: clinic\testimonial_views.py:172
 msgid "Not published: record the patient's consent first."
 msgstr "പ്രസിദ്ധീകരിച്ചിട്ടില്ല: ആദ്യം രോഗിയുടെ സമ്മതം രേഖപ്പെടുത്തുക."
 
@@ -6004,7 +6059,7 @@ msgstr ""
 "പ്രസിദ്ധീകരിച്ചിട്ടില്ല: എഴുതിയയാൾ സമ്മതിച്ചിട്ടില്ല, അല്ലെങ്കിൽ അവലോകനം "
 "പിൻവലിക്കുകയോ നിരസിക്കുകയോ ചെയ്തു."
 
-#: clinic\models.py:503
+#: clinic\models.py:507
 msgid "Not recorded"
 msgstr "രേഖപ്പെടുത്തിയിട്ടില്ല"
 
@@ -6175,7 +6230,7 @@ msgstr "ഓൺലൈനായോ നേരിട്ടോ"
 msgid "Online payment"
 msgstr "ഓൺലൈൻ പേയ്മെന്റ്"
 
-#: notifications\messages.py:55
+#: notifications\messages.py:56
 #, python-format
 msgid "Online payment received: %(who)s"
 msgstr "ഓൺലൈൻ പേയ്‌മെന്റ് ലഭിച്ചു: %(who)s"
@@ -6201,23 +6256,27 @@ msgstr "ഓൺലൈൻ — ചേരാനുള്ള വിവരങ്ങൾ
 msgid "ONLY"
 msgstr "മാത്രം"
 
-#: accounts\admin_views.py:53
+#: accounts\admin_views.py:54
 msgid "Only a super admin can change a super admin."
 msgstr "സൂപ്പർ അഡ്മിനെ സൂപ്പർ അഡ്മിന് മാത്രമേ മാറ്റാൻ കഴിയൂ."
 
-#: accounts\admin_views.py:33
+#: accounts\admin_views.py:70
+msgid "Only a super admin can delete accounts."
+msgstr "സൂപ്പർ അഡ്മിന് മാത്രമേ അക്കൗണ്ടുകൾ ഇല്ലാതാക്കാനാകൂ."
+
+#: accounts\admin_views.py:34
 msgid "Only a super admin can edit a super admin."
 msgstr "സൂപ്പർ അഡ്മിനെ സൂപ്പർ അഡ്മിന് മാത്രമേ തിരുത്താൻ കഴിയൂ."
 
-#: payments\views.py:355
+#: payments\views.py:359
 msgid "Only admins and authorized staff can delete expenses."
 msgstr "അഡ്മിൻമാർക്കും അംഗീകൃത സ്റ്റാഫിനും മാത്രമേ ചെലവുകൾ ഇല്ലാതാക്കാനാകൂ."
 
-#: payments\views.py:315
+#: payments\views.py:319
 msgid "Only admins and authorized staff can edit expenses."
 msgstr "അഡ്മിൻമാർക്കും അംഗീകൃത സ്റ്റാഫിനും മാത്രമേ ചെലവുകൾ തിരുത്താനാകൂ."
 
-#: payments\views.py:275
+#: payments\views.py:279
 msgid "Only admins can create expenses."
 msgstr "അഡ്മിൻമാർക്ക് മാത്രമേ ചെലവുകൾ സൃഷ്ടിക്കാനാകൂ."
 
@@ -6229,7 +6288,7 @@ msgstr "അഡ്മിൻമാർക്ക് മാത്രമേ അവല�
 msgid "Only admins can manage reviews."
 msgstr "അഡ്മിൻമാർക്ക് മാത്രമേ അവലോകനങ്ങൾ കൈകാര്യം ചെയ്യാനാകൂ."
 
-#: payments\views.py:223
+#: payments\views.py:227
 msgid "Only admins can view expenses."
 msgstr "അഡ്മിൻമാർക്ക് മാത്രമേ ചെലവുകൾ കാണാനാകൂ."
 
@@ -6300,7 +6359,7 @@ msgstr ""
 "ലിങ്ക് പ്രിവ്യൂ ഉള്ള ഓപ്ഷണൽ പേജ്. പേര്, തരം, നില എന്നിവയുള്ള മുൻവശം മാത്രം "
 "കാണിക്കുന്നു; ബന്ധപ്പെടാനുള്ള വിവരങ്ങൾ ഒരിക്കലും ഉൾപ്പെടുത്തില്ല."
 
-#: clinic\models.py:628
+#: clinic\models.py:634
 msgid "Optional, factual and brief. No treatment claims."
 msgstr "ഐച്ഛികം, വസ്തുതാപരവും ചുരുക്കവും. ചികിത്സാ അവകാശവാദങ്ങൾ വേണ്ട."
 
@@ -6315,7 +6374,7 @@ msgstr ""
 msgid "Or use a frame from the video"
 msgstr "അല്ലെങ്കിൽ വീഡിയോയിൽ നിന്നുള്ള ഒരു ഫ്രെയിം ഉപയോഗിക്കുക"
 
-#: clinic\models.py:662
+#: clinic\models.py:668
 msgid "or YouTube / Instagram link"
 msgstr "അല്ലെങ്കിൽ YouTube / Instagram ലിങ്ക്"
 
@@ -6327,7 +6386,7 @@ msgstr "സ്ഥാപനം"
 msgid "Organizer"
 msgstr "സംഘാടകൻ"
 
-#: accounts\models.py:340 appointments\models.py:94 clinic\models.py:190
+#: accounts\models.py:340 appointments\models.py:94 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:40
 msgid "Other"
 msgstr "മറ്റുള്ളവ"
@@ -6384,7 +6443,7 @@ msgstr "പുറത്തുനിന്നുള്ള രചയിതാവ�
 msgid "Outstanding"
 msgstr "കുടിശ്ശിക"
 
-#: notifications\messages.py:61
+#: notifications\messages.py:62
 #, python-format
 msgid "Outstanding payment: %(who)s"
 msgstr "കുടിശ്ശിക പേയ്‌മെന്റ്: %(who)s"
@@ -6542,7 +6601,7 @@ msgstr ""
 "പാസ്‌വേഡ് വിജയകരമായി പുനഃസജ്ജമാക്കി. ഇനി പുതിയ പാസ്‌വേഡ് ഉപയോഗിച്ച് ലോഗിൻ "
 "ചെയ്യാം."
 
-#: accounts\forms.py:56
+#: accounts\forms.py:71
 msgid "Password is required."
 msgstr "പാസ്‌വേഡ് ആവശ്യമാണ്."
 
@@ -6582,7 +6641,7 @@ msgstr "രോഗി %(name)s വിജയകരമായി അപ്ഡേറ�
 msgid "Patient - SpinalCure"
 msgstr "രോഗി - SpinalCure"
 
-#: clinic\models.py:397
+#: clinic\models.py:401
 msgid "Patient / Client Name"
 msgstr "രോഗി / ക്ലയന്റ് പേര്"
 
@@ -6595,7 +6654,7 @@ msgstr "രോഗി / ക്ലയന്റ് പേര് *"
 msgid "Patient Card - %(name)s - SpinalCure"
 msgstr "രോഗി കാർഡ് - %(name)s - SpinalCure"
 
-#: clinic\models.py:510 templates\clinic\admin\video_form.html:39
+#: clinic\models.py:516 templates\clinic\admin\video_form.html:39
 #: templates\clinic\admin\videos.html:42 templates\clinic\admin\videos.html:58
 msgid "Patient consent"
 msgstr "രോഗിയുടെ സമ്മതം"
@@ -6631,7 +6690,7 @@ msgstr "രോഗി ID:"
 msgid "Patient Login — SpinalCure"
 msgstr "രോഗി ലോഗിൻ — SpinalCure"
 
-#: clinic\models.py:488
+#: clinic\models.py:492
 msgid "Patient name"
 msgstr "രോഗിയുടെ പേര്"
 
@@ -6683,7 +6742,7 @@ msgstr "രോഗിയുടെ അവലോകനം"
 msgid "Patient Reviews"
 msgstr "രോഗികളുടെ അവലോകനങ്ങൾ"
 
-#: templates\clinic\partials\testimonial_results.html:19
+#: templates\clinic\partials\testimonial_results.html:24
 msgid "Patient reviews"
 msgstr "രോഗികളുടെ അവലോകനങ്ങൾ"
 
@@ -6777,7 +6836,7 @@ msgstr "പണമടയ്ക്കുന്നയാളുടെ തരം"
 msgid "Payment"
 msgstr "പേയ്‌മെന്റ്"
 
-#: payments\views.py:639
+#: payments\views.py:643
 #, python-format
 msgid "Payment %(receipt)s deleted successfully."
 msgstr "പേയ്‌മെന്റ് %(receipt)s വിജയകരമായി ഇല്ലാതാക്കി."
@@ -6786,7 +6845,7 @@ msgstr "പേയ്‌മെന്റ് %(receipt)s വിജയകരമാ�
 msgid "Payment Date"
 msgstr "പേയ്‌മെന്റ് തീയതി"
 
-#: notifications\messages.py:52
+#: notifications\messages.py:53
 msgid "Payment failed"
 msgstr "പേയ്‌മെന്റ് പരാജയപ്പെട്ടു"
 
@@ -6819,7 +6878,7 @@ msgstr "പേയ്‌മെന്റ് രീതി"
 msgid "Payment Modes"
 msgstr "പേയ്‌മെന്റ് രീതികൾ"
 
-#: payments\views.py:489
+#: payments\views.py:493
 #, python-format
 msgid ""
 "Payment of ₹%(amount_paid)s recorded for %(payer_name)s. Email receipt sent."
@@ -6841,7 +6900,7 @@ msgstr "പേയ്മെന്റ് രസീത് %(no)s — %(clinic)s"
 msgid "Payment Receipts"
 msgstr "പേയ്‌മെന്റ് രസീതുകൾ"
 
-#: notifications\messages.py:49 templates\payments\emails\receipt_email.html:6
+#: notifications\messages.py:50 templates\payments\emails\receipt_email.html:6
 msgid "Payment received"
 msgstr "പേയ്‌മെന്റ് ലഭിച്ചു"
 
@@ -6853,7 +6912,7 @@ msgstr "പേയ്മെന്റ് ലഭിച്ചു. നന്ദി! �
 msgid "Payment record not found."
 msgstr "പേയ്‌മെന്റ് റെക്കോർഡ് കണ്ടെത്തിയില്ല."
 
-#: payments\views.py:589
+#: payments\views.py:593
 msgid "Payment record updated successfully."
 msgstr "പേയ്‌മെന്റ് റെക്കോർഡ് വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു."
 
@@ -6902,7 +6961,7 @@ msgstr "പേയ്‌മെന്റ് റിപ്പോർട്ട് - Sp
 msgid "PDF Report"
 msgstr "PDF റിപ്പോർട്ട്"
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Pending"
 msgstr "തീർപ്പാക്കാനുണ്ട്"
 
@@ -6910,7 +6969,7 @@ msgstr "തീർപ്പാക്കാനുണ്ട്"
 msgid "Pending Dues"
 msgstr "തീർപ്പാക്കാനുള്ള കുടിശ്ശിക"
 
-#: clinic\models.py:434
+#: clinic\models.py:438
 msgid "Pending review"
 msgstr "പരിശോധന കാത്തിരിക്കുന്നു"
 
@@ -6931,7 +6990,7 @@ msgstr "അനുമതി നിഷേധിച്ചു."
 msgid "Permission not recorded"
 msgstr "അനുമതി രേഖപ്പെടുത്തിയിട്ടില്ല"
 
-#: clinic\models.py:630
+#: clinic\models.py:636
 msgid "Permission to feature is on file"
 msgstr "പ്രദർശിപ്പിക്കാനുള്ള അനുമതി രേഖയിലുണ്ട്"
 
@@ -6952,7 +7011,7 @@ msgid "Personal Information"
 msgstr "വ്യക്തിഗത വിവരങ്ങൾ"
 
 #: accounts\models.py:42 accounts\templates\accounts\admin\user_form.html:112
-#: clinic\models.py:42 clinic\templates\clinic\admin\practitioner_form.html:51
+#: clinic\models.py:43 clinic\templates\clinic\admin\practitioner_form.html:51
 msgid "Phone"
 msgstr "ഫോൺ"
 
@@ -6982,12 +7041,12 @@ msgstr "ഫോൺ നമ്പറുകൾ *"
 msgid "Phone: %(phone)s | Email: %(email)s"
 msgstr "ഫോൺ: %(phone)s | ഇമെയിൽ: %(email)s"
 
-#: accounts\templates\accounts\admin\user_form.html:110 clinic\models.py:405
-#: clinic\models.py:626 clinic\models.py:654
+#: accounts\templates\accounts\admin\user_form.html:110 clinic\models.py:409
+#: clinic\models.py:632 clinic\models.py:660
 msgid "Photo"
 msgstr "ഫോട്ടോ"
 
-#: clinic\models.py:659
+#: clinic\models.py:665
 msgid "Photo / cover image"
 msgstr "ഫോട്ടോ / കവർ ചിത്രം"
 
@@ -7051,7 +7110,7 @@ msgstr "ആസൂത്രണം ചെയ്തത്"
 msgid "Platform"
 msgstr "പ്ലാറ്റ്ഫോം"
 
-#: clinic\models.py:505
+#: clinic\models.py:509
 msgid "Platform thumbnail"
 msgstr "പ്ലാറ്റ്ഫോം തംബ്നെയിൽ"
 
@@ -7130,7 +7189,7 @@ msgstr "നിങ്ങളുടെ പേരും അനുഭവത്തെ�
 msgid "Please enter your name and phone number."
 msgstr "നിങ്ങളുടെ പേരും ഫോൺ നമ്പറും നൽകുക."
 
-#: payments\views.py:305
+#: payments\views.py:309
 msgid "Please fill in all required fields."
 msgstr "ആവശ്യമായ എല്ലാ ഫീൽഡുകളും പൂരിപ്പിക്കുക."
 
@@ -7163,7 +7222,7 @@ msgstr "ആദ്യം ക്ലിനിക് പ്രൊഫൈൽ സജ്
 msgid "Please wait…"
 msgstr "ദയവായി കാത്തിരിക്കുക…"
 
-#: clinic\models.py:424
+#: clinic\models.py:428
 msgid "Posted"
 msgstr "പോസ്റ്റ് ചെയ്തത്"
 
@@ -7181,8 +7240,8 @@ msgstr ""
 "വേദന, ശരീരനില, സൗഖ്യം എന്നിവയെക്കുറിച്ച് ഞങ്ങളുടെ ടീം എഴുതിയ പ്രായോഗിക "
 "ഉപദേശങ്ങൾ."
 
-#: appointments\models.py:211 clinic\models.py:255 patients\models.py:337
-#: templates\appointments\appointment_list.html:59
+#: accounts\templates\accounts\admin\user_form.html:125
+#: appointments\models.py:211 clinic\models.py:259 patients\models.py:337
 msgid "Practitioner"
 msgstr "പ്രാക്ടീഷണർ"
 
@@ -7209,11 +7268,15 @@ msgstr "പ്രാക്ടീഷണർ (ഓപ്ഷണൽ)"
 msgid "Practitioner Notes"
 msgstr "പ്രാക്ടീഷണറുടെ കുറിപ്പുകൾ"
 
+#: accounts\templates\accounts\admin\user_form.html:122
+msgid "Practitioner profile"
+msgstr "പ്രാക്ടീഷണർ പ്രൊഫൈൽ"
+
 #: clinic\templates\clinic\admin\practitioner_form.html:4
 msgid "Practitioner — SpinalCure"
 msgstr "പ്രാക്ടീഷണർ — SpinalCure"
 
-#: clinic\models.py:256
+#: clinic\models.py:260
 msgid "Practitioners"
 msgstr "പ്രാക്ടീഷണർമാർ"
 
@@ -7339,30 +7402,30 @@ msgstr ""
 "സ്വകാര്യം: ഇവന്റിന് തൊട്ടുമുമ്പ് സ്ഥിരീകരിച്ച രജിസ്ട്രന്റുകൾക്ക് മാത്രം "
 "കാണിക്കും."
 
-#: clinic\models.py:324 clinic\models.py:358
+#: clinic\models.py:328 clinic\models.py:362
 #: templates\clinic\admin\faqs.html:16 templates\clinic\admin\problems.html:13
 msgid "Problem"
 msgstr "പ്രശ്നം"
 
-#: clinic\testimonial_views.py:241
+#: clinic\testimonial_views.py:252
 #, python-format
 msgid "Problem \"%(name)s\" added."
 msgstr "പ്രശ്നം \"%(name)s\" ചേർത്തു."
 
-#: clinic\models.py:336 templates\clinic\admin\problems.html:4
+#: clinic\models.py:340 templates\clinic\admin\problems.html:4
 #: templates\ui\sidebar.html:31
 msgid "Problem Categories"
 msgstr "പ്രശ്ന വിഭാഗങ്ങൾ"
 
-#: clinic\models.py:335
+#: clinic\models.py:339
 msgid "Problem Category"
 msgstr "പ്രശ്ന വിഭാഗം"
 
-#: clinic\testimonial_views.py:250
+#: clinic\testimonial_views.py:261
 msgid "Problem deleted."
 msgstr "പ്രശ്നം ഇല്ലാതാക്കി."
 
-#: clinic\models.py:419 clinic\models.py:494
+#: clinic\models.py:423 clinic\models.py:498
 #: templates\clinic\admin\testimonial_form.html:79
 #: templates\clinic\admin\video_form.html:22
 msgid "Problem treated"
@@ -7465,7 +7528,7 @@ msgstr "ഉടൻ പ്രസിദ്ധീകരിക്കുക"
 msgid "Publish now (only if consent is on file)"
 msgstr "ഇപ്പോൾ പ്രസിദ്ധീകരിക്കുക (സമ്മതം രേഖപ്പെടുത്തിയിട്ടുണ്ടെങ്കിൽ മാത്രം)"
 
-#: clinic\models.py:362
+#: clinic\models.py:366
 msgid "Publish only after the doctor has checked the answer."
 msgstr "ഡോക്ടർ ഉത്തരം പരിശോധിച്ച ശേഷം മാത്രം പ്രസിദ്ധീകരിക്കുക."
 
@@ -7489,8 +7552,8 @@ msgstr "വെബ്സൈറ്റിൽ പ്രസിദ്ധീകരി�
 msgid "Publish to website (doctor's page and Patient Stories)"
 msgstr "വെബ്സൈറ്റിൽ പ്രസിദ്ധീകരിക്കുക (ഡോക്ടറുടെ പേജും രോഗികളുടെ അനുഭവങ്ങളും)"
 
-#: clinic\blog_models.py:32 clinic\models.py:361 clinic\models.py:427
-#: clinic\models.py:633
+#: clinic\blog_models.py:32 clinic\models.py:365 clinic\models.py:431
+#: clinic\models.py:639
 msgid "Published"
 msgstr "പ്രസിദ്ധീകരിച്ചു"
 
@@ -7514,14 +7577,13 @@ msgstr "വെബ്സൈറ്റിൽ പ്രസിദ്ധീകരി�
 msgid "Published — click to hide"
 msgstr "പ്രസിദ്ധീകരിച്ചു — മറയ്ക്കാൻ ക്ലിക്ക് ചെയ്യുക"
 
-#: clinic\models.py:225
+#: accounts\templates\accounts\admin\user_form.html:131 clinic\models.py:226
 #: clinic\templates\clinic\admin\practitioner_form.html:127
 #: templates\clinic\home.html:116
-#: templates\clinic\practitioner_portfolio.html:25
 msgid "Qualifications"
 msgstr "യോഗ്യതകൾ"
 
-#: clinic\models.py:355 templates\clinic\admin\faqs.html:16
+#: clinic\models.py:359 templates\clinic\admin\faqs.html:16
 msgid "Question"
 msgstr "ചോദ്യം"
 
@@ -7559,7 +7621,7 @@ msgstr "ദ്രുത പ്രവർത്തനങ്ങൾ"
 msgid "Quick add photos"
 msgstr "ഫോട്ടോകൾ വേഗം ചേർക്കുക"
 
-#: clinic\models.py:410 courses\models.py:219 events\models.py:296
+#: clinic\models.py:414 courses\models.py:219 events\models.py:296
 #: patients\models.py:342
 msgid "Rating"
 msgstr "റേറ്റിംഗ്"
@@ -7568,7 +7630,7 @@ msgstr "റേറ്റിംഗ്"
 msgid "Rating *"
 msgstr "റേറ്റിംഗ് *"
 
-#: clinic\models.py:771
+#: clinic\models.py:777
 msgid "Raw Changes"
 msgstr "റോ മാറ്റങ്ങൾ"
 
@@ -7587,7 +7649,7 @@ msgstr "ഗേറ്റ്‌വേ വഴി പണം തിരികെ ന�
 msgid "Reactivate"
 msgstr "വീണ്ടും സജീവമാക്കുക"
 
-#: templates\clinic\partials\testimonial_results.html:37
+#: templates\clinic\partials\testimonial_results.html:42
 msgid "Read more"
 msgstr "കൂടുതൽ വായിക്കുക"
 
@@ -7711,7 +7773,7 @@ msgstr "റെക്കോർഡ്"
 msgid "Record Collection"
 msgstr "ശേഖരണം രേഖപ്പെടുത്തുക"
 
-#: clinic\models.py:759
+#: clinic\models.py:765
 msgid "Record Description"
 msgstr "റെക്കോർഡ് വിവരണം"
 
@@ -7719,7 +7781,7 @@ msgstr "റെക്കോർഡ് വിവരണം"
 msgid "Record Expense"
 msgstr "ചെലവ് രേഖപ്പെടുത്തുക"
 
-#: clinic\models.py:754
+#: clinic\models.py:760
 msgid "Record ID"
 msgstr "റെക്കോർഡ് ID"
 
@@ -7753,7 +7815,7 @@ msgstr "ഈ പാക്കേജിനുള്ള പേയ്മെന്റ�
 msgid "Record Session"
 msgstr "സെഷൻ രേഖപ്പെടുത്തുക"
 
-#: clinic\testimonial_views.py:188
+#: clinic\testimonial_views.py:199
 msgid "Record the patient's consent before publishing this video."
 msgstr ""
 "ഈ വീഡിയോ പ്രസിദ്ധീകരിക്കുന്നതിന് മുമ്പ് രോഗിയുടെ സമ്മതം രേഖപ്പെടുത്തുക."
@@ -7790,7 +7852,7 @@ msgstr "രോഗമുക്തി മെട്രിക്കുകൾ"
 msgid "Recovery Trends"
 msgstr "രോഗമുക്തി പ്രവണതകൾ"
 
-#: clinic\testimonial_views.py:58 templates\clinic\admin\problems.html:5
+#: clinic\testimonial_views.py:69 templates\clinic\admin\problems.html:5
 #: templates\clinic\admin\videos.html:4
 #: templates\clinic\partials\testimonial_results.html:10
 msgid "Reels & Shorts"
@@ -7883,7 +7945,7 @@ msgstr "രജിസ്റ്റർ ചെയ്യുന്നു…"
 msgid "Registration"
 msgstr "രജിസ്ട്രേഷൻ"
 
-#: notifications\messages.py:73 notifications\messages.py:91
+#: notifications\messages.py:74 notifications\messages.py:92
 #, python-format
 msgid "Registration confirmed: %(event)s"
 msgstr "രജിസ്ട്രേഷൻ സ്ഥിരീകരിച്ചു: %(event)s"
@@ -7951,7 +8013,7 @@ msgstr "കാർഡ് വീണ്ടും നൽകുക"
 msgid "Reject"
 msgstr "നിരസിക്കുക"
 
-#: clinic\models.py:434
+#: clinic\models.py:438
 msgid "Rejected"
 msgstr "നിരസിച്ചു"
 
@@ -7967,7 +8029,7 @@ msgstr "ബന്ധം"
 msgid "Reminder Sent"
 msgstr "ഓർമ്മപ്പെടുത്തൽ അയച്ചു"
 
-#: notifications\messages.py:34
+#: notifications\messages.py:35
 #, python-format
 msgid ""
 "Reminder: you have an appointment on %(date)s at %(time)s with "
@@ -8034,7 +8096,7 @@ msgstr "ലിങ്ക് മാറ്റുക"
 msgid "Replace with a fresh machine translation"
 msgstr "പുതിയ മെഷീൻ വിവർത്തനം കൊണ്ട് മാറ്റുക"
 
-#: templates\clinic\partials\testimonial_results.html:41
+#: templates\clinic\partials\testimonial_results.html:46
 msgid "Reply from the clinic"
 msgstr "ക്ലിനിക്കിൽ നിന്നുള്ള മറുപടി"
 
@@ -8088,7 +8150,7 @@ msgstr "ഇന്നത്തെ വരുമാനം"
 msgid "Revert"
 msgstr "പഴയപടിയാക്കുക"
 
-#: clinic\models.py:783 clinic\templates\clinic\admin\activity_log.html:108
+#: clinic\models.py:789 clinic\templates\clinic\admin\activity_log.html:108
 msgid "Reverted"
 msgstr "പഴയപടിയാക്കി"
 
@@ -8127,7 +8189,7 @@ msgstr "അവലോകനം അപ്ഡേറ്റ് ചെയ്തു."
 msgid "Review us on Google"
 msgstr "Google-ൽ ഞങ്ങളെ അവലോകനം ചെയ്യുക"
 
-#: clinic\models.py:815 templates\clinic\admin\translations.html:73
+#: clinic\models.py:821 templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 msgid "Reviewed"
 msgstr "പരിശോധിച്ചത്"
@@ -8136,7 +8198,7 @@ msgstr "പരിശോധിച്ചത്"
 msgid "reviewed"
 msgstr "പരിശോധിച്ചവ"
 
-#: clinic\testimonial_views.py:58 templates\ui\sidebar.html:28
+#: clinic\testimonial_views.py:69 templates\ui\sidebar.html:28
 msgid "Reviews"
 msgstr "അവലോകനങ്ങൾ"
 
@@ -8258,7 +8320,7 @@ msgstr ""
 "നിങ്ങളുടെ വ്യക്തിഗത ലിങ്ക് സേവ് ചെയ്യുക — ഇതിലൂടെയാണ് റദ്ദാക്കാനും ചേരാനുള്ള"
 " വിവരങ്ങൾ കാണാനും ഫീഡ്ബാക്ക് നൽകാനും കഴിയുന്നത്:"
 
-#: clinic\testimonial_views.py:117
+#: clinic\testimonial_views.py:128
 msgid "Saved as hidden. Record the patient's consent to publish it."
 msgstr ""
 "മറച്ച നിലയിൽ സേവ് ചെയ്തു. ഇത് പ്രസിദ്ധീകരിക്കാൻ രോഗിയുടെ സമ്മതം "
@@ -8315,7 +8377,7 @@ msgstr "ഇവന്റുകൾ തിരയുക…"
 msgid "Search for patients..."
 msgstr "രോഗികളെ തിരയുക..."
 
-#: clinic\models.py:327 templates\clinic\admin\problems.html:15
+#: clinic\models.py:331 templates\clinic\admin\problems.html:15
 msgid "Search keywords"
 msgstr "തിരയൽ വാക്കുകൾ"
 
@@ -8502,7 +8564,7 @@ msgstr "ക്ലയന്റിന് അയയ്ക്കുക"
 msgid "Sending…"
 msgstr "അയയ്ക്കുന്നു…"
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Sent"
 msgstr "അയച്ചു"
 
@@ -8518,11 +8580,11 @@ msgstr ""
 msgid "SEO: AUTO"
 msgstr "SEO: ഓട്ടോ"
 
-#: clinic\models.py:295
+#: clinic\models.py:299
 msgid "Service"
 msgstr "സേവനം"
 
-#: clinic\models.py:289 templates\payments\payment_form.html:244
+#: clinic\models.py:293 templates\payments\payment_form.html:244
 msgid "Service Description"
 msgstr "സേവന വിവരണം"
 
@@ -8535,7 +8597,7 @@ msgstr "സേവനത്തിന്റെ പേര്"
 msgid "Service short description..."
 msgstr "സേവനത്തിന്റെ ഹ്രസ്വ വിവരണം..."
 
-#: clinic\models.py:288
+#: clinic\models.py:292
 msgid "Service Title"
 msgstr "സേവന തലക്കെട്ട്"
 
@@ -8543,11 +8605,11 @@ msgstr "സേവന തലക്കെട്ട്"
 msgid "Service:"
 msgstr "സേവനം:"
 
-#: clinic\models.py:296 clinic\templates\clinic\admin\clinic_setup.html:89
+#: clinic\models.py:300 clinic\templates\clinic\admin\clinic_setup.html:89
 msgid "Services"
 msgstr "സേവനങ്ങൾ"
 
-#: clinic\models.py:109
+#: clinic\models.py:110
 msgid "Services Description"
 msgstr "സേവനങ്ങളുടെ വിവരണം"
 
@@ -8559,11 +8621,11 @@ msgstr "സേവനങ്ങളുടെ ഹെഡർ"
 msgid "Services header updated."
 msgstr "സേവനങ്ങളുടെ ഹെഡർ അപ്ഡേറ്റ് ചെയ്തു."
 
-#: clinic\models.py:107
+#: clinic\models.py:108
 msgid "Services Label"
 msgstr "സേവനങ്ങളുടെ ലേബൽ"
 
-#: clinic\models.py:108
+#: clinic\models.py:109
 msgid "Services Title"
 msgstr "സേവനങ്ങളുടെ തലക്കെട്ട്"
 
@@ -8705,7 +8767,7 @@ msgstr "ഷിഫ്റ്റ് നീക്കം ചെയ്തു. നി�
 msgid "Shift saved."
 msgstr "ഷിഫ്റ്റ് സേവ് ചെയ്തു."
 
-#: clinic\models.py:496
+#: clinic\models.py:500
 msgid "Short description"
 msgstr "ചെറുവിവരണം"
 
@@ -8718,7 +8780,7 @@ msgstr "ഹ്രസ്വ വിവരണം"
 msgid "Short description (searchable)"
 msgstr "ചെറുവിവരണം (തിരയാവുന്നത്)"
 
-#: clinic\models.py:627
+#: clinic\models.py:633
 msgid "Short note"
 msgstr "ചെറിയ കുറിപ്പ്"
 
@@ -8744,13 +8806,17 @@ msgstr "കാർഡിൽ ഇമെയിൽ കാണിക്കുക"
 msgid "Show emergency contact on the back"
 msgstr "പിൻവശത്ത് അടിയന്തര ബന്ധം കാണിക്കുക"
 
-#: templates\clinic\partials\testimonial_results.html:37
+#: templates\clinic\partials\testimonial_results.html:42
 msgid "Show less"
 msgstr "കുറച്ച് കാണിക്കുക"
 
-#: templates\clinic\partials\testimonial_results.html:51
-msgid "Show more"
-msgstr "കൂടുതൽ കാണിക്കുക"
+#: templates\clinic\partials\testimonial_results.html:18
+msgid "Show more reels"
+msgstr "കൂടുതൽ റീലുകൾ കാണിക്കുക"
+
+#: templates\clinic\partials\testimonial_results.html:55
+msgid "Show more reviews"
+msgstr "കൂടുതൽ അവലോകനങ്ങൾ കാണിക്കുക"
 
 #: templates\accounts\login.html:64
 msgid "Show password"
@@ -8823,7 +8889,7 @@ msgstr "അവസാന 5 സെഷനുകൾ കാണിക്കുന്�
 msgid "Shown in Google search results (max 160 chars)."
 msgstr "Google തിരയൽ ഫലങ്ങളിൽ കാണിക്കും (പരമാവധി 160 അക്ഷരങ്ങൾ)."
 
-#: clinic\models.py:665
+#: clinic\models.py:671
 msgid "Shown on the spotlight, e.g. \"Featured patient\"."
 msgstr "സ്പോട്ട്‌ലൈറ്റിൽ കാണിക്കും, ഉദാ. \"വിശേഷ രോഗി\"."
 
@@ -8876,7 +8942,7 @@ msgstr "കഴിവുകൾ"
 msgid "Skip to content"
 msgstr "ഉള്ളടക്കത്തിലേക്ക് പോകുക"
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Skipped"
 msgstr "ഒഴിവാക്കി"
 
@@ -8908,7 +8974,7 @@ msgstr "ഈ ക്ലിനിക്കിനായി SMS, WhatsApp എന്�
 msgid "SMS notifications (opt-in)"
 msgstr "SMS അറിയിപ്പുകൾ (ഓപ്റ്റ്-ഇൻ)"
 
-#: clinic\models.py:777
+#: clinic\models.py:783
 msgid "Snapshot"
 msgstr "സ്നാപ്പ്ഷോട്ട്"
 
@@ -8924,7 +8990,7 @@ msgstr "സോഷ്യൽ & മാപ്പ്"
 msgid "Social Connections & Map"
 msgstr "സോഷ്യൽ കണക്ഷനുകളും മാപ്പും"
 
-#: clinic\models.py:387
+#: clinic\models.py:391
 msgid "Social Media"
 msgstr "സോഷ്യൽ മീഡിയ"
 
@@ -8936,12 +9002,12 @@ msgstr ""
 "ഞങ്ങൾ മെച്ചപ്പെടുത്തേണ്ടതെന്തെങ്കിലുമുണ്ടോ? “സ്വകാര്യ അഭിപ്രായം” "
 "തിരഞ്ഞെടുക്കുക: ഞങ്ങളുടെ ടീം മാത്രമേ വായിക്കൂ."
 
-#: clinic\models.py:415 templates\clinic\admin\testimonial_form.html:105
+#: clinic\models.py:419 templates\clinic\admin\testimonial_form.html:105
 #: templates\clinic\admin\testimonials_list.html:46
 msgid "Source"
 msgstr "ഉറവിടം"
 
-#: clinic\models.py:422
+#: clinic\models.py:426
 msgid "Source link"
 msgstr "ഉറവിട ലിങ്ക്"
 
@@ -8954,7 +9020,7 @@ msgstr "ഉറവിട ലിങ്ക് (ഐച്ഛികം)"
 msgid "SP"
 msgstr "SP"
 
-#: clinic\models.py:435 templates\clinic\admin\testimonials_list.html:58
+#: clinic\models.py:439 templates\clinic\admin\testimonials_list.html:58
 msgid "Spam"
 msgstr "സ്പാം"
 
@@ -8966,7 +9032,7 @@ msgstr "വിദഗ്ദ്ധൻ"
 msgid "Specialists"
 msgstr "വിദഗ്ദ്ധർ"
 
-#: clinic\models.py:221
+#: accounts\templates\accounts\admin\user_form.html:129 clinic\models.py:222
 #: clinic\templates\clinic\admin\practitioner_form.html:120
 msgid "Specialization"
 msgstr "സ്പെഷ്യലൈസേഷൻ"
@@ -9049,7 +9115,7 @@ msgstr "നിങ്ങളുടെ ക്ലിനിക്കിലുടന�
 msgid "Starting On *"
 msgstr "ആരംഭിക്കുന്നത് *"
 
-#: notifications\messages.py:88
+#: notifications\messages.py:89
 #, python-format
 msgid "Starting soon: %(event)s"
 msgstr "ഉടൻ ആരംഭിക്കുന്നു: %(event)s"
@@ -9067,19 +9133,19 @@ msgstr "%(d)s-ന് ആരംഭിക്കും"
 msgid "Starts in"
 msgstr "ആരംഭിക്കാൻ"
 
-#: clinic\models.py:99
+#: clinic\models.py:100
 msgid "Stat 1 Label"
 msgstr "സ്ഥിതിവിവരം 1 ലേബൽ"
 
-#: clinic\models.py:98
+#: clinic\models.py:99
 msgid "Stat 1 Number"
 msgstr "സ്ഥിതിവിവരം 1 നമ്പർ"
 
-#: clinic\models.py:101
+#: clinic\models.py:102
 msgid "Stat 2 Label"
 msgstr "സ്ഥിതിവിവരം 2 ലേബൽ"
 
-#: clinic\models.py:100
+#: clinic\models.py:101
 msgid "Stat 2 Number"
 msgstr "സ്ഥിതിവിവരം 2 നമ്പർ"
 
@@ -9210,16 +9276,17 @@ msgstr "ടാഗ് ഇല്ലാതാക്കി."
 msgid "Tag Name"
 msgstr "ടാഗ് പേര്"
 
-#: clinic\models.py:29 clinic\templates\clinic\admin\clinic_setup.html:178
+#: clinic\models.py:30 clinic\templates\clinic\admin\clinic_setup.html:178
 msgid "Tagline"
 msgstr "ടാഗ്‌ലൈൻ"
 
-#: clinic\blog_models.py:70 templates\clinic\admin\blog_form.html:118
+#: clinic\blog_models.py:70 clinic\models.py:513
+#: templates\clinic\admin\blog_form.html:118
 #: templates\clinic\admin\blog_list.html:31
 msgid "Tags"
 msgstr "ടാഗുകൾ"
 
-#: spinalcure\settings\base.py:127
+#: spinalcure\settings\base.py:130
 msgid "Tamil"
 msgstr "തമിഴ്"
 
@@ -9255,15 +9322,15 @@ msgstr "TCM രോഗനിർണ്ണയം"
 msgid "Team Accounts"
 msgstr "ടീം അക്കൗണ്ടുകൾ"
 
-#: clinic\models.py:116
+#: clinic\models.py:117
 msgid "Team Description"
 msgstr "ടീം വിവരണം"
 
-#: clinic\models.py:114
+#: clinic\models.py:115
 msgid "Team Label"
 msgstr "ടീം ലേബൽ"
 
-#: clinic\models.py:115
+#: clinic\models.py:116
 msgid "Team Title"
 msgstr "ടീം തലക്കെട്ട്"
 
@@ -9293,7 +9360,7 @@ msgstr ""
 "നിങ്ങളുടെ ചികിത്സ എങ്ങനെയായിരുന്നുവെന്ന് പറയൂ: മറ്റ് രോഗികൾക്കായി പൊതു "
 "അവലോകനം, അല്ലെങ്കിൽ ഞങ്ങളുടെ ടീമിനായി സ്വകാര്യ അഭിപ്രായം."
 
-#: spinalcure\settings\base.py:129
+#: spinalcure\settings\base.py:132
 msgid "Telugu"
 msgstr "തെലുങ്ക്"
 
@@ -9319,7 +9386,7 @@ msgstr ""
 "അരുമ്പാക്കം, ചെന്നൈ Spinal Cure-ലെ അപ്പോയിന്റ്മെന്റുകൾ, കോഴ്സുകൾ, പരിപാടികൾ,"
 " പേയ്മെന്റുകൾ, റീഫണ്ടുകൾ എന്നിവയുടെ നിബന്ധനകൾ."
 
-#: clinic\models.py:445
+#: clinic\models.py:449
 msgid "Testimonial"
 msgstr "സാക്ഷ്യപത്രം"
 
@@ -9338,7 +9405,7 @@ msgstr "%(patient_name)s-ന്റെ സാക്ഷ്യപത്രം ച�
 msgid "Testimonial from %(patient_name)s updated."
 msgstr "%(patient_name)s-ന്റെ സാക്ഷ്യപത്രം അപ്ഡേറ്റ് ചെയ്തു."
 
-#: clinic\models.py:412
+#: clinic\models.py:416
 msgid "Testimonial Text"
 msgstr "സാക്ഷ്യപത്ര ടെക്സ്റ്റ്"
 
@@ -9346,11 +9413,11 @@ msgstr "സാക്ഷ്യപത്ര ടെക്സ്റ്റ്"
 msgid "Testimonial Text *"
 msgstr "സാക്ഷ്യപത്ര ടെക്സ്റ്റ് *"
 
-#: clinic\models.py:522
+#: clinic\models.py:528
 msgid "Testimonial Video"
 msgstr "അനുഭവ വീഡിയോ"
 
-#: clinic\models.py:523
+#: clinic\models.py:529
 msgid "Testimonial Videos"
 msgstr "അനുഭവ വീഡിയോകൾ"
 
@@ -9358,17 +9425,17 @@ msgstr "അനുഭവ വീഡിയോകൾ"
 msgid "Testimonial — SpinalCure Admin"
 msgstr "സാക്ഷ്യപത്രം — SpinalCure അഡ്മിൻ"
 
-#: clinic\models.py:446 templates\analytics\dashboard.html:142
+#: clinic\models.py:450 templates\analytics\dashboard.html:142
 #: templates\clinic\admin\testimonials_list.html:3
 #: templates\clinic\admin\testimonials_list.html:4
 msgid "Testimonials"
 msgstr "സാക്ഷ്യപത്രങ്ങൾ"
 
-#: clinic\models.py:119
+#: clinic\models.py:120
 msgid "Testimonials Label"
 msgstr "സാക്ഷ്യപത്രങ്ങളുടെ ലേബൽ"
 
-#: clinic\models.py:120
+#: clinic\models.py:121
 msgid "Testimonials Title"
 msgstr "സാക്ഷ്യപത്രങ്ങളുടെ തലക്കെട്ട്"
 
@@ -9384,7 +9451,7 @@ msgstr ""
 "ഞങ്ങളോടൊപ്പം അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്തതിന് നന്ദി. മികച്ച "
 "ആരോഗ്യത്തിലേക്കുള്ള നിങ്ങളുടെ യാത്രയിൽ സഹായിക്കാൻ ഞങ്ങൾ ആവേശത്തിലാണ്."
 
-#: notifications\messages.py:46
+#: notifications\messages.py:47
 #, python-format
 msgid ""
 "Thank you for choosing %(clinic)s. If our treatment has helped you, a short "
@@ -9422,7 +9489,7 @@ msgstr "ഈ രജിസ്ട്രേഷന് ആ നടപടി ലഭ്�
 msgid "That practitioner is not available."
 msgstr "ആ പ്രാക്ടീഷണർ ലഭ്യമല്ല."
 
-#: clinic\testimonial_views.py:236
+#: clinic\testimonial_views.py:247
 msgid "That problem already exists."
 msgstr "ആ പ്രശ്നം ഇതിനകം നിലവിലുണ്ട്."
 
@@ -9451,7 +9518,7 @@ msgstr "ആ സമയം ജോലി സമയത്തിന് പുറത�
 msgid "The active batch is open for new registrations."
 msgstr "സജീവ ബാച്ച് പുതിയ രജിസ്ട്രേഷനുകൾക്കായി തുറന്നിരിക്കുന്നു."
 
-#: notifications\messages.py:40
+#: notifications\messages.py:41
 #, python-format
 msgid ""
 "The appointment for %(who)s on %(date)s at %(time)s was not marked completed"
@@ -9531,7 +9598,7 @@ msgstr ""
 "ഉടമയുടെ അക്കൗണ്ട് പ്രവർത്തനരഹിതമാണ് അല്ലെങ്കിൽ ജോലി സജീവമല്ല, അതിനാൽ ഈ കാർഡ്"
 " സ്ഥിരീകരിക്കില്ല."
 
-#: notifications\messages.py:71
+#: notifications\messages.py:72
 #, python-format
 msgid "The ID card %(employee_id)s has been revoked and no longer verifies."
 msgstr "ID കാർഡ് %(employee_id)s റദ്ദാക്കി, ഇനി സ്ഥിരീകരിക്കില്ല."
@@ -9726,7 +9793,7 @@ msgstr ""
 msgid "This shift overlaps another shift on the same day."
 msgstr "ഈ ഷിഫ്റ്റ് അതേ ദിവസത്തെ മറ്റൊരു ഷിഫ്റ്റുമായി ഓവർലാപ്പ് ചെയ്യുന്നു."
 
-#: clinic\models.py:514 templates\clinic\admin\video_form.html:48
+#: clinic\models.py:520 templates\clinic\admin\video_form.html:48
 #: templates\clinic\admin\video_form.html:104
 msgid "Thumbnail"
 msgstr "തംബ്നെയിൽ"
@@ -9735,7 +9802,7 @@ msgstr "തംബ്നെയിൽ"
 msgid "Thursday"
 msgstr "വ്യാഴാഴ്ച"
 
-#: clinic\models.py:631
+#: clinic\models.py:637
 msgid ""
 "Tick only when the patient (or their team) has agreed in writing to be named"
 " on the website."
@@ -9771,7 +9838,7 @@ msgid ""
 msgstr ""
 "മുകളിലെ സമയങ്ങൾ ഈ സമയമേഖലയിലാണ്; സന്ദർശകർ ഓരോ സമയത്തിനൊപ്പവും ഇത് കാണും."
 
-#: clinic\models.py:794 clinic\templates\clinic\admin\activity_log.html:61
+#: clinic\models.py:800 clinic\templates\clinic\admin\activity_log.html:61
 #: templates\emails\audit_log_notification.html:30
 msgid "Timestamp"
 msgstr "ടൈംസ്റ്റാമ്പ്"
@@ -9784,7 +9851,7 @@ msgstr "OTP അസാധുവാകുന്ന സമയം"
 msgid "Timing & Duration"
 msgstr "സമയവും ദൈർഘ്യവും"
 
-#: clinic\blog_models.py:36 clinic\models.py:487 clinic\models.py:657
+#: clinic\blog_models.py:36 clinic\models.py:491 clinic\models.py:663
 #: courses\models.py:24
 msgid "Title"
 msgstr "തലക്കെട്ട്"
@@ -9813,7 +9880,7 @@ msgstr "തലക്കെട്ടും ഉള്ളടക്കവും ആ�
 msgid "Title for these photos (optional)"
 msgstr "ഈ ഫോട്ടോകളുടെ തലക്കെട്ട് (ഐച്ഛികം)"
 
-#: clinic\models.py:200
+#: clinic\models.py:201
 msgid "Title/Designation"
 msgstr "സ്ഥാനപ്പേര്/പദവി"
 
@@ -9920,7 +9987,7 @@ msgstr "ഈ ആഴ്ച ആകെ"
 msgid "Training Courses"
 msgstr "പരിശീലന കോഴ്സുകൾ"
 
-#: clinic\models.py:508 templates\clinic\admin\video_form.html:28
+#: clinic\models.py:512 templates\clinic\admin\video_form.html:28
 msgid "Transcript"
 msgstr "ട്രാൻസ്ക്രിപ്റ്റ്"
 
@@ -9979,7 +10046,7 @@ msgstr "ചികിത്സാ വിവരങ്ങൾ"
 msgid "Treatment details will be added soon."
 msgstr "ചികിത്സാ വിവരങ്ങൾ ഉടൻ ചേർക്കും."
 
-#: notifications\messages.py:42
+#: notifications\messages.py:43
 msgid "Treatment follow-up due"
 msgstr "ചികിത്സാ ഫോളോ-അപ്പിന് സമയമായി"
 
@@ -10026,7 +10093,7 @@ msgstr "ചികിത്സാ സെഷനുകൾ"
 msgid "Treatments"
 msgstr "ചികിത്സകൾ"
 
-#: templates\clinic\partials\testimonial_results.html:58
+#: templates\clinic\partials\testimonial_results.html:63
 msgid "Try a different word or choose All problems."
 msgstr ""
 "മറ്റൊരു വാക്ക് ശ്രമിക്കുക അല്ലെങ്കിൽ എല്ലാ പ്രശ്നങ്ങളും തിരഞ്ഞെടുക്കുക."
@@ -10076,12 +10143,12 @@ msgstr "TW"
 msgid "Twitter / X Profile URL"
 msgstr "Twitter / X പ്രൊഫൈൽ URL"
 
-#: clinic\models.py:244
+#: clinic\models.py:245
 #: clinic\templates\clinic\admin\practitioner_form.html:103
 msgid "Twitter URL"
 msgstr "Twitter URL"
 
-#: clinic\models.py:656 events\models.py:59
+#: clinic\models.py:662 events\models.py:59
 #: idcards\templates\idcards\dashboard.html:19
 #: idcards\templates\idcards\detail.html:22
 msgid "Type"
@@ -10132,6 +10199,10 @@ msgstr "അജ്ഞാത റെക്കോർഡ്."
 msgid "Unknown time zone."
 msgstr "അജ്ഞാത സമയമേഖല."
 
+#: accounts\forms.py:51
+msgid "Unlink"
+msgstr "ലിങ്ക് നീക്കുക"
+
 #: payments\models.py:33
 msgid "Unpaid"
 msgstr "അടച്ചിട്ടില്ല"
@@ -10166,7 +10237,7 @@ msgstr "വരാനിരിക്കുന്നവ"
 msgid "Upcoming Appointments"
 msgstr "വരാനിരിക്കുന്ന അപ്പോയിന്റ്മെന്റുകൾ"
 
-#: clinic\models.py:727 clinic\templates\clinic\admin\activity_log.html:22
+#: clinic\models.py:733 clinic\templates\clinic\admin\activity_log.html:22
 #: clinic\templates\clinic\admin\activity_log.html:83
 msgid "Update"
 msgstr "അപ്ഡേറ്റ് ചെയ്യുക"
@@ -10223,7 +10294,7 @@ msgstr "പ്രോഗ്രാം അപ്ഡേറ്റ് ചെയ്യ�
 msgid "Update Testimonial"
 msgstr "സാക്ഷ്യപത്രം അപ്ഡേറ്റ് ചെയ്യുക"
 
-#: accounts\templates\accounts\admin\user_form.html:124
+#: accounts\templates\accounts\admin\user_form.html:138
 msgid "Update User"
 msgstr "ഉപയോക്താവിനെ അപ്ഡേറ്റ് ചെയ്യുക"
 
@@ -10231,7 +10302,7 @@ msgstr "ഉപയോക്താവിനെ അപ്ഡേറ്റ് ചെ�
 msgid "UPI"
 msgstr "UPI"
 
-#: clinic\models.py:151
+#: clinic\models.py:152
 msgid "UPI ID"
 msgstr "UPI ID"
 
@@ -10251,7 +10322,7 @@ msgstr "അപ്‌ലോഡ്"
 msgid "Upload a JPEG, PNG or WebP image."
 msgstr "JPEG, PNG അല്ലെങ്കിൽ WebP ചിത്രം അപ്‌ലോഡ് ചെയ്യുക."
 
-#: clinic\models.py:683
+#: clinic\models.py:689
 msgid "Upload a video or paste a YouTube / Instagram link."
 msgstr ""
 "വീഡിയോ അപ്‌ലോഡ് ചെയ്യുക അല്ലെങ്കിൽ YouTube / Instagram ലിങ്ക് ഒട്ടിക്കുക."
@@ -10288,7 +10359,7 @@ msgstr ""
 "ഫോക്കസ് പോയിന്റ് സജ്ജമാക്കുക — ഓരോ ക്രോപ്പിലും ആ ഭാഗം കാണുന്ന രീതിയിൽ "
 "നിലനിർത്തും."
 
-#: clinic\models.py:505
+#: clinic\models.py:509
 msgid "Uploaded image"
 msgstr "അപ്‌ലോഡ് ചെയ്ത ചിത്രം"
 
@@ -10313,21 +10384,26 @@ msgid "Used"
 msgstr "ഉപയോഗിച്ചു"
 
 #: accounts\models.py:64 accounts\models.py:105
-#: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:737
+#: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:743
 msgid "User"
 msgstr "ഉപയോക്താവ്"
 
-#: accounts\admin_views.py:24
+#: accounts\admin_views.py:25
 #, python-format
 msgid "User \"%(username)s\" created successfully."
 msgstr "ഉപയോക്താവ് \"%(username)s\" വിജയകരമായി സൃഷ്ടിച്ചു."
 
-#: accounts\admin_views.py:59
+#: accounts\admin_views.py:82
+#, python-format
+msgid "User \"%(username)s\" deleted."
+msgstr "ഉപയോക്താവ് \"%(username)s\" ഇല്ലാതാക്കി."
+
+#: accounts\admin_views.py:60
 #, python-format
 msgid "User \"%(username)s\" has been %(value3)s."
 msgstr "ഉപയോക്താവ് \"%(username)s\" %(value3)s."
 
-#: accounts\admin_views.py:41
+#: accounts\admin_views.py:42
 #, python-format
 msgid "User \"%(username)s\" updated."
 msgstr "ഉപയോക്താവ് \"%(username)s\" അപ്ഡേറ്റ് ചെയ്തു."
@@ -10341,7 +10417,7 @@ msgstr "ഉപയോക്താവ്: %(username)s"
 msgid "Username *"
 msgstr "ഉപയോക്തൃനാമം *"
 
-#: clinic\models.py:471
+#: clinic\models.py:475
 msgid "Username, or \"author\" / \"system\"."
 msgstr "ഉപയോക്തൃനാമം, അല്ലെങ്കിൽ \"author\" / \"system\"."
 
@@ -10426,42 +10502,42 @@ msgstr "ഈ ID കാർഡ് സ്ഥിരീകരിക്കുക:"
 msgid "via %(get_payment_mode_display)s"
 msgstr "%(get_payment_mode_display)s വഴി"
 
-#: clinic\models.py:654 templates\clinic\admin\gallery.html:30
+#: clinic\models.py:660 templates\clinic\admin\gallery.html:30
 #: templates\clinic\admin\videos.html:67
 msgid "Video"
 msgstr "വീഡിയോ"
 
-#: clinic\testimonial_views.py:115
+#: clinic\testimonial_views.py:126
 #, python-format
 msgid "Video \"%(title)s\" added."
 msgstr "വീഡിയോ \"%(title)s\" ചേർത്തു."
 
-#: clinic\testimonial_views.py:168
+#: clinic\testimonial_views.py:179
 #, python-format
 msgid "Video \"%(title)s\" saved."
 msgstr "\"%(title)s\" വീഡിയോ സേവ് ചെയ്തു."
 
-#: clinic\models.py:489 templates\clinic\admin\video_form.html:18
+#: clinic\models.py:493 templates\clinic\admin\video_form.html:18
 msgid "Video / Reel / Short link"
 msgstr "വീഡിയോ / Reel / Short ലിങ്ക്"
 
-#: clinic\testimonial_views.py:223
+#: clinic\testimonial_views.py:234
 msgid "Video deleted."
 msgstr "വീഡിയോ ഇല്ലാതാക്കി."
 
-#: clinic\models.py:661
+#: clinic\models.py:667
 msgid "Video file"
 msgstr "വീഡിയോ ഫയൽ"
 
-#: clinic\models.py:506
+#: clinic\models.py:510
 msgid "Video frame 1"
 msgstr "വീഡിയോ ഫ്രെയിം 1"
 
-#: clinic\models.py:506
+#: clinic\models.py:510
 msgid "Video frame 2"
 msgstr "വീഡിയോ ഫ്രെയിം 2"
 
-#: clinic\models.py:506
+#: clinic\models.py:510
 msgid "Video frame 3"
 msgstr "വീഡിയോ ഫ്രെയിം 3"
 
@@ -10564,12 +10640,12 @@ msgstr "വെയിറ്റ്‌ലിസ്റ്റിൽ"
 msgid "waitlisted"
 msgstr "വെയിറ്റ്‌ലിസ്റ്റിൽ"
 
-#: notifications\messages.py:76 notifications\messages.py:94
+#: notifications\messages.py:77 notifications\messages.py:95
 #, python-format
 msgid "Waitlisted: %(event)s"
 msgstr "വെയിറ്റ്‌ലിസ്റ്റിൽ: %(event)s"
 
-#: clinic\models.py:384
+#: clinic\models.py:388
 msgid "Walk-in Patient"
 msgstr "നേരിട്ട് വന്ന രോഗി"
 
@@ -10644,11 +10720,11 @@ msgstr ""
 msgid "We look forward to seeing you!"
 msgstr "നിങ്ങളെ കാണാൻ ഞങ്ങൾ കാത്തിരിക്കുന്നു!"
 
-#: notifications\messages.py:36
+#: notifications\messages.py:37
 msgid "We missed you"
 msgstr "ഞങ്ങൾ നിങ്ങളെ കാത്തിരുന്നു"
 
-#: notifications\messages.py:50
+#: notifications\messages.py:51
 #, python-format
 msgid ""
 "We received your payment of %(amount)s (receipt %(receipt)s). Thank you."
@@ -10681,12 +10757,12 @@ msgstr ""
 msgid "Webinar"
 msgstr "വെബിനാർ"
 
-#: clinic\models.py:45 templates\clinic\event_detail.html:74
+#: clinic\models.py:46 templates\clinic\event_detail.html:74
 #: templates\emails\base_email.html:65
 msgid "Website"
 msgstr "വെബ്സൈറ്റ്"
 
-#: clinic\models.py:433
+#: clinic\models.py:437
 msgid "Website form"
 msgstr "വെബ്സൈറ്റ് ഫോം"
 
@@ -10832,7 +10908,7 @@ msgstr ""
 msgid "Where"
 msgstr "എവിടെ"
 
-#: clinic\models.py:511 templates\clinic\admin\video_form.html:42
+#: clinic\models.py:517 templates\clinic\admin\video_form.html:42
 msgid "Where consent is recorded"
 msgstr "സമ്മതം എവിടെ രേഖപ്പെടുത്തിയിരിക്കുന്നു"
 
@@ -10840,7 +10916,7 @@ msgstr "സമ്മതം എവിടെ രേഖപ്പെടുത്ത�
 msgid "Where the QR on the back leads. Defaults to the clinic website."
 msgstr "പിൻവശത്തെ QR എവിടേക്ക് നയിക്കുന്നു. സ്ഥിരമായി ക്ലിനിക് വെബ്സൈറ്റ്."
 
-#: clinic\models.py:784
+#: clinic\models.py:790
 msgid "Whether this action has been reverted"
 msgstr "ഈ നടപടി പഴയപടിയാക്കിയോ"
 
@@ -10878,11 +10954,11 @@ msgstr "എന്റെ അവലോകനം പിൻവലിക്കുക"
 msgid "Withdraw your review"
 msgstr "നിങ്ങളുടെ അവലോകനം പിൻവലിക്കുക"
 
-#: clinic\models.py:503 clinic\stories.py:118
+#: clinic\models.py:507 clinic\stories.py:118
 msgid "Withdrawn"
 msgstr "പിൻവലിച്ചു"
 
-#: clinic\models.py:435
+#: clinic\models.py:439
 msgid "Withdrawn by author"
 msgstr "എഴുതിയയാൾ പിൻവലിച്ചു"
 
@@ -10915,7 +10991,7 @@ msgstr "മരം"
 msgid "Word count: 0"
 msgstr "വാക്കുകളുടെ എണ്ണം: 0"
 
-#: clinic\models.py:91
+#: clinic\models.py:92
 msgid "Working Hours"
 msgstr "ജോലി സമയം"
 
@@ -10956,14 +11032,18 @@ msgstr "Y+ Ya-"
 msgid "Y- Ya+"
 msgstr "Y- Ya+"
 
-#: clinic\models.py:182
+#: clinic\models.py:183
 msgid "Year cannot be in the future."
 msgstr "വർഷം ഭാവിയിലാകരുത്."
 
-#: clinic\models.py:229
+#: clinic\models.py:230
 #: clinic\templates\clinic\admin\practitioner_form.html:44
 msgid "Years of Experience"
 msgstr "പ്രവൃത്തിപരിചയ വർഷങ്ങൾ"
+
+#: accounts\templates\accounts\admin\user_form.html:130
+msgid "Years of experience"
+msgstr "പരിചയ വർഷങ്ങൾ"
 
 #: templates\appointments\manage.html:60
 #: templates\courses\registration_manage.html:31
@@ -11018,12 +11098,12 @@ msgstr ""
 "ഞങ്ങളുമായുള്ള അപ്പോയിന്റ്മെന്റ്, പേയ്‌മെന്റ് അല്ലെങ്കിൽ രജിസ്ട്രേഷൻ കാരണമാണ്"
 " നിങ്ങൾക്ക് ഈ ഇമെയിൽ ലഭിക്കുന്നത്."
 
-#: notifications\messages.py:92
+#: notifications\messages.py:93
 #, python-format
 msgid "You are registered for %(event)s (%(batch)s), starting %(date)s."
 msgstr "നിങ്ങൾ %(event)s (%(batch)s)-ന് രജിസ്റ്റർ ചെയ്തു, %(date)s മുതൽ."
 
-#: notifications\messages.py:74
+#: notifications\messages.py:75
 #, python-format
 msgid "You are registered for %(event)s on %(date)s at %(time)s."
 msgstr "നിങ്ങൾ %(date)s-ന് %(time)s-ന് %(event)s-ന് രജിസ്റ്റർ ചെയ്തു."
@@ -11041,15 +11121,19 @@ msgstr ""
 "സ്ഥിരീകരണ ഇമെയിലിലെ ലിങ്ക് വഴി, ആ പേജിൽ കാണിക്കുന്ന സമയം വരെ "
 "അപ്പോയിന്റ്മെന്റ് മാറ്റുകയോ റദ്ദാക്കുകയോ ചെയ്യാം."
 
-#: accounts\forms.py:64
+#: accounts\forms.py:79
 msgid "You cannot change your own role."
 msgstr "നിങ്ങളുടെ സ്വന്തം റോൾ മാറ്റാൻ കഴിയില്ല."
 
-#: accounts\admin_views.py:51
+#: accounts\admin_views.py:52
 msgid "You cannot deactivate your own account."
 msgstr "നിങ്ങളുടെ സ്വന്തം അക്കൗണ്ട് നിർജ്ജീവമാക്കാൻ കഴിയില്ല."
 
-#: notifications\messages.py:37
+#: accounts\admin_views.py:72
+msgid "You cannot delete your own account."
+msgstr "നിങ്ങളുടെ സ്വന്തം അക്കൗണ്ട് ഇല്ലാതാക്കാനാകില്ല."
+
+#: notifications\messages.py:38
 #, python-format
 msgid ""
 "You did not attend your appointment on %(date)s at %(time)s. Contact "
@@ -11078,7 +11162,7 @@ msgstr "ബ്ലോഗ് പോസ്റ്റുകൾ സൃഷ്ടിക�
 msgid "You do not have permission to delete blog posts."
 msgstr "ബ്ലോഗ് പോസ്റ്റുകൾ ഇല്ലാതാക്കാൻ നിങ്ങൾക്ക് അനുമതിയില്ല."
 
-#: payments\views.py:624
+#: payments\views.py:628
 msgid "You do not have permission to delete payments."
 msgstr "പേയ്‌മെന്റുകൾ ഇല്ലാതാക്കാൻ നിങ്ങൾക്ക് അനുമതിയില്ല."
 
@@ -11107,7 +11191,7 @@ msgid "You do not have permission to manage reviews."
 msgstr "അവലോകനങ്ങൾ കൈകാര്യം ചെയ്യാൻ നിങ്ങൾക്ക് അനുമതിയില്ല."
 
 #: events\views.py:72 patients\views.py:1103 payments\online_views.py:27
-#: payments\views.py:387
+#: payments\views.py:391
 msgid "You do not have permission to perform this action."
 msgstr "ഈ നടപടി ചെയ്യാൻ നിങ്ങൾക്ക് അനുമതിയില്ല."
 
@@ -11128,12 +11212,12 @@ msgstr "നിങ്ങൾക്ക് ഇതുവരെ ID കാർഡ് ഇ
 msgid "You have already sent feedback. Thank you!"
 msgstr "നിങ്ങൾ ഇതിനകം ഫീഡ്ബാക്ക് അയച്ചു. നന്ദി!"
 
-#: notifications\messages.py:64
+#: notifications\messages.py:65
 #, python-format
 msgid "You have been added to %(clinic)s"
 msgstr "നിങ്ങളെ %(clinic)s-ലേക്ക് ചേർത്തു"
 
-#: notifications\messages.py:65
+#: notifications\messages.py:66
 #, python-format
 msgid "You were added as %(role)s. Sign in to get started."
 msgstr "നിങ്ങളെ %(role)s ആയി ചേർത്തു. ആരംഭിക്കാൻ സൈൻ ഇൻ ചെയ്യുക."
@@ -11146,7 +11230,7 @@ msgstr "എല്ലാം കണ്ടുകഴിഞ്ഞു."
 msgid "You're booked"
 msgstr "നിങ്ങളുടെ ബുക്കിംഗ് പൂർത്തിയായി"
 
-#: notifications\messages.py:68
+#: notifications\messages.py:69
 #, python-format
 msgid "Your %(card_type)s ID card (%(employee_id)s) has been issued."
 msgstr "നിങ്ങളുടെ %(card_type)s ID കാർഡ് (%(employee_id)s) നൽകി."
@@ -11163,7 +11247,7 @@ msgstr "നിങ്ങളുടെ അപ്പോയിന്റ്മെന�
 msgid "Your appointment has been moved."
 msgstr "നിങ്ങളുടെ അപ്പോയിന്റ്മെന്റ് മാറ്റി."
 
-#: notifications\messages.py:28
+#: notifications\messages.py:29
 #, python-format
 msgid ""
 "Your appointment has moved to %(date)s at %(time)s with %(practitioner)s."
@@ -11171,7 +11255,7 @@ msgstr ""
 "നിങ്ങളുടെ അപ്പോയിന്റ്മെന്റ് %(practitioner)s-നൊപ്പം %(date)s-ന് "
 "%(time)s-ലേക്ക് മാറ്റി."
 
-#: notifications\messages.py:31
+#: notifications\messages.py:32
 #, python-format
 msgid ""
 "Your appointment on %(date)s at %(time)s has been cancelled. Contact "
@@ -11180,7 +11264,7 @@ msgstr ""
 "%(date)s-ന് %(time)s-ന് ഉള്ള നിങ്ങളുടെ അപ്പോയിന്റ്മെന്റ് റദ്ദാക്കി. വീണ്ടും "
 "ബുക്ക് ചെയ്യാൻ %(clinic)s-നെ ബന്ധപ്പെടുക."
 
-#: notifications\messages.py:25
+#: notifications\messages.py:26
 #, python-format
 msgid ""
 "Your appointment on %(date)s at %(time)s with %(practitioner)s is confirmed."
@@ -11188,7 +11272,7 @@ msgstr ""
 "%(date)s-ന് %(time)s-ന് %(practitioner)s-നൊപ്പമുള്ള നിങ്ങളുടെ "
 "അപ്പോയിന്റ്മെന്റ് സ്ഥിരീകരിച്ചു."
 
-#: notifications\messages.py:16
+#: notifications\messages.py:17
 #, python-format
 msgid ""
 "Your appointment with %(practitioner)s at %(clinic)s is booked for %(date)s "
@@ -11291,16 +11375,16 @@ msgstr "YouTube ചാനൽ URL"
 msgid "YouTube Short / video or Instagram reel link *"
 msgstr "YouTube Short / വീഡിയോ അല്ലെങ്കിൽ Instagram റീൽ ലിങ്ക് *"
 
-#: clinic\testimonial_views.py:260
+#: clinic\testimonial_views.py:271
 #, python-format
 msgid "YouTube synced: %(n)s new video(s) added."
 msgstr "YouTube സിങ്ക് ചെയ്തു: %(n)s പുതിയ വീഡിയോ(കൾ) ചേർത്തു."
 
-#: clinic\testimonial_views.py:261
+#: clinic\testimonial_views.py:272
 msgid "YouTube synced: nothing new."
 msgstr "YouTube സിങ്ക് ചെയ്തു: പുതിയതൊന്നുമില്ല."
 
-#: clinic\models.py:243
+#: clinic\models.py:244
 #: clinic\templates\clinic\admin\practitioner_form.html:93
 msgid "YouTube URL"
 msgstr "YouTube URL"
@@ -11418,6 +11502,9 @@ msgstr "📅 Google Calendar-ലേക്ക് ചേർക്കുക"
 
 #~ msgid "Shift is active"
 #~ msgstr "ഷിഫ്റ്റ് സജീവമാണ്"
+
+#~ msgid "Show more"
+#~ msgstr "കൂടുതൽ കാണിക്കുക"
 
 #~ msgid "Testimonials — SpinalCure Admin"
 #~ msgstr "സാക്ഷ്യപത്രങ്ങൾ — SpinalCure അഡ്മിൻ"

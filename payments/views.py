@@ -193,13 +193,18 @@ def payments_report_view(request):
     start, end = _d('from', today.replace(day=1)), _d('to', today)
     if start > end:
         start, end = end, start
-    payments = list(Payment.objects.filter(payment_date__range=(start, end)).select_related('patient'))
-    by_mode = {}
-    for p in payments:
-        by_mode[p.get_payment_mode_display()] = by_mode.get(p.get_payment_mode_display(), Decimal('0')) + p.amount_paid
-    billed = sum((p.grand_total for p in payments), Decimal('0'))
-    collected = sum((p.amount_paid for p in payments), Decimal('0'))
-    gst = sum((p.tax_amount for p in payments), Decimal('0'))
+    # one streaming pass (constant memory), so a multi-year range with tens of thousands of payments stays fast
+    by_mode, count = {}, 0
+    billed = collected = gst = outstanding = Decimal('0')
+    for p in Payment.objects.filter(payment_date__range=(start, end)).iterator(chunk_size=2000):
+        count += 1
+        mode = p.get_payment_mode_display()
+        by_mode[mode] = by_mode.get(mode, Decimal('0')) + p.amount_paid
+        billed += p.grand_total
+        collected += p.amount_paid
+        gst += p.tax_amount
+        if p.balance > 0:
+            outstanding += p.balance
     # aware bounds, not created_at__date: MySQL/MariaDB without timezone tables turns __date into NULL
     from datetime import time, timedelta
     from django.utils import timezone
@@ -207,9 +212,8 @@ def payments_report_view(request):
     refunds = PaymentRefund.objects.filter(created_at__gte=lo, created_at__lt=hi)
     refunded = refunds.aggregate(t=Sum('amount'))['t'] or Decimal('0')
     expenses = Expense.objects.filter(expense_date__range=(start, end)).aggregate(t=Sum('amount'))['t'] or Decimal('0')
-    outstanding = sum((p.balance for p in payments if p.balance > 0), Decimal('0'))
     return render(request, 'payments/report.html', {
-        'start': start, 'end': end, 'count': len(payments), 'billed': billed, 'collected': collected,
+        'start': start, 'end': end, 'count': count, 'billed': billed, 'collected': collected,
         'gst': gst, 'refunded': refunded, 'net': collected - refunded, 'expenses': expenses,
         'outstanding': outstanding, 'profit': collected - refunded - expenses,
         'by_mode': sorted(by_mode.items(), key=lambda kv: -kv[1]), 'refund_rows': refunds.select_related('payment')[:50],

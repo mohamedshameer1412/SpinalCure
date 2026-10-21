@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 # Trigger autoreload to fix FieldDoesNotExist cache issue
 import uuid
@@ -250,6 +251,9 @@ class Practitioner(models.Model):
         db_index=True
     )
     joined_date = models.DateField(blank=True, null=True)
+    # The login account of this practitioner, when they have one. No DB constraint: the user table is legacy char(32).
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL,
+                                db_constraint=False, related_name='practitioner', editable=False)
 
     class Meta:
         verbose_name = _('Practitioner')

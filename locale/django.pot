@@ -26,6 +26,13 @@ msgstr ""
 msgid "\"%(title)s\" was cancelled and registrants were notified."
 msgstr ""
 
+#: accounts\admin_views.py:78
+#, python-format
+msgid ""
+"\"%(username)s\" has ID cards or records that depend on it. Disable the "
+"account instead."
+msgstr ""
+
 #: templates\courses\batch_list.html:149
 msgid "\"Batch:"
 msgstr ""
@@ -77,7 +84,7 @@ msgstr ""
 msgid "%(count)s Total"
 msgstr ""
 
-#: notifications\messages.py:101
+#: notifications\messages.py:102
 #, python-format
 msgid "%(detail)s"
 msgstr ""
@@ -92,26 +99,26 @@ msgstr ""
 msgid "%(duration_minutes)s minutes"
 msgstr ""
 
-#: notifications\messages.py:95
+#: notifications\messages.py:96
 #, python-format
 msgid ""
 "%(event)s (%(batch)s) is full. You are on the waitlist and will be told if a"
 " place opens."
 msgstr ""
 
-#: notifications\messages.py:77
+#: notifications\messages.py:78
 #, python-format
 msgid ""
 "%(event)s is full. You are on the waitlist and will be told if a place "
 "opens."
 msgstr ""
 
-#: notifications\messages.py:86
+#: notifications\messages.py:87
 #, python-format
 msgid "%(event)s on %(date)s has been cancelled."
 msgstr ""
 
-#: notifications\messages.py:89
+#: notifications\messages.py:90
 #, python-format
 msgid "%(event)s starts on %(date)s at %(time)s."
 msgstr ""
@@ -222,7 +229,7 @@ msgstr ""
 msgid "%(site)s patient portal sign-in code"
 msgstr ""
 
-#: notifications\messages.py:100
+#: notifications\messages.py:101
 #, python-format
 msgid "%(subject)s"
 msgstr ""
@@ -248,17 +255,17 @@ msgstr ""
 msgid "%(total_count)s total records"
 msgstr ""
 
-#: notifications\messages.py:19 notifications\messages.py:22
+#: notifications\messages.py:20 notifications\messages.py:23
 #, python-format
 msgid "%(who)s booked %(date)s at %(time)s with %(practitioner)s."
 msgstr ""
 
-#: notifications\messages.py:62
+#: notifications\messages.py:63
 #, python-format
 msgid "%(who)s has %(amount)s outstanding on invoice %(invoice)s."
 msgstr ""
 
-#: notifications\messages.py:56
+#: notifications\messages.py:57
 #, python-format
 msgid "%(who)s paid %(amount)s online (receipt %(receipt)s)."
 msgstr ""
@@ -478,27 +485,27 @@ msgid ""
 " within 5 to 7 working days."
 msgstr ""
 
-#: notifications\messages.py:53
+#: notifications\messages.py:54
 #, python-format
 msgid ""
 "A payment of %(amount)s for %(who)s did not go through and needs attention."
 msgstr ""
 
-#: notifications\messages.py:98
+#: notifications\messages.py:99
 #, python-format
 msgid ""
 "A place opened and you are now registered for %(event)s (%(batch)s), "
 "starting %(date)s."
 msgstr ""
 
-#: notifications\messages.py:80
+#: notifications\messages.py:81
 #, python-format
 msgid ""
 "A place opened and you are now registered for %(event)s on %(date)s at "
 "%(time)s."
 msgstr ""
 
-#: notifications\messages.py:79 notifications\messages.py:97
+#: notifications\messages.py:80 notifications\messages.py:98
 #, python-format
 msgid "A place opened: %(event)s"
 msgstr ""
@@ -538,7 +545,7 @@ msgstr ""
 msgid "A staff member is requesting your approval to"
 msgstr ""
 
-#: accounts\forms.py:50
+#: accounts\forms.py:65
 msgid "A user with this email already exists."
 msgstr ""
 
@@ -553,7 +560,7 @@ msgstr ""
 msgid "A/C: %(bank_account)s | IFSC: %(bank_ifsc)s"
 msgstr ""
 
-#: clinic\models.py:37
+#: clinic\models.py:38
 msgid "About"
 msgstr ""
 
@@ -565,19 +572,19 @@ msgstr ""
 msgid "About & Legacy"
 msgstr ""
 
-#: clinic\models.py:281 clinic\models.py:276
+#: clinic\models.py:285 clinic\models.py:280
 msgid "About Image"
 msgstr ""
 
-#: clinic\models.py:282
+#: clinic\models.py:286
 msgid "About Images"
 msgstr ""
 
-#: clinic\models.py:96
+#: clinic\models.py:97
 msgid "About Label"
 msgstr ""
 
-#: clinic\models.py:103
+#: clinic\models.py:104
 msgid "About Quote"
 msgstr ""
 
@@ -593,7 +600,7 @@ msgstr ""
 msgid "About this course"
 msgstr ""
 
-#: clinic\models.py:97
+#: clinic\models.py:98
 msgid "About Title"
 msgstr ""
 
@@ -610,11 +617,11 @@ msgstr ""
 msgid "Account Details"
 msgstr ""
 
-#: clinic\models.py:140
+#: clinic\models.py:141
 msgid "Account Number"
 msgstr ""
 
-#: clinic\models.py:743 clinic\templates\clinic\admin\activity_log.html:18
+#: clinic\models.py:749 clinic\templates\clinic\admin\activity_log.html:18
 #: clinic\templates\clinic\admin\activity_log.html:62
 #: templates\appointments\partials\appointment_list_partial.html:11
 msgid "Action"
@@ -640,7 +647,7 @@ msgid "Actions"
 msgstr ""
 
 #: accounts\models.py:321 accounts\templates\accounts\admin\users_list.html:68
-#: clinic\models.py:249
+#: clinic\models.py:250
 #: clinic\templates\clinic\admin\practitioners_list.html:35
 msgid "Active"
 msgstr ""
@@ -860,7 +867,7 @@ msgstr ""
 msgid "Add your first practitioner →"
 msgstr ""
 
-#: clinic\models.py:433
+#: clinic\models.py:437
 msgid "Added by staff"
 msgstr ""
 
@@ -884,7 +891,7 @@ msgstr ""
 msgid "Additional Notes"
 msgstr ""
 
-#: clinic\models.py:38 clinic\templates\clinic\admin\clinic_setup.html:262
+#: clinic\models.py:39 clinic\templates\clinic\admin\clinic_setup.html:262
 #: idcards\render.py:233 patients\models.py:53
 msgid "Address"
 msgstr ""
@@ -901,7 +908,7 @@ msgstr ""
 msgid "Alerts"
 msgstr ""
 
-#: clinic\admin_views.py:259 clinic\testimonial_views.py:58
+#: clinic\admin_views.py:259 clinic\testimonial_views.py:69
 #: idcards\templates\idcards\dashboard.html:11
 #: notifications\templates\notifications\center.html:17
 msgid "All"
@@ -1067,7 +1074,7 @@ msgstr ""
 msgid "An error occurred. Please try again."
 msgstr ""
 
-#: notifications\messages.py:59
+#: notifications\messages.py:60
 #, python-format
 msgid "An invoice for %(amount)s has been created."
 msgstr ""
@@ -1076,7 +1083,7 @@ msgstr ""
 msgid "and Without Diet"
 msgstr ""
 
-#: clinic\models.py:356
+#: clinic\models.py:360
 msgid "Answer"
 msgstr ""
 
@@ -1122,7 +1129,7 @@ msgstr ""
 msgid "Appointment"
 msgstr ""
 
-#: notifications\messages.py:15
+#: notifications\messages.py:16
 msgid "Appointment booked"
 msgstr ""
 
@@ -1143,11 +1150,11 @@ msgstr ""
 msgid "Appointment Booking Confirmation - %(clinic_name)s"
 msgstr ""
 
-#: notifications\messages.py:30
+#: notifications\messages.py:31
 msgid "Appointment cancelled"
 msgstr ""
 
-#: notifications\messages.py:24
+#: notifications\messages.py:25
 msgid "Appointment confirmed"
 msgstr ""
 
@@ -1173,16 +1180,16 @@ msgstr ""
 msgid "Appointment length"
 msgstr ""
 
-#: notifications\messages.py:39
+#: notifications\messages.py:40
 #, python-format
 msgid "Appointment not completed: %(who)s"
 msgstr ""
 
-#: notifications\messages.py:33
+#: notifications\messages.py:34
 msgid "Appointment reminder"
 msgstr ""
 
-#: notifications\messages.py:27
+#: notifications\messages.py:28
 msgid "Appointment rescheduled"
 msgstr ""
 
@@ -1230,7 +1237,7 @@ msgstr ""
 msgid "Approve & publish"
 msgstr ""
 
-#: clinic\models.py:434
+#: clinic\models.py:438
 msgid "Approved"
 msgstr ""
 
@@ -1312,7 +1319,7 @@ msgstr ""
 msgid "Attender Phone"
 msgstr ""
 
-#: clinic\models.py:798
+#: clinic\models.py:804
 msgid "Audit Log"
 msgstr ""
 
@@ -1320,7 +1327,7 @@ msgstr ""
 msgid "Audit Log Notification"
 msgstr ""
 
-#: clinic\models.py:799
+#: clinic\models.py:805
 msgid "Audit Logs"
 msgstr ""
 
@@ -1338,7 +1345,7 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: clinic\models.py:438
+#: clinic\models.py:442
 msgid "Author agreed to publication"
 msgstr ""
 
@@ -1372,12 +1379,12 @@ msgstr ""
 msgid "Auto-translate missing into %(name)s"
 msgstr ""
 
-#: clinic\models.py:815 templates\clinic\admin\translations.html:73
+#: clinic\models.py:821 templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 msgid "Auto-translated"
 msgstr ""
 
-#: clinic\models.py:504
+#: clinic\models.py:508
 msgid "Automatic"
 msgstr ""
 
@@ -1495,7 +1502,7 @@ msgstr ""
 msgid "BAMS, MD (Acupuncture), etc."
 msgstr ""
 
-#: clinic\models.py:139
+#: clinic\models.py:140
 msgid "Bank Name"
 msgstr ""
 
@@ -1571,7 +1578,7 @@ msgstr ""
 msgid "Billing & tax information updated."
 msgstr ""
 
-#: clinic\models.py:231
+#: clinic\models.py:232
 #: clinic\templates\clinic\admin\practitioner_form.html:133
 msgid "Bio"
 msgstr ""
@@ -1754,7 +1761,7 @@ msgstr ""
 msgid "Calendar View"
 msgstr ""
 
-#: accounts\templates\accounts\admin\user_form.html:127
+#: accounts\templates\accounts\admin\user_form.html:141
 #: clinic\templates\clinic\admin\practitioner_form.html:159
 #: templates\accounts\settings.html:57 templates\clinic\admin\faq_form.html:13
 msgid "Cancel"
@@ -1812,7 +1819,7 @@ msgstr ""
 msgid "Capacity must be at least 1."
 msgstr ""
 
-#: clinic\models.py:658
+#: clinic\models.py:664
 msgid "Caption"
 msgstr ""
 
@@ -1850,7 +1857,7 @@ msgstr ""
 msgid "Card language"
 msgstr ""
 
-#: clinic\models.py:518 templates\clinic\admin\video_form.html:89
+#: clinic\models.py:524 templates\clinic\admin\video_form.html:89
 msgid "Card layout"
 msgstr ""
 
@@ -1906,7 +1913,7 @@ msgstr ""
 msgid "Change the time"
 msgstr ""
 
-#: clinic\models.py:765
+#: clinic\models.py:771
 msgid "Changes"
 msgstr ""
 
@@ -1933,7 +1940,7 @@ msgstr ""
 msgid "Channel"
 msgstr ""
 
-#: clinic\models.py:363
+#: clinic\models.py:367
 msgid "Checked by"
 msgstr ""
 
@@ -1987,7 +1994,7 @@ msgstr ""
 msgid "Choose a morning or an evening session, or switch the day off."
 msgstr ""
 
-#: clinic\models.py:680
+#: clinic\models.py:686
 msgid "Choose a photo."
 msgstr ""
 
@@ -2011,6 +2018,10 @@ msgstr ""
 msgid "Choose the appointment length from the list."
 msgstr ""
 
+#: accounts\forms.py:87
+msgid "Choose the practitioner to link."
+msgstr ""
+
 #: templates\clinic\admin\gallery.html:14
 msgid ""
 "Choose up to 30 photos at once. Edit each one afterwards to add a caption or"
@@ -2019,6 +2030,10 @@ msgstr ""
 
 #: clinic\templates\clinic\admin\clinic_setup.html:1075
 msgid "Choose..."
+msgstr ""
+
+#: accounts\forms.py:28
+msgid "Choose…"
 msgstr ""
 
 #: events\models.py:24
@@ -2054,7 +2069,7 @@ msgstr ""
 msgid "Clear ✕"
 msgstr ""
 
-#: clinic\models.py:395 courses\models.py:63 events\models.py:45
+#: clinic\models.py:399 courses\models.py:63 events\models.py:45
 #: idcards\render.py:233
 msgid "Clinic"
 msgstr ""
@@ -2075,7 +2090,7 @@ msgstr ""
 msgid "Clinic Logo"
 msgstr ""
 
-#: clinic\models.py:23
+#: clinic\models.py:24
 msgid "Clinic Name"
 msgstr ""
 
@@ -2083,7 +2098,7 @@ msgstr ""
 msgid "Clinic Name *"
 msgstr ""
 
-#: clinic\models.py:155
+#: clinic\models.py:156
 msgid "Clinic Profile"
 msgstr ""
 
@@ -2091,11 +2106,11 @@ msgstr ""
 msgid "Clinic Profile Settings"
 msgstr ""
 
-#: clinic\models.py:156
+#: clinic\models.py:157
 msgid "Clinic Profiles"
 msgstr ""
 
-#: clinic\models.py:421
+#: clinic\models.py:425
 msgid "Clinic reply"
 msgstr ""
 
@@ -2182,10 +2197,14 @@ msgstr ""
 msgid "Collections so far"
 msgstr ""
 
-#: clinic\models.py:328
+#: clinic\models.py:332
 msgid ""
 "Comma-separated extra words that should match this problem, e.g. \"disc, "
 "herniated\"."
+msgstr ""
+
+#: clinic\models.py:514
+msgid "Comma-separated; imported from YouTube."
 msgstr ""
 
 #: courses\models.py:220 events\models.py:298
@@ -2198,7 +2217,7 @@ msgstr ""
 msgid "Compare the name and photo with the person presenting the card."
 msgstr ""
 
-#: clinic\models.py:778
+#: clinic\models.py:784
 msgid "Complete serialized JSON representation of the object before deletion"
 msgstr ""
 
@@ -2244,7 +2263,7 @@ msgstr ""
 msgid "Confirm new password"
 msgstr ""
 
-#: clinic\models.py:646
+#: clinic\models.py:652
 msgid "Confirm the permission is on file before publishing."
 msgstr ""
 
@@ -2272,11 +2291,11 @@ msgstr ""
 msgid "Consent and publication"
 msgstr ""
 
-#: clinic\models.py:513 templates\clinic\admin\video_form.html:41
+#: clinic\models.py:519 templates\clinic\admin\video_form.html:41
 msgid "Consent date"
 msgstr ""
 
-#: clinic\models.py:503
+#: clinic\models.py:507
 msgid "Consent on file"
 msgstr ""
 
@@ -2384,7 +2403,7 @@ msgstr ""
 msgid "Could not reach the server. Check your connection and try again."
 msgstr ""
 
-#: clinic\testimonial_views.py:120 clinic\testimonial_views.py:173
+#: clinic\testimonial_views.py:131 clinic\testimonial_views.py:184
 #, python-format
 msgid "Could not save: %(e)s"
 msgstr ""
@@ -2466,7 +2485,7 @@ msgstr ""
 msgid "Course Registrations"
 msgstr ""
 
-#: clinic\models.py:386 payments\models.py:43
+#: clinic\models.py:390 payments\models.py:43
 msgid "Course Student"
 msgstr ""
 
@@ -2497,9 +2516,13 @@ msgstr ""
 msgid "Cover image"
 msgstr ""
 
-#: clinic\models.py:726 clinic\templates\clinic\admin\activity_log.html:21
+#: clinic\models.py:732 clinic\templates\clinic\admin\activity_log.html:21
 #: clinic\templates\clinic\admin\activity_log.html:79
 msgid "Create"
+msgstr ""
+
+#: accounts\forms.py:26
+msgid "Create a practitioner profile from this account"
 msgstr ""
 
 #: templates\courses\batch_list.html:127
@@ -2532,7 +2555,7 @@ msgstr ""
 msgid "Create Treatment Plan"
 msgstr ""
 
-#: accounts\templates\accounts\admin\user_form.html:124
+#: accounts\templates\accounts\admin\user_form.html:138
 msgid "Create User"
 msgstr ""
 
@@ -2678,7 +2701,7 @@ msgstr ""
 msgid "Dear %(name)s,"
 msgstr ""
 
-#: clinic\models.py:135 clinic\templates\clinic\admin\clinic_setup.html:328
+#: clinic\models.py:136 clinic\templates\clinic\admin\clinic_setup.html:328
 msgid "Default Tax %"
 msgstr ""
 
@@ -2686,9 +2709,9 @@ msgstr ""
 msgid "Define the core name and public summary of your course."
 msgstr ""
 
-#: clinic\models.py:728 clinic\templates\clinic\admin\activity_log.html:23
+#: accounts\templates\accounts\admin\users_list.html:92 clinic\models.py:734
+#: clinic\templates\clinic\admin\activity_log.html:23
 #: clinic\templates\clinic\admin\activity_log.html:87
-#: clinic\templates\clinic\admin\practitioners_list.html:53
 msgid "Delete"
 msgstr ""
 
@@ -2715,6 +2738,10 @@ msgstr ""
 
 #: templates\clinic\admin\blog_tags.html:59
 msgid "Delete tag"
+msgstr ""
+
+#: accounts\templates\accounts\admin\users_list.html:90
+msgid "Delete this account permanently?"
 msgstr ""
 
 #: templates\patients\packages.html:23
@@ -2803,15 +2830,15 @@ msgstr ""
 msgid "Designation"
 msgstr ""
 
-#: clinic\models.py:400 templates\clinic\admin\testimonial_form.html:29
+#: clinic\models.py:404 templates\clinic\admin\testimonial_form.html:29
 msgid "Designation / Location"
 msgstr ""
 
-#: accounts\forms.py:70
+#: accounts\forms.py:85
 msgid "Designation is required for owners and staff."
 msgstr ""
 
-#: clinic\models.py:240
+#: clinic\models.py:241
 msgid "Designation Tag"
 msgstr ""
 
@@ -2855,7 +2882,7 @@ msgstr ""
 msgid "Details and registration"
 msgstr ""
 
-#: notifications\messages.py:83
+#: notifications\messages.py:84
 #, python-format
 msgid "Details of %(event)s changed. It is now on %(date)s at %(time)s."
 msgstr ""
@@ -2889,12 +2916,12 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: clinic\models.py:359 clinic\models.py:632 clinic\models.py:666
+#: clinic\models.py:363 clinic\models.py:638 clinic\models.py:672
 #: patients\models.py:160
 msgid "Display order"
 msgstr ""
 
-#: clinic\models.py:428 templates\clinic\admin\testimonial_form.html:114
+#: clinic\models.py:432 templates\clinic\admin\testimonial_form.html:114
 msgid "Display Order"
 msgstr ""
 
@@ -3019,11 +3046,11 @@ msgstr ""
 msgid "e.g. \"2025 Batch\", \"Batch 3 — June 2024\""
 msgstr ""
 
-#: clinic\models.py:625
+#: clinic\models.py:631
 msgid "e.g. \"Actor\", \"Cricketer\"."
 msgstr ""
 
-#: clinic\models.py:512
+#: clinic\models.py:518
 msgid ""
 "e.g. \"Signed media consent form, file 2026/14\". Never upload the form "
 "itself here."
@@ -3071,7 +3098,7 @@ msgstr ""
 msgid "e.g. Lower Back Pain 2026"
 msgstr ""
 
-#: clinic\models.py:749
+#: clinic\models.py:755
 msgid "e.g. Patient, Payment, Session, Course, Event, Appointment"
 msgstr ""
 
@@ -3209,7 +3236,7 @@ msgstr ""
 msgid "Edited"
 msgstr ""
 
-#: clinic\models.py:815
+#: clinic\models.py:821
 msgid "Edited by staff"
 msgstr ""
 
@@ -3230,7 +3257,7 @@ msgid "Either email or phone number is required."
 msgstr ""
 
 #: accounts\models.py:98 accounts\templates\accounts\admin\user_form.html:53
-#: clinic\models.py:44 clinic\templates\clinic\admin\clinic_setup.html:252
+#: clinic\models.py:45 clinic\templates\clinic\admin\clinic_setup.html:252
 msgid "Email"
 msgstr ""
 
@@ -3342,7 +3369,7 @@ msgstr ""
 msgid "Engagement"
 msgstr ""
 
-#: spinalcure\settings\base.py:126
+#: spinalcure\settings\base.py:129
 msgid "English"
 msgstr ""
 
@@ -3371,7 +3398,7 @@ msgstr ""
 msgid "Enter 6-digit Code"
 msgstr ""
 
-#: clinic\testimonial_views.py:234
+#: clinic\testimonial_views.py:245
 msgid "Enter a problem name."
 msgstr ""
 
@@ -3391,7 +3418,7 @@ msgstr ""
 msgid "Enter a valid refund amount."
 msgstr ""
 
-#: clinic\models.py:544 clinic\models.py:685
+#: clinic\models.py:550 clinic\models.py:691
 msgid "Enter a YouTube, YouTube Shorts or Instagram reel link."
 msgstr ""
 
@@ -3417,7 +3444,7 @@ msgstr ""
 msgid "Equipment & Instruments"
 msgstr ""
 
-#: payments\views.py:302
+#: payments\views.py:306
 #, python-format
 msgid "Error creating expense: %(value1)s"
 msgstr ""
@@ -3442,7 +3469,7 @@ msgstr ""
 msgid "Error creating treatment plan: %(value1)s"
 msgstr ""
 
-#: payments\views.py:493
+#: payments\views.py:497
 #, python-format
 msgid "Error recording payment: %(value1)s"
 msgstr ""
@@ -3461,7 +3488,7 @@ msgstr ""
 msgid "Error saving testimonial: %(e)s"
 msgstr ""
 
-#: payments\views.py:340
+#: payments\views.py:344
 #, python-format
 msgid "Error updating expense: %(value1)s"
 msgstr ""
@@ -3471,7 +3498,7 @@ msgstr ""
 msgid "Error updating patient: %(value1)s"
 msgstr ""
 
-#: payments\views.py:594
+#: payments\views.py:598
 #, python-format
 msgid "Error updating payment: %(value1)s"
 msgstr ""
@@ -3532,11 +3559,11 @@ msgstr ""
 msgid "Event \"%(title)s\" saved as a draft. Publish it when you are ready."
 msgstr ""
 
-#: clinic\models.py:385
+#: clinic\models.py:389
 msgid "Event Attendee"
 msgstr ""
 
-#: notifications\messages.py:85
+#: notifications\messages.py:86
 #, python-format
 msgid "Event cancelled: %(event)s"
 msgstr ""
@@ -3569,7 +3596,7 @@ msgstr ""
 msgid "Event status"
 msgstr ""
 
-#: notifications\messages.py:82
+#: notifications\messages.py:83
 #, python-format
 msgid "Event updated: %(event)s"
 msgstr ""
@@ -3615,6 +3642,10 @@ msgstr ""
 msgid "Excerpt"
 msgstr ""
 
+#: accounts\templates\accounts\admin\user_form.html:127
+msgid "Existing practitioner"
+msgstr ""
+
 #: templates\clinic\admin\blog_tags.html:45
 #, python-format
 msgid "Existing Tags (%(count)s)"
@@ -3624,17 +3655,17 @@ msgstr ""
 msgid "Expense"
 msgstr ""
 
-#: payments\views.py:369
+#: payments\views.py:373
 #, python-format
 msgid "Expense \"%(title)s\" deleted."
 msgstr ""
 
-#: payments\views.py:298
+#: payments\views.py:302
 #, python-format
 msgid "Expense \"%(title)s\" recorded successfully."
 msgstr ""
 
-#: payments\views.py:337
+#: payments\views.py:341
 #, python-format
 msgid "Expense \"%(title)s\" updated."
 msgstr ""
@@ -3699,12 +3730,12 @@ msgstr ""
 msgid "Facebook Profile URL"
 msgstr ""
 
-#: clinic\models.py:246
+#: clinic\models.py:247
 #: clinic\templates\clinic\admin\practitioner_form.html:108
 msgid "Facebook URL"
 msgstr ""
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Failed"
 msgstr ""
 
@@ -3732,24 +3763,24 @@ msgstr ""
 msgid "Failed Verification Attempts"
 msgstr ""
 
-#: clinic\models.py:369
+#: clinic\models.py:373
 msgid "FAQ"
 msgstr ""
 
-#: clinic\models.py:370 templates\clinic\admin\faqs.html:3
+#: clinic\models.py:374 templates\clinic\admin\faqs.html:3
 msgid "FAQs"
 msgstr ""
 
-#: clinic\models.py:663 templates\clinic\admin\gallery.html:29
+#: clinic\models.py:669 templates\clinic\admin\gallery.html:29
 #: templates\clinic\gallery.html:34
 msgid "Featured"
 msgstr ""
 
-#: clinic\models.py:664
+#: clinic\models.py:670
 msgid "Featured label"
 msgstr ""
 
-#: clinic\models.py:638 templates\clinic\partials\featured_patients.html:15
+#: clinic\models.py:644 templates\clinic\partials\featured_patients.html:15
 msgid "Featured patient"
 msgstr ""
 
@@ -3765,7 +3796,7 @@ msgstr ""
 msgid "Featured patient saved."
 msgstr ""
 
-#: clinic\models.py:639 templates\clinic\admin\featured.html:3
+#: clinic\models.py:645 templates\clinic\admin\featured.html:3
 #: templates\clinic\admin\featured.html:4
 #: templates\clinic\admin\featured_form.html:5
 msgid "Featured patients"
@@ -3869,7 +3900,7 @@ msgstr ""
 msgid "Fees are non-refundable."
 msgstr ""
 
-#: accounts\models.py:340 clinic\models.py:190
+#: accounts\models.py:340 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:39
 #: patients\models.py:20
 msgid "Female"
@@ -3931,7 +3962,7 @@ msgstr ""
 msgid "Food, drug allergies..."
 msgstr ""
 
-#: clinic\models.py:87 clinic\templates\clinic\admin\clinic_setup.html:410
+#: clinic\models.py:88 clinic\templates\clinic\admin\clinic_setup.html:410
 msgid "Footer Text"
 msgstr ""
 
@@ -3945,6 +3976,13 @@ msgstr ""
 
 #: templates\clinic\event_detail.html:73
 msgid "for confirmation"
+msgstr ""
+
+#: accounts\templates\accounts\admin\user_form.html:123
+msgid ""
+"For doctors and therapists shown on the website and booked for appointments."
+" Name, photo, phone and email are taken from this account, so nothing is "
+"typed twice."
 msgstr ""
 
 #: notifications\templates\notifications\email.html:13
@@ -3978,7 +4016,7 @@ msgid ""
 "GOOGLE_TRANSLATE_API_KEY for best results, especially names."
 msgstr ""
 
-#: clinic\models.py:425
+#: clinic\models.py:429
 msgid "Free text shown on the card, e.g. \"2 months ago\"."
 msgstr ""
 
@@ -3992,7 +4030,7 @@ msgstr ""
 msgid "From"
 msgstr ""
 
-#: clinic\models.py:53
+#: clinic\models.py:54
 msgid ""
 "From Google Business Profile: \"Ask for reviews\". Patients are sent here "
 "after their treatment."
@@ -4019,7 +4057,7 @@ msgstr ""
 msgid "Full Mobility"
 msgstr ""
 
-#: clinic\models.py:194 courses\models.py:174 events\models.py:247
+#: clinic\models.py:195 courses\models.py:174 events\models.py:247
 #: patients\models.py:27
 msgid "Full Name"
 msgstr ""
@@ -4066,13 +4104,13 @@ msgstr ""
 msgid "Fully Paid"
 msgstr ""
 
-#: clinic\models.py:673 templates\clinic\admin\gallery.html:3
+#: clinic\models.py:679 templates\clinic\admin\gallery.html:3
 #: templates\clinic\admin\gallery.html:4
 #: templates\clinic\admin\gallery_form.html:5
 msgid "Gallery"
 msgstr ""
 
-#: clinic\models.py:672
+#: clinic\models.py:678
 msgid "Gallery item"
 msgstr ""
 
@@ -4141,7 +4179,7 @@ msgstr ""
 msgid "Google Calendar"
 msgstr ""
 
-#: clinic\models.py:82
+#: clinic\models.py:83
 msgid "Google Maps Iframe URL"
 msgstr ""
 
@@ -4153,11 +4191,11 @@ msgstr ""
 msgid "Google Maps integration and social profile links."
 msgstr ""
 
-#: clinic\models.py:382
+#: clinic\models.py:386
 msgid "Google Review"
 msgstr ""
 
-#: clinic\models.py:52 clinic\templates\clinic\admin\clinic_setup.html:997
+#: clinic\models.py:53 clinic\templates\clinic\admin\clinic_setup.html:997
 msgid "Google review link"
 msgstr ""
 
@@ -4166,7 +4204,7 @@ msgstr ""
 msgid "GST (%(tax_percent)s%% %(get_tax_type_display)s)"
 msgstr ""
 
-#: clinic\models.py:127
+#: clinic\models.py:128
 msgid "GSTIN"
 msgstr ""
 
@@ -4182,7 +4220,7 @@ msgstr ""
 msgid "Guest Phone"
 msgstr ""
 
-#: notifications\models.py:19
+#: notifications\models.py:21
 msgid "Guest recipient with no account."
 msgstr ""
 
@@ -4239,23 +4277,23 @@ msgstr ""
 msgid "Hello, %(v_0)s! 👋"
 msgstr ""
 
-#: clinic\models.py:310
+#: clinic\models.py:314
 msgid "Hero Carousel Image"
 msgstr ""
 
-#: clinic\models.py:311 clinic\templates\clinic\admin\clinic_setup.html:460
+#: clinic\models.py:315 clinic\templates\clinic\admin\clinic_setup.html:460
 msgid "Hero Carousel Images"
 msgstr ""
 
-#: clinic\models.py:78 clinic\models.py:304
+#: clinic\models.py:79 clinic\models.py:308
 msgid "Hero Image"
 msgstr ""
 
-#: clinic\models.py:71 clinic\templates\clinic\admin\clinic_setup.html:401
+#: clinic\models.py:72 clinic\templates\clinic\admin\clinic_setup.html:401
 msgid "Hero Subtitle"
 msgstr ""
 
-#: clinic\models.py:66 clinic\templates\clinic\admin\clinic_setup.html:392
+#: clinic\models.py:67 clinic\templates\clinic\admin\clinic_setup.html:392
 msgid "Hero Title"
 msgstr ""
 
@@ -4278,7 +4316,7 @@ msgstr ""
 msgid "High resolution JPG/WebP preferred. Aspect 16:9."
 msgstr ""
 
-#: spinalcure\settings\base.py:128
+#: spinalcure\settings\base.py:131
 msgid "Hindi"
 msgstr ""
 
@@ -4314,7 +4352,7 @@ msgstr ""
 msgid "How is the patient feeling after today's session?"
 msgstr ""
 
-#: notifications\messages.py:45 templates\clinic\review.html:12
+#: notifications\messages.py:46 templates\clinic\review.html:12
 msgid "How is your recovery going?"
 msgstr ""
 
@@ -4330,7 +4368,7 @@ msgstr ""
 msgid "How your treatment works"
 msgstr ""
 
-#: clinic\models.py:760
+#: clinic\models.py:766
 msgid "Human-readable string of the affected record"
 msgstr ""
 
@@ -4350,7 +4388,7 @@ msgid ""
 "non-refundable."
 msgstr ""
 
-#: clinic\models.py:290
+#: clinic\models.py:294
 msgid "Icon Name"
 msgstr ""
 
@@ -4363,7 +4401,7 @@ msgstr ""
 msgid "ID card branding"
 msgstr ""
 
-#: notifications\messages.py:67
+#: notifications\messages.py:68
 msgid "ID card issued"
 msgstr ""
 
@@ -4377,7 +4415,7 @@ msgstr ""
 msgid "ID card of %(name)s"
 msgstr ""
 
-#: notifications\messages.py:70
+#: notifications\messages.py:71
 msgid "ID card revoked"
 msgstr ""
 
@@ -4438,7 +4476,7 @@ msgstr ""
 msgid "If you need to reschedule or cancel, please inform us at least"
 msgstr ""
 
-#: clinic\models.py:145
+#: clinic\models.py:146
 msgid "IFSC Code"
 msgstr ""
 
@@ -4534,7 +4572,7 @@ msgstr ""
 msgid "Instagram Profile URL"
 msgstr ""
 
-#: clinic\models.py:245
+#: clinic\models.py:246
 #: clinic\templates\clinic\admin\practitioner_form.html:98
 msgid "Instagram URL"
 msgstr ""
@@ -4543,7 +4581,7 @@ msgstr ""
 msgid "Insurance"
 msgstr ""
 
-#: clinic\models.py:383
+#: clinic\models.py:387
 msgid "Internal / Direct"
 msgstr ""
 
@@ -4638,12 +4676,12 @@ msgstr ""
 msgid "Invoice #%(receipt_number)s — SpinalCure"
 msgstr ""
 
-#: notifications\messages.py:58
+#: notifications\messages.py:59
 #, python-format
 msgid "Invoice %(invoice)s"
 msgstr ""
 
-#: clinic\models.py:789 clinic\templates\clinic\admin\activity_log.html:66
+#: clinic\models.py:795 clinic\templates\clinic\admin\activity_log.html:66
 msgid "IP Address"
 msgstr ""
 
@@ -4651,7 +4689,7 @@ msgstr ""
 msgid "Is Active"
 msgstr ""
 
-#: clinic\models.py:234
+#: clinic\models.py:235
 msgid "Is Chief Doctor"
 msgstr ""
 
@@ -4690,7 +4728,7 @@ msgstr ""
 msgid "It is no longer shown and its text and your name have been deleted."
 msgstr ""
 
-#: notifications\messages.py:43
+#: notifications\messages.py:44
 #, python-format
 msgid ""
 "It is time for your follow-up visit. Please book a slot with %(clinic)s."
@@ -4720,7 +4758,7 @@ msgstr ""
 msgid "Joined"
 msgstr ""
 
-#: clinic\models.py:270
+#: clinic\models.py:274
 msgid "Joined date cannot be in the future."
 msgstr ""
 
@@ -4740,15 +4778,15 @@ msgstr ""
 msgid "JPEG, PNG or WebP, up to 5 MB."
 msgstr ""
 
-#: clinic\models.py:772
+#: clinic\models.py:778
 msgid "JSON of actual database field changes for programmatic reverting"
 msgstr ""
 
-#: clinic\models.py:766
+#: clinic\models.py:772
 msgid "JSON of changed fields (human-readable): {\"field\": {\"old\": \"...\", \"new\": \"...\"}}"
 msgstr ""
 
-#: spinalcure\settings\base.py:131
+#: spinalcure\settings\base.py:134
 msgid "Kannada"
 msgstr ""
 
@@ -4787,7 +4825,7 @@ msgstr ""
 msgid "Key Learning Outcomes (One per line) *"
 msgstr ""
 
-#: clinic\models.py:624
+#: clinic\models.py:630
 msgid "Known as"
 msgstr ""
 
@@ -4796,7 +4834,7 @@ msgstr ""
 msgid "Label"
 msgstr ""
 
-#: accounts\templates\accounts\admin\user_form.html:82 clinic\models.py:507
+#: accounts\templates\accounts\admin\user_form.html:82 clinic\models.py:511
 #: events\models.py:102 templates\clinic\admin\video_form.html:24
 msgid "Language"
 msgstr ""
@@ -4913,6 +4951,10 @@ msgstr ""
 msgid "Limited seats. We will call you to confirm."
 msgstr ""
 
+#: accounts\forms.py:27
+msgid "Link an existing practitioner"
+msgstr ""
+
 #: idcards\templates\idcards\_card.html:14
 msgid "Link copied to the clipboard"
 msgstr ""
@@ -4923,6 +4965,10 @@ msgstr ""
 
 #: templates\patients\review_form.html:43
 msgid "Link this review to a specific doctor."
+msgstr ""
+
+#: accounts\forms.py:51
+msgid "Linked practitioner profile (keep)"
 msgstr ""
 
 #: templates\appointments\calendar.html:439
@@ -4957,7 +5003,7 @@ msgstr ""
 msgid "Loading…"
 msgstr ""
 
-#: notifications\models.py:24
+#: notifications\models.py:26
 msgid "Local deep link, e.g. /appointments/"
 msgstr ""
 
@@ -4977,7 +5023,7 @@ msgstr ""
 msgid "Logistics & Enrollment"
 msgstr ""
 
-#: clinic\models.py:35 clinic\templates\clinic\admin\clinic_setup.html:434
+#: clinic\models.py:36 clinic\templates\clinic\admin\clinic_setup.html:434
 msgid "Logo"
 msgstr ""
 
@@ -5034,11 +5080,11 @@ msgstr ""
 msgid "Main Title"
 msgstr ""
 
-#: spinalcure\settings\base.py:130
+#: spinalcure\settings\base.py:133
 msgid "Malayalam"
 msgstr ""
 
-#: accounts\models.py:340 clinic\models.py:190
+#: accounts\models.py:340 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:38
 #: patients\models.py:20
 msgid "Male"
@@ -5254,7 +5300,7 @@ msgstr ""
 msgid "Model %(model_name)s not found."
 msgstr ""
 
-#: clinic\models.py:748
+#: clinic\models.py:754
 msgid "Model / Module"
 msgstr ""
 
@@ -5335,7 +5381,7 @@ msgstr ""
 msgid "My ID card"
 msgstr ""
 
-#: clinic\models.py:623 courses\models.py:218 events\models.py:293
+#: clinic\models.py:629 courses\models.py:218 events\models.py:293
 #: templates\events\event_feedback_admin.html:55
 msgid "Name"
 msgstr ""
@@ -5392,7 +5438,7 @@ msgstr ""
 msgid "New Appointment Booking — Admin Notification"
 msgstr ""
 
-#: notifications\messages.py:18 notifications\messages.py:21
+#: notifications\messages.py:19 notifications\messages.py:22
 #, python-format
 msgid "New appointment: %(who)s"
 msgstr ""
@@ -5704,7 +5750,7 @@ msgstr ""
 msgid "No Show"
 msgstr ""
 
-#: accounts\templates\accounts\admin\users_list.html:95
+#: accounts\templates\accounts\admin\users_list.html:101
 msgid "No staff members found."
 msgstr ""
 
@@ -5712,7 +5758,7 @@ msgstr ""
 msgid "No staff profile is linked to your account"
 msgstr ""
 
-#: templates\clinic\partials\testimonial_results.html:57
+#: templates\clinic\partials\testimonial_results.html:62
 msgid "No stories match your search"
 msgstr ""
 
@@ -5796,12 +5842,16 @@ msgstr ""
 msgid "None reported"
 msgstr ""
 
+#: accounts\forms.py:26
+msgid "Not a practitioner"
+msgstr ""
+
 #: templates\appointments\partials\appointment_list_partial.html:33
 #: templates\patients\partials\patient_list_partial.html:38
 msgid "Not Assigned"
 msgstr ""
 
-#: clinic\testimonial_views.py:161
+#: clinic\testimonial_views.py:172
 msgid "Not published: record the patient's consent first."
 msgstr ""
 
@@ -5811,7 +5861,7 @@ msgid ""
 "rejected."
 msgstr ""
 
-#: clinic\models.py:503
+#: clinic\models.py:507
 msgid "Not recorded"
 msgstr ""
 
@@ -5977,7 +6027,7 @@ msgstr ""
 msgid "Online payment"
 msgstr ""
 
-#: notifications\messages.py:55
+#: notifications\messages.py:56
 #, python-format
 msgid "Online payment received: %(who)s"
 msgstr ""
@@ -6000,23 +6050,27 @@ msgstr ""
 msgid "ONLY"
 msgstr ""
 
-#: accounts\admin_views.py:53
+#: accounts\admin_views.py:54
 msgid "Only a super admin can change a super admin."
 msgstr ""
 
-#: accounts\admin_views.py:33
+#: accounts\admin_views.py:70
+msgid "Only a super admin can delete accounts."
+msgstr ""
+
+#: accounts\admin_views.py:34
 msgid "Only a super admin can edit a super admin."
 msgstr ""
 
-#: payments\views.py:355
+#: payments\views.py:359
 msgid "Only admins and authorized staff can delete expenses."
 msgstr ""
 
-#: payments\views.py:315
+#: payments\views.py:319
 msgid "Only admins and authorized staff can edit expenses."
 msgstr ""
 
-#: payments\views.py:275
+#: payments\views.py:279
 msgid "Only admins can create expenses."
 msgstr ""
 
@@ -6028,7 +6082,7 @@ msgstr ""
 msgid "Only admins can manage reviews."
 msgstr ""
 
-#: payments\views.py:223
+#: payments\views.py:227
 msgid "Only admins can view expenses."
 msgstr ""
 
@@ -6094,7 +6148,7 @@ msgid ""
 "status only; contact details are never included."
 msgstr ""
 
-#: clinic\models.py:628
+#: clinic\models.py:634
 msgid "Optional, factual and brief. No treatment claims."
 msgstr ""
 
@@ -6108,7 +6162,7 @@ msgstr ""
 msgid "Or use a frame from the video"
 msgstr ""
 
-#: clinic\models.py:662
+#: clinic\models.py:668
 msgid "or YouTube / Instagram link"
 msgstr ""
 
@@ -6120,7 +6174,7 @@ msgstr ""
 msgid "Organizer"
 msgstr ""
 
-#: accounts\models.py:340 appointments\models.py:94 clinic\models.py:190
+#: accounts\models.py:340 appointments\models.py:94 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:40
 msgid "Other"
 msgstr ""
@@ -6175,7 +6229,7 @@ msgstr ""
 msgid "Outstanding"
 msgstr ""
 
-#: notifications\messages.py:61
+#: notifications\messages.py:62
 #, python-format
 msgid "Outstanding payment: %(who)s"
 msgstr ""
@@ -6331,7 +6385,7 @@ msgid ""
 "password."
 msgstr ""
 
-#: accounts\forms.py:56
+#: accounts\forms.py:71
 msgid "Password is required."
 msgstr ""
 
@@ -6371,7 +6425,7 @@ msgstr ""
 msgid "Patient - SpinalCure"
 msgstr ""
 
-#: clinic\models.py:397
+#: clinic\models.py:401
 msgid "Patient / Client Name"
 msgstr ""
 
@@ -6384,7 +6438,7 @@ msgstr ""
 msgid "Patient Card - %(name)s - SpinalCure"
 msgstr ""
 
-#: clinic\models.py:510 templates\clinic\admin\video_form.html:39
+#: clinic\models.py:516 templates\clinic\admin\video_form.html:39
 #: templates\clinic\admin\videos.html:42 templates\clinic\admin\videos.html:58
 msgid "Patient consent"
 msgstr ""
@@ -6420,7 +6474,7 @@ msgstr ""
 msgid "Patient Login — SpinalCure"
 msgstr ""
 
-#: clinic\models.py:488
+#: clinic\models.py:492
 msgid "Patient name"
 msgstr ""
 
@@ -6472,7 +6526,7 @@ msgstr ""
 msgid "Patient Reviews"
 msgstr ""
 
-#: templates\clinic\partials\testimonial_results.html:19
+#: templates\clinic\partials\testimonial_results.html:24
 msgid "Patient reviews"
 msgstr ""
 
@@ -6562,7 +6616,7 @@ msgstr ""
 msgid "Payment"
 msgstr ""
 
-#: payments\views.py:639
+#: payments\views.py:643
 #, python-format
 msgid "Payment %(receipt)s deleted successfully."
 msgstr ""
@@ -6571,7 +6625,7 @@ msgstr ""
 msgid "Payment Date"
 msgstr ""
 
-#: notifications\messages.py:52
+#: notifications\messages.py:53
 msgid "Payment failed"
 msgstr ""
 
@@ -6604,7 +6658,7 @@ msgstr ""
 msgid "Payment Modes"
 msgstr ""
 
-#: payments\views.py:489
+#: payments\views.py:493
 #, python-format
 msgid ""
 "Payment of ₹%(amount_paid)s recorded for %(payer_name)s. Email receipt sent."
@@ -6624,7 +6678,7 @@ msgstr ""
 msgid "Payment Receipts"
 msgstr ""
 
-#: notifications\messages.py:49 templates\payments\emails\receipt_email.html:6
+#: notifications\messages.py:50 templates\payments\emails\receipt_email.html:6
 msgid "Payment received"
 msgstr ""
 
@@ -6636,7 +6690,7 @@ msgstr ""
 msgid "Payment record not found."
 msgstr ""
 
-#: payments\views.py:589
+#: payments\views.py:593
 msgid "Payment record updated successfully."
 msgstr ""
 
@@ -6683,7 +6737,7 @@ msgstr ""
 msgid "PDF Report"
 msgstr ""
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Pending"
 msgstr ""
 
@@ -6691,7 +6745,7 @@ msgstr ""
 msgid "Pending Dues"
 msgstr ""
 
-#: clinic\models.py:434
+#: clinic\models.py:438
 msgid "Pending review"
 msgstr ""
 
@@ -6712,7 +6766,7 @@ msgstr ""
 msgid "Permission not recorded"
 msgstr ""
 
-#: clinic\models.py:630
+#: clinic\models.py:636
 msgid "Permission to feature is on file"
 msgstr ""
 
@@ -6733,7 +6787,7 @@ msgid "Personal Information"
 msgstr ""
 
 #: accounts\models.py:42 accounts\templates\accounts\admin\user_form.html:112
-#: clinic\models.py:42 clinic\templates\clinic\admin\practitioner_form.html:51
+#: clinic\models.py:43 clinic\templates\clinic\admin\practitioner_form.html:51
 msgid "Phone"
 msgstr ""
 
@@ -6763,12 +6817,12 @@ msgstr ""
 msgid "Phone: %(phone)s | Email: %(email)s"
 msgstr ""
 
-#: accounts\templates\accounts\admin\user_form.html:110 clinic\models.py:405
-#: clinic\models.py:626 clinic\models.py:654
+#: accounts\templates\accounts\admin\user_form.html:110 clinic\models.py:409
+#: clinic\models.py:632 clinic\models.py:660
 msgid "Photo"
 msgstr ""
 
-#: clinic\models.py:659
+#: clinic\models.py:665
 msgid "Photo / cover image"
 msgstr ""
 
@@ -6826,7 +6880,7 @@ msgstr ""
 msgid "Platform"
 msgstr ""
 
-#: clinic\models.py:505
+#: clinic\models.py:509
 msgid "Platform thumbnail"
 msgstr ""
 
@@ -6901,7 +6955,7 @@ msgstr ""
 msgid "Please enter your name and phone number."
 msgstr ""
 
-#: payments\views.py:305
+#: payments\views.py:309
 msgid "Please fill in all required fields."
 msgstr ""
 
@@ -6932,7 +6986,7 @@ msgstr ""
 msgid "Please wait…"
 msgstr ""
 
-#: clinic\models.py:424
+#: clinic\models.py:428
 msgid "Posted"
 msgstr ""
 
@@ -6948,8 +7002,8 @@ msgstr ""
 msgid "Practical advice on pain, posture and recovery, written by our team."
 msgstr ""
 
-#: appointments\models.py:211 clinic\models.py:255 patients\models.py:337
-#: templates\appointments\appointment_list.html:59
+#: accounts\templates\accounts\admin\user_form.html:125
+#: appointments\models.py:211 clinic\models.py:259 patients\models.py:337
 msgid "Practitioner"
 msgstr ""
 
@@ -6976,11 +7030,15 @@ msgstr ""
 msgid "Practitioner Notes"
 msgstr ""
 
+#: accounts\templates\accounts\admin\user_form.html:122
+msgid "Practitioner profile"
+msgstr ""
+
 #: clinic\templates\clinic\admin\practitioner_form.html:4
 msgid "Practitioner — SpinalCure"
 msgstr ""
 
-#: clinic\models.py:256
+#: clinic\models.py:260
 msgid "Practitioners"
 msgstr ""
 
@@ -7096,30 +7154,30 @@ msgstr ""
 msgid "Private: shown only to confirmed registrants shortly before the event."
 msgstr ""
 
-#: clinic\models.py:324 clinic\models.py:358
+#: clinic\models.py:328 clinic\models.py:362
 #: templates\clinic\admin\faqs.html:16 templates\clinic\admin\problems.html:13
 msgid "Problem"
 msgstr ""
 
-#: clinic\testimonial_views.py:241
+#: clinic\testimonial_views.py:252
 #, python-format
 msgid "Problem \"%(name)s\" added."
 msgstr ""
 
-#: clinic\models.py:336 templates\clinic\admin\problems.html:4
+#: clinic\models.py:340 templates\clinic\admin\problems.html:4
 #: templates\ui\sidebar.html:31
 msgid "Problem Categories"
 msgstr ""
 
-#: clinic\models.py:335
+#: clinic\models.py:339
 msgid "Problem Category"
 msgstr ""
 
-#: clinic\testimonial_views.py:250
+#: clinic\testimonial_views.py:261
 msgid "Problem deleted."
 msgstr ""
 
-#: clinic\models.py:419 clinic\models.py:494
+#: clinic\models.py:423 clinic\models.py:498
 #: templates\clinic\admin\testimonial_form.html:79
 #: templates\clinic\admin\video_form.html:22
 msgid "Problem treated"
@@ -7221,7 +7279,7 @@ msgstr ""
 msgid "Publish now (only if consent is on file)"
 msgstr ""
 
-#: clinic\models.py:362
+#: clinic\models.py:366
 msgid "Publish only after the doctor has checked the answer."
 msgstr ""
 
@@ -7245,8 +7303,8 @@ msgstr ""
 msgid "Publish to website (doctor's page and Patient Stories)"
 msgstr ""
 
-#: clinic\blog_models.py:32 clinic\models.py:361 clinic\models.py:427
-#: clinic\models.py:633
+#: clinic\blog_models.py:32 clinic\models.py:365 clinic\models.py:431
+#: clinic\models.py:639
 msgid "Published"
 msgstr ""
 
@@ -7270,14 +7328,13 @@ msgstr ""
 msgid "Published — click to hide"
 msgstr ""
 
-#: clinic\models.py:225
+#: accounts\templates\accounts\admin\user_form.html:131 clinic\models.py:226
 #: clinic\templates\clinic\admin\practitioner_form.html:127
 #: templates\clinic\home.html:116
-#: templates\clinic\practitioner_portfolio.html:25
 msgid "Qualifications"
 msgstr ""
 
-#: clinic\models.py:355 templates\clinic\admin\faqs.html:16
+#: clinic\models.py:359 templates\clinic\admin\faqs.html:16
 msgid "Question"
 msgstr ""
 
@@ -7315,7 +7372,7 @@ msgstr ""
 msgid "Quick add photos"
 msgstr ""
 
-#: clinic\models.py:410 courses\models.py:219 events\models.py:296
+#: clinic\models.py:414 courses\models.py:219 events\models.py:296
 #: patients\models.py:342
 msgid "Rating"
 msgstr ""
@@ -7324,7 +7381,7 @@ msgstr ""
 msgid "Rating *"
 msgstr ""
 
-#: clinic\models.py:771
+#: clinic\models.py:777
 msgid "Raw Changes"
 msgstr ""
 
@@ -7341,7 +7398,7 @@ msgstr ""
 msgid "Reactivate"
 msgstr ""
 
-#: templates\clinic\partials\testimonial_results.html:37
+#: templates\clinic\partials\testimonial_results.html:42
 msgid "Read more"
 msgstr ""
 
@@ -7463,7 +7520,7 @@ msgstr ""
 msgid "Record Collection"
 msgstr ""
 
-#: clinic\models.py:759
+#: clinic\models.py:765
 msgid "Record Description"
 msgstr ""
 
@@ -7471,7 +7528,7 @@ msgstr ""
 msgid "Record Expense"
 msgstr ""
 
-#: clinic\models.py:754
+#: clinic\models.py:760
 msgid "Record ID"
 msgstr ""
 
@@ -7505,7 +7562,7 @@ msgstr ""
 msgid "Record Session"
 msgstr ""
 
-#: clinic\testimonial_views.py:188
+#: clinic\testimonial_views.py:199
 msgid "Record the patient's consent before publishing this video."
 msgstr ""
 
@@ -7541,7 +7598,7 @@ msgstr ""
 msgid "Recovery Trends"
 msgstr ""
 
-#: clinic\testimonial_views.py:58 templates\clinic\admin\problems.html:5
+#: clinic\testimonial_views.py:69 templates\clinic\admin\problems.html:5
 #: templates\clinic\admin\videos.html:4
 #: templates\clinic\partials\testimonial_results.html:10
 msgid "Reels & Shorts"
@@ -7634,7 +7691,7 @@ msgstr ""
 msgid "Registration"
 msgstr ""
 
-#: notifications\messages.py:73 notifications\messages.py:91
+#: notifications\messages.py:74 notifications\messages.py:92
 #, python-format
 msgid "Registration confirmed: %(event)s"
 msgstr ""
@@ -7702,7 +7759,7 @@ msgstr ""
 msgid "Reject"
 msgstr ""
 
-#: clinic\models.py:434
+#: clinic\models.py:438
 msgid "Rejected"
 msgstr ""
 
@@ -7718,7 +7775,7 @@ msgstr ""
 msgid "Reminder Sent"
 msgstr ""
 
-#: notifications\messages.py:34
+#: notifications\messages.py:35
 #, python-format
 msgid ""
 "Reminder: you have an appointment on %(date)s at %(time)s with "
@@ -7783,7 +7840,7 @@ msgstr ""
 msgid "Replace with a fresh machine translation"
 msgstr ""
 
-#: templates\clinic\partials\testimonial_results.html:41
+#: templates\clinic\partials\testimonial_results.html:46
 msgid "Reply from the clinic"
 msgstr ""
 
@@ -7837,7 +7894,7 @@ msgstr ""
 msgid "Revert"
 msgstr ""
 
-#: clinic\models.py:783 clinic\templates\clinic\admin\activity_log.html:108
+#: clinic\models.py:789 clinic\templates\clinic\admin\activity_log.html:108
 msgid "Reverted"
 msgstr ""
 
@@ -7876,7 +7933,7 @@ msgstr ""
 msgid "Review us on Google"
 msgstr ""
 
-#: clinic\models.py:815 templates\clinic\admin\translations.html:73
+#: clinic\models.py:821 templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 msgid "Reviewed"
 msgstr ""
@@ -7885,7 +7942,7 @@ msgstr ""
 msgid "reviewed"
 msgstr ""
 
-#: clinic\testimonial_views.py:58 templates\ui\sidebar.html:28
+#: clinic\testimonial_views.py:69 templates\ui\sidebar.html:28
 msgid "Reviews"
 msgstr ""
 
@@ -7999,7 +8056,7 @@ msgid ""
 "leave feedback:"
 msgstr ""
 
-#: clinic\testimonial_views.py:117
+#: clinic\testimonial_views.py:128
 msgid "Saved as hidden. Record the patient's consent to publish it."
 msgstr ""
 
@@ -8054,7 +8111,7 @@ msgstr ""
 msgid "Search for patients..."
 msgstr ""
 
-#: clinic\models.py:327 templates\clinic\admin\problems.html:15
+#: clinic\models.py:331 templates\clinic\admin\problems.html:15
 msgid "Search keywords"
 msgstr ""
 
@@ -8237,7 +8294,7 @@ msgstr ""
 msgid "Sending…"
 msgstr ""
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Sent"
 msgstr ""
 
@@ -8251,11 +8308,11 @@ msgstr ""
 msgid "SEO: AUTO"
 msgstr ""
 
-#: clinic\models.py:295
+#: clinic\models.py:299
 msgid "Service"
 msgstr ""
 
-#: clinic\models.py:289 templates\payments\payment_form.html:244
+#: clinic\models.py:293 templates\payments\payment_form.html:244
 msgid "Service Description"
 msgstr ""
 
@@ -8268,7 +8325,7 @@ msgstr ""
 msgid "Service short description..."
 msgstr ""
 
-#: clinic\models.py:288
+#: clinic\models.py:292
 msgid "Service Title"
 msgstr ""
 
@@ -8276,11 +8333,11 @@ msgstr ""
 msgid "Service:"
 msgstr ""
 
-#: clinic\models.py:296 clinic\templates\clinic\admin\clinic_setup.html:89
+#: clinic\models.py:300 clinic\templates\clinic\admin\clinic_setup.html:89
 msgid "Services"
 msgstr ""
 
-#: clinic\models.py:109
+#: clinic\models.py:110
 msgid "Services Description"
 msgstr ""
 
@@ -8292,11 +8349,11 @@ msgstr ""
 msgid "Services header updated."
 msgstr ""
 
-#: clinic\models.py:107
+#: clinic\models.py:108
 msgid "Services Label"
 msgstr ""
 
-#: clinic\models.py:108
+#: clinic\models.py:109
 msgid "Services Title"
 msgstr ""
 
@@ -8434,7 +8491,7 @@ msgstr ""
 msgid "Shift saved."
 msgstr ""
 
-#: clinic\models.py:496
+#: clinic\models.py:500
 msgid "Short description"
 msgstr ""
 
@@ -8447,7 +8504,7 @@ msgstr ""
 msgid "Short description (searchable)"
 msgstr ""
 
-#: clinic\models.py:627
+#: clinic\models.py:633
 msgid "Short note"
 msgstr ""
 
@@ -8471,12 +8528,16 @@ msgstr ""
 msgid "Show emergency contact on the back"
 msgstr ""
 
-#: templates\clinic\partials\testimonial_results.html:37
+#: templates\clinic\partials\testimonial_results.html:42
 msgid "Show less"
 msgstr ""
 
-#: templates\clinic\partials\testimonial_results.html:51
-msgid "Show more"
+#: templates\clinic\partials\testimonial_results.html:18
+msgid "Show more reels"
+msgstr ""
+
+#: templates\clinic\partials\testimonial_results.html:55
+msgid "Show more reviews"
 msgstr ""
 
 #: templates\accounts\login.html:64
@@ -8548,7 +8609,7 @@ msgstr ""
 msgid "Shown in Google search results (max 160 chars)."
 msgstr ""
 
-#: clinic\models.py:665
+#: clinic\models.py:671
 msgid "Shown on the spotlight, e.g. \"Featured patient\"."
 msgstr ""
 
@@ -8599,7 +8660,7 @@ msgstr ""
 msgid "Skip to content"
 msgstr ""
 
-#: notifications\models.py:66
+#: notifications\models.py:68
 msgid "Skipped"
 msgstr ""
 
@@ -8631,7 +8692,7 @@ msgstr ""
 msgid "SMS notifications (opt-in)"
 msgstr ""
 
-#: clinic\models.py:777
+#: clinic\models.py:783
 msgid "Snapshot"
 msgstr ""
 
@@ -8647,7 +8708,7 @@ msgstr ""
 msgid "Social Connections & Map"
 msgstr ""
 
-#: clinic\models.py:387
+#: clinic\models.py:391
 msgid "Social Media"
 msgstr ""
 
@@ -8657,12 +8718,12 @@ msgid ""
 "read it."
 msgstr ""
 
-#: clinic\models.py:415 templates\clinic\admin\testimonial_form.html:105
+#: clinic\models.py:419 templates\clinic\admin\testimonial_form.html:105
 #: templates\clinic\admin\testimonials_list.html:46
 msgid "Source"
 msgstr ""
 
-#: clinic\models.py:422
+#: clinic\models.py:426
 msgid "Source link"
 msgstr ""
 
@@ -8675,7 +8736,7 @@ msgstr ""
 msgid "SP"
 msgstr ""
 
-#: clinic\models.py:435 templates\clinic\admin\testimonials_list.html:58
+#: clinic\models.py:439 templates\clinic\admin\testimonials_list.html:58
 msgid "Spam"
 msgstr ""
 
@@ -8687,7 +8748,7 @@ msgstr ""
 msgid "Specialists"
 msgstr ""
 
-#: clinic\models.py:221
+#: accounts\templates\accounts\admin\user_form.html:129 clinic\models.py:222
 #: clinic\templates\clinic\admin\practitioner_form.html:120
 msgid "Specialization"
 msgstr ""
@@ -8770,7 +8831,7 @@ msgstr ""
 msgid "Starting On *"
 msgstr ""
 
-#: notifications\messages.py:88
+#: notifications\messages.py:89
 #, python-format
 msgid "Starting soon: %(event)s"
 msgstr ""
@@ -8788,19 +8849,19 @@ msgstr ""
 msgid "Starts in"
 msgstr ""
 
-#: clinic\models.py:99
+#: clinic\models.py:100
 msgid "Stat 1 Label"
 msgstr ""
 
-#: clinic\models.py:98
+#: clinic\models.py:99
 msgid "Stat 1 Number"
 msgstr ""
 
-#: clinic\models.py:101
+#: clinic\models.py:102
 msgid "Stat 2 Label"
 msgstr ""
 
-#: clinic\models.py:100
+#: clinic\models.py:101
 msgid "Stat 2 Number"
 msgstr ""
 
@@ -8931,16 +8992,17 @@ msgstr ""
 msgid "Tag Name"
 msgstr ""
 
-#: clinic\models.py:29 clinic\templates\clinic\admin\clinic_setup.html:178
+#: clinic\models.py:30 clinic\templates\clinic\admin\clinic_setup.html:178
 msgid "Tagline"
 msgstr ""
 
-#: clinic\blog_models.py:70 templates\clinic\admin\blog_form.html:118
+#: clinic\blog_models.py:70 clinic\models.py:513
+#: templates\clinic\admin\blog_form.html:118
 #: templates\clinic\admin\blog_list.html:31
 msgid "Tags"
 msgstr ""
 
-#: spinalcure\settings\base.py:127
+#: spinalcure\settings\base.py:130
 msgid "Tamil"
 msgstr ""
 
@@ -8976,15 +9038,15 @@ msgstr ""
 msgid "Team Accounts"
 msgstr ""
 
-#: clinic\models.py:116
+#: clinic\models.py:117
 msgid "Team Description"
 msgstr ""
 
-#: clinic\models.py:114
+#: clinic\models.py:115
 msgid "Team Label"
 msgstr ""
 
-#: clinic\models.py:115
+#: clinic\models.py:116
 msgid "Team Title"
 msgstr ""
 
@@ -9012,7 +9074,7 @@ msgid ""
 "private feedback for our team."
 msgstr ""
 
-#: spinalcure\settings\base.py:129
+#: spinalcure\settings\base.py:132
 msgid "Telugu"
 msgstr ""
 
@@ -9036,7 +9098,7 @@ msgid ""
 "Cure, Arumbakkam, Chennai."
 msgstr ""
 
-#: clinic\models.py:445
+#: clinic\models.py:449
 msgid "Testimonial"
 msgstr ""
 
@@ -9055,7 +9117,7 @@ msgstr ""
 msgid "Testimonial from %(patient_name)s updated."
 msgstr ""
 
-#: clinic\models.py:412
+#: clinic\models.py:416
 msgid "Testimonial Text"
 msgstr ""
 
@@ -9063,11 +9125,11 @@ msgstr ""
 msgid "Testimonial Text *"
 msgstr ""
 
-#: clinic\models.py:522
+#: clinic\models.py:528
 msgid "Testimonial Video"
 msgstr ""
 
-#: clinic\models.py:523
+#: clinic\models.py:529
 msgid "Testimonial Videos"
 msgstr ""
 
@@ -9075,17 +9137,17 @@ msgstr ""
 msgid "Testimonial — SpinalCure Admin"
 msgstr ""
 
-#: clinic\models.py:446 templates\analytics\dashboard.html:142
+#: clinic\models.py:450 templates\analytics\dashboard.html:142
 #: templates\clinic\admin\testimonials_list.html:3
 #: templates\clinic\admin\testimonials_list.html:4
 msgid "Testimonials"
 msgstr ""
 
-#: clinic\models.py:119
+#: clinic\models.py:120
 msgid "Testimonials Label"
 msgstr ""
 
-#: clinic\models.py:120
+#: clinic\models.py:121
 msgid "Testimonials Title"
 msgstr ""
 
@@ -9099,7 +9161,7 @@ msgid ""
 " your path to better health."
 msgstr ""
 
-#: notifications\messages.py:46
+#: notifications\messages.py:47
 #, python-format
 msgid ""
 "Thank you for choosing %(clinic)s. If our treatment has helped you, a short "
@@ -9133,7 +9195,7 @@ msgstr ""
 msgid "That practitioner is not available."
 msgstr ""
 
-#: clinic\testimonial_views.py:236
+#: clinic\testimonial_views.py:247
 msgid "That problem already exists."
 msgstr ""
 
@@ -9162,7 +9224,7 @@ msgstr ""
 msgid "The active batch is open for new registrations."
 msgstr ""
 
-#: notifications\messages.py:40
+#: notifications\messages.py:41
 #, python-format
 msgid ""
 "The appointment for %(who)s on %(date)s at %(time)s was not marked completed"
@@ -9230,7 +9292,7 @@ msgid ""
 "card does not verify."
 msgstr ""
 
-#: notifications\messages.py:71
+#: notifications\messages.py:72
 #, python-format
 msgid "The ID card %(employee_id)s has been revoked and no longer verifies."
 msgstr ""
@@ -9414,7 +9476,7 @@ msgstr ""
 msgid "This shift overlaps another shift on the same day."
 msgstr ""
 
-#: clinic\models.py:514 templates\clinic\admin\video_form.html:48
+#: clinic\models.py:520 templates\clinic\admin\video_form.html:48
 #: templates\clinic\admin\video_form.html:104
 msgid "Thumbnail"
 msgstr ""
@@ -9423,7 +9485,7 @@ msgstr ""
 msgid "Thursday"
 msgstr ""
 
-#: clinic\models.py:631
+#: clinic\models.py:637
 msgid ""
 "Tick only when the patient (or their team) has agreed in writing to be named"
 " on the website."
@@ -9456,7 +9518,7 @@ msgid ""
 "Times above are in this time zone; visitors see it alongside every time."
 msgstr ""
 
-#: clinic\models.py:794 clinic\templates\clinic\admin\activity_log.html:61
+#: clinic\models.py:800 clinic\templates\clinic\admin\activity_log.html:61
 #: templates\emails\audit_log_notification.html:30
 msgid "Timestamp"
 msgstr ""
@@ -9469,7 +9531,7 @@ msgstr ""
 msgid "Timing & Duration"
 msgstr ""
 
-#: clinic\blog_models.py:36 clinic\models.py:487 clinic\models.py:657
+#: clinic\blog_models.py:36 clinic\models.py:491 clinic\models.py:663
 #: courses\models.py:24
 msgid "Title"
 msgstr ""
@@ -9498,7 +9560,7 @@ msgstr ""
 msgid "Title for these photos (optional)"
 msgstr ""
 
-#: clinic\models.py:200
+#: clinic\models.py:201
 msgid "Title/Designation"
 msgstr ""
 
@@ -9605,7 +9667,7 @@ msgstr ""
 msgid "Training Courses"
 msgstr ""
 
-#: clinic\models.py:508 templates\clinic\admin\video_form.html:28
+#: clinic\models.py:512 templates\clinic\admin\video_form.html:28
 msgid "Transcript"
 msgstr ""
 
@@ -9663,7 +9725,7 @@ msgstr ""
 msgid "Treatment details will be added soon."
 msgstr ""
 
-#: notifications\messages.py:42
+#: notifications\messages.py:43
 msgid "Treatment follow-up due"
 msgstr ""
 
@@ -9710,7 +9772,7 @@ msgstr ""
 msgid "Treatments"
 msgstr ""
 
-#: templates\clinic\partials\testimonial_results.html:58
+#: templates\clinic\partials\testimonial_results.html:63
 msgid "Try a different word or choose All problems."
 msgstr ""
 
@@ -9759,12 +9821,12 @@ msgstr ""
 msgid "Twitter / X Profile URL"
 msgstr ""
 
-#: clinic\models.py:244
+#: clinic\models.py:245
 #: clinic\templates\clinic\admin\practitioner_form.html:103
 msgid "Twitter URL"
 msgstr ""
 
-#: clinic\models.py:656 events\models.py:59
+#: clinic\models.py:662 events\models.py:59
 #: idcards\templates\idcards\dashboard.html:19
 #: idcards\templates\idcards\detail.html:22
 msgid "Type"
@@ -9815,6 +9877,10 @@ msgstr ""
 msgid "Unknown time zone."
 msgstr ""
 
+#: accounts\forms.py:51
+msgid "Unlink"
+msgstr ""
+
 #: payments\models.py:33
 msgid "Unpaid"
 msgstr ""
@@ -9849,7 +9915,7 @@ msgstr ""
 msgid "Upcoming Appointments"
 msgstr ""
 
-#: clinic\models.py:727 clinic\templates\clinic\admin\activity_log.html:22
+#: clinic\models.py:733 clinic\templates\clinic\admin\activity_log.html:22
 #: clinic\templates\clinic\admin\activity_log.html:83
 msgid "Update"
 msgstr ""
@@ -9906,7 +9972,7 @@ msgstr ""
 msgid "Update Testimonial"
 msgstr ""
 
-#: accounts\templates\accounts\admin\user_form.html:124
+#: accounts\templates\accounts\admin\user_form.html:138
 msgid "Update User"
 msgstr ""
 
@@ -9914,7 +9980,7 @@ msgstr ""
 msgid "UPI"
 msgstr ""
 
-#: clinic\models.py:151
+#: clinic\models.py:152
 msgid "UPI ID"
 msgstr ""
 
@@ -9932,7 +9998,7 @@ msgstr ""
 msgid "Upload a JPEG, PNG or WebP image."
 msgstr ""
 
-#: clinic\models.py:683
+#: clinic\models.py:689
 msgid "Upload a video or paste a YouTube / Instagram link."
 msgstr ""
 
@@ -9962,7 +10028,7 @@ msgid ""
 "image to set the focal point that every crop keeps in view."
 msgstr ""
 
-#: clinic\models.py:505
+#: clinic\models.py:509
 msgid "Uploaded image"
 msgstr ""
 
@@ -9987,21 +10053,26 @@ msgid "Used"
 msgstr ""
 
 #: accounts\models.py:64 accounts\models.py:105
-#: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:737
+#: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:743
 msgid "User"
 msgstr ""
 
-#: accounts\admin_views.py:24
+#: accounts\admin_views.py:25
 #, python-format
 msgid "User \"%(username)s\" created successfully."
 msgstr ""
 
-#: accounts\admin_views.py:59
+#: accounts\admin_views.py:82
+#, python-format
+msgid "User \"%(username)s\" deleted."
+msgstr ""
+
+#: accounts\admin_views.py:60
 #, python-format
 msgid "User \"%(username)s\" has been %(value3)s."
 msgstr ""
 
-#: accounts\admin_views.py:41
+#: accounts\admin_views.py:42
 #, python-format
 msgid "User \"%(username)s\" updated."
 msgstr ""
@@ -10015,7 +10086,7 @@ msgstr ""
 msgid "Username *"
 msgstr ""
 
-#: clinic\models.py:471
+#: clinic\models.py:475
 msgid "Username, or \"author\" / \"system\"."
 msgstr ""
 
@@ -10100,42 +10171,42 @@ msgstr ""
 msgid "via %(get_payment_mode_display)s"
 msgstr ""
 
-#: clinic\models.py:654 templates\clinic\admin\gallery.html:30
+#: clinic\models.py:660 templates\clinic\admin\gallery.html:30
 #: templates\clinic\admin\videos.html:67
 msgid "Video"
 msgstr ""
 
-#: clinic\testimonial_views.py:115
+#: clinic\testimonial_views.py:126
 #, python-format
 msgid "Video \"%(title)s\" added."
 msgstr ""
 
-#: clinic\testimonial_views.py:168
+#: clinic\testimonial_views.py:179
 #, python-format
 msgid "Video \"%(title)s\" saved."
 msgstr ""
 
-#: clinic\models.py:489 templates\clinic\admin\video_form.html:18
+#: clinic\models.py:493 templates\clinic\admin\video_form.html:18
 msgid "Video / Reel / Short link"
 msgstr ""
 
-#: clinic\testimonial_views.py:223
+#: clinic\testimonial_views.py:234
 msgid "Video deleted."
 msgstr ""
 
-#: clinic\models.py:661
+#: clinic\models.py:667
 msgid "Video file"
 msgstr ""
 
-#: clinic\models.py:506
+#: clinic\models.py:510
 msgid "Video frame 1"
 msgstr ""
 
-#: clinic\models.py:506
+#: clinic\models.py:510
 msgid "Video frame 2"
 msgstr ""
 
-#: clinic\models.py:506
+#: clinic\models.py:510
 msgid "Video frame 3"
 msgstr ""
 
@@ -10236,12 +10307,12 @@ msgstr ""
 msgid "waitlisted"
 msgstr ""
 
-#: notifications\messages.py:76 notifications\messages.py:94
+#: notifications\messages.py:77 notifications\messages.py:95
 #, python-format
 msgid "Waitlisted: %(event)s"
 msgstr ""
 
-#: clinic\models.py:384
+#: clinic\models.py:388
 msgid "Walk-in Patient"
 msgstr ""
 
@@ -10304,11 +10375,11 @@ msgstr ""
 msgid "We look forward to seeing you!"
 msgstr ""
 
-#: notifications\messages.py:36
+#: notifications\messages.py:37
 msgid "We missed you"
 msgstr ""
 
-#: notifications\messages.py:50
+#: notifications\messages.py:51
 #, python-format
 msgid ""
 "We received your payment of %(amount)s (receipt %(receipt)s). Thank you."
@@ -10335,12 +10406,12 @@ msgstr ""
 msgid "Webinar"
 msgstr ""
 
-#: clinic\models.py:45 templates\clinic\event_detail.html:74
+#: clinic\models.py:46 templates\clinic\event_detail.html:74
 #: templates\emails\base_email.html:65
 msgid "Website"
 msgstr ""
 
-#: clinic\models.py:433
+#: clinic\models.py:437
 msgid "Website form"
 msgstr ""
 
@@ -10469,7 +10540,7 @@ msgstr ""
 msgid "Where"
 msgstr ""
 
-#: clinic\models.py:511 templates\clinic\admin\video_form.html:42
+#: clinic\models.py:517 templates\clinic\admin\video_form.html:42
 msgid "Where consent is recorded"
 msgstr ""
 
@@ -10477,7 +10548,7 @@ msgstr ""
 msgid "Where the QR on the back leads. Defaults to the clinic website."
 msgstr ""
 
-#: clinic\models.py:784
+#: clinic\models.py:790
 msgid "Whether this action has been reverted"
 msgstr ""
 
@@ -10515,11 +10586,11 @@ msgstr ""
 msgid "Withdraw your review"
 msgstr ""
 
-#: clinic\models.py:503 clinic\stories.py:118
+#: clinic\models.py:507 clinic\stories.py:118
 msgid "Withdrawn"
 msgstr ""
 
-#: clinic\models.py:435
+#: clinic\models.py:439
 msgid "Withdrawn by author"
 msgstr ""
 
@@ -10552,7 +10623,7 @@ msgstr ""
 msgid "Word count: 0"
 msgstr ""
 
-#: clinic\models.py:91
+#: clinic\models.py:92
 msgid "Working Hours"
 msgstr ""
 
@@ -10593,11 +10664,15 @@ msgstr ""
 msgid "Y- Ya+"
 msgstr ""
 
-#: clinic\models.py:182
+#: clinic\models.py:183
 msgid "Year cannot be in the future."
 msgstr ""
 
-#: clinic\models.py:229
+#: accounts\templates\accounts\admin\user_form.html:130
+msgid "Years of experience"
+msgstr ""
+
+#: clinic\models.py:230
 #: clinic\templates\clinic\admin\practitioner_form.html:44
 msgid "Years of Experience"
 msgstr ""
@@ -10649,12 +10724,12 @@ msgid ""
 "registration with us."
 msgstr ""
 
-#: notifications\messages.py:92
+#: notifications\messages.py:93
 #, python-format
 msgid "You are registered for %(event)s (%(batch)s), starting %(date)s."
 msgstr ""
 
-#: notifications\messages.py:74
+#: notifications\messages.py:75
 #, python-format
 msgid "You are registered for %(event)s on %(date)s at %(time)s."
 msgstr ""
@@ -10670,15 +10745,19 @@ msgid ""
 "confirmation email, up to the time shown on that page."
 msgstr ""
 
-#: accounts\forms.py:64
+#: accounts\forms.py:79
 msgid "You cannot change your own role."
 msgstr ""
 
-#: accounts\admin_views.py:51
+#: accounts\admin_views.py:52
 msgid "You cannot deactivate your own account."
 msgstr ""
 
-#: notifications\messages.py:37
+#: accounts\admin_views.py:72
+msgid "You cannot delete your own account."
+msgstr ""
+
+#: notifications\messages.py:38
 #, python-format
 msgid ""
 "You did not attend your appointment on %(date)s at %(time)s. Contact "
@@ -10705,7 +10784,7 @@ msgstr ""
 msgid "You do not have permission to delete blog posts."
 msgstr ""
 
-#: payments\views.py:624
+#: payments\views.py:628
 msgid "You do not have permission to delete payments."
 msgstr ""
 
@@ -10734,7 +10813,7 @@ msgid "You do not have permission to manage reviews."
 msgstr ""
 
 #: events\views.py:72 patients\views.py:1103 payments\online_views.py:27
-#: payments\views.py:387
+#: payments\views.py:391
 msgid "You do not have permission to perform this action."
 msgstr ""
 
@@ -10755,12 +10834,12 @@ msgstr ""
 msgid "You have already sent feedback. Thank you!"
 msgstr ""
 
-#: notifications\messages.py:64
+#: notifications\messages.py:65
 #, python-format
 msgid "You have been added to %(clinic)s"
 msgstr ""
 
-#: notifications\messages.py:65
+#: notifications\messages.py:66
 #, python-format
 msgid "You were added as %(role)s. Sign in to get started."
 msgstr ""
@@ -10773,7 +10852,7 @@ msgstr ""
 msgid "You're booked"
 msgstr ""
 
-#: notifications\messages.py:68
+#: notifications\messages.py:69
 #, python-format
 msgid "Your %(card_type)s ID card (%(employee_id)s) has been issued."
 msgstr ""
@@ -10790,26 +10869,26 @@ msgstr ""
 msgid "Your appointment has been moved."
 msgstr ""
 
-#: notifications\messages.py:28
+#: notifications\messages.py:29
 #, python-format
 msgid ""
 "Your appointment has moved to %(date)s at %(time)s with %(practitioner)s."
 msgstr ""
 
-#: notifications\messages.py:31
+#: notifications\messages.py:32
 #, python-format
 msgid ""
 "Your appointment on %(date)s at %(time)s has been cancelled. Contact "
 "%(clinic)s to rebook."
 msgstr ""
 
-#: notifications\messages.py:25
+#: notifications\messages.py:26
 #, python-format
 msgid ""
 "Your appointment on %(date)s at %(time)s with %(practitioner)s is confirmed."
 msgstr ""
 
-#: notifications\messages.py:16
+#: notifications\messages.py:17
 #, python-format
 msgid ""
 "Your appointment with %(practitioner)s at %(clinic)s is booked for %(date)s "
@@ -10901,16 +10980,16 @@ msgstr ""
 msgid "YouTube Short / video or Instagram reel link *"
 msgstr ""
 
-#: clinic\testimonial_views.py:260
+#: clinic\testimonial_views.py:271
 #, python-format
 msgid "YouTube synced: %(n)s new video(s) added."
 msgstr ""
 
-#: clinic\testimonial_views.py:261
+#: clinic\testimonial_views.py:272
 msgid "YouTube synced: nothing new."
 msgstr ""
 
-#: clinic\models.py:243
+#: clinic\models.py:244
 #: clinic\templates\clinic\admin\practitioner_form.html:93
 msgid "YouTube URL"
 msgstr ""

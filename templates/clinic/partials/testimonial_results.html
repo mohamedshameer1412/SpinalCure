@@ -13,6 +13,11 @@
     {% include "clinic/partials/video_card.html" %}
     {% endfor %}
 </div>
+{% if more_videos_url %}
+<div class="-mt-6 mb-12 text-center"><a href="{{ more_videos_url }}" hx-get="{{ more_videos_url }}" hx-target="#results" hx-push-url="true" hx-swap="innerHTML show:none"
+    class="btn btn-outline inline-flex items-center gap-2"><i class="bi bi-arrow-down-circle" aria-hidden="true"></i>{% translate "Show more reels" %}
+    <span class="text-xs text-gray-500">({{ videos|length }} / {{ n_videos }})</span></a></div>
+{% endif %}
 {% endif %}
 
 {% if reviews %}
@@ -45,10 +50,10 @@
 </div>
 {% endif %}
 
-{% if more_url %}
-<div class="text-center mt-10"><a href="{{ more_url }}" hx-get="{{ more_url }}" hx-target="#results" hx-push-url="true" hx-swap="innerHTML"
-    class="btn btn-outline inline-flex items-center gap-2">
-    <i class="bi bi-arrow-down-circle"></i>{% translate "Show more" %}</a></div>
+{% if more_reviews_url %}
+<div class="text-center mt-8"><a href="{{ more_reviews_url }}" hx-get="{{ more_reviews_url }}" hx-target="#results" hx-push-url="true" hx-swap="innerHTML show:none"
+    class="btn btn-outline inline-flex items-center gap-2"><i class="bi bi-arrow-down-circle" aria-hidden="true"></i>{% translate "Show more reviews" %}
+    <span class="text-xs text-gray-500">({{ reviews|length }} / {{ n_reviews }})</span></a></div>
 {% endif %}
 
 {% if not total %}

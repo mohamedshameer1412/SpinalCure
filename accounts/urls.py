@@ -2,7 +2,7 @@ from django_ratelimit.decorators import ratelimit
 from django.contrib.auth import views as auth_views
 from django.urls import path
 from .views import settings_view
-from .admin_views import users_list, user_create, user_edit, user_toggle_active
+from .admin_views import users_list, user_create, user_edit, user_toggle_active, user_delete
 
 urlpatterns = [
     # Auth Views
@@ -18,4 +18,5 @@ urlpatterns = [
     path('admin/users/create/', user_create, name='admin_user_create'),
     path('admin/users/<b64uuid:pk>/edit/', user_edit, name='admin_user_edit'),
     path('admin/users/<b64uuid:pk>/toggle/', user_toggle_active, name='admin_user_toggle'),
+    path('admin/users/<b64uuid:pk>/delete/', user_delete, name='admin_user_delete'),
 ]
