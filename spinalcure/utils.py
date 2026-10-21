@@ -479,3 +479,12 @@ def safe_next(request, fallback):
     if target and url_has_allowed_host_and_scheme(target, allowed_hosts={request.get_host()}, require_https=request.is_secure()):
         return target
     return fallback
+
+
+def clock(value):
+    """A time as the locale writes it, but 12:00 as a number ("12 p.m."), not the word "noon"."""
+    from django.utils.formats import time_format
+    text = time_format(value, 'TIME_FORMAT')
+    if value.hour == 12 and value.minute == 0 and not any(c.isdigit() for c in text):
+        return time_format(value, 'g a')
+    return text

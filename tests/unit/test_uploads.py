@@ -217,3 +217,11 @@ def test_excel_zip_is_rewritten_with_identical_members():
     with zipfile.ZipFile(io.BytesIO(out)) as a, zipfile.ZipFile(io.BytesIO(buf.getvalue())) as b:
         assert a.namelist() == b.namelist() and all(a.read(n) == b.read(n) for n in a.namelist())
     assert recompress_zip(b'not a zip') == b'not a zip'
+
+
+def test_clock_writes_noon_as_a_number():
+    from datetime import time
+    from django.utils import translation
+    from spinalcure.utils import clock
+    with translation.override('en'):
+        assert clock(time(12, 0)) == '12 p.m.' and clock(time(11, 0)) == '11 a.m.' and clock(time(12, 30)) == '12:30 p.m.'

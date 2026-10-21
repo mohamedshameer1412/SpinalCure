@@ -288,7 +288,7 @@ def get_available_slots(request):
     Without `practitioner` the union across active practitioners is returned ("any available doctor").
     Only times are exposed; nothing about who holds the other slots.
     """
-    from django.utils.formats import time_format
+    from spinalcure.utils import clock
     from . import scheduling as sch
 
     try:
@@ -341,7 +341,7 @@ def get_available_slots(request):
     from django.conf import settings as dj_settings
     return JsonResponse({
         'available_slots': [sl.label for sl in slots],
-        'slots': [{'value': sl.label, 'label': time_format(sl.time, 'TIME_FORMAT')} for sl in slots],
+        'slots': [{'value': sl.label, 'label': clock(sl.time)} for sl in slots],
         'message': message,
         'timezone': dj_settings.TIME_ZONE,
     })

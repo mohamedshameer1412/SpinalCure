@@ -38,7 +38,7 @@
             <h2 class="font-semibold mb-3">{% translate "Change the time" %}</h2>
             <form method="post">{% csrf_token %}<input type="hidden" name="action" value="reschedule">
                 <label for="d" class="block text-sm text-gray-600 mb-1">{% translate "New date" %}</label>
-                <input id="d" type="date" name="date" x-model="date" @change="load()" required class="w-full">
+                <input id="d" type="date" name="date" x-model="date" @change="date = $event.target.value; load()" required class="w-full">
                 <p x-show="loading" class="text-sm text-gray-500 mt-2" role="status">{% translate "Loading…" %}</p>
                 <p x-show="error" x-text="error" class="text-sm text-amber-700 mt-2" role="alert"></p>
                 <div class="grid grid-cols-3 gap-2 mt-3" role="radiogroup" aria-label="{% translate 'Available times' %}">

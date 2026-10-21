@@ -6,7 +6,8 @@ Placeholders use %(name)s so translators can reorder them.
 from datetime import date, datetime, time
 
 from django.utils import translation
-from django.utils.formats import date_format, time_format
+from django.utils.formats import date_format
+from spinalcure.utils import clock
 from django.utils.translation import gettext_noop as N_
 
 # event -> (title msgid, body msgid)
@@ -117,7 +118,7 @@ def localise_context(context):
         elif isinstance(value, date):
             out[key] = date_format(value, 'DATE_FORMAT')
         elif isinstance(value, time):
-            out[key] = time_format(value, 'TIME_FORMAT')
+            out[key] = clock(value)
         else:
             out[key] = value
     return out

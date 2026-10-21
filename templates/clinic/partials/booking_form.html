@@ -26,7 +26,7 @@
                 <div><label for="bk-name" class="label">{% translate "Full name" %}</label><input id="bk-name" x-ref="name" type="text" required autocomplete="name" maxlength="120"></div>
                 <div><label for="bk-phone" class="label">{% translate "Phone number" %}</label><div class="input-group" dir="ltr"><span class="input-addon">+91</span><input id="bk-phone" x-ref="phone" type="tel" required autocomplete="tel-national" inputmode="tel" maxlength="20" placeholder="98765 43210"></div></div>
                 <div class="sm:col-span-2"><label for="bk-email" class="label">{% translate "Email (for the confirmation)" %}</label><input id="bk-email" x-ref="email" type="email" autocomplete="email" maxlength="254" dir="ltr"></div>
-                <div class="sm:col-span-2"><label for="bk-date" class="label">{% translate "Date" %}</label><input id="bk-date" x-model="date" type="date" :min="minDate" required @change="fetchSlots()"></div>
+                <div class="sm:col-span-2"><label for="bk-date" class="label">{% translate "Date" %}</label><input id="bk-date" x-model="date" type="date" :min="minDate" required @change="date = $event.target.value; fetchSlots()"></div>
             </div>
 
             <div>

@@ -59,7 +59,7 @@ def manage_slots(request, token):
         day = datetime.strptime(request.GET.get('date', ''), '%Y-%m-%d').date()
     except ValueError:
         return JsonResponse({'error': gettext('Invalid date.')}, status=400)
-    from django.utils.formats import time_format
+    from spinalcure.utils import clock
     slots = sch.generate_slots(appt.practitioner, day, appt.appointment_type, appt.duration_minutes, exclude=appt) \
         if appt.practitioner_id else []
-    return JsonResponse({'slots': [{'value': s.label, 'label': time_format(s.time, 'TIME_FORMAT')} for s in slots]})
+    return JsonResponse({'slots': [{'value': s.label, 'label': clock(s.time)} for s in slots]})
