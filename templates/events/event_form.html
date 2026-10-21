@@ -50,7 +50,9 @@
     <section class="card p-6 grid sm:grid-cols-2 gap-5">
         <h2 class="sm:col-span-2 text-sm font-semibold text-gray-400 uppercase tracking-widest">{% translate "Registration" %}</h2>
         <div><label for="{{ form.max_participants.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.max_participants.label }}</label>{{ form.max_participants }}<p class="text-xs text-gray-500 mt-1">{% translate "Leave empty for unlimited." %}</p></div>
-        <div><label for="{{ form.fees.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.fees.label }}</label>{{ form.fees }}</div>
+        <div><label for="{{ form.fees.id_for_label }}" class="label">{{ form.fees.label }}</label>{{ form.fees }}</div>
+        <div><label for="{{ form.original_fees.id_for_label }}" class="label">{{ form.original_fees.label }}</label>{{ form.original_fees }}
+            <p class="field-hint">{{ form.original_fees.help_text }}</p>{% for e in form.original_fees.errors %}<p class="field-error">{{ e }}</p>{% endfor %}</div>
         <div><label for="{{ form.registration_deadline.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.registration_deadline.label }}</label>{{ form.registration_deadline }}</div>
         <div><label for="{{ form.reminder_offsets_minutes.id_for_label }}" class="block text-sm font-medium mb-1">{{ form.reminder_offsets_minutes.label }}</label>{{ form.reminder_offsets_minutes }}</div>
         <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="{{ form.waitlist_enabled.html_name }}" {% if form.waitlist_enabled.value %}checked{% endif %} class="rounded border-gray-300 text-green-600"> {{ form.waitlist_enabled.label }}</label>

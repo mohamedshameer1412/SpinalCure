@@ -16,6 +16,7 @@ urlpatterns = [
 # Public routes (no language prefix: the QR printed on a card must never change).
 public_urlpatterns = [
     path('verify/<str:card_id>/', views.verify, name='idcard_verify'),
+    path('verify/<str:card_id>/photo/', views.verify_photo, name='idcard_verify_photo'),
     path('share/<str:token>/', views.share, name='idcard_share'),
     path('share/<str:token>/card.png', views.share_image, name='idcard_share_image'),
 ]

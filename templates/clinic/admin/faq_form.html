@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n content_i18n %}
+{% block title %}{% trans "Edit question" %} — SpinalCure{% endblock %}
+{% block page_title %}{% trans "Edit question" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'admin_faqs' %}" class="btn btn-ghost"><i class="bi bi-arrow-left"></i>{% trans "All questions" %}</a>{% endblock %}
+
+{% block content %}
+<div class="grid max-w-5xl gap-6">
+    <form method="post" class="card grid gap-4 p-6">
+        {% csrf_token %}
+        {% for field in form %}{% include "ui/field.html" %}{% endfor %}
+        <div class="flex justify-end gap-2 border-t border-gray-100 pt-4">
+            <a href="{% url 'admin_faqs' %}" class="btn btn-outline">{% trans "Cancel" %}</a>
+            <button class="btn btn-primary">{% trans "Save" %}</button>
+        </div>
+    </form>
+    {% translation_panel faq %}
+</div>
+{% endblock %}

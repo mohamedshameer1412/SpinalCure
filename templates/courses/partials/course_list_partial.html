@@ -54,7 +54,7 @@
                     </div>
                     <div class="flex items-center gap-2 font-bold text-slate-900">
                         <i class="bi bi-currency-rupee text-slate-400"></i>
-                        <span>{% if course.fees > 0 %}₹{{ course.fees }}{% else %}{% trans "Free" %}{% endif %}</span>
+                        <span>{% include "components/price.html" with item=course %}</span>
                     </div>
                 </div>
 

@@ -5,9 +5,8 @@
     </button>
 
     {% if request.user|can:'patients.view' %}{% include "ui/command_search.html" %}{% else %}<div class="flex-1"></div>{% endif %}
-    <div class="flex-1 sm:hidden"></div>
 
-    <div class="flex items-center gap-1.5">
+    <div class="ms-auto flex shrink-0 items-center gap-1.5">
         <!-- theme -->
         <div class="relative" x-data="{ open: false }" @keydown.escape.window="open = false">
             <button @click="open = !open" @click.outside="open = false" type="button" class="btn btn-ghost btn-icon" aria-haspopup="menu" :aria-expanded="open" aria-label="{% translate 'Theme' %}">

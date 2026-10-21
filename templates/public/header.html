@@ -30,6 +30,7 @@
             <a href="{{ home }}#doctor" class="site-link">{% translate "Our doctor" %}</a>
             {% url 'public_testimonials' as u %}<a href="{{ u }}" class="site-link{% if n == 'public_testimonials' %} is-active{% endif %}">{% translate "Patient stories" %}</a>
             {% url 'public_event_list' as u %}<a href="{{ u }}" class="site-link{% if 'event' in n %} is-active{% endif %}">{% translate "Events" %}</a>
+            {% url 'public_gallery' as u %}<a href="{{ u }}" class="site-link{% if n == 'public_gallery' %} is-active{% endif %}">{% translate "Gallery" %}</a>
             {% url 'blog_list' as u %}<a href="{{ u }}" class="site-link{% if 'blog' in n %} is-active{% endif %}">{% translate "Health articles" %}</a>
             <a href="{{ home }}#visit" class="site-link">{% translate "Contact" %}</a>
         </nav>
@@ -58,7 +59,9 @@
             <a href="{{ home }}#doctor" class="nav-item"><i class="bi bi-person-badge"></i>{% translate "Our doctor" %}</a>
             {% url 'public_testimonials' as u %}<a href="{{ u }}" class="nav-item"><i class="bi bi-chat-heart"></i>{% translate "Patient stories" %}</a>
             {% url 'public_event_list' as u %}<a href="{{ u }}" class="nav-item"><i class="bi bi-calendar-event"></i>{% translate "Events" %}</a>
+            {% url 'public_gallery' as u %}<a href="{{ u }}" class="nav-item"><i class="bi bi-images"></i>{% translate "Gallery" %}</a>
             {% url 'blog_list' as u %}<a href="{{ u }}" class="nav-item"><i class="bi bi-journal-text"></i>{% translate "Health articles" %}</a>
+            {% url 'clinic_faq' as u %}<a href="{{ u }}" class="nav-item"><i class="bi bi-patch-question"></i>{% translate "Questions & answers" %}</a>
             <a href="{{ home }}#visit" class="nav-item"><i class="bi bi-geo-alt"></i>{% translate "Contact" %}</a>
         </nav>
         <div class="space-y-3 border-t border-gray-200 p-4">

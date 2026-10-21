@@ -12,13 +12,13 @@
         <label class="lg:col-span-2"><span class="sr-only">{% translate "Search" %}</span>
             <input type="search" name="q" value="{{ q }}" placeholder="{% translate 'Search events…' %}" class="w-full rounded-xl border-gray-200 text-sm"></label>
         <label><span class="sr-only">{% translate "Type" %}</span>
-            <select name="type" class="no-ts w-full rounded-xl border-gray-200 text-sm"><option value="">{% translate "All types" %}</option>
+            <select name="type" class="w-full"><option value="">{% translate "All types" %}</option>
                 {% for v, l in event_types %}<option value="{{ v }}" {% if v == etype %}selected{% endif %}>{{ l }}</option>{% endfor %}</select></label>
         <label><span class="sr-only">{% translate "Format" %}</span>
-            <select name="mode" class="no-ts w-full rounded-xl border-gray-200 text-sm"><option value="">{% translate "Online or in person" %}</option>
+            <select name="mode" class="w-full"><option value="">{% translate "Online or in person" %}</option>
                 <option value="online" {% if mode == 'online' %}selected{% endif %}>{% translate "Online" %}</option>
                 <option value="in_person" {% if mode == 'in_person' %}selected{% endif %}>{% translate "In person" %}</option></select></label>
-        <div class="flex gap-2"><select name="language" class="no-ts flex-1 rounded-xl border-gray-200 text-sm" aria-label="{% translate 'Event language' %}">
+        <div class="flex gap-2"><select name="language" class="flex-1" aria-label="{% translate 'Event language' %}">
                 <option value="">{% translate "Any language" %}</option>
                 {% for c, n in LANGUAGES %}<option value="{{ c }}" {% if c == language %}selected{% endif %}>{% if c == 'en' %}English{% elif c == 'ta' %}தமிழ்{% elif c == 'hi' %}हिन्दी{% else %}العربية{% endif %}</option>{% endfor %}</select>
             <button class="px-4 rounded-xl bg-green-600 text-white text-sm font-semibold">{% translate "Filter" %}</button></div>
@@ -50,7 +50,7 @@
                 {% if e.presenter %}<p class="text-sm text-gray-500">{{ e|tx:"presenter" }}</p>{% endif %}
                 <p class="mt-2 text-sm text-gray-600"><i class="bi bi-clock me-1" aria-hidden="true"></i>{{ e.starts_at|date:"DATE_FORMAT" }} · <span class="ltr-isolate">{{ e.starts_at|time:"H:i" }}–{{ e.ends_at|time:"H:i" }}</span> <span class="text-gray-400">({{ e.timezone }})</span></p>
                 <div class="mt-auto pt-4 flex items-center justify-between text-sm">
-                    <span class="font-semibold">{% if e.fees > 0 %}₹{{ e.fees|floatformat:"-2" }}{% else %}<span class="text-green-700">{% translate "Free" %}</span>{% endif %}</span>
+                    {% include "components/price.html" with item=e %}
                     <a href="{% url 'event_detail' e.pk %}" class="font-semibold text-green-700 no-underline hover:underline">{% if e.phase == 'upcoming' %}{% translate "Details & register" %}{% else %}{% translate "View" %}{% endif %} →</a>
                 </div>
             </div>

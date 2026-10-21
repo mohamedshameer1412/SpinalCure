@@ -168,7 +168,7 @@
                     <div class="relative">
                         <span class="absolute start-5 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
                         <input type="number" name="total_amount" step="0.01" min="0" required
-                            value="{{ payment.total_amount|default:'0.00' }}" placeholder="0.00"
+                            value="{% if payment %}{{ payment.total_amount|default:'0.00' }}{% else %}{{ prefill_amount|default:'0.00' }}{% endif %}" placeholder="0.00"
                             class="w-full ps-10 pe-5">
                     </div>
                     <p class="text-[10px] text-gray-400 mt-1">{% trans "Leave as 0.00 if paying an existing balance." %}</p>
@@ -232,7 +232,7 @@
                         class="w-full appearance-none">
                         <option value="">{% trans "General / No specific plan" %}</option>
                         {% for plan in treatment_plans %}
-                        <option value="{{ plan.id }}" {% if payment.treatment_plan.id == plan.id %}selected{% endif %}>{{ plan.name }}</option>
+                        <option value="{{ plan.id }}" {% if payment.treatment_plan.id == plan.id or prefill_plan == plan.id|stringformat:'s' %}selected{% endif %}>{{ plan.name }}</option>
                         {% endfor %}
                     </select>
                 </div>

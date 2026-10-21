@@ -4,8 +4,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
+from spinalcure.pricing import DiscountMixin, original_price_field
 
-class Course(models.Model):
+
+class Course(DiscountMixin, models.Model):
     """A training course offered by the clinic."""
     PLATFORM_ONLINE = 'online'
     PLATFORM_OFFLINE = 'offline'
@@ -40,6 +42,7 @@ class Course(models.Model):
         max_digits=10, decimal_places=2, default=0,
         verbose_name=_('Course Fees (₹)')
     )
+    original_fees = original_price_field()
     duration = models.CharField(
         max_length=100, blank=True, verbose_name=_('Duration'),
         help_text=_('e.g. 3 months, 12 weeks')
@@ -64,6 +67,9 @@ class Course(models.Model):
         verbose_name = _('Course')
         verbose_name_plural = _('Courses')
         ordering = ['-created_at']
+
+    def clean(self):
+        self.clean_discount()
 
     def __str__(self):
         return self.title
@@ -144,7 +150,7 @@ class CourseBatch(models.Model):
     def is_completed(self):
         """Batch is completed if end_date is in the past."""
         if self.end_date:
-            return self.end_date < timezone.now().date()
+            return self.end_date < timezone.localdate()
         return not self.is_active
 
     @property

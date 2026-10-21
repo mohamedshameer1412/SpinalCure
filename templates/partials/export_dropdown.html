@@ -38,7 +38,7 @@
                 })
                 .catch(err => {
                     console.error('Copy failed:', err);
-                    window.Alpine ? Alpine.store('toast').push('Failed to copy data.', 'error') : alert('Failed to copy data.');
+                    Alpine.store('toast').push('{{ _("Failed to copy data.")|escapejs }}', 'error');
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                 });

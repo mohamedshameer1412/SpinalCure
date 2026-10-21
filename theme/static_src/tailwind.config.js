@@ -65,6 +65,8 @@ HUES.concat('primary').forEach((h) => [50, 100, 200, 300].forEach((s) => {
 
 module.exports = {
     darkMode: 'class',
+    // story cards colour each problem with one of these hues (clinic.models.STORY_HUES builds the class names)
+    safelist: [{ pattern: /^(bg|text|from|to|via|ring|border)-(emerald|teal|sky|indigo|violet|rose|amber|orange|primary)-(50|100|200|500|600|700|800|900)$/ }],
     content: [
         '../../templates/**/*.html',
         '../../**/templates/**/*.html',

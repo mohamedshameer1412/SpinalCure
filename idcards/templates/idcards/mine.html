@@ -19,7 +19,7 @@
     {% endif %}
     <form method="get" class="mb-4 flex items-center gap-2 text-sm">
         <label for="lang" class="text-gray-600">{% translate "Card language" %}</label>
-        <select id="lang" name="lang" onchange="this.form.submit()" class="no-ts">
+        <select id="lang" name="lang" onchange="this.form.submit()" class="">
             {% for code, name in languages %}<option value="{{ code }}" {% if code == lang %}selected{% endif %}>{% if code == 'en' %}English{% elif code == 'ta' %}தமிழ்{% elif code == 'hi' %}हिन्दी{% else %}العربية{% endif %}</option>{% endfor %}
         </select>
     </form>

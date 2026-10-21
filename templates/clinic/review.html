@@ -1,0 +1,29 @@
+{% extends "public_base.html" %}
+{% load i18n content_i18n story_tags %}
+{% block title %}{% translate "Share your experience" %} — {{ clinic|tx:"name"|default:"Spinal Cure" }}{% endblock %}
+{% block description %}{% translate "Tell us how your treatment went: a public review for other patients, or private feedback for our team." %}{% endblock %}
+{% block feedback_widget %}{% endblock %}
+
+{% block content %}
+<section class="bg-gradient-to-b from-primary-50/70 to-white">
+    <div class="container-site grid items-start gap-10 py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+        <div class="lg:sticky lg:top-28">
+            <p class="eyebrow">{% translate "Thank you" %}</p>
+            <h1 class="display mt-4 text-gray-900">{% translate "How is your recovery going?" %}</h1>
+            <p class="lead mt-4">{% translate "Your words help people living with the same pain decide to get help. It takes less than a minute." %}</p>
+            {% if clinic.google_review_url %}
+            <div class="card mt-8 flex items-start gap-4 p-5">
+                <span class="feature-icon"><i class="bi bi-google"></i></span>
+                <div class="min-w-0">
+                    <h2 class="font-semibold text-gray-900">{% translate "Review us on Google" %}</h2>
+                    <p class="mt-1 text-sm text-gray-500">{% translate "Most new patients find us on Google Maps. A review there reaches the most people." %}</p>
+                    <a href="{{ clinic.google_review_url }}" target="_blank" rel="noopener" class="btn btn-outline mt-4"><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>{% translate "Open Google reviews" %}</a>
+                </div>
+            </div>
+            {% endif %}
+            <p class="mt-6 text-sm text-gray-500">{% translate "Something we should improve? Choose “Private feedback”: only our team will read it." %}</p>
+        </div>
+        {% review_form %}
+    </div>
+</section>
+{% endblock %}

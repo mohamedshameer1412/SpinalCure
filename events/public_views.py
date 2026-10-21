@@ -100,6 +100,8 @@ def register_for_event(request, pk):
     notes = str(data.get('notes', '')).strip()[:1000]
     if len(name) < 2 or not phone:
         return fail('Name and phone are required.')
+    if event.fees > 0 and data.get("accept_terms") is not True:
+        return fail(gettext('Please accept the terms and conditions.'), 400, 'terms')
     try:
         validate_phone_number(phone)
         if email:

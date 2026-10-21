@@ -1,0 +1,12 @@
+{% load i18n %}{% comment %}Fee with optional struck-out full price.  {% include "components/price.html" with item=course size="lg" %}{% endcomment %}
+<span class="inline-flex flex-wrap items-baseline gap-x-2 gap-y-1" dir="ltr">
+{% if item.fees > 0 %}
+    <span class="font-extrabold text-gray-900 {% if size == 'lg' %}text-3xl{% else %}text-base{% endif %}">₹{{ item.fees|floatformat:"0g" }}</span>
+    {% if item.has_discount %}
+    <del class="text-gray-400 {% if size == 'lg' %}text-lg{% else %}text-sm{% endif %}" aria-label="{% translate 'Full price' %}">₹{{ item.original_fees|floatformat:"0g" }}</del>
+    <span class="rounded-full bg-red-50 px-2 py-0.5 text-xs font-bold text-red-700 ring-1 ring-inset ring-red-200">{% blocktranslate with p=item.discount_percent %}{{ p }}% off{% endblocktranslate %}</span>
+    {% endif %}
+{% else %}
+    <span class="font-bold text-green-700 {% if size == 'lg' %}text-3xl{% else %}text-base{% endif %}">{% translate "Free" %}</span>
+{% endif %}
+</span>

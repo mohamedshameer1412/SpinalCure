@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "FAQs" %} — SpinalCure{% endblock %}
+{% block page_title %}{% trans "Patient FAQs" %}{% endblock %}
+{% block header_actions %}
+<span class="badge">{% blocktranslate with p=published n=faqs|length %}{{ p }} of {{ n }} published{% endblocktranslate %}</span>
+<a href="{% url 'clinic_faq' %}" target="_blank" rel="noopener" class="btn btn-outline"><i class="bi bi-box-arrow-up-right"></i>{% trans "View page" %}</a>
+{% endblock %}
+
+{% block content %}
+<div class="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_26rem]">
+    <div class="card overflow-hidden">
+        {% if faqs %}
+        <div class="overflow-x-auto">
+        <table class="ui-table">
+            <thead><tr><th scope="col">{% trans "Question" %}</th><th scope="col">{% trans "Problem" %}</th><th scope="col">{% trans "Status" %}</th><th scope="col" class="text-end">{% trans "Actions" %}</th></tr></thead>
+            <tbody>
+            {% for f in faqs %}
+                <tr>
+                    <td class="max-w-md"><a href="{% url 'admin_faq_edit' f.pk %}" class="font-medium text-gray-900 hover:text-primary-700">{{ f.question }}</a>
+                        <p class="mt-0.5 line-clamp-1 text-xs text-gray-500">{{ f.answer }}</p></td>
+                    <td class="whitespace-nowrap text-sm text-gray-600">{{ f.problem|default:_("General") }}</td>
+                    <td>{% if f.is_published %}<span class="badge badge-success">{% trans "Published" %}</span>
+                        {% else %}<span class="badge badge-warning">{% trans "Draft: needs doctor's check" %}</span>{% endif %}</td>
+                    <td class="whitespace-nowrap text-end">
+                        <a href="{% url 'admin_faq_edit' f.pk %}" class="btn btn-ghost btn-sm">{% trans "Edit" %}</a>
+                        <form method="post" action="{% url 'admin_faq_delete' f.pk %}" class="inline" data-confirm="{% trans 'Delete this question?' %}">{% csrf_token %}
+                            <button class="btn btn-ghost btn-sm text-red-600" aria-label="{% trans 'Delete' %}"><i class="bi bi-trash"></i></button></form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        {% else %}
+        <div class="p-10 text-center">
+            <span class="feature-icon mx-auto"><i class="bi bi-patch-question"></i></span>
+            <p class="mt-4 font-semibold text-gray-900">{% trans "No questions yet" %}</p>
+            <p class="mt-1 text-sm text-gray-500">{% trans "Add the questions patients ask most often. They appear on the public FAQ page once published." %}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <form method="post" class="card grid gap-4 p-5 xl:sticky xl:top-20">
+        {% csrf_token %}
+        <h2 class="text-base font-semibold text-gray-900">{% trans "Add a question" %}</h2>
+        {% for field in form %}{% include "ui/field.html" %}{% endfor %}
+        <button class="btn btn-primary"><i class="bi bi-plus-lg"></i>{% trans "Add question" %}</button>
+    </form>
+</div>
+{% endblock %}

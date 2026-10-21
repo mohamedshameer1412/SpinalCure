@@ -7,17 +7,21 @@ from .base import *
 # Security settings - MUST be configured via environment variables
 DEBUG = False
 SECRET_KEY = config('SECRET_KEY')  # Must be set in environment
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+ALLOWED_HOSTS = [h.strip() for h in config('ALLOWED_HOSTS', default='').split(',') if h.strip()]
+# Forms posted from the site itself (HTTPS). Defaults to every allowed host.
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in config(
+    'CSRF_TRUSTED_ORIGINS', default=','.join(f'https://{h.lstrip(".")}' for h in ALLOWED_HOSTS)).split(',') if o.strip()]
 
 # SSL/HTTPS Settings
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)   # False only until AutoSSL is issued
+# HTTPS-only cookies once the site is on HTTPS (with them on plain HTTP nobody could sign in)
+SESSION_COOKIE_SECURE = SECURE_SSL_REDIRECT
+CSRF_COOKIE_SECURE = SECURE_SSL_REDIRECT
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
-SECURE_HSTS_SECONDS = 31536000  # 1 year
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=31536000, cast=int)  # set 0 while testing HTTPS
+SECURE_HSTS_INCLUDE_SUBDOMAINS = config('SECURE_HSTS_INCLUDE_SUBDOMAINS', default=False, cast=bool)
+SECURE_HSTS_PRELOAD = False
 SECURE_BROWSER_XSS_FILTER = True
 
 # CORS - production domains only
@@ -43,17 +47,23 @@ ADMINS = [('Admin', config('ADMIN_EMAIL', default='admin@spinalcure.com'))]
 
 # Cache: Redis if CACHE_LOCATION is set, else the database cache (see base.production_cache_settings)
 CACHES, _USES_REDIS = production_cache_settings()
-SILENCED_SYSTEM_CHECKS = ['django_ratelimit.E003', 'django_ratelimit.W001']
+SILENCED_SYSTEM_CHECKS = ['django_ratelimit.E003', 'django_ratelimit.W001',
+                          # API-docs schema hints and deliberate HSTS choices (no preload, no subdomain lock-in)
+                          'drf_spectacular.W001', 'drf_spectacular.W002', 'security.W005', 'security.W021']
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db' if _USES_REDIS else 'django.contrib.sessions.backends.db'
 
-# Static files - CDN ready
+# Static files: collected to STATIC_ROOT and served by WhiteNoise with hashed, cache-forever names
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-WHITENOISE = True
+STATIC_ROOT = Path(config('STATIC_ROOT', default=str(BASE_DIR / 'staticfiles')))
+MIDDLEWARE = [MIDDLEWARE[0], 'whitenoise.middleware.WhiteNoiseMiddleware', *MIDDLEWARE[1:]]
+STORAGES = {
+    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
+}
 
-# Media files - upload to cloud storage recommended
+# Uploaded files. On cPanel point MEDIA_ROOT at <document root>/media so Apache serves them directly.
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = Path(config('MEDIA_ROOT', default=str(BASE_DIR / 'media')))
 
 # Trusted proxy headers
 USE_X_FORWARDED_HOST = True

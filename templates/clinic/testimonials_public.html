@@ -1,13 +1,16 @@
 {% extends "public_base.html" %}
-{% load i18n static content_i18n seo_tags %}
+{% load i18n static content_i18n seo_tags story_tags %}
 {% block title %}{% translate "Patient stories" %} — {{ clinic|tx:"name"|default:"Spinal Cure" }}{% endblock %}
 {% block description %}{% translate "Real reviews, reels and short videos from patients, searchable by the problem they came with." %}{% endblock %}
 {% block jsonld %}{% for v in videos %}{% ld "video" v %}{% endfor %}{% endblock %}
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'vendor/tom-select/tom-select.css' %}">
-<script src="{% static 'vendor/tom-select/tom-select.complete.min.js' %}"></script>
 <script defer src="{% static 'vendor/htmx.min.js' %}"></script>
 <style>.htmx-request #results { opacity: .5; transition: opacity .2s; } .clamp-4 { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }</style>
+{% endblock %}
+
+{% block feedback_widget %}
+<a href="#share" class="btn btn-primary fixed bottom-5 end-5 z-40 h-12 rounded-full px-4 shadow-lg shadow-primary-600/30 sm:px-5">
+    <i class="bi bi-chat-heart text-lg" aria-hidden="true"></i><span class="hidden sm:inline">{% translate "Feedback" %}</span><span class="sr-only sm:hidden">{% translate "Share your experience" %}</span></a>
 {% endblock %}
 
 {% block content %}
@@ -16,6 +19,10 @@
         <p class="eyebrow">{% translate "Patient stories" %}</p>
         <h1 class="display mx-auto mt-4 max-w-3xl text-gray-900">{% translate "Real people. Real recovery." %}</h1>
         <p class="lead mx-auto mt-4 max-w-2xl">{% translate "Search reviews, reels and short videos by the problem you are facing, and see how others found relief." %}</p>
+        <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+            <a href="#share" class="btn btn-primary btn-lg"><i class="bi bi-pencil-square" aria-hidden="true"></i>{% translate "Share your experience" %}</a>
+            {% if clinic.google_review_url %}<a href="{{ clinic.google_review_url }}" target="_blank" rel="noopener" class="btn btn-outline btn-lg"><i class="bi bi-google" aria-hidden="true"></i>{% translate "Review us on Google" %}</a>{% endif %}
+        </div>
     </div>
 </section>
 
@@ -51,83 +58,20 @@
 <div id="results" class="container-site py-10" aria-live="polite">{% include "clinic/partials/testimonial_results.html" %}</div>
 
 <!-- Share your experience -->
-<section class="section bg-gray-50">
+<section id="share" class="section scroll-mt-20 bg-gray-50">
     <div class="container-site grid items-start gap-10 lg:grid-cols-2">
         <div>
             <h2 class="h-section text-gray-900">{% translate "Share your experience" %}</h2>
             <p class="lead mt-4">{% translate "Were you treated at Spinal Cure? Your story helps others who are living with the same pain. We read every review before it appears here." %}</p>
         </div>
-        <form class="card grid gap-4 p-6 sm:p-8" x-data="reviewForm()" @submit.prevent="submit()" novalidate>
-            <template x-if="!sent"><div class="grid gap-4">
-                <div class="grid gap-4 sm:grid-cols-2">
-                    <div><label for="rv-name" class="label">{% translate "Your name" %}</label><input id="rv-name" x-ref="name" type="text" required maxlength="120" autocomplete="name"></div>
-                    <div><label for="rv-place" class="label">{% translate "Area / city (optional)" %}</label><input id="rv-place" x-ref="place" type="text" maxlength="120"></div>
-                </div>
-                <div><label for="rv-problem" class="label">{% translate "Problem you came with" %}</label>
-                    <select id="rv-problem" x-ref="problem"><option value="">{% translate "Choose (optional)" %}</option>{% for p in problems %}<option value="{{ p.slug }}">{{ p|tx:"name" }}</option>{% endfor %}</select></div>
-                <fieldset><legend class="label">{% translate "Your rating" %}</legend>
-                    <div class="flex gap-1" role="radiogroup">
-                        <template x-for="i in 5"><button type="button" role="radio" :aria-checked="rating === i" :aria-label="i + ' / 5'" @click="rating = i" class="text-3xl transition" :class="i <= rating ? 'text-amber-400' : 'text-gray-200'"><i class="bi bi-star-fill"></i></button></template>
-                    </div>
-                </fieldset>
-                <div><label for="rv-text" class="label">{% translate "Your experience" %}</label><textarea id="rv-text" x-ref="text" rows="4" required maxlength="2000"></textarea></div>
-                <div class="hidden" aria-hidden="true"><label>Website <input type="text" x-ref="website" tabindex="-1" autocomplete="off"></label></div>
-                <label class="flex items-start gap-3 text-sm text-gray-700"><input type="checkbox" x-ref="consent" required class="mt-0.5">
-                    <span>{% translate "I agree that Spinal Cure may publish my review, name and area on this website. I can withdraw this at any time with the link shown after submitting." %}</span></label>
-                <p class="text-xs text-gray-500">{% translate "Please do not include phone numbers, addresses or medical reports." %}</p>
-                <p x-show="error" x-cloak class="alert alert-danger" role="alert" x-text="error"></p>
-                <button type="submit" class="btn btn-primary" :disabled="sending"><span x-show="!sending">{% translate "Submit review" %}</span><span x-show="sending">{% translate "Sending…" %}</span></button>
-            </div></template>
-            <div x-show="sent" x-cloak class="py-6 text-center" role="status">
-                <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100 text-2xl text-green-600"><i class="bi bi-check-lg"></i></span>
-                <p class="mt-4 font-semibold text-gray-900" x-text="message"></p>
-                <template x-if="withdrawUrl"><div class="mt-4 rounded-xl bg-gray-50 p-4 text-start text-sm text-gray-600">
-                    <p>{% translate "Keep this private link if you may want to withdraw your review later:" %}</p>
-                    <a :href="withdrawUrl" class="mt-1 block break-all font-medium text-primary-700 underline" x-text="withdrawUrl"></a>
-                </div></template>
-            </div>
-        </form>
+        {% review_form %}
     </div>
 </section>
 
-<!-- Video player: the iframe is created only on click, so no third-party requests happen until then -->
-<div x-data="{ open: false, src: '', vertical: true }" @play-video.window="src = $event.detail.src; vertical = $event.detail.vertical; open = true" @keydown.escape.window="open = false; src = ''">
-    <div x-show="open" x-cloak x-transition.opacity class="dialog-overlay !bg-black/80" @click.self="open = false; src = ''" role="dialog" aria-modal="true" aria-label="{% translate 'Patient video' %}">
-        <div class="relative w-full" :class="vertical ? 'max-w-sm' : 'max-w-3xl'">
-            <button type="button" @click="open = false; src = ''" class="absolute -top-10 end-0 text-2xl text-white" aria-label="{% translate 'Close' %}"><i class="bi bi-x-lg"></i></button>
-            <div class="mx-auto overflow-hidden rounded-2xl bg-black" :class="vertical ? 'aspect-[9/16] max-h-[80vh]' : 'aspect-video'">
-                <template x-if="open && src"><iframe :src="src" class="h-full w-full" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="{% translate 'Patient video' %}"></iframe></template>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block extra_scripts %}
-{{ review_form_token|json_script:"review-form-token" }}
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    new TomSelect('#problem', { create: false, allowEmptyOption: true, maxOptions: 100 });
-});
-function reviewForm() {
-    return {
-        rating: 5, sending: false, sent: false, error: '', message: '', withdrawUrl: '',
-        async submit() {
-            if (!this.$refs.consent.checked) { this.error = '{{ _("Please confirm that we may publish your review.")|escapejs }}'; return; }
-            this.sending = true; this.error = '';
-            try {
-                const r = await fetch('{% url "submit_review_ajax" %}', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
-                    body: JSON.stringify({ name: this.$refs.name.value, place: this.$refs.place.value, problem: this.$refs.problem.value,
-                        rating: this.rating, review: this.$refs.text.value, website: this.$refs.website.value,
-                        consent: this.$refs.consent.checked, form_token: JSON.parse(document.getElementById('review-form-token').textContent) }),
-                });
-                const d = r.status === 429 ? { message: '{{ _("Too many attempts. Please try again later.")|escapejs }}' } : await r.json();
-                if (d.status === 'success') { this.sent = true; this.message = d.message; this.withdrawUrl = d.withdraw_url || ''; } else this.error = d.message;
-            } catch (e) { this.error = '{{ _("Connection error. Please try again.")|escapejs }}'; }
-            finally { this.sending = false; }
-        },
-    };
-}
+
 </script>
 {% endblock %}

@@ -36,6 +36,7 @@
             </div>
             <span class="badge {% if t.is_published %}badge-success{% elif t.moderation_status == 'pending' %}badge-warning{% elif t.moderation_status == 'approved' %}badge-info{% else %}badge-outline{% endif %}">
                 {% if t.is_published %}{% translate "Live" %}{% else %}{{ t.get_moderation_status_display }}{% endif %}</span>
+            {% if t.submitted_via == 'public_form' and not t.consent_to_publish and t.moderation_status != 'withdrawn' %}<span class="badge badge-info"><i class="bi bi-lock" aria-hidden="true"></i>{% translate "Private feedback" %}</span>{% endif %}
         </header>
         <div class="flex gap-0.5" aria-label="{% blocktranslate with r=t.rating %}{{ r }} out of 5{% endblocktranslate %}">
             {% for i in "12345" %}<i class="bi bi-star-fill text-sm {% if forloop.counter <= t.rating %}text-amber-400{% else %}text-gray-200{% endif %}" aria-hidden="true"></i>{% endfor %}

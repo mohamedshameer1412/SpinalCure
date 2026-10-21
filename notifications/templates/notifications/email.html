@@ -7,7 +7,7 @@
 <p style="white-space:pre-line;">{{ notification.body }}</p>
 {% if link %}
 <table role="presentation" cellpadding="0" cellspacing="0" style="margin:8px 0 22px;"><tr><td style="border-radius:8px;background:#16a34a;">
-  <a href="{{ link }}" class="cta-button" style="display:inline-block;background:#16a34a;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:8px;">{% translate "View details" %}</a>
+  <a href="{{ link }}" class="cta-button" style="display:inline-block;background:#16a34a;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:8px;">{% if notification.event_type == 'review_request' %}{% translate "Write a review" %}{% else %}{% translate "View details" %}{% endif %}</a>
 </td></tr></table>
 {% endif %}
 <p style="font-size:13px;color:#6b7280;">{% translate "For your privacy this email contains no medical details." %}</p>

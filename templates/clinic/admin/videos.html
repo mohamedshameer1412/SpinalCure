@@ -55,6 +55,8 @@
     <label for="vq" class="sr-only">{% trans "Search videos" %}</label>
     <input id="vq" type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search title, patient, description…' %}" class="w-full sm:w-72">
     <label for="vc" class="sr-only">{% trans "Patient consent" %}</label>
+    <label for="vpf" class="sr-only">{% trans "Problem" %}</label>
+    <select id="vpf" name="problem" class="w-auto"><option value="">{% trans "Any problem" %}</option><option value="none" {% if problem_filter == 'none' %}selected{% endif %}>{% trans "No problem tagged" %}</option>{% for p in problems %}<option value="{{ p.pk }}" {% if problem_filter == p.pk|stringformat:'s' %}selected{% endif %}>{{ p.name }}</option>{% endfor %}</select>
     <select id="vc" name="consent" class="w-auto"><option value="">{% trans "Any consent status" %}</option>{% for code, name in consent_choices %}<option value="{{ code }}" {% if consent == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select>
     <button class="btn btn-outline">{% trans "Filter" %}</button>
 </form>
@@ -70,7 +72,13 @@
                 {% if v.thumbnail_url %}<img src="{{ v.thumbnail_url }}" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-12 w-12 shrink-0 rounded-lg object-cover">{% else %}<span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-400" aria-hidden="true"><i class="bi bi-film"></i></span>{% endif %}
                 <div class="min-w-0"><a href="{% url 'admin_video_edit' v.pk %}" class="font-semibold text-gray-900 hover:underline">{{ v.title }}</a>
                 <p class="text-xs text-gray-500"><i class="bi bi-{{ v.platform }} me-1" aria-hidden="true"></i>{{ v.get_platform_display }} · {{ v.get_language_display }}{% if v.transcript %} · {% trans "transcript" %}{% endif %}</p></div></div></td>
-            <td class="hidden md:table-cell text-gray-600">{{ v.problem.name|default:"—" }}</td>
+            <td class="hidden min-w-[12rem] md:table-cell">
+                <form method="post" action="{% url 'admin_video_problem' v.pk %}">{% csrf_token %}
+                    <label for="vp-{{ v.pk }}" class="sr-only">{% trans "Problem" %}</label>
+                    <select id="vp-{{ v.pk }}" name="problem" onchange="this.form.submit()" data-placeholder="{% trans 'Tag a problem' %}">
+                        <option value="">{% trans "Tag a problem" %}</option>
+                        {% for p in problems %}<option value="{{ p.pk }}" {% if v.problem_id == p.pk %}selected{% endif %}>{{ p.name }}</option>{% endfor %}
+                    </select></form></td>
             <td><span class="badge {% if v.consent_status == 'obtained' %}badge-success{% elif v.consent_status == 'withdrawn' %}badge-danger{% else %}badge-warning{% endif %}">{{ v.get_consent_status_display }}</span></td>
             <td><form method="post" action="{% url 'admin_video_toggle' v.pk %}">{% csrf_token %}
                 <button class="badge {% if v.is_published %}badge-success{% else %}badge-outline{% endif %}" aria-label="{% if v.is_published %}{% trans 'Published — click to hide' %}{% else %}{% trans 'Hidden — click to publish' %}{% endif %}">{% if v.is_published %}{% trans "Published" %}{% else %}{% trans "Hidden" %}{% endif %}</button></form></td>

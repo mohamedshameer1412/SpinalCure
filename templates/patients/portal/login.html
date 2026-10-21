@@ -27,13 +27,10 @@
             <form method="post" class="space-y-6">
                 {% csrf_token %}
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">{% trans "Phone Number" %}</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 start-0 ps-4 flex items-center pointer-events-none">
-                            <i class="bi bi-telephone text-gray-400"></i>
-                        </div>
-                        <input type="tel" name="phone" required placeholder="e.g. 9876543210"
-                            class="w-full ps-11 pe-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none font-medium">
+                    <label for="portal-phone" class="label">{% trans "Phone Number" %}</label>
+                    <div class="input-group" dir="ltr">
+                        <span class="input-addon">+91</span>
+                        <input id="portal-phone" type="tel" name="phone" required autocomplete="tel-national" inputmode="tel" maxlength="20" placeholder="98765 43210">
                     </div>
                 </div>
 

@@ -239,3 +239,27 @@ Not applied (needs your call):
 - Prefers that I ask when unsure, but accepts sensible defaults. Chose "everything in one pass" for the UI rebuild.
 - Uses the ponytail (lazy, minimal) style and asked for the security, ponytail and replica skills.
 - Languages: English, Tamil, Hindi, Telugu, Malayalam, Kannada. No Arabic.
+
+---
+
+## Session 2026-10-20/21 additions
+
+- **No browser-default UI** (standing rule): every `<select>` is a Tom Select and every date/time input a flatpickr calendar, both wired globally in `static/js/ui.js` (MutationObserver picks up Alpine/htmx content; opt out only with `data-native`). Native `confirm()`/`alert()` replaced by the kit dialog (`data-confirm`) and toasts. Phone fields use `.input-group` with a +91 addon (`window.withCountryCode`).
+- **Patient stories**: every card is a designed cover (no patient faces on listings); 4 designs × per-problem colours, position-based so neighbours differ (`stories.with_slots`). Staff-uploaded covers (`thumbnail_source='upload'`) are used instead. `python manage.py import_story_thumbnails [--force]` stores sharp YouTube frames (banner auto-cropped) for JSON-LD and the video editor. Quick problem tagging in Staff > Reels & Shorts (42 videos still untagged).
+- **Reviews**: site-wide Feedback button + dialog (`{% review_form %}`), public review or private feedback (stored without consent, never publishable). Staff "Reviews" (PatientReview) now mirror to the public stories page on publish (first name only, `sync_public_story`).
+- **Review request**: `send_reminders` emails once per patient after N sessions (`BookingSettings.review_request_after_sessions`, 0 = off) linking to `/clinic/review/`. `ClinicProfile.google_review_url` (set to the Maps listing; replace with the Business Profile "Ask for reviews" link).
+- **FAQ hub** `/clinic/faq/` with FAQPage JSON-LD; 15 drafts seeded unpublished by `scripts/seed_faqs.py` (doctor must check; publishing requires "Checked by").
+- **Session packages** (Staff > Session packages, `packages.manage`); plans copy sittings/price/validity and show sittings left, paid, due, expiry.
+- **Gallery** `/clinic/gallery/` (photos, uploaded videos ≤80 MB, YouTube/Instagram links, featured spotlight also on the home page). Seeded with the 4 Vijay Sethupathi visit photos (featured, label "Featured patient" as the clinic stated) and 2 clinic-front photos. Get written permission before promoting a celebrity's name/photos.
+- **Courses/events**: `original_fees` (struck-out full price + % off, `components/price.html`); paid registrations require accepting `/clinic/terms/` (non-refundable fees), enforced server-side. `scripts/seed_programs.py` adds 3 courses + 3 events with the clinic's own photos (fees/dates to confirm).
+- **GEO**: clinic JSON-LD now has PostalAddress parts, geo, hasMap and openingHours from doctor shifts.
+- **Google reviews**: Google shows only 5 reviews without sign-in; all 5 are in `scripts/data/google_reviews.json`. All 113 need the Google Business Profile API (owner access).
+- Fixed: reminders used the UTC date (missed early-morning appointments IST 00:00–05:30); inserted helpers had captured view decorators (caught by tests).
+
+## Deployment (cPanel), 2026-10-21
+
+- Build: `python scripts/export_content.py` (website content only: no patients/payments/staff) then `python scripts/build_release.py` -> `dist/spinalcure-cpanel.zip`. Guide: `deploy/CPANEL_GUIDE.md`. Server setup: `python deploy/setup_server.py` (charset check, migrate, cache table, collectstatic, media copy, loaddata on empty DB, first admin from .env).
+- `deploy/.env.production` holds generated SECRET_KEY/FERNET_KEYS (git-ignored). Losing FERNET_KEYS = encrypted patient names unreadable.
+- Production: PyMySQL fallback (no compiler on shared hosting), WhiteNoise + hashed static, MEDIA_ROOT/STATIC_ROOT from .env, secure cookies follow SECURE_SSL_REDIRECT, `passenger_wsgi.py` entry point. requirements.txt pinned to tested versions (Django 5.2.18, Python >= 3.10).
+- Fixed for fresh databases: `spinalcure/migration_utils.py` now matches char(32) vs native uuid keys (fresh MariaDB 10.7+ failed with errno 150).
+- Local MariaDB (XAMPP) service may be stopped; start it with `C:\xampp\mysql\bin\mysqld.exe --defaults-file=C:\xampp\mysql\bin\my.ini` (the service's data\my.ini path is wrong).

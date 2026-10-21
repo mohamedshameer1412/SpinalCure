@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.db.models import Avg, Sum, Q
 from django.core.paginator import Paginator
-from .models import Patient, Session, PatientReview, TreatmentPlan
+from .models import Patient, Session, PatientReview, TreatmentPlan, SessionPackage
 from clinic.models import Practitioner, ClinicProfile
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
@@ -299,6 +299,7 @@ def patient_detail_view(request, pk):
         'amount_paid': amount_paid,
         'remaining_amount': remaining_amount,
         'treatment_plans_json': treatment_plans_json,
+        'session_packages': SessionPackage.objects.filter(is_active=True),
     }
     return render(request, 'patients/patient_detail.html', context)
 
@@ -350,15 +351,17 @@ def reviews_list_view(request):
 
 
 @login_required
+@require_POST
 def review_toggle_publish(request, pk):
-    """Toggle the published status of a review."""
-    if not (request.user.role == 'superadmin' or request.user.is_superuser):
-        messages.error(request, gettext('Only admins can manage reviews.'))
+    """Publish / unpublish a review: on the doctor's page and, with its text, on the public Patient Stories page."""
+    if not has_capability(request.user, 'reviews.manage'):
+        messages.error(request, gettext('You do not have permission to manage reviews.'))
         return redirect('dashboard')
-    
+
     review = get_object_or_404(PatientReview, pk=pk)
     review.is_published = not review.is_published
     review.save()
+    review.sync_public_story()
     status = 'published' if review.is_published else 'unpublished'
     messages.success(request, gettext('Review by %(name)s has been %(status)s.') % {'name': review.patient.name, 'status': status})
     logger.info(f'Review {pk} was {status} by {request.user.email}')
@@ -368,7 +371,7 @@ def review_toggle_publish(request, pk):
 @login_required
 def review_create_view(request):
     """Add a new review from the admin panel."""
-    if not (request.user.role == 'superadmin' or request.user.is_superuser):
+    if not has_capability(request.user, 'reviews.manage'):
         messages.error(request, gettext('Only admins can create reviews.'))
         return redirect('dashboard')
     
@@ -384,13 +387,14 @@ def review_create_view(request):
         patient = get_object_or_404(Patient, pk=patient_id)
         practitioner = Practitioner.objects.filter(pk=practitioner_id).first()
         
-        PatientReview.objects.create(
+        review = PatientReview.objects.create(
             patient=patient,
             practitioner=practitioner,
             rating=rating,
             review_text=review_text,
             is_published=is_published,
         )
+        review.sync_public_story()
         
         messages.success(request, gettext('Review for %(name)s added.') % {'name': patient.name})
         logger.info(f'New review created for patient {patient_id} by {request.user.email}')
@@ -1055,6 +1059,42 @@ def session_pdf_view(request, session_pk):
 # Treatment Plan Views
 # ---------------------------------------------------------------------------
 
+def _apply_package_fields(plan, post):
+    """Package price and expiry from the plan form. Picking a catalogue package fills whatever was left blank."""
+    from decimal import Decimal, InvalidOperation
+    from datetime import timedelta
+    from django.core.exceptions import ValidationError
+    from .models import SessionPackage
+    pkg = None
+    pkg_id = post.get('package', '')
+    if pkg_id:
+        try:
+            pkg = SessionPackage.objects.filter(pk=pkg_id, is_active=True).first()
+        except (ValueError, ValidationError):
+            pkg = None
+    raw_price = (post.get('package_price') or '').strip()
+    try:
+        price = Decimal(raw_price) if raw_price else None
+    except InvalidOperation:
+        raise ValueError(gettext('Enter a valid package price.'))
+    if price is not None and price < 0:
+        raise ValueError(gettext('Enter a valid package price.'))
+    plan.package_price = price if price is not None else (pkg.price if pkg else None)
+    raw_until = (post.get('valid_until') or '').strip()
+    if raw_until:
+        from datetime import date
+        try:
+            plan.valid_until = date.fromisoformat(raw_until)
+        except ValueError:
+            raise ValueError(gettext('Enter a valid date.'))
+    elif pkg and pkg.validity_days:
+        plan.valid_until = timezone.localdate() + timedelta(days=pkg.validity_days)
+    elif 'valid_until' in post:
+        plan.valid_until = None
+    if pkg and not plan.total_sittings:
+        plan.total_sittings = pkg.sittings
+
+
 @login_required
 @require_POST
 def treatment_plan_create_view(request, patient_pk):
@@ -1071,13 +1111,15 @@ def treatment_plan_create_view(request, patient_pk):
         total_sittings = int(request.POST.get('total_sittings', 0) or 0)
         is_active = request.POST.get('is_active') == 'on'
         
-        plan = TreatmentPlan.objects.create(
+        plan = TreatmentPlan(
             patient=patient,
             name=name,
             chief_complaint=chief_complaint,
             total_sittings=total_sittings,
             is_active=is_active
         )
+        _apply_package_fields(plan, request.POST)
+        plan.save()
         
         # Optionally, deactivate all other plans if this one is active
         # if is_active:
@@ -1103,6 +1145,7 @@ def treatment_plan_edit_view(request, patient_pk, plan_pk):
         plan.chief_complaint = request.POST.get('chief_complaint', plan.chief_complaint)
         plan.total_sittings = int(request.POST.get('total_sittings', plan.total_sittings) or plan.total_sittings)
         plan.is_active = request.POST.get('is_active') == 'on'
+        _apply_package_fields(plan, request.POST)
         plan.save()
         
         messages.success(request, gettext("Treatment plan '%(name)s' updated successfully.") % {'name': plan.name})

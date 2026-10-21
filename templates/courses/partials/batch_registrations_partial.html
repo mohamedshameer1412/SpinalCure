@@ -52,7 +52,7 @@
                     </td>
                     <td class="px-6 py-5 text-end">
                         {% if reg.status != 'cancelled' %}
-                        <form method="post" action="{% url 'batch_registration_cancel' batch.id reg.id %}" onsubmit="return confirm('{% trans "Cancel this registration?" as confirm_msg %}{{ confirm_msg|escapejs }}')">{% csrf_token %}
+                        <form method="post" action="{% url 'batch_registration_cancel' batch.id reg.id %}" data-confirm="{% trans 'Cancel this registration?' %}">{% csrf_token %}
                             <button class="text-xs font-bold text-rose-600 hover:underline">{% trans "Cancel" %}</button>
                         </form>
                         {% endif %}

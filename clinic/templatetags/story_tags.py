@@ -26,3 +26,13 @@ def story_picture(video, aspect='', sizes='(min-width: 1024px) 25vw, (min-width:
 @register.simple_tag
 def story_crop_url(video, aspect, width=360):
     return stories.rendition_url(video, aspect, width)
+
+
+@register.inclusion_tag('clinic/partials/review_form.html', takes_context=True)
+def review_form(context, framed=True):
+    """{% review_form %}: the public review / private feedback form with its own problem list and anti-bot token."""
+    from clinic.models import ProblemCategory
+    clinic = context.get('clinic')
+    return {'problems': ProblemCategory.objects.filter(is_active=True), 'token': stories.form_token(),
+            'csrf_token': context.get('csrf_token', ''), 'framed': framed,
+            'google_review_url': getattr(clinic, 'google_review_url', '')}

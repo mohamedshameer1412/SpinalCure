@@ -137,6 +137,9 @@ class BookingSettings(models.Model):
     reminder_offsets_minutes = models.CharField(
         max_length=100, default='1440,120', verbose_name=_('Send reminders this many minutes before (comma-separated)'))
     followup_lead_days = models.PositiveIntegerField(default=2, verbose_name=_('Follow-up reminder lead (days)'))
+    review_request_after_sessions = models.PositiveSmallIntegerField(
+        default=3, verbose_name=_('Ask for a review after this many sessions'),
+        help_text=_('One email per patient, sent the day after the session. 0 turns it off.'))
     missed_grace_minutes = models.PositiveIntegerField(default=60)
     auto_mark_no_show = models.BooleanField(
         default=False, verbose_name=_('Automatically mark unattended appointments as no-show'))

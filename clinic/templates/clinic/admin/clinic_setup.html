@@ -219,19 +219,17 @@
                             <input type="hidden" name="phone" :value="phones.join(', ')" required>
 
                             <!-- Add new phone — single-row compact layout -->
-                            <div class="flex items-center w-full bg-gray-50 border border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-green-500 focus-within:border-green-500 transition-all overflow-hidden mb-3">
-                                <select x-model="countryCode" class="ps-3 pe-1 shrink-0 cursor-pointer">
+                            <div class="input-group mb-3">
+                                <label for="new-phone-cc" class="sr-only">{% trans "Country code" %}</label>
+                                <select id="new-phone-cc" x-model="countryCode" class="">
                                     <option value="+91">+91</option>
                                     <option value="+1">+1</option>
                                     <option value="+44">+44</option>
                                     <option value="+971">+971</option>
                                 </select>
-                                <div class="w-px h-5 bg-gray-300 shrink-0 mx-1"></div>
-                                <input type="text" x-model="newPhone" @keydown.enter.prevent="addPhone" placeholder="{% trans 'Phone number' %}"
-                                    class="flex-1 w-full">
-                                <button type="button" @click="addPhone" class="px-4 py-3 text-green-700 hover:bg-green-100 bg-green-50/50 text-xs font-bold transition-colors shrink-0 border-s border-gray-200 focus:outline-none">
-                                    {% trans "Add" %}
-                                </button>
+                                <label for="new-phone" class="sr-only">{% trans "Phone number" %}</label>
+                                <input id="new-phone" type="tel" inputmode="tel" dir="ltr" x-model="newPhone" @keydown.enter.prevent="addPhone" placeholder="{% trans 'Phone number' %}">
+                                <button type="button" @click="addPhone" class="btn btn-soft"><i class="bi bi-plus-lg"></i>{% trans "Add" %}</button>
                             </div>
                             
                             <!-- Phone Tags -->
@@ -993,6 +991,16 @@
                                 placeholder="{% trans 'YouTube Channel URL' %}"
                                 class="w-full ps-12 pe-4">
 
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label for="google_review_url" class="label">{% trans "Google review link" %}</label>
+                            <div class="relative">
+                                <i class="bi bi-google absolute start-4 top-1/2 -translate-y-1/2 text-gray-500" aria-hidden="true"></i>
+                                <input id="google_review_url" type="url" name="google_review_url" value="{{ clinic.google_review_url|default:'' }}"
+                                    placeholder="https://g.page/r/…/review" class="w-full ps-12 pe-4">
+                            </div>
+                            <p class="field-hint">{% trans "In Google Business Profile choose “Ask for reviews” and paste the link. Used by the review buttons and the review-request email." %}</p>
                         </div>
 
                     </div>

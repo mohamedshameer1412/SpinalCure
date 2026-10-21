@@ -210,15 +210,15 @@ function revertAction(logId) {
         .then(res => res.json())
         .then(data => {
             if (data.status === 'success') {
-                alert(data.message);
-                window.location.reload();
+                Alpine.store('toast').push(data.message, 'success');
+                setTimeout(() => window.location.reload(), 900);
             } else {
-                alert(data.message || 'Error reverting action.');
+                Alpine.store('toast').push(data.message || '{{ _("Error reverting action.")|escapejs }}', 'error');
             }
         })
         .catch(err => {
             console.error(err);
-            alert('An error occurred while reverting.');
+            Alpine.store('toast').push('{{ _("An error occurred while reverting.")|escapejs }}', 'error');
         });
     });
 }

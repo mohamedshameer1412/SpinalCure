@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Edit package" %} — SpinalCure{% endblock %}
+{% block page_title %}{% trans "Edit package" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'session_packages' %}" class="btn btn-ghost"><i class="bi bi-arrow-left"></i>{% trans "All packages" %}</a>{% endblock %}
+
+{% block content %}
+<form method="post" class="card grid max-w-2xl gap-4 p-6">
+    {% csrf_token %}
+    {% for field in form %}{% include "ui/field.html" %}{% endfor %}
+    <p class="text-xs text-gray-500">{% trans "Changes apply to new plans only. Plans already started keep their own sittings, price and expiry." %}</p>
+    <div class="flex justify-end gap-2 border-t border-gray-100 pt-4">
+        <a href="{% url 'session_packages' %}" class="btn btn-outline">{% trans "Cancel" %}</a>
+        <button class="btn btn-primary">{% trans "Save" %}</button>
+    </div>
+</form>
+{% endblock %}

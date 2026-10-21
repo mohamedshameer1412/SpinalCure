@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n content_i18n %}
+{% block title %}{% trans "Edit gallery item" %} — SpinalCure{% endblock %}
+{% block page_title %}{% trans "Edit gallery item" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'admin_gallery' %}" class="btn btn-ghost"><i class="bi bi-arrow-left"></i>{% trans "Gallery" %}</a>{% endblock %}
+
+{% block content %}
+<div class="grid max-w-5xl gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
+    <div class="card overflow-hidden p-0">
+        {% if item.image %}<img src="{{ item.image.url }}" alt="" class="w-full object-cover">
+        {% elif item.video_file %}<video src="{{ item.video_file.url }}" controls class="w-full"></video>
+        {% else %}<div class="flex aspect-square items-center justify-center text-4xl text-gray-400"><i class="bi bi-camera-video"></i></div>{% endif %}
+    </div>
+    <div class="grid gap-6">
+        <form method="post" enctype="multipart/form-data" class="card grid gap-4 p-6">
+            {% csrf_token %}
+            {% for field in form %}{% include "ui/field.html" %}{% endfor %}
+            <div class="flex justify-end gap-2 border-t border-gray-100 pt-4">
+                <a href="{% url 'admin_gallery' %}" class="btn btn-outline">{% trans "Cancel" %}</a>
+                <button class="btn btn-primary">{% trans "Save" %}</button>
+            </div>
+        </form>
+        {% translation_panel item %}
+    </div>
+</div>
+{% endblock %}

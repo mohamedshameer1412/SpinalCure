@@ -209,8 +209,9 @@ def test_registrant_sees_link_only_in_join_window(client, clinic):
     assert SECRET not in page and 'appears here from' in page                      # 10 days early
     soon = timezone.now() + timedelta(minutes=10)
     local = soon.astimezone(e.tz)
+    end = min(local + timedelta(hours=1), local.replace(hour=23, minute=59, second=0))   # never wraps past midnight
     Event.objects.filter(pk=e.pk).update(date=local.date(), start_time=local.time().replace(microsecond=0),
-                                         end_time=(local + timedelta(hours=1)).time().replace(microsecond=0))
+                                         end_time=end.time().replace(microsecond=0))
     page = client.get(reverse('event_registration_manage', args=[reg.access_token])).content.decode()
     assert SECRET in page and '4321' in page and 'Use your registered name.' in page
     # window closes well after the end

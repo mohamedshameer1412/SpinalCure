@@ -6,7 +6,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib.sitemaps.views import sitemap as sitemap_view
 from django.views.decorators.cache import cache_page
 
-from . import seo
+from . import private_media, seo
 from .i18n_views import set_language
 from clinic.views import clinic_portfolio_view
 from payments.online_views import webhook as razorpay_webhook
@@ -47,6 +47,7 @@ urlpatterns = [
     path('i18n/setlang/', set_language, name='set_language'),
     path('payments/razorpay/webhook/', razorpay_webhook, name='razorpay_webhook'),
     path('robots.txt', seo.robots_txt, name='robots_txt'),
+    path('private-media/<path:path>', private_media.serve, name='private_media'),
     path('sitemap.xml', cache_page(3600)(sitemap_view), {'sitemaps': seo.SITEMAPS}, name='sitemap'),
     
     # API Documentation

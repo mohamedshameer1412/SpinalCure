@@ -80,7 +80,9 @@ def submit_public_review(data):
         raise ReviewRejected(gettext('Please enter your name and a few words about your experience.'))
     if rating not in range(1, 6):
         raise ReviewRejected(gettext('Invalid rating value.'))
-    if data.get('consent') is not True:
+    # 'feedback' is a private note to the clinic: stored like a review but without consent, so it can never be published
+    private = data.get('kind') == 'feedback'
+    if not private and data.get('consent') is not True:
         raise ReviewRejected(gettext('Please confirm that we may publish your review.'))
     if len(re.findall(r'https?://|www\.', text, re.I)) > MAX_LINKS:
         raise ReviewRejected(gettext('Please remove the links from your review.'))
@@ -96,9 +98,10 @@ def submit_public_review(data):
             clinic=clinic, patient_name=name, patient_designation=place, rating=rating, review_text=text,
             problem=ProblemCategory.objects.filter(slug=str(data.get('problem', ''))[:120], is_active=True).first(),
             source='internal', submitted_via='public_form', moderation_status='pending', is_published=False,
-            consent_to_publish=True, consent_at=timezone.now(), withdraw_token=secrets.token_urlsafe(32),
-            content_hash=digest)
-        log(t, 'submitted', 'author', 'Website form; consent to publish given')
+            consent_to_publish=not private, consent_at=None if private else timezone.now(),
+            withdraw_token=secrets.token_urlsafe(32), content_hash=digest)
+        log(t, 'submitted', 'author', 'Website form; private feedback, not for publication' if private
+            else 'Website form; consent to publish given')
     return t
 
 
@@ -207,6 +210,27 @@ def rendition_url(video, aspect, width, fmt='webp'):
     return default_storage.url(name)
 
 
+def with_slots(videos, start=0):
+    """Number videos by their position on the page (drives the card design and colour)."""
+    videos = list(videos)
+    for i, v in enumerate(videos, start):
+        v.slot = i
+    return videos
+
+
+def warm_renditions(video):
+    """Create every crop the pages can ask for (its card layout, and 9:16 for the home and doctor pages),
+    so no visitor waits for image processing. Returns the rendition file names."""
+    fmts = (['avif'] if avif_supported() else []) + ['webp']
+    names = set()
+    for aspect in {video.aspect, '9:16'}:
+        for width in WIDTHS:
+            for fmt in fmts:
+                if rendition_url(video, aspect, width, fmt):
+                    names.add(rendition_name(video, aspect, width, fmt).split('/')[-1])
+    return names
+
+
 FRAME_FILES = {'frame1': '1.jpg', 'frame2': '2.jpg', 'frame3': '3.jpg', 'platform': 'hqdefault.jpg'}
 
 
@@ -216,15 +240,68 @@ def frame_url(video, source):
     return f'https://i.ytimg.com/vi/{video.video_id}/{FRAME_FILES[source]}'
 
 
+# Best-first platform images: Shorts have a full 1080x1920 frame (oardefault); every video has a 16:9 one.
+PLATFORM_CANDIDATES = ('oardefault.jpg', 'maxresdefault.jpg', 'sddefault.jpg', 'hqdefault.jpg')
+MIN_FRAME_WIDTH = 200          # YouTube answers missing sizes with a 120x90 placeholder
+
+
+def _download(url):
+    with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'SpinalCure'}), timeout=10) as r:
+        return r.read(MAX_UPLOAD_BYTES + 1)
+
+
+def banner_top(img):
+    """Where the clinic's blue title banner starts in a portrait frame (fraction of the height), or None.
+    ponytail: colour heuristic tuned to the clinic's own Shorts template; staff can still re-crop by hand."""
+    small = img.convert('RGB').resize((90, 160))
+    px = small.load()
+    rows = [sum(1 for x in range(90) if (lambda r, g, b: b > 120 and r < 45 and g < 45)(*px[x, y])) / 90 for y in range(160)]
+    for y in range(48, 152):                          # ignore the top 30%: faces live there
+        if rows[y] > .25 and sum(r > .25 for r in rows[y:y + 8]) >= 3:
+            return y / 160
+    return None
+
+
+def _trim_bars(data):
+    """Re-encode a frame without the black pillar/letter-box bars YouTube adds around vertical videos,
+    and without the title banner baked into the bottom of the clinic's Shorts."""
+    from PIL import Image
+    img = Image.open(io.BytesIO(data)).convert('RGB')
+    if img.width < MIN_FRAME_WIDTH:
+        return None
+    box = img.convert('L').point(lambda v: 255 if v > 24 else 0).getbbox()
+    if box and (box[2] - box[0]) * (box[3] - box[1]) < img.width * img.height * 0.97:
+        img = img.crop(box)
+    if img.height > img.width and (top := banner_top(img)):
+        img = img.crop((0, 0, img.width, round(img.height * max(top - .06, .4))))
+    buf = io.BytesIO()
+    img.save(buf, format='JPEG', quality=90)
+    return buf.getvalue()
+
+
+def best_platform_frame(video):
+    files = PLATFORM_CANDIDATES if video.is_vertical else PLATFORM_CANDIDATES[1:]
+    for name in files:
+        try:
+            data = _trim_bars(_download(f'https://i.ytimg.com/vi/{video.video_id}/{name}'))
+        except Exception:
+            continue
+        if data:
+            return data
+    return None
+
+
 def import_frame(video, source):
-    """Copy one of YouTube's frames of this (already public) video into our storage as the thumbnail."""
+    """Copy one of YouTube's frames of this (already public) video into our storage as the thumbnail.
+    'platform' takes the sharpest image YouTube has, without black bars."""
     url = frame_url(video, source)
     if not url:
         raise ValueError(gettext('Frames are only available for YouTube videos.'))
     try:
-        with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'SpinalCure'}), timeout=10) as r:
-            data = r.read(MAX_UPLOAD_BYTES + 1)
+        data = best_platform_frame(video) if source == 'platform' else _download(url)
     except Exception:
+        data = None
+    if not data:
         raise ValueError(gettext('Could not download that frame. Try again or upload an image.'))
     upload = ContentFile(data, name=f'{source}.jpg')
     validate_image(upload)
@@ -232,3 +309,6 @@ def import_frame(video, source):
         video.thumbnail.delete(save=False)
     video.thumbnail.save(f'{source}.jpg', upload, save=False)
     video.thumbnail_source = source
+    if video.is_vertical and video.layout == 'auto':
+        # Clinic Shorts carry a title banner across the bottom fifth: a 4:5 card from the top keeps the face, drops the banner.
+        video.layout, video.focal_y = '4:5', 30

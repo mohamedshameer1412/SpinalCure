@@ -34,7 +34,7 @@
                                 <button class="btn btn-soft btn-sm">{% trans "Confirm" %}</button></form>
                             {% endif %}
                             {% if reg.status != 'cancelled' %}
-                            <form method="post" action="{% url 'event_registration_action' event.id reg.pk %}" onsubmit="return confirm('Cancel this registration?')">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><input type="hidden" name="action" value="cancel">
+                            <form method="post" action="{% url 'event_registration_action' event.id reg.pk %}" data-confirm="{% trans 'Cancel this registration?' %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><input type="hidden" name="action" value="cancel">
                                 <button class="text-xs font-semibold px-2.5 py-1.5 rounded-lg text-red-600 hover:bg-red-50">{% trans "Cancel" %}</button></form>
                             {% endif %}
                         </div>

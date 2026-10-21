@@ -1,0 +1,67 @@
+{% load i18n content_i18n %}
+{% comment %} Public review or private feedback, rendered by {% review_form %} (once per page: the ids are fixed).
+   Reviews are saved unpublished until staff approve them; feedback has no publication consent, so it never goes live. {% endcomment %}
+<form class="{% if framed %}card p-6 sm:p-8 {% endif %}grid gap-4" x-data="reviewForm()" @submit.prevent="submit()" novalidate>
+    <template x-if="!sent"><div class="grid gap-4">
+        <div class="tabs self-start" role="tablist" aria-label="{% translate 'What would you like to send?' %}">
+            <button type="button" role="tab" class="tab inline-flex items-center gap-1.5" :class="kind === 'review' && 'is-active'" :aria-selected="kind === 'review'" @click="kind = 'review'; error = ''">
+                <i class="bi bi-star" aria-hidden="true"></i>{% translate "Public review" %}</button>
+            <button type="button" role="tab" class="tab inline-flex items-center gap-1.5" :class="kind === 'feedback' && 'is-active'" :aria-selected="kind === 'feedback'" @click="kind = 'feedback'; error = ''">
+                <i class="bi bi-lock" aria-hidden="true"></i>{% translate "Private feedback" %}</button>
+        </div>
+        <p class="text-sm text-gray-500" x-show="kind === 'review'">{% translate "Shown on this website after our team reads it, to help others with the same pain." %}</p>
+        <p class="text-sm text-gray-500" x-show="kind === 'feedback'" x-cloak>{% translate "Only the clinic team sees this. Tell us what we did well or what we should improve." %}</p>
+        <div class="grid gap-4 sm:grid-cols-2">
+            <div><label for="rv-name" class="label">{% translate "Your name" %}</label><input id="rv-name" x-ref="name" type="text" required maxlength="120" autocomplete="name"></div>
+            <div><label for="rv-place" class="label">{% translate "Area / city (optional)" %}</label><input id="rv-place" x-ref="place" type="text" maxlength="120" autocomplete="address-level2"></div>
+        </div>
+        <div><label for="rv-problem" class="label">{% translate "Problem you came with" %}</label>
+            <select id="rv-problem" x-ref="problem" class=""><option value="">{% translate "Choose (optional)" %}</option>{% for p in problems %}<option value="{{ p.slug }}">{{ p|tx:"name" }}</option>{% endfor %}</select></div>
+        <fieldset><legend class="label">{% translate "Your rating" %}</legend>
+            <div class="flex gap-1" role="radiogroup">
+                <template x-for="i in 5"><button type="button" role="radio" :aria-checked="rating === i" :aria-label="i + ' / 5'" @click="rating = i" class="text-3xl transition" :class="i <= rating ? 'text-amber-400' : 'text-gray-200'"><i class="bi bi-star-fill"></i></button></template>
+            </div>
+        </fieldset>
+        <div><label for="rv-text" class="label" x-text="kind === 'review' ? '{{ _("Your experience")|escapejs }}' : '{{ _("Your feedback")|escapejs }}'">{% translate "Your experience" %}</label><textarea id="rv-text" x-ref="text" rows="4" required maxlength="2000"></textarea></div>
+        <div class="hidden" aria-hidden="true"><label>Website <input type="text" x-ref="website" tabindex="-1" autocomplete="off"></label></div>
+        <label x-show="kind === 'review'" class="flex items-start gap-3 text-sm text-gray-700"><input type="checkbox" x-ref="consent" class="mt-0.5">
+            <span>{% translate "I agree that Spinal Cure may publish my review, name and area on this website. I can withdraw this at any time with the link shown after submitting." %}</span></label>
+        <p class="text-xs text-gray-500">{% translate "Please do not include phone numbers, addresses or medical reports." %}</p>
+        <p x-show="error" x-cloak class="alert alert-danger" role="alert" x-text="error"></p>
+        <button type="submit" class="btn btn-primary" :disabled="sending">
+            <span x-show="!sending" x-text="kind === 'review' ? '{{ _("Submit review")|escapejs }}' : '{{ _("Send feedback")|escapejs }}'">{% translate "Submit review" %}</span>
+            <span x-show="sending" x-cloak>{% translate "Sending…" %}</span></button>
+    </div></template>
+    <div x-show="sent" x-cloak class="py-6 text-center" role="status">
+        <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100 text-2xl text-green-600"><i class="bi bi-check-lg"></i></span>
+        <p class="mt-4 font-semibold text-gray-900" x-text="message"></p>
+        <template x-if="withdrawUrl"><div class="mt-4 rounded-xl bg-gray-50 p-4 text-start text-sm text-gray-600">
+            <p>{% translate "Keep this private link if you may want to withdraw your review later:" %}</p>
+            <a :href="withdrawUrl" class="mt-1 block break-all font-medium text-primary-700 underline" x-text="withdrawUrl"></a>
+        </div></template>
+        {% if google_review_url %}<template x-if="kind === 'review'"><a href="{{ google_review_url }}" target="_blank" rel="noopener" class="btn btn-outline mt-5"><i class="bi bi-google" aria-hidden="true"></i>{% translate "Also review us on Google" %}</a></template>{% endif %}
+    </div>
+</form>
+{{ token|json_script:"review-form-token" }}
+<script>
+function reviewForm() {
+    return {
+        kind: 'review', rating: 5, sending: false, sent: false, error: '', message: '', withdrawUrl: '',
+        async submit() {
+            if (this.kind === 'review' && !this.$refs.consent.checked) { this.error = '{{ _("Please confirm that we may publish your review.")|escapejs }}'; return; }
+            this.sending = true; this.error = '';
+            try {
+                const r = await fetch('{% url "submit_review_ajax" %}', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+                    body: JSON.stringify({ kind: this.kind, name: this.$refs.name.value, place: this.$refs.place.value, problem: this.$refs.problem.value,
+                        rating: this.rating, review: this.$refs.text.value, website: this.$refs.website.value,
+                        consent: this.kind === 'review' && this.$refs.consent.checked, form_token: JSON.parse(document.getElementById('review-form-token').textContent) }),
+                });
+                const d = r.status === 429 ? { message: '{{ _("Too many attempts. Please try again later.")|escapejs }}' } : await r.json();
+                if (d.status === 'success') { this.sent = true; this.message = d.message; this.withdrawUrl = d.withdraw_url || ''; } else this.error = d.message;
+            } catch (e) { this.error = '{{ _("Connection error. Please try again.")|escapejs }}'; }
+            finally { this.sending = false; }
+        },
+    };
+}
+</script>

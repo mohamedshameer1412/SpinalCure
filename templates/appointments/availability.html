@@ -9,7 +9,7 @@
     <form method="get" class="card p-4 flex flex-wrap gap-3 items-end">
         <div class="min-w-[14rem] flex-1 sm:flex-none">
             <label for="practitioner_id" class="block text-sm font-medium text-gray-700 mb-1">{% translate "Practitioner" %}</label>
-            <select id="practitioner_id" name="practitioner_id" class="no-ts w-full" onchange="this.form.submit()">
+            <select id="practitioner_id" name="practitioner_id" class="w-full" onchange="this.form.submit()">
                 {% for doc in practitioners %}
                 <option value="{{ doc.id|b64uuid }}" {% if selected_doc and doc.id == selected_doc.id %}selected{% endif %}>{{ doc.name }}{% if doc.specialization %} — {{ doc.specialization }}{% endif %}</option>
                 {% endfor %}
@@ -53,7 +53,7 @@
                         <span class="ms-auto flex items-center gap-1">
                             <button type="button" class="px-2 py-1 rounded-lg text-green-700 hover:bg-green-50 font-medium"
                                 @click="openShift('{{ s.pk }}')">{% translate "Edit" %}</button>
-                            <form method="post" action="{% url 'shift_delete' selected_doc.id|b64uuid s.pk %}" onsubmit="return confirm('{% translate "Remove this shift?" %}')">{% csrf_token %}
+                            <form method="post" action="{% url 'shift_delete' selected_doc.id|b64uuid s.pk %}" data-confirm="{% translate 'Remove this shift?' %}">{% csrf_token %}
                                 <button class="px-2 py-1 rounded-lg text-red-600 hover:bg-red-50 font-medium">{% translate "Delete" %}</button>
                             </form>
                         </span>

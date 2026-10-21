@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Featured patients" %} — SpinalCure{% endblock %}
+{% block page_title %}{% trans "Featured patients" %}{% endblock %}
+
+{% block content %}
+<p class="mb-5 max-w-3xl text-sm text-gray-500">{% trans "Well-known patients who have agreed to be named. They appear on the home page and the gallery as information only, with no booking buttons or treatment claims." %}</p>
+<div class="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_24rem]">
+    {% if people %}
+    <div class="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
+        {% for p in people %}
+        <article class="card flex flex-col overflow-hidden p-0 {% if not p.is_published %}opacity-70{% endif %}">
+            <img src="{{ p.photo.url }}" alt="" class="aspect-[4/3] w-full object-cover">
+            <div class="flex flex-1 flex-col gap-1 p-4">
+                <div class="flex items-start justify-between gap-2">
+                    <h2 class="font-semibold text-gray-900">{{ p.name }}</h2>
+                    {% if p.is_published %}<span class="badge badge-success">{% trans "Published" %}</span>{% else %}<span class="badge">{% trans "Hidden" %}</span>{% endif %}
+                </div>
+                <p class="text-sm text-gray-500">{{ p.profession|default:"—" }}</p>
+                {% if not p.consent_confirmed %}<p class="text-xs font-medium text-amber-700"><i class="bi bi-exclamation-triangle"></i> {% trans "Permission not recorded" %}</p>{% endif %}
+                <div class="mt-auto flex gap-2 pt-3">
+                    <a href="{% url 'admin_featured_edit' p.pk %}" class="btn btn-outline btn-sm"><i class="bi bi-pencil"></i>{% trans "Edit" %}</a>
+                    <form method="post" action="{% url 'admin_featured_delete' p.pk %}" data-confirm="{% trans 'Remove this featured patient?' %}">{% csrf_token %}
+                        <button class="btn btn-ghost btn-sm text-red-600"><i class="bi bi-trash"></i>{% trans "Delete" %}</button></form>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="card p-10 text-center">
+        <span class="feature-icon mx-auto"><i class="bi bi-star"></i></span>
+        <p class="mt-4 font-semibold text-gray-900">{% trans "No featured patients yet" %}</p>
+    </div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" class="card grid gap-4 p-5 xl:sticky xl:top-20">
+        {% csrf_token %}
+        <h2 class="text-base font-semibold text-gray-900">{% trans "Add a featured patient" %}</h2>
+        {% for field in form %}{% include "ui/field.html" %}{% endfor %}
+        <button class="btn btn-primary"><i class="bi bi-plus-lg"></i>{% trans "Add" %}</button>
+    </form>
+</div>
+{% endblock %}

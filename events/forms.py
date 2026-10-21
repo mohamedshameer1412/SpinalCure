@@ -14,7 +14,7 @@ class EventForm(forms.ModelForm):
         fields = ['title', 'event_type', 'description', 'presenter', 'image', 'date', 'start_time', 'end_time',
                   'timezone', 'language', 'is_online', 'venue', 'meeting_provider', 'meeting_link',
                   'meeting_passcode', 'access_instructions', 'max_participants', 'waitlist_enabled',
-                  'registration_required', 'registration_deadline', 'reminder_offsets_minutes', 'fees']
+                  'registration_required', 'registration_deadline', 'reminder_offsets_minutes', 'fees', 'original_fees']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
             'start_time': forms.TimeInput(attrs={'type': 'time'}, format='%H:%M'),

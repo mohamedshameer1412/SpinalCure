@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Gallery" %} — SpinalCure{% endblock %}
+{% block page_title %}{% trans "Gallery" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'public_gallery' %}" target="_blank" rel="noopener" class="btn btn-outline"><i class="bi bi-box-arrow-up-right"></i>{% trans "View page" %}</a>{% endblock %}
+
+{% block content %}
+<div class="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_24rem]">
+    <div class="space-y-6">
+        <form method="post" enctype="multipart/form-data" class="card grid gap-4 p-5">
+            {% csrf_token %}
+            <div>
+                <h2 class="text-base font-semibold text-gray-900">{% trans "Quick add photos" %}</h2>
+                <p class="field-hint">{% trans "Choose up to 30 photos at once. Edit each one afterwards to add a caption or feature it." %}</p>
+            </div>
+            <div><label for="bulk_title" class="label">{% trans "Title for these photos (optional)" %}</label><input id="bulk_title" name="bulk_title" type="text" maxlength="200"></div>
+            <input type="file" name="photos" multiple accept="image/jpeg,image/png,image/webp">
+            <button class="btn btn-primary justify-self-start"><i class="bi bi-cloud-arrow-up"></i>{% trans "Upload photos" %}</button>
+        </form>
+
+        {% if items %}
+        <div class="grid grid-cols-2 gap-4 md:grid-cols-3 2xl:grid-cols-4">
+            {% for i in items %}
+            <article class="card flex flex-col overflow-hidden p-0 {% if not i.is_published %}opacity-60{% endif %}">
+                <a href="{% url 'admin_gallery_edit' i.pk %}" class="relative block aspect-square bg-gray-100">
+                    {% if i.image %}<img src="{{ i.image.url }}" alt="" loading="lazy" class="h-full w-full object-cover">
+                    {% else %}<span class="flex h-full items-center justify-center text-4xl text-gray-400"><i class="bi bi-camera-video"></i></span>{% endif %}
+                    <span class="absolute start-2 top-2 flex gap-1">
+                        {% if i.is_featured %}<span class="badge bg-amber-400 text-amber-950"><i class="bi bi-star-fill"></i>{% trans "Featured" %}</span>{% endif %}
+                        {% if i.kind == 'video' %}<span class="badge"><i class="bi bi-play-fill"></i>{% trans "Video" %}</span>{% endif %}
+                        {% if not i.is_published %}<span class="badge">{% trans "Hidden" %}</span>{% endif %}
+                    </span>
+                </a>
+                <div class="flex items-center justify-between gap-2 p-3">
+                    <a href="{% url 'admin_gallery_edit' i.pk %}" class="truncate text-sm font-medium text-gray-900 hover:text-primary-700">{{ i.title }}</a>
+                    <form method="post" action="{% url 'admin_gallery_delete' i.pk %}" data-confirm="{% trans 'Remove this from the gallery?' %}">{% csrf_token %}
+                        <button class="btn btn-ghost btn-sm text-red-600" aria-label="{% trans 'Delete' %}"><i class="bi bi-trash"></i></button></form>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="card p-10 text-center">
+            <span class="feature-icon mx-auto"><i class="bi bi-images"></i></span>
+            <p class="mt-4 font-semibold text-gray-900">{% trans "The gallery is empty" %}</p>
+            <p class="mt-1 text-sm text-gray-500">{% trans "Upload clinic, event and patient photos, or add a video." %}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="card grid gap-4 p-5 xl:sticky xl:top-20">
+        {% csrf_token %}
+        <h2 class="text-base font-semibold text-gray-900">{% trans "Add a photo or video" %}</h2>
+        {% for field in form %}{% include "ui/field.html" %}{% endfor %}
+        <p class="text-xs text-gray-500">{% trans "Only publish photos of patients who have agreed to it." %}</p>
+        <button class="btn btn-primary"><i class="bi bi-plus-lg"></i>{% trans "Add to gallery" %}</button>
+    </form>
+</div>
+{% endblock %}

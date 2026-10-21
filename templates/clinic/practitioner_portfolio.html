@@ -44,14 +44,8 @@
             <a href="{% url 'public_testimonials' %}" class="btn btn-outline shrink-0">{% translate "All stories" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
         </div>
         {% if videos %}
-        <div class="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {% for v in videos %}
-            <a href="{% url 'public_testimonials' %}?type=videos" class="group relative block aspect-[9/14] overflow-hidden rounded-2xl bg-slate-900 no-underline">
-                {% if v.thumbnail_url %}<div class="absolute inset-0 opacity-90 transition group-hover:scale-105 [&_picture]:h-full [&_picture]:w-full">{% story_picture v "9:16" "(min-width: 1024px) 20vw, 50vw" %}</div>{% endif %}
-                <span class="absolute inset-0 flex items-center justify-center"><span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-xl text-primary-700"><i class="bi bi-play-fill"></i></span></span>
-                <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-sm font-semibold text-white">{{ v|tx:"title"|truncatechars:70 }}</span>
-            </a>
-            {% endfor %}
+        <div class="mt-8 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+            {% for v in videos %}{% include "clinic/partials/video_card.html" %}{% endfor %}
         </div>
         {% endif %}
         <div class="mt-6 grid gap-5 md:grid-cols-2">

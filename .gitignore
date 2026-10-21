@@ -88,3 +88,10 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# deployment build: generated secrets and exports (rebuild with scripts/export_content.py + build_release.py)
+deploy/.env.production
+deploy/media/
+deploy/content.json
+dist/
+private_media/

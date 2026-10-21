@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 import uuid
 from django.db import models
+from spinalcure.private_media import get_private_storage
 from spinalcure.uploads import RandomName
 from spinalcure.languages import NATIVE_CHOICES
 from django.utils.translation import gettext_lazy as _
@@ -41,7 +42,7 @@ class CustomUser(AbstractUser):
         verbose_name=_('Phone')
     )
     photo = models.ImageField(
-        upload_to=RandomName('users'),
+        upload_to=RandomName('users'), storage=get_private_storage,
         blank=True,
         null=True,
         verbose_name=_('Profile Photo')

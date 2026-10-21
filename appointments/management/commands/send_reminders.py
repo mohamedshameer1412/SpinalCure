@@ -23,7 +23,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         cfg, now = BookingSettings.get(), timezone.now()
         counts = {'reminders': self.reminders(cfg, now), 'followups': self.followups(cfg, now),
-                  'missed': self.missed(cfg, now), 'event_reminders': self.event_reminders(now)}
+                  'missed': self.missed(cfg, now), 'event_reminders': self.event_reminders(now),
+                  'review_requests': self.review_requests(cfg, now)}
         self.stdout.write(', '.join(f'{k}={v}' for k, v in counts.items()))
 
     # reminders ---------------------------------------------------------------------------------
@@ -31,8 +32,8 @@ class Command(BaseCommand):
         sent = 0
         horizon = now + timedelta(minutes=max(cfg.reminder_offsets or [0]) + 1)
         upcoming = Appointment.objects.filter(
-            status__in=('scheduled', 'confirmed'), appointment_date__gte=now.date(),
-            appointment_date__lte=horizon.date()).select_related('patient', 'practitioner')
+            status__in=('scheduled', 'confirmed'), appointment_date__gte=timezone.localdate(now),
+            appointment_date__lte=timezone.localdate(horizon)).select_related('patient', 'practitioner')
         for appt in upcoming:
             start = appt.starts_at
             if start <= now:
@@ -73,12 +74,32 @@ class Command(BaseCommand):
                 sent += 1
         return sent
 
+    # review requests ---------------------------------------------------------------------------
+    def review_requests(self, cfg, now):
+        """Once per patient, the day after they reach N sessions: a thank-you with a link to review us.
+        Only patients treated in the last 30 days, so switching this on never emails old patients."""
+        n = cfg.review_request_after_sessions
+        if not n:
+            return 0
+        from django.db.models import Count, Max
+        from patients.models import Patient, Session
+        today = timezone.localdate()
+        rows = (Session.objects.values('patient').annotate(n=Count('id'), last=Max('session_date'))
+                .filter(n__gte=n, last__lt=today, last__gte=today - timedelta(days=30)))
+        sent = 0
+        for p in Patient.objects.filter(pk__in=[r['patient'] for r in rows]):
+            note = notify('review_request', patient=p, context={'clinic': sch._clinic_name()},
+                          url=reverse('clinic_review'), dedupe_key=f'review_request:{p.pk}')
+            if note is not None and getattr(note, 'was_created', False):
+                sent += 1
+        return sent
+
     # missed ------------------------------------------------------------------------------------
     def missed(self, cfg, now):
         handled = 0
         cutoff = now - timedelta(minutes=cfg.missed_grace_minutes)
         stale = Appointment.objects.filter(
-            status__in=('scheduled', 'confirmed'), appointment_date__lte=now.date()
+            status__in=('scheduled', 'confirmed'), appointment_date__lte=timezone.localdate(now)
         ).select_related('patient', 'practitioner')
         for appt in stale:
             if appt.ends_at > cutoff:
@@ -101,8 +122,8 @@ class Command(BaseCommand):
         from events import service as event_service
         from events.models import Event
         sent = 0
-        soon = Event.objects.filter(status='published', date__gte=now.date() - timedelta(days=1),
-                                    date__lte=now.date() + timedelta(days=8))
+        soon = Event.objects.filter(status='published', date__gte=timezone.localdate(now) - timedelta(days=1),
+                                    date__lte=timezone.localdate(now) + timedelta(days=8))
         for event in soon:
             start = event.starts_at
             if start <= now:

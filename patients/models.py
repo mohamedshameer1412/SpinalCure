@@ -1,7 +1,9 @@
 from django.db import models
+from spinalcure.private_media import get_private_storage
 from spinalcure.uploads import RandomName
 from spinalcure.languages import NATIVE_CHOICES
 import uuid
+from decimal import Decimal
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from clinic.models import Practitioner
@@ -57,7 +59,7 @@ class Patient(models.Model):
         validators=[validate_not_in_future],
         verbose_name=_('Date of Birth')
     )
-    photo = models.ImageField(upload_to=RandomName('patients'), blank=True, null=True, verbose_name=_('Photo'))
+    photo = models.ImageField(upload_to=RandomName('patients'), storage=get_private_storage, blank=True, null=True, verbose_name=_('Photo'))
 
     # Attender Info (optional)
     attender_name = models.CharField(max_length=200, blank=True, verbose_name=_('Attender Name'))
@@ -144,6 +146,32 @@ class Patient(models.Model):
             raise ValidationError({'email': _('Patient email cannot be same as attender name.')})
 
 
+class SessionPackage(models.Model):
+    """A prepaid bundle of sittings the clinic offers (e.g. 10 sessions for a set price). Starting a treatment
+    plan from a package copies its sittings, price and validity onto the plan."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=120, verbose_name=_('Package name'))
+    sittings = models.PositiveIntegerField(verbose_name=_('Sittings'))
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('Price (₹)'))
+    validity_days = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('Valid for (days)'),
+                                                help_text=_('Leave empty for no expiry.'))
+    description = models.CharField(max_length=300, blank=True, verbose_name=_('Description'))
+    is_active = models.BooleanField(default=True, verbose_name=_('Active'))
+    order = models.PositiveIntegerField(default=0, verbose_name=_('Display order'))
+
+    class Meta:
+        ordering = ['order', 'sittings']
+        verbose_name = _('Session package')
+        verbose_name_plural = _('Session packages')
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def price_per_sitting(self):
+        return (self.price / self.sittings).quantize(Decimal('1')) if self.sittings else None
+
+
 class TreatmentPlan(models.Model):
     """
     Represents a specific treatment package or case for a patient.
@@ -161,6 +189,9 @@ class TreatmentPlan(models.Model):
     name = models.CharField(max_length=200, verbose_name=_('Plan Name'))
     chief_complaint = models.TextField(verbose_name=_('Chief Complaint / Diagnosis'), blank=True)
     total_sittings = models.PositiveIntegerField(verbose_name=_('Total Sittings'), default=0)
+    package_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
+                                        verbose_name=_('Package price (₹)'))
+    valid_until = models.DateField(null=True, blank=True, verbose_name=_('Valid until'))
     is_active = models.BooleanField(verbose_name=_('Is Active'), default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
@@ -177,6 +208,26 @@ class TreatmentPlan(models.Model):
             return 0
         percentage = (self.completed_sittings / self.total_sittings) * 100
         return min(100, int(percentage))
+
+    @property
+    def remaining_sittings(self):
+        return max(self.total_sittings - self.completed_sittings, 0)
+
+    @property
+    def is_expired(self):
+        return bool(self.valid_until and self.valid_until < date.today())
+
+    @property
+    def package_paid(self):
+        from django.db.models import Sum
+        return self.payments.aggregate(t=Sum('amount_paid'))['t'] or Decimal('0')
+
+    @property
+    def package_due(self):
+        """What is still owed on the package price (None when the plan is not a priced package)."""
+        if self.package_price is None:
+            return None
+        return max(self.package_price - self.package_paid, Decimal('0'))
 
 class Session(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -307,6 +358,35 @@ class PatientReview(models.Model):
             models.Index(fields=['is_published', 'rating']),
             models.Index(fields=['practitioner', 'is_published']),
         ]
+
+    # The public story (clinic.ClinicTestimonial) this review appears as while published. Text, not a FK:
+    # new tables can't reference legacy char(32) keys on MariaDB.
+    public_testimonial_id = models.CharField(max_length=36, blank=True, editable=False)
+
+    def sync_public_story(self):
+        """Mirror this staff-entered review onto the public Patient Stories page (first name only), or hide it."""
+        from clinic.models import ClinicProfile, ClinicTestimonial
+        story = ClinicTestimonial.objects.filter(pk=self.public_testimonial_id).first() if self.public_testimonial_id else None
+        if not (self.is_published and (self.review_text or '').strip()):
+            if story and story.is_published:
+                story.is_published = False
+                story.save(update_fields=['is_published'])
+            return
+        if story is None:
+            story = ClinicTestimonial(clinic=ClinicProfile.objects.first(), source='internal', submitted_via='staff',
+                                      moderation_status='approved')
+        story.patient_name = (self.patient.name or '').split()[0][:200] if self.patient_id and self.patient.name else 'Patient'
+        story.rating, story.review_text, story.is_published = self.rating, self.review_text, True
+        story.save()
+        if self.public_testimonial_id != str(story.pk):
+            self.public_testimonial_id = str(story.pk)
+            PatientReview.objects.filter(pk=self.pk).update(public_testimonial_id=self.public_testimonial_id)
+
+    def delete(self, *args, **kwargs):
+        from clinic.models import ClinicTestimonial
+        if self.public_testimonial_id:
+            ClinicTestimonial.objects.filter(pk=self.public_testimonial_id, submitted_via='staff').delete()
+        return super().delete(*args, **kwargs)
 
     def __str__(self):
         return f"{self.patient.name} — {self.rating}★"

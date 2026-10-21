@@ -1,51 +1,35 @@
-# Core Django
-Django==4.2.*
-djangorestframework==3.14.0
-djangorestframework-simplejwt==5.5.0
-django-cors-headers==4.3.1
+# Production dependencies, pinned to the versions the test suite runs on. Python 3.10+ (3.11 or 3.12 recommended).
+Django==5.2.18
+djangorestframework==3.16.1
+djangorestframework-simplejwt==5.5.1
+django-cors-headers==4.9.0
+django-filter==25.1
+drf-spectacular==0.29.0
+django-ratelimit==4.1.0
+django-tailwind==4.4.2
 python-decouple==3.8
 
-# Database & ORM
-mysqlclient>=2.2.0
+# MySQL / MariaDB driver. Pure Python, so it installs on shared hosting (cPanel) without compilers;
+# spinalcure/settings/__init__.py registers it as MySQLdb when mysqlclient is not installed.
+PyMySQL==1.1.2
 
-# File handling
-Pillow>=10.1.0
-openpyxl>=3.1.2
-reportlab>=4.0
+# Static files served by the app itself (works on cPanel/Passenger without extra web server rules)
+whitenoise==6.11.0
 
-# Frontend & Styling
-django-tailwind==3.6.0
+# Images, documents, ID cards
+Pillow==12.2.0
+openpyxl==3.1.5
+reportlab==4.4.7
+fonttools==4.63.0
+qrcode==8.2
 
-# Filtering & Search
-django-filter==23.5
-
-# API Documentation
-drf-spectacular==0.26.5
-
-# Caching
-redis==5.0.1
-django-redis==5.4.0
-
-# Security & Validation
-django-ratelimit==4.1.0
+# Security
 pyotp==2.9.0
-cryptography>=42.0.0
-qrcode==7.4.2
+cryptography==46.0.7
 
-# Logging & Monitoring
-python-json-logger==2.0.7
+# Logging, translations tooling
+python-json-logger==4.0.0
+polib==1.2.0
 
-# Internationalisation tooling (scripts/i18n_*.py; .mo files are committed)
-polib>=1.2.0
-
-# Testing
-pytest==7.4.3
-pytest-django==4.7.0
-pytest-cov==4.1.0
-pytest-timeout==2.2.0
-
-# Development Tools
-django-extensions==3.2.3
-black==23.12.1
-flake8==6.1.0
-isort==5.13.2
+# Optional: only if you set CACHE_LOCATION to a Redis URL
+# django-redis==6.0.0

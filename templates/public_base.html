@@ -1,6 +1,6 @@
-{% load i18n static content_i18n seo_tags %}{% get_current_language as LANGUAGE_CODE %}{% get_available_languages as LANGUAGES %}
+{% load i18n static content_i18n seo_tags story_tags %}{% get_current_language as LANGUAGE_CODE %}{% get_available_languages as LANGUAGES %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="scroll-smooth" data-fixed-theme>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="scroll-smooth" data-fixed-theme data-ts-placeholder="{% translate 'Select an option' %}" data-ts-no-results="{% translate 'No results found' %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     {% block extra_head %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'vendor/flatpickr/flatpickr.min.css' %}">
+    <script defer src="{% static 'vendor/flatpickr/flatpickr.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'vendor/tom-select/tom-select.css' %}">
+    <script defer src="{% static 'vendor/tom-select/tom-select.complete.min.js' %}"></script>
     <script defer src="{% static 'js/ui.js' %}"></script>
     <script defer src="{% static 'vendor/alpine.min.js' %}"></script>
 </head>
@@ -40,6 +44,45 @@
 </main>
 
 {% include "public/footer.html" %}
+
+<!-- Video player: the iframe is created only on click, so no third-party requests happen until then -->
+<div x-data="{ open: false, src: '', file: '', vertical: true }" @play-video.window="file = ''; src = $event.detail.src; vertical = $event.detail.vertical; open = true"
+     @play-file.window="src = ''; file = $event.detail.src; vertical = false; open = true" @keydown.escape.window="open = false; src = ''; file = ''">
+    <div x-show="open" x-cloak x-transition.opacity class="dialog-overlay !bg-black/80" @click.self="open = false; src = ''; file = ''" role="dialog" aria-modal="true" aria-label="{% translate 'Patient video' %}">
+        <div class="relative w-full" :class="vertical ? 'max-w-sm' : 'max-w-3xl'">
+            <button type="button" @click="open = false; src = ''; file = ''" class="absolute -top-10 end-0 text-2xl text-white" aria-label="{% translate 'Close' %}"><i class="bi bi-x-lg"></i></button>
+            <div class="mx-auto overflow-hidden rounded-2xl bg-black" :class="vertical ? 'aspect-[9/16] max-h-[80vh]' : 'aspect-video'">
+                <template x-if="open && file"><video :src="file" class="h-full w-full" controls autoplay playsinline></video></template>
+                <template x-if="open && src"><iframe :src="src" class="h-full w-full" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="{% translate 'Patient video' %}"></iframe></template>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block feedback_widget %}
+<!-- Review / feedback: one form for the whole site, opened by this button or $dispatch('open-feedback') -->
+<div x-data="{ open: false }" @open-feedback.window="open = true" @keydown.escape.window="open = false"
+     x-effect="if (open) $nextTick(() => $refs.fbPanel.querySelector('#rv-name')?.focus())">
+    <button type="button" @click="open = true" x-ref="fbButton" aria-haspopup="dialog"
+            class="btn btn-primary fixed bottom-5 end-5 z-40 h-12 rounded-full px-4 shadow-lg shadow-primary-600/30 sm:px-5">
+        <i class="bi bi-chat-heart text-lg" aria-hidden="true"></i><span class="hidden sm:inline">{% translate "Feedback" %}</span>
+        <span class="sr-only sm:hidden">{% translate "Share your experience" %}</span>
+    </button>
+    <div x-show="open" x-cloak x-transition.opacity class="dialog-overlay" @click.self="open = false; $refs.fbButton.focus()"
+         role="dialog" aria-modal="true" aria-labelledby="fb-title">
+        <div class="dialog max-h-[92vh] max-w-xl overflow-y-auto" x-ref="fbPanel">
+            <div class="mb-4 flex items-start justify-between gap-4">
+                <div>
+                    <h2 id="fb-title" class="dialog-title">{% translate "Share your experience" %}</h2>
+                    <p class="dialog-description">{% translate "A public review for other patients, or private feedback for our team." %}</p>
+                </div>
+                <button type="button" class="btn btn-ghost btn-icon -me-2 -mt-1" @click="open = false; $refs.fbButton.focus()" aria-label="{% translate 'Close' %}"><i class="bi bi-x-lg"></i></button>
+            </div>
+            {% review_form framed=False %}
+        </div>
+    </div>
+</div>
+{% endblock %}
 
 <!-- toasts (used by the public forms) -->
 <div class="pointer-events-none fixed bottom-4 end-4 z-[120] flex flex-col gap-2" aria-live="polite">

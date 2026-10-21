@@ -47,7 +47,15 @@ class BookingSettingsForm(_Styled):
         model = BookingSettings
         fields = ['min_notice_minutes', 'max_advance_days', 'default_duration_minutes', 'cancel_cutoff_hours',
                   'max_active_per_contact', 'allow_public_booking', 'reminder_offsets_minutes',
-                  'followup_lead_days', 'missed_grace_minutes', 'auto_mark_no_show']
+                  'followup_lead_days', 'review_request_after_sessions', 'missed_grace_minutes', 'auto_mark_no_show']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['review_request_after_sessions'].required = False     # older forms / API posts leave it out
+
+    def clean_review_request_after_sessions(self):
+        v = self.cleaned_data.get('review_request_after_sessions')
+        return self.instance.review_request_after_sessions if v is None else v
 
     def clean_default_duration_minutes(self):
         v = self.cleaned_data['default_duration_minutes']

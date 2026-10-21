@@ -72,7 +72,7 @@
     <aside class="lg:sticky lg:top-24 lg:self-start" x-data="courseReg()">
         <div class="card p-6 shadow-pop">
             <p class="text-sm text-gray-500">{% translate "Course fee" %}</p>
-            <p class="mt-1 text-3xl font-extrabold text-gray-900" dir="ltr">₹{{ course.fees|floatformat:"0g" }}</p>
+            <p class="mt-1">{% include "components/price.html" with item=course size="lg" %}</p>{% if course.fees > 0 %}<p class="mt-1 text-xs text-gray-500"><i class="bi bi-info-circle" aria-hidden="true"></i> {% translate "Fees are non-refundable." %} <a href="{% url 'clinic_terms' %}#fees" class="font-medium text-primary-700 underline">{% translate "Terms" %}</a></p>{% endif %}
             {% if active_batch %}
             <div class="mt-5 rounded-xl bg-primary-50 p-4 ring-1 ring-inset ring-primary-100">
                 <p class="flex items-center gap-2 text-sm font-semibold text-primary-800"><span class="h-2 w-2 rounded-full bg-primary-500"></span>{% translate "Enrolment open" %}</p>
@@ -82,8 +82,10 @@
             </div>
             <form class="mt-5 space-y-3" @submit.prevent="submit()" x-show="!done" novalidate>
                 <div><label for="r-name" class="label">{% translate "Full name" %}</label><input id="r-name" x-ref="name" type="text" required autocomplete="name"></div>
-                <div><label for="r-phone" class="label">{% translate "Phone number" %}</label><input id="r-phone" x-ref="phone" type="tel" required autocomplete="tel" dir="ltr"></div>
+                <div><label for="r-phone" class="label">{% translate "Phone number" %}</label><div class="input-group" dir="ltr"><span class="input-addon">+91</span><input id="r-phone" x-ref="phone" type="tel" required autocomplete="tel-national" inputmode="tel" maxlength="20" placeholder="98765 43210"></div></div>
                 <div><label for="r-email" class="label">{% translate "Email" %}</label><input id="r-email" x-ref="email" type="email" autocomplete="email" dir="ltr"></div>
+{% if course.fees > 0 %}<label class="flex items-start gap-2.5 text-xs text-gray-600"><input type="checkbox" x-ref="terms" class="mt-0.5">
+                    <span>{% url 'clinic_terms' as terms_url %}{% blocktranslate %}I agree to the <a href="{{ terms_url }}" target="_blank" class="font-semibold text-primary-700 underline">terms and conditions</a>. Fees are non-refundable.{% endblocktranslate %}</span></label>{% endif %}
                 <p x-show="error" x-cloak class="alert alert-danger" role="alert" x-text="error"></p>
                 <button type="submit" class="btn btn-primary w-full" :disabled="sending"><span x-show="!sending">{% translate "Join this batch" %}</span><span x-show="sending">{% translate "Registering…" %}</span></button>
                 <p class="text-center text-xs text-gray-500">{% translate "Limited seats. We will call you to confirm." %}</p>
@@ -106,13 +108,15 @@ function courseReg() {
     return {
         sending: false, done: false, error: '', message: '', manageUrl: '',
         async submit() {
-            const name = this.$refs.name.value.trim(), phone = this.$refs.phone.value.trim();
+            const name = this.$refs.name.value.trim(), phone = window.withCountryCode(this.$refs.phone.value);
             if (!name || !phone) { this.error = '{{ _("Please enter your name and phone number.")|escapejs }}'; return; }
+            const terms = this.$refs.terms ? this.$refs.terms.checked : true;
+            if (!terms) { this.error = '{{ _("Please accept the terms and conditions.")|escapejs }}'; return; }
             this.sending = true; this.error = '';
             try {
                 const r = await fetch('{% url "course_register_ajax" pk=course.id %}', {
                     method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
-                    body: JSON.stringify({ name, phone, email: this.$refs.email.value.trim() }),
+                    body: JSON.stringify({ name, phone, email: this.$refs.email.value.trim(), accept_terms: terms }),
                 });
                 const d = await r.json();
                 if (d.status === 'success') { this.done = true; this.message = d.message; this.manageUrl = d.manage_url || ''; }

@@ -1,0 +1,14 @@
+{# One form field in the kit's shape: label, control, help, errors.  {% include "ui/field.html" with field=form.name %} #}
+{% if field.field.widget.input_type == 'checkbox' %}
+<div>
+    <label class="flex items-start gap-3 text-sm font-medium text-gray-800">{{ field }}<span>{{ field.label }}{% if field.help_text %}<span class="field-hint block font-normal">{{ field.help_text }}</span>{% endif %}</span></label>
+    {% for e in field.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+</div>
+{% else %}
+<div>
+    <label for="{{ field.id_for_label }}" class="label">{{ field.label }}{% if field.field.required %} <span class="text-red-500" aria-hidden="true">*</span>{% endif %}</label>
+    {{ field }}
+    {% if field.help_text %}<p class="field-hint">{{ field.help_text }}</p>{% endif %}
+    {% for e in field.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+</div>
+{% endif %}

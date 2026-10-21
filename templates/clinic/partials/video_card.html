@@ -1,0 +1,60 @@
+{% load i18n content_i18n story_tags %}
+{% comment %}
+One story video, as a designed cover: patients' faces are never shown on the listing (they appear only once someone
+chooses to play the video). Every card has the same size; four cover styles (v.card_variant) and one colour per
+problem (v.hue) keep neighbours distinct, and the problem is always named. A cover staff uploaded on purpose
+(thumbnail_source = upload) is used instead. Plays in the site-wide player in public_base.html.
+{% endcomment %}
+{% with h=v.hue variant=v.card_variant %}
+<article class="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-card transition duration-200 hover:-translate-y-0.5 hover:shadow-pop">
+    <button type="button" @click="$dispatch('play-video', { src: '{{ v.embed_url|escapejs }}', vertical: {{ v.is_vertical|yesno:'true,false' }} })"
+        aria-label="{% blocktranslate with t=v.title %}Play video: {{ t }}{% endblocktranslate %}"
+        class="relative block aspect-[4/5] w-full overflow-hidden text-start focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500">
+        {% if v.thumbnail and v.thumbnail_source == 'upload' %}
+            <span class="absolute inset-0 [&_picture]:h-full [&_picture]:w-full">{% story_picture v "4:5" sizes|default:"(min-width: 1024px) 25vw, 50vw" %}</span>
+            <span class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 to-transparent" aria-hidden="true"></span>
+        {% else %}
+        <span class="absolute inset-0 overflow-hidden text-white
+            {% if variant == 0 %}bg-gradient-to-br from-{{ h }}-700 via-{{ h }}-600 to-{{ h }}-500
+            {% elif variant == 1 %}bg-{{ h }}-700
+            {% elif variant == 2 %}bg-gradient-to-b from-{{ h }}-500 to-{{ h }}-800
+            {% else %}bg-gradient-to-tr from-{{ h }}-900 via-{{ h }}-700 to-{{ h }}-600{% endif %}" aria-hidden="true">
+            {% if variant == 0 %}
+                <span class="absolute -end-16 -top-16 h-56 w-56 rounded-full border-[28px] border-white/10"></span>
+                <span class="absolute -bottom-20 -start-12 h-48 w-48 rounded-full bg-white/10"></span>
+                <i class="bi bi-quote absolute start-4 top-12 text-6xl leading-none text-white/30"></i>
+            {% elif variant == 1 %}
+                <span class="absolute inset-0 opacity-20 [background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.5)_0_2px,transparent_2px_18px)]"></span>
+                <span class="absolute -end-10 bottom-16 flex h-36 w-36 items-center justify-center rounded-full bg-white/10"><i class="bi bi-heart-pulse text-6xl text-white/40"></i></span>
+            {% elif variant == 2 %}
+                <span class="absolute inset-0 opacity-25 [background-image:radial-gradient(rgba(255,255,255,.7)_1px,transparent_1.5px)] [background-size:14px_14px]"></span>
+                <span class="absolute inset-x-0 top-[22%] hidden justify-center sm:flex"><i class="bi bi-person-arms-up text-7xl text-white/35"></i></span>
+            {% else %}
+                <span class="absolute -start-1/4 top-[38%] h-40 w-[150%] -rotate-12 rounded-[50%] bg-white/10"></span>
+                <span class="absolute -start-1/4 top-[48%] h-40 w-[150%] -rotate-12 rounded-[50%] bg-white/5"></span>
+                <i class="bi bi-emoji-smile absolute end-4 top-12 text-5xl text-white/35"></i>
+            {% endif %}
+        </span>
+        {% if variant == 1 or variant == 2 %}
+        <span class="absolute start-4 top-12 flex items-center gap-2">
+            {% if clinic_logo_dark_url %}<img src="{{ clinic_logo_dark_url }}" alt="" class="h-7 w-7 rounded-full bg-white/90 p-0.5" loading="lazy">{% endif %}
+            <span class="text-xs font-semibold text-white/90">{% translate "Spinal Cure" %}</span>
+        </span>
+        {% endif %}
+        {% endif %}
+
+        <span class="absolute start-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-black/40 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm"><i class="bi bi-{{ v.platform }}" aria-hidden="true"></i>{{ v.get_platform_display }}</span>
+        <span class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+            <span class="-mt-8 flex h-10 w-10 items-center justify-center rounded-full bg-white text-lg text-{{ h }}-700 shadow-lg ring-4 ring-white/30 transition group-hover:scale-110 sm:mt-0 sm:h-12 sm:w-12 sm:text-xl"><i class="bi bi-play-fill ms-0.5"></i></span>
+        </span>
+        <span class="absolute inset-x-0 bottom-0 p-3 text-white sm:p-4">
+            <span class="hidden text-[11px] font-semibold uppercase tracking-wider text-white/75 sm:block">{% translate "Patient story" %}</span>
+            <span class="mt-0.5 block text-base font-bold leading-snug line-clamp-2 sm:text-xl">{% if v.problem %}{{ v.problem|tx:"name" }}{% else %}{% translate "Recovery journey" %}{% endif %}</span>
+        </span>
+    </button>
+    <div class="flex flex-1 flex-col gap-1.5 p-3 sm:p-4">
+        {% if v.problem %}<a href="{% url 'public_testimonials' %}?problem={{ v.problem.slug }}" class="self-start rounded-full bg-{{ h }}-50 px-2.5 py-0.5 text-xs font-semibold text-{{ h }}-700 ring-1 ring-inset ring-{{ h }}-200 no-underline hover:bg-{{ h }}-100">{{ v.problem|tx:"name" }}</a>{% endif %}
+        <h3 class="min-h-[2.5rem] text-sm font-semibold leading-snug text-gray-900 line-clamp-2">{{ v|tx:"title" }}</h3>
+    </div>
+</article>
+{% endwith %}

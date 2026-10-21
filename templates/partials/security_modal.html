@@ -229,7 +229,7 @@
                 else window.location.reload();
             } else {
                 const errorMsg = data.message || 'You may not have permission.';
-                alert('Deletion failed: ' + errorMsg);
+                Alpine.store('toast').push('{{ _("Deletion failed:")|escapejs }} ' + errorMsg, 'error');
                 closeSecurityModal();
             }
         });
@@ -266,7 +266,7 @@
                 if (data.status === 'ok') {
                     if (data.redirect_url) window.location.href = data.redirect_url;
                     else window.location.reload();
-                } else alert('Deletion failed.');
+                } else Alpine.store('toast').push('{{ _("Deletion failed.")|escapejs }}', 'error');
             });
         };
     }

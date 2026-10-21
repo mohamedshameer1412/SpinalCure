@@ -285,9 +285,28 @@ def verify(request, card_id):
         'found': True, 'status': status, 'valid': status == 'active', 'clinic': clinic, 'brand': brand,
         'name': user.get_full_name() or user.username, 'card_type': card.get_card_type_display(),
         'issued': card.issued_on, 'expires': card.expires_on, 'tail': card.card_id[-4:],
-        'photo_url': user.photo.url if (status == 'active' and brand.show_photo_on_verify and user.photo) else '',
+        'photo_url': reverse('idcard_verify_photo', args=[card.card_id])
+                     if (status == 'active' and brand.show_photo_on_verify and user.photo) else '',
     }
     return _no_store(render(request, 'idcards/verify.html', ctx))
+
+
+@require_GET
+@ratelimit(key='ip', rate='60/m', method='GET', block=True)
+def verify_photo(request, card_id):
+    """The holder photo shown on the public verify page: staff photos are private files, so this is the only
+    public way to one, and only while the card is active and the organisation allows photos on verify."""
+    from django.http import FileResponse
+    normalised = normalise_card_id(card_id)
+    card = IDCard.objects.select_related('holder__user').filter(card_id=normalised).first() if normalised else None
+    user = card.holder.user if card else None
+    if not (card and card.effective_status == 'active' and IDCardBranding.get().show_photo_on_verify and user.photo):
+        raise Http404
+    resp = FileResponse(user.photo.open('rb'), content_type='image/' + (user.photo.name.rsplit('.', 1)[-1].lower()
+                                                                          .replace('jpg', 'jpeg')))
+    resp['Cache-Control'] = 'private, max-age=300'
+    resp['X-Content-Type-Options'] = 'nosniff'
+    return resp
 
 
 def _shared(token):

@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 
 from spinalcure.decorators import superadmin_required
@@ -51,7 +52,7 @@ def testimonials_page(request):
     params = {'q': q, 'problem': problem.slug if problem else '', 'type': kind, 'limit': limit + PAGE}
     ctx = {
         'q': q, 'kind': kind, 'selected_problem': problem,
-        'reviews': reviews[:limit], 'videos': videos[:limit], 'more_url': '?' + urlencode({k: v for k, v in params.items() if v}) if more else '',
+        'reviews': reviews[:limit], 'videos': stories.with_slots(videos[:limit]), 'more_url': '?' + urlencode({k: v for k, v in params.items() if v}) if more else '',
         'problems': ProblemCategory.objects.filter(is_active=True),
         'rating_range': range(1, 6),
         'kinds': [('all', gettext('All')), ('reviews', gettext('Reviews')), ('videos', gettext('Reels & Shorts'))],
@@ -104,6 +105,13 @@ def admin_videos(request):
         try:
             v.full_clean(exclude=['platform', 'video_id'])
             v.save()
+            if v.platform == 'youtube':
+                try:
+                    stories.import_frame(v, 'platform')
+                    v.save()
+                    stories.warm_renditions(v)
+                except ValueError:
+                    pass                                     # card falls back to YouTube's own thumbnail
             messages.success(request, gettext('Video "%(title)s" added.') % {'title': v.title})
             if not v.is_published:
                 messages.info(request, gettext('Saved as hidden. Record the patient\'s consent to publish it.'))
@@ -118,10 +126,15 @@ def admin_videos(request):
     q = request.GET.get('q', '').strip()[:100]
     if q:
         videos = videos.filter(Q(title__icontains=q) | Q(patient_name__icontains=q) | Q(description__icontains=q))
+    problem_filter = request.GET.get('problem', '')
+    if problem_filter == 'none':
+        videos = videos.filter(problem__isnull=True)
+    elif problem_filter:
+        videos = videos.filter(problem_id=problem_filter) if _is_uuid(problem_filter) else videos.none()
     from django.core.paginator import Paginator
     page = Paginator(videos, 25).get_page(request.GET.get('page'))
     return render(request, 'clinic/admin/videos.html', {
-        'videos': page, 'page_obj': page, 'q': q, 'consent': status,
+        'videos': page, 'page_obj': page, 'q': q, 'consent': status, 'problem_filter': problem_filter,
         'consent_choices': TestimonialVideo.CONSENT_CHOICES, 'language_choices': TestimonialVideo._meta.get_field('language').choices,
         'problems': ProblemCategory.objects.filter(is_active=True),
     })
@@ -151,6 +164,7 @@ def admin_video_edit(request, pk):
                 v.is_published = request.POST.get('is_published') == 'on'
             v.full_clean(exclude=['platform', 'video_id', 'thumbnail'])
             v.save()
+            stories.warm_renditions(v)
             messages.success(request, gettext('Video "%(title)s" saved.') % {'title': v.title})
             return redirect('admin_video_edit', pk=v.pk)
         except ValueError as e:
@@ -176,6 +190,27 @@ def admin_video_toggle(request, pk):
     v.is_published = not v.is_published
     v.save(update_fields=['is_published'])
     return redirect('admin_videos')
+
+
+def _is_uuid(value):
+    import uuid
+    try:
+        uuid.UUID(str(value))
+        return True
+    except ValueError:
+        return False
+
+
+@superadmin_required
+@require_POST
+def admin_video_problem(request, pk):
+    """Quick tag from the list: which problem this story is about (drives the card colour and the public filter)."""
+    v = get_object_or_404(TestimonialVideo, pk=pk)
+    value = request.POST.get('problem', '')
+    v.problem = ProblemCategory.objects.filter(pk=value, is_active=True).first() if _is_uuid(value) else None
+    v.save(update_fields=['problem', 'updated_at'])
+    return redirect(request.META.get('HTTP_REFERER') if url_has_allowed_host_and_scheme(
+        request.META.get('HTTP_REFERER', ''), {request.get_host()}) else 'admin_videos')
 
 
 @superadmin_required

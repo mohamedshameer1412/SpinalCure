@@ -266,7 +266,7 @@ def book(*, practitioner=None, day, start_time, appointment_type='physical', dur
             if source in ('public', 'portal'):
                 upcoming = Appointment.objects.filter(
                     _contact_filters(patient, guest_phone, guest_email),
-                    status__in=('scheduled', 'confirmed'), appointment_date__gte=now.date()).count()
+                    status__in=('scheduled', 'confirmed'), appointment_date__gte=timezone.localtime(now, _tz()).date()).count()
                 if upcoming >= cfg.max_active_per_contact:
                     raise SchedulingError('limit', gettext('You already have the maximum number of upcoming appointments.'))
             appt = Appointment.objects.create(

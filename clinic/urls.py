@@ -10,9 +10,10 @@ from .admin_views import (clinic_setup_view, practitioners_list,
                           practitioner_create, practitioner_edit, practitioner_delete,
                           testimonials_list, testimonial_create, testimonial_edit,
                           testimonial_delete, testimonial_toggle_publish, testimonial_moderate, activity_log_view, revert_audit_log_view)
-from .testimonial_views import (testimonials_page, admin_videos, admin_video_edit, admin_video_toggle, admin_video_delete,
+from .testimonial_views import (testimonials_page, admin_videos, admin_video_edit, admin_video_toggle, admin_video_delete, admin_video_problem,
                                 admin_problems, admin_problem_delete)
 from .translation_views import translations_page, translation_action
+from . import faq_views, gallery_views
 from .blog_views import blog_list_view, blog_detail_view
 from .blog_admin_views import (admin_blog_list, admin_blog_create, admin_blog_edit,
                                 admin_blog_delete, admin_tag_list)
@@ -24,6 +25,10 @@ urlpatterns = [
     # ── Public Views ──────────────────────────────────────────────────
     path('portfolio/', RedirectView.as_view(pattern_name='clinic_portfolio', permanent=True), name='clinic_portfolio_legacy'),
     path('testimonials/', testimonials_page, name='public_testimonials'),
+    path('faq/', faq_views.faq_page, name='clinic_faq'),
+    path('review/', faq_views.review_page, name='clinic_review'),
+    path('terms/', faq_views.terms_page, name='clinic_terms'),
+    path('gallery/', gallery_views.gallery_page, name='public_gallery'),
     path('about/', clinic_about_page_view, name='clinic_about_page'),
     path('practitioners/<b64uuid:pk>/', practitioner_detail_view, name='practitioner_detail'),
     path('ajax/submit-review/', submit_review_ajax, name='submit_review_ajax'),
@@ -62,6 +67,15 @@ urlpatterns = [
     path('admin/blog/tags/', admin_tag_list, name='admin_blog_tags'),
 
     # ── Admin Testimonials ───────────────────────────────────────────────
+    path('admin/featured-patients/', gallery_views.admin_featured, name='admin_featured'),
+    path('admin/featured-patients/<uuid:pk>/', gallery_views.admin_featured_edit, name='admin_featured_edit'),
+    path('admin/featured-patients/<uuid:pk>/delete/', gallery_views.admin_featured_delete, name='admin_featured_delete'),
+    path('admin/gallery/', gallery_views.admin_gallery, name='admin_gallery'),
+    path('admin/gallery/<uuid:pk>/', gallery_views.admin_gallery_edit, name='admin_gallery_edit'),
+    path('admin/gallery/<uuid:pk>/delete/', gallery_views.admin_gallery_delete, name='admin_gallery_delete'),
+    path('admin/faqs/', faq_views.admin_faqs, name='admin_faqs'),
+    path('admin/faqs/<uuid:pk>/', faq_views.admin_faq_edit, name='admin_faq_edit'),
+    path('admin/faqs/<uuid:pk>/delete/', faq_views.admin_faq_delete, name='admin_faq_delete'),
     path('admin/testimonials/', testimonials_list, name='admin_testimonials'),
     path('admin/testimonials/create/', testimonial_create, name='admin_testimonial_create'),
     path('admin/testimonials/<uuid:pk>/edit/', testimonial_edit, name='admin_testimonial_edit'),
@@ -72,6 +86,7 @@ urlpatterns = [
     path('admin/videos/', admin_videos, name='admin_videos'),
     path('admin/videos/<uuid:pk>/', admin_video_edit, name='admin_video_edit'),
     path('admin/videos/<uuid:pk>/toggle/', admin_video_toggle, name='admin_video_toggle'),
+    path('admin/videos/<uuid:pk>/problem/', admin_video_problem, name='admin_video_problem'),
     path('admin/videos/<uuid:pk>/delete/', admin_video_delete, name='admin_video_delete'),
     path('admin/problems/', admin_problems, name='admin_problems'),
     path('admin/problems/<uuid:pk>/delete/', admin_problem_delete, name='admin_problem_delete'),

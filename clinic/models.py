@@ -48,6 +48,9 @@ class ClinicProfile(models.Model):
     twitter = models.URLField(blank=True)
     linkedin = models.URLField(blank=True)
     youtube = models.URLField(blank=True)
+    google_review_url = models.URLField(
+        blank=True, verbose_name=_('Google review link'),
+        help_text=_('From Google Business Profile: "Ask for reviews". Patients are sent here after their treatment.'))
     
     @property
     def phone_list(self):
@@ -311,6 +314,10 @@ class HeroCarouselImage(models.Model):
         return f"Hero Image for {self.clinic.name} ({self.id})"
 
 
+# Hues for story cards (Tailwind safelists the classes, see tailwind.config.js). One per problem, stable.
+STORY_HUES = ('emerald', 'sky', 'violet', 'amber', 'rose', 'teal', 'indigo', 'orange')
+
+
 class ProblemCategory(models.Model):
     """Health problem a testimonial or video relates to; drives the public search dropdown."""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -331,11 +338,39 @@ class ProblemCategory(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def hue(self):
+        return STORY_HUES[self.pk.int % len(STORY_HUES)] if self.pk else STORY_HUES[0]
+
     def save(self, *args, **kwargs):
         if not self.slug:
             from django.utils.text import slugify
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+
+class FAQ(models.Model):
+    """A patient question answered by the clinic: the public FAQ page (and its FAQPage structured data)."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    question = models.CharField(max_length=300, verbose_name=_('Question'))
+    answer = models.TextField(verbose_name=_('Answer'))
+    problem = models.ForeignKey(ProblemCategory, on_delete=models.SET_NULL, null=True, blank=True,
+                                related_name='faqs', verbose_name=_('Problem'))
+    order = models.PositiveIntegerField(default=0, verbose_name=_('Display order'))
+    is_published = models.BooleanField(
+        default=False, db_index=True, verbose_name=_('Published'),
+        help_text=_('Publish only after the doctor has checked the answer.'))
+    reviewed_by = models.CharField(max_length=120, blank=True, verbose_name=_('Checked by'))
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order', 'question']
+        verbose_name = _('FAQ')
+        verbose_name_plural = _('FAQs')
+
+    def __str__(self):
+        return self.question
 
 
 class ClinicTestimonial(models.Model):
@@ -546,6 +581,117 @@ class TestimonialVideo(models.Model):
     @property
     def can_publish(self):
         return self.consent_status == 'obtained'
+
+    @property
+    def cover_variant(self):
+        """0-2, stable per video: which branded cover a video without a thumbnail gets."""
+        return self.pk.int % 3 if self.pk else 0
+
+    # Lists set `slot` (position on the page, see stories.with_slots) so neighbouring cards never share a design.
+    @property
+    def _slot(self):
+        slot = getattr(self, 'slot', None)
+        return slot if slot is not None else (self.pk.int if self.pk else 0)
+
+    @property
+    def card_variant(self):
+        """0-3: which of the four cover designs this card uses."""
+        return (self._slot + self._slot // 4) % 4      # shifts every row, so columns don't repeat either
+
+    @property
+    def hue(self):
+        """The problem's colour; untagged stories take one from their position, offset from the design."""
+        return self.problem.hue if self.problem_id else STORY_HUES[(self._slot * 3 + 1) % len(STORY_HUES)]
+
+
+class FeaturedPatient(models.Model):
+    """A well-known patient the clinic is permitted to name. Shown as information, never as an advert."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=120, verbose_name=_('Name'))
+    profession = models.CharField(max_length=120, blank=True, verbose_name=_('Known as'),
+                                  help_text=_('e.g. "Actor", "Cricketer".'))
+    photo = models.ImageField(upload_to=RandomName('featured'), verbose_name=_('Photo'))
+    note = models.CharField(max_length=300, blank=True, verbose_name=_('Short note'),
+                            help_text=_('Optional, factual and brief. No treatment claims.'))
+    consent_confirmed = models.BooleanField(
+        default=False, verbose_name=_('Permission to feature is on file'),
+        help_text=_('Tick only when the patient (or their team) has agreed in writing to be named on the website.'))
+    order = models.PositiveIntegerField(default=0, verbose_name=_('Display order'))
+    is_published = models.BooleanField(default=False, db_index=True, verbose_name=_('Published'))
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['order', 'name']
+        verbose_name = _('Featured patient')
+        verbose_name_plural = _('Featured patients')
+
+    def __str__(self):
+        return self.name
+
+    def clean(self):
+        if self.is_published and not self.consent_confirmed:
+            raise ValidationError({'is_published': _('Confirm the permission is on file before publishing.')})
+
+
+VIDEO_EXTENSIONS = ('.mp4', '.webm', '.mov')
+MAX_VIDEO_BYTES = 80 * 1024 * 1024
+
+
+def validate_video_file(f):
+    import os
+    if os.path.splitext(f.name)[1].lower() not in VIDEO_EXTENSIONS:
+        raise ValidationError(_('Upload an MP4, WebM or MOV video.'))
+    if f.size > MAX_VIDEO_BYTES:
+        raise ValidationError(_('Videos can be at most 80 MB. Upload longer videos to YouTube and paste the link.'))
+
+
+class GalleryItem(models.Model):
+    """A photo or video on the public gallery. Featured items (e.g. a well-known patient's visit) get a spotlight."""
+    KIND_CHOICES = [('photo', _('Photo')), ('video', _('Video'))]
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    kind = models.CharField(max_length=5, choices=KIND_CHOICES, default='photo', verbose_name=_('Type'))
+    title = models.CharField(max_length=200, verbose_name=_('Title'))
+    caption = models.TextField(blank=True, verbose_name=_('Caption'))
+    image = models.ImageField(upload_to=RandomName('gallery'), blank=True, null=True, verbose_name=_('Photo / cover image'))
+    video_file = models.FileField(upload_to=RandomName('gallery/videos'), blank=True, null=True, validators=[validate_video_file],
+                                  verbose_name=_('Video file'))
+    video_url = models.URLField(blank=True, verbose_name=_('or YouTube / Instagram link'))
+    is_featured = models.BooleanField(default=False, db_index=True, verbose_name=_('Featured'))
+    featured_label = models.CharField(max_length=80, blank=True, verbose_name=_('Featured label'),
+                                      help_text=_('Shown on the spotlight, e.g. "Featured patient".'))
+    order = models.PositiveIntegerField(default=0, verbose_name=_('Display order'))
+    is_published = models.BooleanField(default=True, db_index=True, verbose_name=_('Published'))
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-is_featured', 'order', '-created_at']
+        verbose_name = _('Gallery item')
+        verbose_name_plural = _('Gallery')
+
+    def __str__(self):
+        return self.title
+
+    def clean(self):
+        if self.kind == 'photo' and not self.image:
+            raise ValidationError({'image': _('Choose a photo.')})
+        if self.kind == 'video':
+            if not (self.video_file or self.video_url):
+                raise ValidationError({'video_file': _('Upload a video or paste a YouTube / Instagram link.')})
+            if self.video_url and not TestimonialVideo.parse_url(self.video_url)[0]:
+                raise ValidationError({'video_url': _('Enter a YouTube, YouTube Shorts or Instagram reel link.')})
+
+    @property
+    def embed_url(self):
+        platform, vid = TestimonialVideo.parse_url(self.video_url or '')
+        if platform == 'youtube':
+            return f'https://www.youtube-nocookie.com/embed/{vid}?rel=0&autoplay=1'
+        if platform == 'instagram':
+            return f'https://www.instagram.com/reel/{vid}/embed'
+        return ''
+
+    @property
+    def is_vertical(self):
+        return 'instagram.com' in (self.video_url or '') or '/shorts/' in (self.video_url or '')
 
 
 class AuditLog(models.Model):

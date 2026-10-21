@@ -10,8 +10,10 @@ from spinalcure.languages import NATIVE_CHOICES
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from spinalcure.pricing import DiscountMixin, original_price_field
 
-class Event(models.Model):
+
+class Event(DiscountMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     """
     Events, workshops, and seminars organized by the clinic.
@@ -128,6 +130,7 @@ class Event(models.Model):
         default=0,
         verbose_name=_('Fees (₹)')
     )
+    original_fees = original_price_field()
 
     class Meta:
         verbose_name = _('Event')
@@ -209,6 +212,7 @@ class Event(models.Model):
         
         # Validate time range
         validate_time_range(self.start_time, self.end_time)
+        self.clean_discount()
         
         if self.is_online and self.status == 'published' and not self.meeting_link:
             raise ValidationError({'meeting_link': _('Add the meeting link before publishing an online event.')})

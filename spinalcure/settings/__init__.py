@@ -8,6 +8,18 @@ must not pull in any environment, otherwise importing the submodule would load p
 """
 import os
 
+# Shared hosting (cPanel) has no compiler for mysqlclient: fall back to pure-Python PyMySQL under the same name.
+# Django checks the driver version, so PyMySQL reports the mysqlclient release it is compatible with.
+try:
+    import MySQLdb  # noqa: F401
+except ImportError:
+    try:
+        import pymysql
+        pymysql.version_info = (2, 2, 1, 'final', 0)
+        pymysql.install_as_MySQLdb()
+    except ImportError:
+        pass
+
 if os.environ.get('DJANGO_SETTINGS_MODULE', 'spinalcure.settings') == 'spinalcure.settings':
     from .base import *
 

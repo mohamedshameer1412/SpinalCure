@@ -25,6 +25,9 @@ SOURCE_LANG = 'en'
 
 # model label -> translatable fields. Add a model/field here and it appears in Admin > Translations.
 REGISTRY = {
+    'clinic.faq': ['question', 'answer'],
+    'clinic.galleryitem': ['title', 'caption', 'featured_label'],
+    'clinic.featuredpatient': ['name', 'profession', 'note'],
     'clinic.clinicprofile': ['name', 'tagline', 'about', 'hero_title', 'hero_subtitle', 'about_label', 'about_title',
                              'about_quote', 'services_label', 'services_title', 'services_description', 'team_label',
                              'team_title', 'team_description', 'testimonials_label', 'testimonials_title',

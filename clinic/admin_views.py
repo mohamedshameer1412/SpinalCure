@@ -142,6 +142,8 @@ def clinic_setup_view(request):
             fields = ['map_iframe_url', 'facebook', 'instagram', 'twitter', 'youtube']
             for field in fields:
                 setattr(clinic, field, data.get(field, ''))
+            review_url = data.get('google_review_url', '').strip()
+            clinic.google_review_url = review_url if review_url.startswith('https://') else ''
             messages.success(request, gettext('Social & location info updated.'))
 
         clinic.save()

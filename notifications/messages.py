@@ -41,6 +41,10 @@ CATALOGUE = {
     'treatment_followup': (
         N_('Treatment follow-up due'),
         N_('It is time for your follow-up visit. Please book a slot with %(clinic)s.')),
+    'review_request': (
+        N_('How is your recovery going?'),
+        N_('Thank you for choosing %(clinic)s. If our treatment has helped you, a short review helps other '
+           'people living with the same pain find us. It takes less than a minute.')),
     'payment_received': (
         N_('Payment received'),
         N_('We received your payment of %(amount)s (receipt %(receipt)s). Thank you.')),

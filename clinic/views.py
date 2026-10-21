@@ -12,6 +12,7 @@ from spinalcure.rbac import capability_permission, has_capability, require_capab
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import ClinicProfile, Practitioner
+from .stories import with_slots
 from patients.models import PatientReview, Patient
 from appointments.models import Appointment
 from events.models import Event, EventRegistration, EventFeedback
@@ -27,7 +28,7 @@ logger = logging.getLogger(__name__)
 def clinic_portfolio_view(request):
     """Public home page."""
     from courses.models import Course
-    from .models import ClinicTestimonial, ProblemCategory, TestimonialVideo
+    from .models import FAQ, ClinicTestimonial, FeaturedPatient, ProblemCategory, TestimonialVideo
     clinic = ClinicProfile.objects.first()
     doctors = list(Practitioner.objects.filter(is_active=True).order_by('-is_chief', 'name'))
     return render(request, 'clinic/home.html', {
@@ -37,11 +38,13 @@ def clinic_portfolio_view(request):
         'doctor': doctors[0] if doctors else None,
         'other_doctors': doctors[1:],
         'problems': ProblemCategory.objects.filter(is_active=True).order_by('order')[:12],
-        'videos': TestimonialVideo.objects.filter(is_published=True, platform='youtube').select_related('problem')[:4],
+        'videos': with_slots(TestimonialVideo.objects.filter(is_published=True).select_related('problem')[:4]),
         'testimonials': ClinicTestimonial.objects.filter(is_published=True).select_related('problem')[:3],
         'events': Event.objects.filter(is_published=True, date__gte=timezone.localdate()).order_by('date', 'start_time')[:3],
         'courses': Course.objects.filter(is_published=True).order_by('-created_at')[:3],
         'video_count': TestimonialVideo.objects.filter(is_published=True).count(),
+        'faqs': FAQ.objects.filter(is_published=True)[:5],
+        'featured_patients': FeaturedPatient.objects.filter(is_published=True, consent_confirmed=True),
     })
 
 
@@ -64,7 +67,7 @@ def practitioner_detail_view(request, pk):
         'practitioner': practitioner,
         'reviews': PatientReview.objects.filter(practitioner=practitioner, is_published=True).select_related('patient'),
         'testimonials': ClinicTestimonial.objects.filter(is_published=True).select_related('problem')[:4],
-        'videos': TestimonialVideo.objects.filter(is_published=True, platform='youtube')[:4],
+        'videos': with_slots(TestimonialVideo.objects.filter(is_published=True).select_related('problem')[:4]),
     })
 
 
@@ -80,7 +83,8 @@ def submit_review_ajax(request):
         return JsonResponse({'status': 'error', 'message': gettext('Invalid JSON.')}, status=400)
     if not isinstance(data, dict):
         return JsonResponse({'status': 'error', 'message': gettext('Invalid request.')}, status=400)
-    thanks = gettext('Thank you! Your review has been submitted for approval.')
+    thanks = (gettext('Thank you! Your feedback has reached the clinic team.') if data.get('kind') == 'feedback'
+              else gettext('Thank you! Your review has been submitted for approval.'))
     try:
         t = stories.submit_public_review(data)
     except stories.ReviewRejected as e:
@@ -89,6 +93,8 @@ def submit_review_ajax(request):
             return JsonResponse({'status': 'success', 'message': thanks})
         return JsonResponse({'status': 'error', 'message': e.message}, status=e.status)
     logger.info('Public review submitted (pending approval)')
+    if not t.consent_to_publish:
+        return JsonResponse({'status': 'success', 'message': thanks})
     return JsonResponse({'status': 'success', 'message': thanks,
                          'withdraw_url': request.build_absolute_uri(reverse('review_withdraw', args=[t.withdraw_token]))})
 

@@ -7,7 +7,7 @@ class CourseForm(forms.ModelForm):
         model = Course
         fields = [
             'title', 'short_description', 'description', 'outcomes',
-            'course_content', 'platform', 'fees', 'duration',
+            'course_content', 'platform', 'fees', 'original_fees', 'duration',
             'image', 'is_published', 'clinic'
         ]
         widgets = {
@@ -18,6 +18,7 @@ class CourseForm(forms.ModelForm):
             'course_content': forms.Textarea(attrs={'class': 'premium-textarea', 'rows': 6, 'placeholder': 'Course syllabus/topics...'}),
             'platform': forms.Select(attrs={'class': 'premium-select'}),
             'fees': forms.NumberInput(attrs={'class': 'premium-input', 'placeholder': '0.00'}),
+            'original_fees': forms.NumberInput(attrs={'class': 'premium-input', 'placeholder': '0.00'}),
             'duration': forms.TextInput(attrs={'class': 'premium-input', 'placeholder': 'e.g. 12 Weeks'}),
             'clinic': forms.Select(attrs={'class': 'premium-select'}),
             'image': forms.FileInput(attrs={'class': 'premium-file-input'}),

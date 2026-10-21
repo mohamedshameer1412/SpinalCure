@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n l10n rbac_tags %}
 {% load static %}
 
 {% block title %}{% blocktranslate trimmed with name=patient.name %}{{ name }} - SpinalCure{% endblocktranslate %}{% endblock %}
@@ -253,7 +253,7 @@
                 <div class="flex items-center gap-2 self-end md:self-auto">
                     {% for plan in treatment_plans %}
                     <div x-show="activePlan === '{{ plan.id }}'" class="flex items-center gap-2" style="display: none;">
-                        <button onclick="editPlan('{{ plan.id }}', '{{ plan.name|escapejs }}', '{{ plan.chief_complaint|escapejs }}', {{ plan.total_sittings }}, {{ plan.is_active|yesno:'true,false' }})" 
+                        <button onclick="editPlan('{{ plan.id }}', '{{ plan.name|escapejs }}', '{{ plan.chief_complaint|escapejs }}', {{ plan.total_sittings }}, {{ plan.is_active|yesno:'true,false' }}, '{{ plan.package_price|default_if_none:''|unlocalize }}', '{{ plan.valid_until|date:'Y-m-d' }}')" 
                             class="px-3 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl font-bold text-xs transition-colors shadow-sm">
                             <i class="bi bi-pencil-square me-1"></i> {% trans "Edit" %}
                         </button>
@@ -270,6 +270,24 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Package summary of the selected plan -->
+            {% for plan in treatment_plans %}{% if plan.package_price is not None or plan.valid_until %}
+            <div x-show="activePlan === '{{ plan.id }}'" x-cloak class="card grid gap-4 p-5 sm:grid-cols-4">
+                <div><p class="label">{% trans "Sittings" %}</p>
+                    <p class="text-xl font-bold text-gray-900">{{ plan.completed_sittings }} / {{ plan.total_sittings }}</p>
+                    <p class="text-xs {% if plan.remaining_sittings %}text-gray-500{% else %}text-amber-600{% endif %}">{% blocktranslate count n=plan.remaining_sittings %}{{ n }} left{% plural %}{{ n }} left{% endblocktranslate %}</p></div>
+                <div><p class="label">{% trans "Package price" %}</p><p class="text-xl font-bold text-gray-900">₹{{ plan.package_price|default:"—" }}</p></div>
+                <div><p class="label">{% trans "Paid towards it" %}</p><p class="text-xl font-bold text-green-600">₹{{ plan.package_paid }}</p>
+                    {% if plan.package_due %}<p class="text-xs text-red-600">{% blocktranslate with due=plan.package_due %}₹{{ due }} due{% endblocktranslate %}</p>{% endif %}</div>
+                <div><p class="label">{% trans "Valid until" %}</p>
+                    <p class="text-xl font-bold {% if plan.is_expired %}text-red-600{% else %}text-gray-900{% endif %}">{{ plan.valid_until|date:"j M Y"|default:"—" }}</p>
+                    {% if plan.is_expired %}<span class="badge badge-danger">{% trans "Expired" %}</span>{% endif %}</div>
+                {% if plan.package_due and request.user|can:'billing.manage' %}
+                <div class="sm:col-span-4"><a href="{% url 'payment_create' %}?patient={{ patient.pk }}&plan={{ plan.pk }}&amount={{ plan.package_due }}" class="btn btn-soft btn-sm"><i class="bi bi-cash-coin"></i>{% trans "Record payment for this package" %}</a></div>
+                {% endif %}
+            </div>
+            {% endif %}{% endfor %}
 
             <!-- Stats -->
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -715,18 +733,39 @@
         document.getElementById('planForm').action = "{% url 'treatment-plan-create' patient.id %}";
         document.getElementById('planName').value = '';
         document.getElementById('planChiefComplaint').value = '';
-        document.getElementById('planTotalSittings').value = '0';
+        document.getElementById('planTotalSittings').value = '';
+        setPlanPackageFields('', '');
+        var row = document.getElementById('planPackageRow'); if (row) row.classList.remove('hidden');
         document.getElementById('planIsActive').checked = true;
         document.getElementById('planModal').classList.remove('hidden');
     }
 
-    function editPlan(id, name, complaint, sittings, isActive) {
+    function setPlanPackageFields(price, until) {
+        document.getElementById('planPrice').value = price || '';
+        var d = document.getElementById('planValidUntil');
+        if (d._flatpickr) d._flatpickr.setDate(until || null, false); else d.value = until || '';
+    }
+
+    // Picking a catalogue package fills sittings, price and expiry; staff can still change them.
+    function applyPackage(id) {
+        var opt = document.querySelector('#planPackage option[value="' + id + '"]');
+        if (!opt || !id) return;
+        document.getElementById('planTotalSittings').value = opt.dataset.sittings;
+        var until = '';
+        if (opt.dataset.days) { var t = new Date(); t.setDate(t.getDate() + parseInt(opt.dataset.days, 10)); until = t.toISOString().slice(0, 10); }
+        setPlanPackageFields(opt.dataset.price, until);
+        var name = document.getElementById('planName'); if (!name.value) name.value = opt.dataset.name;
+    }
+
+    function editPlan(id, name, complaint, sittings, isActive, price, until) {
         document.getElementById('planModalTitle').innerText = 'Edit Treatment Plan';
         let editUrl = "{% url 'treatment-plan-edit' patient.id '00000000-0000-0000-0000-000000000000' %}".replace('00000000-0000-0000-0000-000000000000', id);
         document.getElementById('planForm').action = editUrl;
         document.getElementById('planName').value = name;
         document.getElementById('planChiefComplaint').value = complaint;
         document.getElementById('planTotalSittings').value = sittings;
+        setPlanPackageFields(price, until);
+        var row = document.getElementById('planPackageRow'); if (row) row.classList.add('hidden');
         document.getElementById('planIsActive').checked = isActive;
         document.getElementById('planModal').classList.remove('hidden');
     }
@@ -758,10 +797,29 @@
                     <textarea id="planChiefComplaint" name="chief_complaint" rows="3" placeholder="{% trans 'Symptoms, diagnosis, etc.' %}"
                         class="w-full"></textarea>
                 </div>
+                {% if session_packages %}
+                <div id="planPackageRow">
+                    <label for="planPackage" class="label block mb-1.5">{% trans "Start from a package" %}</label>
+                    <select id="planPackage" name="package" data-keep-order onchange="applyPackage(this.value)">
+                        <option value="">{% trans "No package (custom plan)" %}</option>
+                        {% for p in session_packages %}<option value="{{ p.pk }}" data-sittings="{{ p.sittings }}" data-price="{{ p.price }}" data-days="{{ p.validity_days|default:'' }}" data-name="{{ p.name }}">{{ p.name }} · {{ p.sittings }} × · ₹{{ p.price }}</option>{% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="planTotalSittings" class="label block mb-1.5">{% trans "Total Sittings" %} <span class="text-red-500">*</span></label>
+                        <input type="number" id="planTotalSittings" name="total_sittings" required min="1" class="w-full">
+                    </div>
+                    <div>
+                        <label for="planPrice" class="label block mb-1.5">{% trans "Package price (₹)" %}</label>
+                        <input type="number" id="planPrice" name="package_price" min="0" step="0.01" class="w-full" placeholder="{% trans 'Optional' %}">
+                    </div>
+                </div>
                 <div>
-                    <label class="label block mb-1.5">{% trans "Total Sittings" %} <span class="text-red-500">*</span></label>
-                    <input type="number" id="planTotalSittings" name="total_sittings" required min="1"
-                        class="w-full">
+                    <label for="planValidUntil" class="label block mb-1.5">{% trans "Valid until" %}</label>
+                    <input type="date" id="planValidUntil" name="valid_until" class="w-full">
+                    <p class="field-hint">{% trans "Leave empty for no expiry." %}</p>
                 </div>
                 <div class="flex items-center">
                     <input type="checkbox" id="planIsActive" name="is_active" class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">

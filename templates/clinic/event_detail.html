@@ -39,7 +39,7 @@
             <div><dt class="text-gray-500">{% translate "Where" %}</dt>
                 <dd class="font-medium">{% if event.is_online %}{% translate "Online — joining details are sent to registered attendees" %}{% else %}{{ event|tx:"venue" }}{% endif %}</dd></div>
             <div><dt class="text-gray-500">{% translate "Language" %}</dt><dd class="font-medium">{{ event.get_language_display }}</dd></div>
-            <div><dt class="text-gray-500">{% translate "Fee" %}</dt><dd class="font-medium">{% if event.fees > 0 %}₹{{ event.fees|floatformat:"-2" }}{% else %}{% translate "Free" %}{% endif %}</dd></div>
+            <div><dt class="text-gray-500">{% translate "Fee" %}</dt><dd class="font-medium">{% include "components/price.html" with item=event %}{% if event.fees > 0 %}<p class="mt-1 text-xs text-gray-500"><i class="bi bi-info-circle" aria-hidden="true"></i> {% translate "Fees are non-refundable." %} <a href="{% url 'clinic_terms' %}#fees" class="font-medium text-primary-700 underline">{% translate "Terms" %}</a></p>{% endif %}</dd></div>
             {% if event.registration_deadline %}<div><dt class="text-gray-500">{% translate "Register by" %}</dt><dd class="font-medium">{{ event.registration_deadline|date:"DATETIME_FORMAT" }}</dd></div>{% endif %}
             {% if event.seats_left is not None %}<div><dt class="text-gray-500">{% translate "Places" %}</dt><dd class="font-medium">{% if event.is_full %}{% translate "Full" %}{% else %}{% blocktranslate with n=event.seats_left %}{{ n }} left{% endblocktranslate %}{% endif %}</dd></div>{% endif %}
         </dl>
@@ -69,9 +69,11 @@
             <form x-show="!done" @submit.prevent="submit" class="mt-3 space-y-3" novalidate>
                 {% if waitlist_only %}<p class="text-sm rounded-xl bg-amber-50 text-amber-900 p-3">{% translate "This event is full. Join the waitlist and we will email you if a place opens." %}</p>{% endif %}
                 <div><label for="rn" class="block text-sm font-medium mb-1">{% translate "Full name" %}</label><input id="rn" x-model="f.name" required autocomplete="name" class="w-full rounded-xl border-gray-200 text-sm"></div>
-                <div><label for="rp" class="block text-sm font-medium mb-1">{% translate "Phone" %}</label><input id="rp" x-model="f.phone" type="tel" required autocomplete="tel" inputmode="tel" dir="ltr" class="w-full rounded-xl border-gray-200 text-sm"></div>
+                <div><label for="rp" class="label">{% translate "Phone" %}</label><div class="input-group" dir="ltr"><span class="input-addon">+91</span><input id="rp" x-model="f.phone" type="tel" required autocomplete="tel-national" inputmode="tel" maxlength="20" placeholder="98765 43210"></div></div>
                 <div><label for="re" class="block text-sm font-medium mb-1">{% translate "Email" %} <span class="text-gray-400 font-normal">({% translate "for confirmation" %})</span></label><input id="re" x-model="f.email" type="email" autocomplete="email" dir="ltr" class="w-full rounded-xl border-gray-200 text-sm"></div>
                 <div class="hidden" aria-hidden="true"><label>{% trans "Website" %} <input tabindex="-1" autocomplete="off" x-model="f.website"></label></div>
+{% if event.fees > 0 %}<label class="flex items-start gap-2.5 text-xs text-gray-600"><input type="checkbox" x-model="f.accept_terms" class="mt-0.5">
+                    <span>{% url 'clinic_terms' as terms_url %}{% blocktranslate %}I agree to the <a href="{{ terms_url }}" target="_blank" class="font-semibold text-primary-700 underline">terms and conditions</a>. Fees are non-refundable.{% endblocktranslate %}</span></label>{% endif %}
                 <p x-show="error" x-text="error" class="text-sm text-red-700" role="alert"></p>
                 <button :disabled="busy" class="w-full rounded-xl bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-2.5">
                     <span x-show="!busy">{% if waitlist_only %}{% translate "Join waitlist" %}{% else %}{% translate "Register" %}{% endif %}</span><span x-show="busy" x-cloak>{% translate "Please wait…" %}</span></button>
@@ -85,7 +87,7 @@
 <script>
 function eventPage(cfg) {
     return {
-        f: { name: '', phone: '', email: '', website: '' }, busy: false, error: '', done: false, outcome: '', message: '', manageUrl: '',
+        f: { name: '', phone: '', email: '', website: '', accept_terms: {% if event.fees > 0 %}false{% else %}true{% endif %} }, busy: false, error: '', done: false, outcome: '', message: '', manageUrl: '',
         state: 'before', parts: { d: 0, h: 0, m: 0 },
         init() { this.tick(); setInterval(() => this.tick(), 30000); },
         tick() {
@@ -97,9 +99,10 @@ function eventPage(cfg) {
         async submit() {
             this.error = '';
             if (this.f.name.trim().length < 2 || !this.f.phone.trim()) { this.error = '{% translate "Please enter your name and phone number." %}'; return; }
+            if (!this.f.accept_terms) { this.error = '{{ _("Please accept the terms and conditions.")|escapejs }}'; return; }
             this.busy = true;
             try {
-                const r = await fetch(cfg.url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRFToken': cfg.csrf }, body: JSON.stringify(this.f) });
+                const r = await fetch(cfg.url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRFToken': cfg.csrf }, body: JSON.stringify(Object.assign({}, this.f, { phone: window.withCountryCode(this.f.phone) })) });
                 const d = await r.json();
                 if (d.status === 'success') { this.done = true; this.outcome = d.outcome; this.message = d.message; this.manageUrl = d.manage_url; }
                 else this.error = d.message || '{% translate "Registration failed. Please try again." %}';

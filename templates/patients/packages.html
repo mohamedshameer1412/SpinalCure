@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Session packages" %} — SpinalCure{% endblock %}
+{% block page_title %}{% trans "Session packages" %}{% endblock %}
+
+{% block content %}
+<p class="mb-5 max-w-3xl text-sm text-gray-500">{% trans "Prepaid bundles of sittings. When a doctor starts a treatment plan from a package, the plan copies its sittings, price and validity, then tracks sessions used and money still due." %}</p>
+<div class="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_24rem]">
+    {% if packages %}
+    <div class="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
+        {% for p in packages %}
+        <article class="card flex flex-col p-5 {% if not p.is_active %}opacity-60{% endif %}">
+            <div class="flex items-start justify-between gap-3">
+                <h2 class="font-semibold text-gray-900">{{ p.name }}</h2>
+                {% if p.is_active %}<span class="badge badge-success">{% trans "Active" %}</span>{% else %}<span class="badge">{% trans "Hidden" %}</span>{% endif %}
+            </div>
+            <p class="mt-3 text-3xl font-bold text-gray-900" dir="ltr">₹{{ p.price|floatformat:"0" }}</p>
+            <p class="mt-1 text-sm text-gray-500">{% blocktranslate count n=p.sittings %}{{ n }} sitting{% plural %}{{ n }} sittings{% endblocktranslate %}{% if p.price_per_sitting %} · ₹{{ p.price_per_sitting }} {% trans "each" %}{% endif %}</p>
+            <p class="mt-1 text-sm text-gray-500">{% if p.validity_days %}{% blocktranslate with d=p.validity_days %}Valid for {{ d }} days{% endblocktranslate %}{% else %}{% trans "No expiry" %}{% endif %}</p>
+            {% if p.description %}<p class="mt-3 flex-1 text-sm text-gray-600">{{ p.description }}</p>{% endif %}
+            <div class="mt-4 flex gap-2 border-t border-gray-100 pt-4">
+                <a href="{% url 'session_package_edit' p.pk %}" class="btn btn-outline btn-sm"><i class="bi bi-pencil"></i>{% trans "Edit" %}</a>
+                <form method="post" action="{% url 'session_package_delete' p.pk %}" data-confirm="{% trans 'Delete this package? Existing plans keep their price and sittings.' %}">{% csrf_token %}
+                    <button class="btn btn-ghost btn-sm text-red-600"><i class="bi bi-trash"></i>{% trans "Delete" %}</button></form>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="card p-10 text-center">
+        <span class="feature-icon mx-auto"><i class="bi bi-box2-heart"></i></span>
+        <p class="mt-4 font-semibold text-gray-900">{% trans "No packages yet" %}</p>
+        <p class="mt-1 text-sm text-gray-500">{% trans "Add your first package, for example 10 sittings at a set price." %}</p>
+    </div>
+    {% endif %}
+    <form method="post" class="card grid gap-4 p-5 xl:sticky xl:top-20">
+        {% csrf_token %}
+        <h2 class="text-base font-semibold text-gray-900">{% trans "Add a package" %}</h2>
+        {% for field in form %}{% include "ui/field.html" %}{% endfor %}
+        <button class="btn btn-primary"><i class="bi bi-plus-lg"></i>{% trans "Add package" %}</button>
+    </form>
+</div>
+{% endblock %}

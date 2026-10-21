@@ -14,6 +14,7 @@
     {% if request.user|can:'billing.view' %}{% url 'payment_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Payments") icon="credit-card" exact="payment_list" %}{% endif %}
     {% if request.user|can:'reports.view' %}{% url 'payments_report' as u %}{% include "ui/nav_item.html" with url=u label=_("Payments Report") icon="bar-chart" exact="payments_report" %}{% endif %}
     {% if request.user|can:'expenses.manage' %}{% url 'expense_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Expenses") icon="receipt" match="expense" %}{% endif %}
+    {% if request.user|can:'packages.manage' %}{% url 'session_packages' as u %}{% include "ui/nav_item.html" with url=u label=_("Session packages") icon="box2-heart" match="session_package" %}{% endif %}
     {% endif %}
 
     {% if request.user|can:'events.registrations' %}
@@ -28,6 +29,9 @@
     {% url 'admin_testimonials' as u %}{% include "ui/nav_item.html" with url=u label=_("Testimonials") icon="chat-quote" match="testimonial" %}
     {% url 'admin_videos' as u %}{% include "ui/nav_item.html" with url=u label=_("Reels & Shorts") icon="play-btn" exact="admin_videos" %}
     {% url 'admin_problems' as u %}{% include "ui/nav_item.html" with url=u label=_("Problem Categories") icon="tags" exact="admin_problems" %}
+    {% if request.user|can:'website.manage' %}{% url 'admin_featured' as u %}{% include "ui/nav_item.html" with url=u label=_("Featured patients") icon="star" match="admin_featured" %}{% endif %}
+    {% if request.user|can:'website.manage' %}{% url 'admin_gallery' as u %}{% include "ui/nav_item.html" with url=u label=_("Gallery") icon="images" match="admin_gallery" %}{% endif %}
+    {% if request.user|can:'website.manage' %}{% url 'admin_faqs' as u %}{% include "ui/nav_item.html" with url=u label=_("Patient FAQs") icon="patch-question" match="admin_faq" %}{% endif %}
     {% url 'admin_translations' as u %}{% include "ui/nav_item.html" with url=u label=_("Translations") icon="translate" exact="admin_translations" %}
     {% endif %}
     {% url 'admin_blog_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Health Articles") icon="journal-text" match="blog" %}
@@ -51,5 +55,6 @@
     {% url 'clinic_portfolio' as u %}{% include "ui/nav_item.html" with url=u label=_("Clinic Website") icon="globe2" external=True %}
     {% url 'public_testimonials' as u %}{% include "ui/nav_item.html" with url=u label=_("Patient Stories") icon="chat-heart" external=True %}
     {% url 'blog_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Health Blog") icon="journal-richtext" external=True %}
+    {% url 'clinic_faq' as u %}{% include "ui/nav_item.html" with url=u label=_("Questions & answers") icon="patch-question" external=True %}
     {% url 'public_event_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Public Events") icon="calendar2-event" external=True %}
 </div>

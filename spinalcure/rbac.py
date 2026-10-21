@@ -29,6 +29,7 @@ CAPABILITIES = {
     'billing.view': MANAGEMENT | {DOCTOR, RECEPTIONIST},
     'billing.manage': MANAGEMENT | {RECEPTIONIST},
     'billing.refund': MANAGEMENT,
+    'packages.manage': MANAGEMENT,
     'expenses.manage': MANAGEMENT,
     'reports.view': MANAGEMENT,
     'users.manage': {SUPERADMIN, CLINICADMIN},

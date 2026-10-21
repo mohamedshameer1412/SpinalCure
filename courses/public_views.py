@@ -39,6 +39,8 @@ def register_for_course(request, pk):
     email, notes = str(data.get('email', '')).strip()[:254], str(data.get('notes', '')).strip()[:1000]
     if len(name) < 2 or not phone:
         return fail('Name and phone are required.')
+    if course.fees > 0 and data.get('accept_terms') is not True:
+        return fail(gettext('Please accept the terms and conditions.'), 400, 'terms')
     try:
         validate_phone_number(phone)
         if email:

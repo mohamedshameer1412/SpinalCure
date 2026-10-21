@@ -1,4 +1,5 @@
 from django.urls import path, include
+from . import package_views
 from rest_framework.routers import DefaultRouter
 from .views import (PatientViewSet, SessionViewSet, patient_list_view,
                     patient_detail_view, patient_print_card_view,
@@ -23,6 +24,9 @@ router.register(r'sessions', SessionViewSet, basename='api-session')
 urlpatterns = [
     # Web UI
     path('', patient_list_view, name='patient-list'),
+    path('packages/', package_views.packages, name='session_packages'),
+    path('packages/<uuid:pk>/', package_views.package_edit, name='session_package_edit'),
+    path('packages/<uuid:pk>/delete/', package_views.package_delete, name='session_package_delete'),
     path('export/excel/', export_patients_excel, name='export_patients_excel'),
     path('export/csv/', export_patients_csv, name='export_patients_csv'),
     path('export/pdf/', export_patients_pdf, name='export_patients_pdf'),

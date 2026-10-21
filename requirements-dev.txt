@@ -1,0 +1,8 @@
+# Local development and tests (not needed on the server)
+-r requirements.txt
+mysqlclient>=2.2.1
+pytest==7.4.3
+pytest-django==4.7.0
+pytest-cov==4.1.0
+pytest-timeout==2.2.0
+django-extensions==3.2.3

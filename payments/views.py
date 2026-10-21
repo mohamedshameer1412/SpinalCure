@@ -371,6 +371,15 @@ def expense_delete_view(request, pk):
     
     return redirect('expense_list')
 
+def _decimal_or_blank(value):
+    from decimal import Decimal, InvalidOperation
+    try:
+        d = Decimal(str(value)[:20])
+        return d if d >= 0 else ''
+    except (InvalidOperation, ValueError):
+        return ''
+
+
 @login_required
 def payment_create_view(request):
     """Record a new payment for Patients, Students (Courses), or Participants (Events)."""
@@ -498,6 +507,9 @@ def payment_create_view(request):
         'events': Event.objects.filter(date__gte=date.today()).order_by('date'),
         'initial_patient': initial_patient,
         'treatment_plans': treatment_plans,
+        # from a package's "Record payment" button
+        'prefill_plan': request.GET.get('plan', '')[:40],
+        'prefill_amount': _decimal_or_blank(request.GET.get('amount', '')),
         'payment_modes': Payment.PAYMENT_MODE_CHOICES,
         'tax_types': Payment.TAX_TYPE_CHOICES,
         'current_date': date.today(),

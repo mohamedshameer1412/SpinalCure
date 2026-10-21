@@ -6,7 +6,7 @@
 <meta property="og:description" content="{{ clinic|tx:'hero_subtitle'|striptags|truncatewords:30 }}">
 {% if hero_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ hero_image.image.url }}">{% endif %}
 {% endblock %}
-{% block jsonld %}{% ld "clinic" clinic %}{% endblock %}
+{% block jsonld %}{% ld "clinic" clinic %}{% ld "faq" faqs %}{% endblock %}
 
 {% block content %}
 <!-- ============ HERO ============ -->
@@ -130,14 +130,8 @@
         </div>
 
         {% if videos %}
-        <div class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {% for v in videos %}
-            <a href="{% url 'public_testimonials' %}?type=videos" class="group relative block aspect-[9/14] overflow-hidden rounded-2xl bg-slate-900 no-underline shadow-card">
-                {% if v.thumbnail_url %}<div class="absolute inset-0 opacity-90 transition duration-500 group-hover:scale-105 [&_picture]:h-full [&_picture]:w-full">{% story_picture v "9:16" "(min-width: 1024px) 20vw, 50vw" %}</div>{% endif %}
-                <span class="absolute inset-0 flex items-center justify-center"><span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-xl text-primary-700 shadow-pop"><i class="bi bi-play-fill"></i></span></span>
-                <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 text-sm font-semibold leading-snug text-white">{{ v|tx:"title"|truncatechars:70 }}</span>
-            </a>
-            {% endfor %}
+        <div class="mt-10 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+            {% for v in videos %}{% include "clinic/partials/video_card.html" %}{% endfor %}
         </div>
         {% endif %}
 
@@ -159,6 +153,51 @@
     </div>
 </section>
 
+{% include "clinic/partials/featured_patients.html" with section_class="pt-0" %}
+
+<!-- ============ SHARE YOUR EXPERIENCE ============ -->
+<section class="pb-4">
+    <div class="container-site">
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary-700 via-primary-600 to-emerald-500 px-6 py-10 text-white sm:px-10 sm:py-12">
+            <span class="pointer-events-none absolute -end-16 -top-20 h-64 w-64 rounded-full bg-white/10" aria-hidden="true"></span>
+            <div class="relative grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_auto]">
+                <div>
+                    <h2 class="text-2xl font-bold sm:text-3xl">{% translate "Were you treated at Spinal Cure?" %}</h2>
+                    <p class="mt-2 max-w-2xl text-white/85">{% translate "Your story helps someone living with the same pain take the first step. Or send us private feedback: only our team reads it." %}</p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button type="button" @click="$dispatch('open-feedback')" class="btn btn-lg bg-white text-primary-800 hover:bg-primary-50"><i class="bi bi-pencil-square" aria-hidden="true"></i>{% translate "Share your experience" %}</button>
+                    {% if clinic.google_review_url %}<a href="{{ clinic.google_review_url }}" target="_blank" rel="noopener" class="btn btn-lg bg-white/15 text-white hover:bg-white/25"><i class="bi bi-google" aria-hidden="true"></i>{% translate "Review us on Google" %}</a>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if faqs %}
+<!-- ============ FAQ ============ -->
+<section id="faq" class="section scroll-mt-28">
+    <div class="container-site grid gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+            <p class="eyebrow">{% translate "Questions" %}</p>
+            <h2 class="h-section mt-4 text-gray-900">{% translate "Your questions, answered" %}</h2>
+            <p class="lead mt-4">{% translate "What treatment involves, how long it takes and what to expect, in plain words from our clinic." %}</p>
+            <a href="{% url 'clinic_faq' %}" class="btn btn-outline mt-6">{% translate "All questions" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="divide-y divide-gray-100 rounded-2xl border border-gray-200 bg-white lg:col-span-8">
+            {% for f in faqs %}
+            <details class="group p-5 sm:p-6">
+                <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-semibold text-gray-900 [&::-webkit-details-marker]:hidden">
+                    <h3 class="text-base">{{ f|tx:"question" }}</h3><i class="bi bi-plus-lg mt-0.5 shrink-0 text-gray-400 transition group-open:rotate-45" aria-hidden="true"></i>
+                </summary>
+                <div class="mt-3 space-y-3 text-[15px] leading-relaxed text-gray-600">{{ f|tx:"answer"|linebreaks }}</div>
+            </details>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
 <!-- ============ COURSES & EVENTS ============ -->
 {% if courses or events %}
 <section class="section bg-gray-50">
@@ -175,6 +214,7 @@
                     <span class="badge badge-primary self-start">{% translate "Course" %}{% if c.duration %} · {{ c|tx:"duration" }}{% endif %}</span>
                     <h3 class="h-card mt-3 group-hover:text-primary-700">{{ c|tx:"title" }}</h3>
                     <p class="mt-2 line-clamp-3 flex-1 text-sm text-gray-600">{{ c|tx:"short_description"|default:c.description|truncatechars:160 }}</p>
+                    <p class="mt-3">{% include "components/price.html" with item=c %}</p>
                     <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary-700">{% translate "View course" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></span>
                 </div>
             </a>
@@ -186,6 +226,7 @@
                     <span class="badge badge-info self-start">{% if e.is_online %}{% translate "Online event" %}{% else %}{% translate "Event" %}{% endif %} · {{ e.date|date:"j M Y" }}</span>
                     <h3 class="h-card mt-3 group-hover:text-primary-700">{{ e|tx:"title" }}</h3>
                     <p class="mt-2 line-clamp-3 flex-1 text-sm text-gray-600">{{ e|tx:"description"|striptags|truncatechars:160 }}</p>
+                    <p class="mt-3">{% include "components/price.html" with item=e %}</p>
                     <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary-700">{% translate "Details and registration" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></span>
                 </div>
             </a>

@@ -95,7 +95,7 @@
                     <!-- Edit + Delete row -->
                     <div class="flex items-center justify-between gap-3">
                         <span class="text-lg font-bold text-gray-900">
-                            {% if event.fees > 0 %}₹{{ event.fees }}{% else %}{% trans "Free" %}{% endif %}
+                            {% include "components/price.html" with item=event %}
                         </span>
                         <div class="flex items-center gap-2">
                             {% if request.user.role == 'superadmin' or request.user.is_superuser %}

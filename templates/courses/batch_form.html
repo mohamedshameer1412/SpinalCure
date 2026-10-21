@@ -196,16 +196,6 @@
 {% block extra_scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize TomSelect for any premium dropdowns if needed
-        document.querySelectorAll('select.premium-select').forEach((el) => {
-            new TomSelect(el, {
-                create: false,
-                onInitialize: function() {
-                    this.control.classList.add('premium-input');
-                }
-            });
-        });
-
         // Add some interactivity to checkboxes for better UX
         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
             checkbox.classList.add('premium-checkbox', 'w-5', 'h-5', 'cursor-pointer', 'accent-indigo-600');

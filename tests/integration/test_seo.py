@@ -36,7 +36,8 @@ def test_home_is_the_language_root_with_canonical_hreflang_and_clinic_schema(cli
         assert f'hreflang="{code}" href="https://www.example.org/{code}/"' in html
     assert 'hreflang="x-default" href="https://www.example.org/en/"' in html and 'hreflang="ar"' not in html
     data = ld_blocks(html)[0]
-    assert data['@type'] == 'MedicalClinic' and data['address']['streetAddress'] == 'Arumbakkam, Chennai'
+    assert data['@type'] == 'MedicalClinic' and data['address']['streetAddress'] == 'Arumbakkam'
+    assert data['address']['addressLocality'] == 'Chennai' and data['address']['addressCountry'] == 'IN'
     assert 'aggregateRating' not in data and 'review' not in data          # no self-serving rating markup
     assert Client().get('/en/clinic/portfolio/').status_code == 301
 

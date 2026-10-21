@@ -13,7 +13,7 @@ from django.views.decorators.cache import cache_page
 # Only these pages may appear in search results; every other response carries X-Robots-Tag: noindex.
 INDEXABLE = {
     'clinic_portfolio', 'clinic_about_page', 'public_testimonials', 'practitioner_detail',
-    'public_event_list', 'event_detail', 'course_detail', 'blog_list', 'blog_detail',
+    'public_event_list', 'event_detail', 'course_detail', 'blog_list', 'blog_detail', 'clinic_faq', 'public_gallery',
 }
 LANG_CODES = [code for code, _name in settings.LANGUAGES]
 
@@ -96,7 +96,7 @@ class StaticSitemap(_I18nSitemap):
     changefreq = 'weekly'
 
     def items(self):
-        return ['clinic_portfolio', 'clinic_about_page', 'public_testimonials', 'public_event_list', 'blog_list']
+        return ['clinic_portfolio', 'clinic_about_page', 'public_testimonials', 'clinic_faq', 'public_gallery', 'public_event_list', 'blog_list']
 
     def location(self, item):
         return reverse(item)
@@ -175,16 +175,56 @@ def org_ref():
     return {'@type': 'MedicalClinic', '@id': f'{site_url()}/#clinic'}
 
 
+def _map_facts(clinic):
+    """Coordinates and the Maps listing URL, read from the Google Maps embed the clinic pasted in its settings."""
+    import re
+    src = clinic.map_embed_src
+    lng, lat = re.search(r'!2d(-?[\d.]+)', src), re.search(r'!3d(-?[\d.]+)', src)
+    cid = re.search(r'!1s0x[0-9a-f]+(?::|%3A)0x([0-9a-f]+)', src, re.I)
+    return ({'@type': 'GeoCoordinates', 'latitude': round(float(lat.group(1)), 6), 'longitude': round(float(lng.group(1)), 6)}
+            if lat and lng else None,
+            f'https://www.google.com/maps?cid={int(cid.group(1), 16)}' if cid else '')
+
+
+def _postal_address(clinic):
+    """Split the free-text address into the parts search engines read (Indian PIN code, city, state)."""
+    import re
+    text = ' '.join((clinic.address or '').split())
+    pin = re.search(r'(\d{6})', text)
+    parts = [p.strip() for p in re.sub(r'\d{6}', '', text).split(',') if p.strip()]
+    state = next((p for p in parts if p.lower() in ('tamil nadu', 'tamilnadu')), '')
+    city = next((p for p in parts if p.lower() in ('chennai', 'madras')), '')
+    street = ', '.join(p for p in parts if p not in (state, city))
+    return {'@type': 'PostalAddress', 'streetAddress': street or text, 'addressLocality': city,
+            'addressRegion': state, 'postalCode': pin.group(1) if pin else '', 'addressCountry': 'IN'}
+
+
+def _opening_hours():
+    """OpeningHoursSpecification from the doctors' weekly shifts (the hours bookings are actually offered)."""
+    try:
+        from appointments.models import DoctorAvailability
+    except ImportError:
+        return []
+    names = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    spans = {}
+    for a in DoctorAvailability.objects.filter(is_available=True).only('day_of_week', 'start_time', 'end_time'):
+        spans.setdefault((a.start_time.strftime('%H:%M'), a.end_time.strftime('%H:%M')), set()).add(a.day_of_week)
+    return [{'@type': 'OpeningHoursSpecification', 'dayOfWeek': [names[d] for d in sorted(days) if 0 <= d < 7],
+             'opens': opens, 'closes': closes} for (opens, closes), days in sorted(spans.items())]
+
+
 def clinic_ld(clinic):
     if clinic is None:
         return None
+    geo, map_url = _map_facts(clinic)
     return _clean({
         '@context': 'https://schema.org', '@type': 'MedicalClinic', '@id': f'{site_url()}/#clinic',
         'name': clinic.name, 'description': clinic.tagline, 'url': absolute(reverse('clinic_portfolio')),
         'logo': _img(clinic.logo), 'image': _img(clinic.hero_image) or _img(clinic.logo),
         'telephone': (clinic.phone_list[0] if clinic.phone_list else ''), 'email': clinic.email,
-        'address': {'@type': 'PostalAddress', 'streetAddress': ' '.join((clinic.address or '').split()),
-                    'addressCountry': 'IN'},
+        'address': _postal_address(clinic), 'geo': geo, 'hasMap': map_url,
+        'openingHoursSpecification': _opening_hours(), 'areaServed': {'@type': 'City', 'name': 'Chennai'},
+        'medicalSpecialty': 'Acupuncture',
         'foundingDate': str(clinic.established_year or ''),
         'sameAs': [u for u in (clinic.facebook, clinic.instagram, clinic.twitter, clinic.linkedin, clinic.youtube) if u],
         'availableLanguage': LANG_CODES,
@@ -267,6 +307,14 @@ def video_ld(video):
         'description': video.description or video.title, 'thumbnailUrl': [thumb],
         'uploadDate': video.created_at.isoformat(), 'embedUrl': video.embed_url, 'contentUrl': video.url,
     })
+
+
+def faq_ld(faqs):
+    """FAQPage for the questions shown on the page (published ones only, so it always matches the visible text)."""
+    from clinic.content_i18n import tx
+    items = [{'@type': 'Question', 'name': tx(f, 'question'),
+              'acceptedAnswer': {'@type': 'Answer', 'text': ' '.join(tx(f, 'answer').split())}} for f in faqs]
+    return {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': items} if items else None
 
 
 def breadcrumbs_ld(*crumbs):

@@ -1,0 +1,74 @@
+{% extends "public_base.html" %}
+{% load i18n content_i18n %}
+{% block title %}{% translate "Terms and conditions" %} — {{ clinic|tx:"name"|default:"Spinal Cure" }}{% endblock %}
+{% block description %}{% translate "Terms for appointments, courses, events, payments and refunds at Spinal Cure, Arumbakkam, Chennai." %}{% endblock %}
+
+{% block content %}
+<section class="bg-gradient-to-b from-primary-50/70 to-white">
+    <div class="container-site py-12 sm:py-16">
+        <p class="eyebrow">{% translate "Legal" %}</p>
+        <h1 class="display mt-4 text-gray-900">{% translate "Terms and conditions" %}</h1>
+        <p class="lead mt-4 max-w-2xl">{% translate "Please read these terms before you book, register or pay. By booking or registering you agree to them." %}</p>
+    </div>
+</section>
+
+<div class="container-site pb-16">
+    <div class="mx-auto max-w-3xl space-y-10 text-[15px] leading-relaxed text-gray-700">
+        <section id="fees">
+            <h2 class="h-section text-gray-900">{% translate "1. Course and event fees" %}</h2>
+            <ul class="mt-4 list-disc space-y-2 ps-5">
+                <li><strong>{% translate "All course and event fees are non-refundable" %}</strong>{% translate ", including when you cannot attend or leave a course part-way." %}</li>
+                <li>{% translate "If the clinic cancels or postpones a course batch or event, you can move to the next batch or date at no extra cost. If you cannot attend the new date, contact us within 7 days and we will refund the fee in full." %}</li>
+                <li>{% translate "A seat is confirmed only when the clinic confirms it by phone, email or message. Where a discount is shown against a full price, the discounted fee applies only for that batch or date." %}</li>
+                <li>{% translate "Certificates, where offered, are issued only after the required attendance and assessment." %}</li>
+            </ul>
+        </section>
+
+        <section id="appointments">
+            <h2 class="h-section text-gray-900">{% translate "2. Appointments" %}</h2>
+            <ul class="mt-4 list-disc space-y-2 ps-5">
+                <li>{% translate "You can reschedule or cancel an appointment from the link in your confirmation email, up to the time shown on that page." %}</li>
+                <li>{% translate "Please arrive on time. If you are late, your sitting may be shortened or moved so other patients are not kept waiting." %}</li>
+                <li>{% translate "Payments for treatment sessions or packages that are already used are not refundable." %}</li>
+            </ul>
+        </section>
+
+        <section id="payments">
+            <h2 class="h-section text-gray-900">{% translate "3. Payments" %}</h2>
+            <ul class="mt-4 list-disc space-y-2 ps-5">
+                <li>{% translate "Online payments are processed securely by Razorpay. We never see or store your card or bank details." %}</li>
+                <li>{% translate "A payment is complete only when it is confirmed by Razorpay. If money is deducted but the payment fails, Razorpay returns it to your account, usually within 5 to 7 working days." %}</li>
+                <li>{% translate "Receipts are sent to the email address you give us." %}</li>
+            </ul>
+        </section>
+
+        <section id="medical">
+            <h2 class="h-section text-gray-900">{% translate "4. About treatment" %}</h2>
+            <ul class="mt-4 list-disc space-y-2 ps-5">
+                <li>{% translate "Results differ from person to person, and no particular outcome is guaranteed." %}</li>
+                <li>{% translate "Do not stop any medicine prescribed by another doctor without speaking to that doctor." %}</li>
+                <li>{% translate "Information on this website is general and does not replace an examination. In an emergency, go to the nearest hospital." %}</li>
+            </ul>
+        </section>
+
+        <section id="reviews">
+            <h2 class="h-section text-gray-900">{% translate "5. Reviews and patient stories" %}</h2>
+            <ul class="mt-4 list-disc space-y-2 ps-5">
+                <li>{% translate "Reviews appear on the website only after our team reads them, and only with your agreement. You can withdraw your review at any time with the private link we give you." %}</li>
+                <li>{% translate "Private feedback is read only by the clinic team and is never published." %}</li>
+            </ul>
+        </section>
+
+        <section id="privacy">
+            <h2 class="h-section text-gray-900">{% translate "6. Your information" %}</h2>
+            <p class="mt-4">{% translate "We use your name, phone number and email only to manage your appointments, registrations, payments and reminders. Patient records are kept confidential and are never sold or shared for marketing." %}</p>
+        </section>
+
+        <section id="contact">
+            <h2 class="h-section text-gray-900">{% translate "7. Questions" %}</h2>
+            <p class="mt-4">{% translate "For any question about these terms, contact the clinic:" %}
+                {% if clinic.phone_list %}<a href="tel:{{ clinic.phone_list.0|cut:' ' }}" class="font-semibold text-primary-700" dir="ltr">{{ clinic.phone_list.0 }}</a>{% endif %}{% if clinic.email %} · <a href="mailto:{{ clinic.email }}" class="font-semibold text-primary-700">{{ clinic.email }}</a>{% endif %}</p>
+        </section>
+    </div>
+</div>
+{% endblock %}

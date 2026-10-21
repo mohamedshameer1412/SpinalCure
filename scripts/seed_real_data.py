@@ -150,14 +150,17 @@ for n, kw in NEW_PROBLEMS:
 prob = {p.name: p for p in ProblemCategory.objects.all()}
 
 # ── 5. Google reviews (the 3 reviews Google shows without signing in) ───────────────────────────
-GOOGLE_PROBLEM = {"banu arjunan": "Swelling & Lumps", "Kalaivani Nagarajan": "Leg Pain & Circulation", "Viji Sridar": "Sciatica"}
+GOOGLE_PROBLEM = {"banu arjunan": "Swelling & Lumps", "Kalaivani Nagarajan": "Leg Pain & Circulation", "Viji Sridar": "Sciatica",
+                  "PITCHIAH S.": "Knee Pain"}
 reviews_file = DATA / "google_reviews.json"
 for i, r in enumerate(json.loads(reviews_file.read_text(encoding="utf-8")) if reviews_file.exists() else []):
     ClinicTestimonial.objects.update_or_create(
         clinic=clinic, patient_name=r["name"], source="google",
-        defaults=dict(rating=5, review_text=r["text"], owner_reply=r.get("owner") or "", posted_label=r.get("when", ""),
-                      problem=prob.get(GOOGLE_PROBLEM.get(r["name"])), is_published=True, display_order=i,
-                      source_url="https://www.google.com/maps/place/Spinal+Cure/@13.0676457,80.2089538,17z"))
+        defaults=dict(rating=r.get("rating", 5), review_text=r["text"], owner_reply=r.get("owner") or "", posted_label=r.get("when", ""),
+                      is_published=True, display_order=i,
+                      source_url="https://www.google.com/maps/place/Spinal+Cure/@13.0676457,80.2089538,17z",
+                      # only the hand-checked mapping is forced; problems staff (or the import) tagged are kept
+                      **({"problem": prob.get(GOOGLE_PROBLEM[r["name"]])} if r["name"] in GOOGLE_PROBLEM else {})))
 
 # ── 6. Videos: YouTube Shorts/videos + Instagram reels ──────────────────────────────────────────
 KEYWORDS = [  # first match wins; applied to title + first line of the description

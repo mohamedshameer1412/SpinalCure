@@ -244,6 +244,17 @@
                                 <span class="currency-symbol">₹</span>
                                 {{ form.fees }}
                             </div>
+                            {% for e in form.fees.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="{{ form.original_fees.id_for_label }}" class="label block ms-1">{% trans "Full price before discount (₹)" %}</label>
+                            <div class="currency-wrapper">
+                                <span class="currency-symbol">₹</span>
+                                {{ form.original_fees }}
+                            </div>
+                            <p class="field-hint">{{ form.original_fees.help_text }}</p>
+                            {% for e in form.original_fees.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
                         </div>
 
                         <div class="space-y-2">
@@ -318,19 +329,6 @@
             });
         }
 
-        // Initialize TomSelect with Premium Options
-        document.querySelectorAll('select.premium-select').forEach((el) => {
-            const settings = {
-                create: false,
-                sortField: { field: "text", direction: "asc" },
-                placeholder: 'Select an option...',
-                onInitialize: function() {
-                    // Match our premium input styling
-                    this.control.classList.add('premium-input');
-                }
-            };
-            new TomSelect(el, settings);
-        });
     });
 </script>
 

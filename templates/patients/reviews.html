@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block content %}
+<p class="mb-4 max-w-3xl text-sm text-gray-500">{% trans "Reviews from your own patients, linked to their file. When you publish one, it appears on the doctor's page and, with the patient's first name only, on the public Patient Stories page." %}</p>
 <!-- Search & Export -->
 <div
     class="card flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 p-4">
@@ -126,10 +127,10 @@
 
         <!-- Actions -->
         <div class="flex items-center gap-3 mt-4 pt-3 border-t border-gray-100">
-            <a href="{% url 'review-toggle' review.pk %}"
-                class="text-xs font-medium {% if review.is_published %}text-orange-600 hover:text-orange-800{% else %}text-primary-600 hover:text-primary-800{% endif %} transition-colors">
-                {% if review.is_published %}{% trans "Unpublish" %}{% else %}{% trans "Publish" %}{% endif %}
-            </a>
+            <form method="post" action="{% url 'review-toggle' review.pk %}" class="inline">{% csrf_token %}
+                <button class="text-xs font-medium {% if review.is_published %}text-orange-600 hover:text-orange-800{% else %}text-primary-600 hover:text-primary-800{% endif %} transition-colors">
+                {% if review.is_published %}{% trans "Unpublish" %}{% else %}{% trans "Publish to website" %}{% endif %}</button>
+            </form>
             <span class="text-gray-200">|</span>
             <form method="POST" action="{% url 'review-delete' review.pk %}" class="inline"
                 data-confirm="Delete this review?">

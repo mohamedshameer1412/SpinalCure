@@ -17,7 +17,7 @@
     <label class="sr-only" for="q">{% translate "Search" %}</label>
     <input id="q" type="search" name="q" value="{{ q }}" placeholder="{% translate 'Search name, ID, designation…' %}" class="w-64">
     <label class="sr-only" for="type">{% translate "Type" %}</label>
-    <select id="type" name="type" class="no-ts !w-auto"><option value="">{% translate "Owners and staff" %}</option><option value="owner" {% if ctype == 'owner' %}selected{% endif %}>{% translate "Owners" %}</option><option value="staff" {% if ctype == 'staff' %}selected{% endif %}>{% translate "Staff" %}</option></select>
+    <select id="type" name="type" class="!w-auto"><option value="">{% translate "Owners and staff" %}</option><option value="owner" {% if ctype == 'owner' %}selected{% endif %}>{% translate "Owners" %}</option><option value="staff" {% if ctype == 'staff' %}selected{% endif %}>{% translate "Staff" %}</option></select>
     <button class="btn btn-outline">{% translate "Filter" %}</button>
 </form>
 <div class="card overflow-x-auto">
