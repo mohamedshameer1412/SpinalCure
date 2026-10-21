@@ -4,24 +4,19 @@
 {% block page_title %}{% translate "Availability & leave" %}{% endblock %}
 
 {% block content %}
-<div x-data="availabilityPage()" class="space-y-6">
+<div class="space-y-6">
 
-    <form method="get" class="card p-4 flex flex-wrap gap-3 items-end">
+    {% if practitioners|length > 1 %}
+    <form method="get" class="card flex flex-wrap items-end gap-3 p-4">
         <div class="min-w-[14rem] flex-1 sm:flex-none">
-            <label for="practitioner_id" class="block text-sm font-medium text-gray-700 mb-1">{% translate "Practitioner" %}</label>
+            <label for="practitioner_id" class="label">{% translate "Practitioner" %}</label>
             <select id="practitioner_id" name="practitioner_id" class="w-full" onchange="this.form.submit()">
-                {% for doc in practitioners %}
-                <option value="{{ doc.id|b64uuid }}" {% if selected_doc and doc.id == selected_doc.id %}selected{% endif %}>{{ doc.name }}{% if doc.specialization %} — {{ doc.specialization }}{% endif %}</option>
-                {% endfor %}
+                {% for doc in practitioners %}<option value="{{ doc.id|b64uuid }}" {% if selected_doc and doc.id == selected_doc.id %}selected{% endif %}>{{ doc.name }}</option>{% endfor %}
             </select>
         </div>
         <noscript><button class="btn btn-primary">{% translate "View" %}</button></noscript>
-        {% if selected_doc %}
-        <button type="button" @click="openShift()" class="btn btn-primary ms-auto">
-            <i class="bi bi-plus-lg" aria-hidden="true"></i> {% translate "Add shift" %}
-        </button>
-        {% endif %}
     </form>
+    {% endif %}
 
     {% if not practitioners %}
     <div class="card p-12 text-center">
@@ -31,71 +26,111 @@
     </div>
     {% elif selected_doc %}
 
-    <section class="card overflow-hidden" aria-labelledby="weekly-h">
-        <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-            <h2 id="weekly-h" class="font-semibold text-gray-900">{% blocktranslate with name=selected_doc.name %}Weekly schedule — {{ name }}{% endblocktranslate %}</h2>
-            <p class="text-xs text-gray-500">{% translate "Several shifts per day are allowed (e.g. morning and evening)." %}</p>
+    <!-- Weekly hours -->
+    <form method="post" action="{% url 'weekly_save' selected_doc.id|b64uuid %}" class="card overflow-hidden" aria-labelledby="weekly-h" novalidate>
+        {% csrf_token %}
+        <div class="border-b border-gray-100 px-5 py-4">
+            <h2 id="weekly-h" class="font-semibold text-gray-900">{% blocktranslate with name=selected_doc.name %}Weekly hours: {{ name }}{% endblocktranslate %}</h2>
+            <p class="mt-1 text-sm text-gray-500">{% translate "Patients can book only inside these hours. Switch a day off to close it. Saving replaces this doctor's weekly hours; appointments already booked are not changed." %}</p>
         </div>
-        <div class="divide-y divide-gray-50">
-            {% for num, label, shifts in by_day %}
-            <div class="px-5 py-3 flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6">
-                <p class="w-28 shrink-0 font-medium text-gray-800">{{ label }}</p>
-                <div class="flex-1 space-y-2">
-                    {% for s in shifts %}
-                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1 rounded-xl border {% if s.is_available %}border-gray-100 bg-gray-50/60{% else %}border-dashed border-gray-200 opacity-60{% endif %} px-3 py-2 text-sm">
-                        <span class="font-semibold tabular-nums" dir="ltr">{{ s.start_time|time:"H:i" }}–{{ s.end_time|time:"H:i" }}</span>
-                        <span class="text-gray-500">{{ s.slot_duration_minutes }} {% translate "min slots" %}{% if s.buffer_minutes %} · {{ s.buffer_minutes }} {% translate "min buffer" %}{% endif %}</span>
-                        {% if s.break_start %}<span class="text-gray-500">{% translate "break" %} <span dir="ltr">{{ s.break_start|time:"H:i" }}–{{ s.break_end|time:"H:i" }}</span></span>{% endif %}
-                        {% if s.appointment_type != 'both' %}<span class="text-xs rounded-full bg-sky-100 text-sky-800 px-2 py-0.5">{{ s.get_appointment_type_display }}</span>{% endif %}
-                        {% if s.max_appointments %}<span class="text-xs rounded-full bg-gray-200 px-2 py-0.5">{% translate "max" %} {{ s.max_appointments }}</span>{% endif %}
-                        {% if s.valid_from or s.valid_until %}<span class="text-xs text-gray-500">{{ s.valid_from|default_if_none:"…" }} → {{ s.valid_until|default_if_none:"…" }}</span>{% endif %}
-                        {% if not s.is_available %}<span class="text-xs rounded-full bg-red-100 text-red-700 px-2 py-0.5">{% translate "Off" %}</span>{% endif %}
-                        <span class="ms-auto flex items-center gap-1">
-                            <button type="button" class="px-2 py-1 rounded-lg text-green-700 hover:bg-green-50 font-medium"
-                                @click="openShift('{{ s.pk }}')">{% translate "Edit" %}</button>
-                            <form method="post" action="{% url 'shift_delete' selected_doc.id|b64uuid s.pk %}" data-confirm="{% translate 'Remove this shift?' %}">{% csrf_token %}
-                                <button class="px-2 py-1 rounded-lg text-red-600 hover:bg-red-50 font-medium">{% translate "Delete" %}</button>
-                            </form>
-                        </span>
+
+        <div class="divide-y divide-gray-100">
+            {% for row in weekly %}
+            <div x-data="{ open: {{ row.open|yesno:'true,false' }} }" class="px-5 py-3 {% if row.errors %}bg-red-50/50{% endif %}">
+                <div class="grid gap-3 lg:grid-cols-[10rem_minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-6">
+                    <label class="switch">
+                        <input type="checkbox" name="d{{ row.num }}_open" x-model="open" {% if row.open %}checked{% endif %}>
+                        <span class="switch-track" aria-hidden="true"></span>
+                        <span class="w-24 text-gray-900">{{ row.label }}</span>
+                    </label>
+                    <p x-show="!open" class="text-sm text-gray-400 lg:col-span-2">{% translate "Closed" %}</p>
+                    <div x-show="open" class="grid gap-3 sm:grid-cols-2 lg:col-span-2 lg:gap-6">
+                        <div class="flex items-center gap-3">
+                            <span class="inline-flex w-24 shrink-0 items-center gap-1.5 text-sm font-semibold text-amber-700"><i class="bi bi-brightness-high" aria-hidden="true"></i>{% translate "Morning" %}</span>
+                            <div class="grid min-w-0 flex-1 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2">
+                                {% include "appointments/_time_select.html" with name=row.p|add:"m_start" value=row.m_start aria=_("Morning from") options=morning_options %}
+                                <span class="text-gray-400" aria-hidden="true">–</span>
+                                {% include "appointments/_time_select.html" with name=row.p|add:"m_end" value=row.m_end aria=_("Morning until") options=morning_options %}
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="inline-flex w-24 shrink-0 items-center gap-1.5 text-sm font-semibold text-indigo-700"><i class="bi bi-moon-stars" aria-hidden="true"></i>{% translate "Evening" %}</span>
+                            <div class="grid min-w-0 flex-1 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2">
+                                {% include "appointments/_time_select.html" with name=row.p|add:"e_start" value=row.e_start aria=_("Evening from") options=evening_options %}
+                                <span class="text-gray-400" aria-hidden="true">–</span>
+                                {% include "appointments/_time_select.html" with name=row.p|add:"e_end" value=row.e_end aria=_("Evening until") options=evening_options %}
+                            </div>
+                        </div>
                     </div>
-                    {% empty %}
-                    <p class="text-sm text-gray-400 py-1">{% translate "Not working" %}</p>
-                    {% endfor %}
                 </div>
+                {% for e in row.errors %}<p class="field-error mt-2" role="alert">{{ e }}</p>{% endfor %}
             </div>
             {% endfor %}
         </div>
-    </section>
 
-    <div class="grid lg:grid-cols-2 gap-6">
-        <section class="card" aria-labelledby="leave-h">
-            <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-                <h2 id="leave-h" class="font-semibold text-gray-900">{% translate "Leave" %}</h2>
-                <button type="button" @click="openOff('{{ selected_doc.id|b64uuid }}')" class="text-sm font-semibold text-green-700 hover:underline">{% translate "Add leave" %}</button>
+        <div class="flex flex-wrap items-end justify-between gap-4 border-t border-gray-100 bg-gray-50 px-5 py-4">
+            <div class="w-56">
+                <label for="slot_minutes" class="label">{% translate "Appointment length" %}</label>
+                <select id="slot_minutes" name="slot_minutes" data-keep-order class="w-full">
+                    {% for n in slot_choices %}<option value="{{ n }}" {% if n == slot_minutes %}selected{% endif %}>{% blocktranslate %}{{ n }} minutes{% endblocktranslate %}</option>{% endfor %}
+                </select>
             </div>
-            <ul class="divide-y divide-gray-50 text-sm">
+            <button class="btn btn-primary"><i class="bi bi-check-lg" aria-hidden="true"></i>{% translate "Save weekly hours" %}</button>
+        </div>
+    </form>
+
+    <!-- Leave and closures -->
+    <div class="grid gap-6 lg:grid-cols-2">
+        <section class="card" aria-labelledby="leave-h">
+            <div class="border-b border-gray-100 px-5 py-4">
+                <h2 id="leave-h" class="font-semibold text-gray-900">{% blocktranslate with name=selected_doc.name %}Leave: {{ name }}{% endblocktranslate %}</h2>
+                <p class="mt-1 text-sm text-gray-500">{% translate "Days this doctor is away. No appointments can be booked on them." %}</p>
+            </div>
+            <form method="post" action="{% url 'timeoff_save' selected_doc.id|b64uuid %}" class="grid gap-3 border-b border-gray-100 p-5 sm:grid-cols-2" novalidate>
+                {% csrf_token %}<input type="hidden" name="kind" value="leave">
+                <div><label for="leave-from" class="label">{% translate "From" %}</label><input id="leave-from" type="date" name="start_date" required></div>
+                <div><label for="leave-to" class="label">{% translate "Until (optional)" %}</label><input id="leave-to" type="date" name="end_date"></div>
+                <div class="sm:col-span-2"><label for="leave-reason" class="label">{% translate "Reason (only staff see this)" %}</label><input id="leave-reason" type="text" name="reason" maxlength="200"></div>
+                <div class="sm:col-span-2"><button class="btn btn-outline"><i class="bi bi-plus-lg" aria-hidden="true"></i>{% translate "Add leave" %}</button></div>
+            </form>
+            <ul class="divide-y divide-gray-100 text-sm">
                 {% for o in time_off %}
-                <li class="px-5 py-3 flex items-center gap-3">
-                    <div class="flex-1"><p class="font-medium">{{ o.start_date|date:"DATE_FORMAT" }}{% if o.end_date != o.start_date %} → {{ o.end_date|date:"DATE_FORMAT" }}{% endif %}
-                        {% if o.start_time %}<span class="text-gray-500" dir="ltr"> {{ o.start_time|time:"H:i" }}–{{ o.end_time|time:"H:i" }}</span>{% endif %}</p>
-                        <p class="text-xs text-gray-500">{{ o.get_kind_display }}{% if o.reason %} · {{ o.reason }}{% endif %}</p></div>
-                    <form method="post" action="{% url 'timeoff_delete' o.pk %}">{% csrf_token %}<button class="text-red-600 hover:underline text-xs font-semibold">{% translate "Remove" %}</button></form>
+                <li class="flex items-center gap-3 px-5 py-3">
+                    <div class="min-w-0 flex-1">
+                        <p class="font-medium text-gray-900">{{ o.start_date|date:"j M Y" }}{% if o.end_date != o.start_date %} → {{ o.end_date|date:"j M Y" }}{% endif %}
+                            {% if o.start_time %}<span class="text-gray-500" dir="ltr"> {{ o.start_time|time:"H:i" }}–{{ o.end_time|time:"H:i" }}</span>{% endif %}</p>
+                        {% if o.reason %}<p class="truncate text-xs text-gray-500">{{ o.reason }}</p>{% endif %}
+                    </div>
+                    <form method="post" action="{% url 'timeoff_delete' o.pk %}" data-confirm="{% translate 'Remove this leave?' %}">{% csrf_token %}
+                        <button class="btn btn-ghost btn-sm text-red-600" aria-label="{% translate 'Remove' %}"><i class="bi bi-trash"></i></button></form>
                 </li>
                 {% empty %}<li class="px-5 py-8 text-center text-gray-400">{% translate "No leave scheduled." %}</li>{% endfor %}
             </ul>
         </section>
 
         <section class="card" aria-labelledby="closure-h">
-            <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div class="border-b border-gray-100 px-5 py-4">
                 <h2 id="closure-h" class="font-semibold text-gray-900">{% translate "Clinic holidays & closures" %}</h2>
-                {% if is_management %}<button type="button" @click="openOff('clinic')" class="text-sm font-semibold text-green-700 hover:underline">{% translate "Add closure" %}</button>{% endif %}
+                <p class="mt-1 text-sm text-gray-500">{% translate "Days the whole clinic is closed, for every doctor." %}</p>
             </div>
-            <ul class="divide-y divide-gray-50 text-sm">
+            {% if is_management %}
+            <form method="post" action="{% url 'timeoff_save' 'clinic' %}" class="grid gap-3 border-b border-gray-100 p-5 sm:grid-cols-2" novalidate>
+                {% csrf_token %}<input type="hidden" name="kind" value="holiday">
+                <div><label for="close-from" class="label">{% translate "From" %}</label><input id="close-from" type="date" name="start_date" required></div>
+                <div><label for="close-to" class="label">{% translate "Until (optional)" %}</label><input id="close-to" type="date" name="end_date"></div>
+                <div class="sm:col-span-2"><label for="close-reason" class="label">{% translate "Reason (only staff see this)" %}</label><input id="close-reason" type="text" name="reason" maxlength="200" placeholder="{% translate 'e.g. Pongal holiday' %}"></div>
+                <div class="sm:col-span-2"><button class="btn btn-outline"><i class="bi bi-plus-lg" aria-hidden="true"></i>{% translate "Add closure" %}</button></div>
+            </form>
+            {% endif %}
+            <ul class="divide-y divide-gray-100 text-sm">
                 {% for o in clinic_closures %}
-                <li class="px-5 py-3 flex items-center gap-3">
-                    <div class="flex-1"><p class="font-medium">{{ o.start_date|date:"DATE_FORMAT" }}{% if o.end_date != o.start_date %} → {{ o.end_date|date:"DATE_FORMAT" }}{% endif %}</p>
-                        <p class="text-xs text-gray-500">{{ o.get_kind_display }}{% if o.reason %} · {{ o.reason }}{% endif %}</p></div>
-                    {% if is_management %}<form method="post" action="{% url 'timeoff_delete' o.pk %}">{% csrf_token %}<button class="text-red-600 hover:underline text-xs font-semibold">{% translate "Remove" %}</button></form>{% endif %}
+                <li class="flex items-center gap-3 px-5 py-3">
+                    <div class="min-w-0 flex-1">
+                        <p class="font-medium text-gray-900">{{ o.start_date|date:"j M Y" }}{% if o.end_date != o.start_date %} → {{ o.end_date|date:"j M Y" }}{% endif %}</p>
+                        {% if o.reason %}<p class="truncate text-xs text-gray-500">{{ o.reason }}</p>{% endif %}
+                    </div>
+                    {% if is_management %}<form method="post" action="{% url 'timeoff_delete' o.pk %}" data-confirm="{% translate 'Remove this closure?' %}">{% csrf_token %}
+                        <button class="btn btn-ghost btn-sm text-red-600" aria-label="{% translate 'Remove' %}"><i class="bi bi-trash"></i></button></form>{% endif %}
                 </li>
                 {% empty %}<li class="px-5 py-8 text-center text-gray-400">{% translate "No closures scheduled." %}</li>{% endfor %}
             </ul>
@@ -103,85 +138,21 @@
     </div>
     {% endif %}
 
+    <!-- Booking rules (rarely changed, so folded away) -->
     {% if is_management and settings_form %}
-    <section class="card" aria-labelledby="rules-h">
-        <div class="px-5 py-4 border-b border-gray-100"><h2 id="rules-h" class="font-semibold text-gray-900">{% translate "Booking rules & reminders" %}</h2></div>
-        <form method="post" action="{% url 'booking_settings_save' %}" class="p-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">{% csrf_token %}
-            {% for f in settings_form %}
-            <div class="{% if f.field.widget.input_type == 'checkbox' %}flex items-center gap-2 pt-6{% endif %}">
-                {% if f.field.widget.input_type == 'checkbox' %}{{ f }}<label for="{{ f.id_for_label }}" class="text-sm text-gray-700">{{ f.label }}</label>
-                {% else %}<label for="{{ f.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ f.label }}</label>{{ f }}{% endif %}
-            </div>
-            {% endfor %}
+    <details class="card group">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 [&::-webkit-details-marker]:hidden">
+            <span>
+                <span class="block font-semibold text-gray-900">{% translate "Booking rules & reminders" %}</span>
+                <span class="block text-sm text-gray-500">{% translate "How far ahead patients can book, cancellation limits and reminder timing." %}</span>
+            </span>
+            <i class="bi bi-chevron-down text-gray-400 transition group-open:rotate-180" aria-hidden="true"></i>
+        </summary>
+        <form method="post" action="{% url 'booking_settings_save' %}" class="grid gap-4 border-t border-gray-100 p-5 sm:grid-cols-2 lg:grid-cols-3">{% csrf_token %}
+            {% for f in settings_form %}{% include "ui/field.html" with field=f %}{% endfor %}
             <div class="sm:col-span-2 lg:col-span-3"><button class="btn btn-primary">{% translate "Save rules" %}</button></div>
         </form>
-    </section>
-    {% endif %}
-
-    {% if selected_doc %}
-    <!-- Shift dialog -->
-    <div x-show="shiftOpen" x-cloak class="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-slate-900/40" role="dialog" aria-modal="true" aria-labelledby="shift-h" @keydown.escape.window="shiftOpen=false">
-        <form method="post" x-ref="shiftForm" action="{% url 'shift_save' selected_doc.id|b64uuid %}" @click.outside="shiftOpen=false" class="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto p-6 space-y-4">{% csrf_token %}
-            <h3 id="shift-h" class="font-semibold text-lg" x-text="shiftId ? '{% translate "Edit shift" %}' : '{% translate "Add shift" %}'"></h3>
-            <input type="hidden" name="shift_id" :value="shiftId">
-            <div class="grid sm:grid-cols-2 gap-4">
-                {% for f in shift_form %}
-                <div class="{% if f.field.widget.input_type == 'checkbox' %}flex items-center gap-2 sm:col-span-2{% endif %}">
-                    {% if f.field.widget.input_type == 'checkbox' %}{{ f }}<label for="{{ f.id_for_label }}" class="text-sm">{% translate "Shift is active" %}</label>
-                    {% else %}<label for="{{ f.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ f.label }}</label>{{ f }}{% endif %}
-                </div>
-                {% endfor %}
-            </div>
-            <div class="flex justify-end gap-2 pt-2">
-                <button type="button" @click="shiftOpen=false" class="btn btn-outline">{% translate "Cancel" %}</button>
-                <button class="btn btn-primary">{% translate "Save shift" %}</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- Time-off dialog -->
-    <div x-show="offOpen" x-cloak class="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-slate-900/40" role="dialog" aria-modal="true" aria-labelledby="off-h" @keydown.escape.window="offOpen=false">
-        <form method="post" :action="offAction" @click.outside="offOpen=false" class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 space-y-4">{% csrf_token %}
-            <h3 id="off-h" class="font-semibold text-lg">{% translate "Add time off" %}</h3>
-            <div class="grid sm:grid-cols-2 gap-4">
-                {% for f in timeoff_form %}
-                <div class="{% if f.name == 'reason' %}sm:col-span-2{% endif %}"><label for="{{ f.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ f.label }}</label>{{ f }}
-                    {% if f.help_text %}<p class="text-xs text-gray-500 mt-1">{{ f.help_text }}</p>{% endif %}</div>
-                {% endfor %}
-            </div>
-            <div class="flex justify-end gap-2 pt-2">
-                <button type="button" @click="offOpen=false" class="btn btn-outline">{% translate "Cancel" %}</button>
-                <button class="btn btn-primary">{% translate "Save" %}</button>
-            </div>
-        </form>
-    </div>
+    </details>
     {% endif %}
 </div>
-{% endblock %}
-
-{% block extra_scripts %}
-{{ shifts_json|json_script:"shifts-data" }}
-<script>
-function availabilityPage() {
-    const shifts = JSON.parse(document.getElementById('shifts-data')?.textContent || '{}');
-    const offUrl = "{% if timeoff_url_template %}{{ timeoff_url_template }}{% endif %}";
-    return {
-        shiftOpen: false, shiftId: '', offOpen: false, offAction: '',
-        openShift(id) {
-            this.shiftId = id || '';
-            this.shiftOpen = true;
-            this.$nextTick(() => {
-                const f = this.$refs.shiftForm; f.reset();
-                const d = id ? shifts[id] : null;
-                Array.from(f.elements).forEach(el => {
-                    if (!el.name || el.name === 'csrfmiddlewaretoken' || el.name === 'shift_id' || !d || !(el.name in d)) return;
-                    if (el.type === 'checkbox') el.checked = !!d[el.name]; else el.value = d[el.name] ?? '';
-                });
-                f.querySelector('select, input:not([type=hidden])')?.focus();
-            });
-        },
-        openOff(target) { this.offAction = offUrl.replace('__T__', target); this.offOpen = true; },
-    };
-}
-</script>
 {% endblock %}

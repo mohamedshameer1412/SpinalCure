@@ -6,6 +6,8 @@ from zoneinfo import ZoneInfo
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+
+from spinalcure.uploads import SafeImageField
 from spinalcure.languages import NATIVE_CHOICES
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -58,7 +60,7 @@ class Event(DiscountMixin, models.Model):
         db_index=True
     )
     description = models.TextField(blank=True, verbose_name=_('Description'))
-    image = models.ImageField(
+    image = SafeImageField(
         upload_to='events/',
         blank=True,
         null=True,

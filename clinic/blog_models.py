@@ -1,5 +1,7 @@
 import uuid
 from django.db import models
+
+from spinalcure.uploads import SafeImageField
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.utils import timezone
@@ -40,7 +42,7 @@ class BlogPost(models.Model):
         help_text=_('Short summary shown on the blog listing card (max 500 chars).')
     )
     content = models.TextField(verbose_name=_('Content'))
-    cover_image = models.ImageField(
+    cover_image = SafeImageField(
         upload_to='blog/covers/',
         blank=True,
         null=True,

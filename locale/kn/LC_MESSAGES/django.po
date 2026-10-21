@@ -49,7 +49,7 @@ msgstr "%(n)s ರಲ್ಲಿ %(a)s–%(b)s"
 msgid "%(age)s Years Old"
 msgstr "%(age)s ವರ್ಷ"
 
-#: appointments\schedule_views.py:140
+#: appointments\schedule_views.py:250
 #, python-format
 msgid ""
 "%(clash)s existing appointment(s) fall in this period. They were not "
@@ -145,6 +145,11 @@ msgid_plural "%(n)s min read"
 msgstr[0] "%(n)s ನಿಮಿಷದ ಓದು"
 msgstr[1] "%(n)s ನಿಮಿಷದ ಓದು"
 
+#: templates\appointments\availability.html:75
+#, python-format
+msgid "%(n)s minutes"
+msgstr "%(n)s ನಿಮಿಷಗಳು"
+
 #: templates\clinic\admin\translations.html:92
 #, python-format
 msgid "%(n)s more not shown. Narrow the list with the filters above."
@@ -205,6 +210,26 @@ msgstr "5 ರಲ್ಲಿ %(r)s"
 #, python-format
 msgid "%(read_time_minutes)s min"
 msgstr "%(read_time_minutes)s ನಿಮಿ"
+
+#: appointments\schedule_views.py:103
+#, python-format
+msgid "%(s)s: choose both a start and an end time."
+msgstr "%(s)s: ಪ್ರಾರಂಭ ಮತ್ತು ಅಂತ್ಯ ಸಮಯ ಎರಡನ್ನೂ ಆಯ್ಕೆಮಾಡಿ."
+
+#: appointments\schedule_views.py:105
+#, python-format
+msgid "%(s)s: choose the times from the list."
+msgstr "%(s)s: ಪಟ್ಟಿಯಿಂದ ಸಮಯಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ."
+
+#: appointments\schedule_views.py:109
+#, python-format
+msgid "%(s)s: shorter than one %(n)s-minute appointment."
+msgstr "%(s)s: ಒಂದು %(n)s-ನಿಮಿಷದ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಿಂತ ಕಡಿಮೆ."
+
+#: appointments\schedule_views.py:107
+#, python-format
+msgid "%(s)s: the end time must be after the start time."
+msgstr "%(s)s: ಅಂತ್ಯ ಸಮಯವು ಪ್ರಾರಂಭ ಸಮಯದ ನಂತರ ಇರಬೇಕು."
 
 #: patients\portal_auth.py:80
 #, python-format
@@ -301,7 +326,7 @@ msgstr ". ಈ ಕ್ರಿಯೆಗೆ ಅಧಿಕಾರ ನೀಡಲು ಅವ
 msgid ". This action cannot be undone."
 msgstr ". ಈ ಕ್ರಿಯೆಯನ್ನು ಹಿಂತೆಗೆದುಕೊಳ್ಳಲಾಗುವುದಿಲ್ಲ."
 
-#: patients\models.py:276
+#: patients\models.py:277
 msgid "0: No pain, 10: Worst possible pain"
 msgstr "0: ನೋವಿಲ್ಲ, 10: ಅತ್ಯಂತ ತೀವ್ರ ನೋವು"
 
@@ -354,7 +379,7 @@ msgstr "14. ಕೋಸೈಕಲ್ ನಿಯಮ"
 msgid "15. Recycle Law"
 msgstr "15. ರೀಸೈಕಲ್ ನಿಯಮ"
 
-#: patients\models.py:281
+#: patients\models.py:282
 msgid "1: Immobile, 5: Full mobility"
 msgstr "1: ಚಲನೆಯಿಲ್ಲ, 5: ಪೂರ್ಣ ಚಲನಶೀಲತೆ"
 
@@ -501,7 +526,7 @@ msgstr ""
 msgid "A place opened: %(event)s"
 msgstr "ಒಂದು ಸ್ಥಳ ಖಾಲಿಯಾಯಿತು: %(event)s"
 
-#: templates\public_base.html:77
+#: templates\public_base.html:81
 msgid "A public review for other patients, or private feedback for our team."
 msgstr ""
 "ಇತರ ರೋಗಿಗಳಿಗಾಗಿ ಸಾರ್ವಜನಿಕ ವಿಮರ್ಶೆ, ಅಥವಾ ನಮ್ಮ ತಂಡಕ್ಕಾಗಿ ಖಾಸಗಿ ಅಭಿಪ್ರಾಯ."
@@ -619,7 +644,7 @@ msgstr "ಖಾತೆಯ ವಿವರಗಳು"
 msgid "Account Number"
 msgstr "ಖಾತೆ ಸಂಖ್ಯೆ"
 
-#: clinic\models.py:724 clinic\templates\clinic\admin\activity_log.html:18
+#: clinic\models.py:743 clinic\templates\clinic\admin\activity_log.html:18
 #: clinic\templates\clinic\admin\activity_log.html:62
 #: templates\appointments\partials\appointment_list_partial.html:11
 msgid "Action"
@@ -644,7 +669,7 @@ msgstr "ಕ್ರಿಯೆಯ ಪ್ರಕಾರ"
 msgid "Actions"
 msgstr "ಕ್ರಿಯೆಗಳು"
 
-#: accounts\models.py:320 accounts\templates\accounts\admin\users_list.html:68
+#: accounts\models.py:321 accounts\templates\accounts\admin\users_list.html:68
 #: clinic\models.py:249
 #: clinic\templates\clinic\admin\practitioners_list.html:35
 msgid "Active"
@@ -680,7 +705,7 @@ msgstr "ಚಟುವಟಿಕೆ ಲಾಗ್"
 msgid "Activity Log — SpinalCure Admin"
 msgstr "ಚಟುವಟಿಕೆ ಲಾಗ್ — SpinalCure ಅಡ್ಮಿನ್"
 
-#: patients\models.py:268
+#: patients\models.py:269
 msgid "Acupoints / Commanding Points Used"
 msgstr "ಬಳಸಿದ ಆಕ್ಯುಪಾಯಿಂಟ್‌ಗಳು / ಕಮಾಂಡಿಂಗ್ ಪಾಯಿಂಟ್‌ಗಳು"
 
@@ -705,11 +730,11 @@ msgstr "ಆಕ್ಯುಪಂಕ್ಚರ್ ಕೇಸ್ ಶೀಟ್ (TCM ರ�
 msgid "Acupuncture Clinic Management"
 msgstr "ಆಕ್ಯುಪಂಕ್ಚರ್ ಕ್ಲಿನಿಕ್ ನಿರ್ವಹಣೆ"
 
-#: patients\models.py:419
+#: patients\models.py:420
 msgid "Acupuncture Diagnoses"
 msgstr "ಆಕ್ಯುಪಂಕ್ಚರ್ ರೋಗನಿರ್ಣಯಗಳು"
 
-#: patients\models.py:418
+#: patients\models.py:419
 msgid "Acupuncture Diagnosis"
 msgstr "ಆಕ್ಯುಪಂಕ್ಚರ್ ರೋಗನಿರ್ಣಯ"
 
@@ -736,7 +761,7 @@ msgstr "ಫೋಟೋ ಅಥವಾ ವೀಡಿಯೊ ಸೇರಿಸಿ"
 msgid "Add a question"
 msgstr "ಪ್ರಶ್ನೆ ಸೇರಿಸಿ"
 
-#: templates\appointments\availability.html:91
+#: templates\appointments\availability.html:122
 msgid "Add closure"
 msgstr "ಮುಚ್ಚುವಿಕೆ ಸೇರಿಸಿ"
 
@@ -752,7 +777,7 @@ msgstr "ಖರ್ಚು ಸೇರಿಸಿ"
 msgid "Add Expense — SpinalCure"
 msgstr "ಖರ್ಚು ಸೇರಿಸಿ — SpinalCure"
 
-#: templates\appointments\availability.html:74
+#: templates\appointments\availability.html:94
 msgid "Add leave"
 msgstr "ರಜೆ ಸೇರಿಸಿ"
 
@@ -816,11 +841,6 @@ msgstr "ವಿಮರ್ಶೆ ಸೇರಿಸಿ - SpinalCure"
 msgid "Add Session"
 msgstr "ಅವಧಿ ಸೇರಿಸಿ"
 
-#: templates\appointments\availability.html:21
-#: templates\appointments\availability.html:125
-msgid "Add shift"
-msgstr "ಪಾಳಿ ಸೇರಿಸಿ"
-
 #: templates\clinic\admin\testimonial_form.html:5
 #: templates\clinic\admin\testimonial_form.html:137
 #: templates\clinic\admin\testimonials_list.html:5
@@ -831,7 +851,7 @@ msgstr "ಪ್ರಶಂಸಾಪತ್ರ ಸೇರಿಸಿ"
 msgid "Add the first review →"
 msgstr "ಮೊದಲ ವಿಮರ್ಶೆ ಸೇರಿಸಿ →"
 
-#: events\models.py:218
+#: events\models.py:220
 msgid "Add the meeting link before publishing an online event."
 msgstr "ಆನ್‌ಲೈನ್ ಕಾರ್ಯಕ್ರಮ ಪ್ರಕಟಿಸುವ ಮೊದಲು ಮೀಟಿಂಗ್ ಲಿಂಕ್ ಸೇರಿಸಿ."
 
@@ -842,10 +862,6 @@ msgid ""
 msgstr ""
 "ರೋಗಿಗಳು ಹೆಚ್ಚಾಗಿ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳನ್ನು ಸೇರಿಸಿ. ಪ್ರಕಟಿಸಿದ ನಂತರ ಅವು ಸಾರ್ವಜನಿಕ "
 "ಪ್ರಶ್ನೋತ್ತರ ಪುಟದಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ."
-
-#: templates\appointments\availability.html:145
-msgid "Add time off"
-msgstr "ರಜೆ ಸಮಯ ಸೇರಿಸಿ"
 
 #: templates\clinic\event_detail.html:47
 #: templates\events\registration_manage.html:15
@@ -896,12 +912,12 @@ msgstr "ಹೆಚ್ಚುವರಿ ವಿವರಗಳು (ಐಚ್ಛಿಕ)"
 msgid "Additional Information"
 msgstr "ಹೆಚ್ಚುವರಿ ಮಾಹಿತಿ"
 
-#: patients\models.py:92
+#: patients\models.py:93
 msgid "Additional Notes"
 msgstr "ಹೆಚ್ಚುವರಿ ಟಿಪ್ಪಣಿಗಳು"
 
 #: clinic\models.py:38 clinic\templates\clinic\admin\clinic_setup.html:262
-#: idcards\render.py:233 patients\models.py:52
+#: idcards\render.py:233 patients\models.py:53
 msgid "Address"
 msgstr "ವಿಳಾಸ"
 
@@ -967,7 +983,7 @@ msgstr "ಎಲ್ಲಾ ಸಮಸ್ಯೆಗಳು"
 msgid "All questions"
 msgstr "ಎಲ್ಲಾ ಪ್ರಶ್ನೆಗಳು"
 
-#: templates\base.html:82 templates\public\footer.html:50
+#: templates\base.html:92 templates\public\footer.html:50
 msgid "All rights reserved."
 msgstr "ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ."
 
@@ -1004,7 +1020,7 @@ msgstr "ಎಲ್ಲಾ ಪ್ರಕಾರಗಳು"
 msgid "All videos"
 msgstr "ಎಲ್ಲಾ ವೀಡಿಯೊಗಳು"
 
-#: patients\models.py:76 templates\patients\patient_detail.html:154
+#: patients\models.py:77 templates\patients\patient_detail.html:154
 #: templates\patients\patient_form.html:198
 msgid "Allergies"
 msgstr "ಅಲರ್ಜಿಗಳು"
@@ -1039,7 +1055,7 @@ msgstr "ಮೊತ್ತ (INR)"
 msgid "Amount (Paid / Total)"
 msgstr "ಮೊತ್ತ (ಪಾವತಿಸಿದ / ಒಟ್ಟು)"
 
-#: payments\models.py:322 templates\payments\expense_form.html:33
+#: payments\models.py:323 templates\payments\expense_form.html:33
 msgid "Amount (₹)"
 msgstr "ಮೊತ್ತ (₹)"
 
@@ -1051,7 +1067,7 @@ msgstr "ಬಾಕಿ ಮೊತ್ತ"
 msgid "Amount must be greater than 0."
 msgstr "ಮೊತ್ತ 0 ಕ್ಕಿಂತ ಹೆಚ್ಚಿರಬೇಕು."
 
-#: payments\models.py:120
+#: payments\models.py:121
 msgid "Amount Paid"
 msgstr "ಪಾವತಿಸಿದ ಮೊತ್ತ"
 
@@ -1059,7 +1075,7 @@ msgstr "ಪಾವತಿಸಿದ ಮೊತ್ತ"
 msgid "Amount paid"
 msgstr "ಪಾವತಿಸಿದ ಮೊತ್ತ"
 
-#: payments\models.py:260
+#: payments\models.py:261
 msgid "Amount paid cannot exceed total amount."
 msgstr "ಪಾವತಿಸಿದ ಮೊತ್ತ ಒಟ್ಟು ಮೊತ್ತವನ್ನು ಮೀರಬಾರದು."
 
@@ -1185,6 +1201,10 @@ msgstr "%(patient_name)s ಅವರ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ �
 msgid "Appointment for %(patient_name)s on %(date)s deleted."
 msgstr "%(date)s ರಂದು %(patient_name)s ಅವರ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಅಳಿಸಲಾಗಿದೆ."
 
+#: templates\appointments\availability.html:73
+msgid "Appointment length"
+msgstr "ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಅವಧಿ"
+
 #: notifications\messages.py:39
 #, python-format
 msgid "Appointment not completed: %(who)s"
@@ -1256,7 +1276,7 @@ msgstr "ಅನುಮೋದಿಸಲಾಗಿದೆ"
 msgid "Archive"
 msgstr "ಆರ್ಕೈವ್ ಮಾಡಿ"
 
-#: events\models.py:93 notifications\templates\notifications\center.html:17
+#: events\models.py:95 notifications\templates\notifications\center.html:17
 #: templates\events\partials\event_list_partial.html:30
 msgid "Archived"
 msgstr "ಆರ್ಕೈವ್ ಮಾಡಲಾಗಿದೆ"
@@ -1286,7 +1306,7 @@ msgstr "ಲೇಖನದ ಶೀರ್ಷಿಕೆ"
 msgid "Arumbakkam, Chennai"
 msgstr "ಅರುಂಬಾಕ್ಕಂ, ಚೆನ್ನೈ"
 
-#: templates\appointments\availability.html:30
+#: templates\appointments\availability.html:25
 msgid "Ask an administrator to add a practitioner with your email address."
 msgstr "ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸದೊಂದಿಗೆ ವೈದ್ಯರನ್ನು ಸೇರಿಸಲು ನಿರ್ವಾಹಕರನ್ನು ಕೇಳಿ."
 
@@ -1322,15 +1342,15 @@ msgstr "ಭಾಗವಹಿಸಿದವರ ಪ್ರತಿಕ್ರಿಯೆ"
 msgid "Attender Details"
 msgstr "ಜೊತೆಗಾರರ ವಿವರಗಳು"
 
-#: patients\models.py:64 templates\patients\patient_form.html:120
+#: patients\models.py:65 templates\patients\patient_form.html:120
 msgid "Attender Name"
 msgstr "ಜೊತೆಗಾರರ ಹೆಸರು"
 
-#: patients\models.py:69
+#: patients\models.py:70
 msgid "Attender Phone"
 msgstr "ಜೊತೆಗಾರರ ಫೋನ್"
 
-#: clinic\models.py:779
+#: clinic\models.py:798
 msgid "Audit Log"
 msgstr "ಆಡಿಟ್ ಲಾಗ್"
 
@@ -1338,7 +1358,7 @@ msgstr "ಆಡಿಟ್ ಲಾಗ್"
 msgid "Audit Log Notification"
 msgstr "ಆಡಿಟ್ ಲಾಗ್ ಅಧಿಸೂಚನೆ"
 
-#: clinic\models.py:780
+#: clinic\models.py:799
 msgid "Audit Logs"
 msgstr "ಆಡಿಟ್ ಲಾಗ್‌ಗಳು"
 
@@ -1354,7 +1374,7 @@ msgstr ""
 msgid "Auricular Acupuncture, Scalp Acupuncture, etc."
 msgstr "ಕಿವಿ ಆಕ್ಯುಪಂಕ್ಚರ್, ನೆತ್ತಿ ಆಕ್ಯುಪಂಕ್ಚರ್ ಇತ್ಯಾದಿ."
 
-#: clinic\blog_models.py:58 templates\clinic\admin\blog_form.html:93
+#: clinic\blog_models.py:60 templates\clinic\admin\blog_form.html:93
 msgid "Author"
 msgstr "ಲೇಖಕ"
 
@@ -1362,7 +1382,7 @@ msgstr "ಲೇಖಕ"
 msgid "Author agreed to publication"
 msgstr "ಪ್ರಕಟಣೆಗೆ ಬರೆದವರು ಒಪ್ಪಿದ್ದಾರೆ"
 
-#: clinic\blog_models.py:63
+#: clinic\blog_models.py:65
 msgid "Author Name Override"
 msgstr "ಲೇಖಕರ ಹೆಸರು ಬದಲಿ"
 
@@ -1382,7 +1402,7 @@ msgstr "SpinalCure ನಿಂದ ಅಧಿಕೃತ"
 msgid "auto"
 msgstr "ಸ್ವಯಂ"
 
-#: payments\models.py:148
+#: payments\models.py:149
 msgid "Auto-generated if not provided"
 msgstr "ನೀಡದಿದ್ದರೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ರಚಿಸಲಾಗುತ್ತದೆ"
 
@@ -1392,7 +1412,7 @@ msgstr "ನೀಡದಿದ್ದರೆ ಸ್ವಯಂಚಾಲಿತವಾಗ�
 msgid "Auto-translate missing into %(name)s"
 msgstr "ಇಲ್ಲದವನ್ನು %(name)s ಗೆ ಸ್ವಯಂ ಅನುವಾದಿಸಿ"
 
-#: clinic\models.py:796 templates\clinic\admin\translations.html:73
+#: clinic\models.py:815 templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 msgid "Auto-translated"
 msgstr "ಸ್ವಯಂ ಅನುವಾದಿತ"
@@ -1521,15 +1541,15 @@ msgstr "BAMS, MD (Acupuncture), etc."
 msgid "Bank Name"
 msgstr "ಬ್ಯಾಂಕ್ ಹೆಸರು"
 
-#: payments\models.py:24 templates\payments\invoice.html:429
+#: payments\models.py:25 templates\payments\invoice.html:429
 msgid "Bank Transfer"
 msgstr "ಬ್ಯಾಂಕ್ ವರ್ಗಾವಣೆ"
 
-#: events\models.py:65
+#: events\models.py:67
 msgid "Banner Image"
 msgstr "ಬ್ಯಾನರ್ ಚಿತ್ರ"
 
-#: accounts\models.py:116
+#: accounts\models.py:117
 msgid "Base32 encoded secret for TOTP generation"
 msgstr "TOTP ರಚನೆಗೆ Base32 ಎನ್‌ಕೋಡ್ ಮಾಡಿದ ರಹಸ್ಯ"
 
@@ -1541,7 +1561,7 @@ msgstr "ಮೂಲ ಮಾಹಿತಿ"
 msgid "Basics"
 msgstr "ಮೂಲಭೂತ"
 
-#: courses\models.py:170 courses\models.py:207
+#: courses\models.py:172 courses\models.py:209
 msgid "Batch"
 msgstr "ಬ್ಯಾಚ್"
 
@@ -1564,7 +1584,7 @@ msgstr "ಬ್ಯಾಚ್ \"%(name)s\" ನವೀಕರಿಸಲಾಗಿದೆ.
 msgid "Batch Feedback"
 msgstr "ಬ್ಯಾಚ್ ಪ್ರತಿಕ್ರಿಯೆ"
 
-#: courses\models.py:118
+#: courses\models.py:120
 msgid "Batch Name"
 msgstr "ಬ್ಯಾಚ್ ಹೆಸರು"
 
@@ -1598,7 +1618,7 @@ msgstr "ಬಿಲ್ಲಿಂಗ್ ಮತ್ತು ತೆರಿಗೆ ಮಾಹ
 msgid "Bio"
 msgstr "ಪರಿಚಯ"
 
-#: accounts\models.py:49
+#: accounts\models.py:50
 msgid "Biography"
 msgstr "ಜೀವನ ಚರಿತ್ರೆ"
 
@@ -1606,7 +1626,7 @@ msgstr "ಜೀವನ ಚರಿತ್ರೆ"
 msgid "Biography / Notes"
 msgstr "ಜೀವನ ಚರಿತ್ರೆ / ಟಿಪ್ಪಣಿಗಳು"
 
-#: clinic\blog_models.py:88
+#: clinic\blog_models.py:90
 msgid "Blog Post"
 msgstr "ಬ್ಲಾಗ್ ಪೋಸ್ಟ್"
 
@@ -1625,15 +1645,15 @@ msgstr "ಬ್ಲಾಗ್ ಪೋಸ್ಟ್ \"%(title)s\" ಅಳಿಸಲಾ�
 msgid "Blog post \"%(title)s\" updated."
 msgstr "ಬ್ಲಾಗ್ ಪೋಸ್ಟ್ \"%(title)s\" ನವೀಕರಿಸಲಾಗಿದೆ."
 
-#: clinic\blog_models.py:89
+#: clinic\blog_models.py:91
 msgid "Blog Posts"
 msgstr "ಬ್ಲಾಗ್ ಪೋಸ್ಟ್‌ಗಳು"
 
-#: clinic\blog_models.py:14
+#: clinic\blog_models.py:16
 msgid "Blog Tag"
 msgstr "ಬ್ಲಾಗ್ ಟ್ಯಾಗ್"
 
-#: clinic\blog_models.py:15 templates\clinic\admin\blog_tags.html:4
+#: clinic\blog_models.py:17 templates\clinic\admin\blog_tags.html:4
 msgid "Blog Tags"
 msgstr "ಬ್ಲಾಗ್ ಟ್ಯಾಗ್‌ಗಳು"
 
@@ -1697,11 +1717,11 @@ msgstr "ಬುಕಿಂಗ್ ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್
 msgid "Booking Reference:"
 msgstr "ಬುಕಿಂಗ್ ಉಲ್ಲೇಖ:"
 
-#: templates\appointments\availability.html:108
+#: templates\appointments\availability.html:146
 msgid "Booking rules & reminders"
 msgstr "ಬುಕಿಂಗ್ ನಿಯಮಗಳು ಮತ್ತು ಜ್ಞಾಪನೆಗಳು"
 
-#: appointments\schedule_views.py:174
+#: appointments\schedule_views.py:284
 msgid "Booking rules saved."
 msgstr "ಬುಕಿಂಗ್ ನಿಯಮಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ."
 
@@ -1740,10 +1760,6 @@ msgstr "ಬ್ರ್ಯಾಂಡಿಂಗ್ ಮತ್ತು ಹೀರೋ ಕ್
 #: templates\clinic\practitioner_portfolio.html:13
 msgid "Breadcrumb"
 msgstr "ಬ್ರೆಡ್‌ಕ್ರಂಬ್"
-
-#: templates\appointments\availability.html:48
-msgid "break"
-msgstr "ವಿರಾಮ"
 
 #: appointments\models.py:51
 msgid "Break end"
@@ -1784,8 +1800,7 @@ msgstr "ಕ್ಯಾಲೆಂಡರ್ ವೀಕ್ಷಣೆ"
 
 #: accounts\templates\accounts\admin\user_form.html:127
 #: clinic\templates\clinic\admin\practitioner_form.html:159
-#: templates\accounts\settings.html:57
-#: templates\appointments\availability.html:136
+#: templates\accounts\settings.html:57 templates\clinic\admin\faq_form.html:13
 msgid "Cancel"
 msgstr "ರದ್ದುಮಾಡಿ"
 
@@ -1814,8 +1829,8 @@ msgstr ""
 msgid "Cancel this registration?"
 msgstr "ಈ ನೋಂದಣಿ ರದ್ದುಮಾಡಬೇಕೆ?"
 
-#: appointments\models.py:180 courses\models.py:177 events\models.py:92
-#: events\models.py:250
+#: appointments\models.py:180 courses\models.py:179 events\models.py:94
+#: events\models.py:252
 msgid "Cancelled"
 msgstr "ರದ್ದಾಗಿದೆ"
 
@@ -1828,7 +1843,7 @@ msgstr "ರದ್ದಾಗಿದೆ"
 msgid "Cancelled %(name)s's registration."
 msgstr "%(name)s ಅವರ ನೋಂದಣಿ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ."
 
-#: events\models.py:226
+#: events\models.py:228
 msgid "Cannot create an event in the past."
 msgstr "ಹಿಂದಿನ ದಿನಾಂಕದಲ್ಲಿ ಕಾರ್ಯಕ್ರಮ ರಚಿಸಲಾಗುವುದಿಲ್ಲ."
 
@@ -1841,15 +1856,15 @@ msgstr ""
 "ಯೋಜನೆ '%(name)s' ಗೆ ಅವಧಿಗಳು ಲಗತ್ತಾಗಿರುವುದರಿಂದ ಅಳಿಸಲಾಗದು. ಮೊದಲು ಅವುಗಳನ್ನು "
 "ಸ್ಥಳಾಂತರಿಸಿ ಅಥವಾ ಅಳಿಸಿ."
 
-#: events\models.py:233
+#: events\models.py:235
 msgid "Capacity must be at least 1."
 msgstr "ಸಾಮರ್ಥ್ಯ ಕನಿಷ್ಠ 1 ಇರಬೇಕು."
 
-#: clinic\models.py:654
+#: clinic\models.py:658
 msgid "Caption"
 msgstr "ಶೀರ್ಷಿಕೆ ವಿವರ"
 
-#: idcards\templates\idcards\dashboard.html:28 payments\models.py:22
+#: idcards\templates\idcards\dashboard.html:28 payments\models.py:23
 msgid "Card"
 msgstr "ಕಾರ್ಡ್"
 
@@ -1918,11 +1933,11 @@ msgstr "ಕಾರ್ಡ್ ಪ್ರಕಾರ"
 msgid "Case ID: #%(id)s"
 msgstr "ಕೇಸ್ ID: #%(id)s"
 
-#: payments\models.py:21
+#: payments\models.py:22
 msgid "Cash"
 msgstr "ನಗದು"
 
-#: payments\models.py:315 templates\payments\expense_form.html:22
+#: payments\models.py:316 templates\payments\expense_form.html:22
 #: templates\payments\partials\expense_list_partial.html:9
 msgid "Category"
 msgstr "ವರ್ಗ"
@@ -1942,7 +1957,7 @@ msgstr "ಫೋನ್ ಸಂಖ್ಯೆ ಬದಲಿಸಿ"
 msgid "Change the time"
 msgstr "ಸಮಯ ಬದಲಿಸಿ"
 
-#: clinic\models.py:746
+#: clinic\models.py:765
 msgid "Changes"
 msgstr "ಬದಲಾವಣೆಗಳು"
 
@@ -1984,7 +1999,7 @@ msgstr "ಪರಿಶೀಲಿಸಿದವರು"
 msgid "Checked by %(who)s"
 msgstr "%(who)s ಪರಿಶೀಲಿಸಿದ್ದಾರೆ"
 
-#: payments\models.py:25
+#: payments\models.py:26
 msgid "Cheque"
 msgstr "ಚೆಕ್"
 
@@ -2005,11 +2020,11 @@ msgstr "ಮುಖ್ಯ ತೊಂದರೆ (ರೋಗನಿರ್ಣಯ)"
 msgid "Chief Complaint / Condition"
 msgstr "ಮುಖ್ಯ ತೊಂದರೆ / ಸ್ಥಿತಿ"
 
-#: patients\models.py:189
+#: patients\models.py:190
 msgid "Chief Complaint / Diagnosis"
 msgstr "ಮುಖ್ಯ ತೊಂದರೆ / ರೋಗನಿರ್ಣಯ"
 
-#: patients\models.py:74
+#: patients\models.py:75
 msgid "Chief Complaint / Problem"
 msgstr "ಮುಖ್ಯ ತೊಂದರೆ / ಸಮಸ್ಯೆ"
 
@@ -2025,7 +2040,11 @@ msgstr "ದಿನಾಂಕ ಮತ್ತು ಸಮಯ ಆಯ್ಕೆಮಾಡಿ
 msgid "Choose a date to see the free times."
 msgstr "ಖಾಲಿ ಸಮಯಗಳನ್ನು ನೋಡಲು ದಿನಾಂಕ ಆಯ್ಕೆಮಾಡಿ."
 
-#: clinic\models.py:676
+#: appointments\schedule_views.py:111
+msgid "Choose a morning or an evening session, or switch the day off."
+msgstr "ಬೆಳಿಗ್ಗೆ ಅಥವಾ ಸಂಜೆಯ ಅವಧಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ, ಅಥವಾ ಆ ದಿನವನ್ನು ಆಫ್ ಮಾಡಿ."
+
+#: clinic\models.py:680
 msgid "Choose a photo."
 msgstr "ಒಂದು ಫೋಟೋ ಆಯ್ಕೆಮಾಡಿ."
 
@@ -2045,6 +2064,10 @@ msgstr "ಮಾನ್ಯ ಮರುಪಾವತಿ ವಿಧಾನ ಆಯ್ಕೆ
 msgid "Choose how you want to be told about each event"
 msgstr "ಪ್ರತಿ ಘಟನೆಯ ಬಗ್ಗೆ ಹೇಗೆ ತಿಳಿಸಬೇಕು ಎಂದು ಆಯ್ಕೆಮಾಡಿ"
 
+#: appointments\schedule_views.py:163
+msgid "Choose the appointment length from the list."
+msgstr "ಪಟ್ಟಿಯಿಂದ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಅವಧಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ."
+
 #: templates\clinic\admin\gallery.html:14
 msgid ""
 "Choose up to 30 photos at once. Edit each one afterwards to add a caption or"
@@ -2057,7 +2080,7 @@ msgstr ""
 msgid "Choose..."
 msgstr "ಆಯ್ಕೆಮಾಡಿ..."
 
-#: events\models.py:22
+#: events\models.py:24
 msgid "Class"
 msgstr "ತರಗತಿ"
 
@@ -2094,12 +2117,12 @@ msgstr "ಫಿಲ್ಟರ್‌ಗಳನ್ನು ತೆರವುಗೊಳಿ�
 msgid "Clear ✕"
 msgstr "ತೆರವುಗೊಳಿಸಿ ✕"
 
-#: clinic\models.py:395 courses\models.py:61 events\models.py:43
+#: clinic\models.py:395 courses\models.py:63 events\models.py:45
 #: idcards\render.py:233
 msgid "Clinic"
 msgstr "ಕ್ಲಿನಿಕ್"
 
-#: accounts\models.py:23
+#: accounts\models.py:24
 msgid "Clinic Admin"
 msgstr "ಕ್ಲಿನಿಕ್ ಅಡ್ಮಿನ್"
 
@@ -2107,7 +2130,7 @@ msgstr "ಕ್ಲಿನಿಕ್ ಅಡ್ಮಿನ್"
 msgid "Clinic details in other languages"
 msgstr "ಇತರ ಭಾಷೆಗಳಲ್ಲಿ ಕ್ಲಿನಿಕ್ ವಿವರಗಳು"
 
-#: templates\appointments\availability.html:90
+#: templates\appointments\availability.html:113
 msgid "Clinic holidays & closures"
 msgstr "ಕ್ಲಿನಿಕ್ ರಜೆಗಳು ಮತ್ತು ಮುಚ್ಚುವಿಕೆಗಳು"
 
@@ -2163,7 +2186,7 @@ msgstr "ಕ್ಲಿನಿಕ್ ಬಳಕೆದಾರ ಸೆಟ್ಟಿಂಗ�
 msgid "Clinic Website"
 msgstr "ಕ್ಲಿನಿಕ್ ವೆಬ್‌ಸೈಟ್"
 
-#: templates\accounts\login.html:28 templates\base.html:54
+#: templates\accounts\login.html:28 templates\base.html:64
 msgid "Clinic workspace"
 msgstr "ಕ್ಲಿನಿಕ್ ಕಾರ್ಯಕ್ಷೇತ್ರ"
 
@@ -2196,8 +2219,8 @@ msgstr "ಕ್ಲಿನಿಕಲ್ ಅವಲೋಕನಗಳು..."
 msgid "Clinical Session Note #%(session_number)s"
 msgstr "ಕ್ಲಿನಿಕಲ್ ಅವಧಿ ಟಿಪ್ಪಣಿ #%(session_number)s"
 
-#: templates\appointments\calendar.html:575 templates\clinic\gallery.html:85
-#: templates\components\confirm_modal.html:10 templates\public_base.html:53
+#: templates\appointments\calendar.html:575 templates\clinic\gallery.html:87
+#: templates\components\confirm_modal.html:10 templates\public_base.html:57
 msgid "Close"
 msgstr "ಮುಚ್ಚಿ"
 
@@ -2205,11 +2228,12 @@ msgstr "ಮುಚ್ಚಿ"
 msgid "Close menu"
 msgstr "ಮೆನು ಮುಚ್ಚಿ"
 
+#: templates\appointments\availability.html:46
 #: templates\events\event_feedback_admin.html:15
 msgid "Closed"
 msgstr "ಮುಚ್ಚಲಾಗಿದೆ"
 
-#: payments\models.py:107
+#: payments\models.py:108
 msgid "Collected By"
 msgstr "ಸಂಗ್ರಹಿಸಿದವರು"
 
@@ -2229,7 +2253,7 @@ msgstr ""
 "ಈ ಸಮಸ್ಯೆಗೆ ಹೊಂದಬೇಕಾದ ಹೆಚ್ಚುವರಿ ಪದಗಳು, ಅಲ್ಪವಿರಾಮದಿಂದ ಬೇರ್ಪಡಿಸಿ, ಉದಾ. \"disc, "
 "herniated\"."
 
-#: courses\models.py:218 events\models.py:296
+#: courses\models.py:220 events\models.py:298
 #: templates\courses\registration_manage.html:21
 #: templates\events\event_feedback_admin.html:57
 msgid "Comment"
@@ -2239,7 +2263,7 @@ msgstr "ಟಿಪ್ಪಣಿ"
 msgid "Compare the name and photo with the person presenting the card."
 msgstr "ಕಾರ್ಡ್ ತೋರಿಸುತ್ತಿರುವ ವ್ಯಕ್ತಿಯೊಂದಿಗೆ ಹೆಸರು ಮತ್ತು ಫೋಟೋ ಹೋಲಿಸಿ."
 
-#: clinic\models.py:759
+#: clinic\models.py:778
 msgid "Complete serialized JSON representation of the object before deletion"
 msgstr "ಅಳಿಸುವ ಮೊದಲು ವಸ್ತುವಿನ ಸಂಪೂರ್ಣ JSON ರೂಪ"
 
@@ -2285,11 +2309,11 @@ msgstr "ಬುಕಿಂಗ್ ದೃಢೀಕರಿಸಿ"
 msgid "Confirm new password"
 msgstr "ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ದೃಢೀಕರಿಸಿ"
 
-#: clinic\models.py:633
+#: clinic\models.py:646
 msgid "Confirm the permission is on file before publishing."
 msgstr "ಪ್ರಕಟಿಸುವ ಮೊದಲು ಅನುಮತಿ ದಾಖಲೆಯಲ್ಲಿದೆ ಎಂದು ದೃಢೀಕರಿಸಿ."
 
-#: appointments\models.py:178 courses\models.py:177 events\models.py:250
+#: appointments\models.py:178 courses\models.py:179 events\models.py:252
 #: templates\appointments\calendar.html:474
 msgid "Confirmed"
 msgstr "ದೃಢೀಕರಿಸಲಾಗಿದೆ"
@@ -2329,7 +2353,7 @@ msgstr "ಸಮಾಲೋಚನೆ"
 msgid "Consultation type"
 msgstr "ಸಮಾಲೋಚನೆಯ ಪ್ರಕಾರ"
 
-#: patients\models.py:257 templates\patients\session_edit.html:77
+#: patients\models.py:258 templates\patients\session_edit.html:77
 #: templates\patients\session_form.html:70
 msgid "Consulted By"
 msgstr "ಸಮಾಲೋಚಿಸಿದವರು"
@@ -2355,7 +2379,7 @@ msgstr "ಸಂಪರ್ಕ ಮಾಹಿತಿ"
 msgid "Contact our front desk directly at:"
 msgstr "ನಮ್ಮ ಮುಂಭಾಗದ ಮೇಜನ್ನು ನೇರವಾಗಿ ಸಂಪರ್ಕಿಸಿ:"
 
-#: clinic\blog_models.py:42 templates\clinic\admin\translations.html:53
+#: clinic\blog_models.py:44 templates\clinic\admin\translations.html:53
 msgid "Content"
 msgstr "ವಿಷಯ"
 
@@ -2440,7 +2464,7 @@ msgstr "ಇಮೇಲ್ ಕಳುಹಿಸಲಾಗಲಿಲ್ಲ. ದಯವಿ
 msgid "Country code"
 msgstr "ದೇಶದ ಕೋಡ್"
 
-#: courses\models.py:67 courses\models.py:115 courses\models.py:203
+#: courses\models.py:69 courses\models.py:117 courses\models.py:205
 #: templates\clinic\home.html:214
 msgid "Course"
 msgstr "ಕೋರ್ಸ್"
@@ -2465,15 +2489,15 @@ msgstr "ಕೋರ್ಸ್ \"%(title)s\" ಅಳಿಸಲಾಗಿದೆ."
 msgid "Course \"%(title)s\" updated."
 msgstr "ಕೋರ್ಸ್ \"%(title)s\" ನವೀಕರಿಸಲಾಗಿದೆ."
 
-#: courses\models.py:142
+#: courses\models.py:144
 msgid "Course Batch"
 msgstr "ಕೋರ್ಸ್ ಬ್ಯಾಚ್"
 
-#: courses\models.py:143 templates\courses\batch_list.html:6
+#: courses\models.py:145 templates\courses\batch_list.html:6
 msgid "Course Batches"
 msgstr "ಕೋರ್ಸ್ ಬ್ಯಾಚ್‌ಗಳು"
 
-#: courses\models.py:34
+#: courses\models.py:36
 msgid "Course Content / Syllabus"
 msgstr "ಕೋರ್ಸ್ ವಿಷಯ / ಪಠ್ಯಕ್ರಮ"
 
@@ -2481,15 +2505,15 @@ msgstr "ಕೋರ್ಸ್ ವಿಷಯ / ಪಠ್ಯಕ್ರಮ"
 msgid "Course fee"
 msgstr "ಕೋರ್ಸ್ ಶುಲ್ಕ"
 
-#: courses\models.py:225
+#: courses\models.py:227
 msgid "Course Feedback"
 msgstr "ಕೋರ್ಸ್ ಪ್ರತಿಕ್ರಿಯೆ"
 
-#: courses\models.py:226
+#: courses\models.py:228
 msgid "Course Feedbacks"
 msgstr "ಕೋರ್ಸ್ ಪ್ರತಿಕ್ರಿಯೆಗಳು"
 
-#: courses\models.py:43
+#: courses\models.py:45
 msgid "Course Fees (₹)"
 msgstr "ಕೋರ್ಸ್ ಶುಲ್ಕ (₹)"
 
@@ -2501,19 +2525,19 @@ msgstr "ಕೋರ್ಸ್ ಶುಲ್ಕ (₹) *"
 msgid "Course Management - SpinalCure"
 msgstr "ಕೋರ್ಸ್ ನಿರ್ವಹಣೆ - SpinalCure"
 
-#: courses\models.py:185 payments\models.py:78
+#: courses\models.py:187 payments\models.py:79
 msgid "Course Registration"
 msgstr "ಕೋರ್ಸ್ ನೋಂದಣಿ"
 
-#: courses\models.py:186
+#: courses\models.py:188
 msgid "Course Registrations"
 msgstr "ಕೋರ್ಸ್ ನೋಂದಣಿಗಳು"
 
-#: clinic\models.py:386 payments\models.py:42
+#: clinic\models.py:386 payments\models.py:43
 msgid "Course Student"
 msgstr "ಕೋರ್ಸ್ ವಿದ್ಯಾರ್ಥಿ"
 
-#: courses\models.py:68 templates\clinic\course_detail.html:15
+#: courses\models.py:70 templates\clinic\course_detail.html:15
 #: templates\ui\sidebar.html:22
 msgid "Courses"
 msgstr "ಕೋರ್ಸ್‌ಗಳು"
@@ -2526,7 +2550,7 @@ msgstr "ಕೋರ್ಸ್‌ಗಳು ಮತ್ತು ಉಚಿತ ಆರೋಗ
 msgid "Cover"
 msgstr "ಮುಖಪುಟ"
 
-#: clinic\blog_models.py:47 courses\models.py:51
+#: clinic\blog_models.py:49 courses\models.py:53
 #: templates\clinic\admin\blog_form.html:72
 msgid "Cover Image"
 msgstr "ಮುಖಪುಟ ಚಿತ್ರ"
@@ -2540,7 +2564,7 @@ msgstr "ಮುಖಪುಟ ಚಿತ್ರ"
 msgid "Cover image"
 msgstr "ಮುಖಪುಟ ಚಿತ್ರ"
 
-#: clinic\models.py:707 clinic\templates\clinic\admin\activity_log.html:21
+#: clinic\models.py:726 clinic\templates\clinic\admin\activity_log.html:21
 #: clinic\templates\clinic\admin\activity_log.html:79
 msgid "Create"
 msgstr "ರಚಿಸಿ"
@@ -2589,7 +2613,7 @@ msgstr "ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು ದಾಖಲಿಸಲ�
 msgid "Create your first research article or health guide."
 msgstr "ನಿಮ್ಮ ಮೊದಲ ಸಂಶೋಧನಾ ಲೇಖನ ಅಥವಾ ಆರೋಗ್ಯ ಮಾರ್ಗದರ್ಶಿ ರಚಿಸಿ."
 
-#: accounts\models.py:138
+#: accounts\models.py:139
 msgid "Created At"
 msgstr "ರಚಿಸಿದ ಸಮಯ"
 
@@ -2605,7 +2629,7 @@ msgstr ""
 msgid "CSV Document"
 msgstr "CSV ದಾಖಲೆ"
 
-#: courses\models.py:132
+#: courses\models.py:134
 msgid "Current / Active Batch"
 msgstr "ಪ್ರಸ್ತುತ / ಸಕ್ರಿಯ ಬ್ಯಾಚ್"
 
@@ -2621,7 +2645,7 @@ msgstr "ಪ್ರಸ್ತುತ ಮುಖಪುಟ ಚಿತ್ರ"
 msgid "Current Image"
 msgstr "ಪ್ರಸ್ತುತ ಚಿತ್ರ"
 
-#: accounts\models.py:120
+#: accounts\models.py:121
 msgid "Current OTP Value"
 msgstr "ಪ್ರಸ್ತುತ OTP ಮೌಲ್ಯ"
 
@@ -2634,7 +2658,7 @@ msgstr "ಪ್ರಸ್ತುತ ಫೋಟೋ"
 msgid "Current photo. Upload a new one to replace it."
 msgstr "ಪ್ರಸ್ತುತ ಫೋಟೋ. ಬದಲಿಸಲು ಹೊಸದನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ."
 
-#: accounts\models.py:122
+#: accounts\models.py:123
 msgid "Current valid OTP code"
 msgstr "ಪ್ರಸ್ತುತ ಮಾನ್ಯ OTP ಕೋಡ್"
 
@@ -2646,7 +2670,7 @@ msgstr "ಪಠ್ಯಕ್ರಮ"
 msgid "d"
 msgstr "ದಿ"
 
-#: accounts\models.py:216
+#: accounts\models.py:217
 msgid "Daily OTP request limit exceeded. Try again tomorrow."
 msgstr "ದೈನಂದಿನ OTP ವಿನಂತಿ ಮಿತಿ ಮೀರಿದೆ. ನಾಳೆ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
 
@@ -2654,7 +2678,7 @@ msgstr "ದೈನಂದಿನ OTP ವಿನಂತಿ ಮಿತಿ ಮೀರಿ�
 msgid "Dark"
 msgstr "ಡಾರ್ಕ್"
 
-#: templates\base.html:66 templates\ui\sidebar.html:5
+#: templates\base.html:76 templates\ui\sidebar.html:5
 msgid "Dashboard"
 msgstr "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್"
 
@@ -2666,7 +2690,7 @@ msgstr "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ - SpinalCure"
 msgid "Dashboard Overview"
 msgstr "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಅವಲೋಕನ"
 
-#: appointments\models.py:215 events\models.py:68 payments\models.py:325
+#: appointments\models.py:215 events\models.py:70 payments\models.py:326
 #: templates\appointments\appointment_list.html:72
 msgid "Date"
 msgstr "ದಿನಾಂಕ"
@@ -2691,7 +2715,7 @@ msgstr "ದಿನಾಂಕ ಹಿಂದಿನದಾಗಿರಬಾರದು."
 msgid "Date of birth"
 msgstr "ಜನ್ಮ ದಿನಾಂಕ"
 
-#: patients\models.py:59 templates\patients\patient_form.html:84
+#: patients\models.py:60 templates\patients\patient_form.html:84
 #: templates\patients\portal\dashboard.html:150
 msgid "Date of Birth"
 msgstr "ಜನ್ಮ ದಿನಾಂಕ"
@@ -2703,6 +2727,15 @@ msgstr "ನೀಡಿದ ದಿನಾಂಕ"
 #: appointments\models.py:34 templates\appointments\calendar.html:509
 msgid "Day"
 msgstr "ದಿನ"
+
+#: templates\appointments\availability.html:114
+msgid "Days the whole clinic is closed, for every doctor."
+msgstr "ಇಡೀ ಕ್ಲಿನಿಕ್ ಮುಚ್ಚಿರುವ ದಿನಗಳು, ಎಲ್ಲಾ ವೈದ್ಯರಿಗೆ."
+
+#: templates\appointments\availability.html:87
+msgid "Days this doctor is away. No appointments can be booked on them."
+msgstr ""
+"ಈ ವೈದ್ಯರು ಇಲ್ಲದ ದಿನಗಳು. ಆ ದಿನಗಳಲ್ಲಿ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಬುಕ್ ಮಾಡಲಾಗುವುದಿಲ್ಲ."
 
 #: idcards\templates\idcards\detail.html:34
 msgid "Deactivate"
@@ -2725,14 +2758,14 @@ msgstr "ಡೀಫಾಲ್ಟ್ ತೆರಿಗೆ %"
 msgid "Define the core name and public summary of your course."
 msgstr "ನಿಮ್ಮ ಕೋರ್ಸ್‌ನ ಮುಖ್ಯ ಹೆಸರು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸಾರಾಂಶವನ್ನು ನಿರ್ಧರಿಸಿ."
 
-#: clinic\models.py:709 clinic\templates\clinic\admin\activity_log.html:23
+#: clinic\models.py:728 clinic\templates\clinic\admin\activity_log.html:23
 #: clinic\templates\clinic\admin\activity_log.html:87
 #: clinic\templates\clinic\admin\practitioners_list.html:53
 msgid "Delete"
 msgstr "ಅಳಿಸಿ"
 
 #: templates\appointments\calendar.html:572
-#: templates\appointments\partials\appointment_list_partial.html:56
+#: templates\appointments\partials\appointment_list_partial.html:60
 msgid "Delete Appointment"
 msgstr "ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಅಳಿಸಿ"
 
@@ -2815,7 +2848,7 @@ msgstr "ತಲುಪಿಸಲಾಗಿದೆ."
 msgid "Delivery log"
 msgstr "ವಿತರಣಾ ಲಾಗ್"
 
-#: accounts\models.py:110
+#: accounts\models.py:111
 msgid "Delivery Method"
 msgstr "ಕಳುಹಿಸುವ ವಿಧಾನ"
 
@@ -2836,7 +2869,7 @@ msgstr "ವಿಭಾಗ"
 msgid "Describe your service..."
 msgstr "ನಿಮ್ಮ ಸೇವೆಯನ್ನು ವಿವರಿಸಿ..."
 
-#: events\models.py:60 patients\models.py:157 payments\models.py:150
+#: events\models.py:62 patients\models.py:158 payments\models.py:151
 msgid "Description"
 msgstr "ವಿವರಣೆ"
 
@@ -2865,7 +2898,7 @@ msgstr "ಹುದ್ದೆ ಟ್ಯಾಗ್"
 msgid "Designation Tag (e.g. Chief Acupuncture Doctor)"
 msgstr "ಹುದ್ದೆ ಟ್ಯಾಗ್ (ಉದಾ. ಮುಖ್ಯ ಆಕ್ಯುಪಂಕ್ಚರ್ ವೈದ್ಯರು)"
 
-#: templates\components\credits.html:4
+#: templates\components\credits.html:11
 msgid "Designed & developed by"
 msgstr "ವಿನ್ಯಾಸ & ಅಭಿವೃದ್ಧಿ"
 
@@ -2886,7 +2919,7 @@ msgstr ""
 msgid "Detailed Changes"
 msgstr "ವಿವರವಾದ ಬದಲಾವಣೆಗಳು"
 
-#: courses\models.py:35
+#: courses\models.py:37
 msgid ""
 "Detailed module/topic list. One topic per line or use markdown-style "
 "numbering."
@@ -2910,7 +2943,7 @@ msgstr "ವಿವರಗಳು ಮತ್ತು ನೋಂದಣಿ"
 msgid "Details of %(event)s changed. It is now on %(date)s at %(time)s."
 msgstr "%(event)s ವಿವರಗಳು ಬದಲಾಗಿವೆ. ಇದು ಈಗ %(date)s ರಂದು %(time)s ಕ್ಕೆ."
 
-#: templates\components\credits.html:10
+#: templates\components\credits.html:25
 msgid "Developer"
 msgstr "ಡೆವಲಪರ್"
 
@@ -2918,7 +2951,7 @@ msgstr "ಡೆವಲಪರ್"
 msgid "Diagnosis (Case Sheet)"
 msgstr "ರೋಗನಿರ್ಣಯ (ಕೇಸ್ ಶೀಟ್)"
 
-#: patients\models.py:413
+#: patients\models.py:414
 msgid "Diagnosis Data"
 msgstr "ರೋಗನಿರ್ಣಯ ಡೇಟಾ"
 
@@ -2934,8 +2967,8 @@ msgstr "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ"
 msgid "Disable Feedback Form"
 msgstr "ಪ್ರತಿಕ್ರಿಯೆ ಫಾರ್ಮ್ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ"
 
-#: notifications\templates\notifications\_list.html:24 templates\base.html:75
-#: templates\base.html:93 templates\public_base.html:93
+#: notifications\templates\notifications\_list.html:24 templates\base.html:85
+#: templates\base.html:103 templates\public_base.html:97
 msgid "Dismiss"
 msgstr "ವಜಾಗೊಳಿಸಿ"
 
@@ -2943,12 +2976,12 @@ msgstr "ವಜಾಗೊಳಿಸಿ"
 msgid "Display Order"
 msgstr "ಪ್ರದರ್ಶನ ಕ್ರಮ"
 
-#: clinic\models.py:359 clinic\models.py:619 clinic\models.py:662
-#: patients\models.py:159
+#: clinic\models.py:359 clinic\models.py:632 clinic\models.py:666
+#: patients\models.py:160
 msgid "Display order"
 msgstr "ಪ್ರದರ್ಶನ ಕ್ರಮ"
 
-#: courses\models.py:26
+#: courses\models.py:28
 msgid "Displayed on the portfolio card."
 msgstr "ಪೋರ್ಟ್‌ಫೋಲಿಯೋ ಕಾರ್ಡ್‌ನಲ್ಲಿ ತೋರಿಸಲಾಗುತ್ತದೆ."
 
@@ -2967,7 +3000,7 @@ msgstr ""
 msgid "DOB"
 msgstr "ಜನ್ಮ ದಿನಾಂಕ"
 
-#: accounts\models.py:25 templates\analytics\dashboard.html:96
+#: accounts\models.py:26 templates\analytics\dashboard.html:96
 msgid "Doctor"
 msgstr "ವೈದ್ಯರು"
 
@@ -3031,7 +3064,7 @@ msgstr "ಡಾ. %(name)s ಈ ಸಮಯದಲ್ಲಿ ಈಗಾಗಲೇ %(name2
 msgid "Dr., Prof., etc."
 msgstr "ಡಾ., ಪ್ರೊ., ಇತ್ಯಾದಿ."
 
-#: clinic\blog_models.py:29 events\models.py:92
+#: clinic\blog_models.py:31 events\models.py:94
 #: templates\clinic\admin\blog_list.html:81
 #: templates\courses\partials\course_list_partial.html:29
 msgid "Draft"
@@ -3045,11 +3078,11 @@ msgstr "ಕರಡು: ವೈದ್ಯರ ಪರಿಶೀಲನೆ ಬೇಕು"
 msgid "Drug-free relief: no painkillers, no side effects."
 msgstr "ಔಷಧಿ ರಹಿತ ಪರಿಹಾರ: ನೋವು ನಿವಾರಕಗಳಿಲ್ಲ, ಅಡ್ಡಪರಿಣಾಮಗಳಿಲ್ಲ."
 
-#: courses\models.py:47
+#: courses\models.py:49
 msgid "Duration"
 msgstr "ಅವಧಿ"
 
-#: appointments\models.py:221 patients\models.py:270
+#: appointments\models.py:221 patients\models.py:271
 msgid "Duration (mins)"
 msgstr "ಅವಧಿ (ನಿಮಿಷ)"
 
@@ -3066,11 +3099,11 @@ msgstr "ಅವಧಿ 5 ರಿಂದ 480 ನಿಮಿಷಗಳ ನಡುವೆ �
 msgid "Duration:"
 msgstr "ಅವಧಿ:"
 
-#: courses\models.py:119
+#: courses\models.py:121
 msgid "e.g. \"2025 Batch\", \"Batch 3 — June 2024\""
 msgstr "ಉದಾ. \"2025 ಬ್ಯಾಚ್\", \"ಬ್ಯಾಚ್ 3 — ಜೂನ್ 2024\""
 
-#: clinic\models.py:612
+#: clinic\models.py:625
 msgid "e.g. \"Actor\", \"Cricketer\"."
 msgstr "ಉದಾ. \"ನಟ\", \"ಕ್ರಿಕೆಟಿಗ\"."
 
@@ -3086,7 +3119,7 @@ msgstr ""
 msgid "e.g. \"Spring Intake 2025\" or \"Advanced Certification — Batch 3\""
 msgstr "ಉದಾ. \"Spring Intake 2025\" ಅಥವಾ \"Advanced Certification — Batch 3\""
 
-#: courses\models.py:48
+#: courses\models.py:50
 msgid "e.g. 3 months, 12 weeks"
 msgstr "ಉದಾ. 3 ತಿಂಗಳು, 12 ವಾರಗಳು"
 
@@ -3103,7 +3136,7 @@ msgstr "ಉದಾ. ಡಾ. ಪ್ರಿಯಾ ಶರ್ಮ"
 msgid "e.g. Dry Needling, Tui Na..."
 msgstr "ಉದಾ. ಡ್ರೈ ನೀಡ್ಲಿಂಗ್, ತುಯಿ ನಾ..."
 
-#: courses\models.py:125
+#: courses\models.py:127
 msgid "e.g. Every Saturday 10AM–1PM"
 msgstr "ಉದಾ. ಪ್ರತಿ ಶನಿವಾರ ಬೆ.10–ಮ.1"
 
@@ -3124,9 +3157,13 @@ msgstr "ಉದಾ. ದೀರ್ಘಕಾಲದ ಬೆನ್ನುನೋವನ್
 msgid "e.g. Lower Back Pain 2026"
 msgstr "ಉದಾ. ಕೆಳ ಬೆನ್ನುನೋವು 2026"
 
-#: clinic\models.py:730
+#: clinic\models.py:749
 msgid "e.g. Patient, Payment, Session, Course, Event, Appointment"
 msgstr "ಉದಾ. ರೋಗಿ, ಪಾವತಿ, ಅವಧಿ, ಕೋರ್ಸ್, ಕಾರ್ಯಕ್ರಮ, ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್"
+
+#: templates\appointments\availability.html:121
+msgid "e.g. Pongal holiday"
+msgstr "ಉದಾ. ಪೊಂಗಲ್ ರಜೆ"
 
 #: templates\clinic\admin\testimonial_form.html:88
 msgid "e.g., 2 months ago"
@@ -3164,7 +3201,7 @@ msgstr "ಭೂಮಿ"
 #: accounts\templates\accounts\admin\users_list.html:80
 #: clinic\templates\clinic\admin\practitioner_form.html:4
 #: clinic\templates\clinic\admin\practitioners_list.html:48
-#: templates\appointments\availability.html:55
+#: templates\clinic\admin\blog_list.html:110
 msgid "Edit"
 msgstr "ತಿದ್ದಿ"
 
@@ -3235,10 +3272,6 @@ msgstr "ಅವಧಿ #%(session_number)s ತಿದ್ದಿ — SpinalCure"
 msgid "Edit Session Record"
 msgstr "ಅವಧಿ ದಾಖಲೆ ತಿದ್ದಿ"
 
-#: templates\appointments\availability.html:125
-msgid "Edit shift"
-msgstr "ಪಾಳಿ ತಿದ್ದಿ"
-
 #: templates\clinic\admin\testimonial_form.html:5
 msgid "Edit Testimonial"
 msgstr "ಪ್ರಶಂಸಾಪತ್ರ ತಿದ್ದಿ"
@@ -3262,7 +3295,7 @@ msgstr "ತಿದ್ದಿ: %(title)s"
 msgid "Edited"
 msgstr "ತಿದ್ದಲಾಗಿದೆ"
 
-#: clinic\models.py:796
+#: clinic\models.py:815
 msgid "Edited by staff"
 msgstr "ಸಿಬ್ಬಂದಿ ತಿದ್ದಿದ್ದಾರೆ"
 
@@ -3282,7 +3315,7 @@ msgstr "ಜಾರಿ ಅಂತ್ಯ"
 msgid "Either email or phone number is required."
 msgstr "ಇಮೇಲ್ ಅಥವಾ ಫೋನ್ ಸಂಖ್ಯೆ ಅಗತ್ಯ."
 
-#: accounts\models.py:97 accounts\templates\accounts\admin\user_form.html:53
+#: accounts\models.py:98 accounts\templates\accounts\admin\user_form.html:53
 #: clinic\models.py:44 clinic\templates\clinic\admin\clinic_setup.html:252
 msgid "Email"
 msgstr "ಇಮೇಲ್"
@@ -3301,7 +3334,7 @@ msgstr "ಇಮೇಲ್ (ಐಚ್ಛಿಕ)"
 msgid "Email Address"
 msgstr "ಇಮೇಲ್ ವಿಳಾಸ"
 
-#: patients\models.py:38
+#: patients\models.py:39
 msgid "Email notifications"
 msgstr "ಇಮೇಲ್ ಅಧಿಸೂಚನೆಗಳು"
 
@@ -3309,7 +3342,7 @@ msgstr "ಇಮೇಲ್ ಅಧಿಸೂಚನೆಗಳು"
 msgid "Email sent successfully."
 msgstr "ಇಮೇಲ್ ಯಶಸ್ವಿಯಾಗಿ ಕಳುಹಿಸಲಾಗಿದೆ."
 
-#: accounts\models.py:58
+#: accounts\models.py:59
 msgid "Email Verified"
 msgstr "ಇಮೇಲ್ ಪರಿಶೀಲಿಸಲಾಗಿದೆ"
 
@@ -3346,7 +3379,7 @@ msgstr "ಉದ್ಯೋಗ ಸ್ಥಿತಿ"
 msgid "Enable"
 msgstr "ಸಕ್ರಿಯಗೊಳಿಸಿ"
 
-#: courses\models.py:137
+#: courses\models.py:139
 msgid "Enable after the batch ends so alumni can submit reviews."
 msgstr "ಹಳೆಯ ವಿದ್ಯಾರ್ಥಿಗಳು ವಿಮರ್ಶೆ ಸಲ್ಲಿಸಲು ಬ್ಯಾಚ್ ಮುಗಿದ ನಂತರ ಸಕ್ರಿಯಗೊಳಿಸಿ."
 
@@ -3368,11 +3401,11 @@ msgid ""
 msgstr ""
 "ಭಾಗವಹಿಸಿದವರು ತಮ್ಮ ಅನುಭವ ಹಂಚಿಕೊಳ್ಳಲು ಮೇಲಿನ ಪ್ರತಿಕ್ರಿಯೆ ಫಾರ್ಮ್ ಸಕ್ರಿಯಗೊಳಿಸಿ."
 
-#: events\models.py:120
+#: events\models.py:122
 msgid "Enable this after the event to allow attendees to leave feedback."
 msgstr "ಭಾಗವಹಿಸಿದವರು ಪ್ರತಿಕ್ರಿಯೆ ನೀಡಲು ಕಾರ್ಯಕ್ರಮದ ನಂತರ ಇದನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."
 
-#: courses\models.py:122
+#: courses\models.py:124
 msgid "End Date"
 msgstr "ಅಂತಿಮ ದಿನಾಂಕ"
 
@@ -3380,7 +3413,7 @@ msgstr "ಅಂತಿಮ ದಿನಾಂಕ"
 msgid "End date cannot be before the start date."
 msgstr "ಅಂತಿಮ ದಿನಾಂಕ ಆರಂಭ ದಿನಾಂಕಕ್ಕಿಂತ ಮೊದಲು ಇರಬಾರದು."
 
-#: appointments\models.py:38 events\models.py:72
+#: appointments\models.py:38 events\models.py:74
 msgid "End Time"
 msgstr "ಅಂತಿಮ ಸಮಯ"
 
@@ -3396,7 +3429,7 @@ msgstr "ಮುಕ್ತಾಯ ದಿನಾಂಕ (ಐಚ್ಛಿಕ)"
 msgid "Engagement"
 msgstr "ತೊಡಗಿಸಿಕೊಳ್ಳುವಿಕೆ"
 
-#: spinalcure\settings\base.py:125
+#: spinalcure\settings\base.py:126
 msgid "English"
 msgstr "ಇಂಗ್ಲಿಷ್"
 
@@ -3449,7 +3482,7 @@ msgstr "ಸರಿಯಾದ ಪ್ಯಾಕೇಜ್ ಬೆಲೆ ನಮೂದಿ
 msgid "Enter a valid refund amount."
 msgstr "ಮಾನ್ಯ ಮರುಪಾವತಿ ಮೊತ್ತ ನಮೂದಿಸಿ."
 
-#: clinic\models.py:544 clinic\models.py:681
+#: clinic\models.py:544 clinic\models.py:685
 msgid "Enter a YouTube, YouTube Shorts or Instagram reel link."
 msgstr "YouTube, YouTube Shorts ಅಥವಾ Instagram reel ಲಿಂಕ್ ನಮೂದಿಸಿ."
 
@@ -3474,7 +3507,7 @@ msgstr ""
 "ನಿಮ್ಮ ವೈದ್ಯಕೀಯ ದಾಖಲೆಗಳು ಮತ್ತು ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳನ್ನು ನೋಡಲು ನೋಂದಾಯಿತ ಫೋನ್ "
 "ಸಂಖ್ಯೆ ನಮೂದಿಸಿ."
 
-#: payments\models.py:295
+#: payments\models.py:296
 msgid "Equipment & Instruments"
 msgstr "ಉಪಕರಣಗಳು ಮತ್ತು ಸಾಧನಗಳು"
 
@@ -3565,7 +3598,20 @@ msgstr "ಕೋರ್ಸ್ ಬ್ಯಾಚ್ ಸ್ಥಾಪಿಸಿ"
 msgid "Estimated Duration *"
 msgstr "ಅಂದಾಜು ಅವಧಿ *"
 
-#: events\models.py:136 events\models.py:243 events\models.py:280
+#: appointments\schedule_views.py:98
+#: templates\appointments\availability.html:57
+msgid "Evening"
+msgstr "ಸಂಜೆ"
+
+#: templates\appointments\availability.html:59
+msgid "Evening from"
+msgstr "ಸಂಜೆ ಇಂದ"
+
+#: templates\appointments\availability.html:61
+msgid "Evening until"
+msgstr "ಸಂಜೆ ವರೆಗೆ"
+
+#: events\models.py:138 events\models.py:245 events\models.py:282
 #: notifications\templates\notifications\deliveries.html:12
 msgid "Event"
 msgstr "ಕಾರ್ಯಕ್ರಮ"
@@ -3589,11 +3635,11 @@ msgstr "ಕಾರ್ಯಕ್ರಮದ ಪಾಲ್ಗೊಳ್ಳುವವರ�
 msgid "Event cancelled: %(event)s"
 msgstr "ಕಾರ್ಯಕ್ರಮ ರದ್ದಾಗಿದೆ: %(event)s"
 
-#: events\models.py:305 templates\events\event_feedback_admin.html:6
+#: events\models.py:307 templates\events\event_feedback_admin.html:6
 msgid "Event Feedback"
 msgstr "ಕಾರ್ಯಕ್ರಮ ಪ್ರತಿಕ್ರಿಯೆ"
 
-#: events\models.py:306
+#: events\models.py:308
 msgid "Event Feedbacks"
 msgstr "ಕಾರ್ಯಕ್ರಮ ಪ್ರತಿಕ್ರಿಯೆಗಳು"
 
@@ -3601,15 +3647,15 @@ msgstr "ಕಾರ್ಯಕ್ರಮ ಪ್ರತಿಕ್ರಿಯೆಗಳು"
 msgid "Event language"
 msgstr "ಕಾರ್ಯಕ್ರಮದ ಭಾಷೆ"
 
-#: payments\models.py:43
+#: payments\models.py:44
 msgid "Event Participant"
 msgstr "ಕಾರ್ಯಕ್ರಮದ ಭಾಗವಹಿಸುವವರು"
 
-#: events\models.py:262 payments\models.py:86
+#: events\models.py:264 payments\models.py:87
 msgid "Event Registration"
 msgstr "ಕಾರ್ಯಕ್ರಮ ನೋಂದಣಿ"
 
-#: events\models.py:263 templates\events\event_registrations.html:6
+#: events\models.py:265 templates\events\event_registrations.html:6
 msgid "Event Registrations"
 msgstr "ಕಾರ್ಯಕ್ರಮ ನೋಂದಣಿಗಳು"
 
@@ -3622,7 +3668,7 @@ msgstr "ಕಾರ್ಯಕ್ರಮದ ಸ್ಥಿತಿ"
 msgid "Event updated: %(event)s"
 msgstr "ಕಾರ್ಯಕ್ರಮ ನವೀಕರಿಸಲಾಗಿದೆ: %(event)s"
 
-#: events\models.py:137 templates\public\footer.html:37
+#: events\models.py:139 templates\public\footer.html:37
 #: templates\public\header.html:32 templates\public\header.html:61
 msgid "Events"
 msgstr "ಕಾರ್ಯಕ್ರಮಗಳು"
@@ -3663,7 +3709,7 @@ msgstr "ಎಲ್ಲವೂ"
 msgid "Excel Spreadsheet"
 msgstr "Excel ಸ್ಪ್ರೆಡ್‌ಶೀಟ್"
 
-#: clinic\blog_models.py:39
+#: clinic\blog_models.py:41
 msgid "Excerpt"
 msgstr "ಸಾರಾಂಶ"
 
@@ -3672,7 +3718,7 @@ msgstr "ಸಾರಾಂಶ"
 msgid "Existing Tags (%(count)s)"
 msgstr "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಟ್ಯಾಗ್‌ಗಳು (%(count)s)"
 
-#: payments\models.py:346
+#: payments\models.py:347
 msgid "Expense"
 msgstr "ಖರ್ಚು"
 
@@ -3691,7 +3737,7 @@ msgstr "ಖರ್ಚು \"%(title)s\" ಯಶಸ್ವಿಯಾಗಿ ದಾಖ�
 msgid "Expense \"%(title)s\" updated."
 msgstr "ಖರ್ಚು \"%(title)s\" ನವೀಕರಿಸಲಾಗಿದೆ."
 
-#: payments\models.py:360
+#: payments\models.py:361
 msgid "Expense date cannot be in the future."
 msgstr "ಖರ್ಚಿನ ದಿನಾಂಕ ಭವಿಷ್ಯದಲ್ಲಿ ಇರಬಾರದು."
 
@@ -3703,7 +3749,7 @@ msgstr "ಖರ್ಚಿನ ವಿವರಗಳು"
 msgid "Expense Management"
 msgstr "ಖರ್ಚು ನಿರ್ವಹಣೆ"
 
-#: payments\models.py:347 templates\ui\sidebar.html:16
+#: payments\models.py:348 templates\ui\sidebar.html:16
 msgid "Expenses"
 msgstr "ಖರ್ಚುಗಳು"
 
@@ -3723,7 +3769,7 @@ msgstr "ಅವಧಿ ಮುಗಿದಿದೆ"
 msgid "Expires"
 msgstr "ಅವಧಿ"
 
-#: accounts\models.py:142
+#: accounts\models.py:143
 msgid "Expires At"
 msgstr "ಅವಧಿ ಮುಗಿಯುವ ಸಮಯ"
 
@@ -3780,7 +3826,7 @@ msgstr "OTP ಕಳುಹಿಸಲು ವಿಫಲವಾಗಿದೆ. ದಯವ�
 msgid "Failed to send PIN. Check email settings."
 msgstr "PIN ಕಳುಹಿಸಲು ವಿಫಲವಾಗಿದೆ. ಇಮೇಲ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ."
 
-#: accounts\models.py:132
+#: accounts\models.py:133
 msgid "Failed Verification Attempts"
 msgstr "ವಿಫಲ ಪರಿಶೀಲನಾ ಪ್ರಯತ್ನಗಳು"
 
@@ -3792,16 +3838,16 @@ msgstr "ಪದೇಪದೇ ಕೇಳುವ ಪ್ರಶ್ನೆ"
 msgid "FAQs"
 msgstr "ಪದೇಪದೇ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು"
 
-#: clinic\models.py:659 templates\clinic\admin\gallery.html:29
-#: templates\clinic\gallery.html:33
+#: clinic\models.py:663 templates\clinic\admin\gallery.html:29
+#: templates\clinic\gallery.html:34
 msgid "Featured"
 msgstr "ವಿಶೇಷ"
 
-#: clinic\models.py:660
+#: clinic\models.py:664
 msgid "Featured label"
 msgstr "ವಿಶೇಷ ಲೇಬಲ್"
 
-#: clinic\models.py:625 templates\clinic\partials\featured_patients.html:15
+#: clinic\models.py:638 templates\clinic\partials\featured_patients.html:15
 msgid "Featured patient"
 msgstr "ವಿಶೇಷ ರೋಗಿ"
 
@@ -3817,7 +3863,7 @@ msgstr "ವಿಶೇಷ ರೋಗಿಯನ್ನು ತೆಗೆಯಲಾಗಿ�
 msgid "Featured patient saved."
 msgstr "ವಿಶೇಷ ರೋಗಿಯನ್ನು ಉಳಿಸಲಾಗಿದೆ."
 
-#: clinic\models.py:626 templates\clinic\admin\featured.html:3
+#: clinic\models.py:639 templates\clinic\admin\featured.html:3
 #: templates\clinic\admin\featured.html:4
 #: templates\clinic\admin\featured_form.html:5
 msgid "Featured patients"
@@ -3842,7 +3888,7 @@ msgstr "ಶುಲ್ಕ"
 #: templates\clinic\testimonials_public.html:13
 #: templates\courses\batch_list.html:74
 #: templates\events\partials\event_list_partial.html:79
-#: templates\public_base.html:68
+#: templates\public_base.html:72
 msgid "Feedback"
 msgstr "ಪ್ರತಿಕ್ರಿಯೆ"
 
@@ -3878,7 +3924,7 @@ msgstr "ಬ್ಯಾಚ್ \"%(name)s\" ಗೆ ಪ್ರತಿಕ್ರಿಯೆ
 msgid "Feedback form %(value1)s for \"%(title)s\"."
 msgstr "\"%(title)s\" ಗೆ ಪ್ರತಿಕ್ರಿಯೆ ಫಾರ್ಮ್ %(value1)s."
 
-#: courses\models.py:136 events\models.py:119
+#: courses\models.py:138 events\models.py:121
 msgid "Feedback Form Enabled"
 msgstr "ಪ್ರತಿಕ್ರಿಯೆ ಫಾರ್ಮ್ ಸಕ್ರಿಯವಾಗಿದೆ"
 
@@ -3912,7 +3958,7 @@ msgstr "ಪ್ರತಿಕ್ರಿಯೆ — %(name)s"
 msgid "Feedback — %(title)s"
 msgstr "ಪ್ರತಿಕ್ರಿಯೆ — %(title)s"
 
-#: events\models.py:131
+#: events\models.py:133
 msgid "Fees (₹)"
 msgstr "ಶುಲ್ಕ (₹)"
 
@@ -3921,9 +3967,9 @@ msgstr "ಶುಲ್ಕ (₹)"
 msgid "Fees are non-refundable."
 msgstr "ಶುಲ್ಕ ಹಿಂದಿರುಗಿಸಲಾಗುವುದಿಲ್ಲ."
 
-#: accounts\models.py:339 clinic\models.py:190
+#: accounts\models.py:340 clinic\models.py:190
 #: clinic\templates\clinic\admin\practitioner_form.html:39
-#: patients\models.py:19
+#: patients\models.py:20
 msgid "Female"
 msgstr "ಹೆಣ್ಣು"
 
@@ -4041,6 +4087,8 @@ msgstr "ಚೀಟಿಯಲ್ಲಿ ತೋರಿಸುವ ಪಠ್ಯ, ಉದ�
 msgid "Friday"
 msgstr "ಶುಕ್ರವಾರ"
 
+#: templates\appointments\availability.html:91
+#: templates\appointments\availability.html:119
 #: templates\payments\report.html:8
 msgid "From"
 msgstr "ಇಂದ"
@@ -4065,7 +4113,7 @@ msgstr "ಪೂರ್ಣ ವಿಳಾಸ"
 msgid "Full Course Title *"
 msgstr "ಪೂರ್ಣ ಕೋರ್ಸ್ ಶೀರ್ಷಿಕೆ *"
 
-#: courses\models.py:28
+#: courses\models.py:30
 msgid "Full Description"
 msgstr "ಪೂರ್ಣ ವಿವರಣೆ"
 
@@ -4074,8 +4122,8 @@ msgstr "ಪೂರ್ಣ ವಿವರಣೆ"
 msgid "Full Mobility"
 msgstr "ಪೂರ್ಣ ಚಲನಶೀಲತೆ"
 
-#: clinic\models.py:194 courses\models.py:172 events\models.py:245
-#: patients\models.py:26
+#: clinic\models.py:194 courses\models.py:174 events\models.py:247
+#: patients\models.py:27
 msgid "Full Name"
 msgstr "ಪೂರ್ಣ ಹೆಸರು"
 
@@ -4117,17 +4165,17 @@ msgstr "ಪೂರ್ಣ ಕಥೆ, ಪರಿಣಾಮ ಅಂಕಿಅಂಶಗ�
 msgid "Full Syllabus / Modules *"
 msgstr "ಪೂರ್ಣ ಪಠ್ಯಕ್ರಮ / ಮಾಡ್ಯೂಲ್‌ಗಳು *"
 
-#: payments\models.py:30
+#: payments\models.py:31
 msgid "Fully Paid"
 msgstr "ಪೂರ್ಣವಾಗಿ ಪಾವತಿಸಲಾಗಿದೆ"
 
-#: clinic\models.py:669 templates\clinic\admin\gallery.html:3
+#: clinic\models.py:673 templates\clinic\admin\gallery.html:3
 #: templates\clinic\admin\gallery.html:4
 #: templates\clinic\admin\gallery_form.html:5
 msgid "Gallery"
 msgstr "ಗ್ಯಾಲರಿ"
 
-#: clinic\models.py:668
+#: clinic\models.py:672
 msgid "Gallery item"
 msgstr "ಗ್ಯಾಲರಿ ಅಂಶ"
 
@@ -4171,7 +4219,7 @@ msgstr "ಸಾಮಾನ್ಯ ಮಾಹಿತಿ ನವೀಕರಿಸಲಾಗ�
 msgid "Generate a new payment record for treatment fees"
 msgstr "ಚಿಕಿತ್ಸಾ ಶುಲ್ಕಕ್ಕಾಗಿ ಹೊಸ ಪಾವತಿ ದಾಖಲೆ ರಚಿಸಿ"
 
-#: templates\payments\invoice.html:517
+#: templates\payments\invoice.html:531
 msgid "Generated by SpinalCure Healthcare Suite"
 msgstr "SpinalCure Healthcare Suite ನಿಂದ ರಚಿಸಲಾಗಿದೆ"
 
@@ -4257,7 +4305,7 @@ msgstr "ಗಂ"
 msgid "Handled By"
 msgstr "ನಿರ್ವಹಿಸಿದವರು"
 
-#: patients\models.py:89
+#: patients\models.py:90
 msgid "Handled By (Doctor)"
 msgstr "ನಿರ್ವಹಿಸಿದ ವೈದ್ಯರು"
 
@@ -4278,7 +4326,7 @@ msgstr "ಆರೋಗ್ಯ ಲೇಖನಗಳು — SpinalCure"
 msgid "Health Blog"
 msgstr "ಆರೋಗ್ಯ ಬ್ಲಾಗ್"
 
-#: events\models.py:26
+#: events\models.py:28
 msgid "Health Camp"
 msgstr "ಆರೋಗ್ಯ ಶಿಬಿರ"
 
@@ -4335,7 +4383,7 @@ msgstr "ಪಾಸ್‌ವರ್ಡ್ ಮರೆಮಾಡಿ"
 msgid "High resolution JPG/WebP preferred. Aspect 16:9."
 msgstr "ಹೆಚ್ಚಿನ ರೆಸಲ್ಯೂಶನ್ JPG/WebP ಉತ್ತಮ. ಅನುಪಾತ 16:9."
 
-#: spinalcure\settings\base.py:127
+#: spinalcure\settings\base.py:128
 msgid "Hindi"
 msgstr "ಹಿಂದಿ"
 
@@ -4357,9 +4405,15 @@ msgstr "ಮುಖಪುಟ"
 msgid "Home address"
 msgstr "ಮನೆಯ ವಿಳಾಸ"
 
-#: accounts\models.py:343
+#: accounts\models.py:344
 msgid "Home address, printed on the ID card."
 msgstr "ಮನೆಯ ವಿಳಾಸ, ಗುರುತಿನ ಚೀಟಿಯಲ್ಲಿ ಮುದ್ರಿಸಲಾಗುತ್ತದೆ."
+
+#: templates\appointments\availability.html:147
+msgid ""
+"How far ahead patients can book, cancellation limits and reminder timing."
+msgstr ""
+"ರೋಗಿಗಳು ಎಷ್ಟು ಮುಂಚಿತವಾಗಿ ಬುಕ್ ಮಾಡಬಹುದು, ರದ್ದತಿ ಮಿತಿಗಳು ಮತ್ತು ಜ್ಞಾಪನೆ ಸಮಯ."
 
 #: templates\patients\session_edit.html:137
 #: templates\patients\session_form.html:125
@@ -4382,7 +4436,7 @@ msgstr "ಕೋರ್ಸ್ ಹೇಗಿತ್ತು?"
 msgid "How your treatment works"
 msgstr "ನಿಮ್ಮ ಚಿಕಿತ್ಸೆ ಹೇಗೆ ನಡೆಯುತ್ತದೆ"
 
-#: clinic\models.py:741
+#: clinic\models.py:760
 msgid "Human-readable string of the affected record"
 msgstr "ಪರಿಣಾಮಿತ ದಾಖಲೆಯ ಓದಬಹುದಾದ ವಿವರಣೆ"
 
@@ -4507,11 +4561,11 @@ msgstr "ಮರುನಿಗದಿ ಅಥವಾ ರದ್ದು ಮಾಡಬೇಕ
 msgid "IFSC Code"
 msgstr "IFSC ಕೋಡ್"
 
-#: spinalcure\uploads.py:50
+#: spinalcure\uploads.py:205
 msgid "Image dimensions are too large."
 msgstr "ಚಿತ್ರದ ಗಾತ್ರ ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ."
 
-#: spinalcure\uploads.py:41
+#: spinalcure\uploads.py:196
 msgid "Image is larger than 8 MB."
 msgstr "ಚಿತ್ರವು 8 MB ಗಿಂತ ದೊಡ್ಡದಾಗಿದೆ."
 
@@ -4524,7 +4578,7 @@ msgstr "ಚಿತ್ರ 5 MB ಅಥವಾ ಅದಕ್ಕಿಂತ ಕಡಿಮ�
 msgid "Immobile"
 msgstr "ಚಲನರಹಿತ"
 
-#: accounts\models.py:331
+#: accounts\models.py:332
 msgid "Immutable. OWN-#### for owners, STF-#### for everyone else."
 msgstr "ಬದಲಿಸಲಾಗದು. ಮಾಲೀಕರಿಗೆ OWN-####, ಉಳಿದವರಿಗೆ STF-####."
 
@@ -4608,7 +4662,7 @@ msgstr "Instagram ಪ್ರೊಫೈಲ್ URL"
 msgid "Instagram URL"
 msgstr "Instagram URL"
 
-#: payments\models.py:301
+#: payments\models.py:302
 msgid "Insurance"
 msgstr "ವಿಮೆ"
 
@@ -4673,7 +4727,7 @@ msgstr "ಅಮಾನ್ಯ ಅಥವಾ ಅವಧಿ ಮುಗಿದ OTP."
 msgid "Invalid or missing date. Use YYYY-MM-DD."
 msgstr "ಅಮಾನ್ಯ ಅಥವಾ ಇಲ್ಲದ ದಿನಾಂಕ. YYYY-MM-DD ಬಳಸಿ."
 
-#: accounts\models.py:292
+#: accounts\models.py:293
 #, python-format
 msgid "Invalid OTP. %(n)d attempts remaining."
 msgstr "ಅಮಾನ್ಯ OTP. %(n)d ಪ್ರಯತ್ನಗಳು ಉಳಿದಿವೆ."
@@ -4712,11 +4766,11 @@ msgstr "ಇನ್‌ವಾಯ್ಸ್ #%(receipt_number)s — SpinalCure"
 msgid "Invoice %(invoice)s"
 msgstr "ಇನ್‌ವಾಯ್ಸ್ %(invoice)s"
 
-#: clinic\models.py:770 clinic\templates\clinic\admin\activity_log.html:66
+#: clinic\models.py:789 clinic\templates\clinic\admin\activity_log.html:66
 msgid "IP Address"
 msgstr "IP ವಿಳಾಸ"
 
-#: patients\models.py:194
+#: patients\models.py:195
 msgid "Is Active"
 msgstr "ಸಕ್ರಿಯವಾಗಿದೆ"
 
@@ -4799,7 +4853,7 @@ msgstr "ಸೇರಿದ ದಿನಾಂಕ ಭವಿಷ್ಯದಲ್ಲಿ ಇ
 msgid "Joining date"
 msgstr "ಸೇರಿದ ದಿನಾಂಕ"
 
-#: events\models.py:91
+#: events\models.py:93
 msgid "Joining instructions"
 msgstr "ಸೇರುವ ಸೂಚನೆಗಳು"
 
@@ -4811,15 +4865,15 @@ msgstr "ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಸೇರುವಿಕೆ"
 msgid "JPEG, PNG or WebP, up to 5 MB."
 msgstr "JPEG, PNG ಅಥವಾ WebP, 5 MB ವರೆಗೆ."
 
-#: clinic\models.py:753
+#: clinic\models.py:772
 msgid "JSON of actual database field changes for programmatic reverting"
 msgstr "ಪ್ರೋಗ್ರಾಮ್ಯಾಟಿಕ್ ಹಿಂತಿರುಗಿಸುವಿಕೆಗಾಗಿ ಡೇಟಾಬೇಸ್ ಕ್ಷೇತ್ರ ಬದಲಾವಣೆಗಳ JSON"
 
-#: clinic\models.py:747
+#: clinic\models.py:766
 msgid "JSON of changed fields (human-readable): {\"field\": {\"old\": \"...\", \"new\": \"...\"}}"
 msgstr "ಬದಲಾದ ಕ್ಷೇತ್ರಗಳ JSON (ಓದಬಹುದಾದ): {\"field\": {\"old\": \"...\", \"new\": \"...\"}}"
 
-#: spinalcure\settings\base.py:130
+#: spinalcure\settings\base.py:131
 msgid "Kannada"
 msgstr "ಕನ್ನಡ"
 
@@ -4862,7 +4916,7 @@ msgstr ""
 msgid "Key Learning Outcomes (One per line) *"
 msgstr "ಮುಖ್ಯ ಕಲಿಕಾ ಫಲಿತಾಂಶಗಳು (ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು) *"
 
-#: clinic\models.py:611
+#: clinic\models.py:624
 msgid "Known as"
 msgstr "ಪರಿಚಿತರು"
 
@@ -4872,7 +4926,7 @@ msgid "Label"
 msgstr "ಲೇಬಲ್"
 
 #: accounts\templates\accounts\admin\user_form.html:82 clinic\models.py:507
-#: events\models.py:100 templates\clinic\admin\video_form.html:24
+#: events\models.py:102 templates\clinic\admin\video_form.html:24
 msgid "Language"
 msgstr "ಭಾಷೆ"
 
@@ -4905,7 +4959,7 @@ msgstr "ಕೊನೆಯ ದೋಷ"
 msgid "Last Name"
 msgstr "ಕೊನೆಯ ಹೆಸರು"
 
-#: accounts\models.py:152
+#: accounts\models.py:153
 msgid "Last Request At"
 msgstr "ಕೊನೆಯ ವಿನಂತಿ ಸಮಯ"
 
@@ -4925,11 +4979,11 @@ msgstr "ನಮ್ಮ ವೈದ್ಯರೊಂದಿಗೆ ಕಲಿಯಿರಿ,
 msgid "Learning & Curriculum"
 msgstr "ಕಲಿಕೆ ಮತ್ತು ಪಠ್ಯಕ್ರಮ"
 
-#: courses\models.py:30
+#: courses\models.py:32
 msgid "Learning Outcomes"
 msgstr "ಕಲಿಕೆಯ ಫಲಿತಾಂಶಗಳು"
 
-#: appointments\models.py:94 templates\appointments\availability.html:73
+#: appointments\models.py:94
 msgid "Leave"
 msgstr "ರಜೆ"
 
@@ -4941,7 +4995,7 @@ msgstr "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಬಾಕಿ ಪಾವ�
 msgid "Leave blank for unlimited enrollment."
 msgstr "ಅನಿಯಮಿತ ದಾಖಲಾತಿಗೆ ಖಾಲಿ ಬಿಡಿ."
 
-#: idcards\templates\idcards\issue.html:12 patients\models.py:156
+#: idcards\templates\idcards\issue.html:12 patients\models.py:157
 #: templates\patients\patient_detail.html:822
 msgid "Leave empty for no expiry."
 msgstr "ಅವಧಿ ಇಲ್ಲದಿದ್ದರೆ ಖಾಲಿ ಬಿಡಿ."
@@ -4957,6 +5011,11 @@ msgstr "ಅನಿಯಮಿತಕ್ಕೆ ಖಾಲಿ ಬಿಡಿ."
 #: appointments\models.py:98
 msgid "Leave empty to close the whole clinic."
 msgstr "ಇಡೀ ಕ್ಲಿನಿಕ್ ಮುಚ್ಚಲು ಖಾಲಿ ಬಿಡಿ."
+
+#: templates\appointments\availability.html:86
+#, python-format
+msgid "Leave: %(name)s"
+msgstr "ರಜೆ: %(name)s"
 
 #: clinic\templates\clinic\admin\clinic_setup.html:640
 msgid "Legacy Photo Gallery"
@@ -4987,7 +5046,7 @@ msgstr "ಸೀಟುಗಳು ಸೀಮಿತ. ದೃಢೀಕರಿಸಲು �
 msgid "Link copied to the clipboard"
 msgstr "ಲಿಂಕ್ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ನಕಲಿಸಲಾಗಿದೆ"
 
-#: payments\models.py:69
+#: payments\models.py:70
 msgid "Link this payment to a specific treatment plan"
 msgstr "ಈ ಪಾವತಿಯನ್ನು ನಿರ್ದಿಷ್ಟ ಚಿಕಿತ್ಸಾ ಯೋಜನೆಗೆ ಲಿಂಕ್ ಮಾಡಿ"
 
@@ -5104,19 +5163,19 @@ msgstr "ಮುಖ್ಯ ವಿಭಾಗದ ಶೀರ್ಷಿಕೆ"
 msgid "Main Title"
 msgstr "ಮುಖ್ಯ ಶೀರ್ಷಿಕೆ"
 
-#: spinalcure\settings\base.py:129
+#: spinalcure\settings\base.py:130
 msgid "Malayalam"
 msgstr "ಮಲಯಾಳಂ"
 
-#: accounts\models.py:339 clinic\models.py:190
+#: accounts\models.py:340 clinic\models.py:190
 #: clinic\templates\clinic\admin\practitioner_form.html:38
-#: patients\models.py:19
+#: patients\models.py:20
 msgid "Male"
 msgstr "ಗಂಡು"
 
 #: idcards\templates\idcards\dashboard.html:38
 #: idcards\templates\idcards\detail.html:32
-#: templates\appointments\partials\appointment_list_partial.html:52
+#: templates\appointments\partials\appointment_list_partial.html:56
 msgid "Manage"
 msgstr "ನಿರ್ವಹಿಸಿ"
 
@@ -5189,13 +5248,9 @@ msgstr "ಹಾಜರಾಗಿದ್ದಾರೆ ಎಂದು ಗುರುತಿ�
 msgid "Marked as reviewed."
 msgstr "ಪರಿಶೀಲಿಸಲಾಗಿದೆ ಎಂದು ಗುರುತಿಸಲಾಗಿದೆ."
 
-#: payments\models.py:298
+#: payments\models.py:299
 msgid "Marketing & Advertising"
 msgstr "ಮಾರ್ಕೆಟಿಂಗ್ ಮತ್ತು ಜಾಹೀರಾತು"
-
-#: templates\appointments\availability.html:50
-msgid "max"
-msgstr "ಗರಿಷ್ಠ"
 
 #: appointments\models.py:53
 msgid "Max appointments in this shift"
@@ -5205,11 +5260,11 @@ msgstr "ಈ ಪಾಳಿಯಲ್ಲಿ ಗರಿಷ್ಠ ಅಪಾಯಿಂಟ
 msgid "Max Capacity (Seats)"
 msgstr "ಗರಿಷ್ಠ ಸಾಮರ್ಥ್ಯ (ಆಸನಗಳು)"
 
-#: events\models.py:110
+#: events\models.py:112
 msgid "Max Participants"
 msgstr "ಗರಿಷ್ಠ ಭಾಗವಹಿಸುವವರು"
 
-#: courses\models.py:128
+#: courses\models.py:130
 msgid "Max Seats"
 msgstr "ಗರಿಷ್ಠ ಆಸನಗಳು"
 
@@ -5225,7 +5280,7 @@ msgstr "ವೈದ್ಯಕೀಯ ಸಾರಾಂಶ"
 msgid "Medical Case Details"
 msgstr "ವೈದ್ಯಕೀಯ ಪ್ರಕರಣದ ವಿವರಗಳು"
 
-#: patients\models.py:75 templates\patients\patient_detail.html:149
+#: patients\models.py:76 templates\patients\patient_detail.html:149
 #: templates\patients\patient_form.html:190
 msgid "Medical History"
 msgstr "ವೈದ್ಯಕೀಯ ಇತಿಹಾಸ"
@@ -5234,15 +5289,15 @@ msgstr "ವೈದ್ಯಕೀಯ ಇತಿಹಾಸ"
 msgid "Medical Notes (Internal)"
 msgstr "ವೈದ್ಯಕೀಯ ಟಿಪ್ಪಣಿಗಳು (ಆಂತರಿಕ)"
 
-#: payments\models.py:296
+#: payments\models.py:297
 msgid "Medical Supplies"
 msgstr "ವೈದ್ಯಕೀಯ ಸಾಮಗ್ರಿಗಳು"
 
-#: events\models.py:24
+#: events\models.py:26
 msgid "Meeting"
 msgstr "ಸಭೆ"
 
-#: events\models.py:84
+#: events\models.py:86
 msgid "Meeting Link"
 msgstr "ಸಭೆಯ ಲಿಂಕ್"
 
@@ -5250,11 +5305,11 @@ msgstr "ಸಭೆಯ ಲಿಂಕ್"
 msgid "Meeting links must start with https://"
 msgstr "ಸಭೆಯ ಲಿಂಕ್‌ಗಳು https:// ನಿಂದ ಆರಂಭವಾಗಬೇಕು"
 
-#: events\models.py:90
+#: events\models.py:92
 msgid "Meeting passcode"
 msgstr "ಸಭೆಯ ಪಾಸ್‌ಕೋಡ್"
 
-#: events\models.py:87
+#: events\models.py:89
 msgid "Meeting provider"
 msgstr "ಸಭೆ ಪೂರೈಕೆದಾರ"
 
@@ -5262,7 +5317,7 @@ msgstr "ಸಭೆ ಪೂರೈಕೆದಾರ"
 msgid "Menu"
 msgstr "ಮೆನು"
 
-#: clinic\blog_models.py:80
+#: clinic\blog_models.py:82
 msgid "Meta Description"
 msgstr "ಮೆಟಾ ವಿವರಣೆ"
 
@@ -5282,14 +5337,6 @@ msgstr "ಮಾಪನಗಳು"
 #: templates\appointments\manage.html:22 templates\clinic\event_detail.html:38
 msgid "min"
 msgstr "ನಿ"
-
-#: templates\appointments\availability.html:47
-msgid "min buffer"
-msgstr "ನಿ ಅಂತರ"
-
-#: templates\appointments\availability.html:47
-msgid "min slots"
-msgstr "ನಿ ಸ್ಲಾಟ್‌ಗಳು"
 
 #: appointments\models.py:129
 msgid "Minimum notice (mins)"
@@ -5316,7 +5363,7 @@ msgstr "ಚಲನಶೀಲತೆ ಸುಧಾರಣೆ"
 msgid "Mobility Score"
 msgstr "ಚಲನಶೀಲತೆ ಅಂಕ"
 
-#: patients\models.py:280 templates\patients\session_edit.html:164
+#: patients\models.py:281 templates\patients\session_edit.html:164
 #: templates\patients\session_form.html:152
 msgid "Mobility Score (1-5)"
 msgstr "ಚಲನಶೀಲತೆ ಅಂಕ (1-5)"
@@ -5336,7 +5383,7 @@ msgstr "ವಿಧಾನ"
 msgid "Model %(model_name)s not found."
 msgstr "ಮಾದರಿ %(model_name)s ಕಂಡುಬಂದಿಲ್ಲ."
 
-#: clinic\models.py:729
+#: clinic\models.py:748
 msgid "Model / Module"
 msgstr "ಮಾದರಿ / ಮಾಡ್ಯೂಲ್"
 
@@ -5377,6 +5424,19 @@ msgstr "ಮಾಸಿಕ ಲಾಭನಷ್ಟ &amp; — ಆದಾಯ vs. ಖರ�
 msgid "Monthly Sessions"
 msgstr "ಮಾಸಿಕ ಅವಧಿಗಳು"
 
+#: appointments\schedule_views.py:97
+#: templates\appointments\availability.html:49
+msgid "Morning"
+msgstr "ಬೆಳಿಗ್ಗೆ"
+
+#: templates\appointments\availability.html:51
+msgid "Morning from"
+msgstr "ಬೆಳಿಗ್ಗೆ ಇಂದ"
+
+#: templates\appointments\availability.html:53
+msgid "Morning until"
+msgstr "ಬೆಳಿಗ್ಗೆ ವರೆಗೆ"
+
 #: templates\clinic\review.html:19
 msgid ""
 "Most new patients find us on Google Maps. A review there reaches the most "
@@ -5393,7 +5453,7 @@ msgstr "ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಸ್ಥಳಾಂತರಿ�
 msgid "Must be between 5 and 480 minutes."
 msgstr "5 ರಿಂದ 480 ನಿಮಿಷಗಳ ನಡುವೆ ಇರಬೇಕು."
 
-#: payments\models.py:121
+#: payments\models.py:122
 msgid "Must be less than or equal to total amount"
 msgstr "ಒಟ್ಟು ಮೊತ್ತಕ್ಕೆ ಸಮ ಅಥವಾ ಕಡಿಮೆ ಇರಬೇಕು"
 
@@ -5406,7 +5466,7 @@ msgstr "ನನ್ನ ಆರೋಗ್ಯ ಪೋರ್ಟಲ್ — SpinalCure"
 msgid "My ID card"
 msgstr "ನನ್ನ ID ಕಾರ್ಡ್"
 
-#: clinic\models.py:610 courses\models.py:216 events\models.py:291
+#: clinic\models.py:623 courses\models.py:218 events\models.py:293
 #: templates\events\event_feedback_admin.html:55
 msgid "Name"
 msgstr "ಹೆಸರು"
@@ -5427,6 +5487,10 @@ msgstr ""
 #: templates\clinic\home.html:16
 msgid "Neck & back pain special care centre"
 msgstr "ಕುತ್ತಿಗೆ & ಬೆನ್ನುನೋವು ವಿಶೇಷ ಆರೈಕೆ ಕೇಂದ್ರ"
+
+#: templates\components\credits.html:40
+msgid "Need a system like this?"
+msgstr "ಇಂತಹ ಸಿಸ್ಟಂ ಬೇಕೇ?"
 
 #: templates\emails\booking_confirmation.html:56
 msgid "Need Assistance?"
@@ -5537,7 +5601,7 @@ msgstr ""
 msgid "Next"
 msgstr "ಮುಂದೆ"
 
-#: patients\models.py:287 templates\patients\patient_detail.html:481
+#: patients\models.py:288 templates\patients\patient_detail.html:481
 msgid "Next Appointment"
 msgstr "ಮುಂದಿನ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್"
 
@@ -5546,7 +5610,7 @@ msgstr "ಮುಂದಿನ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್"
 msgid "Next Appointment (Optional)"
 msgstr "ಮುಂದಿನ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ (ಐಚ್ಛಿಕ)"
 
-#: patients\models.py:313
+#: patients\models.py:314
 msgid "Next appointment must be after session date."
 msgstr "ಮುಂದಿನ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಅವಧಿಯ ದಿನಾಂಕದ ನಂತರ ಇರಬೇಕು."
 
@@ -5566,7 +5630,7 @@ msgstr "ಸಕ್ರಿಯ ಬ್ಯಾಚ್ ಇಲ್ಲ"
 msgid "No Activity Yet"
 msgstr "ಇನ್ನೂ ಚಟುವಟಿಕೆ ಇಲ್ಲ"
 
-#: templates\appointments\partials\appointment_list_partial.html:67
+#: templates\appointments\partials\appointment_list_partial.html:71
 msgid "No appointments found"
 msgstr "ಯಾವುದೇ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳು ಕಂಡುಬಂದಿಲ್ಲ"
 
@@ -5593,7 +5657,7 @@ msgstr "ಇನ್ನೂ ಬ್ಲಾಗ್ ಪೋಸ್ಟ್‌ಗಳಿಲ್�
 msgid "No card"
 msgstr "ಕಾರ್ಡ್ ಇಲ್ಲ"
 
-#: templates\appointments\availability.html:100
+#: templates\appointments\availability.html:135
 msgid "No closures scheduled."
 msgstr "ಯಾವುದೇ ಮುಚ್ಚುವಿಕೆ ನಿಗದಿಯಾಗಿಲ್ಲ."
 
@@ -5641,7 +5705,7 @@ msgstr "ಈ ದಿನ ಖಾಲಿ ಸಮಯವಿಲ್ಲ. ದಯವಿಟ್�
 msgid "No Image"
 msgstr "ಚಿತ್ರವಿಲ್ಲ"
 
-#: templates\appointments\availability.html:84
+#: templates\appointments\availability.html:107
 msgid "No leave scheduled."
 msgstr "ಯಾವುದೇ ರಜೆ ನಿಗದಿಯಾಗಿಲ್ಲ."
 
@@ -5713,7 +5777,7 @@ msgstr "PIN ವಿನಂತಿಸಲಾಗಿಲ್ಲ. ದಯವಿಟ್ಟು
 msgid "No practitioner is available at that time."
 msgstr "ಆ ಸಮಯದಲ್ಲಿ ಯಾವುದೇ ವೈದ್ಯರು ಲಭ್ಯವಿಲ್ಲ."
 
-#: templates\appointments\availability.html:29
+#: templates\appointments\availability.html:24
 msgid "No practitioner profile is linked to your account"
 msgstr "ನಿಮ್ಮ ಖಾತೆಗೆ ವೈದ್ಯರ ಪ್ರೊಫೈಲ್ ಲಿಂಕ್ ಆಗಿಲ್ಲ"
 
@@ -5815,7 +5879,7 @@ msgstr "ಇನ್ನೂ ಟ್ಯಾಗ್‌ಗಳಿಲ್ಲ"
 msgid "No tags yet."
 msgstr "ಇನ್ನೂ ಟ್ಯಾಗ್‌ಗಳಿಲ್ಲ."
 
-#: payments\models.py:35
+#: payments\models.py:36
 msgid "No Tax"
 msgstr "ತೆರಿಗೆ ಇಲ್ಲ"
 
@@ -5843,7 +5907,7 @@ msgstr "ಮುಂಬರುವ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗ�
 msgid "No upcoming appointments."
 msgstr "ಮುಂಬರುವ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳಿಲ್ಲ."
 
-#: accounts\models.py:272
+#: accounts\models.py:273
 msgid "No valid OTP found. Please request a new one."
 msgstr "ಮಾನ್ಯ OTP ಕಂಡುಬಂದಿಲ್ಲ. ದಯವಿಟ್ಟು ಹೊಸದನ್ನು ವಿನಂತಿಸಿ."
 
@@ -5880,7 +5944,7 @@ msgstr "ಯಾವುದೂ ಇಲ್ಲ"
 msgid "None reported"
 msgstr "ಯಾವುದೂ ವರದಿಯಾಗಿಲ್ಲ"
 
-#: templates\appointments\partials\appointment_list_partial.html:29
+#: templates\appointments\partials\appointment_list_partial.html:33
 #: templates\patients\partials\patient_list_partial.html:38
 msgid "Not Assigned"
 msgstr "ನಿಯೋಜಿಸಲಾಗಿಲ್ಲ"
@@ -5901,15 +5965,11 @@ msgstr ""
 msgid "Not recorded"
 msgstr "ದಾಖಲಾಗಿಲ್ಲ"
 
-#: events\models.py:88 patients\session_pdf.py:70
+#: events\models.py:90 patients\session_pdf.py:70
 msgid "Not specified"
 msgstr "ನಿರ್ದಿಷ್ಟಪಡಿಸಿಲ್ಲ"
 
-#: templates\appointments\availability.html:62
-msgid "Not working"
-msgstr "ಕೆಲಸವಿಲ್ಲ"
-
-#: appointments\models.py:238 payments\models.py:336
+#: appointments\models.py:238 payments\models.py:337
 #: templates\payments\expense_form.html:52
 msgid "Notes"
 msgstr "ಟಿಪ್ಪಣಿಗಳು"
@@ -5919,11 +5979,11 @@ msgstr "ಟಿಪ್ಪಣಿಗಳು"
 msgid "Notes (Internal)"
 msgstr "ಟಿಪ್ಪಣಿಗಳು (ಆಂತರಿಕ)"
 
-#: events\models.py:248
+#: events\models.py:250
 msgid "Notes / Message"
 msgstr "ಟಿಪ್ಪಣಿಗಳು / ಸಂದೇಶ"
 
-#: courses\models.py:175
+#: courses\models.py:177
 msgid "Notes / Questions"
 msgstr "ಟಿಪ್ಪಣಿಗಳು / ಪ್ರಶ್ನೆಗಳು"
 
@@ -5955,6 +6015,12 @@ msgstr "ಅನುವಾದಿಸಲು ಏನೂ ಇಲ್ಲ: ಯಂತ್ರ �
 msgid "Nothing waiting for review"
 msgstr "ಪರಿಶೀಲನೆಗೆ ಏನೂ ಬಾಕಿ ಇಲ್ಲ"
 
+#: appointments\schedule_views.py:164
+msgid "Nothing was saved. Fix the days marked in red and save again."
+msgstr ""
+"ಯಾವುದೂ ಉಳಿಸಲಾಗಿಲ್ಲ. ಕೆಂಪು ಬಣ್ಣದಲ್ಲಿ ಗುರುತಿಸಿದ ದಿನಗಳನ್ನು ಸರಿಪಡಿಸಿ ಮತ್ತೆ "
+"ಉಳಿಸಿ."
+
 #: notifications\templates\notifications\deliveries.html:4
 msgid "Notification delivery log"
 msgstr "ಅಧಿಸೂಚನೆ ವಿತರಣಾ ಲಾಗ್"
@@ -5976,21 +6042,17 @@ msgstr "ಅಧಿಸೂಚನೆ ಆದ್ಯತೆಗಳನ್ನು ಉಳಿ�
 msgid "Notifications"
 msgstr "ಅಧಿಸೂಚನೆಗಳು"
 
-#: accounts\models.py:133
+#: accounts\models.py:134
 msgid "Number of failed OTP verification attempts"
 msgstr "ವಿಫಲ OTP ಪರಿಶೀಲನಾ ಪ್ರಯತ್ನಗಳ ಸಂಖ್ಯೆ"
 
-#: accounts\models.py:148
+#: accounts\models.py:149
 msgid "Number of OTP requests made today (for rate limiting)"
 msgstr "ಇಂದು ಮಾಡಿದ OTP ವಿನಂತಿಗಳ ಸಂಖ್ಯೆ (ಮಿತಿಗಾಗಿ)"
 
 #: templates\analytics\dashboard.html:40
 msgid "Of past appointments"
 msgstr "ಹಿಂದಿನ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳಲ್ಲಿ"
-
-#: templates\appointments\availability.html:52
-msgid "Off"
-msgstr "ಆಫ್"
 
 #: templates\payments\invoice.html:328
 msgid "Official Invoice"
@@ -6008,7 +6070,7 @@ msgstr "ಹಳೆಯ ಮೌಲ್ಯ"
 msgid "on Google"
 msgstr "Google ನಲ್ಲಿ"
 
-#: accounts\models.py:321
+#: accounts\models.py:322
 msgid "On leave"
 msgstr "ರಜೆಯಲ್ಲಿ"
 
@@ -6021,11 +6083,11 @@ msgid "One email per patient, sent the day after the session. 0 turns it off."
 msgstr ""
 "ಪ್ರತಿ ರೋಗಿಗೆ ಒಂದು ಇಮೇಲ್, ಅವಧಿಯ ಮರುದಿನ ಕಳುಹಿಸಲಾಗುತ್ತದೆ. 0 ಆದರೆ ಆಫ್ ಆಗುತ್ತದೆ."
 
-#: courses\models.py:214
+#: courses\models.py:216
 msgid "One feedback per student per course."
 msgstr "ಪ್ರತಿ ವಿದ್ಯಾರ್ಥಿಗೆ ಪ್ರತಿ ಕೋರ್ಸ್‌ಗೆ ಒಂದು ಪ್ರತಿಕ್ರಿಯೆ."
 
-#: courses\models.py:31
+#: courses\models.py:33
 msgid "One outcome per line. Displayed as a bullet list."
 msgstr "ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು ಫಲಿತಾಂಶ. ಬುಲೆಟ್ ಪಟ್ಟಿಯಾಗಿ ತೋರಿಸಲಾಗುತ್ತದೆ."
 
@@ -6036,7 +6098,7 @@ msgstr "ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು ಫಲಿತಾಂಶ. �
 msgid "Online"
 msgstr "ಆನ್‌ಲೈನ್"
 
-#: payments\models.py:26
+#: payments\models.py:27
 msgid "Online (Razorpay)"
 msgstr "ಆನ್‌ಲೈನ್ (Razorpay)"
 
@@ -6048,7 +6110,7 @@ msgstr "ಆನ್‌ಲೈನ್ ಬುಕಿಂಗ್ ಪ್ರಸ್ತುತ 
 msgid "Online Call / Enquiry"
 msgstr "ಆನ್‌ಲೈನ್ ಕರೆ / ವಿಚಾರಣೆ"
 
-#: events\models.py:80
+#: events\models.py:82
 msgid "Online Event"
 msgstr "ಆನ್‌ಲೈನ್ ಕಾರ್ಯಕ್ರಮ"
 
@@ -6129,11 +6191,11 @@ msgstr "ಅಡ್ಮಿನ್‌ಗಳು ಮಾತ್ರ ಖರ್ಚುಗಳ�
 msgid "Only confirmed registrations can be marked as attended."
 msgstr "ದೃಢೀಕರಿಸಿದ ನೋಂದಣಿಗಳನ್ನು ಮಾತ್ರ ಹಾಜರಾಗಿದ್ದಾರೆ ಎಂದು ಗುರುತಿಸಬಹುದು."
 
-#: appointments\schedule_views.py:168
+#: appointments\schedule_views.py:278
 msgid "Only management can change booking rules."
 msgstr "ನಿರ್ವಹಣೆ ಮಾತ್ರ ಬುಕಿಂಗ್ ನಿಯಮಗಳನ್ನು ಬದಲಿಸಬಹುದು."
 
-#: appointments\schedule_views.py:123
+#: appointments\schedule_views.py:229
 msgid "Only management can close the whole clinic."
 msgstr "ನಿರ್ವಹಣೆ ಮಾತ್ರ ಇಡೀ ಕ್ಲಿನಿಕ್ ಮುಚ್ಚಬಹುದು."
 
@@ -6141,7 +6203,7 @@ msgstr "ನಿರ್ವಹಣೆ ಮಾತ್ರ ಇಡೀ ಕ್ಲಿನಿಕ
 msgid "Only management can issue an owner card."
 msgstr "ಮಾಲೀಕ ಕಾರ್ಡ್ ಅನ್ನು ನಿರ್ವಹಣೆ ಮಾತ್ರ ನೀಡಬಹುದು."
 
-#: appointments\schedule_views.py:152
+#: appointments\schedule_views.py:262
 msgid "Only management can remove a clinic closure."
 msgstr "ನಿರ್ವಹಣೆ ಮಾತ್ರ ಕ್ಲಿನಿಕ್ ಮುಚ್ಚುವಿಕೆಯನ್ನು ತೆಗೆದುಹಾಕಬಹುದು."
 
@@ -6157,7 +6219,7 @@ msgstr ""
 "ಇದನ್ನು ಕ್ಲಿನಿಕ್ ತಂಡ ಮಾತ್ರ ನೋಡುತ್ತದೆ. ನಾವು ಏನು ಚೆನ್ನಾಗಿ ಮಾಡಿದೆವು, ಏನು "
 "ಸುಧಾರಿಸಬೇಕು ಎಂದು ತಿಳಿಸಿ."
 
-#: templates\clinic\gallery.html:26 templates\clinic\gallery.html:48
+#: templates\clinic\gallery.html:27 templates\clinic\gallery.html:49
 #: templates\courses\batch_list.html:81
 #: templates\events\event_feedback_admin.html:15
 msgid "Open"
@@ -6191,7 +6253,7 @@ msgstr ""
 "ಲಿಂಕ್ ಮುನ್ನೋಟದೊಂದಿಗಿನ ಐಚ್ಛಿಕ ಪುಟ. ಹೆಸರು, ಪ್ರಕಾರ ಮತ್ತು ಸ್ಥಿತಿಯೊಂದಿಗೆ "
 "ಮುಂಭಾಗವನ್ನು ಮಾತ್ರ ತೋರಿಸುತ್ತದೆ; ಸಂಪರ್ಕ ವಿವರಗಳು ಎಂದಿಗೂ ಇರುವುದಿಲ್ಲ."
 
-#: clinic\models.py:615
+#: clinic\models.py:628
 msgid "Optional, factual and brief. No treatment claims."
 msgstr "ಐಚ್ಛಿಕ, ವಾಸ್ತವ ಮತ್ತು ಸಂಕ್ಷಿಪ್ತ. ಚಿಕಿತ್ಸೆಯ ಹೇಳಿಕೆಗಳು ಬೇಡ."
 
@@ -6207,7 +6269,7 @@ msgstr ""
 msgid "Or use a frame from the video"
 msgstr "ಅಥವಾ ವೀಡಿಯೊದಿಂದ ಒಂದು ಫ್ರೇಮ್ ಬಳಸಿ"
 
-#: clinic\models.py:658
+#: clinic\models.py:662
 msgid "or YouTube / Instagram link"
 msgstr "ಅಥವಾ YouTube / Instagram ಲಿಂಕ್"
 
@@ -6215,24 +6277,24 @@ msgstr "ಅಥವಾ YouTube / Instagram ಲಿಂಕ್"
 msgid "Organisation"
 msgstr "ಸಂಸ್ಥೆ"
 
-#: events\models.py:37
+#: events\models.py:39
 msgid "Organizer"
 msgstr "ಸಂಘಟಕ"
 
-#: accounts\models.py:339 appointments\models.py:94 clinic\models.py:190
+#: accounts\models.py:340 appointments\models.py:94 clinic\models.py:190
 #: clinic\templates\clinic\admin\practitioner_form.html:40
 msgid "Other"
 msgstr "ಇತರೆ"
 
-#: accounts\models.py:115
+#: accounts\models.py:116
 msgid "OTP Secret"
 msgstr "OTP ರಹಸ್ಯ"
 
-#: accounts\models.py:156
+#: accounts\models.py:157
 msgid "OTP Token"
 msgstr "OTP ಟೋಕನ್"
 
-#: accounts\models.py:157
+#: accounts\models.py:158
 msgid "OTP Tokens"
 msgstr "OTP ಟೋಕನ್‌ಗಳು"
 
@@ -6286,7 +6348,7 @@ msgstr "ಬಾಕಿ ಪಾವತಿ: %(who)s"
 msgid "Overview"
 msgstr "ಅವಲೋಕನ"
 
-#: accounts\models.py:24 idcards\models.py:55
+#: accounts\models.py:25 idcards\models.py:55
 msgid "Owner"
 msgstr "ಮಾಲೀಕ"
 
@@ -6314,7 +6376,7 @@ msgstr "ಪ್ಯಾಕೇಜ್ ಸೇರಿಸಲಾಗಿದೆ."
 msgid "Package deleted."
 msgstr "ಪ್ಯಾಕೇಜ್ ಅಳಿಸಲಾಗಿದೆ."
 
-#: patients\models.py:152
+#: patients\models.py:153
 msgid "Package name"
 msgstr "ಪ್ಯಾಕೇಜ್ ಹೆಸರು"
 
@@ -6322,7 +6384,7 @@ msgstr "ಪ್ಯಾಕೇಜ್ ಹೆಸರು"
 msgid "Package price"
 msgstr "ಪ್ಯಾಕೇಜ್ ಬೆಲೆ"
 
-#: patients\models.py:192 templates\patients\patient_detail.html:815
+#: patients\models.py:193 templates\patients\patient_detail.html:815
 msgid "Package price (₹)"
 msgstr "ಪ್ಯಾಕೇಜ್ ಬೆಲೆ (₹)"
 
@@ -6350,7 +6412,7 @@ msgstr "ಪುಟ ಕಂಡುಬಂದಿಲ್ಲ"
 msgid "Pagination"
 msgstr "ಪುಟ ವಿಂಗಡಣೆ"
 
-#: payments\models.py:387 templates\patients\portal\dashboard.html:171
+#: payments\models.py:388 templates\patients\portal\dashboard.html:171
 msgid "Paid"
 msgstr "ಪಾವತಿಸಲಾಗಿದೆ"
 
@@ -6358,7 +6420,7 @@ msgstr "ಪಾವತಿಸಲಾಗಿದೆ"
 msgid "Paid Amount"
 msgstr "ಪಾವತಿಸಿದ ಮೊತ್ತ"
 
-#: payments\models.py:329 templates\payments\expense_form.html:46
+#: payments\models.py:330 templates\payments\expense_form.html:46
 #: templates\payments\partials\expense_list_partial.html:10
 msgid "Paid To"
 msgstr "ಯಾರಿಗೆ ಪಾವತಿಸಲಾಗಿದೆ"
@@ -6384,7 +6446,7 @@ msgstr "ನೋವಿನ ಇಳಿಕೆ"
 msgid "Pain Scale"
 msgstr "ನೋವಿನ ಮಟ್ಟ"
 
-#: patients\models.py:275 templates\patients\session_edit.html:151
+#: patients\models.py:276 templates\patients\session_edit.html:151
 #: templates\patients\session_form.html:139
 msgid "Pain Scale (0-10)"
 msgstr "ನೋವಿನ ಮಟ್ಟ (0-10)"
@@ -6402,7 +6464,7 @@ msgstr "ನೋವಿನ ಮಟ್ಟ:"
 msgid "Pain: %(pain_scale)s/10"
 msgstr "ನೋವು: %(pain_scale)s/10"
 
-#: payments\models.py:31
+#: payments\models.py:32
 msgid "Partial"
 msgstr "ಭಾಗಶಃ"
 
@@ -6451,8 +6513,8 @@ msgstr "ಹಿಂದಿನ"
 msgid "Past surgeries, conditions..."
 msgstr "ಹಿಂದಿನ ಶಸ್ತ್ರಚಿಕಿತ್ಸೆಗಳು, ಸ್ಥಿತಿಗಳು..."
 
-#: appointments\models.py:196 patients\models.py:95 patients\models.py:184
-#: patients\models.py:240
+#: appointments\models.py:196 patients\models.py:96 patients\models.py:185
+#: patients\models.py:241
 msgid "Patient"
 msgstr "ರೋಗಿ"
 
@@ -6493,7 +6555,7 @@ msgstr "ರೋಗಿ ಕಾರ್ಡ್ - %(name)s - SpinalCure"
 msgid "Patient consent"
 msgstr "ರೋಗಿಯ ಒಪ್ಪಿಗೆ"
 
-#: patients\models.py:145
+#: patients\models.py:146
 msgid "Patient email cannot be same as attender name."
 msgstr "ರೋಗಿಯ ಇಮೇಲ್ ಜೊತೆಗಾರರ ಹೆಸರಿನಂತೆ ಇರಬಾರದು."
 
@@ -6501,13 +6563,13 @@ msgstr "ರೋಗಿಯ ಇಮೇಲ್ ಜೊತೆಗಾರರ ಹೆಸರಿ
 msgid "Patient FAQs"
 msgstr "ರೋಗಿಗಳ ಪ್ರಶ್ನೆಗಳು"
 
-#: patients\models.py:285 patients\session_pdf.py:73
+#: patients\models.py:286 patients\session_pdf.py:73
 #: templates\patients\patient_detail.html:501
 #: templates\patients\session_edit.html:134
 msgid "Patient Feedback"
 msgstr "ರೋಗಿಯ ಪ್ರತಿಕ್ರಿಯೆ"
 
-#: patients\models.py:22 templates\patients\patient_detail.html:82
+#: patients\models.py:23 templates\patients\patient_detail.html:82
 #: templates\patients\print\patient_card.html:72
 msgid "Patient ID"
 msgstr "ರೋಗಿ ID"
@@ -6564,11 +6626,15 @@ msgstr "ರೋಗಿ ಪೋರ್ಟಲ್"
 msgid "Patient Profile"
 msgstr "ರೋಗಿಯ ಪ್ರೊಫೈಲ್"
 
-#: patients\models.py:353
+#: templates\appointments\partials\appointment_list_partial.html:24
+msgid "Patient record not found"
+msgstr "ರೋಗಿಯ ದಾಖಲೆ ಕಂಡುಬಂದಿಲ್ಲ"
+
+#: patients\models.py:354
 msgid "Patient Review"
 msgstr "ರೋಗಿಯ ವಿಮರ್ಶೆ"
 
-#: patients\models.py:354
+#: patients\models.py:355
 msgid "Patient Reviews"
 msgstr "ರೋಗಿಗಳ ವಿಮರ್ಶೆಗಳು"
 
@@ -6598,7 +6664,7 @@ msgstr "ರೋಗಿಯ ಅನುಭವ"
 msgid "Patient story video"
 msgstr "ರೋಗಿಯ ಅನುಭವದ ವೀಡಿಯೊ"
 
-#: templates\public_base.html:51 templates\public_base.html:56
+#: templates\public_base.html:55 templates\public_base.html:60
 msgid "Patient video"
 msgstr "ರೋಗಿಯ ವೀಡಿಯೊ"
 
@@ -6614,7 +6680,7 @@ msgstr "ರೋಗಿಯ ಅನುಭವ ಅವರ ಮಾತುಗಳಲ್ಲಿ
 msgid "Patient's Full Name"
 msgstr "ರೋಗಿಯ ಪೂರ್ಣ ಹೆಸರು"
 
-#: patients\models.py:96 templates\patients\patient_list.html:5
+#: patients\models.py:97 templates\patients\patient_list.html:5
 #: templates\ui\sidebar.html:10
 msgid "Patients"
 msgstr "ರೋಗಿಗಳು"
@@ -6622,6 +6688,16 @@ msgstr "ರೋಗಿಗಳು"
 #: templates\patients\patient_list.html:4
 msgid "Patients - SpinalCure"
 msgstr "ರೋಗಿಗಳು - SpinalCure"
+
+#: templates\appointments\availability.html:34
+msgid ""
+"Patients can book only inside these hours. Switch a day off to close it. "
+"Saving replaces this doctor's weekly hours; appointments already booked are "
+"not changed."
+msgstr ""
+"ರೋಗಿಗಳು ಈ ಸಮಯಗಳಲ್ಲಿ ಮಾತ್ರ ಬುಕ್ ಮಾಡಬಹುದು. ಒಂದು ದಿನವನ್ನು ಮುಚ್ಚಲು ಅದನ್ನು ಆಫ್ "
+"ಮಾಡಿ. ಉಳಿಸಿದರೆ ಈ ವೈದ್ಯರ ವಾರದ ಸಮಯಗಳು ಬದಲಾಗುತ್ತವೆ; ಈಗಾಗಲೇ ಬುಕ್ ಮಾಡಿದ "
+"ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳು ಬದಲಾಗುವುದಿಲ್ಲ."
 
 #: appointments\models.py:133
 msgid "Patients may cancel/reschedule until (hours before)"
@@ -6639,19 +6715,19 @@ msgstr "ಸುರಕ್ಷಿತವಾಗಿ ಪಾವತಿಸಿ"
 msgid "Payer / Recipient"
 msgstr "ಪಾವತಿದಾರ / ಸ್ವೀಕರಿಸುವವರು"
 
-#: payments\models.py:90
+#: payments\models.py:91
 msgid "Payer Name (Manual)"
 msgstr "ಪಾವತಿದಾರರ ಹೆಸರು (ಕೈಯಾರೆ)"
 
-#: payments\models.py:91
+#: payments\models.py:92
 msgid "Payer Phone (Manual)"
 msgstr "ಪಾವತಿದಾರರ ಫೋನ್ (ಕೈಯಾರೆ)"
 
-#: payments\models.py:59
+#: payments\models.py:60
 msgid "Payer Type"
 msgstr "ಪಾವತಿದಾರರ ಪ್ರಕಾರ"
 
-#: payments\models.py:169
+#: payments\models.py:170
 msgid "Payment"
 msgstr "ಪಾವತಿ"
 
@@ -6660,7 +6736,7 @@ msgstr "ಪಾವತಿ"
 msgid "Payment %(receipt)s deleted successfully."
 msgstr "ಪಾವತಿ %(receipt)s ಯಶಸ್ವಿಯಾಗಿ ಅಳಿಸಲಾಗಿದೆ."
 
-#: payments\models.py:139 templates\payments\payment_form.html:218
+#: payments\models.py:140 templates\payments\payment_form.html:218
 msgid "Payment Date"
 msgstr "ಪಾವತಿ ದಿನಾಂಕ"
 
@@ -6689,7 +6765,7 @@ msgstr "ಪಾವತಿ ಲಿಂಕ್ ರಚಿಸಲಾಗಿದೆ: %(link)s
 msgid "Payment method"
 msgstr "ಪಾವತಿ ವಿಧಾನ"
 
-#: payments\models.py:127 templates\payments\payment_form.html:193
+#: payments\models.py:128 templates\payments\payment_form.html:193
 msgid "Payment Mode"
 msgstr "ಪಾವತಿ ವಿಧಾನ"
 
@@ -6743,7 +6819,7 @@ msgstr "ಪಾವತಿ ಸಾರಾಂಶ"
 msgid "Payment to"
 msgstr "ಪಾವತಿ ಯಾರಿಗೆ"
 
-#: payments\models.py:170 templates\ui\sidebar.html:14
+#: payments\models.py:171 templates\ui\sidebar.html:14
 msgid "Payments"
 msgstr "ಪಾವತಿಗಳು"
 
@@ -6809,7 +6885,7 @@ msgstr "ಅನುಮತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ."
 msgid "Permission not recorded"
 msgstr "ಅನುಮತಿ ದಾಖಲಾಗಿಲ್ಲ"
 
-#: clinic\models.py:617
+#: clinic\models.py:630
 msgid "Permission to feature is on file"
 msgstr "ತೋರಿಸಲು ಅನುಮತಿ ದಾಖಲೆಯಲ್ಲಿದೆ"
 
@@ -6829,7 +6905,7 @@ msgstr "ವೈಯಕ್ತಿಕ ವಿವರಗಳು"
 msgid "Personal Information"
 msgstr "ವೈಯಕ್ತಿಕ ಮಾಹಿತಿ"
 
-#: accounts\models.py:41 accounts\templates\accounts\admin\user_form.html:112
+#: accounts\models.py:42 accounts\templates\accounts\admin\user_form.html:112
 #: clinic\models.py:42 clinic\templates\clinic\admin\practitioner_form.html:51
 msgid "Phone"
 msgstr "ಫೋನ್"
@@ -6841,7 +6917,7 @@ msgstr "ಫೋನ್"
 msgid "Phone number"
 msgstr "ಫೋನ್ ಸಂಖ್ಯೆ"
 
-#: events\models.py:246 templates\accounts\settings.html:43
+#: events\models.py:248 templates\accounts\settings.html:43
 #: templates\patients\patient_detail.html:101
 #: templates\patients\portal\login.html:30
 msgid "Phone Number"
@@ -6861,15 +6937,15 @@ msgid "Phone: %(phone)s | Email: %(email)s"
 msgstr "ಫೋನ್: %(phone)s | ಇಮೇಲ್: %(email)s"
 
 #: accounts\templates\accounts\admin\user_form.html:110 clinic\models.py:405
-#: clinic\models.py:613 clinic\models.py:650
+#: clinic\models.py:626 clinic\models.py:654
 msgid "Photo"
 msgstr "ಫೋಟೋ"
 
-#: clinic\models.py:655
+#: clinic\models.py:659
 msgid "Photo / cover image"
 msgstr "ಫೋಟೋ / ಕವರ್ ಚಿತ್ರ"
 
-#: templates\clinic\gallery.html:44
+#: templates\clinic\gallery.html:45
 msgid "Photos"
 msgstr "ಫೋಟೋಗಳು"
 
@@ -6881,7 +6957,7 @@ msgstr ""
 "ಅರುಂಬಾಕ್ಕಂ, ಚೆನ್ನೈನ Spinal Cure ಫೋಟೋ ಮತ್ತು ವೀಡಿಯೊಗಳು: ನಮ್ಮ ಕ್ಲಿನಿಕ್, "
 "ರೋಗಿಗಳು, ಕಾರ್ಯಕ್ರಮಗಳು."
 
-#: templates\clinic\gallery.html:77
+#: templates\clinic\gallery.html:79
 msgid "Photos are on their way"
 msgstr "ಫೋಟೋಗಳು ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿವೆ"
 
@@ -6917,7 +6993,7 @@ msgstr ""
 "ಸರಳ ಪದಗಳು, ಚಿಕ್ಕ ಪ್ಯಾರಾಗಳು. ಚಿಕಿತ್ಸೆಯಲ್ಲಿ ಏನಿರುತ್ತದೆ, ಯಾವಾಗ ವೈದ್ಯರನ್ನು "
 "ಕಾಣಬೇಕು ಎಂದು ವಿವರಿಸಿ; ಗುಣಮುಖದ ಭರವಸೆ ನೀಡಬೇಡಿ."
 
-#: patients\models.py:188 templates\patients\patient_detail.html:791
+#: patients\models.py:189 templates\patients\patient_detail.html:791
 msgid "Plan Name"
 msgstr "ಯೋಜನೆಯ ಹೆಸರು"
 
@@ -6925,7 +7001,7 @@ msgstr "ಯೋಜನೆಯ ಹೆಸರು"
 msgid "Planned"
 msgstr "ಯೋಜಿಸಲಾಗಿದೆ"
 
-#: courses\models.py:39
+#: courses\models.py:41
 msgid "Platform"
 msgstr "ವೇದಿಕೆ"
 
@@ -6933,7 +7009,7 @@ msgstr "ವೇದಿಕೆ"
 msgid "Platform thumbnail"
 msgstr "ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಥಂಬ್‌ನೇಲ್"
 
-#: templates\clinic\gallery.html:64
+#: templates\clinic\gallery.html:66
 msgid "Play"
 msgstr "ಪ್ಲೇ"
 
@@ -7057,7 +7133,7 @@ msgstr "ಸಾರ್ವಜನಿಕ ಅನುಭವ ಪುಟದ ಸಮಸ್ಯ
 msgid "Practical advice on pain, posture and recovery, written by our team."
 msgstr "ನೋವು, ಭಂಗಿ ಮತ್ತು ಚೇತರಿಕೆಯ ಕುರಿತು ನಮ್ಮ ತಂಡ ಬರೆದ ಪ್ರಾಯೋಗಿಕ ಸಲಹೆಗಳು."
 
-#: appointments\models.py:211 clinic\models.py:255 patients\models.py:336
+#: appointments\models.py:211 clinic\models.py:255 patients\models.py:337
 #: templates\appointments\appointment_list.html:59
 msgid "Practitioner"
 msgstr "ವೈದ್ಯರು"
@@ -7081,7 +7157,7 @@ msgstr "ವೈದ್ಯ %(name)s ನವೀಕರಿಸಲಾಗಿದೆ."
 msgid "Practitioner (Optional)"
 msgstr "ವೈದ್ಯರು (ಐಚ್ಛಿಕ)"
 
-#: patients\models.py:286
+#: patients\models.py:287
 msgid "Practitioner Notes"
 msgstr "ವೈದ್ಯರ ಟಿಪ್ಪಣಿಗಳು"
 
@@ -7110,7 +7186,7 @@ msgstr "ಆದ್ಯತೆಗಳು"
 msgid "Preferred Doctor"
 msgstr "ಆದ್ಯತೆಯ ವೈದ್ಯರು"
 
-#: accounts\models.py:54 patients\models.py:36
+#: accounts\models.py:55 patients\models.py:37
 msgid "Preferred language"
 msgstr "ಆದ್ಯತೆಯ ಭಾಷೆ"
 
@@ -7129,7 +7205,7 @@ msgstr ""
 msgid "Presented by %(name)s"
 msgstr "%(name)s ಅವರಿಂದ ಪ್ರಸ್ತುತಿ"
 
-#: events\models.py:97
+#: events\models.py:99
 msgid "Presenter / speaker"
 msgstr "ನಿರೂಪಕ / ಭಾಷಣಕಾರ"
 
@@ -7152,7 +7228,7 @@ msgstr "ಮುನ್ನೋಟ ಮೊದಲು ನೀಡಿದ ಕಾರ್ಡ್
 msgid "Previous"
 msgstr "ಹಿಂದಿನ"
 
-#: patients\models.py:154
+#: patients\models.py:155
 msgid "Price (₹)"
 msgstr "ಬೆಲೆ (₹)"
 
@@ -7208,7 +7284,7 @@ msgstr ""
 "ಖಾಸಗಿ ಅಭಿಪ್ರಾಯವನ್ನು ಕ್ಲಿನಿಕ್ ತಂಡ ಮಾತ್ರ ಓದುತ್ತದೆ, ಅದನ್ನು ಎಂದಿಗೂ "
 "ಪ್ರಕಟಿಸಲಾಗುವುದಿಲ್ಲ."
 
-#: events\models.py:85
+#: events\models.py:87
 msgid "Private: shown only to confirmed registrants shortly before the event."
 msgstr ""
 "ಖಾಸಗಿ: ಕಾರ್ಯಕ್ರಮಕ್ಕೆ ಸ್ವಲ್ಪ ಮುಂಚೆ ದೃಢೀಕರಿಸಿದ ನೋಂದಾಯಿತರಿಗೆ ಮಾತ್ರ "
@@ -7255,7 +7331,7 @@ msgstr "ಸಮಸ್ಯೆಗಳು — SpinalCure ಆಡಳಿತ"
 msgid "Professional Info"
 msgstr "ವೃತ್ತಿಪರ ಮಾಹಿತಿ"
 
-#: accounts\models.py:47
+#: accounts\models.py:48
 #: clinic\templates\clinic\admin\practitioner_form.html:139
 msgid "Profile Photo"
 msgstr "ಪ್ರೊಫೈಲ್ ಫೋಟೋ"
@@ -7363,8 +7439,8 @@ msgstr "ವೆಬ್‌ಸೈಟ್‌ನಲ್ಲಿ ಪ್ರಕಟಿಸಿ"
 msgid "Publish to website (doctor's page and Patient Stories)"
 msgstr "ವೆಬ್‌ಸೈಟ್‌ನಲ್ಲಿ ಪ್ರಕಟಿಸಿ (ವೈದ್ಯರ ಪುಟ ಮತ್ತು ರೋಗಿಗಳ ಅನುಭವಗಳು)"
 
-#: clinic\blog_models.py:30 clinic\models.py:361 clinic\models.py:427
-#: clinic\models.py:620
+#: clinic\blog_models.py:32 clinic\models.py:361 clinic\models.py:427
+#: clinic\models.py:633
 msgid "Published"
 msgstr "ಪ್ರಕಟಿಸಲಾಗಿದೆ"
 
@@ -7372,11 +7448,11 @@ msgstr "ಪ್ರಕಟಿಸಲಾಗಿದೆ"
 msgid "published"
 msgstr "ಪ್ರಕಟಿಸಲಾಗಿದೆ"
 
-#: clinic\blog_models.py:72
+#: clinic\blog_models.py:74
 msgid "Published At"
 msgstr "ಪ್ರಕಟಿಸಿದ ಸಮಯ"
 
-#: patients\models.py:347
+#: patients\models.py:348
 msgid "Published on Portfolio"
 msgstr "ಪೋರ್ಟ್‌ಫೋಲಿಯೋದಲ್ಲಿ ಪ್ರಕಟಿಸಲಾಗಿದೆ"
 
@@ -7433,8 +7509,8 @@ msgstr "ತ್ವರಿತ ಕ್ರಿಯೆಗಳು"
 msgid "Quick add photos"
 msgstr "ಫೋಟೋಗಳನ್ನು ತ್ವರಿತವಾಗಿ ಸೇರಿಸಿ"
 
-#: clinic\models.py:410 courses\models.py:217 events\models.py:294
-#: patients\models.py:341
+#: clinic\models.py:410 courses\models.py:219 events\models.py:296
+#: patients\models.py:342
 msgid "Rating"
 msgstr "ರೇಟಿಂಗ್"
 
@@ -7442,7 +7518,7 @@ msgstr "ರೇಟಿಂಗ್"
 msgid "Rating *"
 msgstr "ರೇಟಿಂಗ್ *"
 
-#: clinic\models.py:752
+#: clinic\models.py:771
 msgid "Raw Changes"
 msgstr "ಮೂಲ ಬದಲಾವಣೆಗಳು"
 
@@ -7453,7 +7529,7 @@ msgstr ""
 "Razorpay ಮರುಪಾವತಿಯನ್ನು ಸ್ವೀಕರಿಸಲಿಲ್ಲ. ಏನನ್ನೂ ದಾಖಲಿಸಲಾಗಿಲ್ಲ; ದಯವಿಟ್ಟು ಮತ್ತೆ "
 "ಪ್ರಯತ್ನಿಸಿ."
 
-#: payments\models.py:373
+#: payments\models.py:374
 msgid "Razorpay refund id when the money went back through the gateway."
 msgstr "ಗೇಟ್‌ವೇ ಮೂಲಕ ಹಣ ಹಿಂತಿರುಗಿಸಿದಾಗಿನ Razorpay ಮರುಪಾವತಿ ಐಡಿ."
 
@@ -7469,7 +7545,7 @@ msgstr "ಇನ್ನಷ್ಟು ಓದಿ"
 msgid "Read Time"
 msgstr "ಓದುವ ಸಮಯ"
 
-#: clinic\blog_models.py:85
+#: clinic\blog_models.py:87
 msgid "Read Time (minutes)"
 msgstr "ಓದುವ ಸಮಯ (ನಿಮಿಷ)"
 
@@ -7490,7 +7566,7 @@ msgstr ""
 "ಪ್ರಕಾರ ಹುಡುಕಬಹುದು."
 
 #: idcards\templates\idcards\detail.html:41
-#: idcards\templates\idcards\detail.html:45 payments\models.py:369
+#: idcards\templates\idcards\detail.html:45 payments\models.py:370
 #: templates\appointments\partials\appointment_list_partial.html:10
 msgid "Reason"
 msgstr "ಕಾರಣ"
@@ -7498,6 +7574,11 @@ msgstr "ಕಾರಣ"
 #: idcards\templates\idcards\detail.html:41
 msgid "Reason (e.g. lost)"
 msgstr "ಕಾರಣ (ಉದಾ. ಕಳೆದುಹೋಗಿದೆ)"
+
+#: templates\appointments\availability.html:93
+#: templates\appointments\availability.html:121
+msgid "Reason (only staff see this)"
+msgstr "ಕಾರಣ (ಸಿಬ್ಬಂದಿ ಮಾತ್ರ ನೋಡುತ್ತಾರೆ)"
 
 #: templates\appointments\manage.html:56
 msgid "Reason (optional)"
@@ -7508,7 +7589,7 @@ msgstr "ಕಾರಣ (ಐಚ್ಛಿಕ)"
 msgid "Reason for Visit"
 msgstr "ಭೇಟಿಯ ಕಾರಣ"
 
-#: patients\models.py:53 templates\patients\patient_detail.html:140
+#: patients\models.py:54 templates\patients\patient_detail.html:140
 #: templates\patients\patient_form.html:161
 msgid "Reason For Visit"
 msgstr "ಭೇಟಿಯ ಕಾರಣ"
@@ -7522,7 +7603,7 @@ msgstr "ಭಾಗವಹಿಸುವವರಿಗೆ ತೋರಿಸುವ ಕಾ�
 msgid "Receipt %(no)s"
 msgstr "ರಸೀದಿ %(no)s"
 
-#: payments\models.py:147
+#: payments\models.py:148
 #: templates\payments\partials\payment_list_partial.html:7
 msgid "Receipt No."
 msgstr "ರಸೀದಿ ಸಂ."
@@ -7531,7 +7612,7 @@ msgstr "ರಸೀದಿ ಸಂ."
 msgid "Receipt number"
 msgstr "ರಸೀದಿ ಸಂಖ್ಯೆ"
 
-#: payments\models.py:334
+#: payments\models.py:335
 msgid "Receipt Photo"
 msgstr "ರಸೀದಿ ಫೋಟೋ"
 
@@ -7552,7 +7633,7 @@ msgstr "ಸ್ವೀಕರಿಸಲಾಗಿದೆ: %(submitted_at)s"
 msgid "Recent verifications"
 msgstr "ಇತ್ತೀಚಿನ ಪರಿಶೀಲನೆಗಳು"
 
-#: accounts\models.py:26
+#: accounts\models.py:27
 msgid "Receptionist"
 msgstr "ಸ್ವಾಗತಕಾರ"
 
@@ -7560,7 +7641,7 @@ msgstr "ಸ್ವಾಗತಕಾರ"
 msgid "Recipient has no valid email address."
 msgstr "ಸ್ವೀಕರಿಸುವವರಿಗೆ ಮಾನ್ಯ ಇಮೇಲ್ ವಿಳಾಸವಿಲ್ಲ."
 
-#: clinic\blog_models.py:48
+#: clinic\blog_models.py:50
 msgid "Recommended size: 1200 x 630 px"
 msgstr "ಶಿಫಾರಸು ಮಾಡಿದ ಗಾತ್ರ: 1200 x 630 px"
 
@@ -7576,7 +7657,7 @@ msgstr "ದಾಖಲೆ"
 msgid "Record Collection"
 msgstr "ಸಂಗ್ರಹ ದಾಖಲಿಸಿ"
 
-#: clinic\models.py:740
+#: clinic\models.py:759
 msgid "Record Description"
 msgstr "ದಾಖಲೆ ವಿವರಣೆ"
 
@@ -7584,7 +7665,7 @@ msgstr "ದಾಖಲೆ ವಿವರಣೆ"
 msgid "Record Expense"
 msgstr "ಖರ್ಚು ದಾಖಲಿಸಿ"
 
-#: clinic\models.py:735
+#: clinic\models.py:754
 msgid "Record ID"
 msgstr "ದಾಖಲೆ ID"
 
@@ -7700,7 +7781,7 @@ msgstr "ಮರುಪಾವತಿಗಳು"
 msgid "Reg. Date"
 msgstr "ನೋಂದಣಿ ದಿನಾಂಕ"
 
-#: patients\models.py:23 templates\patients\patient_detail.html:92
+#: patients\models.py:24 templates\patients\patient_detail.html:92
 #: templates\patients\patient_form.html:36
 msgid "Regd. No."
 msgstr "ನೋಂದಣಿ ಸಂ."
@@ -7725,7 +7806,7 @@ msgstr "ರೋಗಿಯನ್ನು ನೋಂದಾಯಿಸಿ"
 msgid "Registered"
 msgstr "ನೋಂದಾಯಿಸಲಾಗಿದೆ"
 
-#: courses\models.py:176 events\models.py:249
+#: courses\models.py:178 events\models.py:251
 msgid "Registered At"
 msgstr "ನೋಂದಣಿ ಸಮಯ"
 
@@ -7742,7 +7823,7 @@ msgstr "ನೋಂದಣಿ: %(registered_date)s"
 msgid "Registering…"
 msgstr "ನೋಂದಾಯಿಸಲಾಗುತ್ತಿದೆ…"
 
-#: courses\models.py:213 events\models.py:286
+#: courses\models.py:215 events\models.py:288
 #: templates\events\event_form.html:51
 msgid "Registration"
 msgstr "ನೋಂದಣಿ"
@@ -7752,7 +7833,7 @@ msgstr "ನೋಂದಣಿ"
 msgid "Registration confirmed: %(event)s"
 msgstr "ನೋಂದಣಿ ದೃಢೀಕರಿಸಲಾಗಿದೆ: %(event)s"
 
-#: events\models.py:102
+#: events\models.py:104
 msgid "Registration deadline"
 msgstr "ನೋಂದಣಿ ಗಡುವು"
 
@@ -7780,7 +7861,7 @@ msgstr "ನೋಂದಣಿ ಸಂಖ್ಯೆ"
 msgid "Registration received."
 msgstr "ನೋಂದಣಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ."
 
-#: events\models.py:125
+#: events\models.py:127
 msgid "Registration Required"
 msgstr "ನೋಂದಣಿ ಅಗತ್ಯ"
 
@@ -7823,7 +7904,7 @@ msgstr "ತಿರಸ್ಕರಿಸಲಾಗಿದೆ"
 msgid "Related articles"
 msgstr "ಸಂಬಂಧಿತ ಲೇಖನಗಳು"
 
-#: patients\models.py:71 templates\patients\patient_form.html:133
+#: patients\models.py:72 templates\patients\patient_form.html:133
 msgid "Relation"
 msgstr "ಸಂಬಂಧ"
 
@@ -7840,18 +7921,22 @@ msgstr ""
 "ಜ್ಞಾಪನೆ: %(date)s ರಂದು %(time)s ಕ್ಕೆ %(clinic)s ನಲ್ಲಿ %(practitioner)s "
 "ಅವರೊಂದಿಗೆ ನಿಮಗೆ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಇದೆ."
 
-#: events\models.py:105
+#: events\models.py:107
 msgid "Reminders (minutes before, comma-separated)"
 msgstr "ಜ್ಞಾಪನೆಗಳು (ನಿಮಿಷಗಳ ಮುಂಚೆ, ಅಲ್ಪವಿರಾಮದಿಂದ ಬೇರ್ಪಡಿಸಿ)"
 
-#: templates\appointments\availability.html:82
-#: templates\appointments\availability.html:98
+#: templates\appointments\availability.html:105
+#: templates\appointments\availability.html:133
 msgid "Remove"
 msgstr "ತೆಗೆದುಹಾಕಿ"
 
 #: templates\clinic\admin\video_form.html:75
 msgid "Remove the custom thumbnail"
 msgstr "ಕಸ್ಟಮ್ ಥಂಬ್‌ನೇಲ್ ತೆಗೆದುಹಾಕಿ"
+
+#: templates\appointments\availability.html:132
+msgid "Remove this closure?"
+msgstr "ಈ ಮುಚ್ಚುವಿಕೆಯನ್ನು ತೆಗೆದುಹಾಕಬೇಕೇ?"
 
 #: templates\clinic\admin\featured.html:23
 msgid "Remove this featured patient?"
@@ -7861,9 +7946,9 @@ msgstr "ಈ ವಿಶೇಷ ರೋಗಿಯನ್ನು ತೆಗೆಯಬೇಕ
 msgid "Remove this from the gallery?"
 msgstr "ಇದನ್ನು ಗ್ಯಾಲರಿಯಿಂದ ತೆಗೆಯಬೇಕೇ?"
 
-#: templates\appointments\availability.html:56
-msgid "Remove this shift?"
-msgstr "ಈ ಪಾಳಿ ತೆಗೆದುಹಾಕಬೇಕೆ?"
+#: templates\appointments\availability.html:104
+msgid "Remove this leave?"
+msgstr "ಈ ರಜೆಯನ್ನು ತೆಗೆದುಹಾಕಬೇಕೇ?"
 
 #: clinic\templates\clinic\admin\clinic_setup.html:482
 #: clinic\templates\clinic\admin\clinic_setup.html:675
@@ -7874,11 +7959,11 @@ msgstr "ತೆಗೆದುಹಾಕಲಾಗಿದೆ"
 msgid "Removed from the gallery."
 msgstr "ಗ್ಯಾಲರಿಯಿಂದ ತೆಗೆಯಲಾಗಿದೆ."
 
-#: payments\models.py:293
+#: payments\models.py:294
 msgid "Rent / Lease"
 msgstr "ಬಾಡಿಗೆ / ಗುತ್ತಿಗೆ"
 
-#: payments\models.py:299
+#: payments\models.py:300
 msgid "Repairs & Maintenance"
 msgstr "ದುರಸ್ತಿ ಮತ್ತು ನಿರ್ವಹಣೆ"
 
@@ -7902,7 +7987,7 @@ msgstr "ಕ್ಲಿನಿಕ್‌ನಿಂದ ಉತ್ತರ"
 msgid "Request an Appointment &rarr;"
 msgstr "ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ವಿನಂತಿಸಿ &rarr;"
 
-#: accounts\models.py:147
+#: accounts\models.py:148
 msgid "Request Count (Today)"
 msgstr "ವಿನಂತಿಗಳ ಸಂಖ್ಯೆ (ಇಂದು)"
 
@@ -7950,11 +8035,11 @@ msgstr "ಇಂದಿನ ಆದಾಯ"
 msgid "Revert"
 msgstr "ಹಿಂತಿರುಗಿಸಿ"
 
-#: clinic\models.py:764 clinic\templates\clinic\admin\activity_log.html:108
+#: clinic\models.py:783 clinic\templates\clinic\admin\activity_log.html:108
 msgid "Reverted"
 msgstr "ಹಿಂತಿರುಗಿಸಲಾಗಿದೆ"
 
-#: patients\models.py:344 templates\base.html:74
+#: patients\models.py:345 templates\base.html:84
 msgid "Review"
 msgstr "ವಿಮರ್ಶೆ"
 
@@ -7989,7 +8074,7 @@ msgstr "ವಿಮರ್ಶೆಯನ್ನು ನವೀಕರಿಸಲಾಗಿ�
 msgid "Review us on Google"
 msgstr "Google ನಲ್ಲಿ ನಮ್ಮನ್ನು ವಿಮರ್ಶಿಸಿ"
 
-#: clinic\models.py:796 templates\clinic\admin\translations.html:73
+#: clinic\models.py:815 templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 msgid "Reviewed"
 msgstr "ಪರಿಶೀಲಿಸಲಾಗಿದೆ"
@@ -8047,12 +8132,12 @@ msgstr "ಶಾಶ್ವತವಾಗಿ ರದ್ದುಪಡಿಸಿ"
 msgid "Revoked"
 msgstr "ರದ್ದುಪಡಿಸಲಾಗಿದೆ"
 
-#: accounts\models.py:35 accounts\templates\accounts\admin\user_form.html:77
+#: accounts\models.py:36 accounts\templates\accounts\admin\user_form.html:77
 #: accounts\templates\accounts\admin\users_list.html:24
 msgid "Role"
 msgstr "ಪಾತ್ರ"
 
-#: payments\models.py:294
+#: payments\models.py:295
 msgid "Salaries & Wages"
 msgstr "ಸಂಬಳ ಮತ್ತು ಕೂಲಿ"
 
@@ -8060,10 +8145,10 @@ msgstr "ಸಂಬಳ ಮತ್ತು ಕೂಲಿ"
 msgid "Saturday"
 msgstr "ಶನಿವಾರ"
 
-#: templates\appointments\availability.html:154
 #: templates\clinic\admin\faq_form.html:14
 #: templates\clinic\admin\featured_form.html:16
 #: templates\clinic\admin\gallery_form.html:20
+#: templates\clinic\admin\translations.html:80
 msgid "Save"
 msgstr "ಉಳಿಸಿ"
 
@@ -8102,17 +8187,17 @@ msgstr "ಆದ್ಯತೆಗಳನ್ನು ಉಳಿಸಿ"
 msgid "Save Review"
 msgstr "ವಿಮರ್ಶೆ ಉಳಿಸಿ"
 
-#: templates\appointments\availability.html:116
+#: templates\appointments\availability.html:153
 msgid "Save rules"
 msgstr "ನಿಯಮಗಳನ್ನು ಉಳಿಸಿ"
-
-#: templates\appointments\availability.html:137
-msgid "Save shift"
-msgstr "ಪಾಳಿ ಉಳಿಸಿ"
 
 #: templates\clinic\partials\translation_panel.html:45
 msgid "Save translations"
 msgstr "ಅನುವಾದಗಳನ್ನು ಉಳಿಸಿ"
+
+#: templates\appointments\availability.html:78
+msgid "Save weekly hours"
+msgstr "ವಾರದ ಸಮಯಗಳನ್ನು ಉಳಿಸಿ"
 
 #: templates\clinic\event_detail.html:65
 msgid ""
@@ -8134,7 +8219,7 @@ msgstr "ಪರಿಶೀಲಿಸಲು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ"
 msgid "Schedule"
 msgstr "ವೇಳಾಪಟ್ಟಿ"
 
-#: courses\models.py:124
+#: courses\models.py:126
 msgid "Schedule Details"
 msgstr "ವೇಳಾಪಟ್ಟಿ ವಿವರಗಳು"
 
@@ -8242,7 +8327,7 @@ msgstr "ಹುಡುಕಿ..."
 msgid "Secret for the self-service cancel/reschedule link."
 msgstr "ಸ್ವಯಂ ಸೇವೆ ರದ್ದು/ಬದಲಾವಣೆ ಲಿಂಕ್‌ನ ರಹಸ್ಯ."
 
-#: events\models.py:255
+#: events\models.py:257
 msgid "Secret in the registrant's links: join, cancel, feedback."
 msgstr "ನೋಂದಾಯಿತರ ಲಿಂಕ್‌ಗಳಲ್ಲಿನ ರಹಸ್ಯ: ಸೇರಿ, ರದ್ದು, ಪ್ರತಿಕ್ರಿಯೆ."
 
@@ -8332,7 +8417,7 @@ msgstr "ವೈದ್ಯರನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 msgid "Select Practitioner"
 msgstr "ವೈದ್ಯರನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 
-#: events\models.py:25
+#: events\models.py:27
 msgid "Seminar"
 msgstr "ವಿಚಾರಸಂಕಿರಣ"
 
@@ -8427,11 +8512,11 @@ msgstr "ಸೇವೆಗಳ ಲೇಬಲ್"
 msgid "Services Title"
 msgstr "ಸೇವೆಗಳ ಶೀರ್ಷಿಕೆ"
 
-#: patients\models.py:291
+#: patients\models.py:292
 msgid "Session"
 msgstr "ಅವಧಿ"
 
-#: patients\models.py:259
+#: patients\models.py:260
 msgid "Session #"
 msgstr "ಅವಧಿ #"
 
@@ -8460,7 +8545,7 @@ msgstr "ಅವಧಿ #%(session_number)s ಯಶಸ್ವಿಯಾಗಿ ನವ�
 msgid "Session Basics"
 msgstr "ಅವಧಿಯ ಮೂಲಭೂತ"
 
-#: patients\models.py:261 templates\patients\session_edit.html:52
+#: patients\models.py:262 templates\patients\session_edit.html:52
 #: templates\patients\session_form.html:46
 msgid "Session Date"
 msgstr "ಅವಧಿಯ ದಿನಾಂಕ"
@@ -8478,21 +8563,21 @@ msgstr "ಅವಧಿ ಇತಿಹಾಸ"
 msgid "Session Note - %(session_number)s"
 msgstr "ಅವಧಿ ಟಿಪ್ಪಣಿ - %(session_number)s"
 
-#: patients\models.py:163
+#: patients\models.py:164
 msgid "Session package"
 msgstr "ಅವಧಿ ಪ್ಯಾಕೇಜ್"
 
-#: patients\models.py:164 templates\patients\packages.html:3
+#: patients\models.py:165 templates\patients\packages.html:3
 #: templates\patients\packages.html:4 templates\ui\sidebar.html:17
 msgid "Session packages"
 msgstr "ಅವಧಿ ಪ್ಯಾಕೇಜ್‌ಗಳು"
 
-#: patients\models.py:265 templates\patients\session_edit.html:59
+#: patients\models.py:266 templates\patients\session_edit.html:59
 #: templates\patients\session_form.html:52
 msgid "Session Time"
 msgstr "ಅವಧಿಯ ಸಮಯ"
 
-#: patients\models.py:292
+#: patients\models.py:293
 msgid "Sessions"
 msgstr "ಅವಧಿಗಳು"
 
@@ -8525,10 +8610,6 @@ msgstr "ಸೆಟ್ಟಿಂಗ್‌ಗಳು - SpinalCure"
 msgid "Settings Menu"
 msgstr "ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಮೆನು"
 
-#: templates\appointments\availability.html:37
-msgid "Several shifts per day are allowed (e.g. morning and evening)."
-msgstr "ದಿನಕ್ಕೆ ಹಲವು ಪಾಳಿಗಳು ಅನುಮತಿಸಲಾಗಿದೆ (ಉದಾ. ಬೆಳಿಗ್ಗೆ ಮತ್ತು ಸಂಜೆ)."
-
 #: idcards\templates\idcards\_card.html:40
 msgid "Share"
 msgstr "ಹಂಚಿಕೊಳ್ಳಿ"
@@ -8559,15 +8640,11 @@ msgstr ""
 "ಹಂಚಿಕೆ ಹೊಂದಿರುವವರ ಹೆಸರು, ಕಾರ್ಡ್ ಪ್ರಕಾರ ಮತ್ತು ಪರಿಶೀಲನಾ ಲಿಂಕ್ ಮಾತ್ರ "
 "ಕಳುಹಿಸುತ್ತದೆ — ಸಂಪರ್ಕ ವಿವರಗಳು ಎಂದಿಗೂ ಅಲ್ಲ."
 
-#: templates\appointments\availability.html:130
-msgid "Shift is active"
-msgstr "ಪಾಳಿ ಸಕ್ರಿಯವಾಗಿದೆ"
-
-#: appointments\schedule_views.py:113
+#: appointments\schedule_views.py:219
 msgid "Shift removed. Existing appointments are unchanged."
 msgstr "ಪಾಳಿ ತೆಗೆದುಹಾಕಲಾಗಿದೆ. ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳು ಬದಲಾಗಿಲ್ಲ."
 
-#: appointments\schedule_views.py:95
+#: appointments\schedule_views.py:201
 msgid "Shift saved."
 msgstr "ಪಾಳಿ ಉಳಿಸಲಾಗಿದೆ."
 
@@ -8575,7 +8652,7 @@ msgstr "ಪಾಳಿ ಉಳಿಸಲಾಗಿದೆ."
 msgid "Short description"
 msgstr "ಸಂಕ್ಷಿಪ್ತ ವಿವರಣೆ"
 
-#: courses\models.py:25
+#: courses\models.py:27
 msgid "Short Description"
 msgstr "ಸಂಕ್ಷಿಪ್ತ ವಿವರಣೆ"
 
@@ -8584,11 +8661,11 @@ msgstr "ಸಂಕ್ಷಿಪ್ತ ವಿವರಣೆ"
 msgid "Short description (searchable)"
 msgstr "ಸಂಕ್ಷಿಪ್ತ ವಿವರಣೆ (ಹುಡುಕಬಹುದಾದ)"
 
-#: clinic\models.py:614
+#: clinic\models.py:627
 msgid "Short note"
 msgstr "ಕಿರು ಟಿಪ್ಪಣಿ"
 
-#: clinic\blog_models.py:40
+#: clinic\blog_models.py:42
 msgid "Short summary shown on the blog listing card (max 500 chars)."
 msgstr ""
 "ಬ್ಲಾಗ್ ಪಟ್ಟಿ ಕಾರ್ಡ್‌ನಲ್ಲಿ ತೋರಿಸುವ ಸಂಕ್ಷಿಪ್ತ ಸಾರಾಂಶ (ಗರಿಷ್ಠ 500 ಅಕ್ಷರಗಳು)."
@@ -8640,7 +8717,7 @@ msgstr ""
 msgid "Show this course on public site"
 msgstr "ಈ ಕೋರ್ಸ್ ಅನ್ನು ಸಾರ್ವಜನಿಕ ಸೈಟ್‌ನಲ್ಲಿ ತೋರಿಸಿ"
 
-#: templates\appointments\partials\appointment_list_partial.html:80
+#: templates\appointments\partials\appointment_list_partial.html:84
 #, python-format
 msgid "Showing %(start_index)s to %(end_index)s of %(count)s appointments"
 msgstr ""
@@ -8685,11 +8762,11 @@ msgstr "%(count)s ರಲ್ಲಿ %(start_index)s–%(end_index)s"
 msgid "Showing last 5 sessions"
 msgstr "ಕೊನೆಯ 5 ಅವಧಿಗಳನ್ನು ತೋರಿಸಲಾಗುತ್ತಿದೆ"
 
-#: clinic\blog_models.py:81
+#: clinic\blog_models.py:83
 msgid "Shown in Google search results (max 160 chars)."
 msgstr "Google ಹುಡುಕಾಟ ಫಲಿತಾಂಶಗಳಲ್ಲಿ ತೋರಿಸಲಾಗುತ್ತದೆ (ಗರಿಷ್ಠ 160 ಅಕ್ಷರಗಳು)."
 
-#: clinic\models.py:661
+#: clinic\models.py:665
 msgid "Shown on the spotlight, e.g. \"Featured patient\"."
 msgstr "ಸ್ಪಾಟ್‌ಲೈಟ್‌ನಲ್ಲಿ ತೋರಿಸಲಾಗುತ್ತದೆ, ಉದಾ. \"ವಿಶೇಷ ರೋಗಿ\"."
 
@@ -8706,7 +8783,7 @@ msgstr ""
 msgid "SI"
 msgstr "SI"
 
-#: templates\base.html:48
+#: templates\base.html:58
 msgid "Sidebar"
 msgstr "ಸೈಡ್‌ಬಾರ್"
 
@@ -8730,7 +8807,7 @@ msgstr "ಸೈನ್ ಇನ್ ಆಗುತ್ತಿದೆ…"
 msgid "Simple guides for a healthier spine"
 msgstr "ಆರೋಗ್ಯಕರ ಬೆನ್ನುಮೂಳೆಗೆ ಸರಳ ಮಾರ್ಗದರ್ಶಿಗಳು"
 
-#: patients\models.py:153 templates\patients\patient_detail.html:277
+#: patients\models.py:154 templates\patients\patient_detail.html:277
 msgid "Sittings"
 msgstr "ಸಿಟ್ಟಿಂಗ್‌ಗಳು"
 
@@ -8738,7 +8815,7 @@ msgstr "ಸಿಟ್ಟಿಂಗ್‌ಗಳು"
 msgid "Skills"
 msgstr "ಕೌಶಲ್ಯಗಳು"
 
-#: templates\base.html:41 templates\public_base.html:36
+#: templates\base.html:51 templates\public_base.html:36
 msgid "Skip to content"
 msgstr "ವಿಷಯಕ್ಕೆ ಹೋಗಿ"
 
@@ -8754,7 +8831,7 @@ msgstr "ಸ್ಲಾಟ್ ಅವಧಿ (ನಿಮಿಷ)"
 msgid "Slot duration must be between 5 and 480 minutes."
 msgstr "ಸ್ಲಾಟ್ ಅವಧಿ 5 ರಿಂದ 480 ನಿಮಿಷಗಳ ನಡುವೆ ಇರಬೇಕು."
 
-#: courses\models.py:23
+#: courses\models.py:25
 msgid "Slug"
 msgstr "ಸ್ಲಗ್"
 
@@ -8762,7 +8839,7 @@ msgstr "ಸ್ಲಗ್"
 msgid "SMART SEO ENABLED"
 msgstr "ಸ್ಮಾರ್ಟ್ SEO ಸಕ್ರಿಯ"
 
-#: accounts\models.py:96
+#: accounts\models.py:97
 msgid "SMS"
 msgstr "SMS"
 
@@ -8770,11 +8847,11 @@ msgstr "SMS"
 msgid "SMS and WhatsApp are not configured for this clinic."
 msgstr "ಈ ಕ್ಲಿನಿಕ್‌ಗೆ SMS ಮತ್ತು WhatsApp ಕಾನ್ಫಿಗರ್ ಮಾಡಲಾಗಿಲ್ಲ."
 
-#: patients\models.py:39
+#: patients\models.py:40
 msgid "SMS notifications (opt-in)"
 msgstr "SMS ಅಧಿಸೂಚನೆಗಳು (ಐಚ್ಛಿಕ)"
 
-#: clinic\models.py:758
+#: clinic\models.py:777
 msgid "Snapshot"
 msgstr "ಸ್ನ್ಯಾಪ್‌ಶಾಟ್"
 
@@ -8859,7 +8936,7 @@ msgstr "SpinalCure — ಅಧಿಕಾರ ವಿನಂತಿ"
 msgid "ST"
 msgstr "ST"
 
-#: accounts\models.py:27 accounts\templates\accounts\admin\users_list.html:60
+#: accounts\models.py:28 accounts\templates\accounts\admin\users_list.html:60
 #: appointments\models.py:243 idcards\models.py:55
 msgid "Staff"
 msgstr "ಸಿಬ್ಬಂದಿ"
@@ -8891,7 +8968,7 @@ msgstr "ಸಿಬ್ಬಂದಿ ಸೈನ್ ಇನ್"
 msgid "Staff-curated"
 msgstr "ಸಿಬ್ಬಂದಿ ಆಯ್ಕೆ ಮಾಡಿದ್ದು"
 
-#: courses\models.py:121
+#: courses\models.py:123
 msgid "Start Date"
 msgstr "ಆರಂಭ ದಿನಾಂಕ"
 
@@ -8899,7 +8976,7 @@ msgstr "ಆರಂಭ ದಿನಾಂಕ"
 msgid "Start from a package"
 msgstr "ಪ್ಯಾಕೇಜ್‌ನಿಂದ ಆರಂಭಿಸಿ"
 
-#: appointments\models.py:37 events\models.py:71
+#: appointments\models.py:37 events\models.py:73
 msgid "Start Time"
 msgstr "ಆರಂಭ ಸಮಯ"
 
@@ -8950,7 +9027,7 @@ msgid "Stat 2 Number"
 msgstr "ಅಂಕಿಅಂಶ 2 ಸಂಖ್ಯೆ"
 
 #: accounts\templates\accounts\admin\users_list.html:28
-#: appointments\models.py:227 events\models.py:95
+#: appointments\models.py:227 events\models.py:97
 #: idcards\templates\idcards\dashboard.html:29
 msgid "Status"
 msgstr "ಸ್ಥಿತಿ"
@@ -8996,7 +9073,7 @@ msgstr "ವಿಮರ್ಶೆ ಸಲ್ಲಿಸಿ"
 msgid "Submitted"
 msgstr "ಸಲ್ಲಿಸಲಾಗಿದೆ"
 
-#: courses\models.py:222 events\models.py:302
+#: courses\models.py:224 events\models.py:304
 msgid "Submitted At"
 msgstr "ಸಲ್ಲಿಸಿದ ಸಮಯ"
 
@@ -9014,7 +9091,7 @@ msgstr "ಉಪಮೊತ್ತ"
 msgid "Sunday"
 msgstr "ಭಾನುವಾರ"
 
-#: accounts\models.py:22
+#: accounts\models.py:23
 msgid "Super Admin"
 msgstr "ಸೂಪರ್ ಅಡ್ಮಿನ್"
 
@@ -9030,7 +9107,7 @@ msgstr "ಸೂಪರ್‌ಯೂಸರ್"
 msgid "Supported: JPG, PNG, WEBP"
 msgstr "ಬೆಂಬಲಿತ: JPG, PNG, WEBP"
 
-#: accounts\models.py:322
+#: accounts\models.py:323
 msgid "Suspended"
 msgstr "ಅಮಾನತುಗೊಳಿಸಲಾಗಿದೆ"
 
@@ -9069,7 +9146,7 @@ msgstr "ಸಮಸ್ಯೆ ಟ್ಯಾಗ್ ಮಾಡಿ"
 msgid "Tag deleted."
 msgstr "ಟ್ಯಾಗ್ ಅಳಿಸಲಾಗಿದೆ."
 
-#: clinic\blog_models.py:10
+#: clinic\blog_models.py:12
 msgid "Tag Name"
 msgstr "ಟ್ಯಾಗ್ ಹೆಸರು"
 
@@ -9077,12 +9154,12 @@ msgstr "ಟ್ಯಾಗ್ ಹೆಸರು"
 msgid "Tagline"
 msgstr "ಘೋಷವಾಕ್ಯ"
 
-#: clinic\blog_models.py:68 templates\clinic\admin\blog_form.html:118
+#: clinic\blog_models.py:70 templates\clinic\admin\blog_form.html:118
 #: templates\clinic\admin\blog_list.html:31
 msgid "Tags"
 msgstr "ಟ್ಯಾಗ್‌ಗಳು"
 
-#: spinalcure\settings\base.py:126
+#: spinalcure\settings\base.py:127
 msgid "Tamil"
 msgstr "ತಮಿಳು"
 
@@ -9090,23 +9167,23 @@ msgstr "ತಮಿಳು"
 msgid "Target Record"
 msgstr "ಗುರಿ ದಾಖಲೆ"
 
-#: payments\models.py:165
+#: payments\models.py:166
 msgid "Tax %"
 msgstr "ತೆರಿಗೆ %"
 
-#: payments\models.py:37
+#: payments\models.py:38
 msgid "Tax Exclusive"
 msgstr "ತೆರಿಗೆ ಹೊರತುಪಡಿಸಿ"
 
-#: payments\models.py:36
+#: payments\models.py:37
 msgid "Tax Inclusive"
 msgstr "ತೆರಿಗೆ ಸಹಿತ"
 
-#: payments\models.py:158
+#: payments\models.py:159
 msgid "Tax Type"
 msgstr "ತೆರಿಗೆ ಪ್ರಕಾರ"
 
-#: payments\models.py:302
+#: payments\models.py:303
 msgid "Taxes & Fees"
 msgstr "ತೆರಿಗೆಗಳು ಮತ್ತು ಶುಲ್ಕಗಳು"
 
@@ -9134,7 +9211,7 @@ msgstr "ತಂಡದ ಶೀರ್ಷಿಕೆ"
 msgid "Techniques Employed:"
 msgstr "ಬಳಸಿದ ತಂತ್ರಗಳು:"
 
-#: patients\models.py:269 templates\patients\patient_detail.html:471
+#: patients\models.py:270 templates\patients\patient_detail.html:471
 #: templates\patients\session_edit.html:116
 #: templates\patients\session_form.html:104
 msgid "Techniques Used"
@@ -9156,11 +9233,11 @@ msgstr ""
 "ನಿಮ್ಮ ಚಿಕಿತ್ಸೆ ಹೇಗಿತ್ತು ಎಂದು ತಿಳಿಸಿ: ಇತರ ರೋಗಿಗಳಿಗಾಗಿ ಸಾರ್ವಜನಿಕ ವಿಮರ್ಶೆ, ಅಥವಾ"
 " ನಮ್ಮ ತಂಡಕ್ಕಾಗಿ ಖಾಸಗಿ ಅಭಿಪ್ರಾಯ."
 
-#: spinalcure\settings\base.py:128
+#: spinalcure\settings\base.py:129
 msgid "Telugu"
 msgstr "ತೆಲುಗು"
 
-#: accounts\models.py:323
+#: accounts\models.py:324
 msgid "Terminated"
 msgstr "ವಜಾಗೊಳಿಸಲಾಗಿದೆ"
 
@@ -9311,7 +9388,7 @@ msgstr "ಆ ಸಮಯ ಕಳೆದುಹೋಗಿದೆ."
 msgid "That time is outside working hours."
 msgstr "ಆ ಸಮಯ ಕೆಲಸದ ಸಮಯದ ಹೊರಗಿದೆ."
 
-#: courses\models.py:133
+#: courses\models.py:135
 msgid "The active batch is open for new registrations."
 msgstr "ಸಕ್ರಿಯ ಬ್ಯಾಚ್ ಹೊಸ ನೋಂದಣಿಗಳಿಗೆ ತೆರೆದಿದೆ."
 
@@ -9341,7 +9418,7 @@ msgstr "ವಿರಾಮ ಪಾಳಿಯ ಒಳಗೆ ಇರಬೇಕು."
 msgid "The content you are looking for is no longer available."
 msgstr "ನೀವು ಹುಡುಕುತ್ತಿರುವ ವಿಷಯ ಈಗ ಲಭ್ಯವಿಲ್ಲ."
 
-#: events\models.py:228
+#: events\models.py:230
 msgid "The deadline must be before the event starts."
 msgstr "ಗಡುವು ಕಾರ್ಯಕ್ರಮ ಆರಂಭವಾಗುವ ಮೊದಲು ಇರಬೇಕು."
 
@@ -9421,11 +9498,11 @@ msgstr "ಆ ದಿನ ವೈದ್ಯರು ಕೆಲಸ ಮಾಡುವುದ�
 msgid "The practitioner is not available on that date (leave or closure)."
 msgstr "ಆ ದಿನಾಂಕದಂದು ವೈದ್ಯರು ಲಭ್ಯವಿಲ್ಲ (ರಜೆ ಅಥವಾ ಮುಚ್ಚುವಿಕೆ)."
 
-#: payments\models.py:399
+#: payments\models.py:400
 msgid "The public page stops offering checkout after this."
 msgstr "ಇದರ ನಂತರ ಸಾರ್ವಜನಿಕ ಪುಟದಲ್ಲಿ ಪಾವತಿ ಸೌಲಭ್ಯ ನಿಲ್ಲುತ್ತದೆ."
 
-#: events\models.py:289
+#: events\models.py:291
 msgid "The registration this feedback belongs to."
 msgstr "ಈ ಪ್ರತಿಕ್ರಿಯೆ ಸೇರಿದ ನೋಂದಣಿ."
 
@@ -9529,9 +9606,17 @@ msgstr ""
 msgid "This event was cancelled."
 msgstr "ಈ ಕಾರ್ಯಕ್ರಮ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ."
 
-#: spinalcure\uploads.py:54
+#: spinalcure\uploads.py:209
 msgid "This file is not a valid image."
 msgstr "ಈ ಫೈಲ್ ಮಾನ್ಯವಾದ ಚಿತ್ರವಲ್ಲ."
+
+#: spinalcure\uploads.py:179
+msgid "This file is not a valid upload."
+msgstr "ಈ ಫೈಲ್ ಮಾನ್ಯ ಅಪ್‌ಲೋಡ್ ಅಲ್ಲ."
+
+#: spinalcure\uploads.py:264
+msgid "This file is not a valid video."
+msgstr "ಈ ಫೈಲ್ ಮಾನ್ಯ ವೀಡಿಯೊ ಅಲ್ಲ."
 
 #: templates\payments\invoice.html:509
 msgid ""
@@ -9593,7 +9678,7 @@ msgstr "ಥಂಬ್‌ನೇಲ್"
 msgid "Thursday"
 msgstr "ಗುರುವಾರ"
 
-#: clinic\models.py:618
+#: clinic\models.py:631
 msgid ""
 "Tick only when the patient (or their team) has agreed in writing to be named"
 " on the website."
@@ -9611,15 +9696,15 @@ msgstr "ಸಮಯ"
 msgid "Time off"
 msgstr "ರಜೆ ಸಮಯ"
 
-#: appointments\schedule_views.py:160
+#: appointments\schedule_views.py:270
 msgid "Time off removed."
 msgstr "ರಜೆ ಸಮಯ ತೆಗೆದುಹಾಕಲಾಗಿದೆ."
 
-#: appointments\schedule_views.py:138
+#: appointments\schedule_views.py:248
 msgid "Time off saved."
 msgstr "ರಜೆ ಸಮಯ ಉಳಿಸಲಾಗಿದೆ."
 
-#: events\forms.py:30 events\models.py:98
+#: events\forms.py:30 events\models.py:100
 msgid "Time zone"
 msgstr "ಸಮಯ ವಲಯ"
 
@@ -9630,12 +9715,12 @@ msgstr ""
 "ಮೇಲಿನ ಸಮಯಗಳು ಈ ಸಮಯ ವಲಯದಲ್ಲಿವೆ; ಸಂದರ್ಶಕರು ಪ್ರತಿ ಸಮಯದ ಜೊತೆಗೆ ಇದನ್ನು "
 "ನೋಡುತ್ತಾರೆ."
 
-#: clinic\models.py:775 clinic\templates\clinic\admin\activity_log.html:61
+#: clinic\models.py:794 clinic\templates\clinic\admin\activity_log.html:61
 #: templates\emails\audit_log_notification.html:30
 msgid "Timestamp"
 msgstr "ಸಮಯಮುದ್ರೆ"
 
-#: accounts\models.py:143
+#: accounts\models.py:144
 msgid "Timestamp when OTP becomes invalid"
 msgstr "OTP ಅಮಾನ್ಯವಾಗುವ ಸಮಯ"
 
@@ -9643,8 +9728,8 @@ msgstr "OTP ಅಮಾನ್ಯವಾಗುವ ಸಮಯ"
 msgid "Timing & Duration"
 msgstr "ಸಮಯ ಮತ್ತು ಅವಧಿ"
 
-#: clinic\blog_models.py:34 clinic\models.py:487 clinic\models.py:653
-#: courses\models.py:22
+#: clinic\blog_models.py:36 clinic\models.py:487 clinic\models.py:657
+#: courses\models.py:24
 msgid "Title"
 msgstr "ಶೀರ್ಷಿಕೆ"
 
@@ -9656,7 +9741,7 @@ msgstr "ಶೀರ್ಷಿಕೆ ಮತ್ತು ಲೇಖಕ"
 msgid "Title *"
 msgstr "ಶೀರ್ಷಿಕೆ *"
 
-#: payments\models.py:308 templates\payments\expense_form.html:15
+#: payments\models.py:309 templates\payments\expense_form.html:15
 msgid "Title / Description"
 msgstr "ಶೀರ್ಷಿಕೆ / ವಿವರಣೆ"
 
@@ -9709,14 +9794,14 @@ msgstr "ಗೋಚರತೆ ಬದಲಿಸಿ"
 msgid "Too many attempts. Please try again later."
 msgstr "ಹಲವು ಪ್ರಯತ್ನಗಳು. ದಯವಿಟ್ಟು ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
 
-#: accounts\models.py:278 accounts\models.py:289
+#: accounts\models.py:279 accounts\models.py:290
 msgid ""
 "Too many failed attempts. OTP has been invalidated. Please request a new "
 "one."
 msgstr ""
 "ಹಲವು ವಿಫಲ ಪ್ರಯತ್ನಗಳು. OTP ಅಮಾನ್ಯಗೊಳಿಸಲಾಗಿದೆ. ದಯವಿಟ್ಟು ಹೊಸದನ್ನು ವಿನಂತಿಸಿ."
 
-#: accounts\models.py:203
+#: accounts\models.py:204
 msgid "Too many OTP requests. Please try again in 1 hour."
 msgstr "ಹಲವು OTP ವಿನಂತಿಗಳು. ದಯವಿಟ್ಟು 1 ಗಂಟೆಯ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
 
@@ -9732,7 +9817,7 @@ msgstr "ಮೇಲಿನ ಉಪ-ಲೇಬಲ್"
 msgid "Topics"
 msgstr "ವಿಷಯಗಳು"
 
-#: payments\models.py:113
+#: payments\models.py:114
 msgid "Total Amount"
 msgstr "ಒಟ್ಟು ಮೊತ್ತ"
 
@@ -9764,11 +9849,11 @@ msgstr "ಈ ಬ್ಯಾಚ್‌ಗೆ ನೋಂದಾಯಿತ ಒಟ್ಟು
 msgid "Total Reviews"
 msgstr "ಒಟ್ಟು ವಿಮರ್ಶೆಗಳು"
 
-#: patients\models.py:190 templates\patients\patient_detail.html:811
+#: patients\models.py:191 templates\patients\patient_detail.html:811
 msgid "Total Sittings"
 msgstr "ಒಟ್ಟು ಸಿಟ್ಟಿಂಗ್‌ಗಳು"
 
-#: patients\models.py:79 templates\patients\patient_form.html:175
+#: patients\models.py:80 templates\patients\patient_form.html:175
 msgid "Total Sittings Planned"
 msgstr "ಯೋಜಿತ ಒಟ್ಟು ಸಿಟ್ಟಿಂಗ್‌ಗಳು"
 
@@ -9821,7 +9906,7 @@ msgstr "ಅನುವಾದಗಳು — SpinalCure ಅಡ್ಮಿನ್"
 msgid "Transparent PNG or SVG recommended. Max 2MB."
 msgstr "ಪಾರದರ್ಶಕ PNG ಅಥವಾ SVG ಶಿಫಾರಸು. ಗರಿಷ್ಠ 2MB."
 
-#: payments\models.py:300
+#: payments\models.py:301
 msgid "Transport"
 msgstr "ಸಾರಿಗೆ"
 
@@ -9847,7 +9932,7 @@ msgstr "ಚಿಕಿತ್ಸಾ ಫಾಲೋ-ಅಪ್ ಬಾಕಿ"
 msgid "Treatment Info"
 msgstr "ಚಿಕಿತ್ಸೆಯ ಮಾಹಿತಿ"
 
-#: patients\models.py:247 payments\models.py:66
+#: patients\models.py:248 payments\models.py:67
 #: templates\patients\session_edit.html:66
 #: templates\patients\session_form.html:59
 msgid "Treatment Plan"
@@ -9893,7 +9978,7 @@ msgstr "ಬೇರೆ ಪದವನ್ನು ಪ್ರಯತ್ನಿಸಿ ಅಥ
 msgid "Try a name, phone number or appointment ID."
 msgstr "ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ID ಪ್ರಯತ್ನಿಸಿ."
 
-#: templates\appointments\partials\appointment_list_partial.html:68
+#: templates\appointments\partials\appointment_list_partial.html:72
 msgid "Try adjusting your filters or search query."
 msgstr "ನಿಮ್ಮ ಫಿಲ್ಟರ್‌ಗಳು ಅಥವಾ ಹುಡುಕಾಟವನ್ನು ಬದಲಿಸಿ ಪ್ರಯತ್ನಿಸಿ."
 
@@ -9939,7 +10024,7 @@ msgstr "Twitter / X ಪ್ರೊಫೈಲ್ URL"
 msgid "Twitter URL"
 msgstr "Twitter URL"
 
-#: clinic\models.py:652 events\models.py:57
+#: clinic\models.py:656 events\models.py:59
 #: idcards\templates\idcards\dashboard.html:19
 #: idcards\templates\idcards\detail.html:22
 msgid "Type"
@@ -9973,7 +10058,7 @@ msgstr "ಅಜ್ಞಾತ ಕಾರ್ಡ್ ಆಯ್ಕೆಗಳು: %(value1
 msgid "Unknown language."
 msgstr "ಅಜ್ಞಾತ ಭಾಷೆ."
 
-#: payments\models.py:186
+#: payments\models.py:187
 msgid "Unknown Payer"
 msgstr "ಅಜ್ಞಾತ ಪಾವತಿದಾರ"
 
@@ -9986,11 +10071,11 @@ msgstr "ಅಜ್ಞಾತ ವೈದ್ಯರು."
 msgid "Unknown record."
 msgstr "ಅಜ್ಞಾತ ದಾಖಲೆ."
 
-#: events\models.py:224
+#: events\models.py:226
 msgid "Unknown time zone."
 msgstr "ಅಜ್ಞಾತ ಸಮಯ ವಲಯ."
 
-#: payments\models.py:32
+#: payments\models.py:33
 msgid "Unpaid"
 msgstr "ಪಾವತಿಸಿಲ್ಲ"
 
@@ -10009,6 +10094,11 @@ msgstr "ಓದದಿರುವವು"
 msgid "unread notifications"
 msgstr "ಓದದ ಅಧಿಸೂಚನೆಗಳು"
 
+#: templates\appointments\availability.html:92
+#: templates\appointments\availability.html:120
+msgid "Until (optional)"
+msgstr "ವರೆಗೆ (ಐಚ್ಛಿಕ)"
+
 #: templates\events\partials\event_list_partial.html:30
 #: templates\events\public_list.html:31
 msgid "Upcoming"
@@ -10019,7 +10109,7 @@ msgstr "ಮುಂಬರುವ"
 msgid "Upcoming Appointments"
 msgstr "ಮುಂಬರುವ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳು"
 
-#: clinic\models.py:708 clinic\templates\clinic\admin\activity_log.html:22
+#: clinic\models.py:727 clinic\templates\clinic\admin\activity_log.html:22
 #: clinic\templates\clinic\admin\activity_log.html:83
 msgid "Update"
 msgstr "ನವೀಕರಿಸಿ"
@@ -10080,7 +10170,7 @@ msgstr "ಪ್ರಶಂಸಾಪತ್ರ ನವೀಕರಿಸಿ"
 msgid "Update User"
 msgstr "ಬಳಕೆದಾರರನ್ನು ನವೀಕರಿಸಿ"
 
-#: payments\models.py:23
+#: payments\models.py:24
 msgid "UPI"
 msgstr "UPI"
 
@@ -10104,11 +10194,11 @@ msgstr "ಅಪ್‌ಲೋಡ್"
 msgid "Upload a JPEG, PNG or WebP image."
 msgstr "JPEG, PNG ಅಥವಾ WebP ಚಿತ್ರ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ."
 
-#: clinic\models.py:679
+#: clinic\models.py:683
 msgid "Upload a video or paste a YouTube / Instagram link."
 msgstr "ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ ಅಥವಾ YouTube / Instagram ಲಿಂಕ್ ಅಂಟಿಸಿ."
 
-#: clinic\models.py:643
+#: spinalcure\uploads.py:253
 msgid "Upload an MP4, WebM or MOV video."
 msgstr "MP4, WebM ಅಥವಾ MOV ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ."
 
@@ -10147,24 +10237,24 @@ msgstr "ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ಚಿತ್ರ"
 msgid "Use a hex colour such as #166534."
 msgstr "#166534 ನಂತಹ ಹೆಕ್ಸ್ ಬಣ್ಣ ಬಳಸಿ."
 
-#: spinalcure\uploads.py:56
+#: spinalcure\uploads.py:211
 msgid "Use a JPEG, PNG or WebP image."
 msgstr "JPEG, PNG or WebP ಚಿತ್ರವನ್ನು ಬಳಸಿ."
 
-#: clinic\blog_models.py:64
+#: clinic\blog_models.py:66
 msgid "Use this if the author is not a practitioner in the system."
 msgstr "ಲೇಖಕರು ವ್ಯವಸ್ಥೆಯಲ್ಲಿ ವೈದ್ಯರಲ್ಲದಿದ್ದರೆ ಇದನ್ನು ಬಳಸಿ."
 
-#: appointments\models.py:168 events\models.py:231
+#: appointments\models.py:168 events\models.py:233
 msgid "Use whole numbers of minutes separated by commas."
 msgstr "ಅಲ್ಪವಿರಾಮದಿಂದ ಬೇರ್ಪಡಿಸಿದ ಪೂರ್ಣ ನಿಮಿಷ ಸಂಖ್ಯೆಗಳನ್ನು ಬಳಸಿ."
 
-#: accounts\models.py:127
+#: accounts\models.py:128
 msgid "Used"
 msgstr "ಬಳಸಲಾಗಿದೆ"
 
-#: accounts\models.py:63 accounts\models.py:104
-#: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:718
+#: accounts\models.py:64 accounts\models.py:105
+#: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:737
 msgid "User"
 msgstr "ಬಳಕೆದಾರ"
 
@@ -10196,11 +10286,11 @@ msgstr "ಬಳಕೆದಾರ ಹೆಸರು *"
 msgid "Username, or \"author\" / \"system\"."
 msgstr "ಬಳಕೆದಾರ ಹೆಸರು, ಅಥವಾ \"author\" / \"system\"."
 
-#: accounts\models.py:64
+#: accounts\models.py:65
 msgid "Users"
 msgstr "ಬಳಕೆದಾರರು"
 
-#: payments\models.py:297
+#: payments\models.py:298
 msgid "Utilities (Electric/Water)"
 msgstr "ಉಪಯುಕ್ತತೆಗಳು (ವಿದ್ಯುತ್/ನೀರು)"
 
@@ -10209,7 +10299,7 @@ msgstr "ಉಪಯುಕ್ತತೆಗಳು (ವಿದ್ಯುತ್/ನೀರ
 msgid "Valid for %(d)s days"
 msgstr "%(d)s ದಿನಗಳವರೆಗೆ ಮಾನ್ಯ"
 
-#: patients\models.py:155
+#: patients\models.py:156
 msgid "Valid for (days)"
 msgstr "ಮಾನ್ಯತೆ (ದಿನಗಳು)"
 
@@ -10222,7 +10312,7 @@ msgid "Valid ID card"
 msgstr "ಮಾನ್ಯ ID ಕಾರ್ಡ್"
 
 #: idcards\render.py:230 idcards\templates\idcards\verify.html:40
-#: patients\models.py:193 templates\patients\patient_detail.html:283
+#: patients\models.py:194 templates\patients\patient_detail.html:283
 msgid "Valid until"
 msgstr "ಮಾನ್ಯತೆ ಅವಧಿ"
 
@@ -10234,11 +10324,11 @@ msgstr "ಮೌಲ್ಯ 0 ಮತ್ತು 100 ರ ನಡುವೆ ಇರಬೇ�
 msgid "Vendor / Person name"
 msgstr "ಮಾರಾಟಗಾರ / ವ್ಯಕ್ತಿಯ ಹೆಸರು"
 
-#: events\models.py:76
+#: events\models.py:78
 msgid "Venue"
 msgstr "ಸ್ಥಳ"
 
-#: events\models.py:220
+#: events\models.py:222
 msgid "Venue is required for in-person events."
 msgstr "ನೇರ ಕಾರ್ಯಕ್ರಮಗಳಿಗೆ ಸ್ಥಳ ಅಗತ್ಯ."
 
@@ -10277,7 +10367,7 @@ msgstr "ಈ ID ಕಾರ್ಡ್ ಪರಿಶೀಲಿಸಿ:"
 msgid "via %(get_payment_mode_display)s"
 msgstr "%(get_payment_mode_display)s ಮೂಲಕ"
 
-#: clinic\models.py:650 templates\clinic\admin\gallery.html:30
+#: clinic\models.py:654 templates\clinic\admin\gallery.html:30
 #: templates\clinic\admin\videos.html:66
 msgid "Video"
 msgstr "ವೀಡಿಯೊ"
@@ -10300,7 +10390,7 @@ msgstr "ವೀಡಿಯೊ / Reel / Short ಲಿಂಕ್"
 msgid "Video deleted."
 msgstr "ವೀಡಿಯೊ ಅಳಿಸಲಾಗಿದೆ."
 
-#: clinic\models.py:657
+#: clinic\models.py:661
 msgid "Video file"
 msgstr "ವೀಡಿಯೊ ಫೈಲ್"
 
@@ -10316,11 +10406,11 @@ msgstr "ವೀಡಿಯೊ ಫ್ರೇಮ್ 2"
 msgid "Video frame 3"
 msgstr "ವೀಡಿಯೊ ಫ್ರೇಮ್ 3"
 
-#: templates\clinic\gallery.html:58
+#: templates\clinic\gallery.html:59
 msgid "Videos"
 msgstr "ವೀಡಿಯೊಗಳು"
 
-#: clinic\models.py:645
+#: spinalcure\uploads.py:255
 msgid ""
 "Videos can be at most 80 MB. Upload longer videos to YouTube and paste the "
 "link."
@@ -10328,7 +10418,7 @@ msgstr ""
 "ವೀಡಿಯೊಗಳು ಗರಿಷ್ಠ 80 MB ಇರಬಹುದು. ದೊಡ್ಡ ವೀಡಿಯೊಗಳನ್ನು YouTube ಗೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ "
 "ಲಿಂಕ್ ಅಂಟಿಸಿ."
 
-#: templates\appointments\availability.html:18
+#: templates\appointments\availability.html:17
 #: templates\events\public_list.html:54
 #: templates\patients\partials\patient_list_partial.html:54
 msgid "View"
@@ -10394,7 +10484,7 @@ msgstr "ದೃಶ್ಯ ಬ್ರ್ಯಾಂಡಿಂಗ್ ಮತ್ತು ಹ
 msgid "Visualizing pain and mobility metrics over time."
 msgstr "ಕಾಲಾನಂತರದಲ್ಲಿ ನೋವು ಮತ್ತು ಚಲನಶೀಲತೆ ಮಾಪನಗಳ ದೃಶ್ಯೀಕರಣ."
 
-#: payments\models.py:387
+#: payments\models.py:388
 msgid "Waiting for payment"
 msgstr "ಪಾವತಿಗಾಗಿ ಕಾಯುತ್ತಿದೆ"
 
@@ -10402,11 +10492,11 @@ msgstr "ಪಾವತಿಗಾಗಿ ಕಾಯುತ್ತಿದೆ"
 msgid "Waitlist"
 msgstr "ಕಾಯುವ ಪಟ್ಟಿ"
 
-#: events\models.py:103
+#: events\models.py:105
 msgid "Waitlist when full"
 msgstr "ಭರ್ತಿಯಾದಾಗ ಕಾಯುವ ಪಟ್ಟಿ"
 
-#: courses\models.py:177 events\models.py:250
+#: courses\models.py:179 events\models.py:252
 #: templates\events\event_registrations.html:31
 msgid "Waitlisted"
 msgstr "ಕಾಯುವ ಪಟ್ಟಿಯಲ್ಲಿ"
@@ -10527,7 +10617,7 @@ msgstr ""
 "ಇಡಲಾಗುತ್ತದೆ, ಮಾರ್ಕೆಟಿಂಗ್‌ಗಾಗಿ ಎಂದಿಗೂ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ ಅಥವಾ "
 "ಹಂಚಿಕೊಳ್ಳುವುದಿಲ್ಲ."
 
-#: events\models.py:27
+#: events\models.py:29
 msgid "Webinar"
 msgstr "ವೆಬಿನಾರ್"
 
@@ -10561,10 +10651,14 @@ msgstr "ಬುಧವಾರ"
 msgid "Week"
 msgstr "ವಾರ"
 
-#: templates\appointments\availability.html:36
+#: appointments\schedule_views.py:181
+msgid "Weekly hours saved."
+msgstr "ವಾರದ ಸಮಯಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ."
+
+#: templates\appointments\availability.html:33
 #, python-format
-msgid "Weekly schedule — %(name)s"
-msgstr "ವಾರದ ವೇಳಾಪಟ್ಟಿ — %(name)s"
+msgid "Weekly hours: %(name)s"
+msgstr "ವಾರದ ಸಮಯಗಳು: %(name)s"
 
 #: templates\accounts\login.html:42
 msgid "Welcome back"
@@ -10652,11 +10746,11 @@ msgstr "ನೀವು ಏನು ಕಲಿಯುತ್ತೀರಿ"
 msgid "Whatsapp"
 msgstr "WhatsApp"
 
-#: patients\models.py:49 templates\patients\patient_form.html:76
+#: patients\models.py:50 templates\patients\patient_form.html:76
 msgid "Whatsapp No"
 msgstr "WhatsApp ಸಂಖ್ಯೆ"
 
-#: patients\models.py:40
+#: patients\models.py:41
 msgid "WhatsApp notifications (opt-in)"
 msgstr "WhatsApp ಅಧಿಸೂಚನೆಗಳು (ಐಚ್ಛಿಕ)"
 
@@ -10685,15 +10779,15 @@ msgstr "ಒಪ್ಪಿಗೆ ಎಲ್ಲಿ ದಾಖಲಾಗಿದೆ"
 msgid "Where the QR on the back leads. Defaults to the clinic website."
 msgstr "ಹಿಂಭಾಗದ QR ಎಲ್ಲಿಗೆ ಕರೆದೊಯ್ಯುತ್ತದೆ. ಡೀಫಾಲ್ಟ್ ಆಗಿ ಕ್ಲಿನಿಕ್ ವೆಬ್‌ಸೈಟ್."
 
-#: clinic\models.py:765
+#: clinic\models.py:784
 msgid "Whether this action has been reverted"
 msgstr "ಈ ಕ್ರಿಯೆಯನ್ನು ಹಿಂತಿರುಗಿಸಲಾಗಿದೆಯೇ"
 
-#: accounts\models.py:128
+#: accounts\models.py:129
 msgid "Whether this OTP has been successfully verified"
 msgstr "ಈ OTP ಯಶಸ್ವಿಯಾಗಿ ಪರಿಶೀಲಿಸಲ್ಪಟ್ಟಿದೆಯೇ"
 
-#: courses\models.py:208
+#: courses\models.py:210
 msgid "Which batch the reviewer attended."
 msgstr "ವಿಮರ್ಶಕರು ಹಾಜರಾದ ಬ್ಯಾಚ್."
 
@@ -10764,7 +10858,7 @@ msgstr "ಪದಗಳ ಸಂಖ್ಯೆ: 0"
 msgid "Working Hours"
 msgstr "ಕೆಲಸದ ಸಮಯ"
 
-#: events\models.py:23
+#: events\models.py:25
 msgid "Workshop"
 msgstr "ಕಾರ್ಯಾಗಾರ"
 
@@ -10872,8 +10966,8 @@ msgstr "ನೀವು %(event)s (%(batch)s) ಗೆ ನೋಂದಾಯಿತರಾ
 msgid "You are registered for %(event)s on %(date)s at %(time)s."
 msgstr "ನೀವು %(date)s ರಂದು %(time)s ಕ್ಕೆ %(event)s ಗೆ ನೋಂದಾಯಿತರಾಗಿದ್ದೀರಿ."
 
-#: appointments\schedule_views.py:84 appointments\schedule_views.py:108
-#: appointments\schedule_views.py:155 appointments\schedule_views.py:129
+#: appointments\schedule_views.py:154 appointments\schedule_views.py:190
+#: appointments\schedule_views.py:214 appointments\schedule_views.py:265
 msgid "You can only edit your own schedule."
 msgstr "ನೀವು ನಿಮ್ಮ ಸ್ವಂತ ವೇಳಾಪಟ್ಟಿಯನ್ನು ಮಾತ್ರ ತಿದ್ದಬಹುದು."
 
@@ -11194,12 +11288,39 @@ msgstr "📅 Google Calendar ಗೆ ಸೇರಿಸಿ"
 #~ msgid "Add review"
 #~ msgstr "ವಿಮರ್ಶೆ ಸೇರಿಸಿ"
 
+#~ msgid "Add shift"
+#~ msgstr "ಪಾಳಿ ಸೇರಿಸಿ"
+
+#~ msgid "Add time off"
+#~ msgstr "ರಜೆ ಸಮಯ ಸೇರಿಸಿ"
+
+#~ msgid "break"
+#~ msgstr "ವಿರಾಮ"
+
+#~ msgid "Edit shift"
+#~ msgstr "ಪಾಳಿ ತಿದ್ದಿ"
+
 #~ msgid "Manage curated testimonials displayed on the public portfolio."
 #~ msgstr ""
 #~ "ಸಾರ್ವಜನಿಕ ಪೋರ್ಟ್‌ಫೋಲಿಯೋದಲ್ಲಿ ತೋರಿಸುವ ಆಯ್ದ ಪ್ರಶಂಸಾಪತ್ರಗಳನ್ನು ನಿರ್ವಹಿಸಿ."
 
+#~ msgid "max"
+#~ msgstr "ಗರಿಷ್ಠ"
+
+#~ msgid "min buffer"
+#~ msgstr "ನಿ ಅಂತರ"
+
+#~ msgid "min slots"
+#~ msgstr "ನಿ ಸ್ಲಾಟ್‌ಗಳು"
+
 #~ msgid "No testimonials yet"
 #~ msgstr "ಇನ್ನೂ ಪ್ರಶಂಸಾಪತ್ರಗಳಿಲ್ಲ"
+
+#~ msgid "Not working"
+#~ msgstr "ಕೆಲಸವಿಲ್ಲ"
+
+#~ msgid "Off"
+#~ msgstr "ಆಫ್"
 
 #, python-format
 #~ msgid "Order: %(display_order)s"
@@ -11208,11 +11329,27 @@ msgstr "📅 Google Calendar ಗೆ ಸೇರಿಸಿ"
 #~ msgid "Publish to portfolio immediately"
 #~ msgstr "ತಕ್ಷಣ ಪೋರ್ಟ್‌ಫೋಲಿಯೋಗೆ ಪ್ರಕಟಿಸಿ"
 
+#~ msgid "Remove this shift?"
+#~ msgstr "ಈ ಪಾಳಿ ತೆಗೆದುಹಾಕಬೇಕೆ?"
+
+#~ msgid "Save shift"
+#~ msgstr "ಪಾಳಿ ಉಳಿಸಿ"
+
 #~ msgid "See the gallery"
 #~ msgstr "ಗ್ಯಾಲರಿ ನೋಡಿ"
 
+#~ msgid "Several shifts per day are allowed (e.g. morning and evening)."
+#~ msgstr "ದಿನಕ್ಕೆ ಹಲವು ಪಾಳಿಗಳು ಅನುಮತಿಸಲಾಗಿದೆ (ಉದಾ. ಬೆಳಿಗ್ಗೆ ಮತ್ತು ಸಂಜೆ)."
+
+#~ msgid "Shift is active"
+#~ msgstr "ಪಾಳಿ ಸಕ್ರಿಯವಾಗಿದೆ"
+
 #~ msgid "Testimonials — SpinalCure Admin"
 #~ msgstr "ಪ್ರಶಂಸಾಪತ್ರಗಳು — SpinalCure ಅಡ್ಮಿನ್"
+
+#, python-format
+#~ msgid "Weekly schedule — %(name)s"
+#~ msgstr "ವಾರದ ವೇಳಾಪಟ್ಟಿ — %(name)s"
 
 #~ msgid "✓ Published"
 #~ msgstr "✓ ಪ್ರಕಟಿಸಲಾಗಿದೆ"

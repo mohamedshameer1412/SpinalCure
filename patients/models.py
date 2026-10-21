@@ -1,6 +1,6 @@
 from django.db import models
 from spinalcure.private_media import get_private_storage
-from spinalcure.uploads import RandomName
+from spinalcure.uploads import RandomName, SafeImageField
 from spinalcure.languages import NATIVE_CHOICES
 import uuid
 from decimal import Decimal
@@ -59,7 +59,7 @@ class Patient(models.Model):
         validators=[validate_not_in_future],
         verbose_name=_('Date of Birth')
     )
-    photo = models.ImageField(upload_to=RandomName('patients'), storage=get_private_storage, blank=True, null=True, verbose_name=_('Photo'))
+    photo = SafeImageField(upload_to=RandomName('patients'), storage=get_private_storage, blank=True, null=True, verbose_name=_('Photo'))
 
     # Attender Info (optional)
     attender_name = models.CharField(max_length=200, blank=True, verbose_name=_('Attender Name'))

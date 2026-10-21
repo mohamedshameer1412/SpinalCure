@@ -1,7 +1,7 @@
 import secrets
 from django.db import models
 from spinalcure.private_media import get_private_storage
-from spinalcure.uploads import RandomName
+from spinalcure.uploads import RandomName, SafeImageField
 import uuid
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
@@ -328,7 +328,7 @@ class Expense(models.Model):
         default=date.today
     )
     paid_to = models.CharField(max_length=200, blank=True, verbose_name=_('Paid To'))
-    receipt = models.ImageField(
+    receipt = SafeImageField(
         upload_to=RandomName('expenses'), storage=get_private_storage,
         blank=True,
         null=True,

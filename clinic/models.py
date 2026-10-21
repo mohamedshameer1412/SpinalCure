@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from spinalcure.languages import NATIVE_CHOICES
-from spinalcure.uploads import RandomName
+from spinalcure.uploads import RandomName, SafeImageField, SafeVideoField, validate_safe_video
 from spinalcure.validators import (
     validate_phone_number, validate_gstin, validate_ifsc_code, validate_upi, validate_percentage
 )
@@ -28,7 +28,7 @@ class ClinicProfile(models.Model):
         blank=True,
         verbose_name=_('Tagline')
     )
-    logo = models.ImageField(
+    logo = SafeImageField(
         upload_to='clinic/',
         blank=True,
         null=True,
@@ -71,7 +71,7 @@ class ClinicProfile(models.Model):
         verbose_name=_('Hero Subtitle'),
         help_text='Paragraph below the headline.'
     )
-    hero_image = models.ImageField(
+    hero_image = SafeImageField(
         upload_to='clinic/hero/',
         blank=True,
         null=True,
@@ -199,7 +199,7 @@ class Practitioner(models.Model):
         blank=True,
         verbose_name=_('Title/Designation')
     )
-    photo = models.ImageField(
+    photo = SafeImageField(
         upload_to='practitioners/',
         blank=True,
         null=True
@@ -273,7 +273,7 @@ class Practitioner(models.Model):
 class ClinicAboutImage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     clinic = models.ForeignKey(ClinicProfile, on_delete=models.CASCADE, related_name='about_images')
-    image = models.ImageField(upload_to='clinic/about/', verbose_name=_('About Image'))
+    image = SafeImageField(upload_to='clinic/about/', verbose_name=_('About Image'))
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
@@ -301,7 +301,7 @@ class ClinicService(models.Model):
 class HeroCarouselImage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     clinic = models.ForeignKey(ClinicProfile, on_delete=models.CASCADE, related_name='hero_carousel_images')
-    image = models.ImageField(upload_to='clinic/hero_carousel/', verbose_name=_('Hero Image'))
+    image = SafeImageField(upload_to='clinic/hero_carousel/', verbose_name=_('Hero Image'))
     order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -400,7 +400,7 @@ class ClinicTestimonial(models.Model):
         verbose_name=_('Designation / Location'),
         help_text='e.g., "Teacher, Chennai" or "Software Engineer, Bangalore"'
     )
-    photo = models.ImageField(
+    photo = SafeImageField(
         upload_to='testimonials/', blank=True, null=True,
         verbose_name=_('Photo')
     )
@@ -511,7 +511,7 @@ class TestimonialVideo(models.Model):
     consent_note = models.CharField(max_length=300, blank=True, verbose_name=_('Where consent is recorded'),
                                     help_text=_('e.g. "Signed media consent form, file 2026/14". Never upload the form itself here.'))
     consent_date = models.DateField(null=True, blank=True, verbose_name=_('Consent date'))
-    thumbnail = models.ImageField(upload_to=RandomName('stories'), blank=True, null=True, verbose_name=_('Thumbnail'))
+    thumbnail = SafeImageField(upload_to=RandomName('stories'), blank=True, null=True, verbose_name=_('Thumbnail'))
     thumbnail_source = models.CharField(max_length=10, choices=THUMB_SOURCE_CHOICES, default='platform')
     focal_x = models.PositiveSmallIntegerField(default=50, validators=[MaxValueValidator(100)])
     focal_y = models.PositiveSmallIntegerField(default=50, validators=[MaxValueValidator(100)])
@@ -623,7 +623,7 @@ class FeaturedPatient(models.Model):
     name = models.CharField(max_length=120, verbose_name=_('Name'))
     profession = models.CharField(max_length=120, blank=True, verbose_name=_('Known as'),
                                   help_text=_('e.g. "Actor", "Cricketer".'))
-    photo = models.ImageField(upload_to=RandomName('featured'), verbose_name=_('Photo'))
+    photo = SafeImageField(upload_to=RandomName('featured'), verbose_name=_('Photo'))
     note = models.CharField(max_length=300, blank=True, verbose_name=_('Short note'),
                             help_text=_('Optional, factual and brief. No treatment claims.'))
     consent_confirmed = models.BooleanField(
@@ -646,16 +646,7 @@ class FeaturedPatient(models.Model):
             raise ValidationError({'is_published': _('Confirm the permission is on file before publishing.')})
 
 
-VIDEO_EXTENSIONS = ('.mp4', '.webm', '.mov')
-MAX_VIDEO_BYTES = 80 * 1024 * 1024
-
-
-def validate_video_file(f):
-    import os
-    if os.path.splitext(f.name)[1].lower() not in VIDEO_EXTENSIONS:
-        raise ValidationError(_('Upload an MP4, WebM or MOV video.'))
-    if f.size > MAX_VIDEO_BYTES:
-        raise ValidationError(_('Videos can be at most 80 MB. Upload longer videos to YouTube and paste the link.'))
+validate_video_file = validate_safe_video          # name kept: migration 0014 refers to it
 
 
 class GalleryItem(models.Model):
@@ -665,8 +656,8 @@ class GalleryItem(models.Model):
     kind = models.CharField(max_length=5, choices=KIND_CHOICES, default='photo', verbose_name=_('Type'))
     title = models.CharField(max_length=200, verbose_name=_('Title'))
     caption = models.TextField(blank=True, verbose_name=_('Caption'))
-    image = models.ImageField(upload_to=RandomName('gallery'), blank=True, null=True, verbose_name=_('Photo / cover image'))
-    video_file = models.FileField(upload_to=RandomName('gallery/videos'), blank=True, null=True, validators=[validate_video_file],
+    image = SafeImageField(upload_to=RandomName('gallery'), blank=True, null=True, verbose_name=_('Photo / cover image'))
+    video_file = SafeVideoField(upload_to=RandomName('gallery/videos'), blank=True, null=True,
                                   verbose_name=_('Video file'))
     video_url = models.URLField(blank=True, verbose_name=_('or YouTube / Instagram link'))
     is_featured = models.BooleanField(default=False, db_index=True, verbose_name=_('Featured'))

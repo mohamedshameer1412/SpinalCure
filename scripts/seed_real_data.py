@@ -76,7 +76,7 @@ clinic.address = ("No: 194/4, 1st Floor, JN Salai, 100ft Main Rd, near Aladipatt
 clinic.phone = "+91 81480 38363, +91 90876 28476"
 clinic.instagram = "https://www.instagram.com/spinalcure_chennai/"
 clinic.youtube = "https://www.youtube.com/@SpinalCure"
-clinic.working_hours = "Mon, Tue, Wed, Thu, Sat: 5:30 pm – 8:30 pm\nFri: 10:00 am – 1:00 pm\nSun: Closed"
+clinic.working_hours = "Mon–Sat: 10:30 am – 1:30 pm, 5:30 pm – 8:30 pm\nSun: Closed"
 clinic.hero_title = "No Surgery. No Medicine. No Diet."
 clinic.hero_subtitle = ("Neck & back pain special care centre in Arumbakkam, Chennai. Specialists in classical acupuncture "
                         "science for back, neck, sciatica and joint disorders, disc and nerve conditions: drug-free, "

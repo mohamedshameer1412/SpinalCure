@@ -13,7 +13,7 @@
 
 {% block content %}
 <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-    <div class="p-4 flex items-center justify-between border-b border-gray-100 bg-gray-50">
+    <div class="p-4 flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 bg-gray-50">
         <form method="GET" action="{% url 'patient-list' %}" class="relative w-full max-sm:w-full max-w-sm">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -27,7 +27,7 @@
                 hx-trigger="keyup changed delay:500ms"
                 hx-target="#patient-table-container"
                 hx-swap="outerHTML"
-                class="block ps-10 w-80"
+                class="block ps-10 w-full"
                 placeholder="{% trans 'Search for patients...' %}">
             <!-- HTMX Indicator -->
             <div class="htmx-indicator absolute inset-y-0 end-0 flex items-center pe-3">

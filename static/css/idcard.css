@@ -8,7 +8,7 @@
 @font-face { font-family: 'IDC Arabic'; src: url('../fonts/NotoSansArabic-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'IDC Arabic'; src: url('../fonts/NotoSansArabic-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
 
-.idc-stage { width: 100%; max-width: 560px; direction: ltr; position: relative; margin-inline: auto; }   /* container is always LTR so scaling maths is predictable */
+.idc-stage { width: 100%; max-width: 560px; direction: ltr; position: relative; overflow: hidden; margin-inline: auto; }   /* container is always LTR so scaling maths is predictable */
 .idc-scale { width: 560px; height: 900px; transform-origin: top left; }
 .idc-flip { width: 560px; height: 900px; perspective: 1600px; cursor: pointer; border-radius: 28px; outline-offset: 6px; }
 .idc-flip:focus-visible { outline: 3px solid #16a34a; }

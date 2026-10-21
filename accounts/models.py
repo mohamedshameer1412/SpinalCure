@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 import uuid
 from django.db import models
 from spinalcure.private_media import get_private_storage
-from spinalcure.uploads import RandomName
+from spinalcure.uploads import RandomName, SafeImageField
 from spinalcure.languages import NATIVE_CHOICES
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
@@ -41,7 +41,7 @@ class CustomUser(AbstractUser):
         validators=[validate_phone_number],
         verbose_name=_('Phone')
     )
-    photo = models.ImageField(
+    photo = SafeImageField(
         upload_to=RandomName('users'), storage=get_private_storage,
         blank=True,
         null=True,

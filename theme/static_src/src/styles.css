@@ -8,6 +8,7 @@
    ============================================================================================ */
 
 @layer base {
+  table { position: relative; }   /* keeps absolutely-positioned sr-only cells inside a scrolling wrapper */
   html { -webkit-text-size-adjust: 100%; }
   body { @apply bg-page text-gray-900 antialiased; font-feature-settings: 'cv11', 'ss01'; }
   ::selection { @apply bg-primary-200 text-primary-950; }

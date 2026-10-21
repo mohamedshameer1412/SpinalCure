@@ -47,6 +47,7 @@ urlpatterns = [
     path('i18n/setlang/', set_language, name='set_language'),
     path('payments/razorpay/webhook/', razorpay_webhook, name='razorpay_webhook'),
     path('robots.txt', seo.robots_txt, name='robots_txt'),
+    path('favicon.ico', RedirectView.as_view(url=settings.STATIC_URL + 'favicon.ico', permanent=True)),
     path('private-media/<path:path>', private_media.serve, name='private_media'),
     path('sitemap.xml', cache_page(3600)(sitemap_view), {'sitemaps': seo.SITEMAPS}, name='sitemap'),
     

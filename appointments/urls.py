@@ -24,6 +24,7 @@ urlpatterns = [
     path('export/copy/', export_appointments_copy, name='export_appointments_copy'),
     path('export/print/', export_appointments_print, name='export_appointments_print'),
     path('availability/', sv.availability, name='doctor_availability'),
+    path('availability/<str:practitioner_id>/weekly/', sv.weekly_save, name='weekly_save'),
     path('availability/<str:practitioner_id>/shift/', sv.shift_save, name='shift_save'),
     path('availability/<str:practitioner_id>/shift/<uuid:pk>/delete/', sv.shift_delete, name='shift_delete'),
     path('availability/<str:practitioner_id>/time-off/', sv.timeoff_save, name='timeoff_save'),

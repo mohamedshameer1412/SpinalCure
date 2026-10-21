@@ -260,12 +260,16 @@ def test_photo_on_verify_only_for_active_and_if_allowed(client, clinic, boss, se
     from django.core.files.base import ContentFile
     p.user.photo.save('me.png', ContentFile(buf.getvalue()))
     c = service.issue(p, boss)
-    assert '/media/users/' in client.get(f'/verify/{c.card_id}/').content.decode()
+    photo = f'/verify/{c.card_id}/photo/'
+    page = client.get(f'/verify/{c.card_id}/').content.decode()
+    assert photo in page and '/media/users/' not in page and '/private-media/' not in page   # staff photos are private files
+    assert client.get(photo).status_code == 200 and client.get(photo)['Content-Type'] == 'image/png'
     from idcards.models import IDCardBranding
     b = IDCardBranding.get(); b.show_photo_on_verify = False; b.save()
-    assert '/media/users/' not in client.get(f'/verify/{c.card_id}/').content.decode()
+    assert photo not in client.get(f'/verify/{c.card_id}/').content.decode() and client.get(photo).status_code == 404
     b.show_photo_on_verify = True; b.save(); service.deactivate(c, boss)
-    assert '/media/users/' not in client.get(f'/verify/{c.card_id}/').content.decode()
+    assert photo not in client.get(f'/verify/{c.card_id}/').content.decode() and client.get(photo).status_code == 404
+    assert client.get('/private-media/users/anything.png').status_code == 404               # no direct access, signed out
 
 
 # ── sharing ────────────────────────────────────────────────────────────────────────────────────

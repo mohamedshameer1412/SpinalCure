@@ -105,7 +105,7 @@ for title, image, values in COURSES:
     if not course.batches.filter(start_date__gte=today).exists():
         start = next_weekday(today, 0, 3)                  # a Monday about three weeks out
         CourseBatch.objects.create(course=course, name=f'{start:%B %Y} batch', start_date=start,
-                                   schedule_details='Weekdays, 10:00 am – 1:00 pm at the clinic',
+                                   schedule_details='Weekdays, 10:30 am – 1:30 pm at the clinic',
                                    max_participants=12, is_active=True, is_published=True)
     print(('created ' if created else 'updated ') + title)
 

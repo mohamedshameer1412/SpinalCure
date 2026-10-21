@@ -1,6 +1,8 @@
 import secrets
 import uuid
 from django.db import models
+
+from spinalcure.uploads import SafeImageField
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
@@ -47,7 +49,7 @@ class Course(DiscountMixin, models.Model):
         max_length=100, blank=True, verbose_name=_('Duration'),
         help_text=_('e.g. 3 months, 12 weeks')
     )
-    image = models.ImageField(
+    image = SafeImageField(
         upload_to='courses/', blank=True, null=True, verbose_name=_('Cover Image')
     )
     is_published = models.BooleanField(

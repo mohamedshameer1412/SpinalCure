@@ -45,11 +45,11 @@
     <h2 class="mb-5 flex items-center gap-2 text-lg font-bold text-gray-900"><i class="bi bi-images text-primary-600" aria-hidden="true"></i>{% translate "Photos" %}</h2>
     <div class="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
         {% for p in photos %}
-        <figure class="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-card">
+        <figure class="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-card">
             <button type="button" class="relative block aspect-square w-full overflow-hidden" @click="photo = { src: '{{ p.image.url|escapejs }}', title: '{{ p|tx:"title"|escapejs }}' }" aria-label="{% translate 'Open' %}: {{ p|tx:'title' }}">
                 <img src="{{ p.image.url }}" alt="{{ p|tx:'title' }}" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
             </button>
-            <figcaption class="truncate px-3 py-2.5 text-sm font-medium text-gray-800">{{ p|tx:"title" }}</figcaption>
+            <figcaption class="mt-auto truncate px-3 py-2.5 text-sm font-medium text-gray-800">{{ p|tx:"title" }}</figcaption>
         </figure>
         {% endfor %}
     </div>
@@ -59,7 +59,7 @@
     <h2 class="mb-5 mt-12 flex items-center gap-2 text-lg font-bold text-gray-900"><i class="bi bi-camera-video text-primary-600" aria-hidden="true"></i>{% translate "Videos" %}</h2>
     <div class="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
         {% for v in videos %}
-        <figure class="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-card">
+        <figure class="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-card">
             <button type="button" class="relative block aspect-video w-full overflow-hidden bg-gradient-to-br from-primary-800 to-emerald-600"
                 {% if v.video_url and v.is_short %}@click="$dispatch('play-short', { url: '{{ v.direct_url|escapejs }}' })"
                 {% elif v.video_url %}@click="$dispatch('play-video', { src: '{{ v.embed_url|escapejs }}', vertical: {{ v.is_vertical|yesno:'true,false' }} })"
@@ -67,7 +67,7 @@
                 {% if v.image %}<img src="{{ v.image.url }}" alt="" loading="lazy" class="h-full w-full object-cover">{% endif %}
                 <span class="absolute inset-0 flex items-center justify-center"><span class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-lg text-primary-700 shadow-lg transition group-hover:scale-110"><i class="bi bi-play-fill ms-0.5"></i></span></span>
             </button>
-            <figcaption class="truncate px-3 py-2.5 text-sm font-medium text-gray-800">{{ v|tx:"title" }}</figcaption>
+            <figcaption class="mt-auto truncate px-3 py-2.5 text-sm font-medium text-gray-800">{{ v|tx:"title" }}</figcaption>
         </figure>
         {% endfor %}
     </div>

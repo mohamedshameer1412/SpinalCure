@@ -15,10 +15,14 @@
             {% for appointment in appointments %}
             <tr class="bg-white border-b hover:bg-gray-50">
                 <td class="px-6 py-4">
+                    {% if appointment.patient %}
                     <a href="{% url 'patient-detail' appointment.patient.id %}" class="font-bold text-gray-900 hover:text-primary-600">
                         {{ appointment.patient.name }}
                     </a>
                     <p class="text-[10px] text-gray-400 font-mono">{{ appointment.patient.phone }}</p>
+                    {% else %}
+                    <span class="text-xs italic text-gray-400">{% trans "Patient record not found" %}</span>
+                    {% endif %}
                 </td>
                 <td class="px-6 py-4">
                     {% if appointment.practitioner %}

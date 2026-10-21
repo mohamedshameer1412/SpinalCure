@@ -17,6 +17,7 @@ from django.conf import settings
 from django.http import HttpResponse
 
 from openpyxl import Workbook
+from .compress import recompress_zip
 from openpyxl.styles import Font, Alignment, PatternFill
 from openpyxl.drawing.image import Image as XLImage
 
@@ -256,7 +257,9 @@ class SpinalCureExport:
                     pass
             ws.column_dimensions[column].width = min(max_length + 2, 50)
 
-        wb.save(response)
+        buf = BytesIO()
+        wb.save(buf)
+        response.write(recompress_zip(buf.getvalue()))        # lossless: same sheet, maximum deflate
         return response
 
     @staticmethod

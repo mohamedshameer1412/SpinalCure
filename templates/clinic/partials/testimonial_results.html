@@ -17,7 +17,7 @@
 
 {% if reviews %}
 <h2 class="text-lg font-extrabold text-slate-900 mb-4 flex items-center gap-2"><i class="bi bi-chat-quote-fill text-green-600"></i>{% translate "Patient reviews" %}</h2>
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 items-start">
+<div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-0">
     {% for r in reviews %}
     <article class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col" x-data="{ more: false }">
         <div class="flex items-center gap-3 mb-3">

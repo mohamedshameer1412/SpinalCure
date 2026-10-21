@@ -21,9 +21,9 @@
         {% if items %}
         <div class="grid grid-cols-2 gap-4 md:grid-cols-3 2xl:grid-cols-4">
             {% for i in items %}
-            <article class="card flex flex-col overflow-hidden p-0 {% if not i.is_published %}opacity-60{% endif %}">
-                <a href="{% url 'admin_gallery_edit' i.pk %}" class="relative block aspect-square bg-gray-100">
-                    {% if i.image %}<img src="{{ i.image.url }}" alt="" loading="lazy" class="h-full w-full object-cover">
+            <article class="card flex h-full flex-col overflow-hidden p-0 {% if not i.is_published %}opacity-60{% endif %}">
+                <a href="{% url 'admin_gallery_edit' i.pk %}" class="relative block aspect-square overflow-hidden bg-gray-100">
+                    {% if i.image %}<img src="{{ i.image.url }}" alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover">
                     {% else %}<span class="flex h-full items-center justify-center text-4xl text-gray-400"><i class="bi bi-camera-video"></i></span>{% endif %}
                     <span class="absolute start-2 top-2 flex gap-1">
                         {% if i.is_featured %}<span class="badge bg-amber-400 text-amber-950"><i class="bi bi-star-fill"></i>{% trans "Featured" %}</span>{% endif %}
@@ -31,7 +31,7 @@
                         {% if not i.is_published %}<span class="badge">{% trans "Hidden" %}</span>{% endif %}
                     </span>
                 </a>
-                <div class="flex items-center justify-between gap-2 p-3">
+                <div class="mt-auto flex h-14 items-center justify-between gap-2 p-3">
                     <a href="{% url 'admin_gallery_edit' i.pk %}" class="truncate text-sm font-medium text-gray-900 hover:text-primary-700">{{ i.title }}</a>
                     <form method="post" action="{% url 'admin_gallery_delete' i.pk %}" data-confirm="{% trans 'Remove this from the gallery?' %}">{% csrf_token %}
                         <button class="btn btn-ghost btn-sm text-red-600" aria-label="{% trans 'Delete' %}"><i class="bi bi-trash"></i></button></form>

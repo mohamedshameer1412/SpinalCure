@@ -11,6 +11,10 @@ CACHES = {'default': {'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
 EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
 PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher']
 
+# tests never write patient/staff files into the real private folder
+import tempfile  # noqa: E402
+PRIVATE_MEDIA_ROOT = tempfile.mkdtemp(prefix='spinalcure-private-test-')
+
 
 # Local convenience only: fall back to the (compromised) repository key so dev data keeps decrypting.
 if not FERNET_KEYS:
