@@ -130,7 +130,7 @@ class IDCard(models.Model):
                     if original[field] != getattr(self, field):
                         raise ValueError(f'{field} is immutable on an issued card')
         elif not self.card_type:
-            self.card_type = 'owner' if self.holder.user.role == 'owner' else 'staff'
+            self.card_type = 'owner' if self.holder.user.is_owner_level else 'staff'
         super().save(*args, **kwargs)
 
 

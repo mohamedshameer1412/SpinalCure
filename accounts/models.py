@@ -14,6 +14,10 @@ import base64
 from spinalcure.validators import validate_phone_number
 
 
+# Super admins, owners and clinic admins are all "the owner" on cards and in the staff list.
+OWNER_ROLES = ('superadmin', 'owner', 'clinicadmin')
+
+
 class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     """
@@ -27,6 +31,15 @@ class CustomUser(AbstractUser):
         ('receptionist', _('Receptionist')),
         ('staff', _('Staff')),
     ]
+
+    @property
+    def is_owner_level(self):
+        return self.role in OWNER_ROLES or self.is_superuser
+
+    @property
+    def display_role(self):
+        """The role as people see it: owners, clinic admins and super admins are all just "Owner"."""
+        return _('Owner') if self.is_owner_level else self.get_role_display()
 
     role = models.CharField(
         max_length=20,
@@ -329,7 +342,7 @@ class StaffProfile(models.Model):
     clinic = models.ForeignKey('clinic.ClinicProfile', on_delete=models.PROTECT, related_name='staff_profiles')
     employee_id = models.CharField(
         max_length=20, unique=True, editable=False,
-        help_text=_('Immutable. OWN-#### for owners, STF-#### for everyone else.'))
+        help_text=_('Immutable. Four digits and three letters, unique for everyone, e.g. 4827-KQM.'))
     designation = models.CharField(max_length=120)
     department = models.CharField(max_length=120, blank=True)
     joined_on = models.DateField()
@@ -357,18 +370,21 @@ class StaffProfile(models.Model):
 
     @property
     def is_owner(self):
-        return self.user.role == 'owner'
+        return self.user.is_owner_level
 
     @property
     def is_employed(self):
         return self.employment_status in ('active', 'on_leave') and self.user.is_active
 
     @classmethod
-    def _next_employee_id(cls, owner):
-        prefix = 'OWN' if owner else 'STF'
-        last = cls.objects.filter(employee_id__startswith=prefix + '-').order_by('-employee_id').first()
-        n = int(last.employee_id.split('-')[1]) + 1 if last else 1
-        return f'{prefix}-{n:04d}'
+    def _next_employee_id(cls, owner=None):
+        """Four digits + three letters (no I or O), random and unique across everyone, e.g. 4827-KQM."""
+        import random
+        letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ'
+        while True:
+            code = f'{random.randint(1000, 9999)}-' + ''.join(random.choice(letters) for _ in range(3))
+            if not cls.objects.filter(employee_id=code).exists():
+                return code
 
     def save(self, *args, **kwargs):
         from django.db import IntegrityError, transaction

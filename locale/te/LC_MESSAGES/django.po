@@ -623,7 +623,7 @@ msgstr "గురించి ఉల్లేఖన"
 msgid "About section & legacy updated."
 msgstr "గురించి విభాగం & వారసత్వం నవీకరించబడ్డాయి."
 
-#: idcards\render.py:231
+#: idcards\render.py:249
 msgid "About the organisation"
 msgstr "సంస్థ గురించి"
 
@@ -677,7 +677,7 @@ msgstr "చర్య రకం"
 msgid "Actions"
 msgstr "చర్యలు"
 
-#: accounts\models.py:321 accounts\templates\accounts\admin\users_list.html:68
+#: accounts\models.py:334 accounts\templates\accounts\admin\users_list.html:59
 #: clinic\models.py:250
 #: clinic\templates\clinic\admin\practitioners_list.html:35
 msgid "Active"
@@ -925,13 +925,9 @@ msgid "Additional Notes"
 msgstr "అదనపు గమనికలు"
 
 #: clinic\models.py:39 clinic\templates\clinic\admin\clinic_setup.html:262
-#: idcards\render.py:233 patients\models.py:53
+#: idcards\render.py:251 patients\models.py:53
 msgid "Address"
 msgstr "చిరునామా"
-
-#: accounts\templates\accounts\admin\users_list.html:57
-msgid "Admin"
-msgstr "అడ్మిన్"
 
 #: templates\ui\sidebar.html:45
 msgid "Administration"
@@ -1112,7 +1108,7 @@ msgstr "లోపం జరిగింది. దయచేసి మళ్ళ�
 msgid "An invoice for %(amount)s has been created."
 msgstr "%(amount)s కోసం ఇన్వాయిస్ సృష్టించబడింది."
 
-#: idcards\render.py:226
+#: idcards\render.py:244
 msgid "and Without Diet"
 msgstr "మరియు ఆహార నియమాలు లేకుండా"
 
@@ -1557,7 +1553,7 @@ msgstr "బ్యాంకు బదిలీ"
 msgid "Banner Image"
 msgstr "బ్యానర్ చిత్రం"
 
-#: accounts\models.py:117
+#: accounts\models.py:130
 msgid "Base32 encoded secret for TOTP generation"
 msgstr "TOTP సృష్టి కోసం Base32 ఎన్‌కోడ్ చేసిన రహస్యం"
 
@@ -1626,7 +1622,7 @@ msgstr "బిల్లింగ్ & పన్ను సమాచారం న�
 msgid "Bio"
 msgstr "పరిచయం"
 
-#: accounts\models.py:50
+#: accounts\models.py:63
 msgid "Biography"
 msgstr "జీవిత చరిత్ర"
 
@@ -1669,7 +1665,7 @@ msgstr "బ్లాగ్ ట్యాగ్‌లు"
 msgid "Blog Tags — SpinalCure"
 msgstr "బ్లాగ్ ట్యాగ్‌లు — SpinalCure"
 
-#: accounts\templates\accounts\admin\user_form.html:115 idcards\render.py:231
+#: accounts\templates\accounts\admin\user_form.html:115 idcards\render.py:249
 msgid "Blood group"
 msgstr "రక్త గ్రూపు"
 
@@ -1901,7 +1897,7 @@ msgstr ""
 msgid "Card ends with"
 msgstr "కార్డు చివరి అంకెలు"
 
-#: idcards\render.py:232 idcards\templates\idcards\detail.html:20
+#: idcards\render.py:250 idcards\templates\idcards\detail.html:20
 #: idcards\templates\idcards\mine.html:27
 msgid "Card ID"
 msgstr "కార్డు ID"
@@ -2137,11 +2133,11 @@ msgid "Clear ✕"
 msgstr "క్లియర్ ✕"
 
 #: clinic\models.py:399 courses\models.py:63 events\models.py:45
-#: idcards\render.py:233
+#: idcards\render.py:251
 msgid "Clinic"
 msgstr "క్లినిక్"
 
-#: accounts\models.py:24
+#: accounts\models.py:28
 msgid "Clinic Admin"
 msgstr "క్లినిక్ అడ్మిన్"
 
@@ -2646,7 +2642,7 @@ msgstr ""
 msgid "Create your first research article or health guide."
 msgstr "మీ మొదటి పరిశోధన వ్యాసం లేదా ఆరోగ్య మార్గదర్శిని సృష్టించండి."
 
-#: accounts\models.py:139
+#: accounts\models.py:152
 msgid "Created At"
 msgstr "సృష్టించిన సమయం"
 
@@ -2678,7 +2674,7 @@ msgstr "ప్రస్తుత కవర్ చిత్రం"
 msgid "Current Image"
 msgstr "ప్రస్తుత చిత్రం"
 
-#: accounts\models.py:121
+#: accounts\models.py:134
 msgid "Current OTP Value"
 msgstr "ప్రస్తుత OTP విలువ"
 
@@ -2691,7 +2687,7 @@ msgstr "ప్రస్తుత ఫోటో"
 msgid "Current photo. Upload a new one to replace it."
 msgstr "ప్రస్తుత ఫోటో. మార్చడానికి కొత్తది అప్‌లోడ్ చేయండి."
 
-#: accounts\models.py:123
+#: accounts\models.py:136
 msgid "Current valid OTP code"
 msgstr "ప్రస్తుత చెల్లుబాటు అయ్యే OTP కోడ్"
 
@@ -2703,7 +2699,7 @@ msgstr "పాఠ్యప్రణాళిక"
 msgid "d"
 msgstr "రో"
 
-#: accounts\models.py:217
+#: accounts\models.py:230
 msgid "Daily OTP request limit exceeded. Try again tomorrow."
 msgstr "రోజువారీ OTP అభ్యర్థన పరిమితి మించిపోయింది. రేపు మళ్ళీ ప్రయత్నించండి."
 
@@ -2744,7 +2740,7 @@ msgstr "తేదీ భవిష్యత్తులో ఉండకూడద�
 msgid "Date cannot be in the past."
 msgstr "తేదీ గతంలో ఉండకూడదు."
 
-#: accounts\templates\accounts\admin\user_form.html:114 idcards\render.py:233
+#: accounts\templates\accounts\admin\user_form.html:114 idcards\render.py:251
 msgid "Date of birth"
 msgstr "పుట్టిన తేదీ"
 
@@ -2774,7 +2770,7 @@ msgstr ""
 msgid "Deactivate"
 msgstr "నిష్క్రియం చేయండి"
 
-#: idcards\models.py:56 idcards\render.py:196
+#: idcards\models.py:56 idcards\render.py:197
 msgid "Deactivated"
 msgstr "నిష్క్రియం చేయబడింది"
 
@@ -2791,7 +2787,7 @@ msgstr "డిఫాల్ట్ పన్ను %"
 msgid "Define the core name and public summary of your course."
 msgstr "మీ కోర్సు యొక్క ప్రధాన పేరు మరియు పబ్లిక్ సారాంశాన్ని నిర్వచించండి."
 
-#: accounts\templates\accounts\admin\users_list.html:92 clinic\models.py:734
+#: accounts\templates\accounts\admin\users_list.html:83 clinic\models.py:734
 #: clinic\templates\clinic\admin\activity_log.html:23
 #: clinic\templates\clinic\admin\activity_log.html:87
 msgid "Delete"
@@ -2822,7 +2818,7 @@ msgstr "శాశ్వతంగా తొలగించండి"
 msgid "Delete tag"
 msgstr "ట్యాగ్ తొలగించండి"
 
-#: accounts\templates\accounts\admin\users_list.html:90
+#: accounts\templates\accounts\admin\users_list.html:81
 msgid "Delete this account permanently?"
 msgstr "ఈ ఖాతాను శాశ్వతంగా తొలగించాలా?"
 
@@ -2883,7 +2879,7 @@ msgstr "అందజేయబడింది."
 msgid "Delivery log"
 msgstr "డెలివరీ లాగ్"
 
-#: accounts\models.py:111
+#: accounts\models.py:124
 msgid "Delivery Method"
 msgstr "పంపే విధానం"
 
@@ -2896,7 +2892,7 @@ msgstr "డెలివరీ ప్లాట్‌ఫారమ్ *"
 msgid "Delivery still failing: %(e)s"
 msgstr "డెలివరీ ఇంకా విఫలమవుతోంది: %(e)s"
 
-#: accounts\templates\accounts\admin\user_form.html:91 idcards\render.py:229
+#: accounts\templates\accounts\admin\user_form.html:91 idcards\render.py:247
 msgid "Department"
 msgstr "విభాగం"
 
@@ -2993,7 +2989,7 @@ msgstr "నిర్ధారణ డేటా"
 msgid "Digital (UPI)"
 msgstr "డిజిటల్ (UPI)"
 
-#: accounts\templates\accounts\admin\users_list.html:86
+#: accounts\templates\accounts\admin\users_list.html:77
 msgid "Disable"
 msgstr "నిలిపివేయండి"
 
@@ -3033,7 +3029,7 @@ msgstr "మరో వైద్యుడు సూచించిన ఏ మం�
 msgid "DOB"
 msgstr "పుట్టిన తేదీ"
 
-#: accounts\models.py:26 templates\analytics\dashboard.html:96
+#: accounts\models.py:30 templates\analytics\dashboard.html:96
 msgid "Doctor"
 msgstr "వైద్యుడు"
 
@@ -3231,7 +3227,7 @@ msgstr "ఒక్కోటికి"
 msgid "EARTH"
 msgstr "భూమి"
 
-#: accounts\templates\accounts\admin\users_list.html:80
+#: accounts\templates\accounts\admin\users_list.html:71
 #: clinic\templates\clinic\admin\practitioner_form.html:4
 #: clinic\templates\clinic\admin\practitioners_list.html:48
 #: templates\clinic\admin\blog_list.html:110
@@ -3348,7 +3344,7 @@ msgstr "అమలు ముగింపు"
 msgid "Either email or phone number is required."
 msgstr "ఇమెయిల్ లేదా ఫోన్ నంబర్‌లో ఒకటి అవసరం."
 
-#: accounts\models.py:98 accounts\templates\accounts\admin\user_form.html:53
+#: accounts\models.py:111 accounts\templates\accounts\admin\user_form.html:53
 #: clinic\models.py:45 clinic\templates\clinic\admin\clinic_setup.html:252
 msgid "Email"
 msgstr "ఇమెయిల్"
@@ -3375,7 +3371,7 @@ msgstr "ఇమెయిల్ నోటిఫికేషన్లు"
 msgid "Email sent successfully."
 msgstr "ఇమెయిల్ విజయవంతంగా పంపబడింది."
 
-#: accounts\models.py:59
+#: accounts\models.py:72
 msgid "Email Verified"
 msgstr "ఇమెయిల్ ధృవీకరించబడింది"
 
@@ -3387,7 +3383,7 @@ msgstr "email@example.com"
 msgid "Emergency / Attender"
 msgstr "అత్యవసర / సహాయకుడు"
 
-#: idcards\render.py:231
+#: idcards\render.py:249
 msgid "Emergency contact"
 msgstr "అత్యవసర సంప్రదింపు"
 
@@ -3408,7 +3404,7 @@ msgstr "ఉద్యోగి ID"
 msgid "Employment status"
 msgstr "ఉద్యోగ స్థితి"
 
-#: accounts\templates\accounts\admin\users_list.html:86
+#: accounts\templates\accounts\admin\users_list.html:77
 msgid "Enable"
 msgstr "ప్రారంభించండి"
 
@@ -3802,7 +3798,7 @@ msgstr "ఈరోజు ఖర్చులు"
 msgid "Expenses — SpinalCure"
 msgstr "ఖర్చులు — SpinalCure"
 
-#: idcards\render.py:197 templates\patients\patient_detail.html:285
+#: idcards\render.py:198 templates\patients\patient_detail.html:285
 msgid "Expired"
 msgstr "గడువు ముగిసింది"
 
@@ -3810,7 +3806,7 @@ msgstr "గడువు ముగిసింది"
 msgid "Expires"
 msgstr "గడువు"
 
-#: accounts\models.py:143
+#: accounts\models.py:156
 msgid "Expires At"
 msgstr "గడువు ముగిసే సమయం"
 
@@ -3867,7 +3863,7 @@ msgstr "OTP పంపడం విఫలమైంది. దయచేసి త�
 msgid "Failed to send PIN. Check email settings."
 msgstr "PIN పంపడం విఫలమైంది. ఇమెయిల్ సెట్టింగ్‌లు తనిఖీ చేయండి."
 
-#: accounts\models.py:133
+#: accounts\models.py:146
 msgid "Failed Verification Attempts"
 msgstr "విఫలమైన ధృవీకరణ ప్రయత్నాలు"
 
@@ -4008,7 +4004,7 @@ msgstr "ఫీజు (₹)"
 msgid "Fees are non-refundable."
 msgstr "ఫీజులు తిరిగి ఇవ్వబడవు."
 
-#: accounts\models.py:340 clinic\models.py:191
+#: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:39
 #: patients\models.py:20
 msgid "Female"
@@ -4241,7 +4237,7 @@ msgstr "GB"
 
 #: accounts\templates\accounts\admin\user_form.html:113
 #: clinic\templates\clinic\admin\practitioner_form.html:34
-#: idcards\render.py:233
+#: idcards\render.py:251
 msgid "Gender"
 msgstr "లింగం"
 
@@ -4456,7 +4452,7 @@ msgstr "హోమ్"
 msgid "Home address"
 msgstr "ఇంటి చిరునామా"
 
-#: accounts\models.py:344
+#: accounts\models.py:357
 msgid "Home address, printed on the ID card."
 msgstr "ఇంటి చిరునామా, గుర్తింపు కార్డుపై ముద్రించబడుతుంది."
 
@@ -4629,9 +4625,13 @@ msgstr "చిత్రం 5 MB లేదా అంతకంటే చిన్�
 msgid "Immobile"
 msgstr "కదలలేని"
 
-#: accounts\models.py:332
-msgid "Immutable. OWN-#### for owners, STF-#### for everyone else."
-msgstr "మార్చలేనిది. యజమానులకు OWN-####, మిగతా వారికి STF-####."
+#: accounts\models.py:345
+msgid ""
+"Immutable. Four digits and three letters, unique for everyone, e.g. "
+"4827-KQM."
+msgstr ""
+"మార్చలేరు. నాలుగు అంకెలు మరియు మూడు అక్షరాలు, అందరికీ ప్రత్యేకం, ఉదా. "
+"4827-KQM."
 
 #: clinic\templates\clinic\admin\clinic_setup.html:580
 msgid "Impact Stat 1"
@@ -4674,9 +4674,9 @@ msgstr "ప్రత్యక్షంగా మరియు ఆన్‌లై�
 msgid "In-person only"
 msgstr "ప్రత్యక్షంగా మాత్రమే"
 
-#: accounts\templates\accounts\admin\users_list.html:73
+#: accounts\templates\accounts\admin\users_list.html:64
 #: clinic\templates\clinic\admin\practitioners_list.html:38
-#: idcards\render.py:197
+#: idcards\render.py:198
 msgid "Inactive"
 msgstr "నిష్క్రియం"
 
@@ -4778,7 +4778,7 @@ msgstr "చెల్లని లేదా గడువు ముగిసిన
 msgid "Invalid or missing date. Use YYYY-MM-DD."
 msgstr "చెల్లని లేదా లేని తేదీ. YYYY-MM-DD ఉపయోగించండి."
 
-#: accounts\models.py:293
+#: accounts\models.py:306
 #, python-format
 msgid "Invalid OTP. %(n)d attempts remaining."
 msgstr "చెల్లని OTP. %(n)d ప్రయత్నాలు మిగిలి ఉన్నాయి."
@@ -4855,7 +4855,7 @@ msgstr "ID కార్డు జారీ చేయండి"
 msgid "Issue refund"
 msgstr "వాపసు జారీ చేయండి"
 
-#: idcards\render.py:230 idcards\templates\idcards\detail.html:23
+#: idcards\render.py:248 idcards\templates\idcards\detail.html:23
 #: idcards\templates\idcards\verify.html:39
 msgid "Issued"
 msgstr "జారీ చేయబడింది"
@@ -4892,7 +4892,7 @@ msgstr "ఈ బ్యాచ్‌లో చేరండి"
 msgid "Join waitlist"
 msgstr "వెయిట్‌లిస్ట్‌లో చేరండి"
 
-#: accounts\templates\accounts\admin\users_list.html:26 idcards\render.py:229
+#: accounts\templates\accounts\admin\users_list.html:26 idcards\render.py:247
 msgid "Joined"
 msgstr "చేరారు"
 
@@ -5009,7 +5009,7 @@ msgstr "చివరి లోపం"
 msgid "Last Name"
 msgstr "ఇంటి పేరు"
 
-#: accounts\models.py:153
+#: accounts\models.py:166
 msgid "Last Request At"
 msgstr "చివరి అభ్యర్థన సమయం"
 
@@ -5225,7 +5225,7 @@ msgstr "ప్రధాన శీర్షిక"
 msgid "Malayalam"
 msgstr "మలయాళం"
 
-#: accounts\models.py:340 clinic\models.py:191
+#: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:38
 #: patients\models.py:20
 msgid "Male"
@@ -5909,7 +5909,7 @@ msgstr "ఇంకా సెషన్లు నమోదు కాలేదు."
 msgid "No Show"
 msgstr "గైర్హాజరు"
 
-#: accounts\templates\accounts\admin\users_list.html:101
+#: accounts\templates\accounts\admin\users_list.html:92
 msgid "No staff members found."
 msgstr "సిబ్బంది ఎవరూ కనబడలేదు."
 
@@ -5965,7 +5965,7 @@ msgstr "రాబోయే అపాయింట్‌మెంట్లు ల�
 msgid "No upcoming appointments."
 msgstr "రాబోయే అపాయింట్‌మెంట్లు లేవు."
 
-#: accounts\models.py:273
+#: accounts\models.py:286
 msgid "No valid OTP found. Please request a new one."
 msgstr "చెల్లుబాటు అయ్యే OTP లేదు. దయచేసి కొత్తది అభ్యర్థించండి."
 
@@ -6105,11 +6105,11 @@ msgstr "నోటిఫికేషన్ ప్రాధాన్యతలు �
 msgid "Notifications"
 msgstr "నోటిఫికేషన్లు"
 
-#: accounts\models.py:134
+#: accounts\models.py:147
 msgid "Number of failed OTP verification attempts"
 msgstr "విఫలమైన OTP ధృవీకరణ ప్రయత్నాల సంఖ్య"
 
-#: accounts\models.py:149
+#: accounts\models.py:162
 msgid "Number of OTP requests made today (for rate limiting)"
 msgstr "ఈరోజు చేసిన OTP అభ్యర్థనల సంఖ్య (పరిమితి కోసం)"
 
@@ -6133,7 +6133,7 @@ msgstr "పాత విలువ"
 msgid "on Google"
 msgstr "Google లో"
 
-#: accounts\models.py:322
+#: accounts\models.py:335
 msgid "On leave"
 msgstr "సెలవులో"
 
@@ -6350,20 +6350,20 @@ msgstr "సంస్థ"
 msgid "Organizer"
 msgstr "నిర్వాహకుడు"
 
-#: accounts\models.py:340 appointments\models.py:94 clinic\models.py:191
+#: accounts\models.py:353 appointments\models.py:94 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:40
 msgid "Other"
 msgstr "ఇతర"
 
-#: accounts\models.py:116
+#: accounts\models.py:129
 msgid "OTP Secret"
 msgstr "OTP రహస్యం"
 
-#: accounts\models.py:157
+#: accounts\models.py:170
 msgid "OTP Token"
 msgstr "OTP టోకెన్"
 
-#: accounts\models.py:158
+#: accounts\models.py:171
 msgid "OTP Tokens"
 msgstr "OTP టోకెన్లు"
 
@@ -6383,7 +6383,7 @@ msgstr ""
 "మా వైద్యుడు వాటిని పరిశీలిస్తున్నారు. అప్పటివరకు ఏ ప్రశ్నకైనా మాకు కాల్ "
 "చేయండి."
 
-#: idcards\render.py:234
+#: idcards\render.py:252
 msgid "Our website"
 msgstr "మా వెబ్‌సైట్"
 
@@ -6416,11 +6416,11 @@ msgstr "బకాయి చెల్లింపు: %(who)s"
 msgid "Overview"
 msgstr "అవలోకనం"
 
-#: accounts\models.py:25 idcards\models.py:55
+#: accounts\models.py:29 accounts\models.py:42 idcards\models.py:55
 msgid "Owner"
 msgstr "యజమాని"
 
-#: idcards\render.py:228
+#: idcards\render.py:246
 msgid "Owner ID"
 msgstr "యజమాని ID"
 
@@ -6973,7 +6973,7 @@ msgstr "వ్యక్తిగత వివరాలు"
 msgid "Personal Information"
 msgstr "వ్యక్తిగత సమాచారం"
 
-#: accounts\models.py:42 accounts\templates\accounts\admin\user_form.html:112
+#: accounts\models.py:55 accounts\templates\accounts\admin\user_form.html:112
 #: clinic\models.py:43 clinic\templates\clinic\admin\practitioner_form.html:51
 msgid "Phone"
 msgstr "ఫోన్"
@@ -7258,7 +7258,7 @@ msgstr "ప్రాధాన్యతలు"
 msgid "Preferred Doctor"
 msgstr "ఇష్టమైన వైద్యుడు"
 
-#: accounts\models.py:55 patients\models.py:37
+#: accounts\models.py:68 patients\models.py:37
 msgid "Preferred language"
 msgstr "ఇష్టమైన భాష"
 
@@ -7404,7 +7404,7 @@ msgstr "సమస్యలు — SpinalCure అడ్మిన్"
 msgid "Professional Info"
 msgstr "వృత్తిపరమైన సమాచారం"
 
-#: accounts\models.py:48
+#: accounts\models.py:61
 #: clinic\templates\clinic\admin\practitioner_form.html:139
 msgid "Profile Photo"
 msgstr "ప్రొఫైల్ ఫోటో"
@@ -7709,7 +7709,7 @@ msgstr "అందింది: %(submitted_at)s"
 msgid "Recent verifications"
 msgstr "ఇటీవలి ధృవీకరణలు"
 
-#: accounts\models.py:27
+#: accounts\models.py:31
 msgid "Receptionist"
 msgstr "రిసెప్షనిస్ట్"
 
@@ -8063,7 +8063,7 @@ msgstr "క్లినిక్ నుండి సమాధానం"
 msgid "Request an Appointment &rarr;"
 msgstr "అపాయింట్‌మెంట్ అభ్యర్థించండి &rarr;"
 
-#: accounts\models.py:148
+#: accounts\models.py:161
 msgid "Request Count (Today)"
 msgstr "అభ్యర్థనల సంఖ్య (ఈరోజు)"
 
@@ -8201,12 +8201,12 @@ msgstr "రద్దు చేయండి"
 msgid "Revoke permanently"
 msgstr "శాశ్వతంగా రద్దు చేయండి"
 
-#: idcards\models.py:56 idcards\render.py:196
+#: idcards\models.py:56 idcards\render.py:197
 #: idcards\templates\idcards\detail.html:25
 msgid "Revoked"
 msgstr "రద్దు చేయబడింది"
 
-#: accounts\models.py:36 accounts\templates\accounts\admin\user_form.html:77
+#: accounts\models.py:49 accounts\templates\accounts\admin\user_form.html:77
 #: accounts\templates\accounts\admin\users_list.html:24
 msgid "Role"
 msgstr "పాత్ర"
@@ -8286,7 +8286,7 @@ msgid "Saved as hidden. Record the patient's consent to publish it."
 msgstr ""
 "దాచినదిగా సేవ్ చేయబడింది. దీన్ని ప్రచురించడానికి రోగి సమ్మతిని నమోదు చేయండి."
 
-#: idcards\render.py:230
+#: idcards\render.py:248
 msgid "Scan to verify"
 msgstr "ధృవీకరించడానికి స్కాన్ చేయండి"
 
@@ -8887,7 +8887,7 @@ msgstr "ఆరోగ్యకరమైన వెన్నెముకకు స�
 msgid "Sittings"
 msgstr "సిట్టింగ్‌లు"
 
-#: idcards\render.py:232
+#: idcards\render.py:250
 msgid "Skills"
 msgstr "నైపుణ్యాలు"
 
@@ -8915,7 +8915,7 @@ msgstr "స్లగ్"
 msgid "SMART SEO ENABLED"
 msgstr "స్మార్ట్ SEO ప్రారంభించబడింది"
 
-#: accounts\models.py:97
+#: accounts\models.py:110
 msgid "SMS"
 msgstr "SMS"
 
@@ -9012,8 +9012,8 @@ msgstr "SpinalCure — అధికార అభ్యర్థన"
 msgid "ST"
 msgstr "ST"
 
-#: accounts\models.py:28 accounts\templates\accounts\admin\users_list.html:60
-#: appointments\models.py:243 idcards\models.py:55
+#: accounts\models.py:32 appointments\models.py:243 idcards\models.py:55
+#: idcards\templates\idcards\dashboard.html:20
 msgid "Staff"
 msgstr "సిబ్బంది"
 
@@ -9021,7 +9021,7 @@ msgstr "సిబ్బంది"
 msgid "Staff Accounts Management"
 msgstr "సిబ్బంది ఖాతాల నిర్వహణ"
 
-#: idcards\render.py:228
+#: idcards\render.py:246
 msgid "Staff ID"
 msgstr "సిబ్బంది ID"
 
@@ -9166,7 +9166,7 @@ msgstr "ఉపమొత్తం"
 msgid "Sunday"
 msgstr "ఆదివారం"
 
-#: accounts\models.py:23
+#: accounts\models.py:27
 msgid "Super Admin"
 msgstr "సూపర్ అడ్మిన్"
 
@@ -9174,15 +9174,11 @@ msgstr "సూపర్ అడ్మిన్"
 msgid "superadmin's email"
 msgstr "సూపర్ అడ్మిన్ ఇమెయిల్"
 
-#: accounts\templates\accounts\admin\users_list.html:54
-msgid "Superuser"
-msgstr "సూపర్‌యూజర్"
-
 #: templates\courses\course_form.html:294
 msgid "Supported: JPG, PNG, WEBP"
 msgstr "మద్దతు: JPG, PNG, WEBP"
 
-#: accounts\models.py:323
+#: accounts\models.py:336
 msgid "Suspended"
 msgstr "నిలిపివేయబడింది"
 
@@ -9297,7 +9293,7 @@ msgstr "ఉపయోగించిన పద్ధతులు:"
 msgid "Techniques Used"
 msgstr "ఉపయోగించిన పద్ధతులు"
 
-#: idcards\render.py:232
+#: idcards\render.py:250
 msgid "Tel"
 msgstr "ఫోన్"
 
@@ -9317,7 +9313,7 @@ msgstr ""
 msgid "Telugu"
 msgstr "తెలుగు"
 
-#: accounts\models.py:324
+#: accounts\models.py:337
 msgid "Terminated"
 msgstr "తొలగించబడ్డారు"
 
@@ -9798,7 +9794,7 @@ msgstr ""
 msgid "Timestamp"
 msgstr "సమయ ముద్ర"
 
-#: accounts\models.py:144
+#: accounts\models.py:157
 msgid "Timestamp when OTP becomes invalid"
 msgstr "OTP చెల్లనిదిగా మారే సమయం"
 
@@ -9872,14 +9868,14 @@ msgstr "దృశ్యత మార్చండి"
 msgid "Too many attempts. Please try again later."
 msgstr "చాలా ప్రయత్నాలు. దయచేసి తర్వాత మళ్ళీ ప్రయత్నించండి."
 
-#: accounts\models.py:279 accounts\models.py:290
+#: accounts\models.py:292 accounts\models.py:303
 msgid ""
 "Too many failed attempts. OTP has been invalidated. Please request a new "
 "one."
 msgstr ""
 "చాలా విఫల ప్రయత్నాలు. OTP రద్దు చేయబడింది. దయచేసి కొత్తది అభ్యర్థించండి."
 
-#: accounts\models.py:204
+#: accounts\models.py:217
 msgid "Too many OTP requests. Please try again in 1 hour."
 msgstr "చాలా OTP అభ్యర్థనలు. దయచేసి 1 గంట తర్వాత మళ్ళీ ప్రయత్నించండి."
 
@@ -10330,11 +10326,11 @@ msgstr "రచయిత సిస్టమ్‌లో వైద్యుడు 
 msgid "Use whole numbers of minutes separated by commas."
 msgstr "కామాతో వేరు చేసిన పూర్ణ నిమిషాల సంఖ్యలను ఉపయోగించండి."
 
-#: accounts\models.py:128
+#: accounts\models.py:141
 msgid "Used"
 msgstr "ఉపయోగించబడింది"
 
-#: accounts\models.py:64 accounts\models.py:105
+#: accounts\models.py:77 accounts\models.py:118
 #: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:743
 msgid "User"
 msgstr "వినియోగదారు"
@@ -10372,7 +10368,7 @@ msgstr "వినియోగదారు పేరు *"
 msgid "Username, or \"author\" / \"system\"."
 msgstr "యూజర్‌నేమ్, లేదా \"author\" / \"system\"."
 
-#: accounts\models.py:65
+#: accounts\models.py:78
 msgid "Users"
 msgstr "వినియోగదారులు"
 
@@ -10397,7 +10393,7 @@ msgstr "5 నిమిషాలు చెల్లుబాటు"
 msgid "Valid ID card"
 msgstr "చెల్లుబాటు అయ్యే ID కార్డు"
 
-#: idcards\render.py:230 idcards\templates\idcards\verify.html:40
+#: idcards\render.py:248 idcards\templates\idcards\verify.html:40
 #: patients\models.py:194 templates\patients\patient_detail.html:283
 msgid "Valid until"
 msgstr "చెల్లుబాటు గడువు"
@@ -10864,7 +10860,7 @@ msgstr "వెనుక ఉన్న QR ఎక్కడికి తీసుక
 msgid "Whether this action has been reverted"
 msgstr "ఈ చర్య వెనక్కి తీసుకోబడిందా"
 
-#: accounts\models.py:129
+#: accounts\models.py:142
 msgid "Whether this OTP has been successfully verified"
 msgstr "ఈ OTP విజయవంతంగా ధృవీకరించబడిందా"
 
@@ -10910,7 +10906,7 @@ msgstr "రచయిత ఉపసంహరించుకున్నారు"
 msgid "Without diet restrictions"
 msgstr "ఆహార నియంత్రణ లేకుండా"
 
-#: idcards\render.py:226
+#: idcards\render.py:244
 msgid "Without Medicine"
 msgstr "మందులు లేకుండా"
 
@@ -10922,7 +10918,7 @@ msgstr "మందులు లేకుండా"
 msgid "Without surgery"
 msgstr "శస్త్రచికిత్స లేకుండా"
 
-#: idcards\render.py:226
+#: idcards\render.py:244
 msgid "Without Surgery,"
 msgstr "శస్త్రచికిత్స లేకుండా,"
 
@@ -11390,11 +11386,17 @@ msgstr "📅 Google Calendar కు జోడించండి"
 #~ msgid "Add time off"
 #~ msgstr "సెలవు సమయం జోడించండి"
 
+#~ msgid "Admin"
+#~ msgstr "అడ్మిన్"
+
 #~ msgid "break"
 #~ msgstr "విరామం"
 
 #~ msgid "Edit shift"
 #~ msgstr "షిఫ్ట్ సవరించండి"
+
+#~ msgid "Immutable. OWN-#### for owners, STF-#### for everyone else."
+#~ msgstr "మార్చలేనిది. యజమానులకు OWN-####, మిగతా వారికి STF-####."
 
 #~ msgid "Manage curated testimonials displayed on the public portfolio."
 #~ msgstr ""
@@ -11443,6 +11445,9 @@ msgstr "📅 Google Calendar కు జోడించండి"
 
 #~ msgid "Show more"
 #~ msgstr "మరిన్ని చూపించు"
+
+#~ msgid "Superuser"
+#~ msgstr "సూపర్‌యూజర్"
 
 #~ msgid "Testimonials — SpinalCure Admin"
 #~ msgstr "ప్రశంసాపత్రాలు — SpinalCure అడ్మిన్"

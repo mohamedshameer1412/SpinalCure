@@ -84,7 +84,7 @@ def test_owner_cards_get_owner_type_and_staff_cards_staff(clinic, boss):
     o = service.issue(profile(clinic, 'owner', 'own'), boss)
     s = service.issue(profile(clinic, 'staff', 'stf'), boss)
     assert (o.card_type, s.card_type) == ('owner', 'staff')
-    assert o.holder.employee_id.startswith('OWN-') and s.holder.employee_id.startswith('STF-')
+    assert o.holder.employee_id != s.holder.employee_id
 
 
 # ── service rules ──────────────────────────────────────────────────────────────────────────────
@@ -190,7 +190,7 @@ def test_verify_shows_only_authenticity_fields(client, clinic, boss):
     assert r.status_code == 200
     html = r.content.decode()
     assert 'Valid ID card' in html and 'Priya Natarajan' in html and 'Test Clinic' in html and 'Staff' in html
-    for secret in ('9876543210', '98765', 'u_staff@example.com', 'STF-0001', 'Physiotherapist', 'Rehab', 'B+',
+    for secret in ('9876543210', '98765', 'u_staff@example.com', c.holder.employee_id, 'Physiotherapist', 'Rehab', 'B+',
                    'R. N', '9000011111', 'Manual therapy', c.card_id):
         assert secret not in html, secret                                           # only the last 4 chars are shown
     assert c.card_id[-4:] in html
@@ -282,7 +282,7 @@ def test_share_disabled_by_default_enabled_by_management_and_rotatable(client, c
     html = r.content.decode()
     assert r.status_code == 200 and 'og:image' in html and 'twitter:card' in html and 'summary_large_image' in html
     assert f'https://clinic.example/share/{c.share_token}/card.png' in html
-    for secret in ('9876543210', 'u_staff@example.com', 'B+', '9000011111', 'STF-0001'):
+    for secret in ('9876543210', 'u_staff@example.com', 'B+', '9000011111', c.holder.employee_id):
         assert secret not in html, secret
     # The card id appears only as the verification link (it is also what the QR on the shared image encodes)
     assert html.count(c.card_id) == 1 and f'/verify/{c.card_id}/' in html
@@ -530,3 +530,21 @@ def test_qr_has_standard_quiet_zone_and_integer_modules():
     q = QRCode(box_size=1, border=0); q.add_data('https://clinic.example/verify/ABCDEFGHJKMNPQRS/'); q.make(fit=True)
     per_module = 480 // (q.modules_count + 8)
     assert top >= per_module * 4 and left >= per_module * 4                       # >= 4 modules of white around the code
+
+
+def test_superadmin_and_clinicadmin_get_owner_cards_and_owner_label(clinic, boss):
+    for role in ('superadmin', 'clinicadmin'):
+        p = profile(clinic, role, 'x_' + role)
+        assert p.user.display_role == 'Owner'
+        assert service.issue(p, boss).card_type == 'owner'
+    assert profile(clinic, 'staff', 'x_plain').user.display_role == 'Staff'
+
+
+def test_card_splits_tagline_at_commas_and_takes_the_back_quote_from_the_featured_quote(clinic, boss):
+    from idcards import render
+    assert render.split_lines('Neck and Back pain special care centre, Specialised in Classical Acupuncture Science', 2) == [
+        'Neck and Back pain special care centre,', 'Specialised in Classical Acupuncture Science']
+    clinic.about_quote = 'Calm, Clear, Cured.'
+    clinic.save()
+    card = service.issue(profile(clinic, 'staff', 'q_staff'), boss)
+    assert render.card_data(card, 'en')['quote'] == ['Calm,', 'Clear,', 'Cured.']

@@ -8,6 +8,7 @@ Each text is split into runs by script and drawn with a font that has those glyp
 carry no Latin letters or punctuation). For right-to-left text runs are laid out in visual order.
 """
 import io
+import re
 import unicodedata
 from functools import lru_cache
 from pathlib import Path
@@ -197,6 +198,22 @@ def status_label(status):
             'expired': _('Expired'), 'inactive': _('Inactive')}[status]
 
 
+def _featured_quote(clinic, lang):
+    """The clinic's Featured Quote (Clinic Settings), in the card's language when a translation exists."""
+    if not clinic:
+        return ''
+    from clinic.content_i18n import tx
+    return tx(clinic, 'about_quote', lang) or ''
+
+
+def split_lines(text, parts=None):
+    """Break after commas: "A, B, C." -> ["A,", "B,", "C."]; `parts` limits how many lines (the rest stays on the last)."""
+    pieces = [x.strip() for x in re.split(r'(?<=,)\s+', (text or '').strip()) if x.strip()]
+    if parts and len(pieces) > parts:
+        pieces = pieces[:parts - 1] + [' '.join(pieces[parts - 1:])]
+    return pieces
+
+
 def card_data(card, lang, public=False):
     """Everything a face needs, already localised and privacy-filtered by the card's display options."""
     from clinic.models import ClinicProfile
@@ -208,6 +225,7 @@ def card_data(card, lang, public=False):
         data = {
             'lang': lang, 'rtl': lang == 'ar', 'brand': brand,
             'org': clinic.name if clinic else 'SpinalCure', 'tagline': brand.tagline or (clinic.tagline if clinic else ''),
+            'tagline_lines': split_lines(brand.tagline or (clinic.tagline if clinic else ''), 2),
             'address': (clinic.address if clinic else ''), 'org_phone': (clinic.phone if clinic else ''),
             'org_email': (clinic.email if clinic else ''), 'website': brand.org_url or (clinic.website if clinic else ''),
             'logo': clinic.logo.path if clinic and clinic.logo and Path(clinic.logo.path).exists() else None,
@@ -223,7 +241,7 @@ def card_data(card, lang, public=False):
             'blood': h.blood_group if card.show_blood_group else '', 'skills': h.skills if card.show_skills else '',
             'gender': str(dict(h.GENDER_CHOICES).get(h.gender, '')),
             'dob': fmt(h.date_of_birth), 'home_address': h.address,
-            'quote': [_('Without Surgery,'), _('Without Medicine'), _('and Without Diet')],
+            'quote': split_lines(_featured_quote(clinic, lang)) or [_('Without Surgery,'), _('Without Medicine'), _('and Without Diet')],
             'labels': {
                 'employee_id': _('Owner ID') if card.card_type == 'owner' else _('Staff ID'),
                 'department': _('Department'), 'phone': _('Phone'), 'email': _('Email'), 'joined': _('Joined'),
@@ -290,9 +308,9 @@ def _front(d, verify_url, s):
     else:
         dr.ellipse((lx, 28 * s, lx + 72 * s, 100 * s), fill=(255, 255, 255))
         draw_text(dr, lx + 36 * s, 38 * s, (d['org'] or 'S')[:1], 44 * s, primary, True, 'center')
-    draw_text(dr, X(124), 34 * s, d['org'], 30 * s, (255, 255, 255), True, align, max_w=400 * s, rtl=rtl)
-    if d['tagline']:
-        draw_text(dr, X(124), 76 * s, d['tagline'], 16 * s, (220, 235, 225), False, align, max_w=400 * s, rtl=rtl)
+    draw_text(dr, X(124), 22 * s, d['org'], 30 * s, (255, 255, 255), True, align, max_w=400 * s, rtl=rtl)
+    for i, line in enumerate(d['tagline_lines']):
+        draw_text(dr, X(124), (62 + i * 22) * s, line, 16 * s, (220, 235, 225), False, align, max_w=400 * s, rtl=rtl)
     # photo with accent ring
     pw, ph, px, py = 220 * s, 260 * s, (W - 220 * s) // 2, 150 * s
     dr.rounded_rectangle((px - 7 * s, py - 7 * s, px + pw + 7 * s, py + ph + 7 * s), 26 * s, outline=accent, width=4 * s)
@@ -325,8 +343,8 @@ def _front(d, verify_url, s):
     draw_text(dr, qx + q / 2, 570 * s + q + 2 * s, L['scan'], 14 * s, (75, 85, 99), False, 'center', max_w=q + 30 * s)
     if d['home_address']:
         draw_text(dr, X(36), 716 * s, L['home'], 14 * s, grey, False, align, rtl=rtl)
-        for i, line in enumerate(wrap(d['home_address'].replace('\n', ' '), 19 * s, 488 * s, 2, True)):
-            draw_text(dr, X(36), (736 + i * 24) * s, line, 19 * s, dark, True, align, rtl=rtl)
+        for i, line in enumerate(wrap(d['home_address'].replace('\n', ' '), 17 * s, 488 * s, 3, True)):
+            draw_text(dr, X(36), (736 + i * 21) * s, line, 17 * s, dark, True, align, rtl=rtl)
     # footer
     dr.line((36 * s, 808 * s, W - 36 * s, 808 * s), fill=(229, 231, 235), width=s)
     sc = STATUS_COLORS.get(d['status'], (107, 114, 128))
@@ -350,14 +368,14 @@ def _back(d, verify_url, org_url, s):
     X = (lambda x: W - x * s) if rtl else (lambda x: x * s)
     align = 'right' if rtl else 'left'
     L = d['labels']
-    dr.rectangle((0, 0, W, 110 * s), fill=primary)
-    draw_text(dr, W / 2, 28 * s, d['org'], 30 * s, (255, 255, 255), True, 'center', max_w=488 * s)
-    if d['tagline']:
-        draw_text(dr, W / 2, 70 * s, d['tagline'], 16 * s, (220, 235, 225), False, 'center', max_w=488 * s)
+    dr.rectangle((0, 0, W, 122 * s), fill=primary)
+    draw_text(dr, W / 2, 20 * s, d['org'], 30 * s, (255, 255, 255), True, 'center', max_w=488 * s)
+    for i, line in enumerate(d['tagline_lines']):
+        draw_text(dr, W / 2, (62 + i * 22) * s, line, 16 * s, (220, 235, 225), False, 'center', max_w=488 * s)
     # yin-yang on a soft disc
-    cx, cy, R = W // 2, 218 * s, 104 * s
+    cx, cy, R = W // 2, 230 * s, 100 * s
     dr.ellipse((cx - R, cy - R, cx + R, cy + R), fill=(236, 253, 245))
-    ys = 168 * s
+    ys = 160 * s
     emblem = yin_yang(ys, primary)
     img.paste(emblem, (cx - ys // 2, cy - ys // 2), emblem)
     # the clinic's promise

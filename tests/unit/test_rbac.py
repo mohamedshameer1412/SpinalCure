@@ -77,11 +77,12 @@ def test_user_toggle_requires_post_and_capability(client):
     assert client.get(reverse('admin_user_toggle', args=[target.pk])).status_code == 405  # GET no longer mutates
 
 
-def test_staff_profile_ids_are_sequential_and_immutable(clinic):
+def test_staff_profile_ids_are_four_digits_three_letters_unique_and_immutable(clinic):
     from datetime import date
     a = StaffProfile.objects.create(user=mk('staff'), clinic=clinic, designation='Therapist', joined_on=date.today())
     o = StaffProfile.objects.create(user=mk('owner'), clinic=clinic, designation='Founder', joined_on=date.today())
-    assert a.employee_id == 'STF-0001' and o.employee_id == 'OWN-0001'
-    a.employee_id = 'STF-9999'
+    import re
+    assert all(re.fullmatch(r'\d{4}-[A-HJ-NP-Z]{3}', x.employee_id) for x in (a, o)) and a.employee_id != o.employee_id
+    a.employee_id = '9999-ZZZ'
     with pytest.raises(ValueError):
         a.save()

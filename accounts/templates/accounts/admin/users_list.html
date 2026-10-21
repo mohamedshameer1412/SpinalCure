@@ -49,16 +49,7 @@
                         </div>
                     </td>
                     <td class="px-6 py-4">
-                        {% if u.is_superuser %}
-                        <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-purple-50 text-purple-600 uppercase tracking-tighter border border-purple-100">{% trans "Superuser" %}</span>
-                        {% elif u.is_staff %}
-                        <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-blue-50 text-blue-600 uppercase tracking-tighter border border-blue-100">{% trans "Admin" %}</span>
-                        {% else %}
-                        <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold bg-gray-50 text-gray-600 uppercase tracking-tighter border border-gray-100">{% trans "Staff" %}</span>
-                        {% endif %}
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-tighter border {% if u.is_owner_level %}bg-green-50 text-green-700 border-green-100{% else %}bg-gray-50 text-gray-600 border-gray-100{% endif %}">{{ u.display_role }}</span>
                     </td>
                     <td class="px-6 py-4 text-xs text-gray-500">{{ u.date_joined|date:"d M Y" }}</td>
                     <td class="px-6 py-4">

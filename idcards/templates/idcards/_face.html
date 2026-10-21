@@ -5,7 +5,7 @@ Front = who you are (photo, name, role, gender, DOB, blood group, phone, home ad
 {% if side == 'front' %}
     <div class="idc-band">
         <div class="idc-logo">{% if c.logo_url %}<img src="{{ c.logo_url }}" alt="">{% else %}{{ c.org|slice:":1" }}{% endif %}</div>
-        <div class="idc-org"><b><bdi>{{ c.org }}</bdi></b>{% if c.tagline %}<span><bdi>{{ c.tagline }}</bdi></span>{% endif %}</div>
+        <div class="idc-org"><b><bdi>{{ c.org }}</bdi></b>{% for line in c.tagline_lines %}<span><bdi>{{ line }}</bdi></span>{% endfor %}</div>
     </div>
     <div class="idc-photo">{% if c.photo_url %}<img src="{{ c.photo_url }}" alt="">{% else %}{{ c.name|slice:":1"|upper }}{% endif %}</div>
     <div class="idc-name"><bdi>{{ c.name }}</bdi></div>
@@ -22,7 +22,7 @@ Front = who you are (photo, name, role, gender, DOB, blood group, phone, home ad
         <span><i>{{ c.labels.joined }}:</i> <bdi>{{ c.joined }}</bdi></span>
     </div>
 {% else %}
-    <div class="idc-band center"><b><bdi>{{ c.org }}</bdi></b>{% if c.tagline %}<span><bdi>{{ c.tagline }}</bdi></span>{% endif %}</div>
+    <div class="idc-band center"><b><bdi>{{ c.org }}</bdi></b>{% for line in c.tagline_lines %}<span><bdi>{{ line }}</bdi></span>{% endfor %}</div>
     <div class="idc-yy-disc">
         <svg viewBox="0 0 100 100" aria-hidden="true">
             <circle cx="50" cy="50" r="48" fill="#fff"/>

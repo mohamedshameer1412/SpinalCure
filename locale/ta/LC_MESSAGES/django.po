@@ -633,7 +633,7 @@ msgstr "பற்றிய மேற்கோள்"
 msgid "About section & legacy updated."
 msgstr "பற்றிய பகுதியும் பாரம்பரியமும் புதுப்பிக்கப்பட்டன."
 
-#: idcards\render.py:231
+#: idcards\render.py:249
 msgid "About the organisation"
 msgstr "நிறுவனம் பற்றி"
 
@@ -687,7 +687,7 @@ msgstr "செயல் வகை"
 msgid "Actions"
 msgstr "செயல்கள்"
 
-#: accounts\models.py:321 accounts\templates\accounts\admin\users_list.html:68
+#: accounts\models.py:334 accounts\templates\accounts\admin\users_list.html:59
 #: clinic\models.py:250
 #: clinic\templates\clinic\admin\practitioners_list.html:35
 msgid "Active"
@@ -937,13 +937,9 @@ msgid "Additional Notes"
 msgstr "கூடுதல் குறிப்புகள்"
 
 #: clinic\models.py:39 clinic\templates\clinic\admin\clinic_setup.html:262
-#: idcards\render.py:233 patients\models.py:53
+#: idcards\render.py:251 patients\models.py:53
 msgid "Address"
 msgstr "முகவரி"
-
-#: accounts\templates\accounts\admin\users_list.html:57
-msgid "Admin"
-msgstr "நிர்வாகி"
 
 #: templates\ui\sidebar.html:45
 msgid "Administration"
@@ -1124,7 +1120,7 @@ msgstr "பிழை ஏற்பட்டது. மீண்டும் ம�
 msgid "An invoice for %(amount)s has been created."
 msgstr "%(amount)s க்கான விலைப்பட்டியல் உருவாக்கப்பட்டுள்ளது."
 
-#: idcards\render.py:226
+#: idcards\render.py:244
 msgid "and Without Diet"
 msgstr "மற்றும் உணவுக் கட்டுப்பாடு இல்லாமல்"
 
@@ -1571,7 +1567,7 @@ msgstr "வங்கிப் பரிமாற்றம்"
 msgid "Banner Image"
 msgstr "பேனர் படம்"
 
-#: accounts\models.py:117
+#: accounts\models.py:130
 msgid "Base32 encoded secret for TOTP generation"
 msgstr "TOTP உருவாக்கத்திற்கான Base32 ரகசியம்"
 
@@ -1640,7 +1636,7 @@ msgstr "பில்லிங் & வரி தகவல் புதுப்�
 msgid "Bio"
 msgstr "சுயசரிதை"
 
-#: accounts\models.py:50
+#: accounts\models.py:63
 msgid "Biography"
 msgstr "சுயவிவரம்"
 
@@ -1683,7 +1679,7 @@ msgstr "வலைப்பதிவு குறிச்சொற்கள்"
 msgid "Blog Tags — SpinalCure"
 msgstr "வலைப்பதிவு குறிச்சொற்கள் — SpinalCure"
 
-#: accounts\templates\accounts\admin\user_form.html:115 idcards\render.py:231
+#: accounts\templates\accounts\admin\user_form.html:115 idcards\render.py:249
 msgid "Blood group"
 msgstr "இரத்த வகை"
 
@@ -1917,7 +1913,7 @@ msgstr ""
 msgid "Card ends with"
 msgstr "அட்டை முடிவு"
 
-#: idcards\render.py:232 idcards\templates\idcards\detail.html:20
+#: idcards\render.py:250 idcards\templates\idcards\detail.html:20
 #: idcards\templates\idcards\mine.html:27
 msgid "Card ID"
 msgstr "அட்டை எண்"
@@ -2159,11 +2155,11 @@ msgid "Clear ✕"
 msgstr "அழி ✕"
 
 #: clinic\models.py:399 courses\models.py:63 events\models.py:45
-#: idcards\render.py:233
+#: idcards\render.py:251
 msgid "Clinic"
 msgstr "கிளினிக்"
 
-#: accounts\models.py:24
+#: accounts\models.py:28
 msgid "Clinic Admin"
 msgstr "கிளினிக் நிர்வாகி"
 
@@ -2668,7 +2664,7 @@ msgid "Create your first research article or health guide."
 msgstr ""
 "உங்கள் முதல் ஆராய்ச்சிக் கட்டுரை அல்லது ஆரோக்கிய வழிகாட்டியை உருவாக்குங்கள்."
 
-#: accounts\models.py:139
+#: accounts\models.py:152
 msgid "Created At"
 msgstr "உருவாக்கிய நேரம்"
 
@@ -2700,7 +2696,7 @@ msgstr "தற்போதைய அட்டைப் படம்"
 msgid "Current Image"
 msgstr "தற்போதைய படம்"
 
-#: accounts\models.py:121
+#: accounts\models.py:134
 msgid "Current OTP Value"
 msgstr "தற்போதைய OTP மதிப்பு"
 
@@ -2713,7 +2709,7 @@ msgstr "தற்போதைய புகைப்படம்"
 msgid "Current photo. Upload a new one to replace it."
 msgstr "தற்போதைய புகைப்படம். மாற்ற புதியதைப் பதிவேற்றவும்."
 
-#: accounts\models.py:123
+#: accounts\models.py:136
 msgid "Current valid OTP code"
 msgstr "தற்போது செல்லுபடியாகும் OTP குறியீடு"
 
@@ -2725,7 +2721,7 @@ msgstr "பாடத்திட்டம்"
 msgid "d"
 msgstr "நா"
 
-#: accounts\models.py:217
+#: accounts\models.py:230
 msgid "Daily OTP request limit exceeded. Try again tomorrow."
 msgstr "தினசரி OTP கோரிக்கை வரம்பு மீறப்பட்டது. நாளை மீண்டும் முயற்சிக்கவும்."
 
@@ -2771,7 +2767,7 @@ msgstr "தேதி கடந்த காலத்தில் இருக்
 msgid "Date of Birth"
 msgstr "பிறந்த தேதி"
 
-#: accounts\templates\accounts\admin\user_form.html:114 idcards\render.py:233
+#: accounts\templates\accounts\admin\user_form.html:114 idcards\render.py:251
 msgid "Date of birth"
 msgstr "பிறந்த தேதி"
 
@@ -2797,7 +2793,7 @@ msgstr ""
 msgid "Deactivate"
 msgstr "முடக்கு"
 
-#: idcards\models.py:56 idcards\render.py:196
+#: idcards\models.py:56 idcards\render.py:197
 msgid "Deactivated"
 msgstr "முடக்கப்பட்டது"
 
@@ -2815,7 +2811,7 @@ msgid "Define the core name and public summary of your course."
 msgstr ""
 "உங்கள் பாடநெறியின் முக்கியப் பெயரையும் பொதுச் சுருக்கத்தையும் வரையறுக்கவும்."
 
-#: accounts\templates\accounts\admin\users_list.html:92 clinic\models.py:734
+#: accounts\templates\accounts\admin\users_list.html:83 clinic\models.py:734
 #: clinic\templates\clinic\admin\activity_log.html:23
 #: clinic\templates\clinic\admin\activity_log.html:87
 msgid "Delete"
@@ -2846,7 +2842,7 @@ msgstr "நிரந்தரமாக நீக்கு"
 msgid "Delete tag"
 msgstr "குறிச்சொல்லை நீக்கு"
 
-#: accounts\templates\accounts\admin\users_list.html:90
+#: accounts\templates\accounts\admin\users_list.html:81
 msgid "Delete this account permanently?"
 msgstr "இந்தக் கணக்கை நிரந்தரமாக நீக்கவா?"
 
@@ -2910,7 +2906,7 @@ msgstr "அனுப்பப்பட்டது."
 msgid "Delivery log"
 msgstr "அனுப்புதல் பதிவு"
 
-#: accounts\models.py:111
+#: accounts\models.py:124
 msgid "Delivery Method"
 msgstr "அனுப்பும் முறை"
 
@@ -2923,7 +2919,7 @@ msgstr "வழங்கும் தளம் *"
 msgid "Delivery still failing: %(e)s"
 msgstr "அனுப்புதல் இன்னும் தோல்வியடைகிறது: %(e)s"
 
-#: accounts\templates\accounts\admin\user_form.html:91 idcards\render.py:229
+#: accounts\templates\accounts\admin\user_form.html:91 idcards\render.py:247
 msgid "Department"
 msgstr "துறை"
 
@@ -3024,7 +3020,7 @@ msgstr "நோயறிதல் தரவு"
 msgid "Digital (UPI)"
 msgstr "டிஜிட்டல் (UPI)"
 
-#: accounts\templates\accounts\admin\users_list.html:86
+#: accounts\templates\accounts\admin\users_list.html:77
 msgid "Disable"
 msgstr "முடக்கு"
 
@@ -3066,7 +3062,7 @@ msgstr ""
 msgid "DOB"
 msgstr "பிறந்த தேதி"
 
-#: accounts\models.py:26 templates\analytics\dashboard.html:96
+#: accounts\models.py:30 templates\analytics\dashboard.html:96
 msgid "Doctor"
 msgstr "மருத்துவர்"
 
@@ -3266,7 +3262,7 @@ msgstr "ஒவ்வொன்றுக்கும்"
 msgid "EARTH"
 msgstr "நிலம்"
 
-#: accounts\templates\accounts\admin\users_list.html:80
+#: accounts\templates\accounts\admin\users_list.html:71
 #: clinic\templates\clinic\admin\practitioner_form.html:4
 #: clinic\templates\clinic\admin\practitioners_list.html:48
 #: templates\clinic\admin\blog_list.html:110
@@ -3383,7 +3379,7 @@ msgstr "செயல்படும் கடைசி தேதி"
 msgid "Either email or phone number is required."
 msgstr "மின்னஞ்சல் அல்லது தொலைபேசி எண் தேவை."
 
-#: accounts\models.py:98 accounts\templates\accounts\admin\user_form.html:53
+#: accounts\models.py:111 accounts\templates\accounts\admin\user_form.html:53
 #: clinic\models.py:45 clinic\templates\clinic\admin\clinic_setup.html:252
 msgid "Email"
 msgstr "மின்னஞ்சல்"
@@ -3410,7 +3406,7 @@ msgstr "மின்னஞ்சல் அறிவிப்புகள்"
 msgid "Email sent successfully."
 msgstr "மின்னஞ்சல் வெற்றிகரமாக அனுப்பப்பட்டது."
 
-#: accounts\models.py:59
+#: accounts\models.py:72
 msgid "Email Verified"
 msgstr "மின்னஞ்சல் சரிபார்க்கப்பட்டது"
 
@@ -3422,7 +3418,7 @@ msgstr "email@example.com"
 msgid "Emergency / Attender"
 msgstr "அவசரம் / உடன் வந்தவர்"
 
-#: idcards\render.py:231
+#: idcards\render.py:249
 msgid "Emergency contact"
 msgstr "அவசரத் தொடர்பு"
 
@@ -3443,7 +3439,7 @@ msgstr "பணியாளர் எண்"
 msgid "Employment status"
 msgstr "பணி நிலை"
 
-#: accounts\templates\accounts\admin\users_list.html:86
+#: accounts\templates\accounts\admin\users_list.html:77
 msgid "Enable"
 msgstr "இயக்கு"
 
@@ -3839,7 +3835,7 @@ msgstr "இன்றைய செலவுகள்"
 msgid "Expenses — SpinalCure"
 msgstr "செலவுகள் — SpinalCure"
 
-#: idcards\render.py:197 templates\patients\patient_detail.html:285
+#: idcards\render.py:198 templates\patients\patient_detail.html:285
 msgid "Expired"
 msgstr "காலாவதியானது"
 
@@ -3847,7 +3843,7 @@ msgstr "காலாவதியானது"
 msgid "Expires"
 msgstr "காலாவதி"
 
-#: accounts\models.py:143
+#: accounts\models.py:156
 msgid "Expires At"
 msgstr "காலாவதியாகும் நேரம்"
 
@@ -3904,7 +3900,7 @@ msgstr "OTP-ஐ அனுப்ப முடியவில்லை. பின�
 msgid "Failed to send PIN. Check email settings."
 msgstr "PIN ஐ அனுப்ப முடியவில்லை. மின்னஞ்சல் அமைப்புகளைச் சரிபார்க்கவும்."
 
-#: accounts\models.py:133
+#: accounts\models.py:146
 msgid "Failed Verification Attempts"
 msgstr "தோல்வியடைந்த சரிபார்ப்பு முயற்சிகள்"
 
@@ -4045,7 +4041,7 @@ msgstr "கட்டணம் (₹)"
 msgid "Fees are non-refundable."
 msgstr "கட்டணங்கள் திருப்பித் தரப்படாது."
 
-#: accounts\models.py:340 clinic\models.py:191
+#: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:39
 #: patients\models.py:20
 msgid "Female"
@@ -4284,7 +4280,7 @@ msgstr "GB"
 
 #: accounts\templates\accounts\admin\user_form.html:113
 #: clinic\templates\clinic\admin\practitioner_form.html:34
-#: idcards\render.py:233
+#: idcards\render.py:251
 msgid "Gender"
 msgstr "பாலினம்"
 
@@ -4499,7 +4495,7 @@ msgstr "முகப்பு"
 msgid "Home address"
 msgstr "வீட்டு முகவரி"
 
-#: accounts\models.py:344
+#: accounts\models.py:357
 msgid "Home address, printed on the ID card."
 msgstr "வீட்டு முகவரி, அடையாள அட்டையில் அச்சிடப்படும்."
 
@@ -4680,9 +4676,13 @@ msgstr "படம் 5 MB அல்லது அதற்குக் குற�
 msgid "Immobile"
 msgstr "இயக்கமற்றது"
 
-#: accounts\models.py:332
-msgid "Immutable. OWN-#### for owners, STF-#### for everyone else."
-msgstr "மாற்ற முடியாதது. உரிமையாளர்களுக்கு OWN-####, மற்றவர்களுக்கு STF-####."
+#: accounts\models.py:345
+msgid ""
+"Immutable. Four digits and three letters, unique for everyone, e.g. "
+"4827-KQM."
+msgstr ""
+"மாற்ற முடியாது. நான்கு இலக்கங்களும் மூன்று எழுத்துகளும், அனைவருக்கும் "
+"தனித்துவமானது, எ.கா. 4827-KQM."
 
 #: clinic\templates\clinic\admin\clinic_setup.html:580
 msgid "Impact Stat 1"
@@ -4726,9 +4726,9 @@ msgstr "நேரிலும் இணையவழியிலும்"
 msgid "In-person only"
 msgstr "நேரில் மட்டும்"
 
-#: accounts\templates\accounts\admin\users_list.html:73
+#: accounts\templates\accounts\admin\users_list.html:64
 #: clinic\templates\clinic\admin\practitioners_list.html:38
-#: idcards\render.py:197
+#: idcards\render.py:198
 msgid "Inactive"
 msgstr "செயலற்ற"
 
@@ -4830,7 +4830,7 @@ msgstr "OTP தவறானது அல்லது காலாவதியா
 msgid "Invalid or missing date. Use YYYY-MM-DD."
 msgstr "செல்லாத அல்லது விடுபட்ட தேதி. YYYY-MM-DD வடிவத்தைப் பயன்படுத்தவும்."
 
-#: accounts\models.py:293
+#: accounts\models.py:306
 #, python-format
 msgid "Invalid OTP. %(n)d attempts remaining."
 msgstr "OTP தவறானது. %(n)d முயற்சிகள் மீதமுள்ளன."
@@ -4907,7 +4907,7 @@ msgstr "அடையாள அட்டையை வழங்கு"
 msgid "Issue refund"
 msgstr "பணத்தைத் திருப்பு"
 
-#: idcards\render.py:230 idcards\templates\idcards\detail.html:23
+#: idcards\render.py:248 idcards\templates\idcards\detail.html:23
 #: idcards\templates\idcards\verify.html:39
 msgid "Issued"
 msgstr "வழங்கப்பட்டது"
@@ -4944,7 +4944,7 @@ msgstr "இந்தத் தொகுப்பில் சேருங்க�
 msgid "Join waitlist"
 msgstr "காத்திருப்புப் பட்டியலில் சேர்"
 
-#: accounts\templates\accounts\admin\users_list.html:26 idcards\render.py:229
+#: accounts\templates\accounts\admin\users_list.html:26 idcards\render.py:247
 msgid "Joined"
 msgstr "சேர்ந்தது"
 
@@ -5066,7 +5066,7 @@ msgstr "கடைசிப் பிழை"
 msgid "Last Name"
 msgstr "கடைசி பெயர்"
 
-#: accounts\models.py:153
+#: accounts\models.py:166
 msgid "Last Request At"
 msgstr "கடைசி கோரிக்கை நேரம்"
 
@@ -5287,7 +5287,7 @@ msgstr "முதன்மைத் தலைப்பு"
 msgid "Malayalam"
 msgstr "மலையாளம்"
 
-#: accounts\models.py:340 clinic\models.py:191
+#: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:38
 #: patients\models.py:20
 msgid "Male"
@@ -5975,7 +5975,7 @@ msgstr "இதுவரை அமர்வுகள் பதிவு செய
 msgid "No Show"
 msgstr "வரவில்லை"
 
-#: accounts\templates\accounts\admin\users_list.html:101
+#: accounts\templates\accounts\admin\users_list.html:92
 msgid "No staff members found."
 msgstr "பணியாளர்கள் யாரும் இல்லை."
 
@@ -6031,7 +6031,7 @@ msgstr "வரவிருக்கும் சந்திப்புகள�
 msgid "No upcoming appointments."
 msgstr "வரவிருக்கும் சந்திப்புகள் இல்லை."
 
-#: accounts\models.py:273
+#: accounts\models.py:286
 msgid "No valid OTP found. Please request a new one."
 msgstr "செல்லுபடியாகும் OTP எதுவும் இல்லை. புதியதைக் கோருங்கள்."
 
@@ -6175,11 +6175,11 @@ msgstr "அறிவிப்பு விருப்பங்கள் சே�
 msgid "Notifications"
 msgstr "அறிவிப்புகள்"
 
-#: accounts\models.py:134
+#: accounts\models.py:147
 msgid "Number of failed OTP verification attempts"
 msgstr "தோல்வியடைந்த OTP சரிபார்ப்பு முயற்சிகளின் எண்ணிக்கை"
 
-#: accounts\models.py:149
+#: accounts\models.py:162
 msgid "Number of OTP requests made today (for rate limiting)"
 msgstr "இன்று செய்யப்பட்ட OTP கோரிக்கைகளின் எண்ணிக்கை (வரம்பிற்காக)"
 
@@ -6203,7 +6203,7 @@ msgstr "பழைய மதிப்பு"
 msgid "on Google"
 msgstr "Google-இல்"
 
-#: accounts\models.py:322
+#: accounts\models.py:335
 msgid "On leave"
 msgstr "விடுப்பில்"
 
@@ -6426,20 +6426,20 @@ msgstr "நிறுவனம்"
 msgid "Organizer"
 msgstr "ஒருங்கிணைப்பாளர்"
 
-#: accounts\models.py:340 appointments\models.py:94 clinic\models.py:191
+#: accounts\models.py:353 appointments\models.py:94 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:40
 msgid "Other"
 msgstr "மற்றவை"
 
-#: accounts\models.py:116
+#: accounts\models.py:129
 msgid "OTP Secret"
 msgstr "OTP ரகசியம்"
 
-#: accounts\models.py:157
+#: accounts\models.py:170
 msgid "OTP Token"
 msgstr "OTP டோக்கன்"
 
-#: accounts\models.py:158
+#: accounts\models.py:171
 msgid "OTP Tokens"
 msgstr "OTP டோக்கன்கள்"
 
@@ -6461,7 +6461,7 @@ msgstr ""
 "எங்கள் மருத்துவர் அவற்றைச் சரிபார்த்து வருகிறார். அதுவரை எந்தக் கேள்விக்கும்"
 " எங்களை அழைக்கவும்."
 
-#: idcards\render.py:234
+#: idcards\render.py:252
 msgid "Our website"
 msgstr "எங்கள் இணையதளம்"
 
@@ -6495,11 +6495,11 @@ msgstr "நிலுவைக் கட்டணம்: %(who)s"
 msgid "Overview"
 msgstr "கண்ணோட்டம்"
 
-#: accounts\models.py:25 idcards\models.py:55
+#: accounts\models.py:29 accounts\models.py:42 idcards\models.py:55
 msgid "Owner"
 msgstr "உரிமையாளர்"
 
-#: idcards\render.py:228
+#: idcards\render.py:246
 msgid "Owner ID"
 msgstr "உரிமையாளர் எண்"
 
@@ -7054,7 +7054,7 @@ msgstr "தனிப்பட்ட விவரங்கள்"
 msgid "Personal Information"
 msgstr "தனிப்பட்ட தகவல்"
 
-#: accounts\models.py:42 accounts\templates\accounts\admin\user_form.html:112
+#: accounts\models.py:55 accounts\templates\accounts\admin\user_form.html:112
 #: clinic\models.py:43 clinic\templates\clinic\admin\practitioner_form.html:51
 msgid "Phone"
 msgstr "தொலைபேசி"
@@ -7347,7 +7347,7 @@ msgstr "விருப்பங்கள்"
 msgid "Preferred Doctor"
 msgstr "விருப்பமான மருத்துவர்"
 
-#: accounts\models.py:55 patients\models.py:37
+#: accounts\models.py:68 patients\models.py:37
 msgid "Preferred language"
 msgstr "விருப்ப மொழி"
 
@@ -7495,7 +7495,7 @@ msgstr "பிரச்சினைகள் — SpinalCure நிர்வா�
 msgid "Professional Info"
 msgstr "தொழில்முறைத் தகவல்"
 
-#: accounts\models.py:48
+#: accounts\models.py:61
 #: clinic\templates\clinic\admin\practitioner_form.html:139
 msgid "Profile Photo"
 msgstr "சுயவிவரப் புகைப்படம்"
@@ -7804,7 +7804,7 @@ msgstr "பெறப்பட்டது: %(submitted_at)s"
 msgid "Recent verifications"
 msgstr "சமீபத்திய சரிபார்ப்புகள்"
 
-#: accounts\models.py:27
+#: accounts\models.py:31
 msgid "Receptionist"
 msgstr "வரவேற்பாளர்"
 
@@ -8159,7 +8159,7 @@ msgstr "கிளினிக்கின் பதில்"
 msgid "Request an Appointment &rarr;"
 msgstr "சந்திப்பைக் கோருங்கள் &rarr;"
 
-#: accounts\models.py:148
+#: accounts\models.py:161
 msgid "Request Count (Today)"
 msgstr "கோரிக்கை எண்ணிக்கை (இன்று)"
 
@@ -8299,12 +8299,12 @@ msgstr "ரத்து செய்"
 msgid "Revoke permanently"
 msgstr "நிரந்தரமாக ரத்து செய்"
 
-#: idcards\models.py:56 idcards\render.py:196
+#: idcards\models.py:56 idcards\render.py:197
 #: idcards\templates\idcards\detail.html:25
 msgid "Revoked"
 msgstr "ரத்து செய்யப்பட்டது"
 
-#: accounts\models.py:36 accounts\templates\accounts\admin\user_form.html:77
+#: accounts\models.py:49 accounts\templates\accounts\admin\user_form.html:77
 #: accounts\templates\accounts\admin\users_list.html:24
 msgid "Role"
 msgstr "பொறுப்பு"
@@ -8385,7 +8385,7 @@ msgstr ""
 "மறைக்கப்பட்டதாகச் சேமிக்கப்பட்டது. இதை வெளியிட நோயாளியின் ஒப்புதலைப் பதிவு "
 "செய்யவும்."
 
-#: idcards\render.py:230
+#: idcards\render.py:248
 msgid "Scan to verify"
 msgstr "சரிபார்க்க ஸ்கேன் செய்யவும்"
 
@@ -9000,7 +9000,7 @@ msgstr "ஆரோக்கியமான முதுகெலும்பு�
 msgid "Sittings"
 msgstr "அமர்வுகள்"
 
-#: idcards\render.py:232
+#: idcards\render.py:250
 msgid "Skills"
 msgstr "திறன்கள்"
 
@@ -9028,7 +9028,7 @@ msgstr "ஸ்லக்"
 msgid "SMART SEO ENABLED"
 msgstr "ஸ்மார்ட் SEO இயக்கப்பட்டது"
 
-#: accounts\models.py:97
+#: accounts\models.py:110
 msgid "SMS"
 msgstr "SMS"
 
@@ -9125,8 +9125,8 @@ msgstr "SpinalCure — அங்கீகாரக் கோரிக்கை"
 msgid "ST"
 msgstr "ST"
 
-#: accounts\models.py:28 accounts\templates\accounts\admin\users_list.html:60
-#: appointments\models.py:243 idcards\models.py:55
+#: accounts\models.py:32 appointments\models.py:243 idcards\models.py:55
+#: idcards\templates\idcards\dashboard.html:20
 msgid "Staff"
 msgstr "பணியாளர்"
 
@@ -9134,7 +9134,7 @@ msgstr "பணியாளர்"
 msgid "Staff Accounts Management"
 msgstr "பணியாளர் கணக்குகள் மேலாண்மை"
 
-#: idcards\render.py:228
+#: idcards\render.py:246
 msgid "Staff ID"
 msgstr "பணியாளர் எண்"
 
@@ -9281,7 +9281,7 @@ msgstr "துணை மொத்தம்"
 msgid "Sunday"
 msgstr "ஞாயிறு"
 
-#: accounts\models.py:23
+#: accounts\models.py:27
 msgid "Super Admin"
 msgstr "சூப்பர் நிர்வாகி"
 
@@ -9289,15 +9289,11 @@ msgstr "சூப்பர் நிர்வாகி"
 msgid "superadmin's email"
 msgstr "சூப்பர் நிர்வாகியின் மின்னஞ்சல்"
 
-#: accounts\templates\accounts\admin\users_list.html:54
-msgid "Superuser"
-msgstr "சூப்பர் பயனர்"
-
 #: templates\courses\course_form.html:294
 msgid "Supported: JPG, PNG, WEBP"
 msgstr "ஆதரிக்கப்படுபவை: JPG, PNG, WEBP"
 
-#: accounts\models.py:323
+#: accounts\models.py:336
 msgid "Suspended"
 msgstr "இடைநிறுத்தப்பட்டது"
 
@@ -9412,7 +9408,7 @@ msgstr "பயன்படுத்திய நுட்பங்கள்:"
 msgid "Techniques Used"
 msgstr "பயன்படுத்திய நுட்பங்கள்"
 
-#: idcards\render.py:232
+#: idcards\render.py:250
 msgid "Tel"
 msgstr "தொலை."
 
@@ -9433,7 +9429,7 @@ msgstr ""
 msgid "Telugu"
 msgstr "தெலுங்கு"
 
-#: accounts\models.py:324
+#: accounts\models.py:337
 msgid "Terminated"
 msgstr "பணிநீக்கம்"
 
@@ -9924,7 +9920,7 @@ msgstr ""
 msgid "Timestamp"
 msgstr "நேரமுத்திரை"
 
-#: accounts\models.py:144
+#: accounts\models.py:157
 msgid "Timestamp when OTP becomes invalid"
 msgstr "OTP செல்லாததாகும் நேரம்"
 
@@ -9998,14 +9994,14 @@ msgstr "தெரிவுநிலையை மாற்று"
 msgid "Too many attempts. Please try again later."
 msgstr "அதிக முயற்சிகள். பின்னர் மீண்டும் முயலவும்."
 
-#: accounts\models.py:279 accounts\models.py:290
+#: accounts\models.py:292 accounts\models.py:303
 msgid ""
 "Too many failed attempts. OTP has been invalidated. Please request a new "
 "one."
 msgstr ""
 "அதிக தோல்வி முயற்சிகள். OTP செல்லாததாக்கப்பட்டது. புதியதைக் கோருங்கள்."
 
-#: accounts\models.py:204
+#: accounts\models.py:217
 msgid "Too many OTP requests. Please try again in 1 hour."
 msgstr "அதிக OTP கோரிக்கைகள். 1 மணி நேரத்தில் மீண்டும் முயற்சிக்கவும்."
 
@@ -10461,11 +10457,11 @@ msgstr "ஆசிரியர் அமைப்பில் உள்ள மர
 msgid "Use whole numbers of minutes separated by commas."
 msgstr "கமாவால் பிரிக்கப்பட்ட முழு நிமிட எண்களைப் பயன்படுத்தவும்."
 
-#: accounts\models.py:128
+#: accounts\models.py:141
 msgid "Used"
 msgstr "பயன்படுத்தப்பட்டது"
 
-#: accounts\models.py:64 accounts\models.py:105
+#: accounts\models.py:77 accounts\models.py:118
 #: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:743
 msgid "User"
 msgstr "பயனர்"
@@ -10503,7 +10499,7 @@ msgstr "பயனர் பெயர் *"
 msgid "Username, or \"author\" / \"system\"."
 msgstr "பயனர் பெயர், அல்லது \"author\" / \"system\"."
 
-#: accounts\models.py:65
+#: accounts\models.py:78
 msgid "Users"
 msgstr "பயனர்கள்"
 
@@ -10528,7 +10524,7 @@ msgstr "5 நிமிடங்களுக்குச் செல்லுப
 msgid "Valid ID card"
 msgstr "செல்லுபடியாகும் அடையாள அட்டை"
 
-#: idcards\render.py:230 idcards\templates\idcards\verify.html:40
+#: idcards\render.py:248 idcards\templates\idcards\verify.html:40
 #: patients\models.py:194 templates\patients\patient_detail.html:283
 msgid "Valid until"
 msgstr "செல்லுபடியாகும் தேதி"
@@ -11001,7 +10997,7 @@ msgstr "பின்புற QR எங்கே கொண்டு செல்
 msgid "Whether this action has been reverted"
 msgstr "இந்தச் செயல் மீட்டமைக்கப்பட்டதா"
 
-#: accounts\models.py:129
+#: accounts\models.py:142
 msgid "Whether this OTP has been successfully verified"
 msgstr "இந்த OTP வெற்றிகரமாகச் சரிபார்க்கப்பட்டதா"
 
@@ -11047,7 +11043,7 @@ msgstr "எழுதியவரால் திரும்பப் பெற�
 msgid "Without diet restrictions"
 msgstr "உணவுக் கட்டுப்பாடு இல்லாமல்"
 
-#: idcards\render.py:226
+#: idcards\render.py:244
 msgid "Without Medicine"
 msgstr "மருந்து இல்லாமல்"
 
@@ -11059,7 +11055,7 @@ msgstr "மருந்து இல்லாமல்"
 msgid "Without surgery"
 msgstr "அறுவை சிகிச்சை இல்லாமல்"
 
-#: idcards\render.py:226
+#: idcards\render.py:244
 msgid "Without Surgery,"
 msgstr "அறுவை சிகிச்சை இல்லாமல்,"
 
@@ -11646,6 +11642,9 @@ msgstr "📅 Google Calendar இல் சேர்"
 #~ "சிறந்த பராமரிப்பு வழங்க உங்கள் மருத்துவ வரலாற்றையும் தனிப்பட்ட தகவலையும் "
 #~ "சேர்க்கவும்."
 
+#~ msgid "Admin"
+#~ msgstr "நிர்வாகி"
+
 #~ msgid "All Authors"
 #~ msgstr "அனைத்து ஆசிரியர்கள்"
 
@@ -11963,6 +11962,9 @@ msgstr "📅 Google Calendar இல் சேர்"
 #~ msgstr ""
 #~ "உங்களால் வர இயலவில்லை என்றால், அந்த நேரத்தை வேறொரு நோயாளிக்கு வழங்க "
 #~ "முடியும்படி விரைவில் தெரிவிக்கவும்."
+
+#~ msgid "Immutable. OWN-#### for owners, STF-#### for everyone else."
+#~ msgstr "மாற்ற முடியாதது. உரிமையாளர்களுக்கு OWN-####, மற்றவர்களுக்கு STF-####."
 
 #~ msgid "Inside the Clinic"
 #~ msgstr "கிளினிக்கின் உள்ளே"
@@ -12472,6 +12474,9 @@ msgstr "📅 Google Calendar இல் சேர்"
 
 #~ msgid "Sunday Closed"
 #~ msgstr "ஞாயிறு விடுமுறை"
+
+#~ msgid "Superuser"
+#~ msgstr "சூப்பர் பயனர்"
 
 #~ msgid "support@spinalcure.com"
 #~ msgstr "support@spinalcure.com"

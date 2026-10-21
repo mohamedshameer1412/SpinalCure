@@ -33,9 +33,9 @@
     {% if show_actions|default_if_none:True %}
     <div class="idc-toolbar" role="toolbar" aria-label="{% translate 'Card actions' %}">
         <button type="button" data-idc-flip><span aria-hidden="true">⟲</span> {% translate "Flip card" %}</button>
-        <button type="button" data-idc-action="png-front">{% translate "Download front (PNG)" %}</button>
-        <button type="button" data-idc-action="png-back">{% translate "Download back (PNG)" %}</button>
-        <button type="button" data-idc-action="pdf">{% translate "Download PDF" %}</button>
+        <a class="idc-btn" href="{% url 'idcard_png' c.card.pk 'front' %}?scale=2&lang={{ c.lang }}" download>{% translate "Download front (PNG)" %}</a>
+        <a class="idc-btn" href="{% url 'idcard_png' c.card.pk 'back' %}?scale=2&lang={{ c.lang }}" download>{% translate "Download back (PNG)" %}</a>
+        <a class="idc-btn" href="{% url 'idcard_pdf' c.card.pk %}?lang={{ c.lang }}" download>{% translate "Download PDF" %}</a>
         <button type="button" data-idc-action="print">{% translate "Print" %}</button>
         <button type="button" data-idc-action="share">{% translate "Share" %}</button>
         <button type="button" data-idc-action="whatsapp">WhatsApp</button>
