@@ -550,11 +550,24 @@ class TestimonialVideo(models.Model):
         super().save(*args, **kwargs)
 
     @property
+    def is_short(self):
+        """True when this is a YouTube Short - Shorts cannot be embedded (Error 153)."""
+        return self.platform == 'youtube' and '/shorts/' in self.url
+
+    @property
     def embed_url(self):
-        if self.platform == 'youtube':
+        """Embed URL for iframes. Returns '' for YouTube Shorts (use direct_url instead)."""
+        if self.platform == 'youtube' and not self.is_short:
             return f'https://www.youtube-nocookie.com/embed/{self.video_id}?rel=0'
         if self.platform == 'instagram':
             return f'https://www.instagram.com/reel/{self.video_id}/embed'
+        return ''
+
+    @property
+    def direct_url(self):
+        """URL to open on YouTube directly - used for Shorts that cannot be embedded (Error 153)."""
+        if self.is_short:
+            return f'https://www.youtube.com/shorts/{self.video_id}'
         return ''
 
     @property
@@ -681,12 +694,27 @@ class GalleryItem(models.Model):
                 raise ValidationError({'video_url': _('Enter a YouTube, YouTube Shorts or Instagram reel link.')})
 
     @property
+    def is_short(self):
+        """True when this is a YouTube Short - Shorts cannot be embedded (Error 153)."""
+        return '/shorts/' in (self.video_url or '')
+
+    @property
     def embed_url(self):
+        """Embed URL for iframes. Returns '' for YouTube Shorts (use direct_url instead)."""
         platform, vid = TestimonialVideo.parse_url(self.video_url or '')
-        if platform == 'youtube':
+        if platform == 'youtube' and not self.is_short:
             return f'https://www.youtube-nocookie.com/embed/{vid}?rel=0&autoplay=1'
         if platform == 'instagram':
             return f'https://www.instagram.com/reel/{vid}/embed'
+        return ''
+
+    @property
+    def direct_url(self):
+        """URL to open on YouTube directly - used for Shorts that cannot be embedded (Error 153)."""
+        if self.is_short:
+            platform, vid = TestimonialVideo.parse_url(self.video_url or '')
+            if vid:
+                return f'https://www.youtube.com/shorts/{vid}'
         return ''
 
     @property

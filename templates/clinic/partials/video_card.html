@@ -7,7 +7,7 @@ problem (v.hue) keep neighbours distinct, and the problem is always named. A cov
 {% endcomment %}
 {% with h=v.hue variant=v.card_variant %}
 <article class="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-card transition duration-200 hover:-translate-y-0.5 hover:shadow-pop">
-    <button type="button" @click="$dispatch('play-video', { src: '{{ v.embed_url|escapejs }}', vertical: {{ v.is_vertical|yesno:'true,false' }} })"
+    <button type="button" @click="{% if v.is_short %}$dispatch('play-short', { url: '{{ v.direct_url|escapejs }}' }){% else %}$dispatch('play-video', { src: '{{ v.embed_url|escapejs }}', vertical: {{ v.is_vertical|yesno:'true,false' }} }){% endif %}"
         aria-label="{% blocktranslate with t=v.title %}Play video: {{ t }}{% endblocktranslate %}"
         class="relative block aspect-[4/5] w-full overflow-hidden text-start focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500">
         {% if v.thumbnail and v.thumbnail_source == 'upload' %}

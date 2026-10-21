@@ -21,6 +21,7 @@
     <article class="relative mb-8 overflow-hidden rounded-3xl bg-slate-950 text-white shadow-pop lg:grid lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
         <button type="button" class="group relative block aspect-[4/3] w-full overflow-hidden lg:aspect-auto lg:min-h-[26rem]"
             {% if f.kind == 'photo' %}@click="photo = { src: '{{ f.image.url|escapejs }}', title: '{{ f|tx:"title"|escapejs }}' }"
+            {% elif f.video_url and f.is_short %}@click="$dispatch('play-short', { url: '{{ f.direct_url|escapejs }}' })"
             {% elif f.video_url %}@click="$dispatch('play-video', { src: '{{ f.embed_url|escapejs }}', vertical: {{ f.is_vertical|yesno:'true,false' }} })"
             {% else %}@click="$dispatch('play-file', { src: '{{ f.video_file.url|escapejs }}' })"{% endif %}
             aria-label="{% translate 'Open' %}: {{ f|tx:'title' }}">
@@ -60,7 +61,8 @@
         {% for v in videos %}
         <figure class="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-card">
             <button type="button" class="relative block aspect-video w-full overflow-hidden bg-gradient-to-br from-primary-800 to-emerald-600"
-                {% if v.video_url %}@click="$dispatch('play-video', { src: '{{ v.embed_url|escapejs }}', vertical: {{ v.is_vertical|yesno:'true,false' }} })"
+                {% if v.video_url and v.is_short %}@click="$dispatch('play-short', { url: '{{ v.direct_url|escapejs }}' })"
+                {% elif v.video_url %}@click="$dispatch('play-video', { src: '{{ v.embed_url|escapejs }}', vertical: {{ v.is_vertical|yesno:'true,false' }} })"
                 {% else %}@click="$dispatch('play-file', { src: '{{ v.video_file.url|escapejs }}' })"{% endif %} aria-label="{% translate 'Play' %}: {{ v|tx:'title' }}">
                 {% if v.image %}<img src="{{ v.image.url }}" alt="" loading="lazy" class="h-full w-full object-cover">{% endif %}
                 <span class="absolute inset-0 flex items-center justify-center"><span class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-lg text-primary-700 shadow-lg transition group-hover:scale-110"><i class="bi bi-play-fill ms-0.5"></i></span></span>

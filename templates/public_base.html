@@ -46,8 +46,12 @@
 {% include "public/footer.html" %}
 
 <!-- Video player: the iframe is created only on click, so no third-party requests happen until then -->
-<div x-data="{ open: false, src: '', file: '', vertical: true }" @play-video.window="file = ''; src = $event.detail.src; vertical = $event.detail.vertical; open = true"
-     @play-file.window="src = ''; file = $event.detail.src; vertical = false; open = true" @keydown.escape.window="open = false; src = ''; file = ''">
+<!-- play-short: YouTube Shorts cannot be embedded (Error 153); open them directly on YouTube in a new tab -->
+<div x-data="{ open: false, src: '', file: '', vertical: true }"
+     @play-video.window="file = ''; src = $event.detail.src; vertical = $event.detail.vertical; open = true"
+     @play-file.window="src = ''; file = $event.detail.src; vertical = false; open = true"
+     @play-short.window="window.open($event.detail.url, '_blank', 'noopener,noreferrer')"
+     @keydown.escape.window="open = false; src = ''; file = ''">
     <div x-show="open" x-cloak x-transition.opacity class="dialog-overlay !bg-black/80" @click.self="open = false; src = ''; file = ''" role="dialog" aria-modal="true" aria-label="{% translate 'Patient video' %}">
         <div class="relative w-full" :class="vertical ? 'max-w-sm' : 'max-w-3xl'">
             <button type="button" @click="open = false; src = ''; file = ''" class="absolute -top-10 end-0 text-2xl text-white" aria-label="{% translate 'Close' %}"><i class="bi bi-x-lg"></i></button>
