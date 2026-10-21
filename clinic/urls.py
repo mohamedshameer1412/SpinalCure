@@ -10,7 +10,7 @@ from .admin_views import (clinic_setup_view, practitioners_list,
                           practitioner_create, practitioner_edit, practitioner_delete,
                           testimonials_list, testimonial_create, testimonial_edit,
                           testimonial_delete, testimonial_toggle_publish, testimonial_moderate, activity_log_view, revert_audit_log_view)
-from .testimonial_views import (testimonials_page, admin_videos, admin_video_edit, admin_video_toggle, admin_video_delete, admin_video_problem,
+from .testimonial_views import (testimonials_page, admin_videos, admin_videos_sync, admin_video_edit, admin_video_toggle, admin_video_delete, admin_video_problem,
                                 admin_problems, admin_problem_delete)
 from .translation_views import translations_page, translation_action
 from . import faq_views, gallery_views
@@ -84,6 +84,7 @@ urlpatterns = [
     path('admin/testimonials/<uuid:pk>/moderate/', testimonial_moderate, name='admin_testimonial_moderate'),
 
     path('admin/videos/', admin_videos, name='admin_videos'),
+    path('admin/videos/sync/', admin_videos_sync, name='admin_videos_sync'),
     path('admin/videos/<uuid:pk>/', admin_video_edit, name='admin_video_edit'),
     path('admin/videos/<uuid:pk>/toggle/', admin_video_toggle, name='admin_video_toggle'),
     path('admin/videos/<uuid:pk>/problem/', admin_video_problem, name='admin_video_problem'),

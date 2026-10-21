@@ -81,6 +81,27 @@
     </div>
 </section>
 
+<!-- ============ ABOUT ============ -->
+{% if clinic.about %}
+<section id="about" class="section scroll-mt-28 bg-white">
+    <div class="container-site grid items-center gap-10 lg:grid-cols-12">
+        {% if clinic_logo_url %}
+        <div class="flex justify-center lg:col-span-4">
+            <div class="flex aspect-square w-full max-w-[16rem] items-center justify-center rounded-3xl border border-gray-100 bg-gradient-to-br from-primary-50 to-white p-8 shadow-card">
+                <img src="{{ clinic_logo_url }}" alt="{{ clinic|tx:'name' }}" class="max-h-full max-w-full object-contain" loading="lazy">
+            </div>
+        </div>
+        {% endif %}
+        <div class="{% if clinic_logo_url %}lg:col-span-8{% else %}lg:col-span-12{% endif %}">
+            <p class="eyebrow">{{ clinic|tx:"about_label"|default:_("About us") }}</p>
+            <h2 class="h-section mt-3 text-gray-900">{{ clinic|tx_html:"about_title"|default:clinic.name }}</h2>
+            <p class="lead mt-4 line-clamp-6 whitespace-pre-line">{{ clinic|tx:"about" }}</p>
+            <a href="{% url 'clinic_about_page' %}" class="btn btn-outline mt-6">{% translate "Read more about us" %}<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
 <!-- ============ DOCTOR ============ -->
 {% if doctor %}
 <section id="doctor" class="section scroll-mt-28">

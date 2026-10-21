@@ -454,7 +454,7 @@ msgid ""
 "employment has ended."
 msgstr ""
 
-#: templates\clinic\home.html:111
+#: templates\clinic\home.html:132
 msgid "A clear path from the first visit to lasting relief."
 msgstr ""
 
@@ -598,7 +598,7 @@ msgid "About Title"
 msgstr ""
 
 #: templates\clinic\about_page.html:3 templates\clinic\about_page.html:10
-#: templates\clinic\about_page.html:11
+#: templates\clinic\about_page.html:11 templates\clinic\home.html:96
 msgid "About us"
 msgstr ""
 
@@ -848,7 +848,7 @@ msgstr ""
 msgid "Add User"
 msgstr ""
 
-#: templates\clinic\admin\videos.html:50
+#: templates\clinic\admin\videos.html:51
 msgid "Add video"
 msgstr ""
 
@@ -947,7 +947,7 @@ msgstr ""
 msgid "All problems"
 msgstr ""
 
-#: templates\clinic\admin\faq_form.html:5 templates\clinic\home.html:185
+#: templates\clinic\admin\faq_form.html:5 templates\clinic\home.html:206
 msgid "All questions"
 msgstr ""
 
@@ -963,7 +963,7 @@ msgstr ""
 msgid "All Statuses"
 msgstr ""
 
-#: templates\clinic\home.html:129
+#: templates\clinic\home.html:150
 #: templates\clinic\practitioner_portfolio.html:44
 msgid "All stories"
 msgstr ""
@@ -1088,7 +1088,7 @@ msgstr ""
 msgid "Any additional details..."
 msgstr ""
 
-#: templates\clinic\admin\videos.html:60
+#: templates\clinic\admin\videos.html:61
 msgid "Any consent status"
 msgstr ""
 
@@ -1096,7 +1096,7 @@ msgstr ""
 msgid "Any language"
 msgstr ""
 
-#: templates\clinic\admin\videos.html:59
+#: templates\clinic\admin\videos.html:60
 msgid "Any problem"
 msgstr ""
 
@@ -1623,7 +1623,7 @@ msgstr ""
 msgid "Blood group"
 msgstr ""
 
-#: templates\clinic\home.html:98
+#: templates\clinic\home.html:119
 #: templates\clinic\practitioner_portfolio.html:31
 msgid "Book a consultation"
 msgstr ""
@@ -2031,7 +2031,7 @@ msgid ""
 "plan starts by finding the root cause of your pain."
 msgstr ""
 
-#: templates\clinic\home.html:115
+#: templates\clinic\home.html:136
 msgid ""
 "Classical acupuncture sessions planned around your condition, at the clinic "
 "or online."
@@ -2264,7 +2264,7 @@ msgstr ""
 
 #: templates\clinic\admin\testimonials_list.html:47
 #: templates\clinic\admin\video_form.html:103
-#: templates\clinic\admin\videos.html:67
+#: templates\clinic\admin\videos.html:68
 msgid "Consent"
 msgstr ""
 
@@ -2280,7 +2280,7 @@ msgstr ""
 msgid "Consent on file"
 msgstr ""
 
-#: templates\clinic\home.html:114
+#: templates\clinic\home.html:135
 msgid "Consultation"
 msgstr ""
 
@@ -2398,7 +2398,7 @@ msgid "Country code"
 msgstr ""
 
 #: courses\models.py:69 courses\models.py:117 courses\models.py:205
-#: templates\clinic\home.html:214
+#: templates\clinic\home.html:235
 msgid "Course"
 msgstr ""
 
@@ -2475,7 +2475,7 @@ msgstr ""
 msgid "Courses"
 msgstr ""
 
-#: templates\clinic\home.html:207
+#: templates\clinic\home.html:228
 msgid "Courses and free health events"
 msgstr ""
 
@@ -2733,7 +2733,7 @@ msgstr ""
 msgid "Delete this review?"
 msgstr ""
 
-#: templates\clinic\admin\videos.html:86
+#: templates\clinic\admin\videos.html:87
 msgid "Delete this video?"
 msgstr ""
 
@@ -2851,7 +2851,7 @@ msgstr ""
 msgid "Details & register"
 msgstr ""
 
-#: templates\clinic\home.html:230
+#: templates\clinic\home.html:251
 msgid "Details and registration"
 msgstr ""
 
@@ -3881,7 +3881,7 @@ msgstr ""
 
 #: clinic\templates\clinic\admin\activity_log.html:46
 #: idcards\templates\idcards\dashboard.html:21
-#: templates\clinic\admin\videos.html:61 templates\events\public_list.html:24
+#: templates\clinic\admin\videos.html:62 templates\events\public_list.html:24
 msgid "Filter"
 msgstr ""
 
@@ -4046,7 +4046,7 @@ msgstr ""
 msgid "Full price before discount (₹)"
 msgstr ""
 
-#: templates\clinic\home.html:99
+#: templates\clinic\home.html:120
 msgid "Full profile"
 msgstr ""
 
@@ -4262,11 +4262,11 @@ msgstr ""
 #: templates\clinic\admin\featured.html:17
 #: templates\clinic\admin\gallery.html:31
 #: templates\clinic\admin\video_form.html:102
-#: templates\clinic\admin\videos.html:84
+#: templates\clinic\admin\videos.html:85
 msgid "Hidden"
 msgstr ""
 
-#: templates\clinic\admin\videos.html:84
+#: templates\clinic\admin\videos.html:85
 msgid "Hidden — click to publish"
 msgstr ""
 
@@ -4326,7 +4326,7 @@ msgstr ""
 msgid "How was the course?"
 msgstr ""
 
-#: templates\clinic\home.html:110
+#: templates\clinic\home.html:131
 msgid "How your treatment works"
 msgstr ""
 
@@ -4838,7 +4838,7 @@ msgstr ""
 msgid "Launch Course"
 msgstr ""
 
-#: templates\clinic\home.html:206
+#: templates\clinic\home.html:227
 msgid "Learn with us"
 msgstr ""
 
@@ -5062,7 +5062,7 @@ msgstr ""
 msgid "Manage GSTIN and default taxation rules."
 msgstr ""
 
-#: templates\clinic\admin\videos.html:5
+#: templates\clinic\admin\videos.html:6
 msgid "Manage problems"
 msgstr ""
 
@@ -5090,7 +5090,7 @@ msgstr ""
 msgid "Manual Author Name"
 msgstr ""
 
-#: templates\clinic\home.html:252
+#: templates\clinic\home.html:273
 msgid "Map to the clinic"
 msgstr ""
 
@@ -5643,7 +5643,7 @@ msgstr ""
 msgid "No practitioners added yet"
 msgstr ""
 
-#: templates\clinic\admin\videos.html:59
+#: templates\clinic\admin\videos.html:60
 msgid "No problem tagged"
 msgstr ""
 
@@ -5764,7 +5764,7 @@ msgstr ""
 msgid "No valid OTP found. Please request a new one."
 msgstr ""
 
-#: templates\clinic\admin\videos.html:90
+#: templates\clinic\admin\videos.html:91
 msgid "No videos yet. Paste a YouTube Short or Instagram reel link above."
 msgstr ""
 
@@ -5961,7 +5961,7 @@ msgstr ""
 msgid "Online Event"
 msgstr ""
 
-#: templates\clinic\home.html:226
+#: templates\clinic\home.html:247
 msgid "Online event"
 msgstr ""
 
@@ -6080,7 +6080,7 @@ msgstr ""
 msgid "Open menu"
 msgstr ""
 
-#: templates\clinic\home.html:249 templates\public\footer.html:28
+#: templates\clinic\home.html:270 templates\public\footer.html:28
 msgid "Opening hours"
 msgstr ""
 
@@ -6141,7 +6141,7 @@ msgstr ""
 msgid "Our clinic, our patients and our events, in photos and videos."
 msgstr ""
 
-#: templates\clinic\home.html:92
+#: templates\clinic\home.html:113
 #: templates\clinic\practitioner_portfolio.html:13
 #: templates\public\header.html:30 templates\public\header.html:59
 msgid "Our doctor"
@@ -6385,7 +6385,7 @@ msgid "Patient Card - %(name)s - SpinalCure"
 msgstr ""
 
 #: clinic\models.py:510 templates\clinic\admin\video_form.html:39
-#: templates\clinic\admin\videos.html:41 templates\clinic\admin\videos.html:57
+#: templates\clinic\admin\videos.html:42 templates\clinic\admin\videos.html:58
 msgid "Patient consent"
 msgstr ""
 
@@ -6430,7 +6430,7 @@ msgid "Patient Name"
 msgstr ""
 
 #: templates\clinic\admin\video_form.html:21
-#: templates\clinic\admin\videos.html:22
+#: templates\clinic\admin\videos.html:23
 msgid "Patient name (optional)"
 msgstr ""
 
@@ -6480,7 +6480,7 @@ msgstr ""
 msgid "Patient Reviews — SpinalCure"
 msgstr ""
 
-#: templates\clinic\about_page.html:27 templates\clinic\home.html:126
+#: templates\clinic\about_page.html:27 templates\clinic\home.html:147
 #: templates\clinic\testimonials_public.html:3
 #: templates\clinic\testimonials_public.html:19
 msgid "Patient stories"
@@ -7217,7 +7217,7 @@ msgstr ""
 msgid "Publish immediately"
 msgstr ""
 
-#: templates\clinic\admin\videos.html:49
+#: templates\clinic\admin\videos.html:50
 msgid "Publish now (only if consent is on file)"
 msgstr ""
 
@@ -7266,13 +7266,13 @@ msgstr ""
 msgid "Published on the website"
 msgstr ""
 
-#: templates\clinic\admin\videos.html:84
+#: templates\clinic\admin\videos.html:85
 msgid "Published — click to hide"
 msgstr ""
 
 #: clinic\models.py:225
 #: clinic\templates\clinic\admin\practitioner_form.html:127
-#: templates\clinic\home.html:95
+#: templates\clinic\home.html:116
 #: templates\clinic\practitioner_portfolio.html:25
 msgid "Qualifications"
 msgstr ""
@@ -7294,7 +7294,7 @@ msgid "Question saved."
 msgstr ""
 
 #: templates\clinic\faq.html:10 templates\clinic\faq.html:5
-#: templates\clinic\home.html:182
+#: templates\clinic\home.html:203
 msgid "Questions"
 msgstr ""
 
@@ -7345,6 +7345,10 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
+#: templates\clinic\home.html:99
+msgid "Read more about us"
+msgstr ""
+
 #: templates\clinic\admin\blog_list.html:34
 msgid "Read Time"
 msgstr ""
@@ -7357,7 +7361,7 @@ msgstr ""
 msgid "Ready for your next visit?"
 msgstr ""
 
-#: templates\clinic\home.html:127 templates\clinic\testimonials_public.html:20
+#: templates\clinic\home.html:148 templates\clinic\testimonials_public.html:20
 msgid "Real people. Real recovery."
 msgstr ""
 
@@ -7521,7 +7525,7 @@ msgstr ""
 msgid "Record:"
 msgstr ""
 
-#: templates\clinic\home.html:116
+#: templates\clinic\home.html:137
 msgid "Recovery and follow-up"
 msgstr ""
 
@@ -7867,7 +7871,7 @@ msgstr ""
 msgid "Review updated."
 msgstr ""
 
-#: templates\clinic\home.html:170 templates\clinic\review.html:18
+#: templates\clinic\home.html:191 templates\clinic\review.html:18
 #: templates\clinic\testimonials_public.html:24
 msgid "Review us on Google"
 msgstr ""
@@ -8097,11 +8101,11 @@ msgstr ""
 msgid "Search students..."
 msgstr ""
 
-#: templates\clinic\admin\videos.html:56
+#: templates\clinic\admin\videos.html:57
 msgid "Search title, patient, description…"
 msgstr ""
 
-#: templates\clinic\admin\videos.html:55
+#: templates\clinic\admin\videos.html:56
 msgid "Search videos"
 msgstr ""
 
@@ -8150,7 +8154,7 @@ msgid "Select"
 msgstr ""
 
 #: templates\clinic\admin\testimonial_form.html:80
-#: templates\clinic\admin\videos.html:27
+#: templates\clinic\admin\videos.html:28
 msgid "Select a problem"
 msgstr ""
 
@@ -8410,7 +8414,7 @@ msgstr ""
 msgid "Share this PIN with the staff member"
 msgstr ""
 
-#: templates\clinic\home.html:169 templates\clinic\review.html:3
+#: templates\clinic\home.html:190 templates\clinic\review.html:3
 #: templates\clinic\testimonials_public.html:13
 #: templates\clinic\testimonials_public.html:23
 msgid "Share your experience"
@@ -8439,7 +8443,7 @@ msgid "Short Description"
 msgstr ""
 
 #: templates\clinic\admin\video_form.html:26
-#: templates\clinic\admin\videos.html:45
+#: templates\clinic\admin\videos.html:46
 msgid "Short description (searchable)"
 msgstr ""
 
@@ -8692,7 +8696,7 @@ msgstr ""
 msgid "Spinal Cure"
 msgstr ""
 
-#: templates\clinic\about_page.html:31
+#: templates\clinic\about_page.html:32
 msgid "Spinal Cure clinic"
 msgstr ""
 
@@ -8888,6 +8892,10 @@ msgstr ""
 msgid "Symptoms, diagnosis, etc."
 msgstr ""
 
+#: templates\clinic\admin\videos.html:5
+msgid "Sync from YouTube"
+msgstr ""
+
 #: templates\courses\batch_form.html:189
 msgid "Synchronize Batch Details"
 msgstr ""
@@ -8911,7 +8919,7 @@ msgstr ""
 msgid "Tag \"%(name)s\" created."
 msgstr ""
 
-#: templates\clinic\admin\videos.html:78 templates\clinic\admin\videos.html:79
+#: templates\clinic\admin\videos.html:79 templates\clinic\admin\videos.html:80
 msgid "Tag a problem"
 msgstr ""
 
@@ -9470,7 +9478,7 @@ msgstr ""
 msgid "Title & Author"
 msgstr ""
 
-#: templates\clinic\admin\videos.html:18
+#: templates\clinic\admin\videos.html:19
 msgid "Title *"
 msgstr ""
 
@@ -9601,7 +9609,7 @@ msgstr ""
 msgid "Transcript"
 msgstr ""
 
-#: templates\clinic\admin\videos.html:74
+#: templates\clinic\admin\videos.html:75
 msgid "transcript"
 msgstr ""
 
@@ -9693,7 +9701,7 @@ msgstr ""
 msgid "Treatment Progress"
 msgstr ""
 
-#: templates\clinic\home.html:115
+#: templates\clinic\home.html:136
 msgid "Treatment sessions"
 msgstr ""
 
@@ -10093,7 +10101,7 @@ msgid "via %(get_payment_mode_display)s"
 msgstr ""
 
 #: clinic\models.py:654 templates\clinic\admin\gallery.html:30
-#: templates\clinic\admin\videos.html:66
+#: templates\clinic\admin\videos.html:67
 msgid "Video"
 msgstr ""
 
@@ -10159,7 +10167,7 @@ msgstr ""
 msgid "View changes"
 msgstr ""
 
-#: templates\clinic\home.html:218
+#: templates\clinic\home.html:239
 msgid "View course"
 msgstr ""
 
@@ -10191,7 +10199,7 @@ msgstr ""
 msgid "Visible on the public portfolio when checked"
 msgstr ""
 
-#: templates\clinic\home.html:244 templates\public\footer.html:19
+#: templates\clinic\home.html:265 templates\public\footer.html:19
 msgid "Visit us"
 msgstr ""
 
@@ -10260,7 +10268,7 @@ msgstr ""
 msgid "We appreciate your trust in us for your wellness journey."
 msgstr ""
 
-#: templates\clinic\home.html:245
+#: templates\clinic\home.html:266
 msgid "We are here to help"
 msgstr ""
 
@@ -10286,7 +10294,7 @@ msgstr ""
 msgid "We have already received this review. Thank you!"
 msgstr ""
 
-#: templates\clinic\home.html:114
+#: templates\clinic\home.html:135
 msgid ""
 "We listen to your history and examine you to find what is really causing the"
 " pain."
@@ -10311,7 +10319,7 @@ msgstr ""
 msgid "We received ₹%(amount)s (receipt %(no)s). Thank you."
 msgstr ""
 
-#: templates\clinic\home.html:116
+#: templates\clinic\home.html:137
 msgid ""
 "We track your progress and share simple habits that keep the pain away."
 msgstr ""
@@ -10380,7 +10388,7 @@ msgid ""
 "treatment claims."
 msgstr ""
 
-#: templates\clinic\home.html:165
+#: templates\clinic\home.html:186
 msgid "Were you treated at Spinal Cure?"
 msgstr ""
 
@@ -10416,7 +10424,7 @@ msgstr ""
 msgid "What the card shows"
 msgstr ""
 
-#: templates\clinic\faq.html:12 templates\clinic\home.html:184
+#: templates\clinic\faq.html:12 templates\clinic\home.html:205
 msgid ""
 "What treatment involves, how long it takes and what to expect, in plain "
 "words from our clinic."
@@ -10835,7 +10843,7 @@ msgstr ""
 msgid "Your place may be offered to someone on the waitlist."
 msgstr ""
 
-#: templates\clinic\faq.html:11 templates\clinic\home.html:183
+#: templates\clinic\faq.html:11 templates\clinic\home.html:204
 msgid "Your questions, answered"
 msgstr ""
 
@@ -10869,7 +10877,7 @@ msgid ""
 "request it, ignore this email."
 msgstr ""
 
-#: templates\clinic\home.html:166
+#: templates\clinic\home.html:187
 msgid ""
 "Your story helps someone living with the same pain take the first step. Or "
 "send us private feedback: only our team reads it."
@@ -10889,8 +10897,17 @@ msgstr ""
 msgid "YouTube Channel URL"
 msgstr ""
 
-#: templates\clinic\admin\videos.html:13
+#: templates\clinic\admin\videos.html:14
 msgid "YouTube Short / video or Instagram reel link *"
+msgstr ""
+
+#: clinic\testimonial_views.py:260
+#, python-format
+msgid "YouTube synced: %(n)s new video(s) added."
+msgstr ""
+
+#: clinic\testimonial_views.py:261
+msgid "YouTube synced: nothing new."
 msgstr ""
 
 #: clinic\models.py:243
@@ -10900,7 +10917,7 @@ msgstr ""
 
 #: templates\clinic\admin\testimonial_form.html:81
 #: templates\clinic\admin\video_form.html:23
-#: templates\clinic\admin\videos.html:28
+#: templates\clinic\admin\videos.html:29
 msgid "— None —"
 msgstr ""
 

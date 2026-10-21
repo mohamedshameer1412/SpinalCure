@@ -28,6 +28,7 @@
             </div>
         </div>
         <div class="grid content-start gap-4 lg:col-span-5">
+            {% if clinic_logo_url %}<div class="flex justify-center rounded-2xl border border-gray-100 bg-gradient-to-br from-primary-50 to-white p-8 shadow-card"><img src="{{ clinic_logo_url }}" alt="{{ clinic|tx:'name' }}" class="h-40 w-auto object-contain"></div>{% endif %}
             {% for img in clinic.about_images.all %}<img src="{{ img.image.url }}" alt="{% translate 'Spinal Cure clinic' %}" loading="lazy" class="w-full rounded-2xl object-cover shadow-card">{% endfor %}
         </div>
     </div>

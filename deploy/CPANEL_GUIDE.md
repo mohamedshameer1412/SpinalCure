@@ -149,11 +149,13 @@ Open **cPanel → Cron Jobs** and add these three. In each, replace `3.12` if yo
 | Every 5 minutes (`*/5 * * * *`) | `cd /home/CPANELUSER/spinalcure && /home/CPANELUSER/virtualenv/spinalcure/3.12/bin/python manage.py send_reminders >> logs/cron.log 2>&1` |
 | Every 5 minutes (`*/5 * * * *`) | `cd /home/CPANELUSER/spinalcure && /home/CPANELUSER/virtualenv/spinalcure/3.12/bin/python manage.py process_notifications >> logs/cron.log 2>&1` |
 | Every 15 minutes (`*/15 * * * *`) | `cd /home/CPANELUSER/spinalcure && /home/CPANELUSER/virtualenv/spinalcure/3.12/bin/python manage.py reconcile_razorpay >> logs/cron.log 2>&1` |
+| Every hour (`0 * * * *`) | `cd /home/CPANELUSER/spinalcure && /home/CPANELUSER/virtualenv/spinalcure/3.12/bin/python manage.py sync_youtube >> logs/cron.log 2>&1` |
 
 What the jobs do:
 - **`send_reminders`:** appointment and event reminders, treatment follow-ups, missed appointments, and the "how was your treatment" review request.
 - **`process_notifications`:** sends queued emails and retries failed ones.
 - **`reconcile_razorpay`:** only needed once Razorpay is set up.
+- **`sync_youtube`:** pulls new videos and Shorts (title + caption) from the YouTube channel set in Clinic Settings. Staff can also press **Sync from YouTube** on the Reels & Shorts page.
 
 ---
 

@@ -2,7 +2,8 @@
 {% load i18n %}
 {% block title %}{% trans "Reels & Shorts — SpinalCure Admin" %}{% endblock %}
 {% block page_title %}{% trans "Reels & Shorts" %}{% endblock %}
-{% block header_actions %}<a href="{% url 'admin_problems' %}" class="text-sm font-semibold text-primary-700 hover:underline"><i class="bi bi-tags me-1"></i>{% trans "Manage problems" %}</a>{% endblock %}
+{% block header_actions %}<form method="post" action="{% url 'admin_videos_sync' %}" class="inline">{% csrf_token %}<button class="btn btn-outline btn-sm"><i class="bi bi-arrow-repeat me-1" aria-hidden="true"></i>{% trans "Sync from YouTube" %}</button></form>
+<a href="{% url 'admin_problems' %}" class="ms-3 text-sm font-semibold text-primary-700 hover:underline"><i class="bi bi-tags me-1"></i>{% trans "Manage problems" %}</a>{% endblock %}
 
 {% block content %}
 

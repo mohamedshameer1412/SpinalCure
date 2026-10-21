@@ -470,7 +470,7 @@ msgstr ""
 "जिसका खाता अक्षम है या जिसकी सेवा समाप्त हो चुकी है, उसे कार्ड जारी नहीं "
 "किया जा सकता।"
 
-#: templates\clinic\home.html:111
+#: templates\clinic\home.html:132
 msgid "A clear path from the first visit to lasting relief."
 msgstr "पहली मुलाक़ात से स्थायी राहत तक एक स्पष्ट रास्ता।"
 
@@ -632,7 +632,7 @@ msgid "About Title"
 msgstr "परिचय शीर्षक"
 
 #: templates\clinic\about_page.html:3 templates\clinic\about_page.html:10
-#: templates\clinic\about_page.html:11
+#: templates\clinic\about_page.html:11 templates\clinic\home.html:96
 msgid "About us"
 msgstr "हमारे बारे में"
 
@@ -884,7 +884,7 @@ msgstr "Google Calendar में जोड़ें"
 msgid "Add User"
 msgstr "उपयोगकर्ता जोड़ें"
 
-#: templates\clinic\admin\videos.html:50
+#: templates\clinic\admin\videos.html:51
 msgid "Add video"
 msgstr "वीडियो जोड़ें"
 
@@ -983,7 +983,7 @@ msgstr "सभी चिकित्सक"
 msgid "All problems"
 msgstr "सभी समस्याएँ"
 
-#: templates\clinic\admin\faq_form.html:5 templates\clinic\home.html:185
+#: templates\clinic\admin\faq_form.html:5 templates\clinic\home.html:206
 msgid "All questions"
 msgstr "सभी प्रश्न"
 
@@ -999,7 +999,7 @@ msgstr "सभी कर्मचारी"
 msgid "All Statuses"
 msgstr "सभी स्थितियाँ"
 
-#: templates\clinic\home.html:129
+#: templates\clinic\home.html:150
 #: templates\clinic\practitioner_portfolio.html:44
 msgid "All stories"
 msgstr "सभी कहानियाँ"
@@ -1124,7 +1124,7 @@ msgstr "उत्तर जल्द आ रहे हैं"
 msgid "Any additional details..."
 msgstr "कोई अतिरिक्त विवरण..."
 
-#: templates\clinic\admin\videos.html:60
+#: templates\clinic\admin\videos.html:61
 msgid "Any consent status"
 msgstr "कोई भी सहमति स्थिति"
 
@@ -1132,7 +1132,7 @@ msgstr "कोई भी सहमति स्थिति"
 msgid "Any language"
 msgstr "कोई भी भाषा"
 
-#: templates\clinic\admin\videos.html:59
+#: templates\clinic\admin\videos.html:60
 msgid "Any problem"
 msgstr "कोई भी समस्या"
 
@@ -1668,7 +1668,7 @@ msgstr "ब्लॉग टैग — SpinalCure"
 msgid "Blood group"
 msgstr "रक्त समूह"
 
-#: templates\clinic\home.html:98
+#: templates\clinic\home.html:119
 #: templates\clinic\practitioner_portfolio.html:31
 msgid "Book a consultation"
 msgstr "परामर्श बुक करें"
@@ -2095,7 +2095,7 @@ msgstr ""
 "रीढ़, जोड़ों, नसों और बहुत कुछ के लिए शास्त्रीय एक्यूपंक्चर। हर योजना आपके "
 "दर्द की जड़ का कारण खोजने से शुरू होती है।"
 
-#: templates\clinic\home.html:115
+#: templates\clinic\home.html:136
 msgid ""
 "Classical acupuncture sessions planned around your condition, at the clinic "
 "or online."
@@ -2332,7 +2332,7 @@ msgstr "कनेक्शन में गड़बड़ी। कृपया
 
 #: templates\clinic\admin\testimonials_list.html:47
 #: templates\clinic\admin\video_form.html:103
-#: templates\clinic\admin\videos.html:67
+#: templates\clinic\admin\videos.html:68
 msgid "Consent"
 msgstr "सहमति"
 
@@ -2348,7 +2348,7 @@ msgstr "सहमति की तारीख"
 msgid "Consent on file"
 msgstr "सहमति रिकॉर्ड में है"
 
-#: templates\clinic\home.html:114
+#: templates\clinic\home.html:135
 msgid "Consultation"
 msgstr "परामर्श"
 
@@ -2468,7 +2468,7 @@ msgid "Country code"
 msgstr "देश कोड"
 
 #: courses\models.py:69 courses\models.py:117 courses\models.py:205
-#: templates\clinic\home.html:214
+#: templates\clinic\home.html:235
 msgid "Course"
 msgstr "कोर्स"
 
@@ -2545,7 +2545,7 @@ msgstr "कोर्स छात्र"
 msgid "Courses"
 msgstr "कोर्स"
 
-#: templates\clinic\home.html:207
+#: templates\clinic\home.html:228
 msgid "Courses and free health events"
 msgstr "कोर्स और मुफ़्त स्वास्थ्य कार्यक्रम"
 
@@ -2808,7 +2808,7 @@ msgstr "यह प्रश्न हटाएँ?"
 msgid "Delete this review?"
 msgstr "यह समीक्षा हटाएँ?"
 
-#: templates\clinic\admin\videos.html:86
+#: templates\clinic\admin\videos.html:87
 msgid "Delete this video?"
 msgstr "यह वीडियो हटाएँ?"
 
@@ -2934,7 +2934,7 @@ msgstr "विवरण"
 msgid "Details & register"
 msgstr "विवरण और पंजीकरण"
 
-#: templates\clinic\home.html:230
+#: templates\clinic\home.html:251
 msgid "Details and registration"
 msgstr "विवरण और पंजीकरण"
 
@@ -3981,7 +3981,7 @@ msgstr "फ़ील्ड"
 
 #: clinic\templates\clinic\admin\activity_log.html:46
 #: idcards\templates\idcards\dashboard.html:21
-#: templates\clinic\admin\videos.html:61 templates\events\public_list.html:24
+#: templates\clinic\admin\videos.html:62 templates\events\public_list.html:24
 msgid "Filter"
 msgstr "फ़िल्टर"
 
@@ -4150,7 +4150,7 @@ msgstr "पूरी कीमत (₹)"
 msgid "Full price before discount (₹)"
 msgstr "छूट से पहले पूरी कीमत (₹)"
 
-#: templates\clinic\home.html:99
+#: templates\clinic\home.html:120
 msgid "Full profile"
 msgstr "पूरी प्रोफ़ाइल"
 
@@ -4368,11 +4368,11 @@ msgstr "हीरो शीर्षक"
 #: templates\clinic\admin\featured.html:17
 #: templates\clinic\admin\gallery.html:31
 #: templates\clinic\admin\video_form.html:102
-#: templates\clinic\admin\videos.html:84
+#: templates\clinic\admin\videos.html:85
 msgid "Hidden"
 msgstr "छिपा हुआ"
 
-#: templates\clinic\admin\videos.html:84
+#: templates\clinic\admin\videos.html:85
 msgid "Hidden — click to publish"
 msgstr "छिपा हुआ — प्रकाशित करने के लिए क्लिक करें"
 
@@ -4433,7 +4433,7 @@ msgstr "यह कैसा रहा?"
 msgid "How was the course?"
 msgstr "कोर्स कैसा रहा?"
 
-#: templates\clinic\home.html:110
+#: templates\clinic\home.html:131
 msgid "How your treatment works"
 msgstr "आपका इलाज कैसे होता है"
 
@@ -4971,7 +4971,7 @@ msgstr "अंतिम अनुरोध का समय"
 msgid "Launch Course"
 msgstr "कोर्स लॉन्च करें"
 
-#: templates\clinic\home.html:206
+#: templates\clinic\home.html:227
 msgid "Learn with us"
 msgstr "हमारे साथ सीखें"
 
@@ -5195,7 +5195,7 @@ msgstr "बैच प्रबंधित करें"
 msgid "Manage GSTIN and default taxation rules."
 msgstr "GSTIN और डिफ़ॉल्ट कर नियम प्रबंधित करें।"
 
-#: templates\clinic\admin\videos.html:5
+#: templates\clinic\admin\videos.html:6
 msgid "Manage problems"
 msgstr "समस्याएँ प्रबंधित करें"
 
@@ -5223,7 +5223,7 @@ msgstr "अपनी अपॉइंटमेंट प्रबंधित क
 msgid "Manual Author Name"
 msgstr "लेखक का नाम (मैनुअल)"
 
-#: templates\clinic\home.html:252
+#: templates\clinic\home.html:273
 msgid "Map to the clinic"
 msgstr "क्लिनिक तक पहुँचने का नक्शा"
 
@@ -5784,7 +5784,7 @@ msgstr "आपके खाते से कोई चिकित्सक प�
 msgid "No practitioners added yet"
 msgstr "अभी तक कोई चिकित्सक नहीं जोड़ा गया"
 
-#: templates\clinic\admin\videos.html:59
+#: templates\clinic\admin\videos.html:60
 msgid "No problem tagged"
 msgstr "कोई समस्या टैग नहीं"
 
@@ -5909,7 +5909,7 @@ msgstr "कोई आगामी अपॉइंटमेंट नहीं।
 msgid "No valid OTP found. Please request a new one."
 msgstr "कोई मान्य OTP नहीं मिला। कृपया नया अनुरोध करें।"
 
-#: templates\clinic\admin\videos.html:90
+#: templates\clinic\admin\videos.html:91
 msgid "No videos yet. Paste a YouTube Short or Instagram reel link above."
 msgstr ""
 "अभी कोई वीडियो नहीं। ऊपर YouTube Short या Instagram reel का लिंक चिपकाएँ।"
@@ -6113,7 +6113,7 @@ msgstr "ऑनलाइन कॉल / पूछताछ"
 msgid "Online Event"
 msgstr "ऑनलाइन इवेंट"
 
-#: templates\clinic\home.html:226
+#: templates\clinic\home.html:247
 msgid "Online event"
 msgstr "ऑनलाइन कार्यक्रम"
 
@@ -6236,7 +6236,7 @@ msgstr "Google समीक्षाएँ खोलें"
 msgid "Open menu"
 msgstr "मेन्यू खोलें"
 
-#: templates\clinic\home.html:249 templates\public\footer.html:28
+#: templates\clinic\home.html:270 templates\public\footer.html:28
 msgid "Opening hours"
 msgstr "खुलने का समय"
 
@@ -6301,7 +6301,7 @@ msgstr "OTP टोकन"
 msgid "Our clinic, our patients and our events, in photos and videos."
 msgstr "हमारा क्लिनिक, हमारे मरीज़ और हमारे कार्यक्रम, फ़ोटो और वीडियो में।"
 
-#: templates\clinic\home.html:92
+#: templates\clinic\home.html:113
 #: templates\clinic\practitioner_portfolio.html:13
 #: templates\public\header.html:30 templates\public\header.html:59
 msgid "Our doctor"
@@ -6547,7 +6547,7 @@ msgid "Patient Card - %(name)s - SpinalCure"
 msgstr "रोगी कार्ड - %(name)s - SpinalCure"
 
 #: clinic\models.py:510 templates\clinic\admin\video_form.html:39
-#: templates\clinic\admin\videos.html:41 templates\clinic\admin\videos.html:57
+#: templates\clinic\admin\videos.html:42 templates\clinic\admin\videos.html:58
 msgid "Patient consent"
 msgstr "मरीज़ की सहमति"
 
@@ -6592,7 +6592,7 @@ msgid "Patient name"
 msgstr "मरीज़ का नाम"
 
 #: templates\clinic\admin\video_form.html:21
-#: templates\clinic\admin\videos.html:22
+#: templates\clinic\admin\videos.html:23
 msgid "Patient name (optional)"
 msgstr "मरीज़ का नाम (वैकल्पिक)"
 
@@ -6642,7 +6642,7 @@ msgstr "मरीज़ों की समीक्षाएँ"
 msgid "Patient Reviews — SpinalCure"
 msgstr "रोगी समीक्षाएँ — SpinalCure"
 
-#: templates\clinic\about_page.html:27 templates\clinic\home.html:126
+#: templates\clinic\about_page.html:27 templates\clinic\home.html:147
 #: templates\clinic\testimonials_public.html:3
 #: templates\clinic\testimonials_public.html:19
 msgid "Patient stories"
@@ -7403,7 +7403,7 @@ msgstr "प्रकाशित करें"
 msgid "Publish immediately"
 msgstr "तुरंत प्रकाशित करें"
 
-#: templates\clinic\admin\videos.html:49
+#: templates\clinic\admin\videos.html:50
 msgid "Publish now (only if consent is on file)"
 msgstr "अभी प्रकाशित करें (केवल तभी जब सहमति रिकॉर्ड में हो)"
 
@@ -7452,13 +7452,13 @@ msgstr "पोर्टफ़ोलियो पर प्रकाशित"
 msgid "Published on the website"
 msgstr "वेबसाइट पर प्रकाशित"
 
-#: templates\clinic\admin\videos.html:84
+#: templates\clinic\admin\videos.html:85
 msgid "Published — click to hide"
 msgstr "प्रकाशित — छिपाने के लिए क्लिक करें"
 
 #: clinic\models.py:225
 #: clinic\templates\clinic\admin\practitioner_form.html:127
-#: templates\clinic\home.html:95
+#: templates\clinic\home.html:116
 #: templates\clinic\practitioner_portfolio.html:25
 msgid "Qualifications"
 msgstr "योग्यताएँ"
@@ -7480,7 +7480,7 @@ msgid "Question saved."
 msgstr "प्रश्न सहेजा गया।"
 
 #: templates\clinic\faq.html:10 templates\clinic\faq.html:5
-#: templates\clinic\home.html:182
+#: templates\clinic\home.html:203
 msgid "Questions"
 msgstr "प्रश्न"
 
@@ -7533,6 +7533,10 @@ msgstr "फिर से सक्रिय करें"
 msgid "Read more"
 msgstr "और पढ़ें"
 
+#: templates\clinic\home.html:99
+msgid "Read more about us"
+msgstr "हमारे बारे में और पढ़ें"
+
 #: templates\clinic\admin\blog_list.html:34
 msgid "Read Time"
 msgstr "पढ़ने का समय"
@@ -7545,7 +7549,7 @@ msgstr "पढ़ने का समय (मिनट)"
 msgid "Ready for your next visit?"
 msgstr "क्या आप अपनी अगली विज़िट के लिए तैयार हैं?"
 
-#: templates\clinic\home.html:127 templates\clinic\testimonials_public.html:20
+#: templates\clinic\home.html:148 templates\clinic\testimonials_public.html:20
 msgid "Real people. Real recovery."
 msgstr "असली लोग। असली रिकवरी।"
 
@@ -7711,7 +7715,7 @@ msgstr "रिकॉर्ड। कृपया नीचे दिए वि�
 msgid "Record:"
 msgstr "रिकॉर्ड:"
 
-#: templates\clinic\home.html:116
+#: templates\clinic\home.html:137
 msgid "Recovery and follow-up"
 msgstr "रिकवरी और फ़ॉलो-अप"
 
@@ -8060,7 +8064,7 @@ msgstr "समीक्षा का पाठ"
 msgid "Review updated."
 msgstr "समीक्षा अपडेट की गई।"
 
-#: templates\clinic\home.html:170 templates\clinic\review.html:18
+#: templates\clinic\home.html:191 templates\clinic\review.html:18
 #: templates\clinic\testimonials_public.html:24
 msgid "Review us on Google"
 msgstr "Google पर हमारी समीक्षा करें"
@@ -8303,11 +8307,11 @@ msgstr ""
 msgid "Search students..."
 msgstr "छात्र खोजें..."
 
-#: templates\clinic\admin\videos.html:56
+#: templates\clinic\admin\videos.html:57
 msgid "Search title, patient, description…"
 msgstr "शीर्षक, मरीज़, विवरण खोजें…"
 
-#: templates\clinic\admin\videos.html:55
+#: templates\clinic\admin\videos.html:56
 msgid "Search videos"
 msgstr "वीडियो खोजें"
 
@@ -8356,7 +8360,7 @@ msgid "Select"
 msgstr "चुनें"
 
 #: templates\clinic\admin\testimonial_form.html:80
-#: templates\clinic\admin\videos.html:27
+#: templates\clinic\admin\videos.html:28
 msgid "Select a problem"
 msgstr "एक समस्या चुनें"
 
@@ -8618,7 +8622,7 @@ msgstr "साझा लिंक बदल दिया गया। पुर�
 msgid "Share this PIN with the staff member"
 msgstr "यह PIN कर्मचारी के साथ साझा करें"
 
-#: templates\clinic\home.html:169 templates\clinic\review.html:3
+#: templates\clinic\home.html:190 templates\clinic\review.html:3
 #: templates\clinic\testimonials_public.html:13
 #: templates\clinic\testimonials_public.html:23
 msgid "Share your experience"
@@ -8649,7 +8653,7 @@ msgid "Short description"
 msgstr "संक्षिप्त विवरण"
 
 #: templates\clinic\admin\video_form.html:26
-#: templates\clinic\admin\videos.html:45
+#: templates\clinic\admin\videos.html:46
 msgid "Short description (searchable)"
 msgstr "संक्षिप्त विवरण (खोज योग्य)"
 
@@ -8908,7 +8912,7 @@ msgstr "विशेषज्ञता"
 msgid "Spinal Cure"
 msgstr "स्पाइनल क्योर"
 
-#: templates\clinic\about_page.html:31
+#: templates\clinic\about_page.html:32
 msgid "Spinal Cure clinic"
 msgstr "स्पाइनल क्योर क्लिनिक"
 
@@ -9104,6 +9108,10 @@ msgstr "निलंबित"
 msgid "Symptoms, diagnosis, etc."
 msgstr "लक्षण, निदान आदि।"
 
+#: templates\clinic\admin\videos.html:5
+msgid "Sync from YouTube"
+msgstr "YouTube से सिंक करें"
+
 #: templates\courses\batch_form.html:189
 msgid "Synchronize Batch Details"
 msgstr "बैच विवरण सिंक करें"
@@ -9127,7 +9135,7 @@ msgstr "टैग \"%(name)s\" पहले से मौजूद है।"
 msgid "Tag \"%(name)s\" created."
 msgstr "टैग \"%(name)s\" बनाया गया।"
 
-#: templates\clinic\admin\videos.html:78 templates\clinic\admin\videos.html:79
+#: templates\clinic\admin\videos.html:79 templates\clinic\admin\videos.html:80
 msgid "Tag a problem"
 msgstr "समस्या टैग करें"
 
@@ -9724,7 +9732,7 @@ msgstr "शीर्षक"
 msgid "Title & Author"
 msgstr "शीर्षक और लेखक"
 
-#: templates\clinic\admin\videos.html:18
+#: templates\clinic\admin\videos.html:19
 msgid "Title *"
 msgstr "शीर्षक *"
 
@@ -9856,7 +9864,7 @@ msgstr "प्रशिक्षण कोर्स"
 msgid "Transcript"
 msgstr "ट्रांसक्रिप्ट"
 
-#: templates\clinic\admin\videos.html:74
+#: templates\clinic\admin\videos.html:75
 msgid "transcript"
 msgstr "ट्रांसक्रिप्ट"
 
@@ -9948,7 +9956,7 @@ msgstr "उपचार योजना:"
 msgid "Treatment Progress"
 msgstr "उपचार की प्रगति"
 
-#: templates\clinic\home.html:115
+#: templates\clinic\home.html:136
 msgid "Treatment sessions"
 msgstr "उपचार सत्र"
 
@@ -10352,7 +10360,7 @@ msgid "via %(get_payment_mode_display)s"
 msgstr "%(get_payment_mode_display)s के माध्यम से"
 
 #: clinic\models.py:654 templates\clinic\admin\gallery.html:30
-#: templates\clinic\admin\videos.html:66
+#: templates\clinic\admin\videos.html:67
 msgid "Video"
 msgstr "वीडियो"
 
@@ -10420,7 +10428,7 @@ msgstr "सभी देखें →"
 msgid "View changes"
 msgstr "परिवर्तन देखें"
 
-#: templates\clinic\home.html:218
+#: templates\clinic\home.html:239
 msgid "View course"
 msgstr "कोर्स देखें"
 
@@ -10452,7 +10460,7 @@ msgstr "दृश्यता"
 msgid "Visible on the public portfolio when checked"
 msgstr "चयनित होने पर सार्वजनिक पोर्टफ़ोलियो पर दिखेगा"
 
-#: templates\clinic\home.html:244 templates\public\footer.html:19
+#: templates\clinic\home.html:265 templates\public\footer.html:19
 msgid "Visit us"
 msgstr "हमसे मिलें"
 
@@ -10523,7 +10531,7 @@ msgstr "जल"
 msgid "We appreciate your trust in us for your wellness journey."
 msgstr "आपकी स्वास्थ्य यात्रा में हम पर भरोसा करने के लिए धन्यवाद।"
 
-#: templates\clinic\home.html:245
+#: templates\clinic\home.html:266
 msgid "We are here to help"
 msgstr "हम मदद के लिए यहाँ हैं"
 
@@ -10554,7 +10562,7 @@ msgstr ""
 msgid "We have already received this review. Thank you!"
 msgstr "हमें यह समीक्षा पहले ही मिल चुकी है। धन्यवाद!"
 
-#: templates\clinic\home.html:114
+#: templates\clinic\home.html:135
 msgid ""
 "We listen to your history and examine you to find what is really causing the"
 " pain."
@@ -10581,7 +10589,7 @@ msgstr "हमें आपका %(amount)s का भुगतान मिल
 msgid "We received ₹%(amount)s (receipt %(no)s). Thank you."
 msgstr "हमें ₹%(amount)s प्राप्त हुए (रसीद %(no)s)। धन्यवाद।"
 
-#: templates\clinic\home.html:116
+#: templates\clinic\home.html:137
 msgid ""
 "We track your progress and share simple habits that keep the pain away."
 msgstr ""
@@ -10662,7 +10670,7 @@ msgstr ""
 "नाम दिखाने के लिए सहमत प्रसिद्ध मरीज़। ये होम पेज और गैलरी में सिर्फ़ "
 "जानकारी के रूप में दिखते हैं, बिना बुकिंग बटन या इलाज के दावों के।"
 
-#: templates\clinic\home.html:165
+#: templates\clinic\home.html:186
 msgid "Were you treated at Spinal Cure?"
 msgstr "क्या आपका इलाज Spinal Cure में हुआ?"
 
@@ -10702,7 +10710,7 @@ msgstr "छात्र क्या कहते हैं"
 msgid "What the card shows"
 msgstr "कार्ड पर क्या दिखता है"
 
-#: templates\clinic\faq.html:12 templates\clinic\home.html:184
+#: templates\clinic\faq.html:12 templates\clinic\home.html:205
 msgid ""
 "What treatment involves, how long it takes and what to expect, in plain "
 "words from our clinic."
@@ -11142,7 +11150,7 @@ msgstr ""
 msgid "Your place may be offered to someone on the waitlist."
 msgstr "आपकी जगह प्रतीक्षा सूची में मौजूद किसी व्यक्ति को दी जा सकती है।"
 
-#: templates\clinic\faq.html:11 templates\clinic\home.html:183
+#: templates\clinic\faq.html:11 templates\clinic\home.html:204
 msgid "Your questions, answered"
 msgstr "आपके प्रश्नों के उत्तर"
 
@@ -11178,7 +11186,7 @@ msgstr ""
 "आपका साइन-इन कोड %(code)s है। यह %(m)d मिनट में समाप्त हो जाएगा। यदि आपने "
 "इसे नहीं माँगा है, तो इस ईमेल को अनदेखा करें।"
 
-#: templates\clinic\home.html:166
+#: templates\clinic\home.html:187
 msgid ""
 "Your story helps someone living with the same pain take the first step. Or "
 "send us private feedback: only our team reads it."
@@ -11202,9 +11210,18 @@ msgstr "आपका कार्यक्षेत्र"
 msgid "YouTube Channel URL"
 msgstr "YouTube चैनल URL"
 
-#: templates\clinic\admin\videos.html:13
+#: templates\clinic\admin\videos.html:14
 msgid "YouTube Short / video or Instagram reel link *"
 msgstr "YouTube Short / वीडियो या Instagram रील लिंक *"
+
+#: clinic\testimonial_views.py:260
+#, python-format
+msgid "YouTube synced: %(n)s new video(s) added."
+msgstr "YouTube सिंक हुआ: %(n)s नए वीडियो जोड़े गए।"
+
+#: clinic\testimonial_views.py:261
+msgid "YouTube synced: nothing new."
+msgstr "YouTube सिंक हुआ: कुछ नया नहीं।"
 
 #: clinic\models.py:243
 #: clinic\templates\clinic\admin\practitioner_form.html:93
@@ -11213,7 +11230,7 @@ msgstr "YouTube URL"
 
 #: templates\clinic\admin\testimonial_form.html:81
 #: templates\clinic\admin\video_form.html:23
-#: templates\clinic\admin\videos.html:28
+#: templates\clinic\admin\videos.html:29
 msgid "— None —"
 msgstr "— कोई नहीं —"
 

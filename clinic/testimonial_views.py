@@ -249,3 +249,16 @@ def admin_problem_delete(request, pk):
     get_object_or_404(ProblemCategory, pk=pk).delete()  # testimonials/videos keep existing, problem becomes empty (SET_NULL)
     messages.success(request, gettext('Problem deleted.'))
     return redirect('admin_problems')
+
+
+@superadmin_required
+@require_POST
+def admin_videos_sync(request):
+    from . import youtube_sync
+    try:
+        added, existing = youtube_sync.sync()
+        messages.success(request, gettext('YouTube synced: %(n)s new video(s) added.') % {'n': added} if added
+                         else gettext('YouTube synced: nothing new.'))
+    except youtube_sync.SyncError as e:
+        messages.error(request, str(e))
+    return redirect('admin_videos')
