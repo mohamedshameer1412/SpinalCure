@@ -47,3 +47,20 @@ def test_channel_link_is_required(clinic):
     clinic.youtube = ''
     with pytest.raises(youtube_sync.SyncError):
         youtube_sync.sync(clinic)
+
+
+def test_api_path_imports_everything_with_tags_and_sorts_into_a_problem(clinic, settings, monkeypatch):
+    from clinic.models import ProblemCategory
+    ProblemCategory.objects.create(name='Back Pain', keywords='lumbar')
+    settings.YOUTUBE_API_KEY = 'k'
+    monkeypatch.setattr(youtube_sync, '_api_entries', lambda cid: iter([
+        {'id': 'CCCCCCCCCCC', 'title': 'Relief', 'url': 'https://www.youtube.com/watch?v=CCCCCCCCCCC', 'caption': 'c',
+         'published': '2025-01-01T00:00:00+00:00', 'tags': 'acupuncture, lumbar pain', 'duration': 'PT12M'}]))
+    assert youtube_sync.sync(clinic) == (1, 0)
+    v = TestimonialVideo.objects.get(video_id='CCCCCCCCCCC')
+    assert v.tags == 'acupuncture, lumbar pain' and v.problem.name == 'Back Pain' and not v.is_short
+    # an existing video with blanks gets them filled, never overwritten
+    TestimonialVideo.objects.filter(pk=v.pk).update(tags='', description='mine')
+    youtube_sync.sync(clinic)
+    v.refresh_from_db()
+    assert v.tags and v.description == 'mine'

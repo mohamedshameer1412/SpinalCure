@@ -506,6 +506,8 @@ class TestimonialVideo(models.Model):
                             ('frame1', _('Video frame 1')), ('frame2', _('Video frame 2')), ('frame3', _('Video frame 3'))]
     language = models.CharField(max_length=5, choices=NATIVE_CHOICES, default='en', verbose_name=_('Language'))
     transcript = models.TextField(blank=True, verbose_name=_('Transcript'))
+    tags = models.CharField(max_length=500, blank=True, verbose_name=_('Tags'),
+                            help_text=_('Comma-separated; imported from YouTube.'))
     consent_status = models.CharField(max_length=10, choices=CONSENT_CHOICES, default='unrecorded', db_index=True,
                                       verbose_name=_('Patient consent'))
     consent_note = models.CharField(max_length=300, blank=True, verbose_name=_('Where consent is recorded'),

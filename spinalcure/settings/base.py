@@ -116,6 +116,9 @@ AUTHENTICATION_BACKENDS = [
 # Internationalization
 LANGUAGE_CODE = 'en'
 TIME_ZONE = config('TIME_ZONE', default='Asia/Kolkata')
+
+# Optional: with a YouTube Data API key the channel sync reads every upload (with tags), not just the latest 15
+YOUTUBE_API_KEY = config('YOUTUBE_API_KEY', default='')
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
