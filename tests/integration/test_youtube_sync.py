@@ -18,7 +18,8 @@ Hours: 10am</media:description></media:group></entry>
 
 
 @pytest.fixture
-def clinic(monkeypatch):
+def clinic(monkeypatch, settings):
+    settings.YOUTUBE_API_KEY = ''
     c = ClinicProfile.objects.create(name='C', address='a', phone='9876543210', email='c@x.com',
                                      youtube='https://www.youtube.com/channel/UC' + 'a' * 22)
     monkeypatch.setattr(youtube_sync, '_get', lambda url: FEED)
