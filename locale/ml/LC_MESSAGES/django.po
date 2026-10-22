@@ -3016,7 +3016,7 @@ msgid "Delete"
 msgstr "ഇല്ലാതാക്കുക"
 
 #: templates\appointments\calendar.html:572
-#: templates\appointments\partials\appointment_list_partial.html:60
+#: templates\appointments\partials\appointment_list_partial.html:65
 msgid "Delete Appointment"
 msgstr "അപ്പോയിന്റ്മെന്റ് ഇല്ലാതാക്കുക"
 
@@ -5751,7 +5751,7 @@ msgstr "പുരുഷൻ"
 
 #: idcards\templates\idcards\dashboard.html:38
 #: idcards\templates\idcards\detail.html:32
-#: templates\appointments\partials\appointment_list_partial.html:56
+#: templates\appointments\partials\appointment_list_partial.html:61
 msgid "Manage"
 msgstr "കൈകാര്യം ചെയ്യുക"
 
@@ -6241,7 +6241,7 @@ msgstr "സജീവ ബാച്ച് ഇല്ല"
 msgid "No Activity Yet"
 msgstr "ഇതുവരെ പ്രവർത്തനങ്ങളില്ല"
 
-#: templates\appointments\partials\appointment_list_partial.html:71
+#: templates\appointments\partials\appointment_list_partial.html:76
 msgid "No appointments found"
 msgstr "അപ്പോയിന്റ്മെന്റുകളൊന്നും കണ്ടെത്തിയില്ല"
 
@@ -6597,7 +6597,7 @@ msgstr "ഒന്നും റിപ്പോർട്ട് ചെയ്തി�
 msgid "Not a practitioner"
 msgstr "പ്രാക്ടീഷണർ അല്ല"
 
-#: templates\appointments\partials\appointment_list_partial.html:33
+#: templates\appointments\partials\appointment_list_partial.html:38
 #: templates\patients\partials\patient_list_partial.html:38
 msgid "Not Assigned"
 msgstr "നിയോഗിച്ചിട്ടില്ല"
@@ -6772,6 +6772,10 @@ msgstr "ഓൺലൈൻ"
 #: payments\models.py:27
 msgid "Online (Razorpay)"
 msgstr "ഓൺലൈൻ (Razorpay)"
+
+#: templates\appointments\partials\appointment_list_partial.html:25
+msgid "Online booking"
+msgstr "ഓൺലൈൻ ബുക്കിംഗ്"
 
 #: appointments\scheduling.py:251
 msgid "Online booking is currently unavailable. Please call the clinic."
@@ -7341,7 +7345,7 @@ msgstr "രോഗി പോർട്ടൽ"
 msgid "Patient Profile"
 msgstr "രോഗിയുടെ പ്രൊഫൈൽ"
 
-#: templates\appointments\partials\appointment_list_partial.html:24
+#: templates\appointments\partials\appointment_list_partial.html:28
 msgid "Patient record not found"
 msgstr "രോഗിയുടെ രേഖ കണ്ടെത്താനായില്ല"
 
@@ -9563,7 +9567,7 @@ msgstr ""
 msgid "Show this course on public site"
 msgstr "ഈ കോഴ്സ് പൊതു സൈറ്റിൽ കാണിക്കുക"
 
-#: templates\appointments\partials\appointment_list_partial.html:84
+#: templates\appointments\partials\appointment_list_partial.html:89
 #, python-format
 msgid "Showing %(start_index)s to %(end_index)s of %(count)s appointments"
 msgstr ""
@@ -10915,7 +10919,7 @@ msgstr ""
 msgid "Try a name, phone number or appointment ID."
 msgstr "പേര്, ഫോൺ നമ്പർ അല്ലെങ്കിൽ അപ്പോയിന്റ്മെന്റ് ഐഡി ശ്രമിക്കുക."
 
-#: templates\appointments\partials\appointment_list_partial.html:72
+#: templates\appointments\partials\appointment_list_partial.html:77
 msgid "Try adjusting your filters or search query."
 msgstr "നിങ്ങളുടെ ഫിൽട്ടറുകളോ തിരയലോ മാറ്റി ശ്രമിക്കുക."
 

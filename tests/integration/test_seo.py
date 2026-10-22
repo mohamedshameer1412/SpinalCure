@@ -123,3 +123,25 @@ def test_header_never_shows_an_unbacked_google_rating(clinic):
     clinic.about_stat1_number, clinic.about_stat1_label = '4.9', 'Google rating (100 reviews)'
     clinic.save()
     assert '4.9 on Google' in ' '.join(Client().get('/en/').content.decode().split())
+
+
+@override_settings(**SITE)
+def test_google_verification_file_is_served_for_known_tokens_only(clinic):
+    c = Client()
+    r = c.get('/googlefa0d02732ed9d1da.html')
+    assert r.status_code == 200 and r.content.decode() == 'google-site-verification: googlefa0d02732ed9d1da.html'
+    assert 'noindex' not in r.get('X-Robots-Tag', '')
+    assert c.get('/google0000000000000000.html').status_code == 404
+
+
+@override_settings(**SITE)
+def test_home_head_carries_keywords_robots_and_social_tags(clinic):
+    from clinic.models import ProblemCategory
+    from django.core.cache import cache
+    cache.clear()
+    ProblemCategory.objects.create(name='Sciatica')
+    html = Client().get('/en/').content.decode()
+    assert re.search(r'<meta name="keywords" content="[^"]*classical acupuncture Chennai[^"]*Sciatica', html)
+    assert 'name="robots" content="index, follow' in html and 'property="og:description"' in html and 'name="twitter:title"' in html
+    robots = Client().get('/robots.txt').content.decode()
+    assert 'Disallow: /private-media/' in robots and 'Sitemap: https://www.example.org/sitemap.xml' in robots

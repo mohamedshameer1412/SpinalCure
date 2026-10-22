@@ -3004,7 +3004,7 @@ msgid "Delete"
 msgstr "తొలగించండి"
 
 #: templates\appointments\calendar.html:572
-#: templates\appointments\partials\appointment_list_partial.html:60
+#: templates\appointments\partials\appointment_list_partial.html:65
 msgid "Delete Appointment"
 msgstr "అపాయింట్‌మెంట్ తొలగించండి"
 
@@ -5721,7 +5721,7 @@ msgstr "పురుషుడు"
 
 #: idcards\templates\idcards\dashboard.html:38
 #: idcards\templates\idcards\detail.html:32
-#: templates\appointments\partials\appointment_list_partial.html:56
+#: templates\appointments\partials\appointment_list_partial.html:61
 msgid "Manage"
 msgstr "నిర్వహించండి"
 
@@ -6214,7 +6214,7 @@ msgstr "సక్రియ బ్యాచ్ లేదు"
 msgid "No Activity Yet"
 msgstr "ఇంకా కార్యకలాపాలు లేవు"
 
-#: templates\appointments\partials\appointment_list_partial.html:71
+#: templates\appointments\partials\appointment_list_partial.html:76
 msgid "No appointments found"
 msgstr "అపాయింట్‌మెంట్లు కనబడలేదు"
 
@@ -6566,7 +6566,7 @@ msgstr "ఏదీ నివేదించబడలేదు"
 msgid "Not a practitioner"
 msgstr "ప్రాక్టీషనర్ కాదు"
 
-#: templates\appointments\partials\appointment_list_partial.html:33
+#: templates\appointments\partials\appointment_list_partial.html:38
 #: templates\patients\partials\patient_list_partial.html:38
 msgid "Not Assigned"
 msgstr "కేటాయించబడలేదు"
@@ -6740,6 +6740,10 @@ msgstr "ఆన్‌లైన్"
 #: payments\models.py:27
 msgid "Online (Razorpay)"
 msgstr "ఆన్‌లైన్ (Razorpay)"
+
+#: templates\appointments\partials\appointment_list_partial.html:25
+msgid "Online booking"
+msgstr "ఆన్‌లైన్ బుకింగ్"
 
 #: appointments\scheduling.py:251
 msgid "Online booking is currently unavailable. Please call the clinic."
@@ -7309,7 +7313,7 @@ msgstr "రోగి పోర్టల్"
 msgid "Patient Profile"
 msgstr "రోగి ప్రొఫైల్"
 
-#: templates\appointments\partials\appointment_list_partial.html:24
+#: templates\appointments\partials\appointment_list_partial.html:28
 msgid "Patient record not found"
 msgstr "రోగి రికార్డు కనుగొనబడలేదు"
 
@@ -9521,7 +9525,7 @@ msgstr ""
 msgid "Show this course on public site"
 msgstr "ఈ కోర్సును పబ్లిక్ సైట్‌లో చూపించండి"
 
-#: templates\appointments\partials\appointment_list_partial.html:84
+#: templates\appointments\partials\appointment_list_partial.html:89
 #, python-format
 msgid "Showing %(start_index)s to %(end_index)s of %(count)s appointments"
 msgstr "%(count)s అపాయింట్‌మెంట్లలో %(start_index)s నుండి %(end_index)s వరకు"
@@ -10873,7 +10877,7 @@ msgstr "వేరే పదాన్ని ప్రయత్నించండ�
 msgid "Try a name, phone number or appointment ID."
 msgstr "పేరు, ఫోన్ నంబర్ లేదా అపాయింట్‌మెంట్ ID ప్రయత్నించండి."
 
-#: templates\appointments\partials\appointment_list_partial.html:72
+#: templates\appointments\partials\appointment_list_partial.html:77
 msgid "Try adjusting your filters or search query."
 msgstr "మీ ఫిల్టర్లు లేదా శోధనను మార్చి ప్రయత్నించండి."
 

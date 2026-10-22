@@ -2998,7 +2998,7 @@ msgid "Delete"
 msgstr "हटाएँ"
 
 #: templates\appointments\calendar.html:572
-#: templates\appointments\partials\appointment_list_partial.html:60
+#: templates\appointments\partials\appointment_list_partial.html:65
 msgid "Delete Appointment"
 msgstr "अपॉइंटमेंट हटाएं"
 
@@ -5710,7 +5710,7 @@ msgstr "पुरुष"
 
 #: idcards\templates\idcards\dashboard.html:38
 #: idcards\templates\idcards\detail.html:32
-#: templates\appointments\partials\appointment_list_partial.html:56
+#: templates\appointments\partials\appointment_list_partial.html:61
 msgid "Manage"
 msgstr "प्रबंधित करें"
 
@@ -6199,7 +6199,7 @@ msgstr "कोई सक्रिय बैच नहीं"
 msgid "No Activity Yet"
 msgstr "अभी तक कोई गतिविधि नहीं"
 
-#: templates\appointments\partials\appointment_list_partial.html:71
+#: templates\appointments\partials\appointment_list_partial.html:76
 msgid "No appointments found"
 msgstr "कोई अपॉइंटमेंट नहीं मिली"
 
@@ -6546,7 +6546,7 @@ msgstr "कोई रिपोर्ट नहीं"
 msgid "Not a practitioner"
 msgstr "प्रैक्टिशनर नहीं"
 
-#: templates\appointments\partials\appointment_list_partial.html:33
+#: templates\appointments\partials\appointment_list_partial.html:38
 #: templates\patients\partials\patient_list_partial.html:38
 msgid "Not Assigned"
 msgstr "आवंटित नहीं"
@@ -6719,6 +6719,10 @@ msgstr "ऑनलाइन"
 #: payments\models.py:27
 msgid "Online (Razorpay)"
 msgstr "ऑनलाइन (Razorpay)"
+
+#: templates\appointments\partials\appointment_list_partial.html:25
+msgid "Online booking"
+msgstr "ऑनलाइन बुकिंग"
 
 #: appointments\scheduling.py:251
 msgid "Online booking is currently unavailable. Please call the clinic."
@@ -7283,7 +7287,7 @@ msgstr "रोगी पोर्टल"
 msgid "Patient Profile"
 msgstr "रोगी प्रोफ़ाइल"
 
-#: templates\appointments\partials\appointment_list_partial.html:24
+#: templates\appointments\partials\appointment_list_partial.html:28
 msgid "Patient record not found"
 msgstr "मरीज़ का रिकॉर्ड नहीं मिला"
 
@@ -9491,7 +9495,7 @@ msgstr "सार्वजनिक सत्यापन पृष्ठ पर
 msgid "Show this course on public site"
 msgstr "इस कोर्स को सार्वजनिक साइट पर दिखाएँ"
 
-#: templates\appointments\partials\appointment_list_partial.html:84
+#: templates\appointments\partials\appointment_list_partial.html:89
 #, python-format
 msgid "Showing %(start_index)s to %(end_index)s of %(count)s appointments"
 msgstr ""
@@ -10843,7 +10847,7 @@ msgstr "कोई दूसरा शब्द आज़माएँ या स�
 msgid "Try a name, phone number or appointment ID."
 msgstr "नाम, फ़ोन नंबर या अपॉइंटमेंट आईडी आज़माएँ।"
 
-#: templates\appointments\partials\appointment_list_partial.html:72
+#: templates\appointments\partials\appointment_list_partial.html:77
 msgid "Try adjusting your filters or search query."
 msgstr "अपने फ़िल्टर या खोज को बदलकर देखें।"
 

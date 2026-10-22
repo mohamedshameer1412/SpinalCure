@@ -21,7 +21,12 @@
                     </a>
                     <p class="text-[10px] text-gray-400 font-mono">{{ appointment.patient.phone }}</p>
                     {% else %}
+                    {% if appointment.guest_name %}
+                    <p class="font-bold text-gray-900">{{ appointment.guest_name }} <span class="ms-1 rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-semibold uppercase text-sky-700">{% trans "Online booking" %}</span></p>
+                    <p class="text-[10px] text-gray-400 font-mono">{{ appointment.guest_phone|default:"" }}</p>
+                    {% else %}
                     <span class="text-xs italic text-gray-400">{% trans "Patient record not found" %}</span>
+                    {% endif %}
                     {% endif %}
                 </td>
                 <td class="px-6 py-4">

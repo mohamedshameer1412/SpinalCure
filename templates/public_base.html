@@ -12,12 +12,18 @@
     <link rel="canonical" href="{{ canonical_url }}">
     {% for code, url in hreflang_alternates %}<link rel="alternate" hreflang="{{ code }}" href="{{ url }}">
     {% endfor %}<link rel="alternate" hreflang="x-default" href="{{ hreflang_default }}">
+    <meta name="keywords" content="{{ seo_keywords }}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="author" content="{{ clinic|tx:"name"|default:"Spinal Cure" }}">
+    <meta name="theme-color" content="#14532d">
     <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:description" content="{% block og_description %}{% if clinic %}{{ clinic|tx:"hero_subtitle"|default:clinic.tagline|striptags|truncatewords:30 }}{% endif %}{% endblock %}">
     <meta property="og:locale" content="{{ og_locale }}">
     {% block og_defaults %}<meta property="og:type" content="website">
     <meta property="og:title" content="{{ clinic|tx:"name"|default:"Spinal Cure" }}">
     {% if clinic.hero_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ clinic.hero_image.url }}">{% endif %}{% endblock %}
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ clinic|tx:"name"|default:"Spinal Cure" }}{% endblock %}">
     {% endif %}
     {% block jsonld %}{% endblock %}
     {% if clinic_logo_url %}<link rel="icon" href="{{ clinic_logo_url }}">{% endif %}

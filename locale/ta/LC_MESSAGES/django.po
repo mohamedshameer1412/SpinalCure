@@ -3031,7 +3031,7 @@ msgid "Delete"
 msgstr "நீக்கு"
 
 #: templates\appointments\calendar.html:572
-#: templates\appointments\partials\appointment_list_partial.html:60
+#: templates\appointments\partials\appointment_list_partial.html:65
 msgid "Delete Appointment"
 msgstr "சந்திப்பை நீக்கு"
 
@@ -5787,7 +5787,7 @@ msgstr "ஆண்"
 
 #: idcards\templates\idcards\dashboard.html:38
 #: idcards\templates\idcards\detail.html:32
-#: templates\appointments\partials\appointment_list_partial.html:56
+#: templates\appointments\partials\appointment_list_partial.html:61
 msgid "Manage"
 msgstr "நிர்வகி"
 
@@ -6281,7 +6281,7 @@ msgstr "செயலில் உள்ள தொகுதி இல்லை"
 msgid "No Activity Yet"
 msgstr "இதுவரை செயல்பாடு இல்லை"
 
-#: templates\appointments\partials\appointment_list_partial.html:71
+#: templates\appointments\partials\appointment_list_partial.html:76
 msgid "No appointments found"
 msgstr "சந்திப்புகள் எதுவும் இல்லை"
 
@@ -6637,7 +6637,7 @@ msgstr "எதுவும் தெரிவிக்கப்படவில�
 msgid "Not a practitioner"
 msgstr "பயிற்சியாளர் அல்ல"
 
-#: templates\appointments\partials\appointment_list_partial.html:33
+#: templates\appointments\partials\appointment_list_partial.html:38
 #: templates\patients\partials\patient_list_partial.html:38
 msgid "Not Assigned"
 msgstr "ஒதுக்கப்படவில்லை"
@@ -6813,6 +6813,10 @@ msgstr "இணையவழி"
 #: payments\models.py:27
 msgid "Online (Razorpay)"
 msgstr "ஆன்லைன் (Razorpay)"
+
+#: templates\appointments\partials\appointment_list_partial.html:25
+msgid "Online booking"
+msgstr "இணைய முன்பதிவு"
 
 #: appointments\scheduling.py:251
 msgid "Online booking is currently unavailable. Please call the clinic."
@@ -7391,7 +7395,7 @@ msgstr "நோயாளி இணையதளம்"
 msgid "Patient Profile"
 msgstr "நோயாளி சுயவிவரம்"
 
-#: templates\appointments\partials\appointment_list_partial.html:24
+#: templates\appointments\partials\appointment_list_partial.html:28
 msgid "Patient record not found"
 msgstr "நோயாளி பதிவு கிடைக்கவில்லை"
 
@@ -9634,7 +9638,7 @@ msgstr ""
 msgid "Show this course on public site"
 msgstr "இந்தப் பாடநெறியைப் பொது இணையதளத்தில் காட்டு"
 
-#: templates\appointments\partials\appointment_list_partial.html:84
+#: templates\appointments\partials\appointment_list_partial.html:89
 #, python-format
 msgid "Showing %(start_index)s to %(end_index)s of %(count)s appointments"
 msgstr ""
@@ -11009,7 +11013,7 @@ msgstr ""
 msgid "Try a name, phone number or appointment ID."
 msgstr "பெயர், தொலைபேசி எண் அல்லது சந்திப்பு எண்ணை முயலுங்கள்."
 
-#: templates\appointments\partials\appointment_list_partial.html:72
+#: templates\appointments\partials\appointment_list_partial.html:77
 msgid "Try adjusting your filters or search query."
 msgstr "உங்கள் வடிகட்டிகள் அல்லது தேடலை மாற்றிப் பாருங்கள்."
 

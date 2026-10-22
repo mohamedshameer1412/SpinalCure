@@ -2996,7 +2996,7 @@ msgid "Delete"
 msgstr "ಅಳಿಸಿ"
 
 #: templates\appointments\calendar.html:572
-#: templates\appointments\partials\appointment_list_partial.html:60
+#: templates\appointments\partials\appointment_list_partial.html:65
 msgid "Delete Appointment"
 msgstr "ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಅಳಿಸಿ"
 
@@ -5711,7 +5711,7 @@ msgstr "ಗಂಡು"
 
 #: idcards\templates\idcards\dashboard.html:38
 #: idcards\templates\idcards\detail.html:32
-#: templates\appointments\partials\appointment_list_partial.html:56
+#: templates\appointments\partials\appointment_list_partial.html:61
 msgid "Manage"
 msgstr "ನಿರ್ವಹಿಸಿ"
 
@@ -6204,7 +6204,7 @@ msgstr "ಸಕ್ರಿಯ ಬ್ಯಾಚ್ ಇಲ್ಲ"
 msgid "No Activity Yet"
 msgstr "ಇನ್ನೂ ಚಟುವಟಿಕೆ ಇಲ್ಲ"
 
-#: templates\appointments\partials\appointment_list_partial.html:71
+#: templates\appointments\partials\appointment_list_partial.html:76
 msgid "No appointments found"
 msgstr "ಯಾವುದೇ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್‌ಗಳು ಕಂಡುಬಂದಿಲ್ಲ"
 
@@ -6556,7 +6556,7 @@ msgstr "ಯಾವುದೂ ವರದಿಯಾಗಿಲ್ಲ"
 msgid "Not a practitioner"
 msgstr "ಪ್ರ್ಯಾಕ್ಟೀಷನರ್ ಅಲ್ಲ"
 
-#: templates\appointments\partials\appointment_list_partial.html:33
+#: templates\appointments\partials\appointment_list_partial.html:38
 #: templates\patients\partials\patient_list_partial.html:38
 msgid "Not Assigned"
 msgstr "ನಿಯೋಜಿಸಲಾಗಿಲ್ಲ"
@@ -6729,6 +6729,10 @@ msgstr "ಆನ್‌ಲೈನ್"
 #: payments\models.py:27
 msgid "Online (Razorpay)"
 msgstr "ಆನ್‌ಲೈನ್ (Razorpay)"
+
+#: templates\appointments\partials\appointment_list_partial.html:25
+msgid "Online booking"
+msgstr "ಆನ್‌ಲೈನ್ ಬುಕ್ಕಿಂಗ್"
 
 #: appointments\scheduling.py:251
 msgid "Online booking is currently unavailable. Please call the clinic."
@@ -7297,7 +7301,7 @@ msgstr "ರೋಗಿ ಪೋರ್ಟಲ್"
 msgid "Patient Profile"
 msgstr "ರೋಗಿಯ ಪ್ರೊಫೈಲ್"
 
-#: templates\appointments\partials\appointment_list_partial.html:24
+#: templates\appointments\partials\appointment_list_partial.html:28
 msgid "Patient record not found"
 msgstr "ರೋಗಿಯ ದಾಖಲೆ ಕಂಡುಬಂದಿಲ್ಲ"
 
@@ -9511,7 +9515,7 @@ msgstr ""
 msgid "Show this course on public site"
 msgstr "ಈ ಕೋರ್ಸ್ ಅನ್ನು ಸಾರ್ವಜನಿಕ ಸೈಟ್‌ನಲ್ಲಿ ತೋರಿಸಿ"
 
-#: templates\appointments\partials\appointment_list_partial.html:84
+#: templates\appointments\partials\appointment_list_partial.html:89
 #, python-format
 msgid "Showing %(start_index)s to %(end_index)s of %(count)s appointments"
 msgstr ""
@@ -10867,7 +10871,7 @@ msgstr "ಬೇರೆ ಪದವನ್ನು ಪ್ರಯತ್ನಿಸಿ ಅಥ
 msgid "Try a name, phone number or appointment ID."
 msgstr "ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ID ಪ್ರಯತ್ನಿಸಿ."
 
-#: templates\appointments\partials\appointment_list_partial.html:72
+#: templates\appointments\partials\appointment_list_partial.html:77
 msgid "Try adjusting your filters or search query."
 msgstr "ನಿಮ್ಮ ಫಿಲ್ಟರ್‌ಗಳು ಅಥವಾ ಹುಡುಕಾಟವನ್ನು ಬದಲಿಸಿ ಪ್ರಯತ್ನಿಸಿ."
 

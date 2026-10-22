@@ -2918,7 +2918,7 @@ msgid "Delete"
 msgstr ""
 
 #: templates\appointments\calendar.html:572
-#: templates\appointments\partials\appointment_list_partial.html:60
+#: templates\appointments\partials\appointment_list_partial.html:65
 msgid "Delete Appointment"
 msgstr ""
 
@@ -5554,7 +5554,7 @@ msgstr ""
 
 #: idcards\templates\idcards\dashboard.html:38
 #: idcards\templates\idcards\detail.html:32
-#: templates\appointments\partials\appointment_list_partial.html:56
+#: templates\appointments\partials\appointment_list_partial.html:61
 msgid "Manage"
 msgstr ""
 
@@ -6038,7 +6038,7 @@ msgstr ""
 msgid "No Activity Yet"
 msgstr ""
 
-#: templates\appointments\partials\appointment_list_partial.html:71
+#: templates\appointments\partials\appointment_list_partial.html:76
 msgid "No appointments found"
 msgstr ""
 
@@ -6376,7 +6376,7 @@ msgstr ""
 msgid "Not a practitioner"
 msgstr ""
 
-#: templates\appointments\partials\appointment_list_partial.html:33
+#: templates\appointments\partials\appointment_list_partial.html:38
 #: templates\patients\partials\patient_list_partial.html:38
 msgid "Not Assigned"
 msgstr ""
@@ -6543,6 +6543,10 @@ msgstr ""
 
 #: payments\models.py:27
 msgid "Online (Razorpay)"
+msgstr ""
+
+#: templates\appointments\partials\appointment_list_partial.html:25
+msgid "Online booking"
 msgstr ""
 
 #: appointments\scheduling.py:251
@@ -7093,7 +7097,7 @@ msgstr ""
 msgid "Patient Profile"
 msgstr ""
 
-#: templates\appointments\partials\appointment_list_partial.html:24
+#: templates\appointments\partials\appointment_list_partial.html:28
 msgid "Patient record not found"
 msgstr ""
 
@@ -9250,7 +9254,7 @@ msgstr ""
 msgid "Show this course on public site"
 msgstr ""
 
-#: templates\appointments\partials\appointment_list_partial.html:84
+#: templates\appointments\partials\appointment_list_partial.html:89
 #, python-format
 msgid "Showing %(start_index)s to %(end_index)s of %(count)s appointments"
 msgstr ""
@@ -10557,7 +10561,7 @@ msgstr ""
 msgid "Try a name, phone number or appointment ID."
 msgstr ""
 
-#: templates\appointments\partials\appointment_list_partial.html:72
+#: templates\appointments\partials\appointment_list_partial.html:77
 msgid "Try adjusting your filters or search query."
 msgstr ""
 

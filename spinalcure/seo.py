@@ -5,7 +5,8 @@ from datetime import datetime
 
 from django.conf import settings
 from django.contrib.sitemaps import Sitemap
-from django.http import HttpResponse
+from django.core.cache import cache
+from django.http import Http404, HttpResponse
 from django.urls import reverse, translate_url
 from django.utils import timezone, translation
 from django.views.decorators.cache import cache_page
@@ -35,6 +36,33 @@ def is_indexable(request, response=None):
     return bool(match and match.url_name in INDEXABLE)
 
 
+def _is_verification(path):
+    token = path.strip('/').removesuffix('.html')
+    return token in settings.GOOGLE_SITE_VERIFICATION
+
+
+def google_verification(request, token):
+    """/<token>.html with the exact one-line body Google Search Console looks for when you verify with the HTML file."""
+    if token not in settings.GOOGLE_SITE_VERIFICATION:
+        raise Http404
+    return HttpResponse(f'google-site-verification: {token}.html', content_type='text/html; charset=utf-8')
+
+
+BASE_KEYWORDS = ['Spinal Cure', 'classical acupuncture Chennai', 'acupuncture clinic Arumbakkam', 'back pain treatment Chennai',
+                 'neck pain treatment', 'sciatica treatment', 'slip disc treatment without surgery', 'knee pain treatment',
+                 'drug-free pain relief', 'acupuncture course Chennai', 'Dr R. Basheer Basha']
+
+
+def keywords():
+    """Meta keywords: the clinic's own terms plus the problems it lists (kept for 1 hour). Search engines largely ignore
+    this tag; it is here for completeness and for tools that still read it."""
+    def build():
+        from clinic.models import ProblemCategory
+        names = [p.name for p in ProblemCategory.objects.filter(is_active=True)]
+        return ', '.join(dict.fromkeys(BASE_KEYWORDS + [f'{n} treatment' if 'pain' not in n.lower() else n for n in names]))
+    return cache.get_or_set('seo:keywords', build, 3600)
+
+
 class RobotsTagMiddleware:
     """Private pages (staff, portal, tokens, APIs) and error pages get noindex even if a link to them leaks."""
 
@@ -44,7 +72,7 @@ class RobotsTagMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
         if not response.has_header('X-Robots-Tag') and not is_indexable(request, response):
-            if request.path not in ('/robots.txt', '/sitemap.xml'):
+            if request.path not in ('/robots.txt', '/sitemap.xml') and not _is_verification(request.path):
                 response['X-Robots-Tag'] = 'noindex, nofollow'
         return response
 
@@ -56,7 +84,7 @@ def seo(request):
     path = request.path
     alternates = [(code, absolute(translate_url(path, code))) for code in LANG_CODES]
     default = absolute(translate_url(path, settings.LANGUAGE_CODE))
-    return {'seo_indexable': True, 'canonical_url': absolute(path), 'hreflang_alternates': alternates,
+    return {'seo_indexable': True, 'seo_keywords': keywords(), 'canonical_url': absolute(path), 'hreflang_alternates': alternates,
             'hreflang_default': default, 'og_locale': {'en': 'en_IN', 'ta': 'ta_IN', 'hi': 'hi_IN', 'te': 'te_IN',
                                                        'ml': 'ml_IN', 'kn': 'kn_IN'}.get(translation.get_language(), 'en_IN')}
 
@@ -67,10 +95,10 @@ def robots_txt(request):
     if settings.DEBUG or not getattr(settings, 'SEO_ALLOW_INDEXING', True):
         lines.append('Disallow: /')                          # staging / development: keep out of the index
     else:
-        private = ['/api/', '/i18n/', '/payments/razorpay/'] + [
+        private = ['/api/', '/i18n/', '/payments/razorpay/', '/private-media/'] + [
             f'/{code}/{area}/' for code in LANG_CODES for area in (
                 'accounts', 'patients', 'appointments', 'payments', 'analytics', 'notifications', 'idcards',
-                'clinic/admin', 'clinic/api', 'clinic/ajax', 'ui-kit')]
+                'clinic/admin', 'clinic/api', 'clinic/ajax', 'clinic/courses/registration', 'clinic/students', 'courses', 'ui-kit')]
         lines += [f'Disallow: {p}' for p in private]
         lines += ['', f'Sitemap: {site_url()}/sitemap.xml']
     return HttpResponse('\n'.join(lines) + '\n', content_type='text/plain; charset=utf-8')

@@ -226,6 +226,8 @@ RAZORPAY_LINK_TTL_HOURS = config('RAZORPAY_LINK_TTL_HOURS', default=168, cast=in
 SITE_URL = config('SITE_URL', default='http://127.0.0.1:8000')
 # Set to False on staging so robots.txt asks search engines to stay out.
 SEO_ALLOW_INDEXING = config('SEO_ALLOW_INDEXING', default=True, cast=bool)
+# Google Search Console "HTML file" verification: the file name is the token (comma-separated for more than one property)
+GOOGLE_SITE_VERIFICATION = [t.strip() for t in config('GOOGLE_SITE_VERIFICATION', default='googlefa0d02732ed9d1da').split(',') if t.strip()]
 SITE_NAME = config('SITE_NAME', default='SpinalCure')
 
 # Tailwind
