@@ -16,7 +16,7 @@ OUT = ROOT / 'dist' / 'spinalcure-cpanel.zip'
 SKIP_ANYWHERE = {'.git', '.pytest_cache', '__pycache__', 'node_modules', 'htmlcov'}
 # skipped only at the project root (static/img, deploy/media etc. must ship)
 SKIP_AT_ROOT = {'.vscode', '.idea', '.playwright-mcp', '.claude', 'venv', '.venv', 'env', 'tmp', 'logs', 'media',
-                'staticfiles', 'dist', 'img', 'private_media', 'tests', 'scripts', 'docs', '.github'}
+                'staticfiles', 'dist', 'img', 'private_media', 'tests', 'scripts', 'docs', '.github', 'demo'}
 # development-only files at the project root
 SKIP_ROOT_FILES = {'pytest.ini', 'run_tests.sh', 'run_tests.bat', 'requirements-dev.txt', '.gitignore', '.gitattributes',
                    '.env.example', 'package.json', 'package-lock.json'}
