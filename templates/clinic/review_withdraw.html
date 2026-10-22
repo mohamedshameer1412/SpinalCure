@@ -1,7 +1,7 @@
 {% extends "public_base.html" %}
 {% load i18n %}
 {% block title %}{% translate "Withdraw your review" %} — {{ clinic.name|default:"Spinal Cure" }}{% endblock %}
-{% block meta %}<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">{% endblock %}
+{% block meta %}<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="same-origin">{% endblock %}
 {% block content %}
 <div class="container-site flex justify-center py-12 sm:py-16">
     <div class="card w-full max-w-md p-6 shadow-pop sm:p-8">

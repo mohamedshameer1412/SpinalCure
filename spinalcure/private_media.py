@@ -13,7 +13,7 @@ from django.utils.functional import cached_property
 from .rbac import has_capability
 
 # top-level folder -> capability needed to open files in it ('' = any signed-in staff member)
-ACCESS = {'patients': 'patients.view', 'expenses': 'expenses.manage', 'users': ''}
+ACCESS = {'patients': 'patients.view', 'expenses': 'expenses.manage', 'users': '', 'students': 'events.registrations'}
 
 
 @deconstructible

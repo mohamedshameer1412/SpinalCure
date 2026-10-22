@@ -1,7 +1,7 @@
 {% extends "public_base.html" %}
 {% load i18n %}
 {% block title %}{{ event.title }} — {% translate "Your registration" %}{% endblock %}
-{% block meta %}<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">{% endblock %}
+{% block meta %}<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="same-origin">{% endblock %}
 {% block content %}
 <div class="max-w-xl mx-auto px-4 py-8 space-y-4">
     <h1 class="text-xl font-bold">{% translate "Your registration" %}</h1>

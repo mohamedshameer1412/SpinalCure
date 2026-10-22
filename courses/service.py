@@ -10,7 +10,7 @@ from django.utils import timezone
 from events.service import EventError, phone_key
 from notifications.service import notify
 
-from .models import CourseBatch, CourseRegistration
+from .models import CourseBatch, CourseRegistration, Student
 
 logger = logging.getLogger(__name__)
 
@@ -19,13 +19,14 @@ def manage_path(reg):
     return reverse('course_registration_manage', args=[reg.access_token])
 
 
-def _notify(kind, reg):
-    if not reg.email:
+def _notify(kind, reg, key=''):
+    email = reg.email or (reg.student.email if reg.student_id else '')
+    if not email:
         return None
     try:
         batch = reg.batch
-        n = notify(kind, email=reg.email, url=manage_path(reg), dedupe_key=f'course:{reg.pk}:{kind}',
-                   context={'event': batch.course.title, 'batch': batch.name, 'date': batch.start_date})
+        n = notify(kind, email=email, url=manage_path(reg), dedupe_key=f'course:{reg.pk}:{kind}{key}',
+                   context={'event': batch.course.title, 'batch': batch.name, 'date': batch.start_date, 'name': reg.name})
         return n if n is not None and getattr(n, 'was_created', False) else None
     except Exception:
         logger.exception('Course notification failed')
@@ -46,7 +47,10 @@ def register(batch, *, name, phone, email='', notes=''):
         status = 'waitlisted' if b.is_full else 'confirmed'
         reg = CourseRegistration.objects.create(batch=b, name=name, phone=phone, phone_key=key, email=email,
                                                 notes=notes, status=status)
+        link_student(reg)
     _notify('course_registered' if status == 'confirmed' else 'course_waitlisted', reg)
+    if status == 'confirmed':
+        request_profile(reg)
     return reg
 
 
@@ -62,6 +66,7 @@ def promote_waitlist(batch):
             promoted.append(reg)
     for reg in promoted:
         _notify('course_promoted', reg)
+        request_profile(reg)
     return promoted
 
 
@@ -79,3 +84,57 @@ def cancel_registration(reg, by_staff=False):
     if was_confirmed:
         promote_waitlist(b)
     return reg
+
+
+# ── students: one record per person, completed after the place is confirmed ──────────────────────
+
+def link_student(reg):
+    """Attach the registration to the person's Student record (matched on phone), creating it on first sight."""
+    st = Student.objects.filter(phone_key=reg.phone_key).first() if reg.phone_key else None
+    if st is None:
+        st = Student.objects.create(name=reg.name, phone=reg.phone, phone_key=reg.phone_key, email=reg.email)
+    elif reg.email and not st.email:
+        st.email = reg.email
+        st.save(update_fields=['email'])
+    reg.student = st
+    reg.save(update_fields=['student'])
+    return st
+
+
+def request_profile(reg, resend=False):
+    """Email the student the link where they add their photo and details (once automatically; again on request)."""
+    if reg.status != 'confirmed' or (reg.student_id and reg.student.profile_complete):
+        return None
+    return _notify('course_profile_request', reg, key=f':{timezone.now().timestamp()}' if resend else '')
+
+
+def complete_profile(reg):
+    """The student has filled in their details: mark it, send the ID card, tell staff."""
+    st = reg.student
+    st.profile_completed_at = timezone.now()
+    st.save(update_fields=['profile_completed_at'])
+    for r in st.registrations.filter(status='confirmed').select_related('batch__course'):
+        _notify('course_card_ready', r)
+    try:
+        from notifications.service import notify_staff
+        b = reg.batch
+        notify_staff('course_profile_completed', 'events.registrations',
+                     context={'name': st.name, 'event': b.course.title, 'batch': b.name},
+                     url=reverse('student_detail', args=[st.pk]), dedupe_key=f'student:{st.pk}:profile')
+    except Exception:
+        logger.exception('Staff notification failed')
+
+
+def request_feedback(batch):
+    """Ask every confirmed student of a finished batch for feedback: opens the form and emails each their link."""
+    if not batch.feedback_enabled:
+        batch.feedback_enabled = True
+        batch.save(update_fields=['feedback_enabled'])
+    sent = 0
+    for reg in batch.registrations.filter(status='confirmed').select_related('batch__course', 'student'):
+        if not reg.completed_at:
+            reg.completed_at = timezone.now()
+            reg.save(update_fields=['completed_at'])
+        if not hasattr(reg, 'feedback') and _notify('course_feedback_request', reg):
+            sent += 1
+    return sent

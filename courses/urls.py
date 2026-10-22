@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import student_views, views
 
 urlpatterns = [
     path('', views.course_list_view, name='course_list'),
@@ -15,6 +15,16 @@ urlpatterns = [
     path('batches/<b64uuid:pk>/export/copy/', views.export_batch_registrations_copy, name='export_batch_registrations_copy'),
     path('batches/<b64uuid:pk>/export/print/', views.export_batch_registrations_print, name='export_batch_registrations_print'),
     path('create/', views.course_create_view, name='course_create'),
+    path('students/', student_views.student_list, name='student_list'),
+    path('students/<b64uuid:pk>/', student_views.student_detail, name='student_detail'),
+    path('students/<b64uuid:pk>/edit/', student_views.student_edit, name='student_edit'),
+    path('students/<b64uuid:pk>/note/', student_views.student_note_add, name='student_note_add'),
+    path('students/<b64uuid:pk>/note/<uuid:note_pk>/done/', student_views.student_note_done, name='student_note_done'),
+    path('students/<b64uuid:pk>/send-link/', student_views.student_send_link, name='student_send_link'),
+    path('students/<b64uuid:pk>/card/<str:side>.png', student_views.student_card_png, name='student_card_png'),
+    path('students/<b64uuid:pk>/card.pdf', student_views.student_card_pdf, name='student_card_pdf'),
+    path('batches/<b64uuid:pk>/request-feedback/', student_views.batch_request_feedback, name='batch_request_feedback'),
+    path('batches/<b64uuid:pk>/remind-profiles/', student_views.batch_remind_profiles, name='batch_remind_profiles'),
     path('<b64uuid:pk>/edit/', views.course_edit_view, name='course_edit'),
     path('<b64uuid:pk>/delete/', views.course_delete_view, name='course_delete'),
     path('<b64uuid:pk>/toggle-publish/', views.toggle_course_publish, name='toggle_course_publish'),

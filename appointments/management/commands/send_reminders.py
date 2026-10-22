@@ -24,7 +24,7 @@ class Command(BaseCommand):
         cfg, now = BookingSettings.get(), timezone.now()
         counts = {'reminders': self.reminders(cfg, now), 'followups': self.followups(cfg, now),
                   'missed': self.missed(cfg, now), 'event_reminders': self.event_reminders(now),
-                  'review_requests': self.review_requests(cfg, now)}
+                  'review_requests': self.review_requests(cfg, now), 'course_notices': self.course_notices(now)}
         self.stdout.write(', '.join(f'{k}={v}' for k, v in counts.items()))
 
     # reminders ---------------------------------------------------------------------------------
@@ -138,3 +138,27 @@ class Command(BaseCommand):
                     if event_service._notify_reg('event_reminder', reg, key_suffix=f':{offset}'):
                         sent += 1
         return sent
+
+    # courses -----------------------------------------------------------------------------------
+    def course_notices(self, now):
+        """Start-of-batch reminders, one nudge for students who have not added their details, and (once a batch has
+        ended) opening feedback and emailing each student their link. Every message has a dedupe key."""
+        from courses import service as course_service
+        from courses.models import CourseBatch, CourseRegistration
+        today, sent = timezone.localdate(now), 0
+        starting = CourseBatch.objects.filter(start_date=today + timedelta(days=1), is_published=True)
+        for reg in CourseRegistration.objects.filter(batch__in=starting, status='confirmed').select_related('batch__course', 'student'):
+            if course_service._notify('course_batch_reminder', reg):
+                sent += 1
+        cutoff = now - timedelta(days=2)
+        pending = CourseRegistration.objects.filter(status='confirmed', registered_at__lte=cutoff, batch__end_date__isnull=True,
+                                                    student__profile_completed_at__isnull=True) |             CourseRegistration.objects.filter(status='confirmed', registered_at__lte=cutoff, batch__end_date__gte=today,
+                                              student__profile_completed_at__isnull=True)
+        for reg in pending.select_related('batch__course', 'student'):
+            if course_service._notify('course_profile_request', reg, key=':reminder'):
+                sent += 1
+        for batch in CourseBatch.objects.filter(end_date__lt=today, end_date__gte=today - timedelta(days=30), is_published=True, registrations__status='confirmed',
+                                                registrations__completed_at__isnull=True).distinct():
+            sent += course_service.request_feedback(batch)
+        return sent
+

@@ -181,7 +181,7 @@ def batch_delete_view(request, pk):
 def batch_registrations_view(request, pk):
     batch = get_object_or_404(CourseBatch, pk=pk)
     query = request.GET.get('q', '')
-    registrations = batch.registrations.all()
+    registrations = batch.registrations.select_related('student')
     status = request.GET.get('status', '')
     if status in ('confirmed', 'waitlisted', 'cancelled'):
         registrations = registrations.filter(status=status)
@@ -207,6 +207,9 @@ def batch_registrations_view(request, pk):
         'status': status,
         'can_manage_registrations': True,
         'waitlisted_count': batch.registrations.filter(status='waitlisted').count(),
+        'stats': {'confirmed': batch.registrations.filter(status='confirmed').count(),
+                  'complete': batch.registrations.filter(status='confirmed', student__profile_completed_at__isnull=False).count(),
+                  'feedback': batch.feedback.count()},
         'export_batch_registrations_excel_url': reverse('export_batch_registrations_excel', kwargs={'pk': pk}),
         'export_batch_registrations_csv_url': reverse('export_batch_registrations_csv', kwargs={'pk': pk}),
         'export_batch_registrations_pdf_url': reverse('export_batch_registrations_pdf', kwargs={'pk': pk}),

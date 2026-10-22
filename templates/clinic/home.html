@@ -14,7 +14,7 @@
     <div class="container-site grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:py-20">
         <div class="lg:col-span-6">
             <span class="eyebrow"><i class="bi bi-shield-check" aria-hidden="true"></i>{% translate "Neck & back pain special care centre" %}</span>
-            <h1 class="display mt-5 text-gray-900">{{ clinic|tx:"hero_title"|default:_("No surgery. No medicine. No diet.") }}</h1>
+            <h1 class="display mt-5 text-gray-900">{{ clinic|tx:"hero_title"|default:_("No surgery. No medicine. No diet.")|sentence_lines }}</h1>
             <p class="lead mt-5 max-w-xl">{{ clinic|tx:"hero_subtitle" }}</p>
             <div class="mt-8 flex flex-wrap gap-3">
                 <a href="#book" class="btn btn-primary btn-lg"><i class="bi bi-calendar-check" aria-hidden="true"></i>{% translate "Book appointment" %}</a>

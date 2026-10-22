@@ -1,0 +1,21 @@
+{% load i18n %}
+<form method="post" enctype="multipart/form-data" class="space-y-4" novalidate>{% csrf_token %}<input type="hidden" name="action" value="profile">
+    {% if profile_form.errors %}<div role="alert" class="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+        <p class="font-semibold">{% translate "Please check the highlighted details." %}</p>
+        <ul class="list-disc ms-5">{% for f in profile_form %}{% for e in f.errors %}<li>{{ f.label }}: {{ e }}</li>{% endfor %}{% endfor %}</ul></div>{% endif %}
+    <div><label for="{{ profile_form.photo.id_for_label }}" class="label">{% translate "Your photo" %}{% if profile_form.photo.field.required %} *{% endif %}</label>
+        {% if student.photo %}<p class="mb-2 text-xs text-gray-500">{% translate "A photo is on file. Choose a new one only to replace it." %}</p>{% endif %}
+        {{ profile_form.photo }}<p class="mt-1 text-xs text-gray-500">{% translate "A clear, front-facing photo. It is printed on your ID card and kept private." %}</p></div>
+    <div class="grid gap-4 sm:grid-cols-2">
+        <div><label for="{{ profile_form.email.id_for_label }}" class="label">{% translate "Email" %}{% if profile_form.email.field.required %} *{% endif %}</label>{{ profile_form.email }}</div>
+        <div><label for="{{ profile_form.designation.id_for_label }}" class="label">{% translate "Designation / profession" %} *</label>{{ profile_form.designation }}</div>
+        <div class="sm:col-span-2"><label for="{{ profile_form.organisation.id_for_label }}" class="label">{% translate "Organisation / clinic (optional)" %}</label>{{ profile_form.organisation }}</div>
+        <div class="sm:col-span-2"><label for="{{ profile_form.address.id_for_label }}" class="label">{% translate "Address" %} *</label>{{ profile_form.address }}</div>
+        <div><label for="{{ profile_form.date_of_birth.id_for_label }}" class="label">{% translate "Date of birth (optional)" %}</label>{{ profile_form.date_of_birth }}</div>
+        <div><label for="{{ profile_form.gender.id_for_label }}" class="label">{% translate "Gender (optional)" %}</label>{{ profile_form.gender }}</div>
+        <div><label for="{{ profile_form.blood_group.id_for_label }}" class="label">{% translate "Blood group (optional)" %}</label>{{ profile_form.blood_group }}</div>
+        <div><label for="{{ profile_form.emergency_contact_name.id_for_label }}" class="label">{% translate "Emergency contact (optional)" %}</label>{{ profile_form.emergency_contact_name }}</div>
+        <div class="sm:col-span-2"><label for="{{ profile_form.emergency_contact_phone.id_for_label }}" class="label">{% translate "Emergency contact phone (optional)" %}</label>{{ profile_form.emergency_contact_phone }}</div>
+    </div>
+    <button class="btn btn-primary w-full">{% if card_ready %}{% translate "Save my details" %}{% else %}{% translate "Save and get my ID card" %}{% endif %}</button>
+</form>

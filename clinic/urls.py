@@ -2,6 +2,7 @@ from django.urls import path
 from django.views.generic import RedirectView
 from events import public_views as pev
 from courses import public_views as pcv
+from courses import student_views
 from .views import (clinic_portfolio_view, practitioner_detail_view,
                     submit_review_ajax, review_withdraw, book_appointment_ajax, clinic_about_page_view,
                     course_detail_view,
@@ -47,6 +48,9 @@ urlpatterns = [
     path('courses/<b64uuid:pk>/', course_detail_view, name='course_detail'),
     path('courses/<b64uuid:pk>/register/', pcv.register_for_course, name='course_register_ajax'),
     path('courses/registration/<str:token>/', pcv.registration_manage, name='course_registration_manage'),
+    path('courses/registration/<str:token>/card/<str:side>.png', student_views.my_card_png, name='course_student_card'),
+    path('courses/registration/<str:token>/card.pdf', student_views.my_card_pdf, name='course_student_card_pdf'),
+    path('courses/verify/<str:code>/', student_views.student_verify, name='student_verify'),
 
     # ── Public Blog ───────────────────────────────────────────────────
     path('blog/', blog_list_view, name='blog_list'),

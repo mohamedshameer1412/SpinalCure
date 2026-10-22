@@ -454,13 +454,13 @@ def test_issue_form_excludes_people_who_already_have_cards_and_unemployed(client
 
 
 def test_dashboard_filters(client, clinic, boss):
-    a = profile(clinic, name='aaa', designation='Therapist'); b = profile(clinic, 'owner', 'bbb', designation='Founder')
+    a = profile(clinic, name='aaa', designation='Therapist'); b = profile(clinic, 'owner', 'bbb', designation='Chief Mentor')
     service.issue(a, boss)
     client.force_login(boss)
     def get(q): return client.get(reverse('idcard_dashboard') + q).content.decode()
-    assert 'Therapist' in get('?q=therapist') and 'Founder' not in get('?q=therapist')
-    assert 'Founder' in get('?type=owner') and 'Therapist' not in get('?type=owner')
-    assert 'Founder' in get('?status=none') and 'Therapist' not in get('?status=none')
+    assert 'Therapist' in get('?q=therapist') and 'Chief Mentor' not in get('?q=therapist')
+    assert 'Chief Mentor' in get('?type=owner') and 'Therapist' not in get('?type=owner')
+    assert 'Chief Mentor' in get('?status=none') and 'Therapist' not in get('?status=none')
     assert 'Therapist' in get('?status=active')
 
 
@@ -535,7 +535,7 @@ def test_qr_has_standard_quiet_zone_and_integer_modules():
 def test_superadmin_and_clinicadmin_get_owner_cards_and_owner_label(clinic, boss):
     for role in ('superadmin', 'clinicadmin'):
         p = profile(clinic, role, 'x_' + role)
-        assert p.user.display_role == 'Owner'
+        assert p.user.display_role == 'Founder'
         assert service.issue(p, boss).card_type == 'owner'
     assert profile(clinic, 'staff', 'x_plain').user.display_role == 'Staff'
 

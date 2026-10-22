@@ -2,7 +2,10 @@ import secrets
 import uuid
 from django.db import models
 
-from spinalcure.uploads import SafeImageField
+from django.conf import settings
+
+from spinalcure.private_media import get_private_storage
+from spinalcure.uploads import RandomName, SafeImageField
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
@@ -182,6 +185,10 @@ class CourseRegistration(models.Model):
     access_token = models.CharField(max_length=43, unique=True, editable=False, default=secrets.token_urlsafe)
     cancelled_at = models.DateTimeField(null=True, blank=True)
     promoted_at = models.DateTimeField(null=True, blank=True)
+    student = models.ForeignKey('Student', null=True, blank=True, on_delete=models.SET_NULL, db_constraint=False,
+                                related_name='registrations', editable=False)
+    completed_at = models.DateTimeField(null=True, blank=True, editable=False,
+                                        help_text=_('Set when the student finishes the course.'))
 
     class Meta:
         verbose_name = _('Course Registration')
@@ -190,6 +197,82 @@ class CourseRegistration(models.Model):
 
     def __str__(self):
         return f"{self.name} — {self.batch}"
+
+
+class Student(models.Model):
+    """A person who has registered for a course. One record per person across all their batches, so their details are
+    collected once and the clinic keeps one history with them. Registration asks only name, phone and email; the rest is
+    filled in by the student (or staff) after the place is confirmed."""
+    GENDER_CHOICES = [('M', _('Male')), ('F', _('Female')), ('O', _('Other'))]
+    BLOOD_CHOICES = [(b, b) for b in ('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-')]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=200, verbose_name=_('Full Name'))
+    phone = models.CharField(max_length=20, verbose_name=_('Phone'))
+    phone_key = models.CharField(max_length=15, blank=True, db_index=True, editable=False)
+    email = models.EmailField(blank=True, verbose_name=_('Email'))
+    photo = SafeImageField(upload_to=RandomName('students'), storage=get_private_storage, blank=True, null=True,
+                           verbose_name=_('Photo'))
+    designation = models.CharField(max_length=120, blank=True, verbose_name=_('Designation / profession'))
+    organisation = models.CharField(max_length=160, blank=True, verbose_name=_('Organisation / clinic'))
+    address = models.TextField(blank=True, verbose_name=_('Address'))
+    date_of_birth = models.DateField(null=True, blank=True, verbose_name=_('Date of birth'))
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, verbose_name=_('Gender'))
+    blood_group = models.CharField(max_length=5, blank=True, choices=[('', '---------')] + BLOOD_CHOICES,
+                                   verbose_name=_('Blood group'))
+    emergency_contact_name = models.CharField(max_length=120, blank=True, verbose_name=_('Emergency contact name'))
+    emergency_contact_phone = models.CharField(max_length=20, blank=True, verbose_name=_('Emergency contact phone'))
+    student_code = models.CharField(max_length=12, unique=True, editable=False)
+    profile_completed_at = models.DateTimeField(null=True, blank=True, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('Student')
+        verbose_name_plural = _('Students')
+        ordering = ['name']
+
+    def __str__(self):
+        return f'{self.student_code} — {self.name}'
+
+    @staticmethod
+    def new_code():
+        """Four digits + three letters (no I or O), random and unique, e.g. 4827-KQM."""
+        letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ'
+        while True:
+            code = f'{secrets.randbelow(9000) + 1000}-' + ''.join(secrets.choice(letters) for _ in range(3))
+            if not Student.objects.filter(student_code=code).exists():
+                return code
+
+    def save(self, *args, **kwargs):
+        if not self.student_code:
+            self.student_code = self.new_code()
+        super().save(*args, **kwargs)
+
+    @property
+    def profile_complete(self):
+        return self.profile_completed_at is not None
+
+
+class StudentNote(models.Model):
+    """The clinic's running relationship log with a student: calls, messages, notes and follow-ups."""
+    KIND_CHOICES = [('note', _('Note')), ('call', _('Call')), ('whatsapp', _('WhatsApp')), ('email', _('Email')),
+                    ('follow_up', _('Follow-up'))]
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='notes')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL,
+                               db_constraint=False, related_name='+')
+    kind = models.CharField(max_length=10, choices=KIND_CHOICES, default='note')
+    text = models.TextField(max_length=2000)
+    follow_up_on = models.DateField(null=True, blank=True, db_index=True)
+    done = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.get_kind_display()}: {self.text[:40]}'
 
 
 class CourseFeedback(models.Model):

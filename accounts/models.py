@@ -14,7 +14,7 @@ import base64
 from spinalcure.validators import validate_phone_number
 
 
-# Super admins, owners and clinic admins are all "the owner" on cards and in the staff list.
+# Super admins, owners and clinic admins are all "the founder" on cards and in the staff list.
 OWNER_ROLES = ('superadmin', 'owner', 'clinicadmin')
 
 
@@ -26,7 +26,7 @@ class CustomUser(AbstractUser):
     ROLE_CHOICES = [
         ('superadmin', _('Super Admin')),
         ('clinicadmin', _('Clinic Admin')),
-        ('owner', _('Owner')),
+        ('owner', _('Founder')),
         ('doctor', _('Doctor')),
         ('receptionist', _('Receptionist')),
         ('staff', _('Staff')),
@@ -38,8 +38,8 @@ class CustomUser(AbstractUser):
 
     @property
     def display_role(self):
-        """The role as people see it: owners, clinic admins and super admins are all just "Owner"."""
-        return _('Owner') if self.is_owner_level else self.get_role_display()
+        """The role as people see it: owners, clinic admins and super admins are all just "Founder"."""
+        return _('Founder') if self.is_owner_level else self.get_role_display()
 
     role = models.CharField(
         max_length=20,

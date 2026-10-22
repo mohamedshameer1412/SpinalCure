@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n b64uuid_tags %}
 <div id="batch-registrations-container" class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
     <div class="overflow-x-auto">
         <table class="w-full text-start">
@@ -9,6 +9,7 @@
                     </th>
                     <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">{% trans "Reg. Date" %}</th>
                     <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">{% trans "Status" %}</th>
+                    <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">{% trans "Details" %}</th>
                     <th class="px-6 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">{% trans "Feedback Status" %}</th>
                     <th class="px-6 py-4"><span class="sr-only">{% trans "Action" %}</span></th>
                 </tr>
@@ -22,7 +23,7 @@
                                 class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold text-sm border border-slate-200">
                                 {{ reg.name|slice:":1"|upper }}
                             </div>
-                            <span class="font-bold text-slate-900">{{ reg.name }}</span>
+                            {% if reg.student_id %}<a href="{% url 'student_detail' reg.student_id %}" class="font-bold text-slate-900 no-underline hover:text-indigo-600">{{ reg.name }}</a>{% else %}<span class="font-bold text-slate-900">{{ reg.name }}</span>{% endif %}
                         </div>
                     </td>
                     <td class="px-6 py-5 text-sm">
@@ -39,6 +40,10 @@
                     </td>
                     <td class="px-6 py-5">
                         <span class="text-xs font-bold {% if reg.status == 'confirmed' %}text-green-700{% elif reg.status == 'waitlisted' %}text-amber-600{% else %}text-slate-400{% endif %}">{{ reg.get_status_display }}</span>
+                    </td>
+                    <td class="px-6 py-5">
+                        {% if reg.student.profile_complete %}<span class="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider text-green-700"><i class="bi bi-patch-check-fill" aria-hidden="true"></i>{% trans "Complete" %}</span>
+                        {% elif reg.status == 'confirmed' %}<span class="text-[10px] font-black uppercase tracking-wider text-amber-600">{% trans "Missing" %}</span>{% else %}<span class="text-slate-300">—</span>{% endif %}
                     </td>
                     <td class="px-6 py-5">
                         {% if reg.feedback %}
@@ -60,7 +65,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="6" class="px-6 py-20 text-center">
+                    <td colspan="7" class="px-6 py-20 text-center">
                         <i class="bi bi-people text-slate-200 text-4xl mb-4 block"></i>
                         <p class="text-slate-500 font-bold">{% trans "No students found matching your search." %}</p>
                     </td>

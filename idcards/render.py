@@ -243,7 +243,7 @@ def card_data(card, lang, public=False):
             'dob': fmt(h.date_of_birth), 'home_address': h.address,
             'quote': split_lines(_featured_quote(clinic, lang)) or [_('Without Surgery,'), _('Without Medicine'), _('and Without Diet')],
             'labels': {
-                'employee_id': _('Owner ID') if card.card_type == 'owner' else _('Staff ID'),
+                'employee_id': _('Founder ID') if card.card_type == 'owner' else _('Staff ID'),
                 'department': _('Department'), 'phone': _('Phone'), 'email': _('Email'), 'joined': _('Joined'),
                 'issued': _('Issued'), 'valid_until': _('Valid until'), 'scan': _('Scan to verify'),
                 'about': _('About the organisation'), 'emergency': _('Emergency contact'), 'blood': _('Blood group'),

@@ -19,7 +19,8 @@
 
     {% if request.user|can:'events.registrations' %}
     <p class="nav-label">{% translate "Education" %}</p>
-    {% url 'course_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Courses") icon="mortarboard" match="course" %}
+    {% url 'course_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Courses") icon="mortarboard" match="course" exclude="student" %}
+    {% url 'student_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Students") icon="people" match="student" %}
     {% url 'event_list' as u %}{% include "ui/nav_item.html" with url=u label=_("Events") icon="calendar-event" match="event" %}
     {% endif %}
 

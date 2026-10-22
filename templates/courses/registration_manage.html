@@ -1,7 +1,7 @@
 {% extends "public_base.html" %}
 {% load i18n %}
 {% block title %}{{ course.title }} — {% translate "Your registration" %}{% endblock %}
-{% block meta %}<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">{% endblock %}
+{% block meta %}<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="same-origin">{% endblock %}
 {% block content %}
 <div class="max-w-xl mx-auto px-4 py-8 space-y-4">
     <h1 class="text-xl font-bold">{% translate "Your registration" %}</h1>
@@ -12,6 +12,30 @@
         {% if batch.schedule_details %}<p class="text-sm text-gray-600">{{ batch.schedule_details }}</p>{% endif %}
         {% if reg.status == 'waitlisted' %}<p class="rounded-xl bg-amber-50 text-amber-900 text-sm p-3">{% translate "You are on the waitlist. We will email you if a place opens." %}</p>{% endif %}
     </section>
+    {% if profile_form %}
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5" id="details">
+        {% if card_ready %}
+        <div class="flex items-center gap-2 mb-1"><i class="bi bi-patch-check-fill text-green-600" aria-hidden="true"></i>
+            <h2 class="font-semibold">{% translate "Your student ID card" %}</h2></div>
+        <p class="text-sm text-gray-600 mb-4">{% translate "Your details are complete. Show this card at the clinic; the QR code lets anyone confirm it is genuine." %}</p>
+        <div class="grid grid-cols-2 gap-3">
+            <img src="{% url 'course_student_card' reg.access_token 'front' %}" alt="{% translate 'ID card, front' %}" class="w-full rounded-xl border border-gray-200 shadow-sm" loading="lazy">
+            <img src="{% url 'course_student_card' reg.access_token 'back' %}" alt="{% translate 'ID card, back' %}" class="w-full rounded-xl border border-gray-200 shadow-sm" loading="lazy">
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2">
+            <a class="btn btn-primary" href="{% url 'course_student_card_pdf' reg.access_token %}" download><i class="bi bi-download" aria-hidden="true"></i>{% translate "Download PDF" %}</a>
+            <a class="btn btn-outline" href="{% url 'course_student_card' reg.access_token 'front' %}" download>{% translate "Front (PNG)" %}</a>
+            <a class="btn btn-outline" href="{% url 'course_student_card' reg.access_token 'back' %}" download>{% translate "Back (PNG)" %}</a>
+        </div>
+        <details class="mt-5"><summary class="cursor-pointer text-sm font-semibold text-green-700">{% translate "Update my details" %}</summary>
+        {% include "courses/_profile_form.html" %}</details>
+        {% else %}
+        <h2 class="font-semibold mb-1">{% translate "Complete your registration" %}</h2>
+        <p class="text-sm text-gray-600 mb-4">{% translate "Your place is confirmed. Add a few details and your photo, and we will make your student ID card straight away." %}</p>
+        {% include "courses/_profile_form.html" %}
+        {% endif %}
+    </section>
+    {% endif %}
     {% if can_feedback %}
     <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <h2 class="font-semibold mb-3">{% translate "How was the course?" %}</h2>

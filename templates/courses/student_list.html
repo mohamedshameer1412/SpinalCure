@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Students" %} — SpinalCure{% endblock %}
+{% block page_title %}{% trans "Students" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'course_list' %}" class="text-sm font-semibold text-primary-700 hover:underline"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i>{% trans "Courses" %}</a>{% endblock %}
+{% block content %}
+<div class="max-w-6xl mx-auto space-y-5">
+    <div class="grid gap-3 sm:grid-cols-3">
+        <a href="?" class="card p-4 no-underline"><p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{% trans "All students" %}</p><p class="mt-1 text-2xl font-extrabold text-gray-900">{{ total }}</p></a>
+        <a href="?profile=incomplete" class="card p-4 no-underline"><p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{% trans "Details missing" %}</p><p class="mt-1 text-2xl font-extrabold text-amber-600">{{ incomplete }}</p></a>
+        <a href="?profile=follow_up" class="card p-4 no-underline"><p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{% trans "Follow-ups due" %}</p><p class="mt-1 text-2xl font-extrabold text-primary-700">{{ due }}</p></a>
+    </div>
+    <form method="get" class="card flex flex-wrap items-center gap-3 p-4">
+        <div class="relative min-w-0 flex-1"><i class="bi bi-search absolute start-3 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true"></i>
+            <input type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search name, phone, email or student ID' %}" class="w-full ps-10"></div>
+        <select name="profile" onchange="this.form.submit()" class="w-48">
+            <option value="">{% trans "Every student" %}</option>
+            <option value="incomplete" {% if profile == 'incomplete' %}selected{% endif %}>{% trans "Details missing" %}</option>
+            <option value="complete" {% if profile == 'complete' %}selected{% endif %}>{% trans "Details complete" %}</option>
+            <option value="follow_up" {% if profile == 'follow_up' %}selected{% endif %}>{% trans "Follow-up due" %}</option>
+        </select>
+        <button class="btn btn-primary">{% trans "Search" %}</button>
+    </form>
+    <div class="card overflow-hidden">
+        <div class="overflow-x-auto"><table class="w-full text-start text-sm">
+            <thead><tr class="border-b border-gray-100 bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+                <th class="px-5 py-3 text-start">{% trans "Student" %}</th><th class="px-5 py-3 text-start">{% trans "Contact" %}</th>
+                <th class="px-5 py-3 text-start">{% trans "Batches" %}</th><th class="px-5 py-3 text-start">{% trans "Details" %}</th></tr></thead>
+            <tbody class="divide-y divide-gray-50">
+            {% for s in students %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-5 py-3"><a href="{% url 'student_detail' s.pk %}" class="font-semibold text-gray-900 no-underline hover:text-primary-700">{{ s.name }}</a>
+                        <p class="font-mono text-xs text-gray-400">{{ s.student_code }}</p></td>
+                    <td class="px-5 py-3"><p>{{ s.email|default:"—" }}</p><p class="text-xs text-gray-500">{{ s.phone }}</p></td>
+                    <td class="px-5 py-3">{{ s.n_batches }}</td>
+                    <td class="px-5 py-3">{% if s.profile_complete %}<span class="rounded-full bg-green-50 px-2.5 py-1 text-xs font-bold text-green-700"><i class="bi bi-patch-check-fill me-1" aria-hidden="true"></i>{% trans "Complete" %}</span>
+                        {% else %}<span class="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-bold text-amber-700">{% trans "Missing" %}</span>{% endif %}</td>
+                </tr>
+            {% empty %}<tr><td colspan="4" class="px-5 py-14 text-center text-gray-500">{% trans "No students match." %}</td></tr>{% endfor %}
+            </tbody></table></div>
+        {% if students.has_other_pages %}<div class="flex items-center justify-between border-t border-gray-100 p-4 text-sm">
+            <span class="text-gray-500">{{ students.start_index }}–{{ students.end_index }} / {{ students.paginator.count }}</span>
+            <span class="flex gap-2">{% if students.has_previous %}<a class="btn btn-outline btn-sm" href="?page={{ students.previous_page_number }}&q={{ q }}&profile={{ profile }}">{% trans "Previous" %}</a>{% endif %}
+            {% if students.has_next %}<a class="btn btn-outline btn-sm" href="?page={{ students.next_page_number }}&q={{ q }}&profile={{ profile }}">{% trans "Next" %}</a>{% endif %}</span></div>{% endif %}
+    </div>
+</div>
+{% endblock %}

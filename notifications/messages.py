@@ -97,6 +97,21 @@ CATALOGUE = {
     'course_promoted': (
         N_('A place opened: %(event)s'),
         N_('A place opened and you are now registered for %(event)s (%(batch)s), starting %(date)s.')),
+    'course_profile_request': (
+        N_('Complete your registration: %(event)s'),
+        N_('Hi %(name)s, your place in %(event)s (%(batch)s) is confirmed. Please add your photo and details so we can prepare your student ID card.')),
+    'course_card_ready': (
+        N_('Your student ID card is ready: %(event)s'),
+        N_('Hi %(name)s, thank you for completing your details. Your student ID card for %(event)s (%(batch)s) is ready to view and download.')),
+    'course_feedback_request': (
+        N_('How was %(event)s?'),
+        N_('Hi %(name)s, congratulations on completing %(event)s (%(batch)s). We would love to hear how it went. It takes a minute and helps future students.')),
+    'course_batch_reminder': (
+        N_('Starting soon: %(event)s'),
+        N_('Hi %(name)s, %(event)s (%(batch)s) starts on %(date)s. We look forward to seeing you.')),
+    'course_profile_completed': (
+        N_('Student profile completed: %(name)s'),
+        N_('%(name)s finished their details for %(event)s (%(batch)s). Their student ID card is ready.')),
     'admin_alert': (
         N_('%(subject)s'),
         N_('%(detail)s')),

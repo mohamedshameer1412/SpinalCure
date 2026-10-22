@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Edit student" %} — SpinalCure{% endblock %}
+{% block page_title %}{% trans "Edit student" %}{% endblock %}
+{% block header_actions %}<a href="{% url 'student_detail' st.pk %}" class="text-sm text-gray-500 hover:text-gray-900 no-underline">← {% trans "Back" %}</a>{% endblock %}
+{% block content %}
+<div class="max-w-2xl">
+<form method="post" enctype="multipart/form-data" class="card space-y-4 p-6" novalidate>{% csrf_token %}
+    {% if form.errors %}<div role="alert" class="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">{% for f in form %}{% for e in f.errors %}<p>{{ f.label }}: {{ e }}</p>{% endfor %}{% endfor %}</div>{% endif %}
+    <div class="grid gap-4 sm:grid-cols-2">
+        <div><label class="label" for="name">{% trans "Full Name" %}</label><input id="name" name="name" value="{{ st.name }}" required class="w-full"></div>
+        <div><label class="label" for="phone">{% trans "Phone" %}</label><input id="phone" name="phone" value="{{ st.phone }}" required class="w-full"></div>
+        <div class="sm:col-span-2"><label class="label" for="{{ form.photo.id_for_label }}">{% trans "Photo" %}</label>{{ form.photo }}</div>
+        <div><label class="label" for="{{ form.email.id_for_label }}">{% trans "Email" %}</label>{{ form.email }}</div>
+        <div><label class="label" for="{{ form.designation.id_for_label }}">{% trans "Designation / profession" %}</label>{{ form.designation }}</div>
+        <div class="sm:col-span-2"><label class="label" for="{{ form.organisation.id_for_label }}">{% trans "Organisation / clinic" %}</label>{{ form.organisation }}</div>
+        <div class="sm:col-span-2"><label class="label" for="{{ form.address.id_for_label }}">{% trans "Address" %}</label>{{ form.address }}</div>
+        <div><label class="label" for="{{ form.date_of_birth.id_for_label }}">{% trans "Date of birth" %}</label>{{ form.date_of_birth }}</div>
+        <div><label class="label" for="{{ form.gender.id_for_label }}">{% trans "Gender" %}</label>{{ form.gender }}</div>
+        <div><label class="label" for="{{ form.blood_group.id_for_label }}">{% trans "Blood group" %}</label>{{ form.blood_group }}</div>
+        <div><label class="label" for="{{ form.emergency_contact_name.id_for_label }}">{% trans "Emergency contact name" %}</label>{{ form.emergency_contact_name }}</div>
+        <div class="sm:col-span-2"><label class="label" for="{{ form.emergency_contact_phone.id_for_label }}">{% trans "Emergency contact phone" %}</label>{{ form.emergency_contact_phone }}</div>
+    </div>
+    <div class="flex gap-3"><button class="btn btn-primary">{% trans "Save" %}</button><a href="{% url 'student_detail' st.pk %}" class="btn btn-secondary no-underline">{% trans "Cancel" %}</a></div>
+</form></div>
+{% endblock %}

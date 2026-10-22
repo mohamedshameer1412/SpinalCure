@@ -56,6 +56,11 @@ _EVENTS = [
     EventSpec('course_registered', 'Course registration confirmed', 'patient', 'success'),
     EventSpec('course_waitlisted', 'Added to course waitlist', 'patient', 'info'),
     EventSpec('course_promoted', 'Course place available', 'patient', 'success'),
+    EventSpec('course_profile_request', 'Complete your course registration', 'patient', 'info'),
+    EventSpec('course_card_ready', 'Student ID card ready', 'patient', 'success'),
+    EventSpec('course_feedback_request', 'Course feedback request', 'patient', 'info'),
+    EventSpec('course_batch_reminder', 'Course starting soon', 'patient', 'info'),
+    EventSpec('course_profile_completed', 'Student profile completed', 'staff', 'success', default_channels=(IN_APP,)),
     EventSpec('admin_alert', 'Administrative alert', 'staff', 'danger', True, (IN_APP, EMAIL)),
 ]
 EVENTS = {e.key: e for e in _EVENTS}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ st.name }} — {% trans "Student" %}{% endblock %}
+{% block page_title %}{{ st.name }}{% endblock %}
+{% block header_actions %}<a href="{% url 'student_list' %}" class="text-sm text-gray-500 hover:text-gray-900 no-underline">← {% trans "All students" %}</a>{% endblock %}
+{% block content %}
+<div class="grid max-w-6xl mx-auto gap-6 lg:grid-cols-12">
+    <div class="space-y-6 lg:col-span-5">
+        <section class="card p-6">
+            <div class="flex items-start gap-4">
+                {% if st.photo %}<img src="{{ st.photo.url }}" alt="" class="h-20 w-20 rounded-xl object-cover border border-gray-200">
+                {% else %}<div class="flex h-20 w-20 items-center justify-center rounded-xl bg-green-50 text-3xl font-bold text-green-700">{{ st.name|slice:":1"|upper }}</div>{% endif %}
+                <div class="min-w-0"><h2 class="text-lg font-bold text-gray-900">{{ st.name }}</h2>
+                    <p class="font-mono text-xs text-gray-500">{{ st.student_code }}</p>
+                    <p class="mt-1">{% if st.profile_complete %}<span class="rounded-full bg-green-50 px-2.5 py-1 text-xs font-bold text-green-700">{% trans "Details complete" %}</span>
+                    {% else %}<span class="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-bold text-amber-700">{% trans "Details missing" %}</span>{% endif %}</p></div>
+            </div>
+            <dl class="mt-5 grid grid-cols-[auto,1fr] gap-x-4 gap-y-2 text-sm">
+                <dt class="text-gray-500">{% trans "Phone" %}</dt><dd><a href="tel:{{ st.phone }}">{{ st.phone }}</a></dd>
+                <dt class="text-gray-500">{% trans "Email" %}</dt><dd>{% if st.email %}<a href="mailto:{{ st.email }}">{{ st.email }}</a>{% else %}<span class="text-amber-700">{% trans "Not given yet" %}</span>{% endif %}</dd>
+                {% if st.designation %}<dt class="text-gray-500">{% trans "Designation" %}</dt><dd>{{ st.designation }}</dd>{% endif %}
+                {% if st.organisation %}<dt class="text-gray-500">{% trans "Organisation" %}</dt><dd>{{ st.organisation }}</dd>{% endif %}
+                {% if st.address %}<dt class="text-gray-500">{% trans "Address" %}</dt><dd class="whitespace-pre-line">{{ st.address }}</dd>{% endif %}
+                {% if st.date_of_birth %}<dt class="text-gray-500">{% trans "Date of birth" %}</dt><dd>{{ st.date_of_birth|date:"DATE_FORMAT" }}</dd>{% endif %}
+                {% if st.gender %}<dt class="text-gray-500">{% trans "Gender" %}</dt><dd>{{ st.get_gender_display }}</dd>{% endif %}
+                {% if st.blood_group %}<dt class="text-gray-500">{% trans "Blood group" %}</dt><dd>{{ st.blood_group }}</dd>{% endif %}
+                {% if st.emergency_contact_name %}<dt class="text-gray-500">{% trans "Emergency" %}</dt><dd>{{ st.emergency_contact_name }} {{ st.emergency_contact_phone }}</dd>{% endif %}
+            </dl>
+            <div class="mt-5 flex flex-wrap gap-2">
+                <a class="btn btn-outline btn-sm" href="{% url 'student_edit' st.pk %}"><i class="bi bi-pencil" aria-hidden="true"></i>{% trans "Edit" %}</a>
+                {% if not st.profile_complete and card_reg and card_reg.status == 'confirmed' %}
+                <form method="post" action="{% url 'student_send_link' st.pk %}">{% csrf_token %}<button class="btn btn-outline btn-sm"><i class="bi bi-envelope" aria-hidden="true"></i>{% trans "Email the details link" %}</button></form>
+                <a class="btn btn-outline btn-sm" target="_blank" rel="noopener" href="https://wa.me/{{ st.phone_key }}?text={{ link|urlencode }}"><i class="bi bi-whatsapp" aria-hidden="true"></i>{% trans "WhatsApp the link" %}</a>
+                {% endif %}
+            </div>
+        </section>
+        {% if st.profile_complete and card_reg %}
+        <section class="card p-6">
+            <h3 class="font-semibold text-gray-900">{% trans "Student ID card" %}</h3>
+            <div class="mt-3 grid grid-cols-2 gap-3">
+                <img src="{% url 'student_card_png' st.pk 'front' %}" alt="" class="w-full rounded-lg border border-gray-200" loading="lazy">
+                <img src="{% url 'student_card_png' st.pk 'back' %}" alt="" class="w-full rounded-lg border border-gray-200" loading="lazy"></div>
+            <a class="btn btn-primary btn-sm mt-3" href="{% url 'student_card_pdf' st.pk %}" download><i class="bi bi-download" aria-hidden="true"></i>{% trans "Download PDF" %}</a>
+        </section>
+        {% endif %}
+    </div>
+    <div class="space-y-6 lg:col-span-7">
+        <section class="card overflow-hidden">
+            <h3 class="border-b border-gray-100 px-6 py-4 font-semibold text-gray-900">{% trans "Batches" %}</h3>
+            <ul class="divide-y divide-gray-50">
+            {% for r in regs %}<li class="flex flex-wrap items-center justify-between gap-2 px-6 py-3 text-sm">
+                <div><a class="font-semibold text-gray-900 no-underline hover:text-primary-700" href="{% url 'batch_registrations' r.batch.pk %}">{{ r.batch.course.title }}</a>
+                    <p class="text-xs text-gray-500">{{ r.batch.name }} · {{ r.batch.start_date|date:"M Y" }}</p></div>
+                <span class="flex items-center gap-2">
+                    {% if r.feedback %}<span class="text-xs text-green-700"><i class="bi bi-star-fill" aria-hidden="true"></i> {{ r.feedback.rating }}/5</span>{% endif %}
+                    {% if r.completed_at %}<span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-600">{% trans "Completed" %}</span>{% endif %}
+                    <span class="rounded-full px-2.5 py-1 text-xs font-bold {% if r.status == 'confirmed' %}bg-green-50 text-green-700{% elif r.status == 'waitlisted' %}bg-amber-50 text-amber-700{% else %}bg-gray-100 text-gray-500{% endif %}">{{ r.get_status_display }}</span></span>
+            </li>{% endfor %}
+            </ul>
+        </section>
+        <section class="card p-6">
+            <h3 class="font-semibold text-gray-900">{% trans "Relationship notes" %}</h3>
+            <form method="post" action="{% url 'student_note_add' st.pk %}" class="mt-4 grid gap-3 sm:grid-cols-[10rem,1fr,11rem]">{% csrf_token %}
+                <select name="kind">{% for v, l in kinds %}<option value="{{ v }}">{{ l }}</option>{% endfor %}</select>
+                <input type="text" name="text" maxlength="2000" required placeholder="{% trans 'What happened, or what to do next' %}">
+                <input type="date" name="follow_up_on" aria-label="{% trans 'Follow up on' %}">
+                <div class="sm:col-span-3"><button class="btn btn-primary btn-sm">{% trans "Add note" %}</button></div>
+            </form>
+            <ul class="mt-5 space-y-3">
+            {% for n in notes %}<li class="flex items-start justify-between gap-3 rounded-xl border border-gray-100 p-3 text-sm {% if n.follow_up_on and not n.done and n.follow_up_on <= today %}border-amber-200 bg-amber-50{% endif %}">
+                <div><p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{{ n.get_kind_display }} · {{ n.created_at|date:"d M Y" }}{% if n.author %} · {{ n.author.get_full_name|default:n.author.username }}{% endif %}</p>
+                    <p class="mt-1 text-gray-800 {% if n.done %}line-through text-gray-400{% endif %}">{{ n.text }}</p>
+                    {% if n.follow_up_on %}<p class="mt-1 text-xs text-amber-700"><i class="bi bi-bell" aria-hidden="true"></i> {% trans "Follow up" %}: {{ n.follow_up_on|date:"d M Y" }}</p>{% endif %}</div>
+                {% if n.follow_up_on %}<form method="post" action="{% url 'student_note_done' st.pk n.pk %}">{% csrf_token %}<button class="btn btn-outline btn-sm">{% if n.done %}{% trans "Reopen" %}{% else %}{% trans "Done" %}{% endif %}</button></form>{% endif %}
+            </li>{% empty %}<li class="text-sm text-gray-500">{% trans "No notes yet." %}</li>{% endfor %}
+            </ul>
+        </section>
+    </div>
+</div>
+{% endblock %}

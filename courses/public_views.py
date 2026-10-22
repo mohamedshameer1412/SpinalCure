@@ -14,6 +14,7 @@ from events.service import EventError
 from spinalcure.validators import validate_phone_number
 
 from . import service
+from .forms import StudentProfileForm
 from .models import Course, CourseFeedback, CourseRegistration
 
 logger = logging.getLogger(__name__)
@@ -65,7 +66,22 @@ def registration_manage(request, token):
         raise Http404
     reg = get_object_or_404(CourseRegistration.objects.select_related('batch__course'), access_token=token)
     batch = reg.batch
-    if request.method == 'POST':
+    student = reg.student if reg.student_id else service.link_student(reg)
+    profile_form = None
+    if reg.status == 'confirmed':
+        profile_form = StudentProfileForm(request.POST if request.POST.get('action') == 'profile' else None,
+                                          request.FILES if request.POST.get('action') == 'profile' else None, instance=student)
+        if request.method == 'POST' and request.POST.get('action') == 'profile':
+            if profile_form.is_valid():
+                was_complete = student.profile_complete
+                profile_form.save()
+                reg.refresh_from_db()
+                if not was_complete:
+                    service.complete_profile(reg)
+                messages.success(request, gettext('Thank you! Your details are saved.') if was_complete
+                                 else gettext('Thank you! Your student ID card is ready below.'))
+                return redirect('course_registration_manage', token=token)
+    if request.method == 'POST' and request.POST.get('action') != 'profile':
         action = request.POST.get('action')
         try:
             if action == 'cancel':
@@ -94,6 +110,7 @@ def registration_manage(request, token):
     from django.utils import timezone
     return render(request, 'courses/registration_manage.html', {
         'reg': reg, 'batch': batch, 'course': batch.course, 'rating_range': range(1, 6),
+        'student': student, 'profile_form': profile_form, 'card_ready': student.profile_complete and reg.status == 'confirmed',
         'can_cancel': reg.status != 'cancelled' and batch.start_date > timezone.localdate(),
         'can_feedback': (reg.status == 'confirmed' and batch.feedback_enabled and batch.is_completed
                          and not hasattr(reg, 'feedback'))})

@@ -52,7 +52,7 @@ class IDCardBranding(models.Model):
 
 
 class IDCard(models.Model):
-    TYPE_CHOICES = [('owner', _('Owner')), ('staff', _('Staff'))]
+    TYPE_CHOICES = [('owner', _('Founder')), ('staff', _('Staff'))]
     STATUS_CHOICES = [('active', _('Active')), ('deactivated', _('Deactivated')), ('revoked', _('Revoked'))]
     # What verifiers and holders see; a superset of the stored status.
     EFFECTIVE = ['active', 'deactivated', 'revoked', 'expired', 'inactive']

@@ -29,6 +29,16 @@ def _sanitize(text):
     return mark_safe(_ALLOWED.sub(back, escape(text)))
 
 
+@register.filter
+def sentence_lines(value):
+    """"No Surgery. No Medicine. No Diet." -> one sentence per line (escaped, <br> between)."""
+    import re
+    from django.utils.html import conditional_escape
+    from django.utils.safestring import mark_safe
+    parts = [p for p in re.split(r'(?<=[.!?])\s+', str(value or '').strip()) if p]
+    return mark_safe('<br>'.join(conditional_escape(p) for p in parts))
+
+
 @register.filter(name='tx_html')
 def tx_html_filter(obj, field):
     """Like tx, for fields that may hold simple markup (coloured heading spans). Translated text is sanitised;

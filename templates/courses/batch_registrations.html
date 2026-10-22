@@ -36,6 +36,10 @@
 
             {% include "partials/export_dropdown.html" with excel_url=export_batch_registrations_excel_url csv_url=export_batch_registrations_csv_url pdf_url=export_batch_registrations_pdf_url copy_url=export_batch_registrations_copy_url print_url=export_batch_registrations_print_url %}
 
+            <form method="post" action="{% url 'batch_remind_profiles' batch.id %}">{% csrf_token %}
+                <button class="btn btn-outline btn-sm" title="{% trans 'Email everyone who has not added their details yet' %}"><i class="bi bi-envelope-paper" aria-hidden="true"></i> {% trans "Remind about details" %}</button></form>
+            <form method="post" action="{% url 'batch_request_feedback' batch.id %}" data-confirm="{% trans 'Open feedback and email every confirmed student their link?' %}">{% csrf_token %}
+                <button class="btn btn-outline btn-sm"><i class="bi bi-flag" aria-hidden="true"></i> {% trans "Course finished: ask for feedback" %}</button></form>
             {% if waitlisted_count %}
             <form method="post" action="{% url 'batch_promote_waitlist' batch.id %}">{% csrf_token %}
                 <button class="px-4 py-2 rounded-xl bg-amber-500 text-white text-sm font-bold">{% blocktranslate trimmed with n=waitlisted_count %}Promote waitlist ({{ n }}){% endblocktranslate %}</button>
@@ -45,6 +49,13 @@
                 {% blocktranslate trimmed with count=registrations.paginator.count|default:registrations.count %}{{ count }} Students{% endblocktranslate %}
             </span>
         </div>
+    </div>
+
+    <div class="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+        <div class="card p-4"><p class="text-[10px] font-black uppercase tracking-widest text-slate-400">{% trans "Confirmed" %}</p><p class="mt-1 text-2xl font-black text-slate-900">{{ stats.confirmed }}<span class="text-xs font-bold text-slate-400"> / {{ batch.max_participants|default:"&infin;"|safe }}</span></p></div>
+        <div class="card p-4"><p class="text-[10px] font-black uppercase tracking-widest text-slate-400">{% trans "Details complete" %}</p><p class="mt-1 text-2xl font-black text-green-700">{{ stats.complete }}<span class="text-xs font-bold text-slate-400"> / {{ stats.confirmed }}</span></p></div>
+        <div class="card p-4"><p class="text-[10px] font-black uppercase tracking-widest text-slate-400">{% trans "Waitlisted" %}</p><p class="mt-1 text-2xl font-black text-amber-600">{{ waitlisted_count }}</p></div>
+        <div class="card p-4"><p class="text-[10px] font-black uppercase tracking-widest text-slate-400">{% trans "Feedback received" %}</p><p class="mt-1 text-2xl font-black text-slate-900">{{ stats.feedback }}</p></div>
     </div>
 
     {% include 'courses/partials/batch_registrations_partial.html' %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Course, CourseBatch
+from .models import Course, CourseBatch, Student
 
 
 class CourseForm(forms.ModelForm):
@@ -39,3 +39,51 @@ class CourseBatchForm(forms.ModelForm):
             'schedule_details': forms.Textarea(attrs={'class': 'premium-textarea', 'rows': 3, 'placeholder': 'e.g. Saturday & Sunday, 10am - 1pm'}),
             'max_participants': forms.NumberInput(attrs={'class': 'premium-input', 'placeholder': 'Leave blank for unlimited'}),
         }
+
+
+class StudentProfileForm(forms.ModelForm):
+    """What a confirmed student adds after registering. Photo, designation and address make the ID card; email is
+    required only when none was given at registration."""
+
+    class Meta:
+        model = Student
+        fields = ['photo', 'email', 'designation', 'organisation', 'address', 'date_of_birth', 'gender', 'blood_group',
+                  'emergency_contact_name', 'emergency_contact_phone']
+        widgets = {'address': forms.Textarea(attrs={'rows': 3}), 'date_of_birth': forms.DateInput(attrs={'type': 'date'})}
+
+    PRIVATE = ('email', 'address', 'date_of_birth', 'emergency_contact_name', 'emergency_contact_phone')
+
+    def __init__(self, *args, staff=False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.staff = staff
+        for name, field in self.fields.items():
+            field.widget.attrs.setdefault('class', 'w-full')
+        self.fields['photo'].widget.attrs.pop('class', None)
+        self.fields['photo'].widget.attrs['accept'] = 'image/*'
+        if staff:
+            for f in ('photo', 'designation', 'address', 'email'):
+                self.fields[f].required = False
+            return
+        # The private link is not a login: it never shows stored personal details back. A blank field keeps what is on file,
+        # and a detail is only required while none is stored.
+        for f in self.PRIVATE:
+            if getattr(self.instance, f):
+                self.initial[f] = ''
+        self.fields['photo'].required = not self.instance.photo
+        for f in ('designation', 'address', 'email'):
+            self.fields[f].required = not getattr(self.instance, f)
+
+    def clean(self):
+        data = super().clean()
+        if not self.staff:
+            for f in self.PRIVATE:
+                if not data.get(f) and getattr(self.instance, f):
+                    data[f] = getattr(self.instance, f)
+        return data
+
+    def clean_emergency_contact_phone(self):
+        from spinalcure.validators import validate_phone_number
+        value = self.cleaned_data.get('emergency_contact_phone', '').strip()
+        if value:
+            validate_phone_number(value)
+        return value
