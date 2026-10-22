@@ -800,7 +800,7 @@ msgstr ""
 msgid "Add New User"
 msgstr ""
 
-#: templates\courses\student_detail.html:67
+#: templates\courses\student_detail.html:74
 msgid "Add note"
 msgstr ""
 
@@ -1583,7 +1583,7 @@ msgstr ""
 msgid "Batch Name / Intake Period *"
 msgstr ""
 
-#: templates\courses\student_detail.html:49
+#: templates\courses\student_detail.html:56
 #: templates\courses\student_list.html:28
 msgid "Batches"
 msgstr ""
@@ -3051,7 +3051,7 @@ msgstr ""
 msgid "Doctor's private notes..."
 msgstr ""
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:81
 msgid "Done"
 msgstr ""
 
@@ -3069,7 +3069,7 @@ msgstr ""
 
 #: idcards\templates\idcards\_card.html:38
 #: templates\courses\registration_manage.html:26
-#: templates\courses\student_detail.html:43
+#: templates\courses\student_detail.html:50
 #: templates\patients\patient_detail.html:412
 msgid "Download PDF"
 msgstr ""
@@ -3992,7 +3992,7 @@ msgstr ""
 msgid "Feedback is not open for this event."
 msgstr ""
 
-#: courses\student_views.py:135
+#: courses\student_views.py:136
 #, python-format
 msgid "Feedback is open. %(n)s student(s) were emailed their link."
 msgstr ""
@@ -4078,11 +4078,11 @@ msgstr ""
 msgid "Focal point: click, or use the arrow keys"
 msgstr ""
 
-#: templates\courses\student_detail.html:73
+#: templates\courses\student_detail.html:80
 msgid "Follow up"
 msgstr ""
 
-#: templates\courses\student_detail.html:66
+#: templates\courses\student_detail.html:73
 msgid "Follow up on"
 msgstr ""
 
@@ -5162,7 +5162,7 @@ msgstr ""
 msgid "Link copied to the clipboard"
 msgstr ""
 
-#: courses\student_views.py:125
+#: courses\student_views.py:126
 #, python-format
 msgid "Link emailed to %(email)s."
 msgstr ""
@@ -5787,7 +5787,7 @@ msgstr ""
 msgid "No deliveries with this status."
 msgstr ""
 
-#: courses\student_views.py:119
+#: courses\student_views.py:120
 msgid "No email address yet. Add one, or share the link by WhatsApp."
 msgstr ""
 
@@ -5848,7 +5848,7 @@ msgstr ""
 msgid "No notes recorded."
 msgstr ""
 
-#: templates\courses\student_detail.html:75
+#: templates\courses\student_detail.html:82
 msgid "No notes yet."
 msgstr ""
 
@@ -6103,7 +6103,7 @@ msgstr ""
 msgid "Note"
 msgstr ""
 
-#: courses\student_views.py:97
+#: courses\student_views.py:98
 msgid "Note added."
 msgstr ""
 
@@ -6433,6 +6433,10 @@ msgstr ""
 #: accounts\models.py:353 appointments\models.py:94 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:40
 msgid "Other"
+msgstr ""
+
+#: templates\courses\student_detail.html:39
+msgid "Other students use this phone number"
 msgstr ""
 
 #: accounts\models.py:129
@@ -8023,7 +8027,7 @@ msgstr ""
 msgid "Relation"
 msgstr ""
 
-#: templates\courses\student_detail.html:62
+#: templates\courses\student_detail.html:69
 msgid "Relationship notes"
 msgstr ""
 
@@ -8031,7 +8035,7 @@ msgstr ""
 msgid "Remind about details"
 msgstr ""
 
-#: courses\student_views.py:147
+#: courses\student_views.py:148
 #, python-format
 msgid "Reminder emailed to %(n)s student(s)."
 msgstr ""
@@ -8089,7 +8093,7 @@ msgstr ""
 msgid "Rent / Lease"
 msgstr ""
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:81
 msgid "Reopen"
 msgstr ""
 
@@ -8579,7 +8583,7 @@ msgstr ""
 msgid "Sent"
 msgstr ""
 
-#: courses\student_views.py:124
+#: courses\student_views.py:125
 msgid "Sent the \"complete your details\" link."
 msgstr ""
 
@@ -9182,11 +9186,11 @@ msgstr ""
 msgid "Student Details"
 msgstr ""
 
-#: courses\student_views.py:74
+#: courses\student_views.py:75
 msgid "Student details saved."
 msgstr ""
 
-#: templates\courses\student_detail.html:39
+#: templates\courses\student_detail.html:46
 msgid "Student ID card"
 msgstr ""
 
@@ -9652,6 +9656,11 @@ msgid ""
 "help the search box match (e.g. “disc, herniated” for Slip Disc)."
 msgstr ""
 
+#: templates\courses\student_detail.html:40
+msgid ""
+"They may be the same person or a mistake. Check before treating them as one."
+msgstr ""
+
 #: clinic\admin_views.py:430
 msgid "This action cannot be reverted automatically (missing raw data)."
 msgstr ""
@@ -9794,11 +9803,11 @@ msgstr ""
 msgid "This shift overlaps another shift on the same day."
 msgstr ""
 
-#: courses\student_views.py:121
+#: courses\student_views.py:122
 msgid "This student has already completed their details."
 msgstr ""
 
-#: courses\student_views.py:117
+#: courses\student_views.py:118
 msgid "This student has no confirmed place."
 msgstr ""
 
@@ -10817,7 +10826,7 @@ msgstr ""
 msgid "What brings you in? (optional)"
 msgstr ""
 
-#: templates\courses\student_detail.html:65
+#: templates\courses\student_detail.html:72
 msgid "What happened, or what to do next"
 msgstr ""
 
@@ -11000,7 +11009,7 @@ msgstr ""
 msgid "Write First Post"
 msgstr ""
 
-#: courses\student_views.py:93
+#: courses\student_views.py:94
 msgid "Write something first."
 msgstr ""
 

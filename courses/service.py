@@ -89,13 +89,11 @@ def cancel_registration(reg, by_staff=False):
 # ── students: one record per person, completed after the place is confirmed ──────────────────────
 
 def link_student(reg):
-    """Attach the registration to the person's Student record (matched on phone), creating it on first sight."""
-    st = Student.objects.filter(phone_key=reg.phone_key).first() if reg.phone_key else None
-    if st is None:
-        st = Student.objects.create(name=reg.name, phone=reg.phone, phone_key=reg.phone_key, email=reg.email)
-    elif reg.email and not st.email:
-        st.email = reg.email
-        st.save(update_fields=['email'])
+    """Give the registration its own Student record. Phone numbers and emails typed on a public form are unverified, so
+    they are never used to merge people: otherwise anyone could register with someone else's number or email and use
+    their own private link to read or change that person's profile and card. Staff see other records that share a phone
+    number on the student page and reconcile them by hand."""
+    st = Student.objects.create(name=reg.name, phone=reg.phone, phone_key=reg.phone_key, email=reg.email)
     reg.student = st
     reg.save(update_fields=['student'])
     return st

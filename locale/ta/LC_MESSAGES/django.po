@@ -847,7 +847,7 @@ msgstr "புதிய குறிச்சொல்லைச் சேர்"
 msgid "Add New User"
 msgstr "புதிய பயனரைச் சேர்"
 
-#: templates\courses\student_detail.html:67
+#: templates\courses\student_detail.html:74
 msgid "Add note"
 msgstr "குறிப்பைச் சேர்"
 
@@ -1646,7 +1646,7 @@ msgstr "தொகுதிப் பெயர்"
 msgid "Batch Name / Intake Period *"
 msgstr "தொகுதிப் பெயர் / சேர்க்கைக் காலம் *"
 
-#: templates\courses\student_detail.html:49
+#: templates\courses\student_detail.html:56
 #: templates\courses\student_list.html:28
 msgid "Batches"
 msgstr "தொகுப்புகள்"
@@ -3180,7 +3180,7 @@ msgstr "மருத்துவர் கிடைக்கும் நேர�
 msgid "Doctor's private notes..."
 msgstr "மருத்துவரின் தனிப்பட்ட குறிப்புகள்..."
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:81
 msgid "Done"
 msgstr "முடிந்தது"
 
@@ -3198,7 +3198,7 @@ msgstr "முன்புறத்தைப் பதிவிறக்கு (
 
 #: idcards\templates\idcards\_card.html:38
 #: templates\courses\registration_manage.html:26
-#: templates\courses\student_detail.html:43
+#: templates\courses\student_detail.html:50
 #: templates\patients\patient_detail.html:412
 msgid "Download PDF"
 msgstr "PDF பதிவிறக்கு"
@@ -4143,7 +4143,7 @@ msgstr "இந்தத் தொகுதிக்குக் கருத்�
 msgid "Feedback is not open for this event."
 msgstr "இந்த நிகழ்வுக்குக் கருத்துகள் திறக்கப்படவில்லை."
 
-#: courses\student_views.py:135
+#: courses\student_views.py:136
 #, python-format
 msgid "Feedback is open. %(n)s student(s) were emailed their link."
 msgstr ""
@@ -4232,11 +4232,11 @@ msgid "Focal point: click, or use the arrow keys"
 msgstr ""
 "மையப் புள்ளி: கிளிக் செய்யவும் அல்லது அம்புக்குறி விசைகளைப் பயன்படுத்தவும்"
 
-#: templates\courses\student_detail.html:73
+#: templates\courses\student_detail.html:80
 msgid "Follow up"
 msgstr "பின்தொடர்"
 
-#: templates\courses\student_detail.html:66
+#: templates\courses\student_detail.html:73
 msgid "Follow up on"
 msgstr "பின்தொடரும் தேதி"
 
@@ -5382,7 +5382,7 @@ msgstr "ஏற்கனவே உள்ள பயிற்சியாளரை 
 msgid "Link copied to the clipboard"
 msgstr "இணைப்பு கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது"
 
-#: courses\student_views.py:125
+#: courses\student_views.py:126
 #, python-format
 msgid "Link emailed to %(email)s."
 msgstr "இணைப்பு %(email)s க்கு மின்னஞ்சல் செய்யப்பட்டது."
@@ -6023,7 +6023,7 @@ msgstr "பாடநெறிகள் இல்லை"
 msgid "No deliveries with this status."
 msgstr "இந்த நிலையில் எந்த அனுப்புதலும் இல்லை."
 
-#: courses\student_views.py:119
+#: courses\student_views.py:120
 msgid "No email address yet. Add one, or share the link by WhatsApp."
 msgstr ""
 "மின்னஞ்சல் முகவரி இன்னும் இல்லை. ஒன்றைச் சேர்க்கவும், அல்லது இணைப்பை "
@@ -6086,7 +6086,7 @@ msgstr "பொருந்தும் கட்டணங்கள் இல்�
 msgid "No notes recorded."
 msgstr "குறிப்புகள் எதுவும் பதிவு செய்யப்படவில்லை."
 
-#: templates\courses\student_detail.html:75
+#: templates\courses\student_detail.html:82
 msgid "No notes yet."
 msgstr "இன்னும் குறிப்புகள் இல்லை."
 
@@ -6357,7 +6357,7 @@ msgstr "குறிப்பிடப்படவில்லை"
 msgid "Note"
 msgstr "குறிப்பு"
 
-#: courses\student_views.py:97
+#: courses\student_views.py:98
 msgid "Note added."
 msgstr "குறிப்பு சேர்க்கப்பட்டது."
 
@@ -6711,6 +6711,10 @@ msgstr "ஒருங்கிணைப்பாளர்"
 #: clinic\templates\clinic\admin\practitioner_form.html:40
 msgid "Other"
 msgstr "மற்றவை"
+
+#: templates\courses\student_detail.html:39
+msgid "Other students use this phone number"
+msgstr "இந்த தொலைபேசி எண்ணை மற்ற மாணவர்களும் பயன்படுத்துகின்றனர்"
 
 #: accounts\models.py:129
 msgid "OTP Secret"
@@ -8357,7 +8361,7 @@ msgstr "தொடர்புடைய கட்டுரைகள்"
 msgid "Relation"
 msgstr "உறவு"
 
-#: templates\courses\student_detail.html:62
+#: templates\courses\student_detail.html:69
 msgid "Relationship notes"
 msgstr "உறவு குறிப்புகள்"
 
@@ -8365,7 +8369,7 @@ msgstr "உறவு குறிப்புகள்"
 msgid "Remind about details"
 msgstr "விவரங்கள் பற்றி நினைவூட்டு"
 
-#: courses\student_views.py:147
+#: courses\student_views.py:148
 #, python-format
 msgid "Reminder emailed to %(n)s student(s)."
 msgstr "நினைவூட்டல் %(n)s மாணவர்(களுக்கு) மின்னஞ்சல் செய்யப்பட்டது."
@@ -8425,7 +8429,7 @@ msgstr "கேலரியிலிருந்து நீக்கப்ப�
 msgid "Rent / Lease"
 msgstr "வாடகை / குத்தகை"
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:81
 msgid "Reopen"
 msgstr "மீண்டும் திற"
 
@@ -8935,7 +8939,7 @@ msgstr "அனுப்புகிறது…"
 msgid "Sent"
 msgstr "அனுப்பப்பட்டது"
 
-#: courses\student_views.py:124
+#: courses\student_views.py:125
 msgid "Sent the \"complete your details\" link."
 msgstr "\"விவரங்களை நிறைவு செய்\" இணைப்பு அனுப்பப்பட்டது."
 
@@ -9557,11 +9561,11 @@ msgstr "மாணவர்"
 msgid "Student Details"
 msgstr "மாணவர் விவரங்கள்"
 
-#: courses\student_views.py:74
+#: courses\student_views.py:75
 msgid "Student details saved."
 msgstr "மாணவர் விவரங்கள் சேமிக்கப்பட்டன."
 
-#: templates\courses\student_detail.html:39
+#: templates\courses\student_detail.html:46
 msgid "Student ID card"
 msgstr "மாணவர் அடையாள அட்டை"
 
@@ -10063,6 +10067,13 @@ msgstr ""
 "சொற்கள் தேடல் பெட்டி பொருந்த உதவுகின்றன (எ.கா. Slip Disc க்கு “disc, "
 "herniated”)."
 
+#: templates\courses\student_detail.html:40
+msgid ""
+"They may be the same person or a mistake. Check before treating them as one."
+msgstr ""
+"அவர்கள் ஒரே நபராக இருக்கலாம் அல்லது தவறாக இருக்கலாம். ஒருவராகக் கருதும் முன்"
+" சரிபார்க்கவும்."
+
 #: clinic\admin_views.py:430
 msgid "This action cannot be reverted automatically (missing raw data)."
 msgstr "இந்தச் செயலைத் தானாக மீட்டமைக்க முடியாது (மூலத் தரவு இல்லை)."
@@ -10216,11 +10227,11 @@ msgstr ""
 msgid "This shift overlaps another shift on the same day."
 msgstr "இந்த ஷிப்ட் அதே நாளில் மற்றொரு ஷிப்டுடன் மேலெழுகிறது."
 
-#: courses\student_views.py:121
+#: courses\student_views.py:122
 msgid "This student has already completed their details."
 msgstr "இந்த மாணவர் ஏற்கனவே தங்கள் விவரங்களை நிறைவு செய்துவிட்டார்."
 
-#: courses\student_views.py:117
+#: courses\student_views.py:118
 msgid "This student has no confirmed place."
 msgstr "இந்த மாணவருக்கு உறுதிசெய்யப்பட்ட இடம் இல்லை."
 
@@ -11285,7 +11296,7 @@ msgstr "நீங்கள் எதைத் தேடுகிறீர்க�
 msgid "What brings you in? (optional)"
 msgstr "நீங்கள் வருவதற்கான காரணம் என்ன? (விருப்பத்தேர்வு)"
 
-#: templates\courses\student_detail.html:65
+#: templates\courses\student_detail.html:72
 msgid "What happened, or what to do next"
 msgstr "என்ன நடந்தது, அல்லது அடுத்து என்ன செய்வது"
 
@@ -11474,7 +11485,7 @@ msgstr "விமர்சனம் எழுதுங்கள்"
 msgid "Write First Post"
 msgstr "முதல் இடுகையை எழுது"
 
-#: courses\student_views.py:93
+#: courses\student_views.py:94
 msgid "Write something first."
 msgstr "முதலில் ஏதாவது எழுதுங்கள்."
 

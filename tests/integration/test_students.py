@@ -53,8 +53,9 @@ def test_registering_creates_one_student_per_person_and_asks_for_details(batch):
     assert n.email == 'asha@example.com' and reg.access_token in n.url
     other = CourseBatch.objects.create(course=batch.course, name='Batch 2', start_date=date.today() + timedelta(days=60),
                                        is_active=False, is_published=True)
-    again = CourseRegistration.objects.create(batch=other, name='Asha R', phone='98765 43210', phone_key='9876543210')
-    assert service.link_student(again) == reg.student and Student.objects.count() == 1
+    again = CourseRegistration.objects.create(batch=other, name='Asha R', phone='98765 43210', phone_key='9876543210',
+                                              email='ASHA@example.com')
+    assert service.link_student(again) != reg.student and Student.objects.count() == 2      # never merged automatically
 
 
 def test_student_completes_details_and_gets_a_card(client, batch):
@@ -138,3 +139,17 @@ def test_cron_sends_start_reminders_profile_nudges_and_feedback(batch):
     batch.save()
     call_command('send_reminders')
     assert Notification.objects.filter(event_type='course_feedback_request').count() == 1
+
+
+def test_a_stranger_registering_with_my_phone_number_cannot_reach_my_profile(client, batch):
+    mine = service.register(batch, name='Asha Raman', phone='9111111111', email='asha@example.com')
+    client.post(reverse('course_registration_manage', args=[mine.access_token]), details())
+    other = CourseBatch.objects.create(course=batch.course, name='Batch 2', start_date=date.today() + timedelta(days=60),
+                                       is_active=False, is_published=True)
+    thief = CourseRegistration.objects.create(batch=other, name='Mallory', phone='9111111111', phone_key='9111111111',
+                                              email='mallory@example.com')
+    service.link_student(thief)
+    assert thief.student != mine.student and Student.objects.count() == 2
+    assert client.get(reverse('course_student_card', args=[thief.access_token, 'front'])).status_code == 404   # no card, no photo
+    thief_no_email = CourseRegistration.objects.create(batch=other, name='M2', phone='9111111111', phone_key='9111111111')
+    assert service.link_student(thief_no_email) != mine.student

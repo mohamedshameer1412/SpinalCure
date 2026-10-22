@@ -34,6 +34,13 @@
                 {% endif %}
             </div>
         </section>
+        {% if same_phone %}
+        <section class="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+            <p class="font-semibold"><i class="bi bi-exclamation-triangle me-1" aria-hidden="true"></i>{% trans "Other students use this phone number" %}</p>
+            <p class="mt-1">{% trans "They may be the same person or a mistake. Check before treating them as one." %}</p>
+            <ul class="mt-2 list-disc ms-5">{% for o in same_phone %}<li><a href="{% url 'student_detail' o.pk %}">{{ o.name }}</a> <span class="font-mono text-xs">{{ o.student_code }}</span></li>{% endfor %}</ul>
+        </section>
+        {% endif %}
         {% if st.profile_complete and card_reg %}
         <section class="card p-6">
             <h3 class="font-semibold text-gray-900">{% trans "Student ID card" %}</h3>

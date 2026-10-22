@@ -16,7 +16,8 @@ def link_existing_registrations(apps, schema_editor):
     letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ'
     used, by_key = set(), {}
     for reg in Reg.objects.order_by('registered_at'):
-        key = reg.phone_key or ''.join(c for c in reg.phone if c.isdigit())[-10:] or str(reg.pk)
+        # one Student per registration, as in service.link_student: unverified phone numbers never merge people
+        key = str(reg.pk)
         st = by_key.get(key)
         if st is None:
             while True:
@@ -26,9 +27,6 @@ def link_existing_registrations(apps, schema_editor):
                     break
             st = by_key[key] = Student.objects.create(name=reg.name, phone=reg.phone, phone_key=reg.phone_key, email=reg.email,
                                                       student_code=code)
-        elif reg.email and not st.email:
-            st.email = reg.email
-            st.save(update_fields=['email'])
         Reg.objects.filter(pk=reg.pk).update(student=st)
 
 

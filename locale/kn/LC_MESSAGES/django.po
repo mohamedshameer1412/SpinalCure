@@ -836,7 +836,7 @@ msgstr "ಹೊಸ ಟ್ಯಾಗ್ ಸೇರಿಸಿ"
 msgid "Add New User"
 msgstr "ಹೊಸ ಬಳಕೆದಾರರನ್ನು ಸೇರಿಸಿ"
 
-#: templates\courses\student_detail.html:67
+#: templates\courses\student_detail.html:74
 msgid "Add note"
 msgstr "ಟಿಪ್ಪಣಿ ಸೇರಿಸಿ"
 
@@ -1631,7 +1631,7 @@ msgstr "ಬ್ಯಾಚ್ ಹೆಸರು"
 msgid "Batch Name / Intake Period *"
 msgstr "ಬ್ಯಾಚ್ ಹೆಸರು / ಪ್ರವೇಶ ಅವಧಿ *"
 
-#: templates\courses\student_detail.html:49
+#: templates\courses\student_detail.html:56
 #: templates\courses\student_list.html:28
 msgid "Batches"
 msgstr "ಬ್ಯಾಚ್‌ಗಳು"
@@ -3141,7 +3141,7 @@ msgstr "ವೈದ್ಯರ ಲಭ್ಯತೆ"
 msgid "Doctor's private notes..."
 msgstr "ವೈದ್ಯರ ಖಾಸಗಿ ಟಿಪ್ಪಣಿಗಳು..."
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:81
 msgid "Done"
 msgstr "ಮುಗಿದಿದೆ"
 
@@ -3159,7 +3159,7 @@ msgstr "ಮುಂಭಾಗ ಡೌನ್‌ಲೋಡ್ (PNG)"
 
 #: idcards\templates\idcards\_card.html:38
 #: templates\courses\registration_manage.html:26
-#: templates\courses\student_detail.html:43
+#: templates\courses\student_detail.html:50
 #: templates\patients\patient_detail.html:412
 msgid "Download PDF"
 msgstr "PDF ಡೌನ್‌ಲೋಡ್"
@@ -4096,7 +4096,7 @@ msgstr "ಈ ಬ್ಯಾಚ್‌ಗೆ ಪ್ರತಿಕ್ರಿಯೆ ತೆ
 msgid "Feedback is not open for this event."
 msgstr "ಈ ಕಾರ್ಯಕ್ರಮಕ್ಕೆ ಪ್ರತಿಕ್ರಿಯೆ ತೆರೆದಿಲ್ಲ."
 
-#: courses\student_views.py:135
+#: courses\student_views.py:136
 #, python-format
 msgid "Feedback is open. %(n)s student(s) were emailed their link."
 msgstr ""
@@ -4183,11 +4183,11 @@ msgstr "ಕೇಂದ್ರ ಬಿಂದು"
 msgid "Focal point: click, or use the arrow keys"
 msgstr "ಕೇಂದ್ರ ಬಿಂದು: ಕ್ಲಿಕ್ ಮಾಡಿ ಅಥವಾ ಬಾಣದ ಕೀಲಿಗಳನ್ನು ಬಳಸಿ"
 
-#: templates\courses\student_detail.html:73
+#: templates\courses\student_detail.html:80
 msgid "Follow up"
 msgstr "ಫಾಲೋ ಅಪ್"
 
-#: templates\courses\student_detail.html:66
+#: templates\courses\student_detail.html:73
 msgid "Follow up on"
 msgstr "ಫಾಲೋ ಅಪ್ ದಿನಾಂಕ"
 
@@ -5313,7 +5313,7 @@ msgstr "ಈಗಿರುವ ಪ್ರ್ಯಾಕ್ಟೀಷನರ್ ಅನ್�
 msgid "Link copied to the clipboard"
 msgstr "ಲಿಂಕ್ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ನಕಲಿಸಲಾಗಿದೆ"
 
-#: courses\student_views.py:125
+#: courses\student_views.py:126
 #, python-format
 msgid "Link emailed to %(email)s."
 msgstr "ಲಿಂಕ್ ಅನ್ನು %(email)s ಗೆ ಇಮೇಲ್ ಮಾಡಲಾಗಿದೆ."
@@ -5947,7 +5947,7 @@ msgstr "ಯಾವುದೇ ಕೋರ್ಸ್‌ಗಳು ಕಂಡುಬಂದ�
 msgid "No deliveries with this status."
 msgstr "ಈ ಸ್ಥಿತಿಯ ವಿತರಣೆಗಳಿಲ್ಲ."
 
-#: courses\student_views.py:119
+#: courses\student_views.py:120
 msgid "No email address yet. Add one, or share the link by WhatsApp."
 msgstr ""
 "ಇನ್ನೂ ಇಮೇಲ್ ವಿಳಾಸ ಇಲ್ಲ. ಒಂದನ್ನು ಸೇರಿಸಿ, ಅಥವಾ ಲಿಂಕ್ ಅನ್ನು WhatsApp ನಲ್ಲಿ "
@@ -6010,7 +6010,7 @@ msgstr "ಹೊಂದಿಕೆಯಾಗುವ ಪಾವತಿಗಳು ಕಂಡ�
 msgid "No notes recorded."
 msgstr "ಟಿಪ್ಪಣಿಗಳು ದಾಖಲಾಗಿಲ್ಲ."
 
-#: templates\courses\student_detail.html:75
+#: templates\courses\student_detail.html:82
 msgid "No notes yet."
 msgstr "ಇನ್ನೂ ಟಿಪ್ಪಣಿಗಳಿಲ್ಲ."
 
@@ -6277,7 +6277,7 @@ msgstr "ನಿರ್ದಿಷ್ಟಪಡಿಸಿಲ್ಲ"
 msgid "Note"
 msgstr "ಟಿಪ್ಪಣಿ"
 
-#: courses\student_views.py:97
+#: courses\student_views.py:98
 msgid "Note added."
 msgstr "ಟಿಪ್ಪಣಿ ಸೇರಿಸಲಾಗಿದೆ."
 
@@ -6620,6 +6620,10 @@ msgstr "ಸಂಘಟಕ"
 #: clinic\templates\clinic\admin\practitioner_form.html:40
 msgid "Other"
 msgstr "ಇತರೆ"
+
+#: templates\courses\student_detail.html:39
+msgid "Other students use this phone number"
+msgstr "ಈ ಫೋನ್ ಸಂಖ್ಯೆಯನ್ನು ಇತರ ವಿದ್ಯಾರ್ಥಿಗಳೂ ಬಳಸುತ್ತಾರೆ"
 
 #: accounts\models.py:129
 msgid "OTP Secret"
@@ -8246,7 +8250,7 @@ msgstr "ಸಂಬಂಧಿತ ಲೇಖನಗಳು"
 msgid "Relation"
 msgstr "ಸಂಬಂಧ"
 
-#: templates\courses\student_detail.html:62
+#: templates\courses\student_detail.html:69
 msgid "Relationship notes"
 msgstr "ಸಂಬಂಧ ಟಿಪ್ಪಣಿಗಳು"
 
@@ -8254,7 +8258,7 @@ msgstr "ಸಂಬಂಧ ಟಿಪ್ಪಣಿಗಳು"
 msgid "Remind about details"
 msgstr "ವಿವರಗಳ ಬಗ್ಗೆ ನೆನಪಿಸಿ"
 
-#: courses\student_views.py:147
+#: courses\student_views.py:148
 #, python-format
 msgid "Reminder emailed to %(n)s student(s)."
 msgstr "%(n)s ವಿದ್ಯಾರ್ಥಿ(ಗಳಿಗೆ) ಜ್ಞಾಪನೆ ಇಮೇಲ್ ಮಾಡಲಾಗಿದೆ."
@@ -8314,7 +8318,7 @@ msgstr "ಗ್ಯಾಲರಿಯಿಂದ ತೆಗೆಯಲಾಗಿದೆ."
 msgid "Rent / Lease"
 msgstr "ಬಾಡಿಗೆ / ಗುತ್ತಿಗೆ"
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:81
 msgid "Reopen"
 msgstr "ಮತ್ತೆ ತೆರೆಯಿರಿ"
 
@@ -8818,7 +8822,7 @@ msgstr "ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ…"
 msgid "Sent"
 msgstr "ಕಳುಹಿಸಲಾಗಿದೆ"
 
-#: courses\student_views.py:124
+#: courses\student_views.py:125
 msgid "Sent the \"complete your details\" link."
 msgstr "\"ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸಿ\" ಲಿಂಕ್ ಕಳುಹಿಸಲಾಗಿದೆ."
 
@@ -9433,11 +9437,11 @@ msgstr "ವಿದ್ಯಾರ್ಥಿ"
 msgid "Student Details"
 msgstr "ವಿದ್ಯಾರ್ಥಿ ವಿವರಗಳು"
 
-#: courses\student_views.py:74
+#: courses\student_views.py:75
 msgid "Student details saved."
 msgstr "ವಿದ್ಯಾರ್ಥಿ ವಿವರಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ."
 
-#: templates\courses\student_detail.html:39
+#: templates\courses\student_detail.html:46
 msgid "Student ID card"
 msgstr "ವಿದ್ಯಾರ್ಥಿ ID ಕಾರ್ಡ್"
 
@@ -9930,6 +9934,13 @@ msgstr ""
 "ಕೀವರ್ಡ್‌ಗಳು ಹುಡುಕಾಟ ಪೆಟ್ಟಿಗೆ ಹೊಂದಿಕೆಯಾಗಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ (ಉದಾ. Slip Disc ಗೆ "
 "“disc, herniated”)."
 
+#: templates\courses\student_detail.html:40
+msgid ""
+"They may be the same person or a mistake. Check before treating them as one."
+msgstr ""
+"ಅವರು ಒಂದೇ ವ್ಯಕ್ತಿಯಾಗಿರಬಹುದು ಅಥವಾ ತಪ್ಪಾಗಿರಬಹುದು. ಒಬ್ಬರೆಂದು ಪರಿಗಣಿಸುವ ಮೊದಲು "
+"ಪರಿಶೀಲಿಸಿ."
+
 #: clinic\admin_views.py:430
 msgid "This action cannot be reverted automatically (missing raw data)."
 msgstr "ಈ ಕ್ರಿಯೆಯನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಹಿಂತಿರುಗಿಸಲಾಗದು (ಮೂಲ ಡೇಟಾ ಇಲ್ಲ)."
@@ -10082,11 +10093,11 @@ msgstr ""
 msgid "This shift overlaps another shift on the same day."
 msgstr "ಈ ಪಾಳಿ ಅದೇ ದಿನದ ಇನ್ನೊಂದು ಪಾಳಿಯೊಂದಿಗೆ ಅತಿಕ್ರಮಿಸುತ್ತದೆ."
 
-#: courses\student_views.py:121
+#: courses\student_views.py:122
 msgid "This student has already completed their details."
 msgstr "ಈ ವಿದ್ಯಾರ್ಥಿ ಈಗಾಗಲೇ ವಿವರಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸಿದ್ದಾರೆ."
 
-#: courses\student_views.py:117
+#: courses\student_views.py:118
 msgid "This student has no confirmed place."
 msgstr "ಈ ವಿದ್ಯಾರ್ಥಿಗೆ ದೃಢಪಟ್ಟ ಸ್ಥಾನವಿಲ್ಲ."
 
@@ -11146,7 +11157,7 @@ msgstr "ನೀವು ಏನನ್ನು ಹುಡುಕುತ್ತಿದ್ದ�
 msgid "What brings you in? (optional)"
 msgstr "ನೀವು ಯಾಕೆ ಬರುತ್ತಿದ್ದೀರಿ? (ಐಚ್ಛಿಕ)"
 
-#: templates\courses\student_detail.html:65
+#: templates\courses\student_detail.html:72
 msgid "What happened, or what to do next"
 msgstr "ಏನಾಯಿತು, ಅಥವಾ ಮುಂದೆ ಏನು ಮಾಡಬೇಕು"
 
@@ -11335,7 +11346,7 @@ msgstr "ವಿಮರ್ಶೆ ಬರೆಯಿರಿ"
 msgid "Write First Post"
 msgstr "ಮೊದಲ ಪೋಸ್ಟ್ ಬರೆಯಿರಿ"
 
-#: courses\student_views.py:93
+#: courses\student_views.py:94
 msgid "Write something first."
 msgstr "ಮೊದಲು ಏನಾದರೂ ಬರೆಯಿರಿ."
 

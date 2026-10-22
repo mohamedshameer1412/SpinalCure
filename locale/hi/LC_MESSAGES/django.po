@@ -839,7 +839,7 @@ msgstr "नया टैग जोड़ें"
 msgid "Add New User"
 msgstr "नया उपयोगकर्ता जोड़ें"
 
-#: templates\courses\student_detail.html:67
+#: templates\courses\student_detail.html:74
 msgid "Add note"
 msgstr "नोट जोड़ें"
 
@@ -1633,7 +1633,7 @@ msgstr "बैच का नाम"
 msgid "Batch Name / Intake Period *"
 msgstr "बैच का नाम / प्रवेश अवधि *"
 
-#: templates\courses\student_detail.html:49
+#: templates\courses\student_detail.html:56
 #: templates\courses\student_list.html:28
 msgid "Batches"
 msgstr "बैच"
@@ -3139,7 +3139,7 @@ msgstr "डॉक्टर की उपलब्धता"
 msgid "Doctor's private notes..."
 msgstr "डॉक्टर के निजी नोट्स..."
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:81
 msgid "Done"
 msgstr "हो गया"
 
@@ -3157,7 +3157,7 @@ msgstr "आगे का भाग डाउनलोड करें (PNG)"
 
 #: idcards\templates\idcards\_card.html:38
 #: templates\courses\registration_manage.html:26
-#: templates\courses\student_detail.html:43
+#: templates\courses\student_detail.html:50
 #: templates\patients\patient_detail.html:412
 msgid "Download PDF"
 msgstr "PDF डाउनलोड करें"
@@ -4097,7 +4097,7 @@ msgstr "इस बैच के लिए फ़ीडबैक खुला न
 msgid "Feedback is not open for this event."
 msgstr "इस इवेंट के लिए फ़ीडबैक खुला नहीं है।"
 
-#: courses\student_views.py:135
+#: courses\student_views.py:136
 #, python-format
 msgid "Feedback is open. %(n)s student(s) were emailed their link."
 msgstr "फ़ीडबैक खुल गया। %(n)s छात्र(ों) को उनका लिंक ईमेल किया गया।"
@@ -4183,11 +4183,11 @@ msgstr "फ़ोकस बिंदु"
 msgid "Focal point: click, or use the arrow keys"
 msgstr "फ़ोकस बिंदु: क्लिक करें या तीर कुंजियों का उपयोग करें"
 
-#: templates\courses\student_detail.html:73
+#: templates\courses\student_detail.html:80
 msgid "Follow up"
 msgstr "फ़ॉलो अप"
 
-#: templates\courses\student_detail.html:66
+#: templates\courses\student_detail.html:73
 msgid "Follow up on"
 msgstr "फ़ॉलो अप की तारीख"
 
@@ -5312,7 +5312,7 @@ msgstr "मौजूदा प्रैक्टिशनर को जोड़
 msgid "Link copied to the clipboard"
 msgstr "लिंक क्लिपबोर्ड पर कॉपी किया गया"
 
-#: courses\student_views.py:125
+#: courses\student_views.py:126
 #, python-format
 msgid "Link emailed to %(email)s."
 msgstr "लिंक %(email)s को ईमेल किया गया।"
@@ -5942,7 +5942,7 @@ msgstr "कोई कोर्स नहीं मिला"
 msgid "No deliveries with this status."
 msgstr "इस स्थिति में कोई डिलीवरी नहीं।"
 
-#: courses\student_views.py:119
+#: courses\student_views.py:120
 msgid "No email address yet. Add one, or share the link by WhatsApp."
 msgstr "अभी कोई ईमेल पता नहीं है। एक जोड़ें, या लिंक WhatsApp से भेजें।"
 
@@ -6003,7 +6003,7 @@ msgstr "कोई मेल खाता भुगतान नहीं मि�
 msgid "No notes recorded."
 msgstr "कोई नोट्स दर्ज नहीं हैं।"
 
-#: templates\courses\student_detail.html:75
+#: templates\courses\student_detail.html:82
 msgid "No notes yet."
 msgstr "अभी कोई नोट नहीं।"
 
@@ -6269,7 +6269,7 @@ msgstr "निर्दिष्ट नहीं"
 msgid "Note"
 msgstr "नोट"
 
-#: courses\student_views.py:97
+#: courses\student_views.py:98
 msgid "Note added."
 msgstr "नोट जोड़ा गया।"
 
@@ -6611,6 +6611,10 @@ msgstr "आयोजक"
 #: clinic\templates\clinic\admin\practitioner_form.html:40
 msgid "Other"
 msgstr "अन्य"
+
+#: templates\courses\student_detail.html:39
+msgid "Other students use this phone number"
+msgstr "इस फ़ोन नंबर का उपयोग अन्य छात्र भी करते हैं"
 
 #: accounts\models.py:129
 msgid "OTP Secret"
@@ -8230,7 +8234,7 @@ msgstr "संबंधित लेख"
 msgid "Relation"
 msgstr "संबंध"
 
-#: templates\courses\student_detail.html:62
+#: templates\courses\student_detail.html:69
 msgid "Relationship notes"
 msgstr "संबंध नोट्स"
 
@@ -8238,7 +8242,7 @@ msgstr "संबंध नोट्स"
 msgid "Remind about details"
 msgstr "विवरण के बारे में याद दिलाएँ"
 
-#: courses\student_views.py:147
+#: courses\student_views.py:148
 #, python-format
 msgid "Reminder emailed to %(n)s student(s)."
 msgstr "%(n)s छात्र(ों) को रिमाइंडर ईमेल किया गया।"
@@ -8298,7 +8302,7 @@ msgstr "गैलरी से हटाया गया।"
 msgid "Rent / Lease"
 msgstr "किराया / लीज़"
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:81
 msgid "Reopen"
 msgstr "फिर खोलें"
 
@@ -8802,7 +8806,7 @@ msgstr "भेजा जा रहा है…"
 msgid "Sent"
 msgstr "भेजा गया"
 
-#: courses\student_views.py:124
+#: courses\student_views.py:125
 msgid "Sent the \"complete your details\" link."
 msgstr "\"अपना विवरण पूरा करें\" लिंक भेजा गया।"
 
@@ -9415,11 +9419,11 @@ msgstr "छात्र"
 msgid "Student Details"
 msgstr "छात्र विवरण"
 
-#: courses\student_views.py:74
+#: courses\student_views.py:75
 msgid "Student details saved."
 msgstr "छात्र का विवरण सहेजा गया।"
 
-#: templates\courses\student_detail.html:39
+#: templates\courses\student_detail.html:46
 msgid "Student ID card"
 msgstr "स्टूडेंट ID कार्ड"
 
@@ -9911,6 +9915,12 @@ msgstr ""
 "ये सार्वजनिक प्रशंसा पृष्ठ पर समस्या ड्रॉपडाउन भरते हैं। कीवर्ड खोज बॉक्स को"
 " मिलान में मदद करते हैं (उदा. Slip Disc के लिए “disc, herniated”)।"
 
+#: templates\courses\student_detail.html:40
+msgid ""
+"They may be the same person or a mistake. Check before treating them as one."
+msgstr ""
+"वे एक ही व्यक्ति हो सकते हैं या गलती हो सकती है। एक मानने से पहले जाँच लें।"
+
 #: clinic\admin_views.py:430
 msgid "This action cannot be reverted automatically (missing raw data)."
 msgstr ""
@@ -10062,11 +10072,11 @@ msgstr ""
 msgid "This shift overlaps another shift on the same day."
 msgstr "यह शिफ़्ट उसी दिन की दूसरी शिफ़्ट से टकराती है।"
 
-#: courses\student_views.py:121
+#: courses\student_views.py:122
 msgid "This student has already completed their details."
 msgstr "इस छात्र ने पहले ही अपना विवरण पूरा कर लिया है।"
 
-#: courses\student_views.py:117
+#: courses\student_views.py:118
 msgid "This student has no confirmed place."
 msgstr "इस छात्र की कोई पक्की सीट नहीं है।"
 
@@ -11118,7 +11128,7 @@ msgstr "आप क्या खोज रहे हैं?"
 msgid "What brings you in? (optional)"
 msgstr "आप किस वजह से आ रहे हैं? (वैकल्पिक)"
 
-#: templates\courses\student_detail.html:65
+#: templates\courses\student_detail.html:72
 msgid "What happened, or what to do next"
 msgstr "क्या हुआ, या आगे क्या करना है"
 
@@ -11307,7 +11317,7 @@ msgstr "समीक्षा लिखें"
 msgid "Write First Post"
 msgstr "पहली पोस्ट लिखें"
 
-#: courses\student_views.py:93
+#: courses\student_views.py:94
 msgid "Write something first."
 msgstr "पहले कुछ लिखें।"
 
