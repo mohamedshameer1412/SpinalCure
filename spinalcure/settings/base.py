@@ -227,6 +227,8 @@ SITE_URL = config('SITE_URL', default='http://127.0.0.1:8000')
 # Set to False on staging so robots.txt asks search engines to stay out.
 SEO_ALLOW_INDEXING = config('SEO_ALLOW_INDEXING', default=True, cast=bool)
 # Google Search Console "HTML file" verification: the file name is the token (comma-separated for more than one property)
+# Bing Webmaster Tools "XML file" verification: the token inside BingSiteAuth.xml
+BING_SITE_AUTH = [t.strip() for t in config('BING_SITE_AUTH', default='0BE9281E6A38622141A21E376EB36FD0').split(',') if t.strip()]
 GOOGLE_SITE_VERIFICATION = [t.strip() for t in config('GOOGLE_SITE_VERIFICATION', default='googlefa0d02732ed9d1da').split(',') if t.strip()]
 SITE_NAME = config('SITE_NAME', default='SpinalCure')
 

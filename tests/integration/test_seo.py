@@ -145,3 +145,10 @@ def test_home_head_carries_keywords_robots_and_social_tags(clinic):
     assert 'name="robots" content="index, follow' in html and 'property="og:description"' in html and 'name="twitter:title"' in html
     robots = Client().get('/robots.txt').content.decode()
     assert 'Disallow: /private-media/' in robots and 'Sitemap: https://www.example.org/sitemap.xml' in robots
+
+
+@override_settings(**SITE)
+def test_bing_site_auth_file_matches_what_bing_provides(clinic):
+    r = Client().get('/BingSiteAuth.xml')
+    assert r.status_code == 200 and r['Content-Type'].startswith('application/xml')
+    assert '<user>0BE9281E6A38622141A21E376EB36FD0</user>' in r.content.decode() and 'noindex' not in r.get('X-Robots-Tag', '')

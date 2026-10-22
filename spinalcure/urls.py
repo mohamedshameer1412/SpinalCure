@@ -47,6 +47,7 @@ urlpatterns = [
     path('i18n/setlang/', set_language, name='set_language'),
     path('payments/razorpay/webhook/', razorpay_webhook, name='razorpay_webhook'),
     path('robots.txt', seo.robots_txt, name='robots_txt'),
+    path('BingSiteAuth.xml', seo.bing_site_auth, name='bing_site_auth'),
     re_path(r'^(?P<token>google[0-9a-f]{16})\.html$', seo.google_verification, name='google_verification'),
     path('favicon.ico', RedirectView.as_view(url=settings.STATIC_URL + 'favicon.ico', permanent=True)),
     path('private-media/<path:path>', private_media.serve, name='private_media'),

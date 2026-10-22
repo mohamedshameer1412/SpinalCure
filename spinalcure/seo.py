@@ -38,7 +38,7 @@ def is_indexable(request, response=None):
 
 def _is_verification(path):
     token = path.strip('/').removesuffix('.html')
-    return token in settings.GOOGLE_SITE_VERIFICATION
+    return token in settings.GOOGLE_SITE_VERIFICATION or path == '/BingSiteAuth.xml'
 
 
 def google_verification(request, token):
@@ -46,6 +46,14 @@ def google_verification(request, token):
     if token not in settings.GOOGLE_SITE_VERIFICATION:
         raise Http404
     return HttpResponse(f'google-site-verification: {token}.html', content_type='text/html; charset=utf-8')
+
+
+def bing_site_auth(request):
+    """/BingSiteAuth.xml, the file Bing Webmaster Tools asks for (same content as the file Bing gives you to download)."""
+    if not settings.BING_SITE_AUTH:
+        raise Http404
+    users = ''.join(f'\t<user>{t}</user>\n' for t in settings.BING_SITE_AUTH)
+    return HttpResponse(f'<?xml version="1.0"?>\n<users>\n{users}</users>', content_type='application/xml; charset=utf-8')
 
 
 BASE_KEYWORDS = ['Spinal Cure', 'classical acupuncture Chennai', 'acupuncture clinic Arumbakkam', 'back pain treatment Chennai',
