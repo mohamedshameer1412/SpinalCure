@@ -13,9 +13,9 @@ from django_ratelimit.decorators import ratelimit
 from events.service import EventError
 from spinalcure.validators import validate_phone_number
 
-from . import service
+from . import ops, service
 from .forms import StudentProfileForm
-from .models import Course, CourseFeedback, CourseRegistration
+from .models import Certificate, Course, CourseFeedback, CourseRegistration
 
 logger = logging.getLogger(__name__)
 
@@ -110,6 +110,8 @@ def registration_manage(request, token):
     from django.utils import timezone
     return render(request, 'courses/registration_manage.html', {
         'reg': reg, 'batch': batch, 'course': batch.course, 'rating_range': range(1, 6),
+        'materials': ops.materials_for(reg), 'attendance_pct': ops.attendance_percent(reg), 'fees': ops.fee_summary(reg),
+        'certificate': Certificate.objects.filter(registration=reg).first(),
         'student': student, 'profile_form': profile_form, 'card_ready': student.profile_complete and reg.status == 'confirmed',
         'can_cancel': reg.status != 'cancelled' and batch.start_date > timezone.localdate(),
         'can_feedback': (reg.status == 'confirmed' and batch.feedback_enabled and batch.is_completed

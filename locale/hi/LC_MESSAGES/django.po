@@ -39,7 +39,7 @@ msgstr ""
 "\"%(username)s\" से ID कार्ड या रिकॉर्ड जुड़े हैं। इसके बजाय खाते को अक्षम "
 "करें।"
 
-#: templates\courses\batch_list.html:151
+#: templates\courses\batch_list.html:152
 msgid "\"Batch:"
 msgstr "\"बैच:"
 
@@ -77,7 +77,7 @@ msgstr "%(clinic_name)s टीम"
 msgid "%(count)s post%(count_2)s"
 msgstr "%(count)s पोस्ट%(count_2)s"
 
-#: templates\courses\batch_registrations.html:49
+#: templates\courses\batch_registrations.html:51
 #, python-format
 msgid "%(count)s Students"
 msgstr "%(count)s छात्र"
@@ -92,7 +92,7 @@ msgstr "%(count)s सबमिशन%(count_2)s"
 msgid "%(count)s Total"
 msgstr "कुल %(count)s"
 
-#: notifications\messages.py:117
+#: notifications\messages.py:120
 #, python-format
 msgid "%(detail)s"
 msgstr "%(detail)s"
@@ -139,6 +139,11 @@ msgstr "%(event)s %(date)s को %(time)s बजे शुरू होता �
 #, python-format
 msgid "%(experience_years)s years experience"
 msgstr "%(experience_years)s वर्ष का अनुभव"
+
+#: courses\ops_views.py:84
+#, python-format
+msgid "%(i)s certificate(s) issued, %(e)s emailed."
+msgstr "%(i)s प्रमाणपत्र जारी किए गए, %(e)s ईमेल किए गए।"
 
 #: templates\clinic\event_detail.html:44
 #: templates\patients\patient_detail.html:279
@@ -190,12 +195,17 @@ msgid_plural "%(n)s sittings"
 msgstr[0] "%(n)s सिटिंग"
 msgstr[1] "%(n)s सिटिंग"
 
+#: templates\courses\registration_manage.html:53
+#, python-format
+msgid "%(n)s%% needed for a certificate"
+msgstr "प्रमाणपत्र के लिए %(n)s%% चाहिए"
+
 #: templates\patients\patient_detail.html:5
 #, python-format
 msgid "%(name)s - SpinalCure"
 msgstr "%(name)s - SpinalCure"
 
-#: notifications\messages.py:114
+#: notifications\messages.py:117
 #, python-format
 msgid ""
 "%(name)s finished their details for %(event)s (%(batch)s). Their student ID "
@@ -254,7 +264,7 @@ msgstr "%(s)s: समाप्ति समय शुरू के समय क
 msgid "%(site)s patient portal sign-in code"
 msgstr "%(site)s रोगी पोर्टल साइन-इन कोड"
 
-#: notifications\messages.py:116
+#: notifications\messages.py:119
 #, python-format
 msgid "%(subject)s"
 msgstr "%(subject)s"
@@ -308,7 +318,7 @@ msgstr "&nbsp;·&nbsp;"
 msgid "&ndash;"
 msgstr "&ndash;"
 
-#: templates\courses\batch_list.html:56
+#: templates\courses\batch_list.html:57
 #, python-format
 msgid "&ndash; %(end_date)s"
 msgstr "&ndash; %(end_date)s"
@@ -715,7 +725,7 @@ msgstr "सक्रिय (उपचाराधीन)"
 msgid "Active (visible on portfolio)"
 msgstr "सक्रिय (पोर्टफ़ोलियो पर दिखता है)"
 
-#: templates\courses\batch_form.html:160 templates\courses\batch_list.html:45
+#: templates\courses\batch_form.html:160 templates\courses\batch_list.html:46
 msgid "Active Intake"
 msgstr "सक्रिय प्रवेश"
 
@@ -781,6 +791,10 @@ msgstr "जोड़ें"
 msgid "Add a featured patient"
 msgstr "विशेष मरीज़ जोड़ें"
 
+#: courses\ops_views.py:253
+msgid "Add a link, or upload a file."
+msgstr "लिंक जोड़ें, या फ़ाइल अपलोड करें।"
+
 #: templates\patients\packages.html:38
 msgid "Add a package"
 msgstr "पैकेज जोड़ें"
@@ -792,6 +806,10 @@ msgstr "फ़ोटो या वीडियो जोड़ें"
 #: templates\clinic\admin\faqs.html:46
 msgid "Add a question"
 msgstr "प्रश्न जोड़ें"
+
+#: templates\courses\batch_attendance.html:26
+msgid "Add class"
+msgstr "कक्षा जोड़ें"
 
 #: templates\appointments\availability.html:122
 msgid "Add closure"
@@ -813,7 +831,12 @@ msgstr "खर्च जोड़ें — SpinalCure"
 msgid "Add leave"
 msgstr "छुट्टी जोड़ें"
 
-#: templates\courses\batch_list.html:28
+#: templates\courses\course_materials.html:13
+#: templates\courses\course_materials.html:22
+msgid "Add material"
+msgstr "सामग्री जोड़ें"
+
+#: templates\courses\batch_list.html:29
 msgid "Add New Batch"
 msgstr "नया बैच जोड़ें"
 
@@ -839,7 +862,7 @@ msgstr "नया टैग जोड़ें"
 msgid "Add New User"
 msgstr "नया उपयोगकर्ता जोड़ें"
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:101
 msgid "Add note"
 msgstr "नोट जोड़ें"
 
@@ -882,6 +905,14 @@ msgstr "सत्र जोड़ें"
 #: templates\clinic\admin\testimonials_list.html:5
 msgid "Add Testimonial"
 msgstr "प्रशंसा जोड़ें"
+
+#: courses\ops_views.py:82
+msgid "Add the classes and mark attendance first."
+msgstr "पहले कक्षाएँ जोड़ें और उपस्थिति दर्ज करें।"
+
+#: templates\courses\batch_attendance.html:49
+msgid "Add the first class to start taking attendance."
+msgstr "उपस्थिति लेना शुरू करने के लिए पहली कक्षा जोड़ें।"
 
 #: templates\patients\reviews.html:153
 msgid "Add the first review →"
@@ -953,13 +984,21 @@ msgid "Additional Notes"
 msgstr "अतिरिक्त नोट्स"
 
 #: clinic\models.py:39 clinic\templates\clinic\admin\clinic_setup.html:262
-#: courses\models.py:218 idcards\render.py:251
+#: courses\models.py:222 idcards\render.py:251
 msgid "Address"
 msgstr "पता"
 
 #: templates\ui\sidebar.html:46
 msgid "Administration"
 msgstr "प्रशासन"
+
+#: templates\courses\student_detail.html:80
+msgid "Agreed fee for this student"
+msgstr "इस छात्र के लिए तय शुल्क"
+
+#: courses\models.py:195
+msgid "Agreed fee for this student, instead of the course fee."
+msgstr "कोर्स शुल्क के बजाय इस छात्र के लिए तय शुल्क।"
 
 #: notifications\templates\notifications\center.html:17
 msgid "Alerts"
@@ -1078,6 +1117,7 @@ msgstr "पहले ही पूर्ववत किया जा चुक�
 msgid "Also review us on Google"
 msgstr "Google पर भी हमारी समीक्षा करें"
 
+#: templates\courses\student_detail.html:74
 #: templates\patients\patient_detail.html:588
 #: templates\payments\online_pay.html:28
 #: templates\payments\partials\expense_list_partial.html:12
@@ -1362,6 +1402,29 @@ msgstr "क्लिनिक में"
 msgid "Attempts"
 msgstr "प्रयास"
 
+#: templates\courses\batch_attendance.html:3
+#: templates\courses\batch_attendance.html:4
+#: templates\courses\registration_manage.html:53
+#: templates\courses\student_portal.html:18
+msgid "Attendance"
+msgstr "उपस्थिति"
+
+#: templates\courses\student_detail.html:64
+msgid "attendance"
+msgstr "उपस्थिति"
+
+#: templates\courses\batch_registrations.html:39
+msgid "Attendance & certificates"
+msgstr "उपस्थिति और प्रमाणपत्र"
+
+#: courses\models.py:146
+msgid "Attendance needed for a certificate (%)"
+msgstr "प्रमाणपत्र के लिए आवश्यक उपस्थिति (%)"
+
+#: courses\ops_views.py:50
+msgid "Attendance saved."
+msgstr "उपस्थिति सहेजी गई।"
+
 #: templates\events\event_registrations.html:20
 msgid "attended"
 msgstr "उपस्थित हुए"
@@ -1511,6 +1574,10 @@ msgstr "बैच प्रबंधन पर वापस जाएँ"
 msgid "Back to Batches"
 msgstr "बैच पर वापस जाएँ"
 
+#: templates\courses\course_materials.html:8
+msgid "Back to batches"
+msgstr "बैचों पर वापस"
+
 #: templates\courses\course_form.html:155
 msgid "Back to Course Management"
 msgstr "कोर्स प्रबंधन पर वापस जाएँ"
@@ -1558,6 +1625,10 @@ msgstr "कतार पर वापस जाएँ"
 msgid "Back to Reviews"
 msgstr "समीक्षाओं पर वापस जाएँ"
 
+#: templates\courses\batch_attendance.html:9
+msgid "Back to students"
+msgstr "छात्रों पर वापस"
+
 #: templates\clinic\admin\testimonial_form.html:10
 msgid "Back to Testimonials"
 msgstr "प्रशंसाओं पर वापस जाएँ"
@@ -1569,6 +1640,11 @@ msgstr "वेबसाइट पर वापस"
 #: templates\patients\patient_detail.html:307
 msgid "Balance"
 msgstr "शेष"
+
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:70
+msgid "balance"
+msgstr "बकाया"
 
 #: templates\payments\emails\receipt_email.html:15
 msgid "Balance due"
@@ -1584,6 +1660,10 @@ msgstr "बैंक का नाम"
 
 #: payments\models.py:25 templates\payments\invoice.html:429
 msgid "Bank Transfer"
+msgstr "बैंक ट्रांसफ़र"
+
+#: courses\models.py:380
+msgid "Bank transfer"
 msgstr "बैंक ट्रांसफ़र"
 
 #: events\models.py:67
@@ -1602,7 +1682,7 @@ msgstr "बुनियादी जानकारी"
 msgid "Basics"
 msgstr "बुनियादी जानकारी"
 
-#: courses\models.py:175 courses\models.py:292
+#: courses\models.py:177 courses\models.py:296
 msgid "Batch"
 msgstr "बैच"
 
@@ -1633,8 +1713,7 @@ msgstr "बैच का नाम"
 msgid "Batch Name / Intake Period *"
 msgstr "बैच का नाम / प्रवेश अवधि *"
 
-#: templates\courses\student_detail.html:56
-#: templates\courses\student_list.html:28
+#: templates\courses\student_list.html:30
 msgid "Batches"
 msgstr "बैच"
 
@@ -1707,7 +1786,7 @@ msgstr "ब्लॉग टैग"
 msgid "Blog Tags — SpinalCure"
 msgstr "ब्लॉग टैग — SpinalCure"
 
-#: accounts\templates\accounts\admin\user_form.html:115 courses\models.py:222
+#: accounts\templates\accounts\admin\user_form.html:115 courses\models.py:226
 #: idcards\render.py:249 templates\courses\student_detail.html:26
 msgid "Blood group"
 msgstr "रक्त समूह"
@@ -1850,7 +1929,7 @@ msgstr "SpinalCure HMS द्वारा। अत्यंत गोपनी�
 msgid "Calendar View"
 msgstr "कैलेंडर दृश्य"
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "Call"
 msgstr "कॉल"
 
@@ -1869,7 +1948,7 @@ msgstr "अपॉइंटमेंट रद्द करें"
 msgid "Cancel event"
 msgstr "कार्यक्रम रद्द करें"
 
-#: templates\courses\registration_manage.html:52
+#: templates\courses\registration_manage.html:79
 #: templates\events\registration_manage.html:45
 msgid "Cancel my registration"
 msgstr "मेरा पंजीकरण रद्द करें"
@@ -1883,7 +1962,7 @@ msgstr "संग्रहीत करने से पहले आगाम�
 msgid "Cancel this registration?"
 msgstr "क्या यह पंजीकरण रद्द करें?"
 
-#: appointments\models.py:180 courses\models.py:182 events\models.py:94
+#: appointments\models.py:180 courses\models.py:184 events\models.py:94
 #: events\models.py:252
 msgid "Cancelled"
 msgstr "रद्द"
@@ -1918,7 +1997,8 @@ msgstr "क्षमता कम से कम 1 होनी चाहिए�
 msgid "Caption"
 msgstr "कैप्शन"
 
-#: idcards\templates\idcards\dashboard.html:28 payments\models.py:23
+#: courses\models.py:380 idcards\templates\idcards\dashboard.html:28
+#: payments\models.py:23
 msgid "Card"
 msgstr "कार्ड"
 
@@ -1987,7 +2067,7 @@ msgstr "कार्ड प्रकार"
 msgid "Case ID: #%(id)s"
 msgstr "केस आईडी: #%(id)s"
 
-#: payments\models.py:22
+#: courses\models.py:380 payments\models.py:22
 msgid "Cash"
 msgstr "नकद"
 
@@ -1995,6 +2075,28 @@ msgstr "नकद"
 #: templates\payments\partials\expense_list_partial.html:9
 msgid "Category"
 msgstr "श्रेणी"
+
+#: templates\courses\batch_attendance.html:36
+#: templates\courses\student_detail.html:83
+#: templates\courses\student_portal.html:23
+msgid "Certificate"
+msgstr "प्रमाणपत्र"
+
+#: templates\courses\certificate_verify.html:3
+msgid "Certificate check"
+msgstr "प्रमाणपत्र जाँच"
+
+#: courses\ops_views.py:144
+msgid "Certificate emailed again."
+msgstr "प्रमाणपत्र फिर से ईमेल किया गया।"
+
+#: courses\ops_views.py:134
+msgid "Certificate saved and emailed."
+msgstr "प्रमाणपत्र सहेजा और ईमेल किया गया।"
+
+#: courses\ops_views.py:134
+msgid "Certificate saved."
+msgstr "प्रमाणपत्र सहेजा गया।"
 
 #: templates\clinic\terms.html:23
 msgid ""
@@ -2045,6 +2147,10 @@ msgstr ""
 msgid "Channel"
 msgstr "चैनल"
 
+#: templates\courses\student_signin.html:11
+msgid "Check your email"
+msgstr "अपना ईमेल देखें"
+
 #: clinic\models.py:367
 msgid "Checked by"
 msgstr "जाँचकर्ता"
@@ -2054,7 +2160,7 @@ msgstr "जाँचकर्ता"
 msgid "Checked by %(who)s"
 msgstr "%(who)s द्वारा जाँचा गया"
 
-#: payments\models.py:26
+#: courses\models.py:381 payments\models.py:26
 msgid "Cheque"
 msgstr "चेक"
 
@@ -2099,6 +2205,10 @@ msgstr "खाली समय देखने के लिए एक तार
 msgid "Choose a morning or an evening session, or switch the day off."
 msgstr "सुबह या शाम का सत्र चुनें, या उस दिन को बंद करें।"
 
+#: courses\ops_views.py:123
+msgid "Choose a PDF file."
+msgstr "एक PDF फ़ाइल चुनें।"
+
 #: clinic\models.py:686
 msgid "Choose a photo."
 msgstr "एक फ़ोटो चुनें।"
@@ -2123,6 +2233,10 @@ msgstr "चुनें कि आपको हर घटना के बार
 msgid "Choose the appointment length from the list."
 msgstr "सूची में से अपॉइंटमेंट की अवधि चुनें।"
 
+#: courses\ops_views.py:39
+msgid "Choose the date of the class."
+msgstr "कक्षा की तारीख चुनें।"
+
 #: accounts\forms.py:87
 msgid "Choose the practitioner to link."
 msgstr "जोड़ने के लिए प्रैक्टिशनर चुनें।"
@@ -2146,6 +2260,18 @@ msgstr "चुनें…"
 #: events\models.py:24
 msgid "Class"
 msgstr "कक्षा"
+
+#: courses\ops_views.py:42
+msgid "Class added. Tick who attended and save."
+msgstr "कक्षा जोड़ी गई। जो उपस्थित थे उन्हें चुनें और सहेजें।"
+
+#: templates\courses\batch_attendance.html:24
+msgid "Class date"
+msgstr "कक्षा की तारीख"
+
+#: courses\ops_views.py:45
+msgid "Class removed."
+msgstr "कक्षा हटाई गई।"
 
 #: templates\clinic\home.html:62
 msgid ""
@@ -2320,8 +2446,8 @@ msgstr ""
 msgid "Comma-separated; imported from YouTube."
 msgstr "कॉमा से अलग करें; YouTube से आयात किया गया।"
 
-#: courses\models.py:303 events\models.py:298
-#: templates\courses\registration_manage.html:45
+#: courses\models.py:307 events\models.py:298
+#: templates\courses\registration_manage.html:72
 #: templates\events\event_feedback_admin.html:57
 msgid "Comment"
 msgstr "टिप्पणी"
@@ -2331,7 +2457,7 @@ msgid "Compare the name and photo with the person presenting the card."
 msgstr "कार्ड दिखाने वाले व्यक्ति से नाम और फ़ोटो का मिलान करें।"
 
 #: templates\courses\partials\batch_registrations_partial.html:45
-#: templates\courses\student_list.html:36
+#: templates\courses\student_list.html:38
 msgid "Complete"
 msgstr "पूर्ण"
 
@@ -2349,7 +2475,7 @@ msgid "Complete your registration: %(event)s"
 msgstr "अपना पंजीकरण पूरा करें: %(event)s"
 
 #: appointments\models.py:179 templates\appointments\calendar.html:475
-#: templates\clinic\event_detail.html:22 templates\courses\batch_list.html:48
+#: templates\clinic\event_detail.html:22 templates\courses\batch_list.html:49
 msgid "Completed"
 msgstr "पूर्ण"
 
@@ -2394,7 +2520,7 @@ msgstr "नए पासवर्ड की पुष्टि करें"
 msgid "Confirm the permission is on file before publishing."
 msgstr "प्रकाशित करने से पहले पुष्टि करें कि अनुमति रिकॉर्ड में है।"
 
-#: appointments\models.py:178 courses\models.py:182 events\models.py:252
+#: appointments\models.py:178 courses\models.py:184 events\models.py:252
 #: templates\appointments\calendar.html:474
 msgid "Confirmed"
 msgstr "पुष्टि हो गई"
@@ -2402,6 +2528,10 @@ msgstr "पुष्टि हो गई"
 #: templates\events\event_registrations.html:17
 msgid "confirmed"
 msgstr "पुष्ट"
+
+#: templates\courses\registration_manage.html:61
+msgid "Congratulations on completing the course."
+msgstr "कोर्स पूरा करने पर बधाई।"
 
 #: templates\clinic\course_detail.html:124
 #: templates\clinic\partials\review_form.html:62
@@ -2443,7 +2573,7 @@ msgstr "परामर्श देने वाले"
 msgid "Consulting Doctor:"
 msgstr "परामर्श डॉक्टर:"
 
-#: templates\courses\student_list.html:27
+#: templates\courses\student_list.html:29
 #: templates\events\partials\event_registrations_partial.html:10
 #: templates\public\header.html:35 templates\public\header.html:65
 msgid "Contact"
@@ -2546,7 +2676,7 @@ msgstr "ईमेल नहीं भेजा जा सका। कृपय�
 msgid "Country code"
 msgstr "देश कोड"
 
-#: courses\models.py:72 courses\models.py:120 courses\models.py:288
+#: courses\models.py:72 courses\models.py:120 courses\models.py:292
 #: templates\clinic\home.html:235
 msgid "Course"
 msgstr "कोर्स"
@@ -2571,11 +2701,11 @@ msgstr "कोर्स \"%(title)s\" हटाया गया।"
 msgid "Course \"%(title)s\" updated."
 msgstr "कोर्स \"%(title)s\" अपडेट किया गया।"
 
-#: courses\models.py:147
+#: courses\models.py:149
 msgid "Course Batch"
 msgstr "कोर्स बैच"
 
-#: courses\models.py:148 templates\courses\batch_list.html:6
+#: courses\models.py:150 templates\courses\batch_list.html:6
 msgid "Course Batches"
 msgstr "कोर्स बैच"
 
@@ -2587,11 +2717,11 @@ msgstr "कोर्स सामग्री / पाठ्यक्रम"
 msgid "Course fee"
 msgstr "कोर्स शुल्क"
 
-#: courses\models.py:310
+#: courses\models.py:314
 msgid "Course Feedback"
 msgstr "कोर्स फ़ीडबैक"
 
-#: courses\models.py:311
+#: courses\models.py:315
 msgid "Course Feedbacks"
 msgstr "कोर्स फ़ीडबैक"
 
@@ -2599,7 +2729,7 @@ msgstr "कोर्स फ़ीडबैक"
 msgid "Course Fees (₹)"
 msgstr "कोर्स शुल्क (₹)"
 
-#: templates\courses\batch_registrations.html:42
+#: templates\courses\batch_registrations.html:44
 msgid "Course finished: ask for feedback"
 msgstr "कोर्स समाप्त: फ़ीडबैक माँगें"
 
@@ -2611,11 +2741,11 @@ msgstr "कोर्स शुल्क (₹) *"
 msgid "Course Management - SpinalCure"
 msgstr "कोर्स प्रबंधन - SpinalCure"
 
-#: courses\models.py:194 payments\models.py:79
+#: courses\models.py:198 payments\models.py:79
 msgid "Course Registration"
 msgstr "कोर्स पंजीकरण"
 
-#: courses\models.py:195
+#: courses\models.py:199
 msgid "Course Registrations"
 msgstr "कोर्स पंजीकरण"
 
@@ -2659,7 +2789,7 @@ msgstr "बनाएँ"
 msgid "Create a practitioner profile from this account"
 msgstr "इस खाते से प्रैक्टिशनर प्रोफ़ाइल बनाएँ"
 
-#: templates\courses\batch_list.html:129
+#: templates\courses\batch_list.html:130
 msgid "Create Batch"
 msgstr "बैच बनाएँ"
 
@@ -2695,7 +2825,7 @@ msgstr "उपचार योजना बनाएँ"
 msgid "Create User"
 msgstr "उपयोगकर्ता बनाएं"
 
-#: templates\courses\batch_list.html:126
+#: templates\courses\batch_list.html:127
 msgid "Create your first batch to start enrolling students."
 msgstr "छात्रों का नामांकन शुरू करने के लिए अपना पहला बैच बनाएँ।"
 
@@ -2756,6 +2886,10 @@ msgstr "वर्तमान मान्य OTP कोड"
 msgid "Curriculum"
 msgstr "पाठ्यक्रम"
 
+#: courses\models.py:359
+msgid "Custom certificate file"
+msgstr "कस्टम प्रमाणपत्र फ़ाइल"
+
 #: templates\clinic\event_detail.html:33
 msgid "d"
 msgstr "दि"
@@ -2780,8 +2914,8 @@ msgstr "डैशबोर्ड - SpinalCure"
 msgid "Dashboard Overview"
 msgstr "डैशबोर्ड अवलोकन"
 
-#: appointments\models.py:215 events\models.py:70 payments\models.py:326
-#: templates\appointments\appointment_list.html:72
+#: appointments\models.py:215 courses\models.py:328 events\models.py:70
+#: payments\models.py:326
 msgid "Date"
 msgstr "तिथि"
 
@@ -2806,7 +2940,7 @@ msgstr "तिथि अतीत में नहीं हो सकती।"
 msgid "Date of Birth"
 msgstr "जन्म तिथि"
 
-#: accounts\templates\accounts\admin\user_form.html:114 courses\models.py:219
+#: accounts\templates\accounts\admin\user_form.html:114 courses\models.py:223
 #: idcards\render.py:251 templates\courses\student_detail.html:24
 msgid "Date of birth"
 msgstr "जन्म तिथि"
@@ -2864,7 +2998,7 @@ msgstr "हटाएँ"
 msgid "Delete Appointment"
 msgstr "अपॉइंटमेंट हटाएं"
 
-#: templates\courses\batch_list.html:148
+#: templates\courses\batch_list.html:149
 msgid "Delete Batch?"
 msgstr "बैच हटाएँ?"
 
@@ -2912,7 +3046,7 @@ msgstr "यह वीडियो हटाएँ?"
 msgid "Deleted Data"
 msgstr "हटाया गया डेटा"
 
-#: templates\courses\batch_list.html:155
+#: templates\courses\batch_list.html:156
 msgid ""
 "Deleting this batch will erase all registrations and feedback associated "
 "with it. This cannot be undone."
@@ -2983,7 +3117,7 @@ msgstr "पद"
 msgid "Designation / Location"
 msgstr "पदनाम / स्थान"
 
-#: courses\models.py:216 templates\courses\_profile_form.html:11
+#: courses\models.py:220 templates\courses\_profile_form.html:11
 #: templates\courses\student_form.html:15
 msgid "Designation / profession"
 msgstr "पद / पेशा"
@@ -3030,7 +3164,7 @@ msgstr ""
 
 #: templates\clinic\admin\video_form.html:16
 #: templates\courses\partials\batch_registrations_partial.html:12
-#: templates\courses\student_list.html:28
+#: templates\courses\student_list.html:30
 msgid "Details"
 msgstr "विवरण"
 
@@ -3042,15 +3176,15 @@ msgstr "विवरण और पंजीकरण"
 msgid "Details and registration"
 msgstr "विवरण और पंजीकरण"
 
-#: templates\courses\batch_registrations.html:56
+#: templates\courses\batch_registrations.html:58
 #: templates\courses\student_detail.html:15
-#: templates\courses\student_list.html:19
+#: templates\courses\student_list.html:20
 msgid "Details complete"
 msgstr "विवरण पूर्ण"
 
 #: templates\courses\student_detail.html:16
 #: templates\courses\student_list.html:10
-#: templates\courses\student_list.html:18
+#: templates\courses\student_list.html:19
 msgid "Details missing"
 msgstr "विवरण बाकी"
 
@@ -3139,7 +3273,19 @@ msgstr "डॉक्टर की उपलब्धता"
 msgid "Doctor's private notes..."
 msgstr "डॉक्टर के निजी नोट्स..."
 
-#: templates\courses\student_detail.html:81
+#: courses\models.py:400
+msgid "Document"
+msgstr "दस्तावेज़"
+
+#: courses\files.py:31
+msgid ""
+"Documents can be at most 25 MB. For bigger files, paste a Drive link "
+"instead."
+msgstr ""
+"दस्तावेज़ अधिकतम 25 MB के हो सकते हैं। बड़ी फ़ाइलों के लिए Drive लिंक "
+"चिपकाएँ।"
+
+#: templates\courses\student_detail.html:108
 msgid "Done"
 msgstr "हो गया"
 
@@ -3151,13 +3297,17 @@ msgstr "कॉपी करने के लिए नीचे दिए PIN �
 msgid "Download back (PNG)"
 msgstr "पीछे का भाग डाउनलोड करें (PNG)"
 
+#: templates\courses\registration_manage.html:62
+msgid "Download certificate (PDF)"
+msgstr "प्रमाणपत्र डाउनलोड करें (PDF)"
+
 #: idcards\templates\idcards\_card.html:36
 msgid "Download front (PNG)"
 msgstr "आगे का भाग डाउनलोड करें (PNG)"
 
 #: idcards\templates\idcards\_card.html:38
 #: templates\courses\registration_manage.html:26
-#: templates\courses\student_detail.html:50
+#: templates\courses\student_detail.html:52
 #: templates\patients\patient_detail.html:412
 msgid "Download PDF"
 msgstr "PDF डाउनलोड करें"
@@ -3439,6 +3589,10 @@ msgstr "प्रभावी तिथि तक"
 msgid "Either email or phone number is required."
 msgstr "ईमेल या फ़ोन नंबर आवश्यक है।"
 
+#: templates\courses\batch_attendance.html:42
+msgid "Eligible"
+msgstr "पात्र"
+
 #: accounts\models.py:111 accounts\templates\accounts\admin\user_form.html:53
 #: clinic\models.py:45 clinic\templates\clinic\admin\clinic_setup.html:252
 msgid "Email"
@@ -3458,9 +3612,17 @@ msgstr "ईमेल (वैकल्पिक)"
 msgid "Email Address"
 msgstr "ईमेल पता"
 
-#: templates\courses\batch_registrations.html:40
+#: templates\courses\student_detail.html:86
+msgid "Email again"
+msgstr "फिर ईमेल करें"
+
+#: templates\courses\batch_registrations.html:42
 msgid "Email everyone who has not added their details yet"
 msgstr "जिन्होंने अभी विवरण नहीं जोड़ा, उन सभी को ईमेल करें"
+
+#: templates\courses\student_signin.html:17
+msgid "Email me a sign-in link"
+msgstr "मुझे साइन-इन लिंक ईमेल करें"
 
 #: patients\models.py:39
 msgid "Email notifications"
@@ -3470,7 +3632,7 @@ msgstr "ईमेल सूचनाएँ"
 msgid "Email sent successfully."
 msgstr "ईमेल सफलतापूर्वक भेजा गया।"
 
-#: templates\courses\student_detail.html:32
+#: templates\courses\student_detail.html:33
 msgid "Email the details link"
 msgstr "विवरण वाला लिंक ईमेल करें"
 
@@ -3481,6 +3643,10 @@ msgstr "ईमेल सत्यापित"
 #: templates\patients\patient_form.html:73
 msgid "email@example.com"
 msgstr "email@example.com"
+
+#: templates\courses\student_detail.html:87
+msgid "emailed"
+msgstr "ईमेल किया गया"
 
 #: templates\courses\student_detail.html:27
 msgid "Emergency"
@@ -3498,12 +3664,12 @@ msgstr "आपातकालीन संपर्क"
 msgid "Emergency contact (optional)"
 msgstr "आपातकालीन संपर्क (वैकल्पिक)"
 
-#: accounts\templates\accounts\admin\user_form.html:117 courses\models.py:223
+#: accounts\templates\accounts\admin\user_form.html:117 courses\models.py:227
 #: templates\courses\student_form.html:21
 msgid "Emergency contact name"
 msgstr "आपातकालीन संपर्क का नाम"
 
-#: accounts\templates\accounts\admin\user_form.html:118 courses\models.py:224
+#: accounts\templates\accounts\admin\user_form.html:118 courses\models.py:228
 #: templates\courses\student_form.html:22
 msgid "Emergency contact phone"
 msgstr "आपातकालीन संपर्क फ़ोन"
@@ -3609,6 +3775,10 @@ msgstr "नामांकन खुला है"
 msgid "Enter 6-digit Code"
 msgstr "6 अंकों का कोड दर्ज करें"
 
+#: courses\ops_views.py:57
+msgid "Enter a number from 1 to 100."
+msgstr "1 से 100 तक की संख्या दर्ज करें।"
+
 #: clinic\testimonial_views.py:245
 msgid "Enter a problem name."
 msgstr "समस्या का नाम लिखें।"
@@ -3620,6 +3790,10 @@ msgstr "सही तारीख़ डालें।"
 #: spinalcure\validators.py:107
 msgid "Enter a valid email address."
 msgstr "एक मान्य ईमेल पता दर्ज करें।"
+
+#: courses\ops_views.py:207
+msgid "Enter a valid fee."
+msgstr "सही शुल्क दर्ज करें।"
 
 #: patients\views.py:1081 patients\views.py:1079
 msgid "Enter a valid package price."
@@ -3641,6 +3815,10 @@ msgstr "1 से 200 के बीच सिटिंग डालें।"
 msgid "Enter the 6-digit code emailed to you. It expires in 10 minutes."
 msgstr ""
 "आपको ईमेल किया गया 6 अंकों का कोड दर्ज करें। यह 10 मिनट में समाप्त हो जाएगा।"
+
+#: courses\ops_views.py:173
+msgid "Enter the amount received."
+msgstr "प्राप्त राशि दर्ज करें।"
 
 #: clinic\faq_views.py:50
 msgid "Enter who checked this answer before publishing it."
@@ -3834,7 +4012,15 @@ msgstr "कार्यक्रम और कक्षाएं - SpinalCure"
 msgid "Events, workshops & webinars"
 msgstr "कार्यक्रम, कार्यशालाएं और वेबिनार"
 
-#: templates\courses\student_list.html:17
+#: templates\courses\course_materials.html:28
+msgid "Every batch"
+msgstr "हर बैच"
+
+#: courses\ops_views.py:240
+msgid "Every batch of this course"
+msgstr "इस कोर्स का हर बैच"
+
+#: templates\courses\student_list.html:18
 msgid "Every student"
 msgstr "हर छात्र"
 
@@ -3946,7 +4132,7 @@ msgstr "देखें"
 msgid "Export"
 msgstr "निर्यात"
 
-#: templates\courses\batch_list.html:24
+#: templates\courses\batch_list.html:25
 msgid "Export Courses"
 msgstr "कोर्स एक्सपोर्ट करें"
 
@@ -4042,8 +4228,12 @@ msgstr "विशेष सेवाएँ अपडेट हुईं।"
 msgid "Fee"
 msgstr "शुल्क"
 
+#: courses\ops_views.py:211
+msgid "Fee updated."
+msgstr "शुल्क अपडेट किया गया।"
+
 #: templates\clinic\testimonials_public.html:13
-#: templates\courses\batch_list.html:76
+#: templates\courses\batch_list.html:77
 #: templates\events\partials\event_list_partial.html:79
 #: templates\public_base.html:72
 msgid "Feedback"
@@ -4097,7 +4287,7 @@ msgstr "इस बैच के लिए फ़ीडबैक खुला न
 msgid "Feedback is not open for this event."
 msgstr "इस इवेंट के लिए फ़ीडबैक खुला नहीं है।"
 
-#: courses\student_views.py:136
+#: courses\student_views.py:142
 #, python-format
 msgid "Feedback is open. %(n)s student(s) were emailed their link."
 msgstr "फ़ीडबैक खुल गया। %(n)s छात्र(ों) को उनका लिंक ईमेल किया गया।"
@@ -4106,7 +4296,7 @@ msgstr "फ़ीडबैक खुल गया। %(n)s छात्र(ो�
 msgid "feedback is visible to the public."
 msgstr "फ़ीडबैक सार्वजनिक रूप से दिखाई देता है।"
 
-#: templates\courses\batch_registrations.html:58
+#: templates\courses\batch_registrations.html:60
 msgid "Feedback received"
 msgstr "प्राप्त फ़ीडबैक"
 
@@ -4124,6 +4314,11 @@ msgstr "फ़ीडबैक — %(name)s"
 msgid "Feedback — %(title)s"
 msgstr "फीडबैक — %(title)s"
 
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:69
+msgid "Fees"
+msgstr "शुल्क"
+
 #: events\models.py:133
 msgid "Fees (₹)"
 msgstr "शुल्क (₹)"
@@ -4133,9 +4328,13 @@ msgstr "शुल्क (₹)"
 msgid "Fees are non-refundable."
 msgstr "शुल्क वापस नहीं किया जाता।"
 
+#: templates\courses\student_portal.html:19
+msgid "Fees paid"
+msgstr "भुगतान किया शुल्क"
+
 #: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:39
-#: courses\models.py:206
+#: courses\models.py:210
 msgid "Female"
 msgstr "महिला"
 
@@ -4183,19 +4382,19 @@ msgstr "फ़ोकस बिंदु"
 msgid "Focal point: click, or use the arrow keys"
 msgstr "फ़ोकस बिंदु: क्लिक करें या तीर कुंजियों का उपयोग करें"
 
-#: templates\courses\student_detail.html:80
+#: templates\courses\student_detail.html:107
 msgid "Follow up"
 msgstr "फ़ॉलो अप"
 
-#: templates\courses\student_detail.html:73
+#: templates\courses\student_detail.html:100
 msgid "Follow up on"
 msgstr "फ़ॉलो अप की तारीख"
 
-#: courses\models.py:260 patients\session_pdf.py:76
+#: courses\models.py:264 patients\session_pdf.py:76
 msgid "Follow-up"
 msgstr "फॉलो-अप"
 
-#: templates\courses\student_list.html:20
+#: templates\courses\student_list.html:22
 msgid "Follow-up due"
 msgstr "फ़ॉलो अप बाकी"
 
@@ -4203,7 +4402,7 @@ msgstr "फ़ॉलो अप बाकी"
 msgid "Follow-up reminder lead (days)"
 msgstr "फॉलो-अप अनुस्मारक कितने दिन पहले (दिन)"
 
-#: templates\courses\student_list.html:11
+#: templates\courses\student_list.html:12
 msgid "Follow-ups due"
 msgstr "बाकी फ़ॉलो अप"
 
@@ -4215,6 +4414,7 @@ msgstr "भोजन, दवा से एलर्जी..."
 msgid "Footer Text"
 msgstr "फ़ुटर पाठ"
 
+#: templates\courses\course_materials.html:17
 #: templates\payments\online_pay.html:27
 msgid "For"
 msgstr "किसके लिए"
@@ -4325,7 +4525,7 @@ msgstr "पूर्ण विवरण"
 msgid "Full Mobility"
 msgstr "पूर्ण गतिशीलता"
 
-#: clinic\models.py:195 courses\models.py:177 courses\models.py:210
+#: clinic\models.py:195 courses\models.py:179 courses\models.py:214
 #: events\models.py:247
 msgid "Full Name"
 msgstr "पूरा नाम"
@@ -4393,7 +4593,7 @@ msgstr "GB"
 
 #: accounts\templates\accounts\admin\user_form.html:113
 #: clinic\templates\clinic\admin\practitioner_form.html:34
-#: courses\models.py:220 idcards\render.py:251
+#: courses\models.py:224 idcards\render.py:251
 msgid "Gender"
 msgstr "लिंग"
 
@@ -4438,6 +4638,10 @@ msgstr "उत्पन्न दिनांक"
 #, python-format
 msgid "Generated: %(now)s"
 msgstr "उत्पन्न: %(now)s"
+
+#: templates\courses\certificate_verify.html:10
+msgid "Genuine certificate"
+msgstr "असली प्रमाणपत्र"
 
 #: templates\clinic\admin\testimonials_list.html:47
 msgid "Given"
@@ -4589,6 +4793,15 @@ msgstr ""
 "नमस्ते %(name)s, %(event)s (%(batch)s) पूरा करने पर बधाई। हम जानना चाहेंगे "
 "कि यह कैसा रहा। इसमें एक मिनट लगता है और आगे के छात्रों की मदद होती है।"
 
+#: notifications\messages.py:114
+#, python-format
+msgid ""
+"Hi %(name)s, congratulations! Your certificate for %(event)s (%(batch)s) is "
+"attached. Certificate no. %(code)s."
+msgstr ""
+"नमस्ते %(name)s, बधाई! %(event)s (%(batch)s) का आपका प्रमाणपत्र संलग्न है। "
+"प्रमाणपत्र संख्या %(code)s।"
+
 #: notifications\messages.py:105
 #, python-format
 msgid ""
@@ -4676,7 +4889,7 @@ msgstr "%(event)s कैसा रहा?"
 msgid "How was it?"
 msgstr "यह कैसा रहा?"
 
-#: templates\courses\registration_manage.html:41
+#: templates\courses\registration_manage.html:68
 msgid "How was the course?"
 msgstr "कोर्स कैसा रहा?"
 
@@ -4801,6 +5014,14 @@ msgstr ""
 msgid ""
 "If this number is registered and has an email on file, a code has been sent."
 msgstr "यदि यह नंबर पंजीकृत है और उसका ईमेल दर्ज है, तो कोड भेज दिया गया है।"
+
+#: templates\courses\student_signin.html:12
+msgid ""
+"If we have you on file, a sign-in link is on its way. It works once and "
+"expires in 30 minutes."
+msgstr ""
+"अगर आपका विवरण हमारे पास है, तो साइन-इन लिंक भेजा जा रहा है। यह एक बार काम "
+"करता है और 30 मिनट में समाप्त हो जाता है।"
 
 #: templates\emails\auth_request.html:52
 msgid ""
@@ -4927,6 +5148,10 @@ msgstr "Instagram URL"
 msgid "Insurance"
 msgstr "बीमा"
 
+#: courses\models.py:264
+msgid "Interested in the next batch"
+msgstr "अगले बैच में रुचि"
+
 #: clinic\models.py:387
 msgid "Internal / Direct"
 msgstr "आंतरिक / प्रत्यक्ष"
@@ -5047,6 +5272,11 @@ msgstr "मुख्य डॉक्टर (शीर्ष क्षैति�
 msgid "Issue"
 msgstr "जारी करें"
 
+#: templates\courses\batch_attendance.html:19
+#, python-format
+msgid "Issue & email certificates (%(n)s)"
+msgstr "प्रमाणपत्र जारी करें और ईमेल करें (%(n)s)"
+
 #: idcards\templates\idcards\branding.html:20
 msgid "Issue a card to see a live preview here."
 msgstr "यहां लाइव पूर्वावलोकन देखने के लिए एक कार्ड जारी करें।"
@@ -5055,6 +5285,10 @@ msgstr "यहां लाइव पूर्वावलोकन देखन
 #: idcards\templates\idcards\issue.html:16
 msgid "Issue card"
 msgstr "कार्ड जारी करें"
+
+#: templates\courses\batch_attendance.html:18
+msgid "Issue certificates to every eligible student and email them?"
+msgstr "हर पात्र छात्र को प्रमाणपत्र जारी करें और ईमेल करें?"
 
 #: idcards\templates\idcards\issue.html:3
 #: idcards\templates\idcards\issue.html:4
@@ -5069,6 +5303,11 @@ msgstr "रिफ़ंड जारी करें"
 #: idcards\templates\idcards\verify.html:39
 msgid "Issued"
 msgstr "जारी किया गया"
+
+#: templates\courses\certificate_verify.html:13
+#, python-format
+msgid "Issued %(d)s"
+msgstr "जारी किया %(d)s"
 
 #: templates\clinic\review_withdraw.html:12
 msgid "It is no longer shown and its text and your name have been deleted."
@@ -5148,7 +5387,7 @@ msgid "Keep event"
 msgstr "कार्यक्रम रहने दें"
 
 #: templates\appointments\manage.html:59
-#: templates\courses\registration_manage.html:55
+#: templates\courses\registration_manage.html:82
 #: templates\events\registration_manage.html:48
 msgid "Keep it"
 msgstr "रहने दें"
@@ -5162,7 +5401,7 @@ msgid "Keep this link private: anyone with it can change this appointment."
 msgstr ""
 "इस लिंक को निजी रखें: जिसके पास भी यह है वह इस अपॉइंटमेंट को बदल सकता है।"
 
-#: templates\courses\registration_manage.html:58
+#: templates\courses\registration_manage.html:85
 #: templates\events\registration_manage.html:51
 msgid "Keep this link private: anyone with it can manage this registration."
 msgstr ""
@@ -5274,6 +5513,10 @@ msgstr "असीमित के लिए खाली छोड़ें।"
 msgid "Leave empty to close the whole clinic."
 msgstr "पूरे क्लिनिक को बंद करने के लिए खाली छोड़ें।"
 
+#: courses\models.py:404
+msgid "Leave empty to share with every batch of the course."
+msgstr "कोर्स के हर बैच के साथ साझा करने के लिए खाली छोड़ें।"
+
 #: templates\appointments\availability.html:86
 #, python-format
 msgid "Leave: %(name)s"
@@ -5304,6 +5547,14 @@ msgstr "लाइट"
 msgid "Limited seats. We will call you to confirm."
 msgstr "सीटें सीमित हैं। पुष्टि के लिए हम आपको कॉल करेंगे।"
 
+#: courses\models.py:400
+msgid "Link"
+msgstr "लिंक"
+
+#: templates\courses\course_materials.html:18
+msgid "Link (Google Drive, YouTube, any web page)"
+msgstr "लिंक (Google Drive, YouTube, कोई भी वेब पेज)"
+
 #: accounts\forms.py:27
 msgid "Link an existing practitioner"
 msgstr "मौजूदा प्रैक्टिशनर को जोड़ें"
@@ -5312,7 +5563,7 @@ msgstr "मौजूदा प्रैक्टिशनर को जोड़
 msgid "Link copied to the clipboard"
 msgstr "लिंक क्लिपबोर्ड पर कॉपी किया गया"
 
-#: courses\student_views.py:126
+#: courses\student_views.py:132
 #, python-format
 msgid "Link emailed to %(email)s."
 msgstr "लिंक %(email)s को ईमेल किया गया।"
@@ -5328,6 +5579,11 @@ msgstr "इस समीक्षा को किसी विशिष्ट �
 #: accounts\forms.py:51
 msgid "Linked practitioner profile (keep)"
 msgstr "जुड़ी प्रैक्टिशनर प्रोफ़ाइल (रखें)"
+
+#: templates\courses\course_materials.html:10
+msgid ""
+"Links and files that confirmed students can open from their private page."
+msgstr "लिंक और फ़ाइलें जिन्हें पक्के छात्र अपने निजी पेज से खोल सकते हैं।"
 
 #: templates\appointments\calendar.html:439
 msgid "List View"
@@ -5444,7 +5700,7 @@ msgstr "मलयालम"
 
 #: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:38
-#: courses\models.py:206
+#: courses\models.py:210
 msgid "Male"
 msgstr "पुरुष"
 
@@ -5527,6 +5783,18 @@ msgstr "समीक्षित चिह्नित किया गया।
 msgid "Marketing & Advertising"
 msgstr "मार्केटिंग और विज्ञापन"
 
+#: courses\ops_views.py:272
+msgid "Material added."
+msgstr "सामग्री जोड़ी गई।"
+
+#: courses\ops_views.py:293
+msgid "Material removed."
+msgstr "सामग्री हटाई गई।"
+
+#: templates\courses\student_portal.html:22
+msgid "materials"
+msgstr "सामग्री"
+
 #: appointments\models.py:53
 msgid "Max appointments in this shift"
 msgstr "इस शिफ़्ट में अधिकतम अपॉइंटमेंट"
@@ -5592,6 +5860,18 @@ msgstr "मीटिंग प्रदाता"
 msgid "Menu"
 msgstr "मेन्यू"
 
+#: templates\courses\student_detail.html:43
+msgid "Merge into this student"
+msgstr "इस छात्र में मिलाएँ"
+
+#: templates\courses\student_detail.html:43
+msgid "Merge this record into the current student? This cannot be undone."
+msgstr "इस रिकॉर्ड को वर्तमान छात्र में मिलाएँ? इसे वापस नहीं किया जा सकता।"
+
+#: courses\ops_views.py:226
+msgid "Merged into this student."
+msgstr "इस छात्र में मिला दिया गया।"
+
 #: clinic\blog_models.py:82
 msgid "Meta Description"
 msgstr "मेटा विवरण"
@@ -5624,7 +5904,7 @@ msgstr "बाकी"
 #: templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 #: templates\courses\partials\batch_registrations_partial.html:46
-#: templates\courses\student_list.html:37
+#: templates\courses\student_list.html:39
 msgid "Missing"
 msgstr "बाकी"
 
@@ -5649,6 +5929,7 @@ msgstr "गतिशीलता स्कोर (1-5)"
 msgid "Mobility Score:"
 msgstr "गतिशीलता स्कोर:"
 
+#: templates\courses\student_detail.html:75
 #: templates\patients\patient_detail.html:589
 #: templates\payments\invoice.html:286
 #: templates\payments\partials\payment_list_partial.html:11
@@ -5734,6 +6015,11 @@ msgstr "5 से 480 मिनट के बीच होना चाहिए�
 msgid "Must be less than or equal to total amount"
 msgstr "कुल राशि के बराबर या उससे कम होना चाहिए"
 
+#: templates\courses\student_portal.html:3
+#: templates\courses\student_portal.html:8
+msgid "My courses"
+msgstr "मेरे कोर्स"
+
 #: templates\patients\portal\dashboard.html:3
 msgid "My Health Portal — SpinalCure"
 msgstr "मेरा स्वास्थ्य पोर्टल — SpinalCure"
@@ -5743,7 +6029,7 @@ msgstr "मेरा स्वास्थ्य पोर्टल — SpinalCu
 msgid "My ID card"
 msgstr "मेरा पहचान पत्र"
 
-#: clinic\models.py:629 courses\models.py:301 events\models.py:293
+#: clinic\models.py:629 courses\models.py:305 events\models.py:293
 #: templates\events\event_feedback_admin.html:55
 msgid "Name"
 msgstr "नाम"
@@ -5780,6 +6066,10 @@ msgstr "ध्यान चाहिए"
 #: templates\emails\base_email.html:52
 msgid "Need help? Contact the clinic"
 msgstr "मदद चाहिए? क्लिनिक से संपर्क करें"
+
+#: templates\courses\batch_attendance.html:15
+msgid "Needed %"
+msgstr "आवश्यक %"
 
 #: templates\clinic\admin\translations.html:52
 msgid "Needs attention"
@@ -5917,7 +6207,7 @@ msgstr "अभी तक कोई लेख नहीं"
 msgid "No batch is open right now. Please check back soon or call us."
 msgstr "अभी कोई बैच खुला नहीं है। कृपया जल्द दोबारा देखें या हमें कॉल करें।"
 
-#: templates\courses\batch_list.html:125
+#: templates\courses\batch_list.html:126
 msgid "No Batches Yet"
 msgstr "अभी तक कोई बैच नहीं"
 
@@ -5938,11 +6228,19 @@ msgstr "कोई बंदी निर्धारित नहीं है�
 msgid "No Courses Found"
 msgstr "कोई कोर्स नहीं मिला"
 
+#: templates\courses\student_portal.html:26
+msgid "No courses found for this email yet."
+msgstr "इस ईमेल के लिए अभी कोई कोर्स नहीं मिला।"
+
 #: notifications\templates\notifications\deliveries.html:28
 msgid "No deliveries with this status."
 msgstr "इस स्थिति में कोई डिलीवरी नहीं।"
 
-#: courses\student_views.py:120
+#: courses\ops_views.py:144
+msgid "No email address on file."
+msgstr "कोई ईमेल पता दर्ज नहीं।"
+
+#: courses\student_views.py:126
 msgid "No email address yet. Add one, or share the link by WhatsApp."
 msgstr "अभी कोई ईमेल पता नहीं है। एक जोड़ें, या लिंक WhatsApp से भेजें।"
 
@@ -5999,11 +6297,15 @@ msgstr "कोई मेल खाता खर्च नहीं मिला�
 msgid "No matching payments found."
 msgstr "कोई मेल खाता भुगतान नहीं मिला।"
 
+#: templates\courses\course_materials.html:33
+msgid "No materials yet."
+msgstr "अभी कोई सामग्री नहीं।"
+
 #: patients\session_pdf.py:72
 msgid "No notes recorded."
 msgstr "कोई नोट्स दर्ज नहीं हैं।"
 
-#: templates\courses\student_detail.html:82
+#: templates\courses\student_detail.html:109
 msgid "No notes yet."
 msgstr "अभी कोई नोट नहीं।"
 
@@ -6146,9 +6448,13 @@ msgstr "आपकी खोज से कोई कहानी मेल नह
 msgid "No students found matching your search."
 msgstr "आपकी खोज से मेल खाने वाला कोई छात्र नहीं मिला।"
 
-#: templates\courses\student_list.html:39
+#: templates\courses\student_list.html:41
 msgid "No students match."
 msgstr "कोई छात्र मेल नहीं खाता।"
+
+#: templates\courses\certificate_verify.html:17
+msgid "No such certificate"
+msgstr "ऐसा कोई प्रमाणपत्र नहीं"
 
 #: templates\courses\student_verify.html:17
 msgid "No such student ID"
@@ -6245,6 +6551,10 @@ msgstr "आवंटित नहीं"
 msgid "Not given yet"
 msgstr "अभी नहीं दिया"
 
+#: templates\courses\student_detail.html:88
+msgid "Not issued yet. Attendance is marked on the batch page."
+msgstr "अभी जारी नहीं हुआ। उपस्थिति बैच पेज पर दर्ज होती है।"
+
 #: clinic\testimonial_views.py:172
 msgid "Not published: record the patient's consent first."
 msgstr "प्रकाशित नहीं: पहले मरीज़ की सहमति दर्ज करें।"
@@ -6265,11 +6575,11 @@ msgstr "दर्ज नहीं"
 msgid "Not specified"
 msgstr "निर्दिष्ट नहीं"
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "Note"
 msgstr "नोट"
 
-#: courses\student_views.py:98
+#: courses\student_views.py:104
 msgid "Note added."
 msgstr "नोट जोड़ा गया।"
 
@@ -6287,7 +6597,7 @@ msgstr "नोट्स (आंतरिक)"
 msgid "Notes / Message"
 msgstr "नोट्स / संदेश"
 
-#: courses\models.py:180
+#: courses\models.py:182
 msgid "Notes / Questions"
 msgstr "नोट्स / प्रश्न"
 
@@ -6387,7 +6697,7 @@ msgid "One email per patient, sent the day after the session. 0 turns it off."
 msgstr ""
 "हर मरीज़ को एक ईमेल, सत्र के अगले दिन भेजा जाता है। 0 से यह बंद हो जाता है।"
 
-#: courses\models.py:299
+#: courses\models.py:303
 msgid "One feedback per student per course."
 msgstr "प्रति छात्र प्रति कोर्स एक फ़ीडबैक।"
 
@@ -6528,7 +6838,7 @@ msgstr ""
 "चाहिए।"
 
 #: templates\clinic\gallery.html:27 templates\clinic\gallery.html:49
-#: templates\courses\batch_list.html:83
+#: templates\courses\batch_list.html:84
 #: templates\events\event_feedback_admin.html:15
 msgid "Open"
 msgstr "खोलें"
@@ -6537,12 +6847,12 @@ msgstr "खोलें"
 msgid "open"
 msgstr "खुला"
 
-#: templates\courses\batch_list.html:38
+#: templates\courses\batch_list.html:39
 #, python-format
 msgid "Open %(name)s: students and details"
 msgstr "%(name)s खोलें: छात्र और विवरण"
 
-#: templates\courses\batch_registrations.html:41
+#: templates\courses\batch_registrations.html:43
 msgid "Open feedback and email every confirmed student their link?"
 msgstr "फ़ीडबैक खोलें और हर पक्के छात्र को उनका लिंक ईमेल करें?"
 
@@ -6553,6 +6863,25 @@ msgstr "Google समीक्षाएँ खोलें"
 #: templates\public\header.html:41
 msgid "Open menu"
 msgstr "मेन्यू खोलें"
+
+#: templates\courses\student_portal.html:22
+msgid "Open my page"
+msgstr "मेरा पेज खोलें"
+
+#: courses\ops.py:126
+#, python-format
+msgid ""
+"Open this link to see your courses, certificates and study materials. It works once and expires in %(m)s minutes:\n"
+"\n"
+"%(link)s\n"
+"\n"
+"If you did not ask for it, ignore this email."
+msgstr ""
+"अपने कोर्स, प्रमाणपत्र और अध्ययन सामग्री देखने के लिए यह लिंक खोलें। यह एक बार काम करता है और %(m)s मिनट में समाप्त हो जाता है:\n"
+"\n"
+"%(link)s\n"
+"\n"
+"अगर आपने इसे नहीं माँगा, तो इस ईमेल को अनदेखा करें।"
 
 #: templates\clinic\home.html:270 templates\public\footer.html:28
 msgid "Opening hours"
@@ -6595,7 +6924,7 @@ msgstr "या YouTube / Instagram लिंक"
 msgid "Organisation"
 msgstr "संस्था"
 
-#: courses\models.py:217 templates\courses\student_form.html:16
+#: courses\models.py:221 templates\courses\student_form.html:16
 msgid "Organisation / clinic"
 msgstr "संस्था / क्लिनिक"
 
@@ -6612,7 +6941,7 @@ msgstr "आयोजक"
 msgid "Other"
 msgstr "अन्य"
 
-#: templates\courses\student_detail.html:39
+#: templates\courses\student_detail.html:40
 msgid "Other students use this phone number"
 msgstr "इस फ़ोन नंबर का उपयोग अन्य छात्र भी करते हैं"
 
@@ -6739,6 +7068,11 @@ msgstr "भुगतान किया"
 #: templates\patients\patient_detail.html:301
 msgid "Paid Amount"
 msgstr "भुगतान की गई राशि"
+
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:70
+msgid "paid of"
+msgstr "भुगतान किया, कुल"
 
 #: payments\models.py:330 templates\payments\expense_form.html:46
 #: templates\payments\partials\expense_list_partial.html:10
@@ -7130,6 +7464,14 @@ msgstr "भुगतान रिकॉर्ड नहीं मिला।"
 msgid "Payment record updated successfully."
 msgstr "भुगतान रिकॉर्ड सफलतापूर्वक अपडेट हुआ।"
 
+#: courses\ops_views.py:184
+msgid "Payment recorded."
+msgstr "भुगतान दर्ज किया गया।"
+
+#: courses\ops_views.py:195
+msgid "Payment removed."
+msgstr "भुगतान हटाया गया।"
+
 #: templates\payments\invoice.html:367
 msgid "Payment Summary"
 msgstr "भुगतान सारांश"
@@ -7168,6 +7510,10 @@ msgstr "भुगतान रिपोर्ट"
 #: templates\payments\report.html:3
 msgid "Payments Report - SpinalCure"
 msgstr "भुगतान रिपोर्ट - SpinalCure"
+
+#: courses\models.py:400 templates\courses\student_detail.html:85
+msgid "PDF"
+msgstr "PDF"
 
 #: templates\partials\export_dropdown.html:10
 msgid "PDF Report"
@@ -7314,7 +7660,7 @@ msgstr ""
 msgid "Plan Name"
 msgstr "योजना का नाम"
 
-#: templates\courses\batch_list.html:51
+#: templates\courses\batch_list.html:52
 msgid "Planned"
 msgstr "नियोजित"
 
@@ -7679,7 +8025,11 @@ msgstr "लाभ"
 msgid "Progress"
 msgstr "प्रगति"
 
-#: templates\courses\batch_registrations.html:45
+#: templates\courses\registration_manage.html:51
+msgid "Progress and fees"
+msgstr "प्रगति और शुल्क"
+
+#: templates\courses\batch_registrations.html:47
 #, python-format
 msgid "Promote waitlist (%(n)s)"
 msgstr "प्रतीक्षा सूची आगे बढ़ाएँ (%(n)s)"
@@ -7831,7 +8181,7 @@ msgstr "त्वरित कार्य"
 msgid "Quick add photos"
 msgstr "फ़ोटो जल्दी जोड़ें"
 
-#: clinic\models.py:414 courses\models.py:302 events\models.py:296
+#: clinic\models.py:414 courses\models.py:306 events\models.py:296
 #: patients\models.py:342
 msgid "Rating"
 msgstr "रेटिंग"
@@ -7874,6 +8224,16 @@ msgstr "पढ़ने का समय"
 #: clinic\blog_models.py:87
 msgid "Read Time (minutes)"
 msgstr "पढ़ने का समय (मिनट)"
+
+#: templates\courses\student_detail.html:31
+#: templates\courses\student_list.html:11
+#: templates\courses\student_list.html:21
+msgid "Ready for next batch"
+msgstr "अगले बैच के लिए तैयार"
+
+#: templates\courses\student_detail.html:31
+msgid "Ready for the next batch"
+msgstr "अगले बैच के लिए तैयार"
 
 #: templates\patients\portal\dashboard.html:67
 msgid "Ready for your next visit?"
@@ -7976,6 +8336,7 @@ msgid "Recommended: 1200 × 630 px"
 msgstr "अनुशंसित: 1200 × 630 px"
 
 #: clinic\templates\clinic\admin\activity_log.html:64
+#: templates\courses\student_detail.html:78
 msgid "Record"
 msgstr "रिकॉर्ड"
 
@@ -8075,6 +8436,10 @@ msgstr "रील्स और शॉर्ट्स — SpinalCure एडमि
 msgid "Reference"
 msgstr "संदर्भ"
 
+#: templates\courses\student_detail.html:77
+msgid "Reference (optional)"
+msgstr "संदर्भ (वैकल्पिक)"
+
 #: payments\refunds.py:22
 msgid "Refund amount must be greater than zero."
 msgstr "रिफ़ंड राशि शून्य से अधिक होनी चाहिए।"
@@ -8132,7 +8497,7 @@ msgstr "रोगी पंजीकृत करें"
 msgid "Registered"
 msgstr "पंजीकृत"
 
-#: courses\models.py:181 events\models.py:251
+#: courses\models.py:183 events\models.py:251
 msgid "Registered At"
 msgstr "पंजीकरण का समय"
 
@@ -8149,7 +8514,7 @@ msgstr "पंजीकृत: %(registered_date)s"
 msgid "Registering…"
 msgstr "पंजीकरण हो रहा है…"
 
-#: courses\models.py:298 events\models.py:288
+#: courses\models.py:302 events\models.py:288
 #: templates\events\event_form.html:51
 msgid "Registration"
 msgstr "पंजीकरण"
@@ -8234,15 +8599,15 @@ msgstr "संबंधित लेख"
 msgid "Relation"
 msgstr "संबंध"
 
-#: templates\courses\student_detail.html:69
+#: templates\courses\student_detail.html:96
 msgid "Relationship notes"
 msgstr "संबंध नोट्स"
 
-#: templates\courses\batch_registrations.html:40
+#: templates\courses\batch_registrations.html:42
 msgid "Remind about details"
 msgstr "विवरण के बारे में याद दिलाएँ"
 
-#: courses\student_views.py:148
+#: courses\student_views.py:154
 #, python-format
 msgid "Reminder emailed to %(n)s student(s)."
 msgstr "%(n)s छात्र(ों) को रिमाइंडर ईमेल किया गया।"
@@ -8273,6 +8638,10 @@ msgstr "हटाएं"
 msgid "Remove the custom thumbnail"
 msgstr "कस्टम थंबनेल हटाएँ"
 
+#: templates\courses\batch_attendance.html:47
+msgid "Remove this class and its attendance?"
+msgstr "यह कक्षा और उसकी उपस्थिति हटाएँ?"
+
 #: templates\appointments\availability.html:132
 msgid "Remove this closure?"
 msgstr "यह बंदी हटाएँ?"
@@ -8289,6 +8658,14 @@ msgstr "इसे गैलरी से हटाएँ?"
 msgid "Remove this leave?"
 msgstr "यह छुट्टी हटाएँ?"
 
+#: templates\courses\course_materials.html:31
+msgid "Remove this material?"
+msgstr "यह सामग्री हटाएँ?"
+
+#: templates\courses\student_detail.html:72
+msgid "Remove this payment?"
+msgstr "यह भुगतान हटाएँ?"
+
 #: clinic\templates\clinic\admin\clinic_setup.html:482
 #: clinic\templates\clinic\admin\clinic_setup.html:675
 msgid "Removed"
@@ -8302,7 +8679,7 @@ msgstr "गैलरी से हटाया गया।"
 msgid "Rent / Lease"
 msgstr "किराया / लीज़"
 
-#: templates\courses\student_detail.html:81
+#: templates\courses\student_detail.html:108
 msgid "Reopen"
 msgstr "फिर खोलें"
 
@@ -8501,6 +8878,10 @@ msgstr "सहेजें और मेरा ID कार्ड पाएँ"
 msgid "Save as draft"
 msgstr "ड्राफ़्ट के रूप में सहेजें"
 
+#: templates\courses\batch_attendance.html:45
+msgid "Save attendance"
+msgstr "उपस्थिति सहेजें"
+
 #: idcards\templates\idcards\branding.html:17
 msgid "Save branding"
 msgstr "ब्रांडिंग सहेजें"
@@ -8562,11 +8943,15 @@ msgstr ""
 "छिपे हुए के रूप में सहेजा गया। इसे प्रकाशित करने के लिए मरीज़ की सहमति दर्ज "
 "करें।"
 
+#: courses\ops_views.py:55
+msgid "Saved."
+msgstr "सहेजा गया।"
+
 #: idcards\render.py:248
 msgid "Scan to verify"
 msgstr "सत्यापित करने के लिए स्कैन करें"
 
-#: templates\courses\batch_list.html:89 templates\events\event_form.html:31
+#: templates\courses\batch_list.html:90 templates\events\event_form.html:31
 msgid "Schedule"
 msgstr "समय-सारणी"
 
@@ -8629,7 +9014,7 @@ msgstr "नाम, आईडी, पद खोजें…"
 msgid "Search name, phone, email"
 msgstr "नाम, फ़ोन, ईमेल खोजें"
 
-#: templates\courses\student_list.html:15
+#: templates\courses\student_list.html:16
 msgid "Search name, phone, email or student ID"
 msgstr "नाम, फ़ोन, ईमेल या स्टूडेंट ID खोजें"
 
@@ -8710,6 +9095,14 @@ msgstr "सुरक्षा सत्यापन"
 msgid "Security Warning:"
 msgstr "सुरक्षा चेतावनी:"
 
+#: templates\courses\student_signin.html:8
+msgid ""
+"See all your courses, certificates and study materials in one place. We "
+"email a one-time link to the address we have on file for you."
+msgstr ""
+"अपने सभी कोर्स, प्रमाणपत्र और अध्ययन सामग्री एक जगह देखें। हम आपके दर्ज पते "
+"पर एक बार वाला लिंक ईमेल करते हैं।"
+
 #: templates\clinic\home.html:75
 msgid "See real patient stories for your problem"
 msgstr "अपनी समस्या से जुड़ी मरीज़ों की असली कहानियाँ देखें"
@@ -8777,7 +9170,7 @@ msgid "Seminar"
 msgstr "सेमिनार"
 
 #: templates\clinic\partials\review_form.html:32
-#: templates\courses\registration_manage.html:47
+#: templates\courses\registration_manage.html:74
 #: templates\events\registration_manage.html:39
 msgid "Send feedback"
 msgstr "फ़ीडबैक भेजें"
@@ -8806,7 +9199,7 @@ msgstr "भेजा जा रहा है…"
 msgid "Sent"
 msgstr "भेजा गया"
 
-#: courses\student_views.py:125
+#: courses\student_views.py:131
 msgid "Sent the \"complete your details\" link."
 msgstr "\"अपना विवरण पूरा करें\" लिंक भेजा गया।"
 
@@ -8953,6 +9346,10 @@ msgstr "सत्र (पूर्ण/कुल)"
 msgid "Sessions Today"
 msgstr "आज के सत्र"
 
+#: templates\courses\student_detail.html:80
+msgid "Set"
+msgstr "सेट करें"
+
 #: appointments\models.py:72
 msgid "Set both break start and break end, or neither."
 msgstr "ब्रेक का आरंभ और अंत दोनों सेट करें, या कोई नहीं।"
@@ -8961,7 +9358,7 @@ msgstr "ब्रेक का आरंभ और अंत दोनों स
 msgid "Set both times, or leave both empty for a full day."
 msgstr "दोनों समय सेट करें, या पूरे दिन के लिए दोनों खाली छोड़ें।"
 
-#: courses\models.py:191
+#: courses\models.py:193
 msgid "Set when the student finishes the course."
 msgstr "छात्र के कोर्स पूरा करने पर सेट होता है।"
 
@@ -8972,6 +9369,10 @@ msgstr "सेटिंग्स - SpinalCure"
 #: clinic\templates\clinic\admin\clinic_setup.html:27
 msgid "Settings Menu"
 msgstr "सेटिंग्स मेनू"
+
+#: templates\courses\student_detail.html:70
+msgid "settled"
+msgstr "चुकता"
 
 #: idcards\templates\idcards\_card.html:40
 msgid "Share"
@@ -9018,6 +9419,10 @@ msgstr "संक्षिप्त विवरण"
 #: clinic\models.py:500
 msgid "Short description"
 msgstr "संक्षिप्त विवरण"
+
+#: templates\courses\course_materials.html:20
+msgid "Short description (optional)"
+msgstr "संक्षिप्त विवरण (वैकल्पिक)"
 
 #: templates\clinic\admin\video_form.html:26
 #: templates\clinic\admin\videos.html:46
@@ -9161,7 +9566,7 @@ msgstr "साइन इन करें"
 msgid "Sign in with your work email."
 msgstr "अपने काम के ईमेल से साइन इन करें।"
 
-#: templates\ui\topbar.html:49
+#: templates\courses\student_portal.html:9 templates\ui\topbar.html:49
 msgid "Sign out"
 msgstr "साइन आउट"
 
@@ -9325,7 +9730,7 @@ msgstr "कर्मचारी प्रबंधन"
 msgid "Staff Member"
 msgstr "कर्मचारी"
 
-#: templates\accounts\login.html:8 templates\public\footer.html:52
+#: templates\accounts\login.html:8 templates\public\footer.html:53
 msgid "Staff sign in"
 msgstr "कर्मचारी साइन इन"
 
@@ -9409,9 +9814,9 @@ msgstr "स्थिति संकेत"
 msgid "Still have a question?"
 msgstr "अभी भी कोई प्रश्न है?"
 
-#: courses\models.py:231 templates\courses\batch_feedback_admin.html:52
+#: courses\models.py:235 templates\courses\batch_attendance.html:33
+#: templates\courses\batch_feedback_admin.html:52
 #: templates\courses\student_detail.html:3
-#: templates\courses\student_list.html:27
 msgid "Student"
 msgstr "छात्र"
 
@@ -9419,11 +9824,11 @@ msgstr "छात्र"
 msgid "Student Details"
 msgstr "छात्र विवरण"
 
-#: courses\student_views.py:75
+#: courses\student_views.py:81
 msgid "Student details saved."
 msgstr "छात्र का विवरण सहेजा गया।"
 
-#: templates\courses\student_detail.html:46
+#: templates\courses\student_detail.html:48
 msgid "Student ID card"
 msgstr "स्टूडेंट ID कार्ड"
 
@@ -9435,7 +9840,7 @@ msgstr "स्टूडेंट ID जाँच"
 msgid "Student Name"
 msgstr "छात्र का नाम"
 
-#: notifications\messages.py:113
+#: notifications\messages.py:116
 #, python-format
 msgid "Student profile completed: %(name)s"
 msgstr "छात्र प्रोफ़ाइल पूर्ण: %(name)s"
@@ -9444,10 +9849,27 @@ msgstr "छात्र प्रोफ़ाइल पूर्ण: %(name)s"
 msgid "Student Registrations"
 msgstr "छात्र पंजीकरण"
 
-#: courses\models.py:232 templates\courses\batch_list.html:65
+#: templates\courses\student_signin.html:3
+#: templates\courses\student_signin.html:7 templates\public\footer.html:52
+msgid "Student sign in"
+msgstr "छात्र साइन इन"
+
+#: courses\models.py:236 templates\courses\batch_list.html:66
 #: templates\courses\student_list.html:3 templates\courses\student_list.html:4
 msgid "Students"
 msgstr "छात्र"
+
+#: templates\courses\batch_attendance.html:11
+#, python-format
+msgid "Students need %(n)s%% attendance to earn a certificate."
+msgstr "प्रमाणपत्र पाने के लिए छात्रों को %(n)s%% उपस्थिति चाहिए।"
+
+#: templates\courses\batch_list.html:22
+#: templates\courses\batch_registrations.html:40
+#: templates\courses\course_materials.html:3
+#: templates\courses\course_materials.html:4
+msgid "Study materials"
+msgstr "अध्ययन सामग्री"
 
 #: templates\clinic\partials\review_form.html:32
 msgid "Submit review"
@@ -9457,7 +9879,7 @@ msgstr "समीक्षा जमा करें"
 msgid "Submitted"
 msgstr "जमा किया गया"
 
-#: courses\models.py:307 events\models.py:304
+#: courses\models.py:311 events\models.py:304
 msgid "Submitted At"
 msgstr "जमा करने का समय"
 
@@ -9605,7 +10027,7 @@ msgstr "प्रयुक्त तकनीकें"
 msgid "Tel"
 msgstr "फ़ोन"
 
-#: templates\courses\registration_manage.html:46
+#: templates\courses\registration_manage.html:73
 msgid "Tell future students about your experience (optional)"
 msgstr "भावी छात्रों को अपने अनुभव के बारे में बताएँ (वैकल्पिक)"
 
@@ -9750,6 +10172,10 @@ msgstr ""
 #: events\views.py:269
 msgid "That action is not available for this registration."
 msgstr "यह कार्रवाई इस पंजीकरण के लिए उपलब्ध नहीं है।"
+
+#: courses\ops_views.py:329
+msgid "That link has expired or was already used. Ask for a new one."
+msgstr "वह लिंक समाप्त हो गया है या पहले ही इस्तेमाल हो चुका है। नया माँगें।"
 
 #: clinic\views.py:173
 msgid "That practitioner is not available."
@@ -9915,7 +10341,7 @@ msgstr ""
 "ये सार्वजनिक प्रशंसा पृष्ठ पर समस्या ड्रॉपडाउन भरते हैं। कीवर्ड खोज बॉक्स को"
 " मिलान में मदद करते हैं (उदा. Slip Disc के लिए “disc, herniated”)।"
 
-#: templates\courses\student_detail.html:40
+#: templates\courses\student_detail.html:41
 msgid ""
 "They may be the same person or a mistake. Check before treating them as one."
 msgstr ""
@@ -9974,6 +10400,10 @@ msgstr "यह कार्ड अब मान्य नहीं है"
 msgid "This card is no longer valid."
 msgstr "यह कार्ड अब मान्य नहीं है।"
 
+#: templates\courses\certificate_verify.html:18
+msgid "This certificate could not be verified."
+msgstr "इस प्रमाणपत्र का सत्यापन नहीं हो सका।"
+
 #: accounts\views.py:23
 msgid "This email is already used by another account."
 msgstr "यह ईमेल पहले से किसी दूसरे खाते में इस्तेमाल हो रहा है।"
@@ -10007,6 +10437,11 @@ msgstr ""
 #: templates\events\registration_manage.html:13
 msgid "This event was cancelled."
 msgstr "यह इवेंट रद्द कर दिया गया।"
+
+#: courses\files.py:42
+#, python-format
+msgid "This file does not look like a real %(ext)s document."
+msgstr "यह फ़ाइल असली %(ext)s दस्तावेज़ जैसी नहीं लगती।"
 
 #: spinalcure\uploads.py:209
 msgid "This file is not a valid image."
@@ -10072,11 +10507,11 @@ msgstr ""
 msgid "This shift overlaps another shift on the same day."
 msgstr "यह शिफ़्ट उसी दिन की दूसरी शिफ़्ट से टकराती है।"
 
-#: courses\student_views.py:122
+#: courses\student_views.py:128
 msgid "This student has already completed their details."
 msgstr "इस छात्र ने पहले ही अपना विवरण पूरा कर लिया है।"
 
-#: courses\student_views.py:118
+#: courses\student_views.py:124
 msgid "This student has no confirmed place."
 msgstr "इस छात्र की कोई पक्की सीट नहीं है।"
 
@@ -10096,6 +10531,10 @@ msgid ""
 msgstr ""
 "तभी टिक करें जब मरीज़ (या उनकी टीम) ने वेबसाइट पर नाम दिखाने के लिए लिखित "
 "सहमति दी हो।"
+
+#: templates\courses\batch_attendance.html:45
+msgid "Tick the students who were present."
+msgstr "जो छात्र उपस्थित थे उन्हें चुनें।"
 
 #: appointments\models.py:218 templates\appointments\calendar.html:551
 #: templates\appointments\calendar.html:607
@@ -10223,6 +10662,14 @@ msgstr "इस माह के शीर्ष डॉक्टर"
 msgid "Top Sub-label"
 msgstr "ऊपरी उप-लेबल"
 
+#: courses\models.py:329
+msgid "Topic"
+msgstr "विषय"
+
+#: templates\courses\batch_attendance.html:25
+msgid "Topic (optional)"
+msgstr "विषय (वैकल्पिक)"
+
 #: templates\clinic\blog_list.html:13 templates\clinic\faq.html:20
 msgid "Topics"
 msgstr "विषय"
@@ -10274,6 +10721,10 @@ msgstr "इस सप्ताह कुल"
 #: templates\courses\course_list.html:6
 msgid "Training Courses"
 msgstr "प्रशिक्षण कोर्स"
+
+#: courses\models.py:387
+msgid "Transaction or cheque number"
+msgstr "लेन-देन या चेक नंबर"
 
 #: clinic\models.py:512 templates\clinic\admin\video_form.html:28
 msgid "Transcript"
@@ -10588,7 +11039,7 @@ msgstr "प्रशंसा अपडेट करें"
 msgid "Update User"
 msgstr "उपयोगकर्ता अपडेट करें"
 
-#: payments\models.py:24
+#: courses\models.py:380 payments\models.py:24
 msgid "UPI"
 msgstr "UPI"
 
@@ -10612,6 +11063,14 @@ msgstr "अपलोड करें"
 msgid "Upload a JPEG, PNG or WebP image."
 msgstr "JPEG, PNG या WebP इमेज अपलोड करें।"
 
+#: courses\files.py:29
+msgid ""
+"Upload a PDF, Word, PowerPoint, Excel, CSV, text or video (MP4, WebM, MOV) "
+"file."
+msgstr ""
+"PDF, Word, PowerPoint, Excel, CSV, टेक्स्ट या वीडियो (MP4, WebM, MOV) फ़ाइल "
+"अपलोड करें।"
+
 #: clinic\models.py:689
 msgid "Upload a video or paste a YouTube / Instagram link."
 msgstr "वीडियो अपलोड करें या YouTube / Instagram लिंक चिपकाएँ।"
@@ -10632,9 +11091,17 @@ msgstr "कवर अपलोड करें"
 msgid "Upload image (JPEG, PNG or WebP, max 8 MB)"
 msgstr "छवि अपलोड करें (JPEG, PNG or WebP, अधिकतम 8 MB)"
 
+#: templates\courses\student_detail.html:90
+msgid "Upload own PDF and email"
+msgstr "अपना PDF अपलोड करें और ईमेल करें"
+
 #: templates\clinic\admin\gallery.html:18
 msgid "Upload photos"
 msgstr "फ़ोटो अपलोड करें"
+
+#: templates\courses\student_detail.html:90
+msgid "Upload your own certificate (PDF)"
+msgstr "अपना खुद का प्रमाणपत्र अपलोड करें (PDF)"
 
 #: templates\clinic\admin\video_form.html:49
 msgid ""
@@ -10655,6 +11122,10 @@ msgstr "#166534 जैसे हेक्स रंग का उपयोग �
 #: spinalcure\uploads.py:211
 msgid "Use a JPEG, PNG or WebP image."
 msgstr "JPEG, PNG or WebP छवि का उपयोग करें।"
+
+#: courses\ops_views.py:255
+msgid "Use either a link or a file, not both."
+msgstr "लिंक या फ़ाइल में से एक ही उपयोग करें, दोनों नहीं।"
 
 #: clinic\blog_models.py:66
 msgid "Use this if the author is not a practitioner in the system."
@@ -10796,7 +11267,8 @@ msgstr "इस पहचान पत्र को सत्यापित क�
 msgid "via %(get_payment_mode_display)s"
 msgstr "%(get_payment_mode_display)s के माध्यम से"
 
-#: clinic\models.py:660 templates\clinic\admin\gallery.html:30
+#: clinic\models.py:660 courses\models.py:400
+#: templates\clinic\admin\gallery.html:30
 #: templates\clinic\admin\videos.html:67
 msgid "Video"
 msgstr "वीडियो"
@@ -10893,6 +11365,10 @@ msgstr "सार्वजनिक लेख देखें"
 msgid "Visibility"
 msgstr "दृश्यता"
 
+#: templates\courses\course_materials.html:30
+msgid "Visible"
+msgstr "दिखाई देता है"
+
 #: templates\clinic\admin\testimonial_form.html:129
 msgid "Visible on the public portfolio when checked"
 msgstr "चयनित होने पर सार्वजनिक पोर्टफ़ोलियो पर दिखेगा"
@@ -10925,8 +11401,8 @@ msgstr "प्रतीक्षा सूची"
 msgid "Waitlist when full"
 msgstr "भर जाने पर प्रतीक्षा सूची"
 
-#: courses\models.py:182 events\models.py:252
-#: templates\courses\batch_registrations.html:57
+#: courses\models.py:184 events\models.py:252
+#: templates\courses\batch_registrations.html:59
 #: templates\events\event_registrations.html:31
 msgid "Waitlisted"
 msgstr "प्रतीक्षा सूची में"
@@ -11128,7 +11604,7 @@ msgstr "आप क्या खोज रहे हैं?"
 msgid "What brings you in? (optional)"
 msgstr "आप किस वजह से आ रहे हैं? (वैकल्पिक)"
 
-#: templates\courses\student_detail.html:72
+#: templates\courses\student_detail.html:99
 msgid "What happened, or what to do next"
 msgstr "क्या हुआ, या आगे क्या करना है"
 
@@ -11176,7 +11652,7 @@ msgstr "आप क्या सीखेंगे"
 msgid "Whatsapp"
 msgstr "WhatsApp"
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
@@ -11188,7 +11664,7 @@ msgstr "WhatsApp नंबर"
 msgid "WhatsApp notifications (opt-in)"
 msgstr "WhatsApp सूचनाएँ (ऑप्ट-इन)"
 
-#: templates\courses\student_detail.html:33
+#: templates\courses\student_detail.html:34
 msgid "WhatsApp the link"
 msgstr "लिंक WhatsApp करें"
 
@@ -11225,7 +11701,7 @@ msgstr "क्या यह कार्रवाई पूर्ववत क�
 msgid "Whether this OTP has been successfully verified"
 msgstr "क्या यह OTP सफलतापूर्वक सत्यापित हुआ"
 
-#: courses\models.py:293
+#: courses\models.py:297
 msgid "Which batch the reviewer attended."
 msgstr "समीक्षक किस बैच में शामिल हुआ।"
 
@@ -11317,7 +11793,7 @@ msgstr "समीक्षा लिखें"
 msgid "Write First Post"
 msgstr "पहली पोस्ट लिखें"
 
-#: courses\student_views.py:94
+#: courses\student_views.py:100
 msgid "Write something first."
 msgstr "पहले कुछ लिखें।"
 
@@ -11351,7 +11827,7 @@ msgid "Years of experience"
 msgstr "अनुभव के वर्ष"
 
 #: templates\appointments\manage.html:60
-#: templates\courses\registration_manage.html:55
+#: templates\courses\registration_manage.html:82
 #: templates\events\registration_manage.html:48
 msgid "Yes, cancel"
 msgstr "हाँ, रद्द करें"
@@ -11587,6 +12063,15 @@ msgstr ""
 msgid "Your authorization PIN is:"
 msgstr "आपका प्राधिकरण PIN है:"
 
+#: templates\courses\registration_manage.html:60
+msgid "Your certificate"
+msgstr "आपका प्रमाणपत्र"
+
+#: notifications\messages.py:113
+#, python-format
+msgid "Your certificate: %(event)s"
+msgstr "आपका प्रमाणपत्र: %(event)s"
+
 #: templates\courses\registration_manage.html:20
 msgid ""
 "Your details are complete. Show this card at the clinic; the QR code lets "
@@ -11594,6 +12079,10 @@ msgid ""
 msgstr ""
 "आपका विवरण पूरा है। यह कार्ड क्लिनिक में दिखाएँ; QR कोड से कोई भी इसकी "
 "असलियत जाँच सकता है।"
+
+#: templates\courses\student_signin.html:16
+msgid "Your email or phone number"
+msgstr "आपका ईमेल या फ़ोन नंबर"
 
 #: templates\clinic\partials\review_form.html:25
 msgid "Your experience"
@@ -11627,7 +12116,7 @@ msgstr ""
 "आपकी सीट पक्की है। कुछ विवरण और अपनी फ़ोटो जोड़ें, हम तुरंत आपका स्टूडेंट ID"
 " कार्ड बना देंगे।"
 
-#: templates\courses\registration_manage.html:54
+#: templates\courses\registration_manage.html:81
 #: templates\events\registration_manage.html:47
 msgid "Your place may be offered to someone on the waitlist."
 msgstr "आपकी जगह प्रतीक्षा सूची में मौजूद किसी व्यक्ति को दी जा सकती है।"
@@ -11667,6 +12156,10 @@ msgid ""
 msgstr ""
 "आपका साइन-इन कोड %(code)s है। यह %(m)d मिनट में समाप्त हो जाएगा। यदि आपने "
 "इसे नहीं माँगा है, तो इस ईमेल को अनदेखा करें।"
+
+#: courses\ops.py:125
+msgid "Your sign-in link"
+msgstr "आपका साइन-इन लिंक"
 
 #: templates\clinic\home.html:187
 msgid ""
@@ -11734,6 +12227,10 @@ msgstr "— चिकित्सक चुनें —"
 #: templates\clinic\admin\blog_form.html:4 templates\events\event_form.html:4
 msgid "— SpinalCure"
 msgstr "— SpinalCure"
+
+#: templates\courses\course_materials.html:19
+msgid "…or upload a file (PDF, Word, PowerPoint, Excel, video)"
+msgstr "…या फ़ाइल अपलोड करें (PDF, Word, PowerPoint, Excel, वीडियो)"
 
 #: templates\patients\patient_detail.html:282
 #, python-format
@@ -12093,9 +12590,6 @@ msgstr "📅 Google Calendar में जोड़ें"
 
 #~ msgid "Facebook"
 #~ msgstr "Facebook"
-
-#~ msgid "Fees"
-#~ msgstr "शुल्क"
 
 #~ msgid "for check-in"
 #~ msgstr "चेक-इन के लिए"

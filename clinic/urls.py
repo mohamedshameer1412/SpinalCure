@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import RedirectView
 from events import public_views as pev
 from courses import public_views as pcv
-from courses import student_views
+from courses import ops_views, student_views
 from .views import (clinic_portfolio_view, practitioner_detail_view,
                     submit_review_ajax, review_withdraw, book_appointment_ajax, clinic_about_page_view,
                     course_detail_view,
@@ -51,6 +51,13 @@ urlpatterns = [
     path('courses/registration/<str:token>/card/<str:side>.png', student_views.my_card_png, name='course_student_card'),
     path('courses/registration/<str:token>/card.pdf', student_views.my_card_pdf, name='course_student_card_pdf'),
     path('courses/verify/<str:code>/', student_views.student_verify, name='student_verify'),
+    path('courses/certificate/<str:code>/', ops_views.certificate_verify, name='certificate_verify'),
+    path('courses/registration/<str:token>/certificate.pdf', ops_views.my_certificate_pdf, name='course_my_certificate'),
+    path('courses/registration/<str:token>/material/<uuid:pk>/', ops_views.my_material, name='course_my_material'),
+    path('students/sign-in/', ops_views.student_signin, name='student_signin'),
+    path('students/sign-in/<str:token>/', ops_views.student_signin_confirm, name='student_signin_confirm'),
+    path('students/portal/', ops_views.student_portal, name='student_portal'),
+    path('students/sign-out/', ops_views.student_signout, name='student_signout'),
 
     # ── Public Blog ───────────────────────────────────────────────────
     path('blog/', blog_list_view, name='blog_list'),

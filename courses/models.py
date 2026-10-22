@@ -142,6 +142,8 @@ class CourseBatch(models.Model):
         help_text=_('Enable after the batch ends so alumni can submit reviews.')
     )
     is_published = models.BooleanField(default=True, verbose_name=_('Published'))
+    min_attendance_percent = models.PositiveSmallIntegerField(
+        default=75, verbose_name=_('Attendance needed for a certificate (%)'))
 
     class Meta:
         verbose_name = _('Course Batch')
@@ -189,6 +191,8 @@ class CourseRegistration(models.Model):
                                 related_name='registrations', editable=False)
     completed_at = models.DateTimeField(null=True, blank=True, editable=False,
                                         help_text=_('Set when the student finishes the course.'))
+    fee_override = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, editable=False,
+                                       help_text=_('Agreed fee for this student, instead of the course fee.'))
 
     class Meta:
         verbose_name = _('Course Registration')
@@ -257,7 +261,7 @@ class Student(models.Model):
 class StudentNote(models.Model):
     """The clinic's running relationship log with a student: calls, messages, notes and follow-ups."""
     KIND_CHOICES = [('note', _('Note')), ('call', _('Call')), ('whatsapp', _('WhatsApp')), ('email', _('Email')),
-                    ('follow_up', _('Follow-up'))]
+                    ('follow_up', _('Follow-up')), ('next_batch', _('Interested in the next batch'))]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='notes')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL,
@@ -313,3 +317,112 @@ class CourseFeedback(models.Model):
 
     def __str__(self):
         return f"{self.reviewer_name} — {self.course.title} ({self.rating}★)"
+
+
+# ── sessions, attendance, certificates, fees and materials ────────────────────────────────────────
+
+class CourseSession(models.Model):
+    """One class held for a batch. Attendance is marked per session."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    batch = models.ForeignKey(CourseBatch, on_delete=models.CASCADE, related_name='sessions')
+    date = models.DateField(verbose_name=_('Date'))
+    title = models.CharField(max_length=160, blank=True, verbose_name=_('Topic'))
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['date', 'created_at']
+
+    def __str__(self):
+        return f'{self.batch.name} — {self.date}'
+
+
+class Attendance(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    session = models.ForeignKey(CourseSession, on_delete=models.CASCADE, related_name='marks')
+    registration = models.ForeignKey('CourseRegistration', on_delete=models.CASCADE, related_name='attendance')
+    present = models.BooleanField(default=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['session', 'registration'], name='one_mark_per_student_per_session')]
+
+
+class Certificate(models.Model):
+    """A completion certificate. The PDF is drawn on demand from the registration; staff may instead upload their own."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    registration = models.OneToOneField('CourseRegistration', on_delete=models.CASCADE, related_name='certificate',
+                                        db_constraint=False)
+    code = models.CharField(max_length=14, unique=True, editable=False)
+    attendance_percent = models.PositiveSmallIntegerField(null=True, blank=True)
+    issued_at = models.DateTimeField(default=timezone.now)
+    emailed_at = models.DateTimeField(null=True, blank=True)
+    file = models.FileField(upload_to=RandomName('certificates'), storage=get_private_storage, blank=True, null=True,
+                            verbose_name=_('Custom certificate file'))
+
+    class Meta:
+        ordering = ['-issued_at']
+
+    @staticmethod
+    def new_code():
+        alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+        while True:
+            code = 'C-' + ''.join(secrets.choice(alphabet) for _ in range(8))
+            if not Certificate.objects.filter(code=code).exists():
+                return code
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = self.new_code()
+        super().save(*args, **kwargs)
+
+
+class CourseFeePayment(models.Model):
+    """One instalment received for a registration. The fee is the course fee unless the registration has an override."""
+    MODE_CHOICES = [('cash', _('Cash')), ('upi', _('UPI')), ('card', _('Card')), ('bank', _('Bank transfer')),
+                    ('cheque', _('Cheque')), ('other', _('Other'))]
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    registration = models.ForeignKey('CourseRegistration', on_delete=models.CASCADE, related_name='fee_payments')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    paid_on = models.DateField(default=timezone.localdate)
+    mode = models.CharField(max_length=8, choices=MODE_CHOICES, default='cash')
+    reference = models.CharField(max_length=80, blank=True, help_text=_('Transaction or cheque number'))
+    note = models.CharField(max_length=200, blank=True)
+    recorded_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL,
+                                    db_constraint=False, related_name='+')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['paid_on', 'created_at']
+
+
+class CourseMaterial(models.Model):
+    """Study material for a course (or one batch): a link (Drive, YouTube...) or an uploaded file, shown to confirmed
+    students. Uploaded files are private and only served to students whose registration is confirmed."""
+    KIND_CHOICES = [('link', _('Link')), ('video', _('Video')), ('pdf', _('PDF')), ('doc', _('Document')), ('other', _('Other'))]
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='materials')
+    batch = models.ForeignKey(CourseBatch, null=True, blank=True, on_delete=models.CASCADE, related_name='materials',
+                              help_text=_('Leave empty to share with every batch of the course.'))
+    title = models.CharField(max_length=200)
+    kind = models.CharField(max_length=8, choices=KIND_CHOICES, default='link')
+    url = models.URLField(blank=True, max_length=500)
+    file = models.FileField(upload_to=RandomName('course_materials'), storage=get_private_storage, blank=True, null=True)
+    description = models.CharField(max_length=300, blank=True)
+    order = models.PositiveIntegerField(default=0)
+    is_published = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['order', 'created_at']
+
+    def __str__(self):
+        return self.title
+
+
+class StudentLoginToken(models.Model):
+    """One-time sign-in link emailed to an address on file. Possession of the mailbox is the proof of identity."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField()
+    token_hash = models.CharField(max_length=64, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    used_at = models.DateTimeField(null=True, blank=True)

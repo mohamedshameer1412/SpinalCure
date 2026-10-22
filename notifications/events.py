@@ -60,6 +60,7 @@ _EVENTS = [
     EventSpec('course_card_ready', 'Student ID card ready', 'patient', 'success'),
     EventSpec('course_feedback_request', 'Course feedback request', 'patient', 'info'),
     EventSpec('course_batch_reminder', 'Course starting soon', 'patient', 'info'),
+    EventSpec('course_certificate', 'Course certificate', 'patient', 'success'),
     EventSpec('course_profile_completed', 'Student profile completed', 'staff', 'success', default_channels=(IN_APP,)),
     EventSpec('admin_alert', 'Administrative alert', 'staff', 'danger', True, (IN_APP, EMAIL)),
 ]

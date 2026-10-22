@@ -36,6 +36,8 @@
 
             {% include "partials/export_dropdown.html" with excel_url=export_batch_registrations_excel_url csv_url=export_batch_registrations_csv_url pdf_url=export_batch_registrations_pdf_url copy_url=export_batch_registrations_copy_url print_url=export_batch_registrations_print_url %}
 
+            <a href="{% url 'batch_attendance' batch.id %}" class="btn btn-outline btn-sm no-underline"><i class="bi bi-clipboard-check" aria-hidden="true"></i> {% trans "Attendance & certificates" %}</a>
+            <a href="{% url 'course_materials' batch.course.id %}" class="btn btn-outline btn-sm no-underline"><i class="bi bi-folder2-open" aria-hidden="true"></i> {% trans "Study materials" %}</a>
             <form method="post" action="{% url 'batch_remind_profiles' batch.id %}">{% csrf_token %}
                 <button class="btn btn-outline btn-sm" title="{% trans 'Email everyone who has not added their details yet' %}"><i class="bi bi-envelope-paper" aria-hidden="true"></i> {% trans "Remind about details" %}</button></form>
             <form method="post" action="{% url 'batch_request_feedback' batch.id %}" data-confirm="{% trans 'Open feedback and email every confirmed student their link?' %}">{% csrf_token %}

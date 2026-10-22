@@ -109,6 +109,9 @@ CATALOGUE = {
     'course_batch_reminder': (
         N_('Starting soon: %(event)s'),
         N_('Hi %(name)s, %(event)s (%(batch)s) starts on %(date)s. We look forward to seeing you.')),
+    'course_certificate': (
+        N_('Your certificate: %(event)s'),
+        N_('Hi %(name)s, congratulations! Your certificate for %(event)s (%(batch)s) is attached. Certificate no. %(code)s.')),
     'course_profile_completed': (
         N_('Student profile completed: %(name)s'),
         N_('%(name)s finished their details for %(event)s (%(batch)s). Their student ID card is ready.')),

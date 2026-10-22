@@ -33,7 +33,7 @@ msgid ""
 "account instead."
 msgstr ""
 
-#: templates\courses\batch_list.html:151
+#: templates\courses\batch_list.html:152
 msgid "\"Batch:"
 msgstr ""
 
@@ -69,7 +69,7 @@ msgstr ""
 msgid "%(count)s post%(count_2)s"
 msgstr ""
 
-#: templates\courses\batch_registrations.html:49
+#: templates\courses\batch_registrations.html:51
 #, python-format
 msgid "%(count)s Students"
 msgstr ""
@@ -84,7 +84,7 @@ msgstr ""
 msgid "%(count)s Total"
 msgstr ""
 
-#: notifications\messages.py:117
+#: notifications\messages.py:120
 #, python-format
 msgid "%(detail)s"
 msgstr ""
@@ -126,6 +126,11 @@ msgstr ""
 #: clinic\templates\clinic\admin\practitioners_list.html:43
 #, python-format
 msgid "%(experience_years)s years experience"
+msgstr ""
+
+#: courses\ops_views.py:84
+#, python-format
+msgid "%(i)s certificate(s) issued, %(e)s emailed."
 msgstr ""
 
 #: templates\clinic\event_detail.html:44
@@ -174,12 +179,17 @@ msgid "%(n)s sitting"
 msgid_plural "%(n)s sittings"
 msgstr ""
 
+#: templates\courses\registration_manage.html:53
+#, python-format
+msgid "%(n)s%% needed for a certificate"
+msgstr ""
+
 #: templates\patients\patient_detail.html:5
 #, python-format
 msgid "%(name)s - SpinalCure"
 msgstr ""
 
-#: notifications\messages.py:114
+#: notifications\messages.py:117
 #, python-format
 msgid ""
 "%(name)s finished their details for %(event)s (%(batch)s). Their student ID "
@@ -236,7 +246,7 @@ msgstr ""
 msgid "%(site)s patient portal sign-in code"
 msgstr ""
 
-#: notifications\messages.py:116
+#: notifications\messages.py:119
 #, python-format
 msgid "%(subject)s"
 msgstr ""
@@ -290,7 +300,7 @@ msgstr ""
 msgid "&ndash;"
 msgstr ""
 
-#: templates\courses\batch_list.html:56
+#: templates\courses\batch_list.html:57
 #, python-format
 msgid "&ndash; %(end_date)s"
 msgstr ""
@@ -676,7 +686,7 @@ msgstr ""
 msgid "Active (visible on portfolio)"
 msgstr ""
 
-#: templates\courses\batch_form.html:160 templates\courses\batch_list.html:45
+#: templates\courses\batch_form.html:160 templates\courses\batch_list.html:46
 msgid "Active Intake"
 msgstr ""
 
@@ -742,6 +752,10 @@ msgstr ""
 msgid "Add a featured patient"
 msgstr ""
 
+#: courses\ops_views.py:253
+msgid "Add a link, or upload a file."
+msgstr ""
+
 #: templates\patients\packages.html:38
 msgid "Add a package"
 msgstr ""
@@ -752,6 +766,10 @@ msgstr ""
 
 #: templates\clinic\admin\faqs.html:46
 msgid "Add a question"
+msgstr ""
+
+#: templates\courses\batch_attendance.html:26
+msgid "Add class"
 msgstr ""
 
 #: templates\appointments\availability.html:122
@@ -774,7 +792,12 @@ msgstr ""
 msgid "Add leave"
 msgstr ""
 
-#: templates\courses\batch_list.html:28
+#: templates\courses\course_materials.html:13
+#: templates\courses\course_materials.html:22
+msgid "Add material"
+msgstr ""
+
+#: templates\courses\batch_list.html:29
 msgid "Add New Batch"
 msgstr ""
 
@@ -800,7 +823,7 @@ msgstr ""
 msgid "Add New User"
 msgstr ""
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:101
 msgid "Add note"
 msgstr ""
 
@@ -842,6 +865,14 @@ msgstr ""
 #: templates\clinic\admin\testimonial_form.html:137
 #: templates\clinic\admin\testimonials_list.html:5
 msgid "Add Testimonial"
+msgstr ""
+
+#: courses\ops_views.py:82
+msgid "Add the classes and mark attendance first."
+msgstr ""
+
+#: templates\courses\batch_attendance.html:49
+msgid "Add the first class to start taking attendance."
 msgstr ""
 
 #: templates\patients\reviews.html:153
@@ -912,12 +943,20 @@ msgid "Additional Notes"
 msgstr ""
 
 #: clinic\models.py:39 clinic\templates\clinic\admin\clinic_setup.html:262
-#: courses\models.py:218 idcards\render.py:251
+#: courses\models.py:222 idcards\render.py:251
 msgid "Address"
 msgstr ""
 
 #: templates\ui\sidebar.html:46
 msgid "Administration"
+msgstr ""
+
+#: templates\courses\student_detail.html:80
+msgid "Agreed fee for this student"
+msgstr ""
+
+#: courses\models.py:195
+msgid "Agreed fee for this student, instead of the course fee."
 msgstr ""
 
 #: notifications\templates\notifications\center.html:17
@@ -1037,6 +1076,7 @@ msgstr ""
 msgid "Also review us on Google"
 msgstr ""
 
+#: templates\courses\student_detail.html:74
 #: templates\patients\patient_detail.html:588
 #: templates\payments\online_pay.html:28
 #: templates\payments\partials\expense_list_partial.html:12
@@ -1316,6 +1356,29 @@ msgstr ""
 msgid "Attempts"
 msgstr ""
 
+#: templates\courses\batch_attendance.html:3
+#: templates\courses\batch_attendance.html:4
+#: templates\courses\registration_manage.html:53
+#: templates\courses\student_portal.html:18
+msgid "Attendance"
+msgstr ""
+
+#: templates\courses\student_detail.html:64
+msgid "attendance"
+msgstr ""
+
+#: templates\courses\batch_registrations.html:39
+msgid "Attendance & certificates"
+msgstr ""
+
+#: courses\models.py:146
+msgid "Attendance needed for a certificate (%)"
+msgstr ""
+
+#: courses\ops_views.py:50
+msgid "Attendance saved."
+msgstr ""
+
 #: templates\events\event_registrations.html:20
 msgid "attended"
 msgstr ""
@@ -1461,6 +1524,10 @@ msgstr ""
 msgid "Back to Batches"
 msgstr ""
 
+#: templates\courses\course_materials.html:8
+msgid "Back to batches"
+msgstr ""
+
 #: templates\courses\course_form.html:155
 msgid "Back to Course Management"
 msgstr ""
@@ -1508,12 +1575,21 @@ msgstr ""
 msgid "Back to Reviews"
 msgstr ""
 
+#: templates\courses\batch_attendance.html:9
+msgid "Back to students"
+msgstr ""
+
 #: templates\clinic\admin\testimonial_form.html:10
 msgid "Back to Testimonials"
 msgstr ""
 
 #: templates\accounts\login.html:74
 msgid "Back to website"
+msgstr ""
+
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:70
+msgid "balance"
 msgstr ""
 
 #: templates\patients\patient_detail.html:307
@@ -1530,6 +1606,10 @@ msgstr ""
 
 #: clinic\models.py:140
 msgid "Bank Name"
+msgstr ""
+
+#: courses\models.py:380
+msgid "Bank transfer"
 msgstr ""
 
 #: payments\models.py:25 templates\payments\invoice.html:429
@@ -1552,7 +1632,7 @@ msgstr ""
 msgid "Basics"
 msgstr ""
 
-#: courses\models.py:175 courses\models.py:292
+#: courses\models.py:177 courses\models.py:296
 msgid "Batch"
 msgstr ""
 
@@ -1583,8 +1663,7 @@ msgstr ""
 msgid "Batch Name / Intake Period *"
 msgstr ""
 
-#: templates\courses\student_detail.html:56
-#: templates\courses\student_list.html:28
+#: templates\courses\student_list.html:30
 msgid "Batches"
 msgstr ""
 
@@ -1657,7 +1736,7 @@ msgstr ""
 msgid "Blog Tags — SpinalCure"
 msgstr ""
 
-#: accounts\templates\accounts\admin\user_form.html:115 courses\models.py:222
+#: accounts\templates\accounts\admin\user_form.html:115 courses\models.py:226
 #: idcards\render.py:249 templates\courses\student_detail.html:26
 msgid "Blood group"
 msgstr ""
@@ -1797,7 +1876,7 @@ msgstr ""
 msgid "Calendar View"
 msgstr ""
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "Call"
 msgstr ""
 
@@ -1816,7 +1895,7 @@ msgstr ""
 msgid "Cancel event"
 msgstr ""
 
-#: templates\courses\registration_manage.html:52
+#: templates\courses\registration_manage.html:79
 #: templates\events\registration_manage.html:45
 msgid "Cancel my registration"
 msgstr ""
@@ -1830,7 +1909,7 @@ msgstr ""
 msgid "Cancel this registration?"
 msgstr ""
 
-#: appointments\models.py:180 courses\models.py:182 events\models.py:94
+#: appointments\models.py:180 courses\models.py:184 events\models.py:94
 #: events\models.py:252
 msgid "Cancelled"
 msgstr ""
@@ -1863,7 +1942,8 @@ msgstr ""
 msgid "Caption"
 msgstr ""
 
-#: idcards\templates\idcards\dashboard.html:28 payments\models.py:23
+#: courses\models.py:380 idcards\templates\idcards\dashboard.html:28
+#: payments\models.py:23
 msgid "Card"
 msgstr ""
 
@@ -1930,13 +2010,35 @@ msgstr ""
 msgid "Case ID: #%(id)s"
 msgstr ""
 
-#: payments\models.py:22
+#: courses\models.py:380 payments\models.py:22
 msgid "Cash"
 msgstr ""
 
 #: payments\models.py:316 templates\payments\expense_form.html:22
 #: templates\payments\partials\expense_list_partial.html:9
 msgid "Category"
+msgstr ""
+
+#: templates\courses\batch_attendance.html:36
+#: templates\courses\student_detail.html:83
+#: templates\courses\student_portal.html:23
+msgid "Certificate"
+msgstr ""
+
+#: templates\courses\certificate_verify.html:3
+msgid "Certificate check"
+msgstr ""
+
+#: courses\ops_views.py:144
+msgid "Certificate emailed again."
+msgstr ""
+
+#: courses\ops_views.py:134
+msgid "Certificate saved and emailed."
+msgstr ""
+
+#: courses\ops_views.py:134
+msgid "Certificate saved."
 msgstr ""
 
 #: templates\clinic\terms.html:23
@@ -1980,6 +2082,10 @@ msgstr ""
 msgid "Channel"
 msgstr ""
 
+#: templates\courses\student_signin.html:11
+msgid "Check your email"
+msgstr ""
+
 #: clinic\models.py:367
 msgid "Checked by"
 msgstr ""
@@ -1989,7 +2095,7 @@ msgstr ""
 msgid "Checked by %(who)s"
 msgstr ""
 
-#: payments\models.py:26
+#: courses\models.py:381 payments\models.py:26
 msgid "Cheque"
 msgstr ""
 
@@ -2034,6 +2140,10 @@ msgstr ""
 msgid "Choose a morning or an evening session, or switch the day off."
 msgstr ""
 
+#: courses\ops_views.py:123
+msgid "Choose a PDF file."
+msgstr ""
+
 #: clinic\models.py:686
 msgid "Choose a photo."
 msgstr ""
@@ -2058,6 +2168,10 @@ msgstr ""
 msgid "Choose the appointment length from the list."
 msgstr ""
 
+#: courses\ops_views.py:39
+msgid "Choose the date of the class."
+msgstr ""
+
 #: accounts\forms.py:87
 msgid "Choose the practitioner to link."
 msgstr ""
@@ -2078,6 +2192,18 @@ msgstr ""
 
 #: events\models.py:24
 msgid "Class"
+msgstr ""
+
+#: courses\ops_views.py:42
+msgid "Class added. Tick who attended and save."
+msgstr ""
+
+#: templates\courses\batch_attendance.html:24
+msgid "Class date"
+msgstr ""
+
+#: courses\ops_views.py:45
+msgid "Class removed."
 msgstr ""
 
 #: templates\clinic\home.html:62
@@ -2247,8 +2373,8 @@ msgstr ""
 msgid "Comma-separated; imported from YouTube."
 msgstr ""
 
-#: courses\models.py:303 events\models.py:298
-#: templates\courses\registration_manage.html:45
+#: courses\models.py:307 events\models.py:298
+#: templates\courses\registration_manage.html:72
 #: templates\events\event_feedback_admin.html:57
 msgid "Comment"
 msgstr ""
@@ -2258,7 +2384,7 @@ msgid "Compare the name and photo with the person presenting the card."
 msgstr ""
 
 #: templates\courses\partials\batch_registrations_partial.html:45
-#: templates\courses\student_list.html:36
+#: templates\courses\student_list.html:38
 msgid "Complete"
 msgstr ""
 
@@ -2276,7 +2402,7 @@ msgid "Complete your registration: %(event)s"
 msgstr ""
 
 #: appointments\models.py:179 templates\appointments\calendar.html:475
-#: templates\clinic\event_detail.html:22 templates\courses\batch_list.html:48
+#: templates\clinic\event_detail.html:22 templates\courses\batch_list.html:49
 msgid "Completed"
 msgstr ""
 
@@ -2321,13 +2447,17 @@ msgstr ""
 msgid "Confirm the permission is on file before publishing."
 msgstr ""
 
-#: appointments\models.py:178 courses\models.py:182 events\models.py:252
+#: appointments\models.py:178 courses\models.py:184 events\models.py:252
 #: templates\appointments\calendar.html:474
 msgid "Confirmed"
 msgstr ""
 
 #: templates\events\event_registrations.html:17
 msgid "confirmed"
+msgstr ""
+
+#: templates\courses\registration_manage.html:61
+msgid "Congratulations on completing the course."
 msgstr ""
 
 #: templates\clinic\course_detail.html:124
@@ -2370,7 +2500,7 @@ msgstr ""
 msgid "Consulting Doctor:"
 msgstr ""
 
-#: templates\courses\student_list.html:27
+#: templates\courses\student_list.html:29
 #: templates\events\partials\event_registrations_partial.html:10
 #: templates\public\header.html:35 templates\public\header.html:65
 msgid "Contact"
@@ -2471,7 +2601,7 @@ msgstr ""
 msgid "Country code"
 msgstr ""
 
-#: courses\models.py:72 courses\models.py:120 courses\models.py:288
+#: courses\models.py:72 courses\models.py:120 courses\models.py:292
 #: templates\clinic\home.html:235
 msgid "Course"
 msgstr ""
@@ -2496,11 +2626,11 @@ msgstr ""
 msgid "Course \"%(title)s\" updated."
 msgstr ""
 
-#: courses\models.py:147
+#: courses\models.py:149
 msgid "Course Batch"
 msgstr ""
 
-#: courses\models.py:148 templates\courses\batch_list.html:6
+#: courses\models.py:150 templates\courses\batch_list.html:6
 msgid "Course Batches"
 msgstr ""
 
@@ -2512,11 +2642,11 @@ msgstr ""
 msgid "Course fee"
 msgstr ""
 
-#: courses\models.py:310
+#: courses\models.py:314
 msgid "Course Feedback"
 msgstr ""
 
-#: courses\models.py:311
+#: courses\models.py:315
 msgid "Course Feedbacks"
 msgstr ""
 
@@ -2524,7 +2654,7 @@ msgstr ""
 msgid "Course Fees (₹)"
 msgstr ""
 
-#: templates\courses\batch_registrations.html:42
+#: templates\courses\batch_registrations.html:44
 msgid "Course finished: ask for feedback"
 msgstr ""
 
@@ -2536,11 +2666,11 @@ msgstr ""
 msgid "Course Management - SpinalCure"
 msgstr ""
 
-#: courses\models.py:194 payments\models.py:79
+#: courses\models.py:198 payments\models.py:79
 msgid "Course Registration"
 msgstr ""
 
-#: courses\models.py:195
+#: courses\models.py:199
 msgid "Course Registrations"
 msgstr ""
 
@@ -2584,7 +2714,7 @@ msgstr ""
 msgid "Create a practitioner profile from this account"
 msgstr ""
 
-#: templates\courses\batch_list.html:129
+#: templates\courses\batch_list.html:130
 msgid "Create Batch"
 msgstr ""
 
@@ -2618,7 +2748,7 @@ msgstr ""
 msgid "Create User"
 msgstr ""
 
-#: templates\courses\batch_list.html:126
+#: templates\courses\batch_list.html:127
 msgid "Create your first batch to start enrolling students."
 msgstr ""
 
@@ -2677,6 +2807,10 @@ msgstr ""
 msgid "Curriculum"
 msgstr ""
 
+#: courses\models.py:359
+msgid "Custom certificate file"
+msgstr ""
+
 #: templates\clinic\event_detail.html:33
 msgid "d"
 msgstr ""
@@ -2701,8 +2835,8 @@ msgstr ""
 msgid "Dashboard Overview"
 msgstr ""
 
-#: appointments\models.py:215 events\models.py:70 payments\models.py:326
-#: templates\appointments\appointment_list.html:72
+#: appointments\models.py:215 courses\models.py:328 events\models.py:70
+#: payments\models.py:326
 msgid "Date"
 msgstr ""
 
@@ -2722,7 +2856,7 @@ msgstr ""
 msgid "Date cannot be in the past."
 msgstr ""
 
-#: accounts\templates\accounts\admin\user_form.html:114 courses\models.py:219
+#: accounts\templates\accounts\admin\user_form.html:114 courses\models.py:223
 #: idcards\render.py:251 templates\courses\student_detail.html:24
 msgid "Date of birth"
 msgstr ""
@@ -2784,7 +2918,7 @@ msgstr ""
 msgid "Delete Appointment"
 msgstr ""
 
-#: templates\courses\batch_list.html:148
+#: templates\courses\batch_list.html:149
 msgid "Delete Batch?"
 msgstr ""
 
@@ -2832,7 +2966,7 @@ msgstr ""
 msgid "Deleted Data"
 msgstr ""
 
-#: templates\courses\batch_list.html:155
+#: templates\courses\batch_list.html:156
 msgid ""
 "Deleting this batch will erase all registrations and feedback associated "
 "with it. This cannot be undone."
@@ -2899,7 +3033,7 @@ msgstr ""
 msgid "Designation / Location"
 msgstr ""
 
-#: courses\models.py:216 templates\courses\_profile_form.html:11
+#: courses\models.py:220 templates\courses\_profile_form.html:11
 #: templates\courses\student_form.html:15
 msgid "Designation / profession"
 msgstr ""
@@ -2942,7 +3076,7 @@ msgstr ""
 
 #: templates\clinic\admin\video_form.html:16
 #: templates\courses\partials\batch_registrations_partial.html:12
-#: templates\courses\student_list.html:28
+#: templates\courses\student_list.html:30
 msgid "Details"
 msgstr ""
 
@@ -2954,15 +3088,15 @@ msgstr ""
 msgid "Details and registration"
 msgstr ""
 
-#: templates\courses\batch_registrations.html:56
+#: templates\courses\batch_registrations.html:58
 #: templates\courses\student_detail.html:15
-#: templates\courses\student_list.html:19
+#: templates\courses\student_list.html:20
 msgid "Details complete"
 msgstr ""
 
 #: templates\courses\student_detail.html:16
 #: templates\courses\student_list.html:10
-#: templates\courses\student_list.html:18
+#: templates\courses\student_list.html:19
 msgid "Details missing"
 msgstr ""
 
@@ -3051,7 +3185,17 @@ msgstr ""
 msgid "Doctor's private notes..."
 msgstr ""
 
-#: templates\courses\student_detail.html:81
+#: courses\models.py:400
+msgid "Document"
+msgstr ""
+
+#: courses\files.py:31
+msgid ""
+"Documents can be at most 25 MB. For bigger files, paste a Drive link "
+"instead."
+msgstr ""
+
+#: templates\courses\student_detail.html:108
 msgid "Done"
 msgstr ""
 
@@ -3063,13 +3207,17 @@ msgstr ""
 msgid "Download back (PNG)"
 msgstr ""
 
+#: templates\courses\registration_manage.html:62
+msgid "Download certificate (PDF)"
+msgstr ""
+
 #: idcards\templates\idcards\_card.html:36
 msgid "Download front (PNG)"
 msgstr ""
 
 #: idcards\templates\idcards\_card.html:38
 #: templates\courses\registration_manage.html:26
-#: templates\courses\student_detail.html:50
+#: templates\courses\student_detail.html:52
 #: templates\patients\patient_detail.html:412
 msgid "Download PDF"
 msgstr ""
@@ -3349,6 +3497,10 @@ msgstr ""
 msgid "Either email or phone number is required."
 msgstr ""
 
+#: templates\courses\batch_attendance.html:42
+msgid "Eligible"
+msgstr ""
+
 #: accounts\models.py:111 accounts\templates\accounts\admin\user_form.html:53
 #: clinic\models.py:45 clinic\templates\clinic\admin\clinic_setup.html:252
 msgid "Email"
@@ -3368,8 +3520,16 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: templates\courses\batch_registrations.html:40
+#: templates\courses\student_detail.html:86
+msgid "Email again"
+msgstr ""
+
+#: templates\courses\batch_registrations.html:42
 msgid "Email everyone who has not added their details yet"
+msgstr ""
+
+#: templates\courses\student_signin.html:17
+msgid "Email me a sign-in link"
 msgstr ""
 
 #: patients\models.py:39
@@ -3380,7 +3540,7 @@ msgstr ""
 msgid "Email sent successfully."
 msgstr ""
 
-#: templates\courses\student_detail.html:32
+#: templates\courses\student_detail.html:33
 msgid "Email the details link"
 msgstr ""
 
@@ -3390,6 +3550,10 @@ msgstr ""
 
 #: templates\patients\patient_form.html:73
 msgid "email@example.com"
+msgstr ""
+
+#: templates\courses\student_detail.html:87
+msgid "emailed"
 msgstr ""
 
 #: templates\courses\student_detail.html:27
@@ -3408,12 +3572,12 @@ msgstr ""
 msgid "Emergency contact (optional)"
 msgstr ""
 
-#: accounts\templates\accounts\admin\user_form.html:117 courses\models.py:223
+#: accounts\templates\accounts\admin\user_form.html:117 courses\models.py:227
 #: templates\courses\student_form.html:21
 msgid "Emergency contact name"
 msgstr ""
 
-#: accounts\templates\accounts\admin\user_form.html:118 courses\models.py:224
+#: accounts\templates\accounts\admin\user_form.html:118 courses\models.py:228
 #: templates\courses\student_form.html:22
 msgid "Emergency contact phone"
 msgstr ""
@@ -3513,6 +3677,10 @@ msgstr ""
 msgid "Enter 6-digit Code"
 msgstr ""
 
+#: courses\ops_views.py:57
+msgid "Enter a number from 1 to 100."
+msgstr ""
+
 #: clinic\testimonial_views.py:245
 msgid "Enter a problem name."
 msgstr ""
@@ -3523,6 +3691,10 @@ msgstr ""
 
 #: spinalcure\validators.py:107
 msgid "Enter a valid email address."
+msgstr ""
+
+#: courses\ops_views.py:207
+msgid "Enter a valid fee."
 msgstr ""
 
 #: patients\views.py:1081 patients\views.py:1079
@@ -3543,6 +3715,10 @@ msgstr ""
 
 #: templates\patients\portal\verify.html:13
 msgid "Enter the 6-digit code emailed to you. It expires in 10 minutes."
+msgstr ""
+
+#: courses\ops_views.py:173
+msgid "Enter the amount received."
 msgstr ""
 
 #: clinic\faq_views.py:50
@@ -3733,7 +3909,15 @@ msgstr ""
 msgid "Events, workshops & webinars"
 msgstr ""
 
-#: templates\courses\student_list.html:17
+#: templates\courses\course_materials.html:28
+msgid "Every batch"
+msgstr ""
+
+#: courses\ops_views.py:240
+msgid "Every batch of this course"
+msgstr ""
+
+#: templates\courses\student_list.html:18
 msgid "Every student"
 msgstr ""
 
@@ -3841,7 +4025,7 @@ msgstr ""
 msgid "Export"
 msgstr ""
 
-#: templates\courses\batch_list.html:24
+#: templates\courses\batch_list.html:25
 msgid "Export Courses"
 msgstr ""
 
@@ -3937,8 +4121,12 @@ msgstr ""
 msgid "Fee"
 msgstr ""
 
+#: courses\ops_views.py:211
+msgid "Fee updated."
+msgstr ""
+
 #: templates\clinic\testimonials_public.html:13
-#: templates\courses\batch_list.html:76
+#: templates\courses\batch_list.html:77
 #: templates\events\partials\event_list_partial.html:79
 #: templates\public_base.html:72
 msgid "Feedback"
@@ -3992,7 +4180,7 @@ msgstr ""
 msgid "Feedback is not open for this event."
 msgstr ""
 
-#: courses\student_views.py:136
+#: courses\student_views.py:142
 #, python-format
 msgid "Feedback is open. %(n)s student(s) were emailed their link."
 msgstr ""
@@ -4001,7 +4189,7 @@ msgstr ""
 msgid "feedback is visible to the public."
 msgstr ""
 
-#: templates\courses\batch_registrations.html:58
+#: templates\courses\batch_registrations.html:60
 msgid "Feedback received"
 msgstr ""
 
@@ -4019,6 +4207,11 @@ msgstr ""
 msgid "Feedback — %(title)s"
 msgstr ""
 
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:69
+msgid "Fees"
+msgstr ""
+
 #: events\models.py:133
 msgid "Fees (₹)"
 msgstr ""
@@ -4028,9 +4221,13 @@ msgstr ""
 msgid "Fees are non-refundable."
 msgstr ""
 
+#: templates\courses\student_portal.html:19
+msgid "Fees paid"
+msgstr ""
+
 #: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:39
-#: courses\models.py:206
+#: courses\models.py:210
 msgid "Female"
 msgstr ""
 
@@ -4078,19 +4275,19 @@ msgstr ""
 msgid "Focal point: click, or use the arrow keys"
 msgstr ""
 
-#: templates\courses\student_detail.html:80
+#: templates\courses\student_detail.html:107
 msgid "Follow up"
 msgstr ""
 
-#: templates\courses\student_detail.html:73
+#: templates\courses\student_detail.html:100
 msgid "Follow up on"
 msgstr ""
 
-#: courses\models.py:260 patients\session_pdf.py:76
+#: courses\models.py:264 patients\session_pdf.py:76
 msgid "Follow-up"
 msgstr ""
 
-#: templates\courses\student_list.html:20
+#: templates\courses\student_list.html:22
 msgid "Follow-up due"
 msgstr ""
 
@@ -4098,7 +4295,7 @@ msgstr ""
 msgid "Follow-up reminder lead (days)"
 msgstr ""
 
-#: templates\courses\student_list.html:11
+#: templates\courses\student_list.html:12
 msgid "Follow-ups due"
 msgstr ""
 
@@ -4110,6 +4307,7 @@ msgstr ""
 msgid "Footer Text"
 msgstr ""
 
+#: templates\courses\course_materials.html:17
 #: templates\payments\online_pay.html:27
 msgid "For"
 msgstr ""
@@ -4213,7 +4411,7 @@ msgstr ""
 msgid "Full Mobility"
 msgstr ""
 
-#: clinic\models.py:195 courses\models.py:177 courses\models.py:210
+#: clinic\models.py:195 courses\models.py:179 courses\models.py:214
 #: events\models.py:247
 msgid "Full Name"
 msgstr ""
@@ -4281,7 +4479,7 @@ msgstr ""
 
 #: accounts\templates\accounts\admin\user_form.html:113
 #: clinic\templates\clinic\admin\practitioner_form.html:34
-#: courses\models.py:220 idcards\render.py:251
+#: courses\models.py:224 idcards\render.py:251
 msgid "Gender"
 msgstr ""
 
@@ -4325,6 +4523,10 @@ msgstr ""
 #: templates\exports\print_template.html:130
 #, python-format
 msgid "Generated: %(now)s"
+msgstr ""
+
+#: templates\courses\certificate_verify.html:10
+msgid "Genuine certificate"
 msgstr ""
 
 #: templates\clinic\admin\testimonials_list.html:47
@@ -4471,6 +4673,13 @@ msgid ""
 "love to hear how it went. It takes a minute and helps future students."
 msgstr ""
 
+#: notifications\messages.py:114
+#, python-format
+msgid ""
+"Hi %(name)s, congratulations! Your certificate for %(event)s (%(batch)s) is "
+"attached. Certificate no. %(code)s."
+msgstr ""
+
 #: notifications\messages.py:105
 #, python-format
 msgid ""
@@ -4553,7 +4762,7 @@ msgstr ""
 msgid "How was it?"
 msgstr ""
 
-#: templates\courses\registration_manage.html:41
+#: templates\courses\registration_manage.html:68
 msgid "How was the course?"
 msgstr ""
 
@@ -4665,6 +4874,12 @@ msgstr ""
 #: patients\views.py:972
 msgid ""
 "If this number is registered and has an email on file, a code has been sent."
+msgstr ""
+
+#: templates\courses\student_signin.html:12
+msgid ""
+"If we have you on file, a sign-in link is on its way. It works once and "
+"expires in 30 minutes."
 msgstr ""
 
 #: templates\emails\auth_request.html:52
@@ -4782,6 +4997,10 @@ msgstr ""
 
 #: payments\models.py:302
 msgid "Insurance"
+msgstr ""
+
+#: courses\models.py:264
+msgid "Interested in the next batch"
 msgstr ""
 
 #: clinic\models.py:387
@@ -4904,6 +5123,11 @@ msgstr ""
 msgid "Issue"
 msgstr ""
 
+#: templates\courses\batch_attendance.html:19
+#, python-format
+msgid "Issue & email certificates (%(n)s)"
+msgstr ""
+
 #: idcards\templates\idcards\branding.html:20
 msgid "Issue a card to see a live preview here."
 msgstr ""
@@ -4911,6 +5135,10 @@ msgstr ""
 #: idcards\templates\idcards\dashboard.html:7
 #: idcards\templates\idcards\issue.html:16
 msgid "Issue card"
+msgstr ""
+
+#: templates\courses\batch_attendance.html:18
+msgid "Issue certificates to every eligible student and email them?"
 msgstr ""
 
 #: idcards\templates\idcards\issue.html:3
@@ -4925,6 +5153,11 @@ msgstr ""
 #: idcards\render.py:248 idcards\templates\idcards\detail.html:23
 #: idcards\templates\idcards\verify.html:39
 msgid "Issued"
+msgstr ""
+
+#: templates\courses\certificate_verify.html:13
+#, python-format
+msgid "Issued %(d)s"
 msgstr ""
 
 #: templates\clinic\review_withdraw.html:12
@@ -5002,7 +5235,7 @@ msgid "Keep event"
 msgstr ""
 
 #: templates\appointments\manage.html:59
-#: templates\courses\registration_manage.html:55
+#: templates\courses\registration_manage.html:82
 #: templates\events\registration_manage.html:48
 msgid "Keep it"
 msgstr ""
@@ -5015,7 +5248,7 @@ msgstr ""
 msgid "Keep this link private: anyone with it can change this appointment."
 msgstr ""
 
-#: templates\courses\registration_manage.html:58
+#: templates\courses\registration_manage.html:85
 #: templates\events\registration_manage.html:51
 msgid "Keep this link private: anyone with it can manage this registration."
 msgstr ""
@@ -5124,6 +5357,10 @@ msgstr ""
 msgid "Leave empty to close the whole clinic."
 msgstr ""
 
+#: courses\models.py:404
+msgid "Leave empty to share with every batch of the course."
+msgstr ""
+
 #: templates\appointments\availability.html:86
 #, python-format
 msgid "Leave: %(name)s"
@@ -5154,6 +5391,14 @@ msgstr ""
 msgid "Limited seats. We will call you to confirm."
 msgstr ""
 
+#: courses\models.py:400
+msgid "Link"
+msgstr ""
+
+#: templates\courses\course_materials.html:18
+msgid "Link (Google Drive, YouTube, any web page)"
+msgstr ""
+
 #: accounts\forms.py:27
 msgid "Link an existing practitioner"
 msgstr ""
@@ -5162,7 +5407,7 @@ msgstr ""
 msgid "Link copied to the clipboard"
 msgstr ""
 
-#: courses\student_views.py:126
+#: courses\student_views.py:132
 #, python-format
 msgid "Link emailed to %(email)s."
 msgstr ""
@@ -5177,6 +5422,11 @@ msgstr ""
 
 #: accounts\forms.py:51
 msgid "Linked practitioner profile (keep)"
+msgstr ""
+
+#: templates\courses\course_materials.html:10
+msgid ""
+"Links and files that confirmed students can open from their private page."
 msgstr ""
 
 #: templates\appointments\calendar.html:439
@@ -5294,7 +5544,7 @@ msgstr ""
 
 #: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:38
-#: courses\models.py:206
+#: courses\models.py:210
 msgid "Male"
 msgstr ""
 
@@ -5377,6 +5627,18 @@ msgstr ""
 msgid "Marketing & Advertising"
 msgstr ""
 
+#: courses\ops_views.py:272
+msgid "Material added."
+msgstr ""
+
+#: courses\ops_views.py:293
+msgid "Material removed."
+msgstr ""
+
+#: templates\courses\student_portal.html:22
+msgid "materials"
+msgstr ""
+
 #: appointments\models.py:53
 msgid "Max appointments in this shift"
 msgstr ""
@@ -5442,6 +5704,18 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
+#: templates\courses\student_detail.html:43
+msgid "Merge into this student"
+msgstr ""
+
+#: templates\courses\student_detail.html:43
+msgid "Merge this record into the current student? This cannot be undone."
+msgstr ""
+
+#: courses\ops_views.py:226
+msgid "Merged into this student."
+msgstr ""
+
 #: clinic\blog_models.py:82
 msgid "Meta Description"
 msgstr ""
@@ -5474,7 +5748,7 @@ msgstr ""
 #: templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 #: templates\courses\partials\batch_registrations_partial.html:46
-#: templates\courses\student_list.html:37
+#: templates\courses\student_list.html:39
 msgid "Missing"
 msgstr ""
 
@@ -5499,6 +5773,7 @@ msgstr ""
 msgid "Mobility Score:"
 msgstr ""
 
+#: templates\courses\student_detail.html:75
 #: templates\patients\patient_detail.html:589
 #: templates\payments\invoice.html:286
 #: templates\payments\partials\payment_list_partial.html:11
@@ -5582,6 +5857,11 @@ msgstr ""
 msgid "Must be less than or equal to total amount"
 msgstr ""
 
+#: templates\courses\student_portal.html:3
+#: templates\courses\student_portal.html:8
+msgid "My courses"
+msgstr ""
+
 #: templates\patients\portal\dashboard.html:3
 msgid "My Health Portal — SpinalCure"
 msgstr ""
@@ -5591,7 +5871,7 @@ msgstr ""
 msgid "My ID card"
 msgstr ""
 
-#: clinic\models.py:629 courses\models.py:301 events\models.py:293
+#: clinic\models.py:629 courses\models.py:305 events\models.py:293
 #: templates\events\event_feedback_admin.html:55
 msgid "Name"
 msgstr ""
@@ -5625,6 +5905,10 @@ msgstr ""
 
 #: templates\emails\base_email.html:52
 msgid "Need help? Contact the clinic"
+msgstr ""
+
+#: templates\courses\batch_attendance.html:15
+msgid "Needed %"
 msgstr ""
 
 #: templates\clinic\admin\translations.html:52
@@ -5762,7 +6046,7 @@ msgstr ""
 msgid "No batch is open right now. Please check back soon or call us."
 msgstr ""
 
-#: templates\courses\batch_list.html:125
+#: templates\courses\batch_list.html:126
 msgid "No Batches Yet"
 msgstr ""
 
@@ -5783,11 +6067,19 @@ msgstr ""
 msgid "No Courses Found"
 msgstr ""
 
+#: templates\courses\student_portal.html:26
+msgid "No courses found for this email yet."
+msgstr ""
+
 #: notifications\templates\notifications\deliveries.html:28
 msgid "No deliveries with this status."
 msgstr ""
 
-#: courses\student_views.py:120
+#: courses\ops_views.py:144
+msgid "No email address on file."
+msgstr ""
+
+#: courses\student_views.py:126
 msgid "No email address yet. Add one, or share the link by WhatsApp."
 msgstr ""
 
@@ -5844,11 +6136,15 @@ msgstr ""
 msgid "No matching payments found."
 msgstr ""
 
+#: templates\courses\course_materials.html:33
+msgid "No materials yet."
+msgstr ""
+
 #: patients\session_pdf.py:72
 msgid "No notes recorded."
 msgstr ""
 
-#: templates\courses\student_detail.html:82
+#: templates\courses\student_detail.html:109
 msgid "No notes yet."
 msgstr ""
 
@@ -5984,8 +6280,12 @@ msgstr ""
 msgid "No students found matching your search."
 msgstr ""
 
-#: templates\courses\student_list.html:39
+#: templates\courses\student_list.html:41
 msgid "No students match."
+msgstr ""
+
+#: templates\courses\certificate_verify.html:17
+msgid "No such certificate"
 msgstr ""
 
 #: templates\courses\student_verify.html:17
@@ -6081,6 +6381,10 @@ msgstr ""
 msgid "Not given yet"
 msgstr ""
 
+#: templates\courses\student_detail.html:88
+msgid "Not issued yet. Attendance is marked on the batch page."
+msgstr ""
+
 #: clinic\testimonial_views.py:172
 msgid "Not published: record the patient's consent first."
 msgstr ""
@@ -6099,11 +6403,11 @@ msgstr ""
 msgid "Not specified"
 msgstr ""
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "Note"
 msgstr ""
 
-#: courses\student_views.py:98
+#: courses\student_views.py:104
 msgid "Note added."
 msgstr ""
 
@@ -6121,7 +6425,7 @@ msgstr ""
 msgid "Notes / Message"
 msgstr ""
 
-#: courses\models.py:180
+#: courses\models.py:182
 msgid "Notes / Questions"
 msgstr ""
 
@@ -6218,7 +6522,7 @@ msgstr ""
 msgid "One email per patient, sent the day after the session. 0 turns it off."
 msgstr ""
 
-#: courses\models.py:299
+#: courses\models.py:303
 msgid "One feedback per student per course."
 msgstr ""
 
@@ -6355,7 +6659,7 @@ msgid ""
 msgstr ""
 
 #: templates\clinic\gallery.html:27 templates\clinic\gallery.html:49
-#: templates\courses\batch_list.html:83
+#: templates\courses\batch_list.html:84
 #: templates\events\event_feedback_admin.html:15
 msgid "Open"
 msgstr ""
@@ -6364,12 +6668,12 @@ msgstr ""
 msgid "open"
 msgstr ""
 
-#: templates\courses\batch_list.html:38
+#: templates\courses\batch_list.html:39
 #, python-format
 msgid "Open %(name)s: students and details"
 msgstr ""
 
-#: templates\courses\batch_registrations.html:41
+#: templates\courses\batch_registrations.html:43
 msgid "Open feedback and email every confirmed student their link?"
 msgstr ""
 
@@ -6379,6 +6683,20 @@ msgstr ""
 
 #: templates\public\header.html:41
 msgid "Open menu"
+msgstr ""
+
+#: templates\courses\student_portal.html:22
+msgid "Open my page"
+msgstr ""
+
+#: courses\ops.py:126
+#, python-format
+msgid ""
+"Open this link to see your courses, certificates and study materials. It works once and expires in %(m)s minutes:\n"
+"\n"
+"%(link)s\n"
+"\n"
+"If you did not ask for it, ignore this email."
 msgstr ""
 
 #: templates\clinic\home.html:270 templates\public\footer.html:28
@@ -6418,7 +6736,7 @@ msgstr ""
 msgid "Organisation"
 msgstr ""
 
-#: courses\models.py:217 templates\courses\student_form.html:16
+#: courses\models.py:221 templates\courses\student_form.html:16
 msgid "Organisation / clinic"
 msgstr ""
 
@@ -6435,7 +6753,7 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: templates\courses\student_detail.html:39
+#: templates\courses\student_detail.html:40
 msgid "Other students use this phone number"
 msgstr ""
 
@@ -6560,6 +6878,11 @@ msgstr ""
 
 #: templates\patients\patient_detail.html:301
 msgid "Paid Amount"
+msgstr ""
+
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:70
+msgid "paid of"
 msgstr ""
 
 #: payments\models.py:330 templates\payments\expense_form.html:46
@@ -6946,6 +7269,14 @@ msgstr ""
 msgid "Payment record updated successfully."
 msgstr ""
 
+#: courses\ops_views.py:184
+msgid "Payment recorded."
+msgstr ""
+
+#: courses\ops_views.py:195
+msgid "Payment removed."
+msgstr ""
+
 #: templates\payments\invoice.html:367
 msgid "Payment Summary"
 msgstr ""
@@ -6983,6 +7314,10 @@ msgstr ""
 
 #: templates\payments\report.html:3
 msgid "Payments Report - SpinalCure"
+msgstr ""
+
+#: courses\models.py:400 templates\courses\student_detail.html:85
+msgid "PDF"
 msgstr ""
 
 #: templates\partials\export_dropdown.html:10
@@ -7124,7 +7459,7 @@ msgstr ""
 msgid "Plan Name"
 msgstr ""
 
-#: templates\courses\batch_list.html:51
+#: templates\courses\batch_list.html:52
 msgid "Planned"
 msgstr ""
 
@@ -7476,7 +7811,11 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: templates\courses\batch_registrations.html:45
+#: templates\courses\registration_manage.html:51
+msgid "Progress and fees"
+msgstr ""
+
+#: templates\courses\batch_registrations.html:47
 #, python-format
 msgid "Promote waitlist (%(n)s)"
 msgstr ""
@@ -7628,7 +7967,7 @@ msgstr ""
 msgid "Quick add photos"
 msgstr ""
 
-#: clinic\models.py:414 courses\models.py:302 events\models.py:296
+#: clinic\models.py:414 courses\models.py:306 events\models.py:296
 #: patients\models.py:342
 msgid "Rating"
 msgstr ""
@@ -7668,6 +8007,16 @@ msgstr ""
 
 #: clinic\blog_models.py:87
 msgid "Read Time (minutes)"
+msgstr ""
+
+#: templates\courses\student_detail.html:31
+#: templates\courses\student_list.html:11
+#: templates\courses\student_list.html:21
+msgid "Ready for next batch"
+msgstr ""
+
+#: templates\courses\student_detail.html:31
+msgid "Ready for the next batch"
 msgstr ""
 
 #: templates\patients\portal\dashboard.html:67
@@ -7769,6 +8118,7 @@ msgid "Recommended: 1200 × 630 px"
 msgstr ""
 
 #: clinic\templates\clinic\admin\activity_log.html:64
+#: templates\courses\student_detail.html:78
 msgid "Record"
 msgstr ""
 
@@ -7868,6 +8218,10 @@ msgstr ""
 msgid "Reference"
 msgstr ""
 
+#: templates\courses\student_detail.html:77
+msgid "Reference (optional)"
+msgstr ""
+
 #: payments\refunds.py:22
 msgid "Refund amount must be greater than zero."
 msgstr ""
@@ -7925,7 +8279,7 @@ msgstr ""
 msgid "Registered"
 msgstr ""
 
-#: courses\models.py:181 events\models.py:251
+#: courses\models.py:183 events\models.py:251
 msgid "Registered At"
 msgstr ""
 
@@ -7942,7 +8296,7 @@ msgstr ""
 msgid "Registering…"
 msgstr ""
 
-#: courses\models.py:298 events\models.py:288
+#: courses\models.py:302 events\models.py:288
 #: templates\events\event_form.html:51
 msgid "Registration"
 msgstr ""
@@ -8027,15 +8381,15 @@ msgstr ""
 msgid "Relation"
 msgstr ""
 
-#: templates\courses\student_detail.html:69
+#: templates\courses\student_detail.html:96
 msgid "Relationship notes"
 msgstr ""
 
-#: templates\courses\batch_registrations.html:40
+#: templates\courses\batch_registrations.html:42
 msgid "Remind about details"
 msgstr ""
 
-#: courses\student_views.py:148
+#: courses\student_views.py:154
 #, python-format
 msgid "Reminder emailed to %(n)s student(s)."
 msgstr ""
@@ -8064,6 +8418,10 @@ msgstr ""
 msgid "Remove the custom thumbnail"
 msgstr ""
 
+#: templates\courses\batch_attendance.html:47
+msgid "Remove this class and its attendance?"
+msgstr ""
+
 #: templates\appointments\availability.html:132
 msgid "Remove this closure?"
 msgstr ""
@@ -8080,6 +8438,14 @@ msgstr ""
 msgid "Remove this leave?"
 msgstr ""
 
+#: templates\courses\course_materials.html:31
+msgid "Remove this material?"
+msgstr ""
+
+#: templates\courses\student_detail.html:72
+msgid "Remove this payment?"
+msgstr ""
+
 #: clinic\templates\clinic\admin\clinic_setup.html:482
 #: clinic\templates\clinic\admin\clinic_setup.html:675
 msgid "Removed"
@@ -8093,7 +8459,7 @@ msgstr ""
 msgid "Rent / Lease"
 msgstr ""
 
-#: templates\courses\student_detail.html:81
+#: templates\courses\student_detail.html:108
 msgid "Reopen"
 msgstr ""
 
@@ -8284,6 +8650,10 @@ msgstr ""
 msgid "Save as draft"
 msgstr ""
 
+#: templates\courses\batch_attendance.html:45
+msgid "Save attendance"
+msgstr ""
+
 #: idcards\templates\idcards\branding.html:17
 msgid "Save branding"
 msgstr ""
@@ -8341,11 +8711,15 @@ msgstr ""
 msgid "Saved as hidden. Record the patient's consent to publish it."
 msgstr ""
 
+#: courses\ops_views.py:55
+msgid "Saved."
+msgstr ""
+
 #: idcards\render.py:248
 msgid "Scan to verify"
 msgstr ""
 
-#: templates\courses\batch_list.html:89 templates\events\event_form.html:31
+#: templates\courses\batch_list.html:90 templates\events\event_form.html:31
 msgid "Schedule"
 msgstr ""
 
@@ -8408,7 +8782,7 @@ msgstr ""
 msgid "Search name, phone, email"
 msgstr ""
 
-#: templates\courses\student_list.html:15
+#: templates\courses\student_list.html:16
 msgid "Search name, phone, email or student ID"
 msgstr ""
 
@@ -8487,6 +8861,12 @@ msgstr ""
 msgid "Security Warning:"
 msgstr ""
 
+#: templates\courses\student_signin.html:8
+msgid ""
+"See all your courses, certificates and study materials in one place. We "
+"email a one-time link to the address we have on file for you."
+msgstr ""
+
 #: templates\clinic\home.html:75
 msgid "See real patient stories for your problem"
 msgstr ""
@@ -8554,7 +8934,7 @@ msgid "Seminar"
 msgstr ""
 
 #: templates\clinic\partials\review_form.html:32
-#: templates\courses\registration_manage.html:47
+#: templates\courses\registration_manage.html:74
 #: templates\events\registration_manage.html:39
 msgid "Send feedback"
 msgstr ""
@@ -8583,7 +8963,7 @@ msgstr ""
 msgid "Sent"
 msgstr ""
 
-#: courses\student_views.py:125
+#: courses\student_views.py:131
 msgid "Sent the \"complete your details\" link."
 msgstr ""
 
@@ -8728,6 +9108,10 @@ msgstr ""
 msgid "Sessions Today"
 msgstr ""
 
+#: templates\courses\student_detail.html:80
+msgid "Set"
+msgstr ""
+
 #: appointments\models.py:72
 msgid "Set both break start and break end, or neither."
 msgstr ""
@@ -8736,7 +9120,7 @@ msgstr ""
 msgid "Set both times, or leave both empty for a full day."
 msgstr ""
 
-#: courses\models.py:191
+#: courses\models.py:193
 msgid "Set when the student finishes the course."
 msgstr ""
 
@@ -8746,6 +9130,10 @@ msgstr ""
 
 #: clinic\templates\clinic\admin\clinic_setup.html:27
 msgid "Settings Menu"
+msgstr ""
+
+#: templates\courses\student_detail.html:70
+msgid "settled"
 msgstr ""
 
 #: idcards\templates\idcards\_card.html:40
@@ -8790,6 +9178,10 @@ msgstr ""
 
 #: courses\models.py:30
 msgid "Short Description"
+msgstr ""
+
+#: templates\courses\course_materials.html:20
+msgid "Short description (optional)"
 msgstr ""
 
 #: templates\clinic\admin\video_form.html:26
@@ -8929,7 +9321,7 @@ msgstr ""
 msgid "Sign in with your work email."
 msgstr ""
 
-#: templates\ui\topbar.html:49
+#: templates\courses\student_portal.html:9 templates\ui\topbar.html:49
 msgid "Sign out"
 msgstr ""
 
@@ -9092,7 +9484,7 @@ msgstr ""
 msgid "Staff Member"
 msgstr ""
 
-#: templates\accounts\login.html:8 templates\public\footer.html:52
+#: templates\accounts\login.html:8 templates\public\footer.html:53
 msgid "Staff sign in"
 msgstr ""
 
@@ -9176,9 +9568,9 @@ msgstr ""
 msgid "Still have a question?"
 msgstr ""
 
-#: courses\models.py:231 templates\courses\batch_feedback_admin.html:52
+#: courses\models.py:235 templates\courses\batch_attendance.html:33
+#: templates\courses\batch_feedback_admin.html:52
 #: templates\courses\student_detail.html:3
-#: templates\courses\student_list.html:27
 msgid "Student"
 msgstr ""
 
@@ -9186,11 +9578,11 @@ msgstr ""
 msgid "Student Details"
 msgstr ""
 
-#: courses\student_views.py:75
+#: courses\student_views.py:81
 msgid "Student details saved."
 msgstr ""
 
-#: templates\courses\student_detail.html:46
+#: templates\courses\student_detail.html:48
 msgid "Student ID card"
 msgstr ""
 
@@ -9202,7 +9594,7 @@ msgstr ""
 msgid "Student Name"
 msgstr ""
 
-#: notifications\messages.py:113
+#: notifications\messages.py:116
 #, python-format
 msgid "Student profile completed: %(name)s"
 msgstr ""
@@ -9211,9 +9603,26 @@ msgstr ""
 msgid "Student Registrations"
 msgstr ""
 
-#: courses\models.py:232 templates\courses\batch_list.html:65
+#: templates\courses\student_signin.html:3
+#: templates\courses\student_signin.html:7 templates\public\footer.html:52
+msgid "Student sign in"
+msgstr ""
+
+#: courses\models.py:236 templates\courses\batch_list.html:66
 #: templates\courses\student_list.html:3 templates\courses\student_list.html:4
 msgid "Students"
+msgstr ""
+
+#: templates\courses\batch_attendance.html:11
+#, python-format
+msgid "Students need %(n)s%% attendance to earn a certificate."
+msgstr ""
+
+#: templates\courses\batch_list.html:22
+#: templates\courses\batch_registrations.html:40
+#: templates\courses\course_materials.html:3
+#: templates\courses\course_materials.html:4
+msgid "Study materials"
 msgstr ""
 
 #: templates\clinic\partials\review_form.html:32
@@ -9224,7 +9633,7 @@ msgstr ""
 msgid "Submitted"
 msgstr ""
 
-#: courses\models.py:307 events\models.py:304
+#: courses\models.py:311 events\models.py:304
 msgid "Submitted At"
 msgstr ""
 
@@ -9372,7 +9781,7 @@ msgstr ""
 msgid "Tel"
 msgstr ""
 
-#: templates\courses\registration_manage.html:46
+#: templates\courses\registration_manage.html:73
 msgid "Tell future students about your experience (optional)"
 msgstr ""
 
@@ -9505,6 +9914,10 @@ msgstr ""
 
 #: events\views.py:269
 msgid "That action is not available for this registration."
+msgstr ""
+
+#: courses\ops_views.py:329
+msgid "That link has expired or was already used. Ask for a new one."
 msgstr ""
 
 #: clinic\views.py:173
@@ -9656,7 +10069,7 @@ msgid ""
 "help the search box match (e.g. “disc, herniated” for Slip Disc)."
 msgstr ""
 
-#: templates\courses\student_detail.html:40
+#: templates\courses\student_detail.html:41
 msgid ""
 "They may be the same person or a mistake. Check before treating them as one."
 msgstr ""
@@ -9713,6 +10126,10 @@ msgstr ""
 msgid "This card is no longer valid."
 msgstr ""
 
+#: templates\courses\certificate_verify.html:18
+msgid "This certificate could not be verified."
+msgstr ""
+
 #: accounts\views.py:23
 msgid "This email is already used by another account."
 msgstr ""
@@ -9743,6 +10160,11 @@ msgstr ""
 #: templates\clinic\event_detail.html:28 templates\clinic\event_detail.html:60
 #: templates\events\registration_manage.html:13
 msgid "This event was cancelled."
+msgstr ""
+
+#: courses\files.py:42
+#, python-format
+msgid "This file does not look like a real %(ext)s document."
 msgstr ""
 
 #: spinalcure\uploads.py:209
@@ -9803,11 +10225,11 @@ msgstr ""
 msgid "This shift overlaps another shift on the same day."
 msgstr ""
 
-#: courses\student_views.py:122
+#: courses\student_views.py:128
 msgid "This student has already completed their details."
 msgstr ""
 
-#: courses\student_views.py:118
+#: courses\student_views.py:124
 msgid "This student has no confirmed place."
 msgstr ""
 
@@ -9824,6 +10246,10 @@ msgstr ""
 msgid ""
 "Tick only when the patient (or their team) has agreed in writing to be named"
 " on the website."
+msgstr ""
+
+#: templates\courses\batch_attendance.html:45
+msgid "Tick the students who were present."
 msgstr ""
 
 #: appointments\models.py:218 templates\appointments\calendar.html:551
@@ -9950,6 +10376,14 @@ msgstr ""
 msgid "Top Sub-label"
 msgstr ""
 
+#: courses\models.py:329
+msgid "Topic"
+msgstr ""
+
+#: templates\courses\batch_attendance.html:25
+msgid "Topic (optional)"
+msgstr ""
+
 #: templates\clinic\blog_list.html:13 templates\clinic\faq.html:20
 msgid "Topics"
 msgstr ""
@@ -10000,6 +10434,10 @@ msgstr ""
 
 #: templates\courses\course_list.html:6
 msgid "Training Courses"
+msgstr ""
+
+#: courses\models.py:387
+msgid "Transaction or cheque number"
 msgstr ""
 
 #: clinic\models.py:512 templates\clinic\admin\video_form.html:28
@@ -10315,7 +10753,7 @@ msgstr ""
 msgid "Update User"
 msgstr ""
 
-#: payments\models.py:24
+#: courses\models.py:380 payments\models.py:24
 msgid "UPI"
 msgstr ""
 
@@ -10335,6 +10773,12 @@ msgstr ""
 
 #: events\forms.py:44
 msgid "Upload a JPEG, PNG or WebP image."
+msgstr ""
+
+#: courses\files.py:29
+msgid ""
+"Upload a PDF, Word, PowerPoint, Excel, CSV, text or video (MP4, WebM, MOV) "
+"file."
 msgstr ""
 
 #: clinic\models.py:689
@@ -10357,8 +10801,16 @@ msgstr ""
 msgid "Upload image (JPEG, PNG or WebP, max 8 MB)"
 msgstr ""
 
+#: templates\courses\student_detail.html:90
+msgid "Upload own PDF and email"
+msgstr ""
+
 #: templates\clinic\admin\gallery.html:18
 msgid "Upload photos"
+msgstr ""
+
+#: templates\courses\student_detail.html:90
+msgid "Upload your own certificate (PDF)"
 msgstr ""
 
 #: templates\clinic\admin\video_form.html:49
@@ -10377,6 +10829,10 @@ msgstr ""
 
 #: spinalcure\uploads.py:211
 msgid "Use a JPEG, PNG or WebP image."
+msgstr ""
+
+#: courses\ops_views.py:255
+msgid "Use either a link or a file, not both."
 msgstr ""
 
 #: clinic\blog_models.py:66
@@ -10519,7 +10975,8 @@ msgstr ""
 msgid "via %(get_payment_mode_display)s"
 msgstr ""
 
-#: clinic\models.py:660 templates\clinic\admin\gallery.html:30
+#: clinic\models.py:660 courses\models.py:400
+#: templates\clinic\admin\gallery.html:30
 #: templates\clinic\admin\videos.html:67
 msgid "Video"
 msgstr ""
@@ -10614,6 +11071,10 @@ msgstr ""
 msgid "Visibility"
 msgstr ""
 
+#: templates\courses\course_materials.html:30
+msgid "Visible"
+msgstr ""
+
 #: templates\clinic\admin\testimonial_form.html:129
 msgid "Visible on the public portfolio when checked"
 msgstr ""
@@ -10646,8 +11107,8 @@ msgstr ""
 msgid "Waitlist when full"
 msgstr ""
 
-#: courses\models.py:182 events\models.py:252
-#: templates\courses\batch_registrations.html:57
+#: courses\models.py:184 events\models.py:252
+#: templates\courses\batch_registrations.html:59
 #: templates\events\event_registrations.html:31
 msgid "Waitlisted"
 msgstr ""
@@ -10826,7 +11287,7 @@ msgstr ""
 msgid "What brings you in? (optional)"
 msgstr ""
 
-#: templates\courses\student_detail.html:72
+#: templates\courses\student_detail.html:99
 msgid "What happened, or what to do next"
 msgstr ""
 
@@ -10866,7 +11327,7 @@ msgstr ""
 msgid "What you will learn"
 msgstr ""
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "WhatsApp"
 msgstr ""
 
@@ -10882,7 +11343,7 @@ msgstr ""
 msgid "WhatsApp notifications (opt-in)"
 msgstr ""
 
-#: templates\courses\student_detail.html:33
+#: templates\courses\student_detail.html:34
 msgid "WhatsApp the link"
 msgstr ""
 
@@ -10917,7 +11378,7 @@ msgstr ""
 msgid "Whether this OTP has been successfully verified"
 msgstr ""
 
-#: courses\models.py:293
+#: courses\models.py:297
 msgid "Which batch the reviewer attended."
 msgstr ""
 
@@ -11009,7 +11470,7 @@ msgstr ""
 msgid "Write First Post"
 msgstr ""
 
-#: courses\student_views.py:94
+#: courses\student_views.py:100
 msgid "Write something first."
 msgstr ""
 
@@ -11043,7 +11504,7 @@ msgid "Years of Experience"
 msgstr ""
 
 #: templates\appointments\manage.html:60
-#: templates\courses\registration_manage.html:55
+#: templates\courses\registration_manage.html:82
 #: templates\events\registration_manage.html:48
 msgid "Yes, cancel"
 msgstr ""
@@ -11264,10 +11725,23 @@ msgstr ""
 msgid "Your authorization PIN is:"
 msgstr ""
 
+#: templates\courses\registration_manage.html:60
+msgid "Your certificate"
+msgstr ""
+
+#: notifications\messages.py:113
+#, python-format
+msgid "Your certificate: %(event)s"
+msgstr ""
+
 #: templates\courses\registration_manage.html:20
 msgid ""
 "Your details are complete. Show this card at the clinic; the QR code lets "
 "anyone confirm it is genuine."
+msgstr ""
+
+#: templates\courses\student_signin.html:16
+msgid "Your email or phone number"
 msgstr ""
 
 #: templates\clinic\partials\review_form.html:25
@@ -11298,7 +11772,7 @@ msgid ""
 "your student ID card straight away."
 msgstr ""
 
-#: templates\courses\registration_manage.html:54
+#: templates\courses\registration_manage.html:81
 #: templates\events\registration_manage.html:47
 msgid "Your place may be offered to someone on the waitlist."
 msgstr ""
@@ -11335,6 +11809,10 @@ msgstr ""
 msgid ""
 "Your sign-in code is %(code)s. It expires in %(m)d minutes. If you did not "
 "request it, ignore this email."
+msgstr ""
+
+#: courses\ops.py:125
+msgid "Your sign-in link"
 msgstr ""
 
 #: templates\clinic\home.html:187
@@ -11398,6 +11876,10 @@ msgstr ""
 #: templates\appointments\availability.html:3
 #: templates\clinic\admin\blog_form.html:4 templates\events\event_form.html:4
 msgid "— SpinalCure"
+msgstr ""
+
+#: templates\courses\course_materials.html:19
+msgid "…or upload a file (PDF, Word, PowerPoint, Excel, video)"
 msgstr ""
 
 #: templates\patients\patient_detail.html:282

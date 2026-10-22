@@ -44,6 +44,13 @@ def send_email(notification, to):
         to=[to],
     )
     msg.attach_alternative(html, 'text/html')
+    if notification.event_type == 'course_certificate' and notification.dedupe_key.startswith('cert:'):
+        from courses import certificate
+        from courses.models import Certificate
+        cert = Certificate.objects.select_related('registration__batch__course', 'registration__student').filter(
+            code=notification.dedupe_key.split(':')[1]).first()
+        if cert:
+            msg.attach(f'certificate-{cert.code}.pdf', certificate.pdf_bytes(cert), 'application/pdf')
     msg.send(fail_silently=False)
     return None
 

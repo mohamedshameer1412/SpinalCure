@@ -29,7 +29,7 @@ def _named_urls():
 ALLOWED = {'dashboard', 'notification_center', 'notification_summary', 'notification_preferences', 'idcard_mine', 'logout',
            # own profile, and pages/APIs that are public by design
            'auth-me', 'blog_list', 'clinic_about_page', 'clinic_portfolio', 'event-list', 'login', 'portal_login', 'settings',  # own profile
-           'practitioner-list', 'public_event_list', 'public_testimonials', 'robots_txt', 'sitemap', 'clinic_faq', 'clinic_review', 'clinic_terms', 'public_gallery'}
+           'practitioner-list', 'public_event_list', 'public_testimonials', 'robots_txt', 'sitemap', 'clinic_faq', 'clinic_review', 'clinic_terms', 'public_gallery', 'student_signin'}
 # Pages a receptionist must NOT reach (management, clinical, website and finance-admin areas).
 RECEPTIONIST_BLOCKED = {'expense_list', 'expense_create', 'payments_report', 'admin_users', 'admin_activity_log', 'admin_practitioners',
                         'admin_clinic_setup', 'admin_blog_list', 'admin_testimonials', 'idcard_dashboard', 'idcard_issue',

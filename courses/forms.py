@@ -30,7 +30,7 @@ class CourseBatchForm(forms.ModelForm):
         model = CourseBatch
         fields = [
             'name', 'start_date', 'end_date', 'schedule_details',
-            'max_participants', 'is_active', 'feedback_enabled', 'is_published'
+            'max_participants', 'is_active', 'feedback_enabled', 'is_published', 'min_attendance_percent'
         ]
         widgets = {
             'name': forms.TextInput(attrs={'class': 'premium-input', 'placeholder': 'e.g. Summer Intake 2025'}),

@@ -10,12 +10,12 @@ from django.utils.translation import gettext
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 
-from spinalcure.rbac import require_capability
+from spinalcure.rbac import has_capability, require_capability
 from spinalcure.utils import log_action
 
-from . import idcard, service
+from . import idcard, ops, service
 from .forms import StudentProfileForm
-from .models import CourseBatch, CourseRegistration, Student, StudentNote
+from .models import Certificate, CourseBatch, CourseFeePayment, CourseRegistration, Student, StudentNote
 
 CAP = 'events.registrations'
 SIDES = ('front', 'back')
@@ -37,12 +37,15 @@ def student_list(request):
         qs = qs.filter(profile_completed_at__isnull=True)
     elif profile == 'complete':
         qs = qs.filter(profile_completed_at__isnull=False)
+    elif profile == 'next_batch':
+        qs = qs.filter(notes__kind='next_batch', notes__done=False).distinct()
     elif profile == 'follow_up':
         qs = qs.filter(notes__follow_up_on__lte=timezone.localdate(), notes__done=False).distinct()
     page = Paginator(qs.order_by('-created_at'), 20).get_page(request.GET.get('page'))
     ctx = {'students': page, 'q': q, 'profile': profile, 'total': Student.objects.count(),
            'incomplete': Student.objects.filter(profile_completed_at__isnull=True).count(),
-           'due': StudentNote.objects.filter(follow_up_on__lte=timezone.localdate(), done=False).count()}
+           'due': StudentNote.objects.filter(follow_up_on__lte=timezone.localdate(), done=False).count(),
+           'ready': Student.objects.filter(notes__kind='next_batch', notes__done=False).distinct().count()}
     return render(request, 'courses/student_list.html', ctx)
 
 
@@ -55,7 +58,10 @@ def student_detail(request, pk):
         'st': st, 'regs': regs, 'notes': st.notes.select_related('author')[:100], 'kinds': StudentNote.KIND_CHOICES,
         'card_reg': reg, 'link': (request.build_absolute_uri(service.manage_path(reg)) if reg else ''),
         'same_phone': Student.objects.filter(phone_key=st.phone_key).exclude(pk=st.pk)[:5] if st.phone_key else [],
-        'today': timezone.localdate()})
+        'today': timezone.localdate(),
+        'reg_rows': [{'reg': r, 'pct': ops.attendance_percent(r), 'fees': ops.fee_summary(r),
+                      'cert': Certificate.objects.filter(registration=r).first()} for r in regs],
+        'modes': CourseFeePayment.MODE_CHOICES, 'can_manage': has_capability(request.user, 'events.manage')})
 
 
 @require_capability(CAP)

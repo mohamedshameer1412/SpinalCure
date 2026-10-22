@@ -39,7 +39,7 @@ msgstr ""
 "\"%(username)s\" కు ID కార్డులు లేదా రికార్డులు అనుసంధానమై ఉన్నాయి. బదులుగా "
 "ఖాతాను నిలిపివేయండి."
 
-#: templates\courses\batch_list.html:151
+#: templates\courses\batch_list.html:152
 msgid "\"Batch:"
 msgstr "\"బ్యాచ్:"
 
@@ -77,7 +77,7 @@ msgstr "%(clinic_name)s బృందం"
 msgid "%(count)s post%(count_2)s"
 msgstr "%(count)s పోస్ట్%(count_2)s"
 
-#: templates\courses\batch_registrations.html:49
+#: templates\courses\batch_registrations.html:51
 #, python-format
 msgid "%(count)s Students"
 msgstr "%(count)s విద్యార్థులు"
@@ -92,7 +92,7 @@ msgstr "%(count)s సమర్పణ%(count_2)s"
 msgid "%(count)s Total"
 msgstr "మొత్తం %(count)s"
 
-#: notifications\messages.py:117
+#: notifications\messages.py:120
 #, python-format
 msgid "%(detail)s"
 msgstr "%(detail)s"
@@ -139,6 +139,11 @@ msgstr "%(event)s %(date)s న %(time)s కి ప్రారంభమవుత
 #, python-format
 msgid "%(experience_years)s years experience"
 msgstr "%(experience_years)s సంవత్సరాల అనుభవం"
+
+#: courses\ops_views.py:84
+#, python-format
+msgid "%(i)s certificate(s) issued, %(e)s emailed."
+msgstr "%(i)s సర్టిఫికెట్(లు) జారీ చేయబడ్డాయి, %(e)s ఇమెయిల్ చేయబడ్డాయి."
 
 #: templates\clinic\event_detail.html:44
 #: templates\patients\patient_detail.html:279
@@ -190,12 +195,17 @@ msgid_plural "%(n)s sittings"
 msgstr[0] "%(n)s సిట్టింగ్"
 msgstr[1] "%(n)s సిట్టింగ్‌లు"
 
+#: templates\courses\registration_manage.html:53
+#, python-format
+msgid "%(n)s%% needed for a certificate"
+msgstr "సర్టిఫికెట్ కోసం %(n)s%% అవసరం"
+
 #: templates\patients\patient_detail.html:5
 #, python-format
 msgid "%(name)s - SpinalCure"
 msgstr "%(name)s - SpinalCure"
 
-#: notifications\messages.py:114
+#: notifications\messages.py:117
 #, python-format
 msgid ""
 "%(name)s finished their details for %(event)s (%(batch)s). Their student ID "
@@ -254,7 +264,7 @@ msgstr "%(s)s: ముగింపు సమయం ప్రారంభ సమ�
 msgid "%(site)s patient portal sign-in code"
 msgstr "%(site)s రోగి పోర్టల్ సైన్-ఇన్ కోడ్"
 
-#: notifications\messages.py:116
+#: notifications\messages.py:119
 #, python-format
 msgid "%(subject)s"
 msgstr "%(subject)s"
@@ -308,7 +318,7 @@ msgstr "&nbsp;·&nbsp;"
 msgid "&ndash;"
 msgstr "&ndash;"
 
-#: templates\courses\batch_list.html:56
+#: templates\courses\batch_list.html:57
 #, python-format
 msgid "&ndash; %(end_date)s"
 msgstr "&ndash; %(end_date)s"
@@ -711,7 +721,7 @@ msgstr "సక్రియం (చికిత్స పొందుతున్
 msgid "Active (visible on portfolio)"
 msgstr "సక్రియం (పోర్ట్‌ఫోలియోలో కనిపిస్తుంది)"
 
-#: templates\courses\batch_form.html:160 templates\courses\batch_list.html:45
+#: templates\courses\batch_form.html:160 templates\courses\batch_list.html:46
 msgid "Active Intake"
 msgstr "సక్రియ ప్రవేశం"
 
@@ -777,6 +787,10 @@ msgstr "జోడించండి"
 msgid "Add a featured patient"
 msgstr "ప్రత్యేక రోగిని జోడించు"
 
+#: courses\ops_views.py:253
+msgid "Add a link, or upload a file."
+msgstr "లింక్ జోడించండి, లేదా ఫైల్ అప్‌లోడ్ చేయండి."
+
 #: templates\patients\packages.html:38
 msgid "Add a package"
 msgstr "ప్యాకేజీ జోడించు"
@@ -788,6 +802,10 @@ msgstr "ఫోటో లేదా వీడియో జోడించు"
 #: templates\clinic\admin\faqs.html:46
 msgid "Add a question"
 msgstr "ప్రశ్న జోడించు"
+
+#: templates\courses\batch_attendance.html:26
+msgid "Add class"
+msgstr "తరగతిని జోడించండి"
 
 #: templates\appointments\availability.html:122
 msgid "Add closure"
@@ -809,7 +827,12 @@ msgstr "ఖర్చు జోడించండి — SpinalCure"
 msgid "Add leave"
 msgstr "సెలవు జోడించండి"
 
-#: templates\courses\batch_list.html:28
+#: templates\courses\course_materials.html:13
+#: templates\courses\course_materials.html:22
+msgid "Add material"
+msgstr "మెటీరియల్ జోడించండి"
+
+#: templates\courses\batch_list.html:29
 msgid "Add New Batch"
 msgstr "కొత్త బ్యాచ్ జోడించండి"
 
@@ -835,7 +858,7 @@ msgstr "కొత్త ట్యాగ్ జోడించండి"
 msgid "Add New User"
 msgstr "కొత్త వినియోగదారుని జోడించండి"
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:101
 msgid "Add note"
 msgstr "నోట్ జోడించండి"
 
@@ -878,6 +901,14 @@ msgstr "సెషన్ జోడించండి"
 #: templates\clinic\admin\testimonials_list.html:5
 msgid "Add Testimonial"
 msgstr "ప్రశంసాపత్రం జోడించండి"
+
+#: courses\ops_views.py:82
+msgid "Add the classes and mark attendance first."
+msgstr "ముందు తరగతులు జోడించి హాజరు నమోదు చేయండి."
+
+#: templates\courses\batch_attendance.html:49
+msgid "Add the first class to start taking attendance."
+msgstr "హాజరు తీసుకోవడం ప్రారంభించడానికి మొదటి తరగతిని జోడించండి."
 
 #: templates\patients\reviews.html:153
 msgid "Add the first review →"
@@ -949,13 +980,21 @@ msgid "Additional Notes"
 msgstr "అదనపు గమనికలు"
 
 #: clinic\models.py:39 clinic\templates\clinic\admin\clinic_setup.html:262
-#: courses\models.py:218 idcards\render.py:251
+#: courses\models.py:222 idcards\render.py:251
 msgid "Address"
 msgstr "చిరునామా"
 
 #: templates\ui\sidebar.html:46
 msgid "Administration"
 msgstr "నిర్వహణ"
+
+#: templates\courses\student_detail.html:80
+msgid "Agreed fee for this student"
+msgstr "ఈ విద్యార్థికి అంగీకరించిన ఫీజు"
+
+#: courses\models.py:195
+msgid "Agreed fee for this student, instead of the course fee."
+msgstr "కోర్సు ఫీజుకు బదులుగా ఈ విద్యార్థికి అంగీకరించిన ఫీజు."
 
 #: notifications\templates\notifications\center.html:17
 msgid "Alerts"
@@ -1074,6 +1113,7 @@ msgstr "ఇప్పటికే వెనక్కి తీసుకోబడ�
 msgid "Also review us on Google"
 msgstr "Google లో కూడా మాకు సమీక్ష ఇవ్వండి"
 
+#: templates\courses\student_detail.html:74
 #: templates\patients\patient_detail.html:588
 #: templates\payments\online_pay.html:28
 #: templates\payments\partials\expense_list_partial.html:12
@@ -1359,6 +1399,29 @@ msgstr "క్లినిక్‌లో"
 msgid "Attempts"
 msgstr "ప్రయత్నాలు"
 
+#: templates\courses\batch_attendance.html:3
+#: templates\courses\batch_attendance.html:4
+#: templates\courses\registration_manage.html:53
+#: templates\courses\student_portal.html:18
+msgid "Attendance"
+msgstr "హాజరు"
+
+#: templates\courses\student_detail.html:64
+msgid "attendance"
+msgstr "హాజరు"
+
+#: templates\courses\batch_registrations.html:39
+msgid "Attendance & certificates"
+msgstr "హాజరు & సర్టిఫికెట్లు"
+
+#: courses\models.py:146
+msgid "Attendance needed for a certificate (%)"
+msgstr "సర్టిఫికెట్ కోసం అవసరమైన హాజరు (%)"
+
+#: courses\ops_views.py:50
+msgid "Attendance saved."
+msgstr "హాజరు సేవ్ అయింది."
+
 #: templates\events\event_registrations.html:20
 msgid "attended"
 msgstr "హాజరయ్యారు"
@@ -1508,6 +1571,10 @@ msgstr "బ్యాచ్ నిర్వహణకు తిరిగి"
 msgid "Back to Batches"
 msgstr "బ్యాచ్‌లకు తిరిగి"
 
+#: templates\courses\course_materials.html:8
+msgid "Back to batches"
+msgstr "బ్యాచ్‌లకు తిరిగి"
+
 #: templates\courses\course_form.html:155
 msgid "Back to Course Management"
 msgstr "కోర్సు నిర్వహణకు తిరిగి"
@@ -1555,6 +1622,10 @@ msgstr "క్యూకి తిరిగి వెళ్ళండి"
 msgid "Back to Reviews"
 msgstr "సమీక్షలకు తిరిగి"
 
+#: templates\courses\batch_attendance.html:9
+msgid "Back to students"
+msgstr "విద్యార్థులకు తిరిగి"
+
 #: templates\clinic\admin\testimonial_form.html:10
 msgid "Back to Testimonials"
 msgstr "ప్రశంసాపత్రాలకు తిరిగి"
@@ -1566,6 +1637,11 @@ msgstr "వెబ్‌సైట్‌కు తిరిగి"
 #: templates\patients\patient_detail.html:307
 msgid "Balance"
 msgstr "బకాయి"
+
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:70
+msgid "balance"
+msgstr "బాకీ"
 
 #: templates\payments\emails\receipt_email.html:15
 msgid "Balance due"
@@ -1583,6 +1659,10 @@ msgstr "బ్యాంకు పేరు"
 msgid "Bank Transfer"
 msgstr "బ్యాంకు బదిలీ"
 
+#: courses\models.py:380
+msgid "Bank transfer"
+msgstr "బ్యాంక్ బదిలీ"
+
 #: events\models.py:67
 msgid "Banner Image"
 msgstr "బ్యానర్ చిత్రం"
@@ -1599,7 +1679,7 @@ msgstr "ప్రాథమిక సమాచారం"
 msgid "Basics"
 msgstr "ప్రాథమికాలు"
 
-#: courses\models.py:175 courses\models.py:292
+#: courses\models.py:177 courses\models.py:296
 msgid "Batch"
 msgstr "బ్యాచ్"
 
@@ -1630,8 +1710,7 @@ msgstr "బ్యాచ్ పేరు"
 msgid "Batch Name / Intake Period *"
 msgstr "బ్యాచ్ పేరు / ప్రవేశ కాలం *"
 
-#: templates\courses\student_detail.html:56
-#: templates\courses\student_list.html:28
+#: templates\courses\student_list.html:30
 msgid "Batches"
 msgstr "బ్యాచ్‌లు"
 
@@ -1704,7 +1783,7 @@ msgstr "బ్లాగ్ ట్యాగ్‌లు"
 msgid "Blog Tags — SpinalCure"
 msgstr "బ్లాగ్ ట్యాగ్‌లు — SpinalCure"
 
-#: accounts\templates\accounts\admin\user_form.html:115 courses\models.py:222
+#: accounts\templates\accounts\admin\user_form.html:115 courses\models.py:226
 #: idcards\render.py:249 templates\courses\student_detail.html:26
 msgid "Blood group"
 msgstr "రక్త గ్రూపు"
@@ -1848,7 +1927,7 @@ msgstr "SpinalCure HMS ద్వారా. అత్యంత రహస్య �
 msgid "Calendar View"
 msgstr "క్యాలెండర్ వీక్షణ"
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "Call"
 msgstr "కాల్"
 
@@ -1867,7 +1946,7 @@ msgstr "అపాయింట్‌మెంట్ రద్దు చేయం�
 msgid "Cancel event"
 msgstr "ఈవెంట్ రద్దు చేయండి"
 
-#: templates\courses\registration_manage.html:52
+#: templates\courses\registration_manage.html:79
 #: templates\events\registration_manage.html:45
 msgid "Cancel my registration"
 msgstr "నా నమోదు రద్దు చేయండి"
@@ -1883,7 +1962,7 @@ msgstr ""
 msgid "Cancel this registration?"
 msgstr "ఈ నమోదు రద్దు చేయాలా?"
 
-#: appointments\models.py:180 courses\models.py:182 events\models.py:94
+#: appointments\models.py:180 courses\models.py:184 events\models.py:94
 #: events\models.py:252
 msgid "Cancelled"
 msgstr "రద్దు చేయబడింది"
@@ -1918,7 +1997,8 @@ msgstr "సామర్థ్యం కనీసం 1 ఉండాలి."
 msgid "Caption"
 msgstr "వివరణ"
 
-#: idcards\templates\idcards\dashboard.html:28 payments\models.py:23
+#: courses\models.py:380 idcards\templates\idcards\dashboard.html:28
+#: payments\models.py:23
 msgid "Card"
 msgstr "కార్డు"
 
@@ -1987,7 +2067,7 @@ msgstr "కార్డు రకం"
 msgid "Case ID: #%(id)s"
 msgstr "కేస్ ID: #%(id)s"
 
-#: payments\models.py:22
+#: courses\models.py:380 payments\models.py:22
 msgid "Cash"
 msgstr "నగదు"
 
@@ -1995,6 +2075,28 @@ msgstr "నగదు"
 #: templates\payments\partials\expense_list_partial.html:9
 msgid "Category"
 msgstr "వర్గం"
+
+#: templates\courses\batch_attendance.html:36
+#: templates\courses\student_detail.html:83
+#: templates\courses\student_portal.html:23
+msgid "Certificate"
+msgstr "సర్టిఫికెట్"
+
+#: templates\courses\certificate_verify.html:3
+msgid "Certificate check"
+msgstr "సర్టిఫికెట్ తనిఖీ"
+
+#: courses\ops_views.py:144
+msgid "Certificate emailed again."
+msgstr "సర్టిఫికెట్ మళ్లీ ఇమెయిల్ చేయబడింది."
+
+#: courses\ops_views.py:134
+msgid "Certificate saved and emailed."
+msgstr "సర్టిఫికెట్ సేవ్ చేసి ఇమెయిల్ చేయబడింది."
+
+#: courses\ops_views.py:134
+msgid "Certificate saved."
+msgstr "సర్టిఫికెట్ సేవ్ అయింది."
 
 #: templates\clinic\terms.html:23
 msgid ""
@@ -2044,6 +2146,10 @@ msgstr ""
 msgid "Channel"
 msgstr "ఛానెల్"
 
+#: templates\courses\student_signin.html:11
+msgid "Check your email"
+msgstr "మీ ఇమెయిల్ చూడండి"
+
 #: clinic\models.py:367
 msgid "Checked by"
 msgstr "తనిఖీ చేసినవారు"
@@ -2053,7 +2159,7 @@ msgstr "తనిఖీ చేసినవారు"
 msgid "Checked by %(who)s"
 msgstr "%(who)s తనిఖీ చేశారు"
 
-#: payments\models.py:26
+#: courses\models.py:381 payments\models.py:26
 msgid "Cheque"
 msgstr "చెక్కు"
 
@@ -2098,6 +2204,10 @@ msgstr "ఖాళీ సమయాలు చూడడానికి ఒక త�
 msgid "Choose a morning or an evening session, or switch the day off."
 msgstr "ఉదయం లేదా సాయంత్రం సెషన్ ఎంచుకోండి, లేదా ఆ రోజును ఆఫ్ చేయండి."
 
+#: courses\ops_views.py:123
+msgid "Choose a PDF file."
+msgstr "ఒక PDF ఫైల్ ఎంచుకోండి."
+
 #: clinic\models.py:686
 msgid "Choose a photo."
 msgstr "ఒక ఫోటో ఎంచుకోండి."
@@ -2123,6 +2233,10 @@ msgstr "ప్రతి సంఘటన గురించి ఎలా తె�
 msgid "Choose the appointment length from the list."
 msgstr "జాబితా నుండి అపాయింట్‌మెంట్ నిడివిని ఎంచుకోండి."
 
+#: courses\ops_views.py:39
+msgid "Choose the date of the class."
+msgstr "తరగతి తేదీని ఎంచుకోండి."
+
 #: accounts\forms.py:87
 msgid "Choose the practitioner to link."
 msgstr "లింక్ చేయవలసిన ప్రాక్టీషనర్‌ను ఎంచుకోండి."
@@ -2146,6 +2260,18 @@ msgstr "ఎంచుకోండి…"
 #: events\models.py:24
 msgid "Class"
 msgstr "తరగతి"
+
+#: courses\ops_views.py:42
+msgid "Class added. Tick who attended and save."
+msgstr "తరగతి జోడించబడింది. హాజరైన వారిని టిక్ చేసి సేవ్ చేయండి."
+
+#: templates\courses\batch_attendance.html:24
+msgid "Class date"
+msgstr "తరగతి తేదీ"
+
+#: courses\ops_views.py:45
+msgid "Class removed."
+msgstr "తరగతి తొలగించబడింది."
 
 #: templates\clinic\home.html:62
 msgid ""
@@ -2320,8 +2446,8 @@ msgstr ""
 msgid "Comma-separated; imported from YouTube."
 msgstr "కామాతో వేరు చేయండి; YouTube నుండి దిగుమతి చేయబడింది."
 
-#: courses\models.py:303 events\models.py:298
-#: templates\courses\registration_manage.html:45
+#: courses\models.py:307 events\models.py:298
+#: templates\courses\registration_manage.html:72
 #: templates\events\event_feedback_admin.html:57
 msgid "Comment"
 msgstr "వ్యాఖ్య"
@@ -2331,7 +2457,7 @@ msgid "Compare the name and photo with the person presenting the card."
 msgstr "కార్డు చూపిస్తున్న వ్యక్తితో పేరు మరియు ఫోటోను పోల్చండి."
 
 #: templates\courses\partials\batch_registrations_partial.html:45
-#: templates\courses\student_list.html:36
+#: templates\courses\student_list.html:38
 msgid "Complete"
 msgstr "పూర్తి"
 
@@ -2349,7 +2475,7 @@ msgid "Complete your registration: %(event)s"
 msgstr "మీ నమోదును పూర్తి చేయండి: %(event)s"
 
 #: appointments\models.py:179 templates\appointments\calendar.html:475
-#: templates\clinic\event_detail.html:22 templates\courses\batch_list.html:48
+#: templates\clinic\event_detail.html:22 templates\courses\batch_list.html:49
 msgid "Completed"
 msgstr "పూర్తయింది"
 
@@ -2394,7 +2520,7 @@ msgstr "కొత్త పాస్‌వర్డ్‌ను నిర్ధ�
 msgid "Confirm the permission is on file before publishing."
 msgstr "ప్రచురించే ముందు అనుమతి రికార్డులో ఉందని నిర్ధారించండి."
 
-#: appointments\models.py:178 courses\models.py:182 events\models.py:252
+#: appointments\models.py:178 courses\models.py:184 events\models.py:252
 #: templates\appointments\calendar.html:474
 msgid "Confirmed"
 msgstr "నిర్ధారించబడింది"
@@ -2402,6 +2528,10 @@ msgstr "నిర్ధారించబడింది"
 #: templates\events\event_registrations.html:17
 msgid "confirmed"
 msgstr "నిర్ధారించబడింది"
+
+#: templates\courses\registration_manage.html:61
+msgid "Congratulations on completing the course."
+msgstr "కోర్సు పూర్తి చేసినందుకు అభినందనలు."
 
 #: templates\clinic\course_detail.html:124
 #: templates\clinic\partials\review_form.html:62
@@ -2443,7 +2573,7 @@ msgstr "సంప్రదించిన వైద్యుడు"
 msgid "Consulting Doctor:"
 msgstr "సంప్రదించే వైద్యుడు:"
 
-#: templates\courses\student_list.html:27
+#: templates\courses\student_list.html:29
 #: templates\events\partials\event_registrations_partial.html:10
 #: templates\public\header.html:35 templates\public\header.html:65
 msgid "Contact"
@@ -2551,7 +2681,7 @@ msgstr "ఇమెయిల్ పంపలేకపోయాము. దయచే
 msgid "Country code"
 msgstr "దేశ కోడ్"
 
-#: courses\models.py:72 courses\models.py:120 courses\models.py:288
+#: courses\models.py:72 courses\models.py:120 courses\models.py:292
 #: templates\clinic\home.html:235
 msgid "Course"
 msgstr "కోర్సు"
@@ -2576,11 +2706,11 @@ msgstr "కోర్సు \"%(title)s\" తొలగించబడింది
 msgid "Course \"%(title)s\" updated."
 msgstr "కోర్సు \"%(title)s\" నవీకరించబడింది."
 
-#: courses\models.py:147
+#: courses\models.py:149
 msgid "Course Batch"
 msgstr "కోర్సు బ్యాచ్"
 
-#: courses\models.py:148 templates\courses\batch_list.html:6
+#: courses\models.py:150 templates\courses\batch_list.html:6
 msgid "Course Batches"
 msgstr "కోర్సు బ్యాచ్‌లు"
 
@@ -2592,11 +2722,11 @@ msgstr "కోర్సు విషయం / సిలబస్"
 msgid "Course fee"
 msgstr "కోర్సు ఫీజు"
 
-#: courses\models.py:310
+#: courses\models.py:314
 msgid "Course Feedback"
 msgstr "కోర్సు అభిప్రాయం"
 
-#: courses\models.py:311
+#: courses\models.py:315
 msgid "Course Feedbacks"
 msgstr "కోర్సు అభిప్రాయాలు"
 
@@ -2604,7 +2734,7 @@ msgstr "కోర్సు అభిప్రాయాలు"
 msgid "Course Fees (₹)"
 msgstr "కోర్సు ఫీజు (₹)"
 
-#: templates\courses\batch_registrations.html:42
+#: templates\courses\batch_registrations.html:44
 msgid "Course finished: ask for feedback"
 msgstr "కోర్సు ముగిసింది: ఫీడ్‌బ్యాక్ అడగండి"
 
@@ -2616,11 +2746,11 @@ msgstr "కోర్సు ఫీజు (₹) *"
 msgid "Course Management - SpinalCure"
 msgstr "కోర్సు నిర్వహణ - SpinalCure"
 
-#: courses\models.py:194 payments\models.py:79
+#: courses\models.py:198 payments\models.py:79
 msgid "Course Registration"
 msgstr "కోర్సు నమోదు"
 
-#: courses\models.py:195
+#: courses\models.py:199
 msgid "Course Registrations"
 msgstr "కోర్సు నమోదులు"
 
@@ -2664,7 +2794,7 @@ msgstr "సృష్టించండి"
 msgid "Create a practitioner profile from this account"
 msgstr "ఈ ఖాతా నుండి ప్రాక్టీషనర్ ప్రొఫైల్ సృష్టించండి"
 
-#: templates\courses\batch_list.html:129
+#: templates\courses\batch_list.html:130
 msgid "Create Batch"
 msgstr "బ్యాచ్ సృష్టించండి"
 
@@ -2700,7 +2830,7 @@ msgstr "చికిత్స ప్రణాళిక సృష్టించ�
 msgid "Create User"
 msgstr "వినియోగదారుని సృష్టించండి"
 
-#: templates\courses\batch_list.html:126
+#: templates\courses\batch_list.html:127
 msgid "Create your first batch to start enrolling students."
 msgstr ""
 "విద్యార్థులను చేర్చుకోవడం ప్రారంభించడానికి మీ మొదటి బ్యాచ్ సృష్టించండి."
@@ -2762,6 +2892,10 @@ msgstr "ప్రస్తుత చెల్లుబాటు అయ్యే 
 msgid "Curriculum"
 msgstr "పాఠ్యప్రణాళిక"
 
+#: courses\models.py:359
+msgid "Custom certificate file"
+msgstr "కస్టమ్ సర్టిఫికెట్ ఫైల్"
+
 #: templates\clinic\event_detail.html:33
 msgid "d"
 msgstr "రో"
@@ -2786,8 +2920,8 @@ msgstr "డాష్‌బోర్డ్ - SpinalCure"
 msgid "Dashboard Overview"
 msgstr "డాష్‌బోర్డ్ అవలోకనం"
 
-#: appointments\models.py:215 events\models.py:70 payments\models.py:326
-#: templates\appointments\appointment_list.html:72
+#: appointments\models.py:215 courses\models.py:328 events\models.py:70
+#: payments\models.py:326
 msgid "Date"
 msgstr "తేదీ"
 
@@ -2807,7 +2941,7 @@ msgstr "తేదీ భవిష్యత్తులో ఉండకూడద�
 msgid "Date cannot be in the past."
 msgstr "తేదీ గతంలో ఉండకూడదు."
 
-#: accounts\templates\accounts\admin\user_form.html:114 courses\models.py:219
+#: accounts\templates\accounts\admin\user_form.html:114 courses\models.py:223
 #: idcards\render.py:251 templates\courses\student_detail.html:24
 msgid "Date of birth"
 msgstr "పుట్టిన తేదీ"
@@ -2870,7 +3004,7 @@ msgstr "తొలగించండి"
 msgid "Delete Appointment"
 msgstr "అపాయింట్‌మెంట్ తొలగించండి"
 
-#: templates\courses\batch_list.html:148
+#: templates\courses\batch_list.html:149
 msgid "Delete Batch?"
 msgstr "బ్యాచ్ తొలగించాలా?"
 
@@ -2919,7 +3053,7 @@ msgstr "ఈ వీడియోను తొలగించాలా?"
 msgid "Deleted Data"
 msgstr "తొలగించిన డేటా"
 
-#: templates\courses\batch_list.html:155
+#: templates\courses\batch_list.html:156
 msgid ""
 "Deleting this batch will erase all registrations and feedback associated "
 "with it. This cannot be undone."
@@ -2990,7 +3124,7 @@ msgstr "హోదా"
 msgid "Designation / Location"
 msgstr "హోదా / స్థానం"
 
-#: courses\models.py:216 templates\courses\_profile_form.html:11
+#: courses\models.py:220 templates\courses\_profile_form.html:11
 #: templates\courses\student_form.html:15
 msgid "Designation / profession"
 msgstr "హోదా / వృత్తి"
@@ -3036,7 +3170,7 @@ msgstr "వివరమైన మాడ్యూల్/అంశాల జాబ
 
 #: templates\clinic\admin\video_form.html:16
 #: templates\courses\partials\batch_registrations_partial.html:12
-#: templates\courses\student_list.html:28
+#: templates\courses\student_list.html:30
 msgid "Details"
 msgstr "వివరాలు"
 
@@ -3048,15 +3182,15 @@ msgstr "వివరాలు & నమోదు"
 msgid "Details and registration"
 msgstr "వివరాలు మరియు నమోదు"
 
-#: templates\courses\batch_registrations.html:56
+#: templates\courses\batch_registrations.html:58
 #: templates\courses\student_detail.html:15
-#: templates\courses\student_list.html:19
+#: templates\courses\student_list.html:20
 msgid "Details complete"
 msgstr "వివరాలు పూర్తి"
 
 #: templates\courses\student_detail.html:16
 #: templates\courses\student_list.html:10
-#: templates\courses\student_list.html:18
+#: templates\courses\student_list.html:19
 msgid "Details missing"
 msgstr "వివరాలు లేవు"
 
@@ -3145,7 +3279,19 @@ msgstr "వైద్యుని అందుబాటు"
 msgid "Doctor's private notes..."
 msgstr "వైద్యుని ప్రైవేట్ గమనికలు..."
 
-#: templates\courses\student_detail.html:81
+#: courses\models.py:400
+msgid "Document"
+msgstr "పత్రం"
+
+#: courses\files.py:31
+msgid ""
+"Documents can be at most 25 MB. For bigger files, paste a Drive link "
+"instead."
+msgstr ""
+"పత్రాలు గరిష్ఠంగా 25 MB ఉండవచ్చు. పెద్ద ఫైళ్ల కోసం Drive లింక్‌ను "
+"అతికించండి."
+
+#: templates\courses\student_detail.html:108
 msgid "Done"
 msgstr "పూర్తయింది"
 
@@ -3157,13 +3303,17 @@ msgstr "కాపీ చేయడానికి కింది PIN పై డ�
 msgid "Download back (PNG)"
 msgstr "వెనుక వైపు డౌన్‌లోడ్ (PNG)"
 
+#: templates\courses\registration_manage.html:62
+msgid "Download certificate (PDF)"
+msgstr "సర్టిఫికెట్ డౌన్‌లోడ్ చేయండి (PDF)"
+
 #: idcards\templates\idcards\_card.html:36
 msgid "Download front (PNG)"
 msgstr "ముందు వైపు డౌన్‌లోడ్ (PNG)"
 
 #: idcards\templates\idcards\_card.html:38
 #: templates\courses\registration_manage.html:26
-#: templates\courses\student_detail.html:50
+#: templates\courses\student_detail.html:52
 #: templates\patients\patient_detail.html:412
 msgid "Download PDF"
 msgstr "PDF డౌన్‌లోడ్"
@@ -3445,6 +3595,10 @@ msgstr "అమలు ముగింపు"
 msgid "Either email or phone number is required."
 msgstr "ఇమెయిల్ లేదా ఫోన్ నంబర్‌లో ఒకటి అవసరం."
 
+#: templates\courses\batch_attendance.html:42
+msgid "Eligible"
+msgstr "అర్హులు"
+
 #: accounts\models.py:111 accounts\templates\accounts\admin\user_form.html:53
 #: clinic\models.py:45 clinic\templates\clinic\admin\clinic_setup.html:252
 msgid "Email"
@@ -3464,9 +3618,17 @@ msgstr "ఇమెయిల్ (ఐచ్ఛికం)"
 msgid "Email Address"
 msgstr "ఇమెయిల్ చిరునామా"
 
-#: templates\courses\batch_registrations.html:40
+#: templates\courses\student_detail.html:86
+msgid "Email again"
+msgstr "మళ్లీ ఇమెయిల్"
+
+#: templates\courses\batch_registrations.html:42
 msgid "Email everyone who has not added their details yet"
 msgstr "ఇంకా వివరాలు జోడించని వారందరికీ ఇమెయిల్ చేయండి"
+
+#: templates\courses\student_signin.html:17
+msgid "Email me a sign-in link"
+msgstr "నాకు సైన్-ఇన్ లింక్ ఇమెయిల్ చేయండి"
 
 #: patients\models.py:39
 msgid "Email notifications"
@@ -3476,7 +3638,7 @@ msgstr "ఇమెయిల్ నోటిఫికేషన్లు"
 msgid "Email sent successfully."
 msgstr "ఇమెయిల్ విజయవంతంగా పంపబడింది."
 
-#: templates\courses\student_detail.html:32
+#: templates\courses\student_detail.html:33
 msgid "Email the details link"
 msgstr "వివరాల లింక్‌ను ఇమెయిల్ చేయండి"
 
@@ -3487,6 +3649,10 @@ msgstr "ఇమెయిల్ ధృవీకరించబడింది"
 #: templates\patients\patient_form.html:73
 msgid "email@example.com"
 msgstr "email@example.com"
+
+#: templates\courses\student_detail.html:87
+msgid "emailed"
+msgstr "ఇమెయిల్ చేయబడింది"
 
 #: templates\courses\student_detail.html:27
 msgid "Emergency"
@@ -3504,12 +3670,12 @@ msgstr "అత్యవసర సంప్రదింపు"
 msgid "Emergency contact (optional)"
 msgstr "అత్యవసర సంప్రదింపు (ఐచ్ఛికం)"
 
-#: accounts\templates\accounts\admin\user_form.html:117 courses\models.py:223
+#: accounts\templates\accounts\admin\user_form.html:117 courses\models.py:227
 #: templates\courses\student_form.html:21
 msgid "Emergency contact name"
 msgstr "అత్యవసర సంప్రదింపు పేరు"
 
-#: accounts\templates\accounts\admin\user_form.html:118 courses\models.py:224
+#: accounts\templates\accounts\admin\user_form.html:118 courses\models.py:228
 #: templates\courses\student_form.html:22
 msgid "Emergency contact phone"
 msgstr "అత్యవసర సంప్రదింపు ఫోన్"
@@ -3615,6 +3781,10 @@ msgstr "నమోదు తెరిచి ఉంది"
 msgid "Enter 6-digit Code"
 msgstr "6 అంకెల కోడ్ నమోదు చేయండి"
 
+#: courses\ops_views.py:57
+msgid "Enter a number from 1 to 100."
+msgstr "1 నుండి 100 వరకు ఒక సంఖ్య నమోదు చేయండి."
+
 #: clinic\testimonial_views.py:245
 msgid "Enter a problem name."
 msgstr "సమస్య పేరు ఇవ్వండి."
@@ -3626,6 +3796,10 @@ msgstr "సరైన తేదీ ఇవ్వండి."
 #: spinalcure\validators.py:107
 msgid "Enter a valid email address."
 msgstr "చెల్లుబాటు అయ్యే ఇమెయిల్ చిరునామా నమోదు చేయండి."
+
+#: courses\ops_views.py:207
+msgid "Enter a valid fee."
+msgstr "సరైన ఫీజు నమోదు చేయండి."
 
 #: patients\views.py:1081 patients\views.py:1079
 msgid "Enter a valid package price."
@@ -3648,6 +3822,10 @@ msgid "Enter the 6-digit code emailed to you. It expires in 10 minutes."
 msgstr ""
 "మీకు ఇమెయిల్ చేసిన 6 అంకెల కోడ్ నమోదు చేయండి. ఇది 10 నిమిషాల్లో గడువు "
 "ముగుస్తుంది."
+
+#: courses\ops_views.py:173
+msgid "Enter the amount received."
+msgstr "అందిన మొత్తాన్ని నమోదు చేయండి."
 
 #: clinic\faq_views.py:50
 msgid "Enter who checked this answer before publishing it."
@@ -3841,7 +4019,15 @@ msgstr "ఈవెంట్లు & తరగతులు - SpinalCure"
 msgid "Events, workshops & webinars"
 msgstr "ఈవెంట్లు, వర్క్‌షాప్‌లు & వెబినార్లు"
 
-#: templates\courses\student_list.html:17
+#: templates\courses\course_materials.html:28
+msgid "Every batch"
+msgstr "ప్రతి బ్యాచ్"
+
+#: courses\ops_views.py:240
+msgid "Every batch of this course"
+msgstr "ఈ కోర్సు యొక్క ప్రతి బ్యాచ్"
+
+#: templates\courses\student_list.html:18
 msgid "Every student"
 msgstr "ప్రతి విద్యార్థి"
 
@@ -3953,7 +4139,7 @@ msgstr "అన్వేషించండి"
 msgid "Export"
 msgstr "ఎగుమతి"
 
-#: templates\courses\batch_list.html:24
+#: templates\courses\batch_list.html:25
 msgid "Export Courses"
 msgstr "కోర్సులు ఎగుమతి చేయండి"
 
@@ -4049,8 +4235,12 @@ msgstr "ప్రత్యేక సేవలు నవీకరించబడ�
 msgid "Fee"
 msgstr "రుసుము"
 
+#: courses\ops_views.py:211
+msgid "Fee updated."
+msgstr "ఫీజు అప్‌డేట్ చేయబడింది."
+
 #: templates\clinic\testimonials_public.html:13
-#: templates\courses\batch_list.html:76
+#: templates\courses\batch_list.html:77
 #: templates\events\partials\event_list_partial.html:79
 #: templates\public_base.html:72
 msgid "Feedback"
@@ -4104,7 +4294,7 @@ msgstr "ఈ బ్యాచ్‌కు అభిప్రాయం తెరవ
 msgid "Feedback is not open for this event."
 msgstr "ఈ ఈవెంట్‌కు అభిప్రాయం తెరవబడలేదు."
 
-#: courses\student_views.py:136
+#: courses\student_views.py:142
 #, python-format
 msgid "Feedback is open. %(n)s student(s) were emailed their link."
 msgstr ""
@@ -4114,7 +4304,7 @@ msgstr ""
 msgid "feedback is visible to the public."
 msgstr "అభిప్రాయం ప్రజలకు కనిపిస్తుంది."
 
-#: templates\courses\batch_registrations.html:58
+#: templates\courses\batch_registrations.html:60
 msgid "Feedback received"
 msgstr "అందిన ఫీడ్‌బ్యాక్"
 
@@ -4132,6 +4322,11 @@ msgstr "అభిప్రాయం — %(name)s"
 msgid "Feedback — %(title)s"
 msgstr "అభిప్రాయం — %(title)s"
 
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:69
+msgid "Fees"
+msgstr "ఫీజు"
+
 #: events\models.py:133
 msgid "Fees (₹)"
 msgstr "ఫీజు (₹)"
@@ -4141,9 +4336,13 @@ msgstr "ఫీజు (₹)"
 msgid "Fees are non-refundable."
 msgstr "ఫీజులు తిరిగి ఇవ్వబడవు."
 
+#: templates\courses\student_portal.html:19
+msgid "Fees paid"
+msgstr "చెల్లించిన ఫీజు"
+
 #: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:39
-#: courses\models.py:206
+#: courses\models.py:210
 msgid "Female"
 msgstr "స్త్రీ"
 
@@ -4191,19 +4390,19 @@ msgstr "ఫోకస్ బిందువు"
 msgid "Focal point: click, or use the arrow keys"
 msgstr "ఫోకస్ బిందువు: క్లిక్ చేయండి లేదా బాణం కీలను ఉపయోగించండి"
 
-#: templates\courses\student_detail.html:80
+#: templates\courses\student_detail.html:107
 msgid "Follow up"
 msgstr "ఫాలో అప్"
 
-#: templates\courses\student_detail.html:73
+#: templates\courses\student_detail.html:100
 msgid "Follow up on"
 msgstr "ఫాలో అప్ తేదీ"
 
-#: courses\models.py:260 patients\session_pdf.py:76
+#: courses\models.py:264 patients\session_pdf.py:76
 msgid "Follow-up"
 msgstr "ఫాలో-అప్"
 
-#: templates\courses\student_list.html:20
+#: templates\courses\student_list.html:22
 msgid "Follow-up due"
 msgstr "ఫాలో అప్ బాకీ"
 
@@ -4211,7 +4410,7 @@ msgstr "ఫాలో అప్ బాకీ"
 msgid "Follow-up reminder lead (days)"
 msgstr "ఫాలో-అప్ గుర్తు ముందస్తు (రోజులు)"
 
-#: templates\courses\student_list.html:11
+#: templates\courses\student_list.html:12
 msgid "Follow-ups due"
 msgstr "బాకీ ఉన్న ఫాలో అప్‌లు"
 
@@ -4223,6 +4422,7 @@ msgstr "ఆహారం, మందుల అలెర్జీలు..."
 msgid "Footer Text"
 msgstr "ఫుటర్ పాఠ్యం"
 
+#: templates\courses\course_materials.html:17
 #: templates\payments\online_pay.html:27
 msgid "For"
 msgstr "దేనికోసం"
@@ -4334,7 +4534,7 @@ msgstr "పూర్తి వివరణ"
 msgid "Full Mobility"
 msgstr "పూర్తి కదలిక"
 
-#: clinic\models.py:195 courses\models.py:177 courses\models.py:210
+#: clinic\models.py:195 courses\models.py:179 courses\models.py:214
 #: events\models.py:247
 msgid "Full Name"
 msgstr "పూర్తి పేరు"
@@ -4402,7 +4602,7 @@ msgstr "GB"
 
 #: accounts\templates\accounts\admin\user_form.html:113
 #: clinic\templates\clinic\admin\practitioner_form.html:34
-#: courses\models.py:220 idcards\render.py:251
+#: courses\models.py:224 idcards\render.py:251
 msgid "Gender"
 msgstr "లింగం"
 
@@ -4447,6 +4647,10 @@ msgstr "సృష్టించిన తేదీ"
 #, python-format
 msgid "Generated: %(now)s"
 msgstr "సృష్టించబడింది: %(now)s"
+
+#: templates\courses\certificate_verify.html:10
+msgid "Genuine certificate"
+msgstr "నిజమైన సర్టిఫికెట్"
 
 #: templates\clinic\admin\testimonials_list.html:47
 msgid "Given"
@@ -4599,6 +4803,15 @@ msgstr ""
 "తెలుసుకోవాలనుకుంటున్నాం. ఒక నిమిషం పడుతుంది, భవిష్యత్ విద్యార్థులకు "
 "సహాయపడుతుంది."
 
+#: notifications\messages.py:114
+#, python-format
+msgid ""
+"Hi %(name)s, congratulations! Your certificate for %(event)s (%(batch)s) is "
+"attached. Certificate no. %(code)s."
+msgstr ""
+"హలో %(name)s, అభినందనలు! %(event)s (%(batch)s) కోసం మీ సర్టిఫికెట్ "
+"జతచేయబడింది. సర్టిఫికెట్ నం. %(code)s."
+
 #: notifications\messages.py:105
 #, python-format
 msgid ""
@@ -4688,7 +4901,7 @@ msgstr "%(event)s ఎలా ఉంది?"
 msgid "How was it?"
 msgstr "ఎలా ఉంది?"
 
-#: templates\courses\registration_manage.html:41
+#: templates\courses\registration_manage.html:68
 msgid "How was the course?"
 msgstr "కోర్సు ఎలా ఉంది?"
 
@@ -4812,6 +5025,14 @@ msgstr ""
 msgid ""
 "If this number is registered and has an email on file, a code has been sent."
 msgstr "ఈ నంబర్ నమోదై ఇమెయిల్ ఉంటే, కోడ్ పంపబడింది."
+
+#: templates\courses\student_signin.html:12
+msgid ""
+"If we have you on file, a sign-in link is on its way. It works once and "
+"expires in 30 minutes."
+msgstr ""
+"మీ వివరాలు మా వద్ద ఉంటే, సైన్-ఇన్ లింక్ వస్తోంది. ఇది ఒక్కసారే పనిచేస్తుంది,"
+" 30 నిమిషాల్లో గడువు ముగుస్తుంది."
 
 #: templates\emails\auth_request.html:52
 msgid ""
@@ -4938,6 +5159,10 @@ msgstr "Instagram URL"
 msgid "Insurance"
 msgstr "బీమా"
 
+#: courses\models.py:264
+msgid "Interested in the next batch"
+msgstr "తదుపరి బ్యాచ్‌పై ఆసక్తి"
+
 #: clinic\models.py:387
 msgid "Internal / Direct"
 msgstr "అంతర్గత / ప్రత్యక్ష"
@@ -5058,6 +5283,11 @@ msgstr "ప్రధాన వైద్యుడు (పై అడ్డ లే�
 msgid "Issue"
 msgstr "జారీ చేయండి"
 
+#: templates\courses\batch_attendance.html:19
+#, python-format
+msgid "Issue & email certificates (%(n)s)"
+msgstr "సర్టిఫికెట్లు జారీ చేసి ఇమెయిల్ చేయండి (%(n)s)"
+
 #: idcards\templates\idcards\branding.html:20
 msgid "Issue a card to see a live preview here."
 msgstr "ఇక్కడ ప్రత్యక్ష ప్రివ్యూ చూడటానికి కార్డు జారీ చేయండి."
@@ -5066,6 +5296,10 @@ msgstr "ఇక్కడ ప్రత్యక్ష ప్రివ్యూ చ
 #: idcards\templates\idcards\issue.html:16
 msgid "Issue card"
 msgstr "కార్డు జారీ చేయండి"
+
+#: templates\courses\batch_attendance.html:18
+msgid "Issue certificates to every eligible student and email them?"
+msgstr "అర్హులైన ప్రతి విద్యార్థికి సర్టిఫికెట్ జారీ చేసి ఇమెయిల్ చేయాలా?"
 
 #: idcards\templates\idcards\issue.html:3
 #: idcards\templates\idcards\issue.html:4
@@ -5080,6 +5314,11 @@ msgstr "వాపసు జారీ చేయండి"
 #: idcards\templates\idcards\verify.html:39
 msgid "Issued"
 msgstr "జారీ చేయబడింది"
+
+#: templates\courses\certificate_verify.html:13
+#, python-format
+msgid "Issued %(d)s"
+msgstr "జారీ చేసినది %(d)s"
 
 #: templates\clinic\review_withdraw.html:12
 msgid "It is no longer shown and its text and your name have been deleted."
@@ -5158,7 +5397,7 @@ msgid "Keep event"
 msgstr "ఈవెంట్ ఉంచండి"
 
 #: templates\appointments\manage.html:59
-#: templates\courses\registration_manage.html:55
+#: templates\courses\registration_manage.html:82
 #: templates\events\registration_manage.html:48
 msgid "Keep it"
 msgstr "అలాగే ఉంచండి"
@@ -5172,7 +5411,7 @@ msgid "Keep this link private: anyone with it can change this appointment."
 msgstr ""
 "ఈ లింక్‌ను రహస్యంగా ఉంచండి: ఇది ఉన్న ఎవరైనా ఈ అపాయింట్‌మెంట్‌ను మార్చగలరు."
 
-#: templates\courses\registration_manage.html:58
+#: templates\courses\registration_manage.html:85
 #: templates\events\registration_manage.html:51
 msgid "Keep this link private: anyone with it can manage this registration."
 msgstr "ఈ లింక్‌ను రహస్యంగా ఉంచండి: ఇది ఉన్న ఎవరైనా ఈ నమోదును నిర్వహించగలరు."
@@ -5283,6 +5522,10 @@ msgstr "అపరిమితం కోసం ఖాళీగా వదలండ
 msgid "Leave empty to close the whole clinic."
 msgstr "మొత్తం క్లినిక్ మూసివేయడానికి ఖాళీగా వదలండి."
 
+#: courses\models.py:404
+msgid "Leave empty to share with every batch of the course."
+msgstr "కోర్సు యొక్క ప్రతి బ్యాచ్‌తో పంచుకోవడానికి ఖాళీగా వదలండి."
+
 #: templates\appointments\availability.html:86
 #, python-format
 msgid "Leave: %(name)s"
@@ -5313,6 +5556,14 @@ msgstr "లైట్"
 msgid "Limited seats. We will call you to confirm."
 msgstr "సీట్లు పరిమితం. నిర్ధారించడానికి మేము మీకు కాల్ చేస్తాము."
 
+#: courses\models.py:400
+msgid "Link"
+msgstr "లింక్"
+
+#: templates\courses\course_materials.html:18
+msgid "Link (Google Drive, YouTube, any web page)"
+msgstr "లింక్ (Google Drive, YouTube, ఏదైనా వెబ్ పేజీ)"
+
 #: accounts\forms.py:27
 msgid "Link an existing practitioner"
 msgstr "ఇప్పటికే ఉన్న ప్రాక్టీషనర్‌ను లింక్ చేయండి"
@@ -5321,7 +5572,7 @@ msgstr "ఇప్పటికే ఉన్న ప్రాక్టీషనర�
 msgid "Link copied to the clipboard"
 msgstr "లింక్ క్లిప్‌బోర్డ్‌కు కాపీ అయింది"
 
-#: courses\student_views.py:126
+#: courses\student_views.py:132
 #, python-format
 msgid "Link emailed to %(email)s."
 msgstr "లింక్ %(email)s కు ఇమెయిల్ చేయబడింది."
@@ -5337,6 +5588,13 @@ msgstr "ఈ సమీక్షను నిర్దిష్ట వైద్య
 #: accounts\forms.py:51
 msgid "Linked practitioner profile (keep)"
 msgstr "లింక్ చేసిన ప్రాక్టీషనర్ ప్రొఫైల్ (ఉంచండి)"
+
+#: templates\courses\course_materials.html:10
+msgid ""
+"Links and files that confirmed students can open from their private page."
+msgstr ""
+"నిర్ధారించబడిన విద్యార్థులు తమ ప్రైవేట్ పేజీ నుండి తెరవగల లింకులు మరియు "
+"ఫైళ్లు."
 
 #: templates\appointments\calendar.html:439
 msgid "List View"
@@ -5453,7 +5711,7 @@ msgstr "మలయాళం"
 
 #: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:38
-#: courses\models.py:206
+#: courses\models.py:210
 msgid "Male"
 msgstr "పురుషుడు"
 
@@ -5536,6 +5794,18 @@ msgstr "సమీక్షించినదిగా గుర్తించ�
 msgid "Marketing & Advertising"
 msgstr "మార్కెటింగ్ & ప్రకటనలు"
 
+#: courses\ops_views.py:272
+msgid "Material added."
+msgstr "మెటీరియల్ జోడించబడింది."
+
+#: courses\ops_views.py:293
+msgid "Material removed."
+msgstr "మెటీరియల్ తొలగించబడింది."
+
+#: templates\courses\student_portal.html:22
+msgid "materials"
+msgstr "మెటీరియల్స్"
+
 #: appointments\models.py:53
 msgid "Max appointments in this shift"
 msgstr "ఈ షిఫ్ట్‌లో గరిష్ట అపాయింట్‌మెంట్లు"
@@ -5601,6 +5871,19 @@ msgstr "మీటింగ్ ప్రొవైడర్"
 msgid "Menu"
 msgstr "మెనూ"
 
+#: templates\courses\student_detail.html:43
+msgid "Merge into this student"
+msgstr "ఈ విద్యార్థిలో విలీనం చేయండి"
+
+#: templates\courses\student_detail.html:43
+msgid "Merge this record into the current student? This cannot be undone."
+msgstr ""
+"ఈ రికార్డును ప్రస్తుత విద్యార్థిలో విలీనం చేయాలా? దీన్ని రద్దు చేయలేరు."
+
+#: courses\ops_views.py:226
+msgid "Merged into this student."
+msgstr "ఈ విద్యార్థిలో విలీనం చేయబడింది."
+
 #: clinic\blog_models.py:82
 msgid "Meta Description"
 msgstr "మెటా వివరణ"
@@ -5633,7 +5916,7 @@ msgstr "లేనివి"
 #: templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 #: templates\courses\partials\batch_registrations_partial.html:46
-#: templates\courses\student_list.html:37
+#: templates\courses\student_list.html:39
 msgid "Missing"
 msgstr "లేదు"
 
@@ -5658,6 +5941,7 @@ msgstr "కదలిక స్కోర్ (1-5)"
 msgid "Mobility Score:"
 msgstr "కదలిక స్కోర్:"
 
+#: templates\courses\student_detail.html:75
 #: templates\patients\patient_detail.html:589
 #: templates\payments\invoice.html:286
 #: templates\payments\partials\payment_list_partial.html:11
@@ -5743,6 +6027,11 @@ msgstr "5 మరియు 480 నిమిషాల మధ్య ఉండాల
 msgid "Must be less than or equal to total amount"
 msgstr "మొత్తం మొత్తానికి సమానంగా లేదా తక్కువగా ఉండాలి"
 
+#: templates\courses\student_portal.html:3
+#: templates\courses\student_portal.html:8
+msgid "My courses"
+msgstr "నా కోర్సులు"
+
 #: templates\patients\portal\dashboard.html:3
 msgid "My Health Portal — SpinalCure"
 msgstr "నా ఆరోగ్య పోర్టల్ — SpinalCure"
@@ -5752,7 +6041,7 @@ msgstr "నా ఆరోగ్య పోర్టల్ — SpinalCure"
 msgid "My ID card"
 msgstr "నా ID కార్డు"
 
-#: clinic\models.py:629 courses\models.py:301 events\models.py:293
+#: clinic\models.py:629 courses\models.py:305 events\models.py:293
 #: templates\events\event_feedback_admin.html:55
 msgid "Name"
 msgstr "పేరు"
@@ -5789,6 +6078,10 @@ msgstr "శ్రద్ధ అవసరం"
 #: templates\emails\base_email.html:52
 msgid "Need help? Contact the clinic"
 msgstr "సహాయం కావాలా? క్లినిక్‌ను సంప్రదించండి"
+
+#: templates\courses\batch_attendance.html:15
+msgid "Needed %"
+msgstr "అవసరం %"
 
 #: templates\clinic\admin\translations.html:52
 msgid "Needs attention"
@@ -5931,7 +6224,7 @@ msgstr ""
 "ప్రస్తుతం ఏ బ్యాచ్ తెరిచి లేదు. దయచేసి త్వరలో మళ్లీ చూడండి లేదా మాకు కాల్ "
 "చేయండి."
 
-#: templates\courses\batch_list.html:125
+#: templates\courses\batch_list.html:126
 msgid "No Batches Yet"
 msgstr "ఇంకా బ్యాచ్‌లు లేవు"
 
@@ -5952,11 +6245,19 @@ msgstr "మూసివేతలు షెడ్యూల్ కాలేదు.
 msgid "No Courses Found"
 msgstr "కోర్సులు కనబడలేదు"
 
+#: templates\courses\student_portal.html:26
+msgid "No courses found for this email yet."
+msgstr "ఈ ఇమెయిల్‌కు ఇంకా కోర్సులు లేవు."
+
 #: notifications\templates\notifications\deliveries.html:28
 msgid "No deliveries with this status."
 msgstr "ఈ స్థితితో డెలివరీలు లేవు."
 
-#: courses\student_views.py:120
+#: courses\ops_views.py:144
+msgid "No email address on file."
+msgstr "ఇమెయిల్ చిరునామా లేదు."
+
+#: courses\student_views.py:126
 msgid "No email address yet. Add one, or share the link by WhatsApp."
 msgstr ""
 "ఇంకా ఇమెయిల్ చిరునామా లేదు. ఒకటి జోడించండి, లేదా లింక్‌ను WhatsApp లో షేర్ "
@@ -6015,11 +6316,15 @@ msgstr "సరిపోలే ఖర్చులు కనబడలేదు."
 msgid "No matching payments found."
 msgstr "సరిపోలే చెల్లింపులు కనబడలేదు."
 
+#: templates\courses\course_materials.html:33
+msgid "No materials yet."
+msgstr "ఇంకా మెటీరియల్స్ లేవు."
+
 #: patients\session_pdf.py:72
 msgid "No notes recorded."
 msgstr "గమనికలు నమోదు కాలేదు."
 
-#: templates\courses\student_detail.html:82
+#: templates\courses\student_detail.html:109
 msgid "No notes yet."
 msgstr "ఇంకా నోట్లు లేవు."
 
@@ -6163,9 +6468,13 @@ msgstr "మీ శోధనకు సరిపోయే అనుభవాలు
 msgid "No students found matching your search."
 msgstr "మీ శోధనకు సరిపోలే విద్యార్థులు కనబడలేదు."
 
-#: templates\courses\student_list.html:39
+#: templates\courses\student_list.html:41
 msgid "No students match."
 msgstr "సరిపోలే విద్యార్థులు లేరు."
+
+#: templates\courses\certificate_verify.html:17
+msgid "No such certificate"
+msgstr "అలాంటి సర్టిఫికెట్ లేదు"
 
 #: templates\courses\student_verify.html:17
 msgid "No such student ID"
@@ -6262,6 +6571,10 @@ msgstr "కేటాయించబడలేదు"
 msgid "Not given yet"
 msgstr "ఇంకా ఇవ్వలేదు"
 
+#: templates\courses\student_detail.html:88
+msgid "Not issued yet. Attendance is marked on the batch page."
+msgstr "ఇంకా జారీ కాలేదు. హాజరు బ్యాచ్ పేజీలో నమోదు చేయబడుతుంది."
+
 #: clinic\testimonial_views.py:172
 msgid "Not published: record the patient's consent first."
 msgstr "ప్రచురించబడలేదు: ముందుగా రోగి సమ్మతిని నమోదు చేయండి."
@@ -6282,11 +6595,11 @@ msgstr "నమోదు కాలేదు"
 msgid "Not specified"
 msgstr "పేర్కొనబడలేదు"
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "Note"
 msgstr "నోట్"
 
-#: courses\student_views.py:98
+#: courses\student_views.py:104
 msgid "Note added."
 msgstr "నోట్ జోడించబడింది."
 
@@ -6304,7 +6617,7 @@ msgstr "గమనికలు (అంతర్గత)"
 msgid "Notes / Message"
 msgstr "గమనికలు / సందేశం"
 
-#: courses\models.py:180
+#: courses\models.py:182
 msgid "Notes / Questions"
 msgstr "గమనికలు / ప్రశ్నలు"
 
@@ -6405,7 +6718,7 @@ msgstr ""
 "ప్రతి రోగికి ఒక ఇమెయిల్, సెషన్ తర్వాతి రోజు పంపబడుతుంది. 0 అయితే ఆఫ్ "
 "అవుతుంది."
 
-#: courses\models.py:299
+#: courses\models.py:303
 msgid "One feedback per student per course."
 msgstr "ప్రతి విద్యార్థికి ప్రతి కోర్సుకు ఒక అభిప్రాయం."
 
@@ -6547,7 +6860,7 @@ msgstr ""
 "మెరుగుపరచాలో చెప్పండి."
 
 #: templates\clinic\gallery.html:27 templates\clinic\gallery.html:49
-#: templates\courses\batch_list.html:83
+#: templates\courses\batch_list.html:84
 #: templates\events\event_feedback_admin.html:15
 msgid "Open"
 msgstr "తెరిచి ఉంది"
@@ -6556,12 +6869,12 @@ msgstr "తెరిచి ఉంది"
 msgid "open"
 msgstr "తెరిచి ఉంది"
 
-#: templates\courses\batch_list.html:38
+#: templates\courses\batch_list.html:39
 #, python-format
 msgid "Open %(name)s: students and details"
 msgstr "%(name)s తెరవండి: విద్యార్థులు మరియు వివరాలు"
 
-#: templates\courses\batch_registrations.html:41
+#: templates\courses\batch_registrations.html:43
 msgid "Open feedback and email every confirmed student their link?"
 msgstr ""
 "ఫీడ్‌బ్యాక్ తెరిచి, నిర్ధారించబడిన ప్రతి విద్యార్థికి వారి లింక్ ఇమెయిల్ "
@@ -6574,6 +6887,25 @@ msgstr "Google సమీక్షలు తెరవండి"
 #: templates\public\header.html:41
 msgid "Open menu"
 msgstr "మెనూ తెరువు"
+
+#: templates\courses\student_portal.html:22
+msgid "Open my page"
+msgstr "నా పేజీని తెరవండి"
+
+#: courses\ops.py:126
+#, python-format
+msgid ""
+"Open this link to see your courses, certificates and study materials. It works once and expires in %(m)s minutes:\n"
+"\n"
+"%(link)s\n"
+"\n"
+"If you did not ask for it, ignore this email."
+msgstr ""
+"మీ కోర్సులు, సర్టిఫికెట్లు మరియు అధ్యయన సామగ్రిని చూడటానికి ఈ లింక్‌ను తెరవండి. ఇది ఒక్కసారే పనిచేస్తుంది, %(m)s నిమిషాల్లో గడువు ముగుస్తుంది:\n"
+"\n"
+"%(link)s\n"
+"\n"
+"మీరు దీన్ని అడగకపోతే, ఈ ఇమెయిల్‌ను విస్మరించండి."
 
 #: templates\clinic\home.html:270 templates\public\footer.html:28
 msgid "Opening hours"
@@ -6616,7 +6948,7 @@ msgstr "లేదా YouTube / Instagram లింక్"
 msgid "Organisation"
 msgstr "సంస్థ"
 
-#: courses\models.py:217 templates\courses\student_form.html:16
+#: courses\models.py:221 templates\courses\student_form.html:16
 msgid "Organisation / clinic"
 msgstr "సంస్థ / క్లినిక్"
 
@@ -6633,7 +6965,7 @@ msgstr "నిర్వాహకుడు"
 msgid "Other"
 msgstr "ఇతర"
 
-#: templates\courses\student_detail.html:39
+#: templates\courses\student_detail.html:40
 msgid "Other students use this phone number"
 msgstr "ఈ ఫోన్ నంబర్‌ను ఇతర విద్యార్థులు కూడా ఉపయోగిస్తున్నారు"
 
@@ -6761,6 +7093,11 @@ msgstr "చెల్లించబడింది"
 #: templates\patients\patient_detail.html:301
 msgid "Paid Amount"
 msgstr "చెల్లించిన మొత్తం"
+
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:70
+msgid "paid of"
+msgstr "చెల్లించారు, మొత్తం"
 
 #: payments\models.py:330 templates\payments\expense_form.html:46
 #: templates\payments\partials\expense_list_partial.html:10
@@ -7153,6 +7490,14 @@ msgstr "చెల్లింపు రికార్డు కనబడలే�
 msgid "Payment record updated successfully."
 msgstr "చెల్లింపు రికార్డు విజయవంతంగా నవీకరించబడింది."
 
+#: courses\ops_views.py:184
+msgid "Payment recorded."
+msgstr "చెల్లింపు నమోదు చేయబడింది."
+
+#: courses\ops_views.py:195
+msgid "Payment removed."
+msgstr "చెల్లింపు తొలగించబడింది."
+
 #: templates\payments\invoice.html:367
 msgid "Payment Summary"
 msgstr "చెల్లింపు సారాంశం"
@@ -7193,6 +7538,10 @@ msgstr "చెల్లింపుల నివేదిక"
 #: templates\payments\report.html:3
 msgid "Payments Report - SpinalCure"
 msgstr "చెల్లింపుల నివేదిక - SpinalCure"
+
+#: courses\models.py:400 templates\courses\student_detail.html:85
+msgid "PDF"
+msgstr "PDF"
 
 #: templates\partials\export_dropdown.html:10
 msgid "PDF Report"
@@ -7339,7 +7688,7 @@ msgstr ""
 msgid "Plan Name"
 msgstr "ప్రణాళిక పేరు"
 
-#: templates\courses\batch_list.html:51
+#: templates\courses\batch_list.html:52
 msgid "Planned"
 msgstr "ప్రణాళిక చేయబడింది"
 
@@ -7707,7 +8056,11 @@ msgstr "లాభం"
 msgid "Progress"
 msgstr "పురోగతి"
 
-#: templates\courses\batch_registrations.html:45
+#: templates\courses\registration_manage.html:51
+msgid "Progress and fees"
+msgstr "పురోగతి మరియు ఫీజు"
+
+#: templates\courses\batch_registrations.html:47
 #, python-format
 msgid "Promote waitlist (%(n)s)"
 msgstr "వెయిట్‌లిస్ట్ ప్రమోట్ చేయండి (%(n)s)"
@@ -7859,7 +8212,7 @@ msgstr "త్వరిత చర్యలు"
 msgid "Quick add photos"
 msgstr "ఫోటోలను త్వరగా జోడించు"
 
-#: clinic\models.py:414 courses\models.py:302 events\models.py:296
+#: clinic\models.py:414 courses\models.py:306 events\models.py:296
 #: patients\models.py:342
 msgid "Rating"
 msgstr "రేటింగ్"
@@ -7902,6 +8255,16 @@ msgstr "చదివే సమయం"
 #: clinic\blog_models.py:87
 msgid "Read Time (minutes)"
 msgstr "చదివే సమయం (నిమిషాలు)"
+
+#: templates\courses\student_detail.html:31
+#: templates\courses\student_list.html:11
+#: templates\courses\student_list.html:21
+msgid "Ready for next batch"
+msgstr "తదుపరి బ్యాచ్‌కు సిద్ధం"
+
+#: templates\courses\student_detail.html:31
+msgid "Ready for the next batch"
+msgstr "తదుపరి బ్యాచ్‌కు సిద్ధం"
 
 #: templates\patients\portal\dashboard.html:67
 msgid "Ready for your next visit?"
@@ -8004,6 +8367,7 @@ msgid "Recommended: 1200 × 630 px"
 msgstr "సిఫార్సు: 1200 × 630 px"
 
 #: clinic\templates\clinic\admin\activity_log.html:64
+#: templates\courses\student_detail.html:78
 msgid "Record"
 msgstr "రికార్డు"
 
@@ -8103,6 +8467,10 @@ msgstr "రీల్స్ & షార్ట్స్ — SpinalCure అడ్�
 msgid "Reference"
 msgstr "సూచన సంఖ్య"
 
+#: templates\courses\student_detail.html:77
+msgid "Reference (optional)"
+msgstr "రిఫరెన్స్ (ఐచ్ఛికం)"
+
 #: payments\refunds.py:22
 msgid "Refund amount must be greater than zero."
 msgstr "వాపసు మొత్తం సున్నా కంటే ఎక్కువగా ఉండాలి."
@@ -8160,7 +8528,7 @@ msgstr "రోగిని నమోదు చేయండి"
 msgid "Registered"
 msgstr "నమోదైంది"
 
-#: courses\models.py:181 events\models.py:251
+#: courses\models.py:183 events\models.py:251
 msgid "Registered At"
 msgstr "నమోదు సమయం"
 
@@ -8177,7 +8545,7 @@ msgstr "నమోదు: %(registered_date)s"
 msgid "Registering…"
 msgstr "నమోదు చేస్తోంది…"
 
-#: courses\models.py:298 events\models.py:288
+#: courses\models.py:302 events\models.py:288
 #: templates\events\event_form.html:51
 msgid "Registration"
 msgstr "నమోదు"
@@ -8262,15 +8630,15 @@ msgstr "సంబంధిత వ్యాసాలు"
 msgid "Relation"
 msgstr "సంబంధం"
 
-#: templates\courses\student_detail.html:69
+#: templates\courses\student_detail.html:96
 msgid "Relationship notes"
 msgstr "సంబంధ నోట్లు"
 
-#: templates\courses\batch_registrations.html:40
+#: templates\courses\batch_registrations.html:42
 msgid "Remind about details"
 msgstr "వివరాల గురించి గుర్తు చేయండి"
 
-#: courses\student_views.py:148
+#: courses\student_views.py:154
 #, python-format
 msgid "Reminder emailed to %(n)s student(s)."
 msgstr "%(n)s విద్యార్థి(ల)కు రిమైండర్ ఇమెయిల్ చేయబడింది."
@@ -8301,6 +8669,10 @@ msgstr "తొలగించండి"
 msgid "Remove the custom thumbnail"
 msgstr "కస్టమ్ థంబ్‌నెయిల్‌ను తీసివేయండి"
 
+#: templates\courses\batch_attendance.html:47
+msgid "Remove this class and its attendance?"
+msgstr "ఈ తరగతిని మరియు దాని హాజరును తొలగించాలా?"
+
 #: templates\appointments\availability.html:132
 msgid "Remove this closure?"
 msgstr "ఈ మూసివేతను తొలగించాలా?"
@@ -8317,6 +8689,14 @@ msgstr "దీన్ని గ్యాలరీ నుండి తొలగి
 msgid "Remove this leave?"
 msgstr "ఈ సెలవును తొలగించాలా?"
 
+#: templates\courses\course_materials.html:31
+msgid "Remove this material?"
+msgstr "ఈ మెటీరియల్‌ను తొలగించాలా?"
+
+#: templates\courses\student_detail.html:72
+msgid "Remove this payment?"
+msgstr "ఈ చెల్లింపును తొలగించాలా?"
+
 #: clinic\templates\clinic\admin\clinic_setup.html:482
 #: clinic\templates\clinic\admin\clinic_setup.html:675
 msgid "Removed"
@@ -8330,7 +8710,7 @@ msgstr "గ్యాలరీ నుండి తొలగించబడిం�
 msgid "Rent / Lease"
 msgstr "అద్దె / లీజు"
 
-#: templates\courses\student_detail.html:81
+#: templates\courses\student_detail.html:108
 msgid "Reopen"
 msgstr "మళ్లీ తెరవండి"
 
@@ -8529,6 +8909,10 @@ msgstr "సేవ్ చేసి నా ID కార్డ్ పొందం�
 msgid "Save as draft"
 msgstr "డ్రాఫ్ట్‌గా సేవ్ చేయండి"
 
+#: templates\courses\batch_attendance.html:45
+msgid "Save attendance"
+msgstr "హాజరును సేవ్ చేయండి"
+
 #: idcards\templates\idcards\branding.html:17
 msgid "Save branding"
 msgstr "బ్రాండింగ్ సేవ్ చేయండి"
@@ -8589,11 +8973,15 @@ msgid "Saved as hidden. Record the patient's consent to publish it."
 msgstr ""
 "దాచినదిగా సేవ్ చేయబడింది. దీన్ని ప్రచురించడానికి రోగి సమ్మతిని నమోదు చేయండి."
 
+#: courses\ops_views.py:55
+msgid "Saved."
+msgstr "సేవ్ అయింది."
+
 #: idcards\render.py:248
 msgid "Scan to verify"
 msgstr "ధృవీకరించడానికి స్కాన్ చేయండి"
 
-#: templates\courses\batch_list.html:89 templates\events\event_form.html:31
+#: templates\courses\batch_list.html:90 templates\events\event_form.html:31
 msgid "Schedule"
 msgstr "షెడ్యూల్"
 
@@ -8656,7 +9044,7 @@ msgstr "పేరు, ID, హోదా వెతకండి…"
 msgid "Search name, phone, email"
 msgstr "పేరు, ఫోన్, ఇమెయిల్ వెతకండి"
 
-#: templates\courses\student_list.html:15
+#: templates\courses\student_list.html:16
 msgid "Search name, phone, email or student ID"
 msgstr "పేరు, ఫోన్, ఇమెయిల్ లేదా విద్యార్థి ID వెతకండి"
 
@@ -8737,6 +9125,14 @@ msgstr "భద్రతా ధృవీకరణ"
 msgid "Security Warning:"
 msgstr "భద్రతా హెచ్చరిక:"
 
+#: templates\courses\student_signin.html:8
+msgid ""
+"See all your courses, certificates and study materials in one place. We "
+"email a one-time link to the address we have on file for you."
+msgstr ""
+"మీ అన్ని కోర్సులు, సర్టిఫికెట్లు మరియు అధ్యయన సామగ్రిని ఒకే చోట చూడండి. మా "
+"వద్ద ఉన్న చిరునామాకు ఒక్కసారి వాడే లింక్‌ను ఇమెయిల్ చేస్తాం."
+
 #: templates\clinic\home.html:75
 msgid "See real patient stories for your problem"
 msgstr "మీ సమస్యకు సంబంధించిన నిజమైన రోగుల అనుభవాలు చూడండి"
@@ -8804,7 +9200,7 @@ msgid "Seminar"
 msgstr "సెమినార్"
 
 #: templates\clinic\partials\review_form.html:32
-#: templates\courses\registration_manage.html:47
+#: templates\courses\registration_manage.html:74
 #: templates\events\registration_manage.html:39
 msgid "Send feedback"
 msgstr "అభిప్రాయం పంపండి"
@@ -8833,7 +9229,7 @@ msgstr "పంపుతోంది…"
 msgid "Sent"
 msgstr "పంపబడింది"
 
-#: courses\student_views.py:125
+#: courses\student_views.py:131
 msgid "Sent the \"complete your details\" link."
 msgstr "\"మీ వివరాలు పూర్తి చేయండి\" లింక్ పంపబడింది."
 
@@ -8980,6 +9376,10 @@ msgstr "సెషన్లు (పూర్తి/మొత్తం)"
 msgid "Sessions Today"
 msgstr "ఈరోజు సెషన్లు"
 
+#: templates\courses\student_detail.html:80
+msgid "Set"
+msgstr "సెట్ చేయండి"
+
 #: appointments\models.py:72
 msgid "Set both break start and break end, or neither."
 msgstr "విరామ ప్రారంభం మరియు ముగింపు రెండూ సెట్ చేయండి, లేదా ఏదీ వద్దు."
@@ -8988,7 +9388,7 @@ msgstr "విరామ ప్రారంభం మరియు ముగిం
 msgid "Set both times, or leave both empty for a full day."
 msgstr "రెండు సమయాలు సెట్ చేయండి, లేదా పూర్తి రోజు కోసం రెండూ ఖాళీగా వదలండి."
 
-#: courses\models.py:191
+#: courses\models.py:193
 msgid "Set when the student finishes the course."
 msgstr "విద్యార్థి కోర్సు పూర్తి చేసినప్పుడు సెట్ అవుతుంది."
 
@@ -8999,6 +9399,10 @@ msgstr "సెట్టింగ్‌లు - SpinalCure"
 #: clinic\templates\clinic\admin\clinic_setup.html:27
 msgid "Settings Menu"
 msgstr "సెట్టింగ్‌ల మెనూ"
+
+#: templates\courses\student_detail.html:70
+msgid "settled"
+msgstr "తీరింది"
 
 #: idcards\templates\idcards\_card.html:40
 msgid "Share"
@@ -9045,6 +9449,10 @@ msgstr "సంక్షిప్త వివరణ"
 #: courses\models.py:30
 msgid "Short Description"
 msgstr "సంక్షిప్త వివరణ"
+
+#: templates\courses\course_materials.html:20
+msgid "Short description (optional)"
+msgstr "చిన్న వివరణ (ఐచ్ఛికం)"
 
 #: templates\clinic\admin\video_form.html:26
 #: templates\clinic\admin\videos.html:46
@@ -9186,7 +9594,7 @@ msgstr "సైన్ ఇన్"
 msgid "Sign in with your work email."
 msgstr "మీ పని ఇమెయిల్‌తో సైన్ ఇన్ చేయండి."
 
-#: templates\ui\topbar.html:49
+#: templates\courses\student_portal.html:9 templates\ui\topbar.html:49
 msgid "Sign out"
 msgstr "సైన్ అవుట్"
 
@@ -9351,7 +9759,7 @@ msgstr "సిబ్బంది నిర్వహణ"
 msgid "Staff Member"
 msgstr "సిబ్బంది సభ్యుడు"
 
-#: templates\accounts\login.html:8 templates\public\footer.html:52
+#: templates\accounts\login.html:8 templates\public\footer.html:53
 msgid "Staff sign in"
 msgstr "సిబ్బంది సైన్ ఇన్"
 
@@ -9435,9 +9843,9 @@ msgstr "స్థితి సూచిక"
 msgid "Still have a question?"
 msgstr "ఇంకా ప్రశ్న ఉందా?"
 
-#: courses\models.py:231 templates\courses\batch_feedback_admin.html:52
+#: courses\models.py:235 templates\courses\batch_attendance.html:33
+#: templates\courses\batch_feedback_admin.html:52
 #: templates\courses\student_detail.html:3
-#: templates\courses\student_list.html:27
 msgid "Student"
 msgstr "విద్యార్థి"
 
@@ -9445,11 +9853,11 @@ msgstr "విద్యార్థి"
 msgid "Student Details"
 msgstr "విద్యార్థి వివరాలు"
 
-#: courses\student_views.py:75
+#: courses\student_views.py:81
 msgid "Student details saved."
 msgstr "విద్యార్థి వివరాలు సేవ్ అయ్యాయి."
 
-#: templates\courses\student_detail.html:46
+#: templates\courses\student_detail.html:48
 msgid "Student ID card"
 msgstr "విద్యార్థి ID కార్డ్"
 
@@ -9461,7 +9869,7 @@ msgstr "విద్యార్థి ID తనిఖీ"
 msgid "Student Name"
 msgstr "విద్యార్థి పేరు"
 
-#: notifications\messages.py:113
+#: notifications\messages.py:116
 #, python-format
 msgid "Student profile completed: %(name)s"
 msgstr "విద్యార్థి ప్రొఫైల్ పూర్తి: %(name)s"
@@ -9470,10 +9878,27 @@ msgstr "విద్యార్థి ప్రొఫైల్ పూర్త�
 msgid "Student Registrations"
 msgstr "విద్యార్థి నమోదులు"
 
-#: courses\models.py:232 templates\courses\batch_list.html:65
+#: templates\courses\student_signin.html:3
+#: templates\courses\student_signin.html:7 templates\public\footer.html:52
+msgid "Student sign in"
+msgstr "విద్యార్థి సైన్ ఇన్"
+
+#: courses\models.py:236 templates\courses\batch_list.html:66
 #: templates\courses\student_list.html:3 templates\courses\student_list.html:4
 msgid "Students"
 msgstr "విద్యార్థులు"
+
+#: templates\courses\batch_attendance.html:11
+#, python-format
+msgid "Students need %(n)s%% attendance to earn a certificate."
+msgstr "సర్టిఫికెట్ పొందడానికి విద్యార్థులకు %(n)s%% హాజరు అవసరం."
+
+#: templates\courses\batch_list.html:22
+#: templates\courses\batch_registrations.html:40
+#: templates\courses\course_materials.html:3
+#: templates\courses\course_materials.html:4
+msgid "Study materials"
+msgstr "అధ్యయన సామగ్రి"
 
 #: templates\clinic\partials\review_form.html:32
 msgid "Submit review"
@@ -9483,7 +9908,7 @@ msgstr "సమీక్ష సమర్పించండి"
 msgid "Submitted"
 msgstr "సమర్పించబడింది"
 
-#: courses\models.py:307 events\models.py:304
+#: courses\models.py:311 events\models.py:304
 msgid "Submitted At"
 msgstr "సమర్పించిన సమయం"
 
@@ -9631,7 +10056,7 @@ msgstr "ఉపయోగించిన పద్ధతులు"
 msgid "Tel"
 msgstr "ఫోన్"
 
-#: templates\courses\registration_manage.html:46
+#: templates\courses\registration_manage.html:73
 msgid "Tell future students about your experience (optional)"
 msgstr "మీ అనుభవం గురించి భవిష్యత్ విద్యార్థులకు చెప్పండి (ఐచ్ఛికం)"
 
@@ -9775,6 +10200,10 @@ msgstr ""
 #: events\views.py:269
 msgid "That action is not available for this registration."
 msgstr "ఈ నమోదుకు ఆ చర్య అందుబాటులో లేదు."
+
+#: courses\ops_views.py:329
+msgid "That link has expired or was already used. Ask for a new one."
+msgstr "ఆ లింక్ గడువు ముగిసింది లేదా ఇప్పటికే వాడబడింది. కొత్తది అడగండి."
 
 #: clinic\views.py:173
 msgid "That practitioner is not available."
@@ -9939,7 +10368,7 @@ msgstr ""
 "కీవర్డ్‌లు సెర్చ్ బాక్స్ సరిపోలడానికి సహాయపడతాయి (ఉదా. Slip Disc కోసం “disc,"
 " herniated”)."
 
-#: templates\courses\student_detail.html:40
+#: templates\courses\student_detail.html:41
 msgid ""
 "They may be the same person or a mistake. Check before treating them as one."
 msgstr ""
@@ -9999,6 +10428,10 @@ msgstr "ఈ కార్డు ఇకపై చెల్లదు"
 msgid "This card is no longer valid."
 msgstr "ఈ కార్డు ఇకపై చెల్లదు."
 
+#: templates\courses\certificate_verify.html:18
+msgid "This certificate could not be verified."
+msgstr "ఈ సర్టిఫికెట్‌ను ధృవీకరించలేకపోయాం."
+
 #: accounts\views.py:23
 msgid "This email is already used by another account."
 msgstr "ఈ ఇమెయిల్ ఇప్పటికే మరో ఖాతాలో ఉపయోగంలో ఉంది."
@@ -10033,6 +10466,11 @@ msgstr ""
 #: templates\events\registration_manage.html:13
 msgid "This event was cancelled."
 msgstr "ఈ ఈవెంట్ రద్దు చేయబడింది."
+
+#: courses\files.py:42
+#, python-format
+msgid "This file does not look like a real %(ext)s document."
+msgstr "ఈ ఫైల్ నిజమైన %(ext)s పత్రంలా కనిపించడం లేదు."
 
 #: spinalcure\uploads.py:209
 msgid "This file is not a valid image."
@@ -10098,11 +10536,11 @@ msgstr ""
 msgid "This shift overlaps another shift on the same day."
 msgstr "ఈ షిఫ్ట్ అదే రోజు మరొక షిఫ్ట్‌తో అతివ్యాప్తి చెందుతుంది."
 
-#: courses\student_views.py:122
+#: courses\student_views.py:128
 msgid "This student has already completed their details."
 msgstr "ఈ విద్యార్థి ఇప్పటికే వివరాలు పూర్తి చేశారు."
 
-#: courses\student_views.py:118
+#: courses\student_views.py:124
 msgid "This student has no confirmed place."
 msgstr "ఈ విద్యార్థికి నిర్ధారించబడిన స్థానం లేదు."
 
@@ -10122,6 +10560,10 @@ msgid ""
 msgstr ""
 "రోగి (లేదా వారి బృందం) వెబ్‌సైట్‌లో పేరు చూపడానికి లిఖితపూర్వకంగా "
 "అంగీకరించినప్పుడు మాత్రమే టిక్ చేయండి."
+
+#: templates\courses\batch_attendance.html:45
+msgid "Tick the students who were present."
+msgstr "హాజరైన విద్యార్థులను టిక్ చేయండి."
 
 #: appointments\models.py:218 templates\appointments\calendar.html:551
 #: templates\appointments\calendar.html:607
@@ -10250,6 +10692,14 @@ msgstr "ఈ నెల అగ్ర వైద్యుడు"
 msgid "Top Sub-label"
 msgstr "పై ఉప-లేబుల్"
 
+#: courses\models.py:329
+msgid "Topic"
+msgstr "అంశం"
+
+#: templates\courses\batch_attendance.html:25
+msgid "Topic (optional)"
+msgstr "అంశం (ఐచ్ఛికం)"
+
 #: templates\clinic\blog_list.html:13 templates\clinic\faq.html:20
 msgid "Topics"
 msgstr "అంశాలు"
@@ -10301,6 +10751,10 @@ msgstr "ఈ వారం మొత్తం"
 #: templates\courses\course_list.html:6
 msgid "Training Courses"
 msgstr "శిక్షణ కోర్సులు"
+
+#: courses\models.py:387
+msgid "Transaction or cheque number"
+msgstr "లావాదేవీ లేదా చెక్ నంబర్"
 
 #: clinic\models.py:512 templates\clinic\admin\video_form.html:28
 msgid "Transcript"
@@ -10615,7 +11069,7 @@ msgstr "ప్రశంసాపత్రం నవీకరించండి"
 msgid "Update User"
 msgstr "వినియోగదారుని నవీకరించండి"
 
-#: payments\models.py:24
+#: courses\models.py:380 payments\models.py:24
 msgid "UPI"
 msgstr "UPI"
 
@@ -10639,6 +11093,14 @@ msgstr "అప్‌లోడ్"
 msgid "Upload a JPEG, PNG or WebP image."
 msgstr "JPEG, PNG లేదా WebP చిత్రాన్ని అప్‌లోడ్ చేయండి."
 
+#: courses\files.py:29
+msgid ""
+"Upload a PDF, Word, PowerPoint, Excel, CSV, text or video (MP4, WebM, MOV) "
+"file."
+msgstr ""
+"PDF, Word, PowerPoint, Excel, CSV, టెక్స్ట్ లేదా వీడియో (MP4, WebM, MOV) "
+"ఫైల్‌ను అప్‌లోడ్ చేయండి."
+
 #: clinic\models.py:689
 msgid "Upload a video or paste a YouTube / Instagram link."
 msgstr "వీడియో అప్‌లోడ్ చేయండి లేదా YouTube / Instagram లింక్ అతికించండి."
@@ -10660,9 +11122,17 @@ msgstr "కవర్ అప్‌లోడ్ చేయండి"
 msgid "Upload image (JPEG, PNG or WebP, max 8 MB)"
 msgstr "చిత్రాన్ని అప్‌లోడ్ చేయండి (JPEG, PNG or WebP, గరిష్ఠంగా 8 MB)"
 
+#: templates\courses\student_detail.html:90
+msgid "Upload own PDF and email"
+msgstr "సొంత PDF అప్‌లోడ్ చేసి ఇమెయిల్ చేయండి"
+
 #: templates\clinic\admin\gallery.html:18
 msgid "Upload photos"
 msgstr "ఫోటోలు అప్‌లోడ్ చేయి"
+
+#: templates\courses\student_detail.html:90
+msgid "Upload your own certificate (PDF)"
+msgstr "మీ సొంత సర్టిఫికెట్‌ను అప్‌లోడ్ చేయండి (PDF)"
 
 #: templates\clinic\admin\video_form.html:49
 msgid ""
@@ -10684,6 +11154,10 @@ msgstr "#166534 వంటి హెక్స్ రంగును ఉపయో�
 #: spinalcure\uploads.py:211
 msgid "Use a JPEG, PNG or WebP image."
 msgstr "JPEG, PNG or WebP చిత్రాన్ని ఉపయోగించండి."
+
+#: courses\ops_views.py:255
+msgid "Use either a link or a file, not both."
+msgstr "లింక్ లేదా ఫైల్ ఏదైనా ఒక్కటే ఉపయోగించండి, రెండూ కాదు."
 
 #: clinic\blog_models.py:66
 msgid "Use this if the author is not a practitioner in the system."
@@ -10825,7 +11299,8 @@ msgstr "ఈ ID కార్డును ధృవీకరించండి:"
 msgid "via %(get_payment_mode_display)s"
 msgstr "%(get_payment_mode_display)s ద్వారా"
 
-#: clinic\models.py:660 templates\clinic\admin\gallery.html:30
+#: clinic\models.py:660 courses\models.py:400
+#: templates\clinic\admin\gallery.html:30
 #: templates\clinic\admin\videos.html:67
 msgid "Video"
 msgstr "వీడియో"
@@ -10922,6 +11397,10 @@ msgstr "పబ్లిక్ వ్యాసం చూడండి"
 msgid "Visibility"
 msgstr "దృశ్యత"
 
+#: templates\courses\course_materials.html:30
+msgid "Visible"
+msgstr "కనిపిస్తుంది"
+
 #: templates\clinic\admin\testimonial_form.html:129
 msgid "Visible on the public portfolio when checked"
 msgstr "టిక్ చేసినప్పుడు పబ్లిక్ పోర్ట్‌ఫోలియోలో కనిపిస్తుంది"
@@ -10954,8 +11433,8 @@ msgstr "వెయిట్‌లిస్ట్"
 msgid "Waitlist when full"
 msgstr "నిండినప్పుడు వెయిట్‌లిస్ట్"
 
-#: courses\models.py:182 events\models.py:252
-#: templates\courses\batch_registrations.html:57
+#: courses\models.py:184 events\models.py:252
+#: templates\courses\batch_registrations.html:59
 #: templates\events\event_registrations.html:31
 msgid "Waitlisted"
 msgstr "వెయిట్‌లిస్ట్‌లో"
@@ -11156,7 +11635,7 @@ msgstr "మీరు దేని కోసం వెతుకుతున్న
 msgid "What brings you in? (optional)"
 msgstr "మీరు ఎందుకు వస్తున్నారు? (ఐచ్ఛికం)"
 
-#: templates\courses\student_detail.html:72
+#: templates\courses\student_detail.html:99
 msgid "What happened, or what to do next"
 msgstr "ఏం జరిగింది, లేదా తర్వాత ఏం చేయాలి"
 
@@ -11204,7 +11683,7 @@ msgstr "మీరు ఏమి నేర్చుకుంటారు"
 msgid "Whatsapp"
 msgstr "WhatsApp"
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
@@ -11216,7 +11695,7 @@ msgstr "WhatsApp నంబర్"
 msgid "WhatsApp notifications (opt-in)"
 msgstr "WhatsApp నోటిఫికేషన్లు (ఐచ్ఛికం)"
 
-#: templates\courses\student_detail.html:33
+#: templates\courses\student_detail.html:34
 msgid "WhatsApp the link"
 msgstr "లింక్‌ను WhatsApp చేయండి"
 
@@ -11253,7 +11732,7 @@ msgstr "ఈ చర్య వెనక్కి తీసుకోబడింద
 msgid "Whether this OTP has been successfully verified"
 msgstr "ఈ OTP విజయవంతంగా ధృవీకరించబడిందా"
 
-#: courses\models.py:293
+#: courses\models.py:297
 msgid "Which batch the reviewer attended."
 msgstr "సమీక్షకుడు హాజరైన బ్యాచ్."
 
@@ -11345,7 +11824,7 @@ msgstr "సమీక్ష రాయండి"
 msgid "Write First Post"
 msgstr "మొదటి పోస్ట్ రాయండి"
 
-#: courses\student_views.py:94
+#: courses\student_views.py:100
 msgid "Write something first."
 msgstr "ముందు ఏదైనా రాయండి."
 
@@ -11379,7 +11858,7 @@ msgid "Years of experience"
 msgstr "అనుభవ సంవత్సరాలు"
 
 #: templates\appointments\manage.html:60
-#: templates\courses\registration_manage.html:55
+#: templates\courses\registration_manage.html:82
 #: templates\events\registration_manage.html:48
 msgid "Yes, cancel"
 msgstr "అవును, రద్దు చేయండి"
@@ -11614,6 +12093,15 @@ msgstr ""
 msgid "Your authorization PIN is:"
 msgstr "మీ అధికార PIN:"
 
+#: templates\courses\registration_manage.html:60
+msgid "Your certificate"
+msgstr "మీ సర్టిఫికెట్"
+
+#: notifications\messages.py:113
+#, python-format
+msgid "Your certificate: %(event)s"
+msgstr "మీ సర్టిఫికెట్: %(event)s"
+
 #: templates\courses\registration_manage.html:20
 msgid ""
 "Your details are complete. Show this card at the clinic; the QR code lets "
@@ -11621,6 +12109,10 @@ msgid ""
 msgstr ""
 "మీ వివరాలు పూర్తయ్యాయి. ఈ కార్డ్‌ను క్లినిక్‌లో చూపించండి; QR కోడ్ ద్వారా "
 "ఎవరైనా ఇది నిజమైనదని నిర్ధారించవచ్చు."
+
+#: templates\courses\student_signin.html:16
+msgid "Your email or phone number"
+msgstr "మీ ఇమెయిల్ లేదా ఫోన్ నంబర్"
 
 #: templates\clinic\partials\review_form.html:25
 msgid "Your experience"
@@ -11654,7 +12146,7 @@ msgstr ""
 "మీ స్థానం నిర్ధారించబడింది. కొన్ని వివరాలు మరియు మీ ఫోటో జోడించండి, వెంటనే "
 "మీ విద్యార్థి ID కార్డ్ తయారు చేస్తాం."
 
-#: templates\courses\registration_manage.html:54
+#: templates\courses\registration_manage.html:81
 #: templates\events\registration_manage.html:47
 msgid "Your place may be offered to someone on the waitlist."
 msgstr "మీ స్థానం వెయిట్‌లిస్ట్‌లో ఉన్నవారికి ఇవ్వబడవచ్చు."
@@ -11694,6 +12186,10 @@ msgid ""
 msgstr ""
 "మీ సైన్-ఇన్ కోడ్ %(code)s. ఇది %(m)d నిమిషాల్లో గడువు ముగుస్తుంది. మీరు "
 "అభ్యర్థించకపోతే, ఈ ఇమెయిల్‌ను విస్మరించండి."
+
+#: courses\ops.py:125
+msgid "Your sign-in link"
+msgstr "మీ సైన్-ఇన్ లింక్"
 
 #: templates\clinic\home.html:187
 msgid ""
@@ -11762,6 +12258,10 @@ msgstr "— వైద్యుడిని ఎంచుకోండి —"
 #: templates\clinic\admin\blog_form.html:4 templates\events\event_form.html:4
 msgid "— SpinalCure"
 msgstr "— SpinalCure"
+
+#: templates\courses\course_materials.html:19
+msgid "…or upload a file (PDF, Word, PowerPoint, Excel, video)"
+msgstr "…లేదా ఫైల్ అప్‌లోడ్ చేయండి (PDF, Word, PowerPoint, Excel, వీడియో)"
 
 #: templates\patients\patient_detail.html:282
 #, python-format

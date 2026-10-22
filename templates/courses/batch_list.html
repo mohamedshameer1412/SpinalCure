@@ -19,6 +19,7 @@
         </div>
 
         <div class="flex items-center gap-3">
+            <a href="{% url 'course_materials' course.id %}" class="btn btn-soft inline-flex items-center gap-2"><i class="bi bi-folder2-open"></i> {% trans "Study materials" %}</a>
             <a href="{% url 'export_courses_excel' %}"
                 class="btn btn-soft inline-flex items-center gap-2">
                 <i class="bi bi-file-earmark-excel"></i> {% trans "Export Courses" %}

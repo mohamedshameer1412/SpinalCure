@@ -1,0 +1,21 @@
+{% extends "public_base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Certificate check" %}{% endblock %}
+{% block meta %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-md px-4 py-12">
+    {% if cert %}
+    <div class="rounded-2xl border border-green-200 bg-green-50 p-6 text-center">
+        <i class="bi bi-patch-check-fill text-4xl text-green-600" aria-hidden="true"></i>
+        <h1 class="mt-3 text-xl font-bold text-gray-900">{% translate "Genuine certificate" %}</h1>
+        <p class="mt-4 text-lg font-semibold">{{ first_name }}</p>
+        <p class="text-sm text-gray-700">{{ reg.batch.course.title }} · {{ reg.batch.name }}</p>
+        <p class="mt-1 text-xs text-gray-500">{% blocktranslate with d=cert.issued_at|date:"DATE_FORMAT" %}Issued {{ d }}{% endblocktranslate %} · {{ cert.code }}</p>
+    </div>
+    {% else %}
+    <div class="rounded-2xl border border-red-200 bg-red-50 p-6 text-center"><i class="bi bi-x-octagon-fill text-4xl text-red-600" aria-hidden="true"></i>
+        <h1 class="mt-3 text-xl font-bold text-gray-900">{% translate "No such certificate" %}</h1>
+        <p class="mt-2 text-sm text-gray-700">{% translate "This certificate could not be verified." %}</p></div>
+    {% endif %}
+</div>
+{% endblock %}

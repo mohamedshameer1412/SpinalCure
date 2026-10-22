@@ -39,7 +39,7 @@ msgstr ""
 "\"%(username)s\" എന്നതുമായി ID കാർഡുകളോ രേഖകളോ ബന്ധപ്പെട്ടിരിക്കുന്നു. പകരം "
 "അക്കൗണ്ട് പ്രവർത്തനരഹിതമാക്കുക."
 
-#: templates\courses\batch_list.html:151
+#: templates\courses\batch_list.html:152
 msgid "\"Batch:"
 msgstr "\"ബാച്ച്:"
 
@@ -77,7 +77,7 @@ msgstr "%(clinic_name)s ടീം"
 msgid "%(count)s post%(count_2)s"
 msgstr "%(count)s പോസ്റ്റ്%(count_2)s"
 
-#: templates\courses\batch_registrations.html:49
+#: templates\courses\batch_registrations.html:51
 #, python-format
 msgid "%(count)s Students"
 msgstr "%(count)s വിദ്യാർത്ഥികൾ"
@@ -92,7 +92,7 @@ msgstr "%(count)s സമർപ്പണം%(count_2)s"
 msgid "%(count)s Total"
 msgstr "ആകെ %(count)s"
 
-#: notifications\messages.py:117
+#: notifications\messages.py:120
 #, python-format
 msgid "%(detail)s"
 msgstr "%(detail)s"
@@ -138,6 +138,11 @@ msgstr "%(event)s %(date)s-ന് %(time)s-ന് ആരംഭിക്കും
 #, python-format
 msgid "%(experience_years)s years experience"
 msgstr "%(experience_years)s വർഷത്തെ പരിചയം"
+
+#: courses\ops_views.py:84
+#, python-format
+msgid "%(i)s certificate(s) issued, %(e)s emailed."
+msgstr "%(i)s സർട്ടിഫിക്കറ്റ്(കൾ) നൽകി, %(e)s ഇമെയിൽ ചെയ്തു."
 
 #: templates\clinic\event_detail.html:44
 #: templates\patients\patient_detail.html:279
@@ -191,12 +196,17 @@ msgid_plural "%(n)s sittings"
 msgstr[0] "%(n)s സിറ്റിംഗ്"
 msgstr[1] "%(n)s സിറ്റിംഗുകൾ"
 
+#: templates\courses\registration_manage.html:53
+#, python-format
+msgid "%(n)s%% needed for a certificate"
+msgstr "സർട്ടിഫിക്കറ്റിന് %(n)s%% വേണം"
+
 #: templates\patients\patient_detail.html:5
 #, python-format
 msgid "%(name)s - SpinalCure"
 msgstr "%(name)s - SpinalCure"
 
-#: notifications\messages.py:114
+#: notifications\messages.py:117
 #, python-format
 msgid ""
 "%(name)s finished their details for %(event)s (%(batch)s). Their student ID "
@@ -255,7 +265,7 @@ msgstr "%(s)s: അവസാന സമയം ആരംഭ സമയത്തി�
 msgid "%(site)s patient portal sign-in code"
 msgstr "%(site)s രോഗി പോർട്ടൽ സൈൻ-ഇൻ കോഡ്"
 
-#: notifications\messages.py:116
+#: notifications\messages.py:119
 #, python-format
 msgid "%(subject)s"
 msgstr "%(subject)s"
@@ -310,7 +320,7 @@ msgstr "&nbsp;·&nbsp;"
 msgid "&ndash;"
 msgstr "&ndash;"
 
-#: templates\courses\batch_list.html:56
+#: templates\courses\batch_list.html:57
 #, python-format
 msgid "&ndash; %(end_date)s"
 msgstr "&ndash; %(end_date)s"
@@ -715,7 +725,7 @@ msgstr "സജീവം (ചികിത്സയിലാണ്)"
 msgid "Active (visible on portfolio)"
 msgstr "സജീവം (പോർട്ട്ഫോളിയോയിൽ ദൃശ്യം)"
 
-#: templates\courses\batch_form.html:160 templates\courses\batch_list.html:45
+#: templates\courses\batch_form.html:160 templates\courses\batch_list.html:46
 msgid "Active Intake"
 msgstr "സജീവ പ്രവേശനം"
 
@@ -781,6 +791,10 @@ msgstr "ചേർക്കുക"
 msgid "Add a featured patient"
 msgstr "വിശേഷ രോഗിയെ ചേർക്കുക"
 
+#: courses\ops_views.py:253
+msgid "Add a link, or upload a file."
+msgstr "ഒരു ലിങ്ക് ചേർക്കുക, അല്ലെങ്കിൽ ഫയൽ അപ്‌ലോഡ് ചെയ്യുക."
+
 #: templates\patients\packages.html:38
 msgid "Add a package"
 msgstr "പാക്കേജ് ചേർക്കുക"
@@ -792,6 +806,10 @@ msgstr "ഫോട്ടോ അല്ലെങ്കിൽ വീഡിയോ ച
 #: templates\clinic\admin\faqs.html:46
 msgid "Add a question"
 msgstr "ചോദ്യം ചേർക്കുക"
+
+#: templates\courses\batch_attendance.html:26
+msgid "Add class"
+msgstr "ക്ലാസ് ചേർക്കുക"
 
 #: templates\appointments\availability.html:122
 msgid "Add closure"
@@ -813,7 +831,12 @@ msgstr "ചെലവ് ചേർക്കുക — SpinalCure"
 msgid "Add leave"
 msgstr "അവധി ചേർക്കുക"
 
-#: templates\courses\batch_list.html:28
+#: templates\courses\course_materials.html:13
+#: templates\courses\course_materials.html:22
+msgid "Add material"
+msgstr "പഠന സാമഗ്രി ചേർക്കുക"
+
+#: templates\courses\batch_list.html:29
 msgid "Add New Batch"
 msgstr "പുതിയ ബാച്ച് ചേർക്കുക"
 
@@ -839,7 +862,7 @@ msgstr "പുതിയ ടാഗ് ചേർക്കുക"
 msgid "Add New User"
 msgstr "പുതിയ ഉപയോക്താവിനെ ചേർക്കുക"
 
-#: templates\courses\student_detail.html:74
+#: templates\courses\student_detail.html:101
 msgid "Add note"
 msgstr "കുറിപ്പ് ചേർക്കുക"
 
@@ -882,6 +905,14 @@ msgstr "സെഷൻ ചേർക്കുക"
 #: templates\clinic\admin\testimonials_list.html:5
 msgid "Add Testimonial"
 msgstr "സാക്ഷ്യപത്രം ചേർക്കുക"
+
+#: courses\ops_views.py:82
+msgid "Add the classes and mark attendance first."
+msgstr "ആദ്യം ക്ലാസുകൾ ചേർത്ത് ഹാജർ രേഖപ്പെടുത്തുക."
+
+#: templates\courses\batch_attendance.html:49
+msgid "Add the first class to start taking attendance."
+msgstr "ഹാജർ എടുക്കാൻ ആദ്യ ക്ലാസ് ചേർക്കുക."
 
 #: templates\patients\reviews.html:153
 msgid "Add the first review →"
@@ -955,13 +986,21 @@ msgid "Additional Notes"
 msgstr "അധിക കുറിപ്പുകൾ"
 
 #: clinic\models.py:39 clinic\templates\clinic\admin\clinic_setup.html:262
-#: courses\models.py:218 idcards\render.py:251
+#: courses\models.py:222 idcards\render.py:251
 msgid "Address"
 msgstr "വിലാസം"
 
 #: templates\ui\sidebar.html:46
 msgid "Administration"
 msgstr "ഭരണനിർവഹണം"
+
+#: templates\courses\student_detail.html:80
+msgid "Agreed fee for this student"
+msgstr "ഈ വിദ്യാർത്ഥിക്ക് സമ്മതിച്ച ഫീസ്"
+
+#: courses\models.py:195
+msgid "Agreed fee for this student, instead of the course fee."
+msgstr "കോഴ്സ് ഫീസിന് പകരം ഈ വിദ്യാർത്ഥിക്ക് സമ്മതിച്ച ഫീസ്."
 
 #: notifications\templates\notifications\center.html:17
 msgid "Alerts"
@@ -1080,6 +1119,7 @@ msgstr "ഇതിനകം പഴയപടിയാക്കി."
 msgid "Also review us on Google"
 msgstr "Google-ലും ഞങ്ങളെ അവലോകനം ചെയ്യുക"
 
+#: templates\courses\student_detail.html:74
 #: templates\patients\patient_detail.html:588
 #: templates\payments\online_pay.html:28
 #: templates\payments\partials\expense_list_partial.html:12
@@ -1369,6 +1409,29 @@ msgstr "ക്ലിനിക്കിൽ"
 msgid "Attempts"
 msgstr "ശ്രമങ്ങൾ"
 
+#: templates\courses\batch_attendance.html:3
+#: templates\courses\batch_attendance.html:4
+#: templates\courses\registration_manage.html:53
+#: templates\courses\student_portal.html:18
+msgid "Attendance"
+msgstr "ഹാജർ"
+
+#: templates\courses\student_detail.html:64
+msgid "attendance"
+msgstr "ഹാജർ"
+
+#: templates\courses\batch_registrations.html:39
+msgid "Attendance & certificates"
+msgstr "ഹാജർ & സർട്ടിഫിക്കറ്റുകൾ"
+
+#: courses\models.py:146
+msgid "Attendance needed for a certificate (%)"
+msgstr "സർട്ടിഫിക്കറ്റിന് ആവശ്യമായ ഹാജർ (%)"
+
+#: courses\ops_views.py:50
+msgid "Attendance saved."
+msgstr "ഹാജർ സേവ് ചെയ്തു."
+
 #: templates\events\event_registrations.html:20
 msgid "attended"
 msgstr "പങ്കെടുത്തു"
@@ -1519,6 +1582,10 @@ msgstr "ബാച്ച് മാനേജ്മെന്റിലേക്ക�
 msgid "Back to Batches"
 msgstr "ബാച്ചുകളിലേക്ക് മടങ്ങുക"
 
+#: templates\courses\course_materials.html:8
+msgid "Back to batches"
+msgstr "ബാച്ചുകളിലേക്ക് മടങ്ങുക"
+
 #: templates\courses\course_form.html:155
 msgid "Back to Course Management"
 msgstr "കോഴ്സ് മാനേജ്മെന്റിലേക്ക് മടങ്ങുക"
@@ -1566,6 +1633,10 @@ msgstr "ക്യൂവിലേക്ക് മടങ്ങുക"
 msgid "Back to Reviews"
 msgstr "അവലോകനങ്ങളിലേക്ക് മടങ്ങുക"
 
+#: templates\courses\batch_attendance.html:9
+msgid "Back to students"
+msgstr "വിദ്യാർത്ഥികളിലേക്ക് മടങ്ങുക"
+
 #: templates\clinic\admin\testimonial_form.html:10
 msgid "Back to Testimonials"
 msgstr "സാക്ഷ്യപത്രങ്ങളിലേക്ക് മടങ്ങുക"
@@ -1576,6 +1647,11 @@ msgstr "വെബ്സൈറ്റിലേക്ക് മടങ്ങുക"
 
 #: templates\patients\patient_detail.html:307
 msgid "Balance"
+msgstr "ബാക്കി"
+
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:70
+msgid "balance"
 msgstr "ബാക്കി"
 
 #: templates\payments\emails\receipt_email.html:15
@@ -1594,6 +1670,10 @@ msgstr "ബാങ്കിന്റെ പേര്"
 msgid "Bank Transfer"
 msgstr "ബാങ്ക് ട്രാൻസ്ഫർ"
 
+#: courses\models.py:380
+msgid "Bank transfer"
+msgstr "ബാങ്ക് ട്രാൻസ്ഫർ"
+
 #: events\models.py:67
 msgid "Banner Image"
 msgstr "ബാനർ ചിത്രം"
@@ -1610,7 +1690,7 @@ msgstr "അടിസ്ഥാന വിവരങ്ങൾ"
 msgid "Basics"
 msgstr "അടിസ്ഥാനങ്ങൾ"
 
-#: courses\models.py:175 courses\models.py:292
+#: courses\models.py:177 courses\models.py:296
 msgid "Batch"
 msgstr "ബാച്ച്"
 
@@ -1641,8 +1721,7 @@ msgstr "ബാച്ചിന്റെ പേര്"
 msgid "Batch Name / Intake Period *"
 msgstr "ബാച്ചിന്റെ പേര് / പ്രവേശന കാലയളവ് *"
 
-#: templates\courses\student_detail.html:56
-#: templates\courses\student_list.html:28
+#: templates\courses\student_list.html:30
 msgid "Batches"
 msgstr "ബാച്ചുകൾ"
 
@@ -1715,7 +1794,7 @@ msgstr "ബ്ലോഗ് ടാഗുകൾ"
 msgid "Blog Tags — SpinalCure"
 msgstr "ബ്ലോഗ് ടാഗുകൾ — SpinalCure"
 
-#: accounts\templates\accounts\admin\user_form.html:115 courses\models.py:222
+#: accounts\templates\accounts\admin\user_form.html:115 courses\models.py:226
 #: idcards\render.py:249 templates\courses\student_detail.html:26
 msgid "Blood group"
 msgstr "രക്തഗ്രൂപ്പ്"
@@ -1860,7 +1939,7 @@ msgstr "SpinalCure HMS. അതീവ രഹസ്യമായ മെഡിക്
 msgid "Calendar View"
 msgstr "കലണ്ടർ കാഴ്ച"
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "Call"
 msgstr "കോൾ"
 
@@ -1879,7 +1958,7 @@ msgstr "അപ്പോയിന്റ്മെന്റ് റദ്ദാക�
 msgid "Cancel event"
 msgstr "ഇവന്റ് റദ്ദാക്കുക"
 
-#: templates\courses\registration_manage.html:52
+#: templates\courses\registration_manage.html:79
 #: templates\events\registration_manage.html:45
 msgid "Cancel my registration"
 msgstr "എന്റെ രജിസ്ട്രേഷൻ റദ്ദാക്കുക"
@@ -1895,7 +1974,7 @@ msgstr ""
 msgid "Cancel this registration?"
 msgstr "ഈ രജിസ്ട്രേഷൻ റദ്ദാക്കണോ?"
 
-#: appointments\models.py:180 courses\models.py:182 events\models.py:94
+#: appointments\models.py:180 courses\models.py:184 events\models.py:94
 #: events\models.py:252
 msgid "Cancelled"
 msgstr "റദ്ദാക്കി"
@@ -1930,7 +2009,8 @@ msgstr "ശേഷി കുറഞ്ഞത് 1 ആയിരിക്കണം."
 msgid "Caption"
 msgstr "അടിക്കുറിപ്പ്"
 
-#: idcards\templates\idcards\dashboard.html:28 payments\models.py:23
+#: courses\models.py:380 idcards\templates\idcards\dashboard.html:28
+#: payments\models.py:23
 msgid "Card"
 msgstr "കാർഡ്"
 
@@ -1998,7 +2078,7 @@ msgstr "കാർഡ് തരം"
 msgid "Case ID: #%(id)s"
 msgstr "കേസ് ID: #%(id)s"
 
-#: payments\models.py:22
+#: courses\models.py:380 payments\models.py:22
 msgid "Cash"
 msgstr "പണം"
 
@@ -2006,6 +2086,28 @@ msgstr "പണം"
 #: templates\payments\partials\expense_list_partial.html:9
 msgid "Category"
 msgstr "വിഭാഗം"
+
+#: templates\courses\batch_attendance.html:36
+#: templates\courses\student_detail.html:83
+#: templates\courses\student_portal.html:23
+msgid "Certificate"
+msgstr "സർട്ടിഫിക്കറ്റ്"
+
+#: templates\courses\certificate_verify.html:3
+msgid "Certificate check"
+msgstr "സർട്ടിഫിക്കറ്റ് പരിശോധന"
+
+#: courses\ops_views.py:144
+msgid "Certificate emailed again."
+msgstr "സർട്ടിഫിക്കറ്റ് വീണ്ടും ഇമെയിൽ ചെയ്തു."
+
+#: courses\ops_views.py:134
+msgid "Certificate saved and emailed."
+msgstr "സർട്ടിഫിക്കറ്റ് സേവ് ചെയ്ത് ഇമെയിൽ ചെയ്തു."
+
+#: courses\ops_views.py:134
+msgid "Certificate saved."
+msgstr "സർട്ടിഫിക്കറ്റ് സേവ് ചെയ്തു."
 
 #: templates\clinic\terms.html:23
 msgid ""
@@ -2056,6 +2158,10 @@ msgstr ""
 msgid "Channel"
 msgstr "ചാനൽ"
 
+#: templates\courses\student_signin.html:11
+msgid "Check your email"
+msgstr "നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കുക"
+
 #: clinic\models.py:367
 msgid "Checked by"
 msgstr "പരിശോധിച്ചത്"
@@ -2065,7 +2171,7 @@ msgstr "പരിശോധിച്ചത്"
 msgid "Checked by %(who)s"
 msgstr "%(who)s പരിശോധിച്ചു"
 
-#: payments\models.py:26
+#: courses\models.py:381 payments\models.py:26
 msgid "Cheque"
 msgstr "ചെക്ക്"
 
@@ -2112,6 +2218,10 @@ msgstr ""
 "രാവിലെയോ വൈകുന്നേരമോ ഉള്ള സെഷൻ തിരഞ്ഞെടുക്കുക, അല്ലെങ്കിൽ ആ ദിവസം ഓഫ് "
 "ചെയ്യുക."
 
+#: courses\ops_views.py:123
+msgid "Choose a PDF file."
+msgstr "ഒരു PDF ഫയൽ തിരഞ്ഞെടുക്കുക."
+
 #: clinic\models.py:686
 msgid "Choose a photo."
 msgstr "ഒരു ഫോട്ടോ തിരഞ്ഞെടുക്കുക."
@@ -2138,6 +2248,10 @@ msgstr "ഓരോ സംഭവത്തെക്കുറിച്ചും എ�
 msgid "Choose the appointment length from the list."
 msgstr "പട്ടികയിൽ നിന്ന് അപ്പോയിന്റ്മെന്റ് ദൈർഘ്യം തിരഞ്ഞെടുക്കുക."
 
+#: courses\ops_views.py:39
+msgid "Choose the date of the class."
+msgstr "ക്ലാസിന്റെ തീയതി തിരഞ്ഞെടുക്കുക."
+
 #: accounts\forms.py:87
 msgid "Choose the practitioner to link."
 msgstr "ലിങ്ക് ചെയ്യേണ്ട പ്രാക്ടീഷണറെ തിരഞ്ഞെടുക്കുക."
@@ -2161,6 +2275,18 @@ msgstr "തിരഞ്ഞെടുക്കുക…"
 #: events\models.py:24
 msgid "Class"
 msgstr "ക്ലാസ്"
+
+#: courses\ops_views.py:42
+msgid "Class added. Tick who attended and save."
+msgstr "ക്ലാസ് ചേർത്തു. ഹാജരായവരെ ടിക്ക് ചെയ്ത് സേവ് ചെയ്യുക."
+
+#: templates\courses\batch_attendance.html:24
+msgid "Class date"
+msgstr "ക്ലാസ് തീയതി"
+
+#: courses\ops_views.py:45
+msgid "Class removed."
+msgstr "ക്ലാസ് നീക്കം ചെയ്തു."
 
 #: templates\clinic\home.html:62
 msgid ""
@@ -2335,8 +2461,8 @@ msgstr ""
 msgid "Comma-separated; imported from YouTube."
 msgstr "കോമ ഉപയോഗിച്ച് വേർതിരിക്കുക; YouTube-ൽ നിന്ന് ഇറക്കുമതി ചെയ്തത്."
 
-#: courses\models.py:303 events\models.py:298
-#: templates\courses\registration_manage.html:45
+#: courses\models.py:307 events\models.py:298
+#: templates\courses\registration_manage.html:72
 #: templates\events\event_feedback_admin.html:57
 msgid "Comment"
 msgstr "അഭിപ്രായം"
@@ -2346,7 +2472,7 @@ msgid "Compare the name and photo with the person presenting the card."
 msgstr "കാർഡ് കാണിക്കുന്ന വ്യക്തിയുമായി പേരും ഫോട്ടോയും താരതമ്യം ചെയ്യുക."
 
 #: templates\courses\partials\batch_registrations_partial.html:45
-#: templates\courses\student_list.html:36
+#: templates\courses\student_list.html:38
 msgid "Complete"
 msgstr "പൂർത്തിയായി"
 
@@ -2364,7 +2490,7 @@ msgid "Complete your registration: %(event)s"
 msgstr "നിങ്ങളുടെ രജിസ്ട്രേഷൻ പൂർത്തിയാക്കുക: %(event)s"
 
 #: appointments\models.py:179 templates\appointments\calendar.html:475
-#: templates\clinic\event_detail.html:22 templates\courses\batch_list.html:48
+#: templates\clinic\event_detail.html:22 templates\courses\batch_list.html:49
 msgid "Completed"
 msgstr "പൂർത്തിയായി"
 
@@ -2409,7 +2535,7 @@ msgstr "പുതിയ പാസ്‌വേഡ് സ്ഥിരീകരി�
 msgid "Confirm the permission is on file before publishing."
 msgstr "പ്രസിദ്ധീകരിക്കുന്നതിന് മുമ്പ് അനുമതി രേഖയിലുണ്ടെന്ന് ഉറപ്പാക്കുക."
 
-#: appointments\models.py:178 courses\models.py:182 events\models.py:252
+#: appointments\models.py:178 courses\models.py:184 events\models.py:252
 #: templates\appointments\calendar.html:474
 msgid "Confirmed"
 msgstr "സ്ഥിരീകരിച്ചു"
@@ -2417,6 +2543,10 @@ msgstr "സ്ഥിരീകരിച്ചു"
 #: templates\events\event_registrations.html:17
 msgid "confirmed"
 msgstr "സ്ഥിരീകരിച്ചു"
+
+#: templates\courses\registration_manage.html:61
+msgid "Congratulations on completing the course."
+msgstr "കോഴ്സ് പൂർത്തിയാക്കിയതിന് അഭിനന്ദനങ്ങൾ."
 
 #: templates\clinic\course_detail.html:124
 #: templates\clinic\partials\review_form.html:62
@@ -2458,7 +2588,7 @@ msgstr "കൺസൾട്ട് ചെയ്തത്"
 msgid "Consulting Doctor:"
 msgstr "കൺസൾട്ടിംഗ് ഡോക്ടർ:"
 
-#: templates\courses\student_list.html:27
+#: templates\courses\student_list.html:29
 #: templates\events\partials\event_registrations_partial.html:10
 #: templates\public\header.html:35 templates\public\header.html:65
 msgid "Contact"
@@ -2564,7 +2694,7 @@ msgstr "ഇമെയിൽ അയയ്ക്കാനായില്ല. വീ
 msgid "Country code"
 msgstr "രാജ്യ കോഡ്"
 
-#: courses\models.py:72 courses\models.py:120 courses\models.py:288
+#: courses\models.py:72 courses\models.py:120 courses\models.py:292
 #: templates\clinic\home.html:235
 msgid "Course"
 msgstr "കോഴ്സ്"
@@ -2589,11 +2719,11 @@ msgstr "കോഴ്സ് \"%(title)s\" ഇല്ലാതാക്കി."
 msgid "Course \"%(title)s\" updated."
 msgstr "കോഴ്സ് \"%(title)s\" അപ്ഡേറ്റ് ചെയ്തു."
 
-#: courses\models.py:147
+#: courses\models.py:149
 msgid "Course Batch"
 msgstr "കോഴ്സ് ബാച്ച്"
 
-#: courses\models.py:148 templates\courses\batch_list.html:6
+#: courses\models.py:150 templates\courses\batch_list.html:6
 msgid "Course Batches"
 msgstr "കോഴ്സ് ബാച്ചുകൾ"
 
@@ -2605,11 +2735,11 @@ msgstr "കോഴ്സ് ഉള്ളടക്കം / സിലബസ്"
 msgid "Course fee"
 msgstr "കോഴ്സ് ഫീസ്"
 
-#: courses\models.py:310
+#: courses\models.py:314
 msgid "Course Feedback"
 msgstr "കോഴ്സ് ഫീഡ്ബാക്ക്"
 
-#: courses\models.py:311
+#: courses\models.py:315
 msgid "Course Feedbacks"
 msgstr "കോഴ്സ് ഫീഡ്ബാക്കുകൾ"
 
@@ -2617,7 +2747,7 @@ msgstr "കോഴ്സ് ഫീഡ്ബാക്കുകൾ"
 msgid "Course Fees (₹)"
 msgstr "കോഴ്സ് ഫീസ് (₹)"
 
-#: templates\courses\batch_registrations.html:42
+#: templates\courses\batch_registrations.html:44
 msgid "Course finished: ask for feedback"
 msgstr "കോഴ്സ് കഴിഞ്ഞു: ഫീഡ്ബാക്ക് ചോദിക്കുക"
 
@@ -2629,11 +2759,11 @@ msgstr "കോഴ്സ് ഫീസ് (₹) *"
 msgid "Course Management - SpinalCure"
 msgstr "കോഴ്സ് മാനേജ്മെന്റ് - SpinalCure"
 
-#: courses\models.py:194 payments\models.py:79
+#: courses\models.py:198 payments\models.py:79
 msgid "Course Registration"
 msgstr "കോഴ്സ് രജിസ്ട്രേഷൻ"
 
-#: courses\models.py:195
+#: courses\models.py:199
 msgid "Course Registrations"
 msgstr "കോഴ്സ് രജിസ്ട്രേഷനുകൾ"
 
@@ -2677,7 +2807,7 @@ msgstr "സൃഷ്ടിക്കുക"
 msgid "Create a practitioner profile from this account"
 msgstr "ഈ അക്കൗണ്ടിൽ നിന്ന് പ്രാക്ടീഷണർ പ്രൊഫൈൽ സൃഷ്ടിക്കുക"
 
-#: templates\courses\batch_list.html:129
+#: templates\courses\batch_list.html:130
 msgid "Create Batch"
 msgstr "ബാച്ച് സൃഷ്ടിക്കുക"
 
@@ -2713,7 +2843,7 @@ msgstr "ചികിത്സാ പദ്ധതി സൃഷ്ടിക്ക�
 msgid "Create User"
 msgstr "ഉപയോക്താവിനെ സൃഷ്ടിക്കുക"
 
-#: templates\courses\batch_list.html:126
+#: templates\courses\batch_list.html:127
 msgid "Create your first batch to start enrolling students."
 msgstr "വിദ്യാർത്ഥികളെ ചേർക്കാൻ തുടങ്ങാൻ നിങ്ങളുടെ ആദ്യ ബാച്ച് സൃഷ്ടിക്കുക."
 
@@ -2774,6 +2904,10 @@ msgstr "നിലവിൽ സാധുവായ OTP കോഡ്"
 msgid "Curriculum"
 msgstr "പാഠ്യപദ്ധതി"
 
+#: courses\models.py:359
+msgid "Custom certificate file"
+msgstr "ഇഷ്ടാനുസൃത സർട്ടിഫിക്കറ്റ് ഫയൽ"
+
 #: templates\clinic\event_detail.html:33
 msgid "d"
 msgstr "ദി"
@@ -2798,8 +2932,8 @@ msgstr "ഡാഷ്ബോർഡ് - SpinalCure"
 msgid "Dashboard Overview"
 msgstr "ഡാഷ്ബോർഡ് അവലോകനം"
 
-#: appointments\models.py:215 events\models.py:70 payments\models.py:326
-#: templates\appointments\appointment_list.html:72
+#: appointments\models.py:215 courses\models.py:328 events\models.py:70
+#: payments\models.py:326
 msgid "Date"
 msgstr "തീയതി"
 
@@ -2819,7 +2953,7 @@ msgstr "തീയതി ഭാവിയിലാകരുത്."
 msgid "Date cannot be in the past."
 msgstr "തീയതി കഴിഞ്ഞ കാലത്താകരുത്."
 
-#: accounts\templates\accounts\admin\user_form.html:114 courses\models.py:219
+#: accounts\templates\accounts\admin\user_form.html:114 courses\models.py:223
 #: idcards\render.py:251 templates\courses\student_detail.html:24
 msgid "Date of birth"
 msgstr "ജനനത്തീയതി"
@@ -2882,7 +3016,7 @@ msgstr "ഇല്ലാതാക്കുക"
 msgid "Delete Appointment"
 msgstr "അപ്പോയിന്റ്മെന്റ് ഇല്ലാതാക്കുക"
 
-#: templates\courses\batch_list.html:148
+#: templates\courses\batch_list.html:149
 msgid "Delete Batch?"
 msgstr "ബാച്ച് ഇല്ലാതാക്കണോ?"
 
@@ -2933,7 +3067,7 @@ msgstr "ഈ വീഡിയോ ഇല്ലാതാക്കണോ?"
 msgid "Deleted Data"
 msgstr "ഇല്ലാതാക്കിയ ഡാറ്റ"
 
-#: templates\courses\batch_list.html:155
+#: templates\courses\batch_list.html:156
 msgid ""
 "Deleting this batch will erase all registrations and feedback associated "
 "with it. This cannot be undone."
@@ -3004,7 +3138,7 @@ msgstr "പദവി"
 msgid "Designation / Location"
 msgstr "പദവി / സ്ഥലം"
 
-#: courses\models.py:216 templates\courses\_profile_form.html:11
+#: courses\models.py:220 templates\courses\_profile_form.html:11
 #: templates\courses\student_form.html:15
 msgid "Designation / profession"
 msgstr "പദവി / തൊഴിൽ"
@@ -3052,7 +3186,7 @@ msgstr ""
 
 #: templates\clinic\admin\video_form.html:16
 #: templates\courses\partials\batch_registrations_partial.html:12
-#: templates\courses\student_list.html:28
+#: templates\courses\student_list.html:30
 msgid "Details"
 msgstr "വിശദാംശങ്ങൾ"
 
@@ -3064,15 +3198,15 @@ msgstr "വിവരങ്ങളും രജിസ്ട്രേഷനും"
 msgid "Details and registration"
 msgstr "വിശദാംശങ്ങളും രജിസ്ട്രേഷനും"
 
-#: templates\courses\batch_registrations.html:56
+#: templates\courses\batch_registrations.html:58
 #: templates\courses\student_detail.html:15
-#: templates\courses\student_list.html:19
+#: templates\courses\student_list.html:20
 msgid "Details complete"
 msgstr "വിവരങ്ങൾ പൂർത്തിയായി"
 
 #: templates\courses\student_detail.html:16
 #: templates\courses\student_list.html:10
-#: templates\courses\student_list.html:18
+#: templates\courses\student_list.html:19
 msgid "Details missing"
 msgstr "വിവരങ്ങൾ ഇല്ല"
 
@@ -3163,7 +3297,17 @@ msgstr "ഡോക്ടർ ലഭ്യത"
 msgid "Doctor's private notes..."
 msgstr "ഡോക്ടറുടെ സ്വകാര്യ കുറിപ്പുകൾ..."
 
-#: templates\courses\student_detail.html:81
+#: courses\models.py:400
+msgid "Document"
+msgstr "രേഖ"
+
+#: courses\files.py:31
+msgid ""
+"Documents can be at most 25 MB. For bigger files, paste a Drive link "
+"instead."
+msgstr "രേഖകൾ പരമാവധി 25 MB ആകാം. വലിയ ഫയലുകൾക്ക് Drive ലിങ്ക് ഒട്ടിക്കുക."
+
+#: templates\courses\student_detail.html:108
 msgid "Done"
 msgstr "കഴിഞ്ഞു"
 
@@ -3175,13 +3319,17 @@ msgstr "പകർത്താൻ താഴെയുള്ള PIN-ൽ ഡബി�
 msgid "Download back (PNG)"
 msgstr "പിൻവശം ഡൗൺലോഡ് (PNG)"
 
+#: templates\courses\registration_manage.html:62
+msgid "Download certificate (PDF)"
+msgstr "സർട്ടിഫിക്കറ്റ് ഡൗൺലോഡ് ചെയ്യുക (PDF)"
+
 #: idcards\templates\idcards\_card.html:36
 msgid "Download front (PNG)"
 msgstr "മുൻവശം ഡൗൺലോഡ് (PNG)"
 
 #: idcards\templates\idcards\_card.html:38
 #: templates\courses\registration_manage.html:26
-#: templates\courses\student_detail.html:50
+#: templates\courses\student_detail.html:52
 #: templates\patients\patient_detail.html:412
 msgid "Download PDF"
 msgstr "PDF ഡൗൺലോഡ്"
@@ -3463,6 +3611,10 @@ msgstr "പ്രാബല്യം വരെ"
 msgid "Either email or phone number is required."
 msgstr "ഇമെയിൽ അല്ലെങ്കിൽ ഫോൺ നമ്പർ ആവശ്യമാണ്."
 
+#: templates\courses\batch_attendance.html:42
+msgid "Eligible"
+msgstr "യോഗ്യത"
+
 #: accounts\models.py:111 accounts\templates\accounts\admin\user_form.html:53
 #: clinic\models.py:45 clinic\templates\clinic\admin\clinic_setup.html:252
 msgid "Email"
@@ -3482,9 +3634,17 @@ msgstr "ഇമെയിൽ (ഓപ്ഷണൽ)"
 msgid "Email Address"
 msgstr "ഇമെയിൽ വിലാസം"
 
-#: templates\courses\batch_registrations.html:40
+#: templates\courses\student_detail.html:86
+msgid "Email again"
+msgstr "വീണ്ടും ഇമെയിൽ"
+
+#: templates\courses\batch_registrations.html:42
 msgid "Email everyone who has not added their details yet"
 msgstr "ഇതുവരെ വിവരങ്ങൾ ചേർക്കാത്ത എല്ലാവർക്കും ഇമെയിൽ അയയ്ക്കുക"
+
+#: templates\courses\student_signin.html:17
+msgid "Email me a sign-in link"
+msgstr "എനിക്ക് സൈൻ-ഇൻ ലിങ്ക് ഇമെയിൽ ചെയ്യുക"
 
 #: patients\models.py:39
 msgid "Email notifications"
@@ -3494,7 +3654,7 @@ msgstr "ഇമെയിൽ അറിയിപ്പുകൾ"
 msgid "Email sent successfully."
 msgstr "ഇമെയിൽ വിജയകരമായി അയച്ചു."
 
-#: templates\courses\student_detail.html:32
+#: templates\courses\student_detail.html:33
 msgid "Email the details link"
 msgstr "വിവരങ്ങളുടെ ലിങ്ക് ഇമെയിൽ ചെയ്യുക"
 
@@ -3505,6 +3665,10 @@ msgstr "ഇമെയിൽ സ്ഥിരീകരിച്ചു"
 #: templates\patients\patient_form.html:73
 msgid "email@example.com"
 msgstr "email@example.com"
+
+#: templates\courses\student_detail.html:87
+msgid "emailed"
+msgstr "ഇമെയിൽ ചെയ്തു"
 
 #: templates\courses\student_detail.html:27
 msgid "Emergency"
@@ -3522,12 +3686,12 @@ msgstr "അടിയന്തര ബന്ധം"
 msgid "Emergency contact (optional)"
 msgstr "അടിയന്തര കോൺടാക്റ്റ് (ഓപ്ഷണൽ)"
 
-#: accounts\templates\accounts\admin\user_form.html:117 courses\models.py:223
+#: accounts\templates\accounts\admin\user_form.html:117 courses\models.py:227
 #: templates\courses\student_form.html:21
 msgid "Emergency contact name"
 msgstr "അടിയന്തര ബന്ധപ്പെടേണ്ടയാളുടെ പേര്"
 
-#: accounts\templates\accounts\admin\user_form.html:118 courses\models.py:224
+#: accounts\templates\accounts\admin\user_form.html:118 courses\models.py:228
 #: templates\courses\student_form.html:22
 msgid "Emergency contact phone"
 msgstr "അടിയന്തര ബന്ധപ്പെടേണ്ട ഫോൺ"
@@ -3636,6 +3800,10 @@ msgstr "പ്രവേശനം തുറന്നിരിക്കുന്�
 msgid "Enter 6-digit Code"
 msgstr "6 അക്ക കോഡ് നൽകുക"
 
+#: courses\ops_views.py:57
+msgid "Enter a number from 1 to 100."
+msgstr "1 മുതൽ 100 വരെയുള്ള ഒരു സംഖ്യ നൽകുക."
+
 #: clinic\testimonial_views.py:245
 msgid "Enter a problem name."
 msgstr "പ്രശ്നത്തിന്റെ പേര് നൽകുക."
@@ -3647,6 +3815,10 @@ msgstr "സാധുവായ തീയതി നൽകുക."
 #: spinalcure\validators.py:107
 msgid "Enter a valid email address."
 msgstr "സാധുവായ ഇമെയിൽ വിലാസം നൽകുക."
+
+#: courses\ops_views.py:207
+msgid "Enter a valid fee."
+msgstr "ശരിയായ ഫീസ് നൽകുക."
 
 #: patients\views.py:1081 patients\views.py:1079
 msgid "Enter a valid package price."
@@ -3668,6 +3840,10 @@ msgstr "1 മുതൽ 200 വരെ സിറ്റിംഗുകൾ നൽക
 msgid "Enter the 6-digit code emailed to you. It expires in 10 minutes."
 msgstr ""
 "നിങ്ങൾക്ക് ഇമെയിൽ ചെയ്ത 6 അക്ക കോഡ് നൽകുക. ഇത് 10 മിനിറ്റിൽ കാലഹരണപ്പെടും."
+
+#: courses\ops_views.py:173
+msgid "Enter the amount received."
+msgstr "ലഭിച്ച തുക നൽകുക."
 
 #: clinic\faq_views.py:50
 msgid "Enter who checked this answer before publishing it."
@@ -3861,7 +4037,15 @@ msgstr "ഇവന്റുകളും ക്ലാസുകളും - SpinalCu
 msgid "Events, workshops & webinars"
 msgstr "ഇവന്റുകൾ, വർക്ക്ഷോപ്പുകൾ, വെബിനാറുകൾ"
 
-#: templates\courses\student_list.html:17
+#: templates\courses\course_materials.html:28
+msgid "Every batch"
+msgstr "ഓരോ ബാച്ചും"
+
+#: courses\ops_views.py:240
+msgid "Every batch of this course"
+msgstr "ഈ കോഴ്സിന്റെ ഓരോ ബാച്ചും"
+
+#: templates\courses\student_list.html:18
 msgid "Every student"
 msgstr "ഓരോ വിദ്യാർത്ഥിയും"
 
@@ -3973,7 +4157,7 @@ msgstr "പര്യവേക്ഷണം ചെയ്യുക"
 msgid "Export"
 msgstr "എക്സ്പോർട്ട്"
 
-#: templates\courses\batch_list.html:24
+#: templates\courses\batch_list.html:25
 msgid "Export Courses"
 msgstr "കോഴ്സുകൾ എക്സ്പോർട്ട് ചെയ്യുക"
 
@@ -4069,8 +4253,12 @@ msgstr "പ്രത്യേക സേവനങ്ങൾ അപ്ഡേറ്�
 msgid "Fee"
 msgstr "ഫീസ്"
 
+#: courses\ops_views.py:211
+msgid "Fee updated."
+msgstr "ഫീസ് അപ്ഡേറ്റ് ചെയ്തു."
+
 #: templates\clinic\testimonials_public.html:13
-#: templates\courses\batch_list.html:76
+#: templates\courses\batch_list.html:77
 #: templates\events\partials\event_list_partial.html:79
 #: templates\public_base.html:72
 msgid "Feedback"
@@ -4124,7 +4312,7 @@ msgstr "ഈ ബാച്ചിന് ഫീഡ്ബാക്ക് തുറന
 msgid "Feedback is not open for this event."
 msgstr "ഈ ഇവന്റിന് ഫീഡ്ബാക്ക് തുറന്നിട്ടില്ല."
 
-#: courses\student_views.py:136
+#: courses\student_views.py:142
 #, python-format
 msgid "Feedback is open. %(n)s student(s) were emailed their link."
 msgstr ""
@@ -4134,7 +4322,7 @@ msgstr ""
 msgid "feedback is visible to the public."
 msgstr "ഫീഡ്ബാക്ക് പൊതുജനങ്ങൾക്ക് ദൃശ്യമാണ്."
 
-#: templates\courses\batch_registrations.html:58
+#: templates\courses\batch_registrations.html:60
 msgid "Feedback received"
 msgstr "ലഭിച്ച ഫീഡ്ബാക്ക്"
 
@@ -4152,6 +4340,11 @@ msgstr "ഫീഡ്ബാക്ക് — %(name)s"
 msgid "Feedback — %(title)s"
 msgstr "ഫീഡ്ബാക്ക് — %(title)s"
 
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:69
+msgid "Fees"
+msgstr "ഫീസ്"
+
 #: events\models.py:133
 msgid "Fees (₹)"
 msgstr "ഫീസ് (₹)"
@@ -4161,9 +4354,13 @@ msgstr "ഫീസ് (₹)"
 msgid "Fees are non-refundable."
 msgstr "ഫീസ് തിരികെ നൽകില്ല."
 
+#: templates\courses\student_portal.html:19
+msgid "Fees paid"
+msgstr "അടച്ച ഫീസ്"
+
 #: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:39
-#: courses\models.py:206
+#: courses\models.py:210
 msgid "Female"
 msgstr "സ്ത്രീ"
 
@@ -4211,19 +4408,19 @@ msgstr "ഫോക്കസ് പോയിന്റ്"
 msgid "Focal point: click, or use the arrow keys"
 msgstr "ഫോക്കസ് പോയിന്റ്: ക്ലിക്ക് ചെയ്യുക, അല്ലെങ്കിൽ ആരോ കീകൾ ഉപയോഗിക്കുക"
 
-#: templates\courses\student_detail.html:80
+#: templates\courses\student_detail.html:107
 msgid "Follow up"
 msgstr "ഫോളോ അപ്പ്"
 
-#: templates\courses\student_detail.html:73
+#: templates\courses\student_detail.html:100
 msgid "Follow up on"
 msgstr "ഫോളോ അപ്പ് തീയതി"
 
-#: courses\models.py:260 patients\session_pdf.py:76
+#: courses\models.py:264 patients\session_pdf.py:76
 msgid "Follow-up"
 msgstr "ഫോളോ-അപ്പ്"
 
-#: templates\courses\student_list.html:20
+#: templates\courses\student_list.html:22
 msgid "Follow-up due"
 msgstr "ഫോളോ അപ്പ് വരാനുണ്ട്"
 
@@ -4231,7 +4428,7 @@ msgstr "ഫോളോ അപ്പ് വരാനുണ്ട്"
 msgid "Follow-up reminder lead (days)"
 msgstr "ഫോളോ-അപ്പ് ഓർമ്മപ്പെടുത്തൽ മുൻകൂർ (ദിവസം)"
 
-#: templates\courses\student_list.html:11
+#: templates\courses\student_list.html:12
 msgid "Follow-ups due"
 msgstr "വരാനുള്ള ഫോളോ അപ്പുകൾ"
 
@@ -4243,6 +4440,7 @@ msgstr "ഭക്ഷണം, മരുന്ന് അലർജികൾ..."
 msgid "Footer Text"
 msgstr "ഫൂട്ടർ ടെക്സ്റ്റ്"
 
+#: templates\courses\course_materials.html:17
 #: templates\payments\online_pay.html:27
 msgid "For"
 msgstr "എന്തിന്"
@@ -4356,7 +4554,7 @@ msgstr "പൂർണ്ണ വിവരണം"
 msgid "Full Mobility"
 msgstr "പൂർണ്ണ ചലനശേഷി"
 
-#: clinic\models.py:195 courses\models.py:177 courses\models.py:210
+#: clinic\models.py:195 courses\models.py:179 courses\models.py:214
 #: events\models.py:247
 msgid "Full Name"
 msgstr "പൂർണ്ണ നാമം"
@@ -4424,7 +4622,7 @@ msgstr "GB"
 
 #: accounts\templates\accounts\admin\user_form.html:113
 #: clinic\templates\clinic\admin\practitioner_form.html:34
-#: courses\models.py:220 idcards\render.py:251
+#: courses\models.py:224 idcards\render.py:251
 msgid "Gender"
 msgstr "ലിംഗം"
 
@@ -4469,6 +4667,10 @@ msgstr "സൃഷ്ടിച്ചത്"
 #, python-format
 msgid "Generated: %(now)s"
 msgstr "സൃഷ്ടിച്ചത്: %(now)s"
+
+#: templates\courses\certificate_verify.html:10
+msgid "Genuine certificate"
+msgstr "യഥാർത്ഥ സർട്ടിഫിക്കറ്റ്"
 
 #: templates\clinic\admin\testimonials_list.html:47
 msgid "Given"
@@ -4621,6 +4823,15 @@ msgstr ""
 "എങ്ങനെയായിരുന്നുവെന്ന് അറിയാൻ ആഗ്രഹിക്കുന്നു. ഒരു മിനിറ്റ് മതി, ഭാവി "
 "വിദ്യാർത്ഥികൾക്ക് സഹായകമാകും."
 
+#: notifications\messages.py:114
+#, python-format
+msgid ""
+"Hi %(name)s, congratulations! Your certificate for %(event)s (%(batch)s) is "
+"attached. Certificate no. %(code)s."
+msgstr ""
+"ഹലോ %(name)s, അഭിനന്ദനങ്ങൾ! %(event)s (%(batch)s) നായുള്ള നിങ്ങളുടെ "
+"സർട്ടിഫിക്കറ്റ് ഘടിപ്പിച്ചിരിക്കുന്നു. സർട്ടിഫിക്കറ്റ് നമ്പർ %(code)s."
+
 #: notifications\messages.py:105
 #, python-format
 msgid ""
@@ -4710,7 +4921,7 @@ msgstr "%(event)s എങ്ങനെയുണ്ടായിരുന്നു?"
 msgid "How was it?"
 msgstr "എങ്ങനെയുണ്ടായിരുന്നു?"
 
-#: templates\courses\registration_manage.html:41
+#: templates\courses\registration_manage.html:68
 msgid "How was the course?"
 msgstr "കോഴ്സ് എങ്ങനെയുണ്ടായിരുന്നു?"
 
@@ -4837,6 +5048,14 @@ msgid ""
 "If this number is registered and has an email on file, a code has been sent."
 msgstr ""
 "ഈ നമ്പർ രജിസ്റ്റർ ചെയ്യുകയും ഇമെയിൽ ഉണ്ടെങ്കിൽ, ഒരു കോഡ് അയച്ചിട്ടുണ്ട്."
+
+#: templates\courses\student_signin.html:12
+msgid ""
+"If we have you on file, a sign-in link is on its way. It works once and "
+"expires in 30 minutes."
+msgstr ""
+"നിങ്ങളുടെ വിവരങ്ങൾ ഞങ്ങളുടെ പക്കലുണ്ടെങ്കിൽ, സൈൻ-ഇൻ ലിങ്ക് വരുന്നുണ്ട്. ഇത് "
+"ഒരു തവണ മാത്രം പ്രവർത്തിക്കും, 30 മിനിറ്റിൽ കാലഹരണപ്പെടും."
 
 #: templates\emails\auth_request.html:52
 msgid ""
@@ -4965,6 +5184,10 @@ msgstr "Instagram URL"
 msgid "Insurance"
 msgstr "ഇൻഷുറൻസ്"
 
+#: courses\models.py:264
+msgid "Interested in the next batch"
+msgstr "അടുത്ത ബാച്ചിൽ താൽപ്പര്യം"
+
 #: clinic\models.py:387
 msgid "Internal / Direct"
 msgstr "ആന്തരികം / നേരിട്ട്"
@@ -5085,6 +5308,11 @@ msgstr "മുഖ്യ ഡോക്ടർ (മുകളിലെ തിരശ�
 msgid "Issue"
 msgstr "നൽകുക"
 
+#: templates\courses\batch_attendance.html:19
+#, python-format
+msgid "Issue & email certificates (%(n)s)"
+msgstr "സർട്ടിഫിക്കറ്റുകൾ നൽകി ഇമെയിൽ ചെയ്യുക (%(n)s)"
+
 #: idcards\templates\idcards\branding.html:20
 msgid "Issue a card to see a live preview here."
 msgstr "ഇവിടെ തത്സമയ പ്രിവ്യൂ കാണാൻ ഒരു കാർഡ് നൽകുക."
@@ -5093,6 +5321,10 @@ msgstr "ഇവിടെ തത്സമയ പ്രിവ്യൂ കാണാ
 #: idcards\templates\idcards\issue.html:16
 msgid "Issue card"
 msgstr "കാർഡ് നൽകുക"
+
+#: templates\courses\batch_attendance.html:18
+msgid "Issue certificates to every eligible student and email them?"
+msgstr "യോഗ്യരായ ഓരോ വിദ്യാർത്ഥിക്കും സർട്ടിഫിക്കറ്റ് നൽകി ഇമെയിൽ ചെയ്യണോ?"
 
 #: idcards\templates\idcards\issue.html:3
 #: idcards\templates\idcards\issue.html:4
@@ -5107,6 +5339,11 @@ msgstr "റീഫണ്ട് നൽകുക"
 #: idcards\templates\idcards\verify.html:39
 msgid "Issued"
 msgstr "നൽകി"
+
+#: templates\courses\certificate_verify.html:13
+#, python-format
+msgid "Issued %(d)s"
+msgstr "നൽകിയത് %(d)s"
 
 #: templates\clinic\review_withdraw.html:12
 msgid "It is no longer shown and its text and your name have been deleted."
@@ -5187,7 +5424,7 @@ msgid "Keep event"
 msgstr "ഇവന്റ് നിലനിർത്തുക"
 
 #: templates\appointments\manage.html:59
-#: templates\courses\registration_manage.html:55
+#: templates\courses\registration_manage.html:82
 #: templates\events\registration_manage.html:48
 msgid "Keep it"
 msgstr "നിലനിർത്തുക"
@@ -5202,7 +5439,7 @@ msgstr ""
 "ഈ ലിങ്ക് സ്വകാര്യമായി സൂക്ഷിക്കുക: ഇതുള്ള ആർക്കും ഈ അപ്പോയിന്റ്മെന്റ് "
 "മാറ്റാനാകും."
 
-#: templates\courses\registration_manage.html:58
+#: templates\courses\registration_manage.html:85
 #: templates\events\registration_manage.html:51
 msgid "Keep this link private: anyone with it can manage this registration."
 msgstr ""
@@ -5315,6 +5552,10 @@ msgstr "പരിധിയില്ലാത്തതിന് ശൂന്യ�
 msgid "Leave empty to close the whole clinic."
 msgstr "ക്ലിനിക് മുഴുവൻ അടയ്ക്കാൻ ശൂന്യമാക്കുക."
 
+#: courses\models.py:404
+msgid "Leave empty to share with every batch of the course."
+msgstr "കോഴ്സിന്റെ എല്ലാ ബാച്ചുകളുമായി പങ്കിടാൻ ശൂന്യമായി വിടുക."
+
 #: templates\appointments\availability.html:86
 #, python-format
 msgid "Leave: %(name)s"
@@ -5345,6 +5586,14 @@ msgstr "തെളിഞ്ഞ"
 msgid "Limited seats. We will call you to confirm."
 msgstr "സീറ്റുകൾ പരിമിതം. സ്ഥിരീകരിക്കാൻ ഞങ്ങൾ വിളിക്കും."
 
+#: courses\models.py:400
+msgid "Link"
+msgstr "ലിങ്ക്"
+
+#: templates\courses\course_materials.html:18
+msgid "Link (Google Drive, YouTube, any web page)"
+msgstr "ലിങ്ക് (Google Drive, YouTube, ഏതെങ്കിലും വെബ് പേജ്)"
+
 #: accounts\forms.py:27
 msgid "Link an existing practitioner"
 msgstr "നിലവിലുള്ള പ്രാക്ടീഷണറെ ലിങ്ക് ചെയ്യുക"
@@ -5353,7 +5602,7 @@ msgstr "നിലവിലുള്ള പ്രാക്ടീഷണറെ ല�
 msgid "Link copied to the clipboard"
 msgstr "ലിങ്ക് ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി"
 
-#: courses\student_views.py:126
+#: courses\student_views.py:132
 #, python-format
 msgid "Link emailed to %(email)s."
 msgstr "ലിങ്ക് %(email)s ലേക്ക് ഇമെയിൽ ചെയ്തു."
@@ -5369,6 +5618,13 @@ msgstr "ഈ അവലോകനം ഒരു നിർദ്ദിഷ്ട ഡ�
 #: accounts\forms.py:51
 msgid "Linked practitioner profile (keep)"
 msgstr "ലിങ്ക് ചെയ്ത പ്രാക്ടീഷണർ പ്രൊഫൈൽ (നിലനിർത്തുക)"
+
+#: templates\courses\course_materials.html:10
+msgid ""
+"Links and files that confirmed students can open from their private page."
+msgstr ""
+"ഉറപ്പായ വിദ്യാർത്ഥികൾക്ക് അവരുടെ സ്വകാര്യ പേജിൽ നിന്ന് തുറക്കാവുന്ന "
+"ലിങ്കുകളും ഫയലുകളും."
 
 #: templates\appointments\calendar.html:439
 msgid "List View"
@@ -5485,7 +5741,7 @@ msgstr "മലയാളം"
 
 #: accounts\models.py:353 clinic\models.py:191
 #: clinic\templates\clinic\admin\practitioner_form.html:38
-#: courses\models.py:206
+#: courses\models.py:210
 msgid "Male"
 msgstr "പുരുഷൻ"
 
@@ -5568,6 +5824,18 @@ msgstr "പരിശോധിച്ചതായി അടയാളപ്പെ�
 msgid "Marketing & Advertising"
 msgstr "മാർക്കറ്റിംഗ് & പരസ്യം"
 
+#: courses\ops_views.py:272
+msgid "Material added."
+msgstr "പഠന സാമഗ്രി ചേർത്തു."
+
+#: courses\ops_views.py:293
+msgid "Material removed."
+msgstr "പഠന സാമഗ്രി നീക്കം ചെയ്തു."
+
+#: templates\courses\student_portal.html:22
+msgid "materials"
+msgstr "സാമഗ്രികൾ"
+
 #: appointments\models.py:53
 msgid "Max appointments in this shift"
 msgstr "ഈ ഷിഫ്റ്റിലെ പരമാവധി അപ്പോയിന്റ്മെന്റുകൾ"
@@ -5633,6 +5901,18 @@ msgstr "മീറ്റിംഗ് ദാതാവ്"
 msgid "Menu"
 msgstr "മെനു"
 
+#: templates\courses\student_detail.html:43
+msgid "Merge into this student"
+msgstr "ഈ വിദ്യാർത്ഥിയിൽ ലയിപ്പിക്കുക"
+
+#: templates\courses\student_detail.html:43
+msgid "Merge this record into the current student? This cannot be undone."
+msgstr "ഈ രേഖ നിലവിലെ വിദ്യാർത്ഥിയിൽ ലയിപ്പിക്കണോ? ഇത് തിരിച്ചെടുക്കാനാവില്ല."
+
+#: courses\ops_views.py:226
+msgid "Merged into this student."
+msgstr "ഈ വിദ്യാർത്ഥിയിൽ ലയിപ്പിച്ചു."
+
 #: clinic\blog_models.py:82
 msgid "Meta Description"
 msgstr "മെറ്റ വിവരണം"
@@ -5665,7 +5945,7 @@ msgstr "ഇല്ലാത്തവ"
 #: templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 #: templates\courses\partials\batch_registrations_partial.html:46
-#: templates\courses\student_list.html:37
+#: templates\courses\student_list.html:39
 msgid "Missing"
 msgstr "ഇല്ല"
 
@@ -5690,6 +5970,7 @@ msgstr "ചലനശേഷി സ്കോർ (1-5)"
 msgid "Mobility Score:"
 msgstr "ചലനശേഷി സ്കോർ:"
 
+#: templates\courses\student_detail.html:75
 #: templates\patients\patient_detail.html:589
 #: templates\payments\invoice.html:286
 #: templates\payments\partials\payment_list_partial.html:11
@@ -5775,6 +6056,11 @@ msgstr "5-നും 480-നും ഇടയിൽ മിനിറ്റ് ആ�
 msgid "Must be less than or equal to total amount"
 msgstr "ആകെ തുകയ്ക്ക് തുല്യമോ കുറവോ ആയിരിക്കണം"
 
+#: templates\courses\student_portal.html:3
+#: templates\courses\student_portal.html:8
+msgid "My courses"
+msgstr "എന്റെ കോഴ്സുകൾ"
+
 #: templates\patients\portal\dashboard.html:3
 msgid "My Health Portal — SpinalCure"
 msgstr "എന്റെ ആരോഗ്യ പോർട്ടൽ — SpinalCure"
@@ -5784,7 +6070,7 @@ msgstr "എന്റെ ആരോഗ്യ പോർട്ടൽ — SpinalCure"
 msgid "My ID card"
 msgstr "എന്റെ ID കാർഡ്"
 
-#: clinic\models.py:629 courses\models.py:301 events\models.py:293
+#: clinic\models.py:629 courses\models.py:305 events\models.py:293
 #: templates\events\event_feedback_admin.html:55
 msgid "Name"
 msgstr "പേര്"
@@ -5821,6 +6107,10 @@ msgstr "ശ്രദ്ധ വേണം"
 #: templates\emails\base_email.html:52
 msgid "Need help? Contact the clinic"
 msgstr "സഹായം വേണോ? ക്ലിനിക്കുമായി ബന്ധപ്പെടുക"
+
+#: templates\courses\batch_attendance.html:15
+msgid "Needed %"
+msgstr "വേണ്ടത് %"
 
 #: templates\clinic\admin\translations.html:52
 msgid "Needs attention"
@@ -5961,7 +6251,7 @@ msgstr ""
 "ഇപ്പോൾ ഒരു ബാച്ചും തുറന്നിട്ടില്ല. ഉടൻ വീണ്ടും നോക്കുക അല്ലെങ്കിൽ ഞങ്ങളെ "
 "വിളിക്കുക."
 
-#: templates\courses\batch_list.html:125
+#: templates\courses\batch_list.html:126
 msgid "No Batches Yet"
 msgstr "ഇതുവരെ ബാച്ചുകളില്ല"
 
@@ -5982,11 +6272,19 @@ msgstr "അടച്ചിടലുകളൊന്നും ഷെഡ്യൂ�
 msgid "No Courses Found"
 msgstr "കോഴ്സുകളൊന്നും കണ്ടെത്തിയില്ല"
 
+#: templates\courses\student_portal.html:26
+msgid "No courses found for this email yet."
+msgstr "ഈ ഇമെയിലിന് ഇതുവരെ കോഴ്സുകളില്ല."
+
 #: notifications\templates\notifications\deliveries.html:28
 msgid "No deliveries with this status."
 msgstr "ഈ നിലയിലുള്ള ഡെലിവറികളില്ല."
 
-#: courses\student_views.py:120
+#: courses\ops_views.py:144
+msgid "No email address on file."
+msgstr "ഇമെയിൽ വിലാസം ഇല്ല."
+
+#: courses\student_views.py:126
 msgid "No email address yet. Add one, or share the link by WhatsApp."
 msgstr ""
 "ഇതുവരെ ഇമെയിൽ വിലാസമില്ല. ഒന്ന് ചേർക്കുക, അല്ലെങ്കിൽ ലിങ്ക് WhatsApp വഴി "
@@ -6045,11 +6343,15 @@ msgstr "പൊരുത്തപ്പെടുന്ന ചെലവുകള�
 msgid "No matching payments found."
 msgstr "പൊരുത്തപ്പെടുന്ന പേയ്‌മെന്റുകളൊന്നും കണ്ടെത്തിയില്ല."
 
+#: templates\courses\course_materials.html:33
+msgid "No materials yet."
+msgstr "ഇതുവരെ സാമഗ്രികളില്ല."
+
 #: patients\session_pdf.py:72
 msgid "No notes recorded."
 msgstr "കുറിപ്പുകളൊന്നും രേഖപ്പെടുത്തിയിട്ടില്ല."
 
-#: templates\courses\student_detail.html:82
+#: templates\courses\student_detail.html:109
 msgid "No notes yet."
 msgstr "ഇതുവരെ കുറിപ്പുകളില്ല."
 
@@ -6195,9 +6497,13 @@ msgstr "നിങ്ങളുടെ തിരയലുമായി പൊരു�
 msgid "No students found matching your search."
 msgstr "നിങ്ങളുടെ തിരയലുമായി പൊരുത്തപ്പെടുന്ന വിദ്യാർത്ഥികളെ കണ്ടെത്തിയില്ല."
 
-#: templates\courses\student_list.html:39
+#: templates\courses\student_list.html:41
 msgid "No students match."
 msgstr "പൊരുത്തപ്പെടുന്ന വിദ്യാർത്ഥികളില്ല."
+
+#: templates\courses\certificate_verify.html:17
+msgid "No such certificate"
+msgstr "അങ്ങനെയൊരു സർട്ടിഫിക്കറ്റ് ഇല്ല"
 
 #: templates\courses\student_verify.html:17
 msgid "No such student ID"
@@ -6296,6 +6602,10 @@ msgstr "നിയോഗിച്ചിട്ടില്ല"
 msgid "Not given yet"
 msgstr "ഇതുവരെ നൽകിയിട്ടില്ല"
 
+#: templates\courses\student_detail.html:88
+msgid "Not issued yet. Attendance is marked on the batch page."
+msgstr "ഇതുവരെ നൽകിയിട്ടില്ല. ഹാജർ ബാച്ച് പേജിൽ രേഖപ്പെടുത്തുന്നു."
+
 #: clinic\testimonial_views.py:172
 msgid "Not published: record the patient's consent first."
 msgstr "പ്രസിദ്ധീകരിച്ചിട്ടില്ല: ആദ്യം രോഗിയുടെ സമ്മതം രേഖപ്പെടുത്തുക."
@@ -6316,11 +6626,11 @@ msgstr "രേഖപ്പെടുത്തിയിട്ടില്ല"
 msgid "Not specified"
 msgstr "വ്യക്തമാക്കിയിട്ടില്ല"
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "Note"
 msgstr "കുറിപ്പ്"
 
-#: courses\student_views.py:98
+#: courses\student_views.py:104
 msgid "Note added."
 msgstr "കുറിപ്പ് ചേർത്തു."
 
@@ -6338,7 +6648,7 @@ msgstr "കുറിപ്പുകൾ (ആന്തരികം)"
 msgid "Notes / Message"
 msgstr "കുറിപ്പുകൾ / സന്ദേശം"
 
-#: courses\models.py:180
+#: courses\models.py:182
 msgid "Notes / Questions"
 msgstr "കുറിപ്പുകൾ / ചോദ്യങ്ങൾ"
 
@@ -6440,7 +6750,7 @@ msgid "One email per patient, sent the day after the session. 0 turns it off."
 msgstr ""
 "ഓരോ രോഗിക്കും ഒരു ഇമെയിൽ, സെഷന്റെ പിറ്റേന്ന് അയയ്ക്കും. 0 നൽകിയാൽ ഓഫാകും."
 
-#: courses\models.py:299
+#: courses\models.py:303
 msgid "One feedback per student per course."
 msgstr "ഓരോ വിദ്യാർത്ഥിക്കും ഓരോ കോഴ്സിനും ഒരു ഫീഡ്ബാക്ക്."
 
@@ -6583,7 +6893,7 @@ msgstr ""
 "മെച്ചപ്പെടുത്തണം എന്ന് പറയൂ."
 
 #: templates\clinic\gallery.html:27 templates\clinic\gallery.html:49
-#: templates\courses\batch_list.html:83
+#: templates\courses\batch_list.html:84
 #: templates\events\event_feedback_admin.html:15
 msgid "Open"
 msgstr "തുറന്നിരിക്കുന്നു"
@@ -6592,12 +6902,12 @@ msgstr "തുറന്നിരിക്കുന്നു"
 msgid "open"
 msgstr "തുറന്നിരിക്കുന്നു"
 
-#: templates\courses\batch_list.html:38
+#: templates\courses\batch_list.html:39
 #, python-format
 msgid "Open %(name)s: students and details"
 msgstr "%(name)s തുറക്കുക: വിദ്യാർത്ഥികളും വിവരങ്ങളും"
 
-#: templates\courses\batch_registrations.html:41
+#: templates\courses\batch_registrations.html:43
 msgid "Open feedback and email every confirmed student their link?"
 msgstr ""
 "ഫീഡ്ബാക്ക് തുറന്ന് ഉറപ്പായ ഓരോ വിദ്യാർത്ഥിക്കും അവരുടെ ലിങ്ക് ഇമെയിൽ "
@@ -6610,6 +6920,25 @@ msgstr "Google അവലോകനങ്ങൾ തുറക്കുക"
 #: templates\public\header.html:41
 msgid "Open menu"
 msgstr "മെനു തുറക്കുക"
+
+#: templates\courses\student_portal.html:22
+msgid "Open my page"
+msgstr "എന്റെ പേജ് തുറക്കുക"
+
+#: courses\ops.py:126
+#, python-format
+msgid ""
+"Open this link to see your courses, certificates and study materials. It works once and expires in %(m)s minutes:\n"
+"\n"
+"%(link)s\n"
+"\n"
+"If you did not ask for it, ignore this email."
+msgstr ""
+"നിങ്ങളുടെ കോഴ്സുകൾ, സർട്ടിഫിക്കറ്റുകൾ, പഠന സാമഗ്രികൾ എന്നിവ കാണാൻ ഈ ലിങ്ക് തുറക്കുക. ഇത് ഒരു തവണ മാത്രം പ്രവർത്തിക്കും, %(m)s മിനിറ്റിൽ കാലഹരണപ്പെടും:\n"
+"\n"
+"%(link)s\n"
+"\n"
+"നിങ്ങൾ ആവശ്യപ്പെട്ടില്ലെങ്കിൽ, ഈ ഇമെയിൽ അവഗണിക്കുക."
 
 #: templates\clinic\home.html:270 templates\public\footer.html:28
 msgid "Opening hours"
@@ -6651,7 +6980,7 @@ msgstr "അല്ലെങ്കിൽ YouTube / Instagram ലിങ്ക്"
 msgid "Organisation"
 msgstr "സ്ഥാപനം"
 
-#: courses\models.py:217 templates\courses\student_form.html:16
+#: courses\models.py:221 templates\courses\student_form.html:16
 msgid "Organisation / clinic"
 msgstr "സ്ഥാപനം / ക്ലിനിക്"
 
@@ -6668,7 +6997,7 @@ msgstr "സംഘാടകൻ"
 msgid "Other"
 msgstr "മറ്റുള്ളവ"
 
-#: templates\courses\student_detail.html:39
+#: templates\courses\student_detail.html:40
 msgid "Other students use this phone number"
 msgstr "ഈ ഫോൺ നമ്പർ മറ്റ് വിദ്യാർത്ഥികളും ഉപയോഗിക്കുന്നു"
 
@@ -6796,6 +7125,11 @@ msgstr "അടച്ചു"
 #: templates\patients\patient_detail.html:301
 msgid "Paid Amount"
 msgstr "അടച്ച തുക"
+
+#: templates\courses\registration_manage.html:54
+#: templates\courses\student_detail.html:70
+msgid "paid of"
+msgstr "അടച്ചു, ആകെ"
 
 #: payments\models.py:330 templates\payments\expense_form.html:46
 #: templates\payments\partials\expense_list_partial.html:10
@@ -7189,6 +7523,14 @@ msgstr "പേയ്‌മെന്റ് റെക്കോർഡ് കണ്�
 msgid "Payment record updated successfully."
 msgstr "പേയ്‌മെന്റ് റെക്കോർഡ് വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു."
 
+#: courses\ops_views.py:184
+msgid "Payment recorded."
+msgstr "പേയ്മെന്റ് രേഖപ്പെടുത്തി."
+
+#: courses\ops_views.py:195
+msgid "Payment removed."
+msgstr "പേയ്മെന്റ് നീക്കം ചെയ്തു."
+
 #: templates\payments\invoice.html:367
 msgid "Payment Summary"
 msgstr "പേയ്‌മെന്റ് സംഗ്രഹം"
@@ -7229,6 +7571,10 @@ msgstr "പേയ്‌മെന്റ് റിപ്പോർട്ട്"
 #: templates\payments\report.html:3
 msgid "Payments Report - SpinalCure"
 msgstr "പേയ്‌മെന്റ് റിപ്പോർട്ട് - SpinalCure"
+
+#: courses\models.py:400 templates\courses\student_detail.html:85
+msgid "PDF"
+msgstr "PDF"
 
 #: templates\partials\export_dropdown.html:10
 msgid "PDF Report"
@@ -7375,7 +7721,7 @@ msgstr ""
 msgid "Plan Name"
 msgstr "പദ്ധതിയുടെ പേര്"
 
-#: templates\courses\batch_list.html:51
+#: templates\courses\batch_list.html:52
 msgid "Planned"
 msgstr "ആസൂത്രണം ചെയ്തത്"
 
@@ -7745,7 +8091,11 @@ msgstr "ലാഭം"
 msgid "Progress"
 msgstr "പുരോഗതി"
 
-#: templates\courses\batch_registrations.html:45
+#: templates\courses\registration_manage.html:51
+msgid "Progress and fees"
+msgstr "പുരോഗതിയും ഫീസും"
+
+#: templates\courses\batch_registrations.html:47
 #, python-format
 msgid "Promote waitlist (%(n)s)"
 msgstr "വെയിറ്റ്‌ലിസ്റ്റ് പ്രമോട്ട് ചെയ്യുക (%(n)s)"
@@ -7898,7 +8248,7 @@ msgstr "ദ്രുത പ്രവർത്തനങ്ങൾ"
 msgid "Quick add photos"
 msgstr "ഫോട്ടോകൾ വേഗം ചേർക്കുക"
 
-#: clinic\models.py:414 courses\models.py:302 events\models.py:296
+#: clinic\models.py:414 courses\models.py:306 events\models.py:296
 #: patients\models.py:342
 msgid "Rating"
 msgstr "റേറ്റിംഗ്"
@@ -7941,6 +8291,16 @@ msgstr "വായനാ സമയം"
 #: clinic\blog_models.py:87
 msgid "Read Time (minutes)"
 msgstr "വായനാ സമയം (മിനിറ്റ്)"
+
+#: templates\courses\student_detail.html:31
+#: templates\courses\student_list.html:11
+#: templates\courses\student_list.html:21
+msgid "Ready for next batch"
+msgstr "അടുത്ത ബാച്ചിന് തയ്യാർ"
+
+#: templates\courses\student_detail.html:31
+msgid "Ready for the next batch"
+msgstr "അടുത്ത ബാച്ചിന് തയ്യാർ"
 
 #: templates\patients\portal\dashboard.html:67
 msgid "Ready for your next visit?"
@@ -8043,6 +8403,7 @@ msgid "Recommended: 1200 × 630 px"
 msgstr "ശുപാർശ: 1200 × 630 px"
 
 #: clinic\templates\clinic\admin\activity_log.html:64
+#: templates\courses\student_detail.html:78
 msgid "Record"
 msgstr "റെക്കോർഡ്"
 
@@ -8143,6 +8504,10 @@ msgstr "റീലുകളും ഷോർട്ട്സും — SpinalCure �
 msgid "Reference"
 msgstr "റഫറൻസ്"
 
+#: templates\courses\student_detail.html:77
+msgid "Reference (optional)"
+msgstr "റഫറൻസ് (ഓപ്ഷണൽ)"
+
 #: payments\refunds.py:22
 msgid "Refund amount must be greater than zero."
 msgstr "റീഫണ്ട് തുക പൂജ്യത്തേക്കാൾ കൂടുതലായിരിക്കണം."
@@ -8200,7 +8565,7 @@ msgstr "രോഗിയെ രജിസ്റ്റർ ചെയ്യുക"
 msgid "Registered"
 msgstr "രജിസ്റ്റർ ചെയ്തു"
 
-#: courses\models.py:181 events\models.py:251
+#: courses\models.py:183 events\models.py:251
 msgid "Registered At"
 msgstr "രജിസ്റ്റർ ചെയ്ത സമയം"
 
@@ -8217,7 +8582,7 @@ msgstr "രജിസ്റ്റർ ചെയ്തത്: %(registered_date)s"
 msgid "Registering…"
 msgstr "രജിസ്റ്റർ ചെയ്യുന്നു…"
 
-#: courses\models.py:298 events\models.py:288
+#: courses\models.py:302 events\models.py:288
 #: templates\events\event_form.html:51
 msgid "Registration"
 msgstr "രജിസ്ട്രേഷൻ"
@@ -8302,15 +8667,15 @@ msgstr "ബന്ധപ്പെട്ട ലേഖനങ്ങൾ"
 msgid "Relation"
 msgstr "ബന്ധം"
 
-#: templates\courses\student_detail.html:69
+#: templates\courses\student_detail.html:96
 msgid "Relationship notes"
 msgstr "ബന്ധ കുറിപ്പുകൾ"
 
-#: templates\courses\batch_registrations.html:40
+#: templates\courses\batch_registrations.html:42
 msgid "Remind about details"
 msgstr "വിവരങ്ങളെക്കുറിച്ച് ഓർമ്മിപ്പിക്കുക"
 
-#: courses\student_views.py:148
+#: courses\student_views.py:154
 #, python-format
 msgid "Reminder emailed to %(n)s student(s)."
 msgstr "%(n)s വിദ്യാർത്ഥി(കൾ)ക്ക് ഓർമ്മപ്പെടുത്തൽ ഇമെയിൽ ചെയ്തു."
@@ -8341,6 +8706,10 @@ msgstr "നീക്കം ചെയ്യുക"
 msgid "Remove the custom thumbnail"
 msgstr "കസ്റ്റം തംബ്നെയിൽ നീക്കം ചെയ്യുക"
 
+#: templates\courses\batch_attendance.html:47
+msgid "Remove this class and its attendance?"
+msgstr "ഈ ക്ലാസും അതിന്റെ ഹാജറും നീക്കം ചെയ്യണോ?"
+
 #: templates\appointments\availability.html:132
 msgid "Remove this closure?"
 msgstr "ഈ അടച്ചിടൽ നീക്കം ചെയ്യണോ?"
@@ -8357,6 +8726,14 @@ msgstr "ഇത് ഗാലറിയിൽ നിന്ന് നീക്കണ
 msgid "Remove this leave?"
 msgstr "ഈ അവധി നീക്കം ചെയ്യണോ?"
 
+#: templates\courses\course_materials.html:31
+msgid "Remove this material?"
+msgstr "ഈ സാമഗ്രി നീക്കം ചെയ്യണോ?"
+
+#: templates\courses\student_detail.html:72
+msgid "Remove this payment?"
+msgstr "ഈ പേയ്മെന്റ് നീക്കം ചെയ്യണോ?"
+
 #: clinic\templates\clinic\admin\clinic_setup.html:482
 #: clinic\templates\clinic\admin\clinic_setup.html:675
 msgid "Removed"
@@ -8370,7 +8747,7 @@ msgstr "ഗാലറിയിൽ നിന്ന് നീക്കി."
 msgid "Rent / Lease"
 msgstr "വാടക / പാട്ടം"
 
-#: templates\courses\student_detail.html:81
+#: templates\courses\student_detail.html:108
 msgid "Reopen"
 msgstr "വീണ്ടും തുറക്കുക"
 
@@ -8567,6 +8944,10 @@ msgstr "സേവ് ചെയ്ത് എന്റെ ID കാർഡ് ന�
 msgid "Save as draft"
 msgstr "ഡ്രാഫ്റ്റായി സേവ് ചെയ്യുക"
 
+#: templates\courses\batch_attendance.html:45
+msgid "Save attendance"
+msgstr "ഹാജർ സേവ് ചെയ്യുക"
+
 #: idcards\templates\idcards\branding.html:17
 msgid "Save branding"
 msgstr "ബ്രാൻഡിംഗ് സേവ് ചെയ്യുക"
@@ -8628,11 +9009,15 @@ msgstr ""
 "മറച്ച നിലയിൽ സേവ് ചെയ്തു. ഇത് പ്രസിദ്ധീകരിക്കാൻ രോഗിയുടെ സമ്മതം "
 "രേഖപ്പെടുത്തുക."
 
+#: courses\ops_views.py:55
+msgid "Saved."
+msgstr "സേവ് ചെയ്തു."
+
 #: idcards\render.py:248
 msgid "Scan to verify"
 msgstr "സ്ഥിരീകരിക്കാൻ സ്കാൻ ചെയ്യുക"
 
-#: templates\courses\batch_list.html:89 templates\events\event_form.html:31
+#: templates\courses\batch_list.html:90 templates\events\event_form.html:31
 msgid "Schedule"
 msgstr "ഷെഡ്യൂൾ"
 
@@ -8695,7 +9080,7 @@ msgstr "പേര്, ID, പദവി തിരയുക…"
 msgid "Search name, phone, email"
 msgstr "പേര്, ഫോൺ, ഇമെയിൽ തിരയുക"
 
-#: templates\courses\student_list.html:15
+#: templates\courses\student_list.html:16
 msgid "Search name, phone, email or student ID"
 msgstr "പേര്, ഫോൺ, ഇമെയിൽ അല്ലെങ്കിൽ വിദ്യാർത്ഥി ID തിരയുക"
 
@@ -8776,6 +9161,14 @@ msgstr "സുരക്ഷാ സ്ഥിരീകരണം"
 msgid "Security Warning:"
 msgstr "സുരക്ഷാ മുന്നറിയിപ്പ്:"
 
+#: templates\courses\student_signin.html:8
+msgid ""
+"See all your courses, certificates and study materials in one place. We "
+"email a one-time link to the address we have on file for you."
+msgstr ""
+"നിങ്ങളുടെ എല്ലാ കോഴ്സുകളും സർട്ടിഫിക്കറ്റുകളും പഠന സാമഗ്രികളും ഒരിടത്ത് "
+"കാണുക. ഞങ്ങളുടെ പക്കലുള്ള വിലാസത്തിലേക്ക് ഒറ്റത്തവണ ലിങ്ക് ഇമെയിൽ ചെയ്യും."
+
 #: templates\clinic\home.html:75
 msgid "See real patient stories for your problem"
 msgstr "നിങ്ങളുടെ പ്രശ്നത്തിനുള്ള യഥാർത്ഥ രോഗി അനുഭവങ്ങൾ കാണുക"
@@ -8843,7 +9236,7 @@ msgid "Seminar"
 msgstr "സെമിനാർ"
 
 #: templates\clinic\partials\review_form.html:32
-#: templates\courses\registration_manage.html:47
+#: templates\courses\registration_manage.html:74
 #: templates\events\registration_manage.html:39
 msgid "Send feedback"
 msgstr "ഫീഡ്ബാക്ക് അയയ്ക്കുക"
@@ -8874,7 +9267,7 @@ msgstr "അയയ്ക്കുന്നു…"
 msgid "Sent"
 msgstr "അയച്ചു"
 
-#: courses\student_views.py:125
+#: courses\student_views.py:131
 msgid "Sent the \"complete your details\" link."
 msgstr "\"വിവരങ്ങൾ പൂർത്തിയാക്കുക\" ലിങ്ക് അയച്ചു."
 
@@ -9021,6 +9414,10 @@ msgstr "സെഷനുകൾ (പൂർത്തിയായത്/ആകെ)"
 msgid "Sessions Today"
 msgstr "ഇന്നത്തെ സെഷനുകൾ"
 
+#: templates\courses\student_detail.html:80
+msgid "Set"
+msgstr "സജ്ജമാക്കുക"
+
 #: appointments\models.py:72
 msgid "Set both break start and break end, or neither."
 msgstr "ഇടവേള ആരംഭവും അവസാനവും രണ്ടും സജ്ജമാക്കുക, അല്ലെങ്കിൽ രണ്ടും വേണ്ട."
@@ -9031,7 +9428,7 @@ msgstr ""
 "രണ്ട് സമയങ്ങളും സജ്ജമാക്കുക, അല്ലെങ്കിൽ മുഴുവൻ ദിവസത്തിന് രണ്ടും "
 "ശൂന്യമാക്കുക."
 
-#: courses\models.py:191
+#: courses\models.py:193
 msgid "Set when the student finishes the course."
 msgstr "വിദ്യാർത്ഥി കോഴ്സ് പൂർത്തിയാക്കുമ്പോൾ സജ്ജമാകും."
 
@@ -9042,6 +9439,10 @@ msgstr "ക്രമീകരണങ്ങൾ - SpinalCure"
 #: clinic\templates\clinic\admin\clinic_setup.html:27
 msgid "Settings Menu"
 msgstr "ക്രമീകരണ മെനു"
+
+#: templates\courses\student_detail.html:70
+msgid "settled"
+msgstr "തീർപ്പായി"
 
 #: idcards\templates\idcards\_card.html:40
 msgid "Share"
@@ -9088,6 +9489,10 @@ msgstr "ചെറുവിവരണം"
 #: courses\models.py:30
 msgid "Short Description"
 msgstr "ഹ്രസ്വ വിവരണം"
+
+#: templates\courses\course_materials.html:20
+msgid "Short description (optional)"
+msgstr "ചെറു വിവരണം (ഓപ്ഷണൽ)"
 
 #: templates\clinic\admin\video_form.html:26
 #: templates\clinic\admin\videos.html:46
@@ -9232,7 +9637,7 @@ msgstr "സൈൻ ഇൻ"
 msgid "Sign in with your work email."
 msgstr "നിങ്ങളുടെ ഔദ്യോഗിക ഇമെയിൽ ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്യുക."
 
-#: templates\ui\topbar.html:49
+#: templates\courses\student_portal.html:9 templates\ui\topbar.html:49
 msgid "Sign out"
 msgstr "സൈൻ ഔട്ട്"
 
@@ -9397,7 +9802,7 @@ msgstr "സ്റ്റാഫ് മാനേജ്മെന്റ്"
 msgid "Staff Member"
 msgstr "സ്റ്റാഫ് അംഗം"
 
-#: templates\accounts\login.html:8 templates\public\footer.html:52
+#: templates\accounts\login.html:8 templates\public\footer.html:53
 msgid "Staff sign in"
 msgstr "സ്റ്റാഫ് സൈൻ ഇൻ"
 
@@ -9481,9 +9886,9 @@ msgstr "നില സൂചിക"
 msgid "Still have a question?"
 msgstr "ഇനിയും ചോദ്യമുണ്ടോ?"
 
-#: courses\models.py:231 templates\courses\batch_feedback_admin.html:52
+#: courses\models.py:235 templates\courses\batch_attendance.html:33
+#: templates\courses\batch_feedback_admin.html:52
 #: templates\courses\student_detail.html:3
-#: templates\courses\student_list.html:27
 msgid "Student"
 msgstr "വിദ്യാർത്ഥി"
 
@@ -9491,11 +9896,11 @@ msgstr "വിദ്യാർത്ഥി"
 msgid "Student Details"
 msgstr "വിദ്യാർത്ഥി വിവരങ്ങൾ"
 
-#: courses\student_views.py:75
+#: courses\student_views.py:81
 msgid "Student details saved."
 msgstr "വിദ്യാർത്ഥിയുടെ വിവരങ്ങൾ സേവ് ചെയ്തു."
 
-#: templates\courses\student_detail.html:46
+#: templates\courses\student_detail.html:48
 msgid "Student ID card"
 msgstr "വിദ്യാർത്ഥി ID കാർഡ്"
 
@@ -9507,7 +9912,7 @@ msgstr "വിദ്യാർത്ഥി ID പരിശോധന"
 msgid "Student Name"
 msgstr "വിദ്യാർത്ഥിയുടെ പേര്"
 
-#: notifications\messages.py:113
+#: notifications\messages.py:116
 #, python-format
 msgid "Student profile completed: %(name)s"
 msgstr "വിദ്യാർത്ഥി പ്രൊഫൈൽ പൂർത്തിയായി: %(name)s"
@@ -9516,10 +9921,27 @@ msgstr "വിദ്യാർത്ഥി പ്രൊഫൈൽ പൂർത്�
 msgid "Student Registrations"
 msgstr "വിദ്യാർത്ഥി രജിസ്ട്രേഷനുകൾ"
 
-#: courses\models.py:232 templates\courses\batch_list.html:65
+#: templates\courses\student_signin.html:3
+#: templates\courses\student_signin.html:7 templates\public\footer.html:52
+msgid "Student sign in"
+msgstr "വിദ്യാർത്ഥി സൈൻ ഇൻ"
+
+#: courses\models.py:236 templates\courses\batch_list.html:66
 #: templates\courses\student_list.html:3 templates\courses\student_list.html:4
 msgid "Students"
 msgstr "വിദ്യാർത്ഥികൾ"
+
+#: templates\courses\batch_attendance.html:11
+#, python-format
+msgid "Students need %(n)s%% attendance to earn a certificate."
+msgstr "സർട്ടിഫിക്കറ്റ് ലഭിക്കാൻ വിദ്യാർത്ഥികൾക്ക് %(n)s%% ഹാജർ വേണം."
+
+#: templates\courses\batch_list.html:22
+#: templates\courses\batch_registrations.html:40
+#: templates\courses\course_materials.html:3
+#: templates\courses\course_materials.html:4
+msgid "Study materials"
+msgstr "പഠന സാമഗ്രികൾ"
 
 #: templates\clinic\partials\review_form.html:32
 msgid "Submit review"
@@ -9529,7 +9951,7 @@ msgstr "അവലോകനം സമർപ്പിക്കുക"
 msgid "Submitted"
 msgstr "സമർപ്പിച്ചു"
 
-#: courses\models.py:307 events\models.py:304
+#: courses\models.py:311 events\models.py:304
 msgid "Submitted At"
 msgstr "സമർപ്പിച്ച സമയം"
 
@@ -9677,7 +10099,7 @@ msgstr "ഉപയോഗിച്ച സാങ്കേതിക വിദ്യ�
 msgid "Tel"
 msgstr "ഫോൺ"
 
-#: templates\courses\registration_manage.html:46
+#: templates\courses\registration_manage.html:73
 msgid "Tell future students about your experience (optional)"
 msgstr "നിങ്ങളുടെ അനുഭവത്തെക്കുറിച്ച് ഭാവി വിദ്യാർത്ഥികളോട് പറയുക (ഓപ്ഷണൽ)"
 
@@ -9821,6 +10243,11 @@ msgstr ""
 #: events\views.py:269
 msgid "That action is not available for this registration."
 msgstr "ഈ രജിസ്ട്രേഷന് ആ നടപടി ലഭ്യമല്ല."
+
+#: courses\ops_views.py:329
+msgid "That link has expired or was already used. Ask for a new one."
+msgstr ""
+"ആ ലിങ്ക് കാലഹരണപ്പെട്ടു അല്ലെങ്കിൽ ഇതിനകം ഉപയോഗിച്ചു. പുതിയത് ആവശ്യപ്പെടുക."
 
 #: clinic\views.py:173
 msgid "That practitioner is not available."
@@ -9987,7 +10414,7 @@ msgstr ""
 "ഇവ പൊതു സാക്ഷ്യപത്ര പേജിലെ പ്രശ്ന ഡ്രോപ്പ്ഡൗൺ നിറയ്ക്കുന്നു. കീവേഡുകൾ തിരയൽ "
 "ബോക്സ് പൊരുത്തപ്പെടാൻ സഹായിക്കുന്നു (ഉദാ. Slip Disc-ന് “disc, herniated”)."
 
-#: templates\courses\student_detail.html:40
+#: templates\courses\student_detail.html:41
 msgid ""
 "They may be the same person or a mistake. Check before treating them as one."
 msgstr ""
@@ -10045,6 +10472,10 @@ msgstr "ഈ കാർഡ് ഇനി സാധുവല്ല"
 msgid "This card is no longer valid."
 msgstr "ഈ കാർഡ് ഇനി സാധുവല്ല."
 
+#: templates\courses\certificate_verify.html:18
+msgid "This certificate could not be verified."
+msgstr "ഈ സർട്ടിഫിക്കറ്റ് സ്ഥിരീകരിക്കാനായില്ല."
+
 #: accounts\views.py:23
 msgid "This email is already used by another account."
 msgstr "ഈ ഇമെയിൽ ഇതിനകം മറ്റൊരു അക്കൗണ്ടിൽ ഉപയോഗത്തിലുണ്ട്."
@@ -10077,6 +10508,11 @@ msgstr ""
 #: templates\events\registration_manage.html:13
 msgid "This event was cancelled."
 msgstr "ഈ ഇവന്റ് റദ്ദാക്കി."
+
+#: courses\files.py:42
+#, python-format
+msgid "This file does not look like a real %(ext)s document."
+msgstr "ഈ ഫയൽ യഥാർത്ഥ %(ext)s രേഖ പോലെ തോന്നുന്നില്ല."
 
 #: spinalcure\uploads.py:209
 msgid "This file is not a valid image."
@@ -10142,11 +10578,11 @@ msgstr ""
 msgid "This shift overlaps another shift on the same day."
 msgstr "ഈ ഷിഫ്റ്റ് അതേ ദിവസത്തെ മറ്റൊരു ഷിഫ്റ്റുമായി ഓവർലാപ്പ് ചെയ്യുന്നു."
 
-#: courses\student_views.py:122
+#: courses\student_views.py:128
 msgid "This student has already completed their details."
 msgstr "ഈ വിദ്യാർത്ഥി ഇതിനകം വിവരങ്ങൾ പൂർത്തിയാക്കി."
 
-#: courses\student_views.py:118
+#: courses\student_views.py:124
 msgid "This student has no confirmed place."
 msgstr "ഈ വിദ്യാർത്ഥിക്ക് ഉറപ്പായ സ്ഥാനമില്ല."
 
@@ -10166,6 +10602,10 @@ msgid ""
 msgstr ""
 "രോഗി (അല്ലെങ്കിൽ അവരുടെ ടീം) വെബ്സൈറ്റിൽ പേര് കാണിക്കാൻ രേഖാമൂലം സമ്മതിച്ചാൽ"
 " മാത്രം ടിക്ക് ചെയ്യുക."
+
+#: templates\courses\batch_attendance.html:45
+msgid "Tick the students who were present."
+msgstr "ഹാജരായ വിദ്യാർത്ഥികളെ ടിക്ക് ചെയ്യുക."
 
 #: appointments\models.py:218 templates\appointments\calendar.html:551
 #: templates\appointments\calendar.html:607
@@ -10292,6 +10732,14 @@ msgstr "ഈ മാസത്തെ മികച്ച ഡോക്ടർ"
 msgid "Top Sub-label"
 msgstr "മുകളിലെ ഉപ-ലേബൽ"
 
+#: courses\models.py:329
+msgid "Topic"
+msgstr "വിഷയം"
+
+#: templates\courses\batch_attendance.html:25
+msgid "Topic (optional)"
+msgstr "വിഷയം (ഓപ്ഷണൽ)"
+
 #: templates\clinic\blog_list.html:13 templates\clinic\faq.html:20
 msgid "Topics"
 msgstr "വിഷയങ്ങൾ"
@@ -10343,6 +10791,10 @@ msgstr "ഈ ആഴ്ച ആകെ"
 #: templates\courses\course_list.html:6
 msgid "Training Courses"
 msgstr "പരിശീലന കോഴ്സുകൾ"
+
+#: courses\models.py:387
+msgid "Transaction or cheque number"
+msgstr "ഇടപാട് അല്ലെങ്കിൽ ചെക്ക് നമ്പർ"
 
 #: clinic\models.py:512 templates\clinic\admin\video_form.html:28
 msgid "Transcript"
@@ -10659,7 +11111,7 @@ msgstr "സാക്ഷ്യപത്രം അപ്ഡേറ്റ് ചെ�
 msgid "Update User"
 msgstr "ഉപയോക്താവിനെ അപ്ഡേറ്റ് ചെയ്യുക"
 
-#: payments\models.py:24
+#: courses\models.py:380 payments\models.py:24
 msgid "UPI"
 msgstr "UPI"
 
@@ -10682,6 +11134,14 @@ msgstr "അപ്‌ലോഡ്"
 #: events\forms.py:44
 msgid "Upload a JPEG, PNG or WebP image."
 msgstr "JPEG, PNG അല്ലെങ്കിൽ WebP ചിത്രം അപ്‌ലോഡ് ചെയ്യുക."
+
+#: courses\files.py:29
+msgid ""
+"Upload a PDF, Word, PowerPoint, Excel, CSV, text or video (MP4, WebM, MOV) "
+"file."
+msgstr ""
+"PDF, Word, PowerPoint, Excel, CSV, ടെക്സ്റ്റ് അല്ലെങ്കിൽ വീഡിയോ (MP4, WebM, "
+"MOV) ഫയൽ അപ്‌ലോഡ് ചെയ്യുക."
 
 #: clinic\models.py:689
 msgid "Upload a video or paste a YouTube / Instagram link."
@@ -10706,9 +11166,17 @@ msgstr "കവർ അപ്‌ലോഡ് ചെയ്യുക"
 msgid "Upload image (JPEG, PNG or WebP, max 8 MB)"
 msgstr "ചിത്രം അപ്‌ലോഡ് ചെയ്യുക (JPEG, PNG or WebP, പരമാവധി 8 MB)"
 
+#: templates\courses\student_detail.html:90
+msgid "Upload own PDF and email"
+msgstr "സ്വന്തം PDF അപ്‌ലോഡ് ചെയ്ത് ഇമെയിൽ ചെയ്യുക"
+
 #: templates\clinic\admin\gallery.html:18
 msgid "Upload photos"
 msgstr "ഫോട്ടോകൾ അപ്‌ലോഡ് ചെയ്യുക"
+
+#: templates\courses\student_detail.html:90
+msgid "Upload your own certificate (PDF)"
+msgstr "നിങ്ങളുടെ സ്വന്തം സർട്ടിഫിക്കറ്റ് അപ്‌ലോഡ് ചെയ്യുക (PDF)"
 
 #: templates\clinic\admin\video_form.html:49
 msgid ""
@@ -10731,6 +11199,10 @@ msgstr "#166534 പോലുള്ള ഹെക്സ് നിറം ഉപയ�
 #: spinalcure\uploads.py:211
 msgid "Use a JPEG, PNG or WebP image."
 msgstr "JPEG, PNG or WebP ചിത്രം ഉപയോഗിക്കുക."
+
+#: courses\ops_views.py:255
+msgid "Use either a link or a file, not both."
+msgstr "ലിങ്കോ ഫയലോ ഏതെങ്കിലും ഒന്ന് മാത്രം ഉപയോഗിക്കുക, രണ്ടും വേണ്ട."
 
 #: clinic\blog_models.py:66
 msgid "Use this if the author is not a practitioner in the system."
@@ -10872,7 +11344,8 @@ msgstr "ഈ ID കാർഡ് സ്ഥിരീകരിക്കുക:"
 msgid "via %(get_payment_mode_display)s"
 msgstr "%(get_payment_mode_display)s വഴി"
 
-#: clinic\models.py:660 templates\clinic\admin\gallery.html:30
+#: clinic\models.py:660 courses\models.py:400
+#: templates\clinic\admin\gallery.html:30
 #: templates\clinic\admin\videos.html:67
 msgid "Video"
 msgstr "വീഡിയോ"
@@ -10969,6 +11442,10 @@ msgstr "പൊതു ലേഖനം കാണുക"
 msgid "Visibility"
 msgstr "ദൃശ്യത"
 
+#: templates\courses\course_materials.html:30
+msgid "Visible"
+msgstr "ദൃശ്യം"
+
 #: templates\clinic\admin\testimonial_form.html:129
 msgid "Visible on the public portfolio when checked"
 msgstr "ടിക്ക് ചെയ്താൽ പൊതു പോർട്ട്ഫോളിയോയിൽ ദൃശ്യമാകും"
@@ -11001,8 +11478,8 @@ msgstr "വെയിറ്റ്‌ലിസ്റ്റ്"
 msgid "Waitlist when full"
 msgstr "നിറഞ്ഞാൽ വെയിറ്റ്‌ലിസ്റ്റ്"
 
-#: courses\models.py:182 events\models.py:252
-#: templates\courses\batch_registrations.html:57
+#: courses\models.py:184 events\models.py:252
+#: templates\courses\batch_registrations.html:59
 #: templates\events\event_registrations.html:31
 msgid "Waitlisted"
 msgstr "വെയിറ്റ്‌ലിസ്റ്റിൽ"
@@ -11210,7 +11687,7 @@ msgstr "നിങ്ങൾ എന്താണ് തിരയുന്നത്?
 msgid "What brings you in? (optional)"
 msgstr "എന്തിനാണ് വരുന്നത്? (ഓപ്ഷണൽ)"
 
-#: templates\courses\student_detail.html:72
+#: templates\courses\student_detail.html:99
 msgid "What happened, or what to do next"
 msgstr "എന്താണ് സംഭവിച്ചത്, അല്ലെങ്കിൽ അടുത്തതായി എന്ത് ചെയ്യണം"
 
@@ -11258,7 +11735,7 @@ msgstr "നിങ്ങൾ പഠിക്കുന്നത്"
 msgid "Whatsapp"
 msgstr "WhatsApp"
 
-#: courses\models.py:259
+#: courses\models.py:263
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
@@ -11270,7 +11747,7 @@ msgstr "WhatsApp നമ്പർ"
 msgid "WhatsApp notifications (opt-in)"
 msgstr "WhatsApp അറിയിപ്പുകൾ (ഓപ്റ്റ്-ഇൻ)"
 
-#: templates\courses\student_detail.html:33
+#: templates\courses\student_detail.html:34
 msgid "WhatsApp the link"
 msgstr "ലിങ്ക് WhatsApp ചെയ്യുക"
 
@@ -11307,7 +11784,7 @@ msgstr "ഈ നടപടി പഴയപടിയാക്കിയോ"
 msgid "Whether this OTP has been successfully verified"
 msgstr "ഈ OTP വിജയകരമായി സ്ഥിരീകരിച്ചോ"
 
-#: courses\models.py:293
+#: courses\models.py:297
 msgid "Which batch the reviewer attended."
 msgstr "അവലോകനം ചെയ്തയാൾ പങ്കെടുത്ത ബാച്ച്."
 
@@ -11399,7 +11876,7 @@ msgstr "അവലോകനം എഴുതുക"
 msgid "Write First Post"
 msgstr "ആദ്യ പോസ്റ്റ് എഴുതുക"
 
-#: courses\student_views.py:94
+#: courses\student_views.py:100
 msgid "Write something first."
 msgstr "ആദ്യം എന്തെങ്കിലും എഴുതുക."
 
@@ -11433,7 +11910,7 @@ msgid "Years of experience"
 msgstr "പരിചയ വർഷങ്ങൾ"
 
 #: templates\appointments\manage.html:60
-#: templates\courses\registration_manage.html:55
+#: templates\courses\registration_manage.html:82
 #: templates\events\registration_manage.html:48
 msgid "Yes, cancel"
 msgstr "അതെ, റദ്ദാക്കുക"
@@ -11672,6 +12149,15 @@ msgstr ""
 msgid "Your authorization PIN is:"
 msgstr "നിങ്ങളുടെ അംഗീകാര PIN:"
 
+#: templates\courses\registration_manage.html:60
+msgid "Your certificate"
+msgstr "നിങ്ങളുടെ സർട്ടിഫിക്കറ്റ്"
+
+#: notifications\messages.py:113
+#, python-format
+msgid "Your certificate: %(event)s"
+msgstr "നിങ്ങളുടെ സർട്ടിഫിക്കറ്റ്: %(event)s"
+
 #: templates\courses\registration_manage.html:20
 msgid ""
 "Your details are complete. Show this card at the clinic; the QR code lets "
@@ -11679,6 +12165,10 @@ msgid ""
 msgstr ""
 "നിങ്ങളുടെ വിവരങ്ങൾ പൂർത്തിയായി. ഈ കാർഡ് ക്ലിനിക്കിൽ കാണിക്കുക; QR കോഡ് വഴി "
 "ആർക്കും ഇത് യഥാർത്ഥമാണെന്ന് ഉറപ്പാക്കാം."
+
+#: templates\courses\student_signin.html:16
+msgid "Your email or phone number"
+msgstr "നിങ്ങളുടെ ഇമെയിൽ അല്ലെങ്കിൽ ഫോൺ നമ്പർ"
 
 #: templates\clinic\partials\review_form.html:25
 msgid "Your experience"
@@ -11712,7 +12202,7 @@ msgstr ""
 "നിങ്ങളുടെ സ്ഥാനം ഉറപ്പായി. ചില വിവരങ്ങളും ഫോട്ടോയും ചേർക്കുക, ഉടൻ നിങ്ങളുടെ "
 "വിദ്യാർത്ഥി ID കാർഡ് ഉണ്ടാക്കാം."
 
-#: templates\courses\registration_manage.html:54
+#: templates\courses\registration_manage.html:81
 #: templates\events\registration_manage.html:47
 msgid "Your place may be offered to someone on the waitlist."
 msgstr "നിങ്ങളുടെ സ്ഥലം വെയിറ്റ്‌ലിസ്റ്റിലുള്ള ഒരാൾക്ക് നൽകിയേക്കാം."
@@ -11752,6 +12242,10 @@ msgid ""
 msgstr ""
 "നിങ്ങളുടെ സൈൻ-ഇൻ കോഡ് %(code)s ആണ്. ഇത് %(m)d മിനിറ്റിൽ കാലഹരണപ്പെടും. "
 "നിങ്ങൾ അഭ്യർത്ഥിച്ചില്ലെങ്കിൽ ഈ ഇമെയിൽ അവഗണിക്കുക."
+
+#: courses\ops.py:125
+msgid "Your sign-in link"
+msgstr "നിങ്ങളുടെ സൈൻ-ഇൻ ലിങ്ക്"
 
 #: templates\clinic\home.html:187
 msgid ""
@@ -11820,6 +12314,11 @@ msgstr "— പ്രാക്ടീഷണറെ തിരഞ്ഞെടുക�
 #: templates\clinic\admin\blog_form.html:4 templates\events\event_form.html:4
 msgid "— SpinalCure"
 msgstr "— SpinalCure"
+
+#: templates\courses\course_materials.html:19
+msgid "…or upload a file (PDF, Word, PowerPoint, Excel, video)"
+msgstr ""
+"…അല്ലെങ്കിൽ ഫയൽ അപ്‌ലോഡ് ചെയ്യുക (PDF, Word, PowerPoint, Excel, വീഡിയോ)"
 
 #: templates\patients\patient_detail.html:282
 #, python-format

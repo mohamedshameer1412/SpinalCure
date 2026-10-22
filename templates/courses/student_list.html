@@ -5,9 +5,10 @@
 {% block header_actions %}<a href="{% url 'course_list' %}" class="text-sm font-semibold text-primary-700 hover:underline"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i>{% trans "Courses" %}</a>{% endblock %}
 {% block content %}
 <div class="max-w-6xl mx-auto space-y-5">
-    <div class="grid gap-3 sm:grid-cols-3">
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <a href="?" class="card p-4 no-underline"><p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{% trans "All students" %}</p><p class="mt-1 text-2xl font-extrabold text-gray-900">{{ total }}</p></a>
         <a href="?profile=incomplete" class="card p-4 no-underline"><p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{% trans "Details missing" %}</p><p class="mt-1 text-2xl font-extrabold text-amber-600">{{ incomplete }}</p></a>
+        <a href="?profile=next_batch" class="card p-4 no-underline"><p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{% trans "Ready for next batch" %}</p><p class="mt-1 text-2xl font-extrabold text-green-700">{{ ready }}</p></a>
         <a href="?profile=follow_up" class="card p-4 no-underline"><p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{% trans "Follow-ups due" %}</p><p class="mt-1 text-2xl font-extrabold text-primary-700">{{ due }}</p></a>
     </div>
     <form method="get" class="card flex flex-wrap items-center gap-3 p-4">
@@ -17,6 +18,7 @@
             <option value="">{% trans "Every student" %}</option>
             <option value="incomplete" {% if profile == 'incomplete' %}selected{% endif %}>{% trans "Details missing" %}</option>
             <option value="complete" {% if profile == 'complete' %}selected{% endif %}>{% trans "Details complete" %}</option>
+            <option value="next_batch" {% if profile == 'next_batch' %}selected{% endif %}>{% trans "Ready for next batch" %}</option>
             <option value="follow_up" {% if profile == 'follow_up' %}selected{% endif %}>{% trans "Follow-up due" %}</option>
         </select>
         <button class="btn btn-primary">{% trans "Search" %}</button>

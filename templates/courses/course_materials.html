@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Study materials" %} — {{ course.title }}{% endblock %}
+{% block page_title %}{% trans "Study materials" %}{% endblock %}
+{% block content %}
+<div class="max-w-5xl mx-auto space-y-6">
+    <div>
+        <a href="{% url 'batch_list' course.pk %}" class="mb-2 flex items-center gap-2 text-sm font-bold text-slate-500 no-underline hover:text-slate-900"><i class="bi bi-arrow-left" aria-hidden="true"></i>{% trans "Back to batches" %}</a>
+        <h2 class="text-2xl font-black text-slate-900">{{ course.title }}</h2>
+        <p class="text-sm font-medium text-slate-500">{% trans "Links and files that confirmed students can open from their private page." %}</p>
+    </div>
+    <form method="post" enctype="multipart/form-data" class="card space-y-4 p-6" novalidate>{% csrf_token %}
+        <h3 class="font-semibold text-gray-900">{% trans "Add material" %}</h3>
+        {% if form.errors %}<div role="alert" class="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}{% for f in form %}{% for e in f.errors %}<p>{{ f.label }}: {{ e }}</p>{% endfor %}{% endfor %}</div>{% endif %}
+        <div class="grid gap-4 sm:grid-cols-2">
+            <div><label class="label" for="{{ form.title.id_for_label }}">{% trans "Title" %} *</label>{{ form.title }}</div>
+            <div><label class="label" for="{{ form.batch.id_for_label }}">{% trans "For" %}</label>{{ form.batch }}</div>
+            <div><label class="label" for="{{ form.url.id_for_label }}">{% trans "Link (Google Drive, YouTube, any web page)" %}</label>{{ form.url }}</div>
+            <div><label class="label" for="{{ form.file.id_for_label }}">{% trans "…or upload a file (PDF, Word, PowerPoint, Excel, video)" %}</label>{{ form.file }}</div>
+            <div class="sm:col-span-2"><label class="label" for="{{ form.description.id_for_label }}">{% trans "Short description (optional)" %}</label>{{ form.description }}</div>
+        </div>
+        <button class="btn btn-primary"><i class="bi bi-plus-lg" aria-hidden="true"></i>{% trans "Add material" %}</button>
+    </form>
+    <div class="card overflow-hidden">
+        <ul class="divide-y divide-gray-50">
+        {% for m in materials %}<li class="flex flex-wrap items-center justify-between gap-3 px-6 py-4 text-sm">
+            <div class="min-w-0"><p class="font-semibold text-gray-900"><i class="bi {% if m.kind == 'video' %}bi-play-circle{% elif m.kind == 'pdf' %}bi-file-earmark-pdf{% elif m.kind == 'doc' %}bi-file-earmark-text{% else %}bi-link-45deg{% endif %} me-1 text-primary-600" aria-hidden="true"></i>{{ m.title }}</p>
+                <p class="text-xs text-gray-500">{{ m.get_kind_display }} · {% if m.batch %}{{ m.batch.name }}{% else %}{% trans "Every batch" %}{% endif %}{% if m.url %} · <a href="{{ m.url }}" target="_blank" rel="noopener noreferrer">{{ m.url|truncatechars:50 }}</a>{% endif %}</p></div>
+            <div class="flex items-center gap-2">
+                <form method="post" action="{% url 'material_toggle' m.pk %}">{% csrf_token %}<button class="btn btn-outline btn-sm">{% if m.is_published %}<i class="bi bi-eye" aria-hidden="true"></i> {% trans "Visible" %}{% else %}<i class="bi bi-eye-slash" aria-hidden="true"></i> {% trans "Hidden" %}{% endif %}</button></form>
+                <form method="post" action="{% url 'material_delete' m.pk %}" data-confirm="{% trans 'Remove this material?' %}">{% csrf_token %}<button class="btn btn-secondary btn-sm text-red-600" aria-label="{% trans 'Delete' %}"><i class="bi bi-trash" aria-hidden="true"></i></button></form>
+            </div></li>
+        {% empty %}<li class="px-6 py-12 text-center text-gray-500">{% trans "No materials yet." %}</li>{% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

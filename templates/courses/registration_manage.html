@@ -36,6 +36,33 @@
         {% endif %}
     </section>
     {% endif %}
+    {% if reg.status == 'confirmed' %}
+    {% if materials %}
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+        <h2 class="font-semibold mb-3">{% translate "Study materials" %}</h2>
+        <ul class="divide-y divide-gray-100">{% for m in materials %}<li class="py-3">
+            <a class="flex items-start gap-3 no-underline" {% if m.file %}href="{% url 'course_my_material' reg.access_token m.pk %}"{% else %}href="{{ m.url }}" target="_blank" rel="noopener noreferrer"{% endif %}>
+                <i class="bi {% if m.kind == 'video' %}bi-play-circle{% elif m.kind == 'pdf' %}bi-file-earmark-pdf{% elif m.kind == 'doc' %}bi-file-earmark-text{% else %}bi-link-45deg{% endif %} mt-0.5 text-xl text-green-600" aria-hidden="true"></i>
+                <span><span class="block font-semibold text-gray-900">{{ m.title }}</span>{% if m.description %}<span class="block text-sm text-gray-500">{{ m.description }}</span>{% endif %}</span></a></li>{% endfor %}</ul>
+    </section>
+    {% endif %}
+    {% if attendance_pct is not None or fees.fee %}
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 text-sm">
+        <h2 class="font-semibold mb-3">{% translate "Progress and fees" %}</h2>
+        <dl class="grid grid-cols-[auto,1fr] gap-x-4 gap-y-1">
+            {% if attendance_pct is not None %}<dt class="text-gray-500">{% translate "Attendance" %}</dt><dd class="font-semibold">{{ attendance_pct }}% <span class="font-normal text-gray-400">({% blocktranslate with n=batch.min_attendance_percent %}{{ n }}% needed for a certificate{% endblocktranslate %})</span></dd>{% endif %}
+            {% if fees.fee %}<dt class="text-gray-500">{% translate "Fees" %}</dt><dd><span class="font-semibold">₹{{ fees.paid }}</span> {% translate "paid of" %} ₹{{ fees.fee }}{% if fees.balance %} · <span class="text-amber-700">{% translate "balance" %} ₹{{ fees.balance }}</span>{% endif %}</dd>{% endif %}
+        </dl>
+    </section>
+    {% endif %}
+    {% if certificate %}
+    <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+        <div class="flex items-center gap-2 mb-1"><i class="bi bi-award-fill text-amber-500" aria-hidden="true"></i><h2 class="font-semibold">{% translate "Your certificate" %}</h2></div>
+        <p class="text-sm text-gray-600 mb-3">{% translate "Congratulations on completing the course." %} {{ certificate.code }}</p>
+        <a class="btn btn-primary" href="{% url 'course_my_certificate' reg.access_token %}" download><i class="bi bi-download" aria-hidden="true"></i>{% translate "Download certificate (PDF)" %}</a>
+    </section>
+    {% endif %}
+    {% endif %}
     {% if can_feedback %}
     <section class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <h2 class="font-semibold mb-3">{% translate "How was the course?" %}</h2>

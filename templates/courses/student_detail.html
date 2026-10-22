@@ -28,6 +28,7 @@
             </dl>
             <div class="mt-5 flex flex-wrap gap-2">
                 <a class="btn btn-outline btn-sm" href="{% url 'student_edit' st.pk %}"><i class="bi bi-pencil" aria-hidden="true"></i>{% trans "Edit" %}</a>
+                <form method="post" action="{% url 'student_note_add' st.pk %}">{% csrf_token %}<input type="hidden" name="kind" value="next_batch"><input type="hidden" name="text" value="{% trans 'Ready for the next batch' %}"><button class="btn btn-outline btn-sm"><i class="bi bi-flag" aria-hidden="true"></i>{% trans "Ready for next batch" %}</button></form>
                 {% if not st.profile_complete and card_reg and card_reg.status == 'confirmed' %}
                 <form method="post" action="{% url 'student_send_link' st.pk %}">{% csrf_token %}<button class="btn btn-outline btn-sm"><i class="bi bi-envelope" aria-hidden="true"></i>{% trans "Email the details link" %}</button></form>
                 <a class="btn btn-outline btn-sm" target="_blank" rel="noopener" href="https://wa.me/{{ st.phone_key }}?text={{ link|urlencode }}"><i class="bi bi-whatsapp" aria-hidden="true"></i>{% trans "WhatsApp the link" %}</a>
@@ -38,7 +39,8 @@
         <section class="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
             <p class="font-semibold"><i class="bi bi-exclamation-triangle me-1" aria-hidden="true"></i>{% trans "Other students use this phone number" %}</p>
             <p class="mt-1">{% trans "They may be the same person or a mistake. Check before treating them as one." %}</p>
-            <ul class="mt-2 list-disc ms-5">{% for o in same_phone %}<li><a href="{% url 'student_detail' o.pk %}">{{ o.name }}</a> <span class="font-mono text-xs">{{ o.student_code }}</span></li>{% endfor %}</ul>
+            <ul class="mt-2 list-disc ms-5">{% for o in same_phone %}<li class="flex flex-wrap items-center gap-2"><a href="{% url 'student_detail' o.pk %}">{{ o.name }}</a> <span class="font-mono text-xs">{{ o.student_code }}</span>
+                {% if can_manage %}<form method="post" action="{% url 'student_merge' st.pk o.pk %}" data-confirm="{% trans 'Merge this record into the current student? This cannot be undone.' %}">{% csrf_token %}<button class="rounded-full border border-amber-300 bg-white px-2 py-0.5 text-xs font-semibold">{% trans "Merge into this student" %}</button></form>{% endif %}</li>{% endfor %}</ul>
         </section>
         {% endif %}
         {% if st.profile_complete and card_reg %}
@@ -52,19 +54,44 @@
         {% endif %}
     </div>
     <div class="space-y-6 lg:col-span-7">
+        {% for row in reg_rows %}{% with r=row.reg f=row.fees %}
         <section class="card overflow-hidden">
-            <h3 class="border-b border-gray-100 px-6 py-4 font-semibold text-gray-900">{% trans "Batches" %}</h3>
-            <ul class="divide-y divide-gray-50">
-            {% for r in regs %}<li class="flex flex-wrap items-center justify-between gap-2 px-6 py-3 text-sm">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 px-6 py-4">
                 <div><a class="font-semibold text-gray-900 no-underline hover:text-primary-700" href="{% url 'batch_registrations' r.batch.pk %}">{{ r.batch.course.title }}</a>
                     <p class="text-xs text-gray-500">{{ r.batch.name }} · {{ r.batch.start_date|date:"M Y" }}</p></div>
                 <span class="flex items-center gap-2">
                     {% if r.feedback %}<span class="text-xs text-green-700"><i class="bi bi-star-fill" aria-hidden="true"></i> {{ r.feedback.rating }}/5</span>{% endif %}
-                    {% if r.completed_at %}<span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-600">{% trans "Completed" %}</span>{% endif %}
+                    {% if row.pct is not None %}<span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-600">{{ row.pct }}% {% trans "attendance" %}</span>{% endif %}
                     <span class="rounded-full px-2.5 py-1 text-xs font-bold {% if r.status == 'confirmed' %}bg-green-50 text-green-700{% elif r.status == 'waitlisted' %}bg-amber-50 text-amber-700{% else %}bg-gray-100 text-gray-500{% endif %}">{{ r.get_status_display }}</span></span>
-            </li>{% endfor %}
-            </ul>
+            </div>
+            <div class="space-y-4 px-6 py-4 text-sm">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{% trans "Fees" %}</p>
+                    <p class="mt-1"><span class="font-bold text-gray-900">₹{{ f.paid }}</span> {% trans "paid of" %} ₹{{ f.fee }}{% if f.balance %} · <span class="font-semibold text-amber-700">{% trans "balance" %} ₹{{ f.balance }}</span>{% elif f.fee %} · <span class="font-semibold text-green-700">{% trans "settled" %}</span>{% endif %}</p>
+                    {% if f.payments %}<ul class="mt-2 space-y-1 text-xs text-gray-600">{% for p in f.payments %}<li class="flex items-center justify-between gap-2"><span>{{ p.paid_on|date:"d M Y" }} · {{ p.get_mode_display }}{% if p.reference %} · {{ p.reference }}{% endif %}{% if p.note %} · {{ p.note }}{% endif %}</span>
+                        <span class="flex items-center gap-2"><b>₹{{ p.amount }}</b>{% if can_manage %}<form method="post" action="{% url 'fee_payment_delete' p.pk %}" data-confirm="{% trans 'Remove this payment?' %}">{% csrf_token %}<button class="text-red-500" aria-label="{% trans 'Delete' %}"><i class="bi bi-x-lg" aria-hidden="true"></i></button></form>{% endif %}</span></li>{% endfor %}</ul>{% endif %}
+                    <form method="post" action="{% url 'fee_payment_add' r.pk %}" class="mt-3 grid gap-2 sm:grid-cols-[7rem,8rem,9rem,1fr,auto]">{% csrf_token %}
+                        <input name="amount" inputmode="decimal" placeholder="{% trans 'Amount' %}" required aria-label="{% trans 'Amount' %}">
+                        <select name="mode" aria-label="{% trans 'Mode' %}">{% for v, l in modes %}<option value="{{ v }}">{{ l }}</option>{% endfor %}</select>
+                        <input type="date" name="paid_on" value="{{ today|date:'Y-m-d' }}" aria-label="{% trans 'Date' %}">
+                        <input name="reference" placeholder="{% trans 'Reference (optional)' %}" maxlength="80">
+                        <button class="btn btn-outline btn-sm">{% trans "Record" %}</button></form>
+                    {% if can_manage %}<form method="post" action="{% url 'fee_override' r.pk %}" class="mt-2 flex items-center gap-2 text-xs text-gray-500">{% csrf_token %}
+                        <label for="fo{{ r.pk }}">{% trans "Agreed fee for this student" %}</label><input id="fo{{ r.pk }}" name="fee" inputmode="decimal" value="{{ r.fee_override|default_if_none:'' }}" placeholder="{{ r.batch.course.fees }}" class="w-28"><button class="btn btn-outline btn-sm">{% trans "Set" %}</button></form>{% endif %}
+                </div>
+                {% if r.status == 'confirmed' %}<div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{% trans "Certificate" %}</p>
+                    {% if row.cert %}<p class="mt-1 flex flex-wrap items-center gap-2"><i class="bi bi-award-fill text-amber-500" aria-hidden="true"></i><span class="font-mono text-xs">{{ row.cert.code }}</span>
+                        <a class="btn btn-outline btn-sm" href="{% url 'certificate_staff_pdf' r.pk %}" download>{% trans "PDF" %}</a>
+                        {% if can_manage %}<form method="post" action="{% url 'certificate_resend' r.pk %}">{% csrf_token %}<button class="btn btn-outline btn-sm">{% trans "Email again" %}</button></form>{% endif %}
+                        {% if row.cert.emailed_at %}<span class="text-xs text-gray-400">{% trans "emailed" %} {{ row.cert.emailed_at|date:"d M" }}</span>{% endif %}</p>
+                    {% else %}<p class="mt-1 text-gray-500">{% trans "Not issued yet. Attendance is marked on the batch page." %}</p>{% endif %}
+                    {% if can_manage %}<form method="post" action="{% url 'certificate_upload' r.pk %}" enctype="multipart/form-data" class="mt-2 flex flex-wrap items-center gap-2">{% csrf_token %}
+                        <input type="file" name="file" accept="application/pdf" aria-label="{% trans 'Upload your own certificate (PDF)' %}"><button class="btn btn-outline btn-sm">{% trans "Upload own PDF and email" %}</button></form>{% endif %}
+                </div>{% endif %}
+            </div>
         </section>
+        {% endwith %}{% endfor %}
         <section class="card p-6">
             <h3 class="font-semibold text-gray-900">{% trans "Relationship notes" %}</h3>
             <form method="post" action="{% url 'student_note_add' st.pk %}" class="mt-4 grid gap-3 sm:grid-cols-[10rem,1fr,11rem]">{% csrf_token %}

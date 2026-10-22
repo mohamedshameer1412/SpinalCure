@@ -1,5 +1,5 @@
 from django.urls import path
-from . import student_views, views
+from . import ops_views, student_views, views
 
 urlpatterns = [
     path('', views.course_list_view, name='course_list'),
@@ -25,6 +25,18 @@ urlpatterns = [
     path('students/<b64uuid:pk>/card.pdf', student_views.student_card_pdf, name='student_card_pdf'),
     path('batches/<b64uuid:pk>/request-feedback/', student_views.batch_request_feedback, name='batch_request_feedback'),
     path('batches/<b64uuid:pk>/remind-profiles/', student_views.batch_remind_profiles, name='batch_remind_profiles'),
+    path('students/<b64uuid:pk>/merge/<b64uuid:other_pk>/', ops_views.student_merge, name='student_merge'),
+    path('batches/<b64uuid:pk>/attendance/', ops_views.batch_attendance, name='batch_attendance'),
+    path('batches/<b64uuid:pk>/certificates/issue/', ops_views.batch_issue_certificates, name='batch_issue_certificates'),
+    path('registrations/<uuid:reg_pk>/certificate.pdf', ops_views.certificate_staff_pdf, name='certificate_staff_pdf'),
+    path('registrations/<uuid:reg_pk>/certificate/upload/', ops_views.certificate_upload, name='certificate_upload'),
+    path('registrations/<uuid:reg_pk>/certificate/resend/', ops_views.certificate_resend, name='certificate_resend'),
+    path('registrations/<uuid:reg_pk>/fees/add/', ops_views.fee_payment_add, name='fee_payment_add'),
+    path('registrations/<uuid:reg_pk>/fees/set/', ops_views.fee_override, name='fee_override'),
+    path('fees/<uuid:pay_pk>/delete/', ops_views.fee_payment_delete, name='fee_payment_delete'),
+    path('<b64uuid:course_pk>/materials/', ops_views.course_materials, name='course_materials'),
+    path('materials/<uuid:pk>/toggle/', ops_views.material_toggle, name='material_toggle'),
+    path('materials/<uuid:pk>/delete/', ops_views.material_delete, name='material_delete'),
     path('<b64uuid:pk>/edit/', views.course_edit_view, name='course_edit'),
     path('<b64uuid:pk>/delete/', views.course_delete_view, name='course_delete'),
     path('<b64uuid:pk>/toggle-publish/', views.toggle_course_publish, name='toggle_course_publish'),
