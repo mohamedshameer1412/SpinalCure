@@ -139,7 +139,7 @@ def clinic_setup_view(request):
             messages.success(request, gettext('Section headers updated.'))
 
         elif section_type == 'social':
-            fields = ['map_iframe_url', 'facebook', 'instagram', 'twitter', 'youtube']
+            fields = ['map_iframe_url', 'map_link', 'facebook', 'instagram', 'twitter', 'youtube']
             for field in fields:
                 setattr(clinic, field, data.get(field, ''))
             review_url = data.get('google_review_url', '').strip()

@@ -574,7 +574,7 @@ msgstr ""
 msgid "A place opened: %(event)s"
 msgstr "இடம் கிடைத்தது: %(event)s"
 
-#: templates\public_base.html:81
+#: templates\public_base.html:87
 msgid "A public review for other patients, or private feedback for our team."
 msgstr ""
 "மற்ற நோயாளிகளுக்கான பொது விமர்சனம், அல்லது எங்கள் குழுவுக்கான தனிப்பட்ட "
@@ -645,19 +645,19 @@ msgstr "பற்றி & கிளினிக் பாரம்பரிய�
 msgid "About & Legacy"
 msgstr "பற்றி & பாரம்பரியம்"
 
-#: clinic\models.py:285 clinic\models.py:280
+#: clinic\models.py:288 clinic\models.py:283
 msgid "About Image"
 msgstr "பற்றிய படம்"
 
-#: clinic\models.py:286
+#: clinic\models.py:289
 msgid "About Images"
 msgstr "பற்றிய படங்கள்"
 
-#: clinic\models.py:97
+#: clinic\models.py:100
 msgid "About Label"
 msgstr "பற்றிய லேபிள்"
 
-#: clinic\models.py:104
+#: clinic\models.py:107
 msgid "About Quote"
 msgstr "பற்றிய மேற்கோள்"
 
@@ -673,7 +673,7 @@ msgstr "நிறுவனம் பற்றி"
 msgid "About this course"
 msgstr "இந்தப் பாடநெறி பற்றி"
 
-#: clinic\models.py:98
+#: clinic\models.py:101
 msgid "About Title"
 msgstr "பற்றிய தலைப்பு"
 
@@ -690,11 +690,11 @@ msgstr "கருத்துகளை ஏற்கவும்"
 msgid "Account Details"
 msgstr "கணக்கு விவரங்கள்"
 
-#: clinic\models.py:141
+#: clinic\models.py:144
 msgid "Account Number"
 msgstr "கணக்கு எண்"
 
-#: clinic\models.py:749 clinic\templates\clinic\admin\activity_log.html:18
+#: clinic\models.py:752 clinic\templates\clinic\admin\activity_log.html:18
 #: clinic\templates\clinic\admin\activity_log.html:62
 #: templates\appointments\partials\appointment_list_partial.html:11
 msgid "Action"
@@ -720,7 +720,7 @@ msgid "Actions"
 msgstr "செயல்கள்"
 
 #: accounts\models.py:334 accounts\templates\accounts\admin\users_list.html:59
-#: clinic\models.py:250
+#: clinic\models.py:253
 #: clinic\templates\clinic\admin\practitioners_list.html:35
 msgid "Active"
 msgstr "செயலில்"
@@ -969,7 +969,7 @@ msgstr ""
 msgid "Add your first practitioner →"
 msgstr "உங்கள் முதல் மருத்துவரைச் சேர் →"
 
-#: clinic\models.py:437
+#: clinic\models.py:440
 msgid "Added by staff"
 msgstr "ஊழியர்களால் சேர்க்கப்பட்டது"
 
@@ -1065,7 +1065,7 @@ msgstr "அனைத்து பிரச்சினைகளும்"
 msgid "All questions"
 msgstr "அனைத்து கேள்விகளும்"
 
-#: templates\base.html:92 templates\public\footer.html:50
+#: templates\base.html:92 templates\public\footer.html:51
 msgid "All rights reserved."
 msgstr "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை."
 
@@ -1196,7 +1196,7 @@ msgstr "%(amount)s க்கான விலைப்பட்டியல் �
 msgid "and Without Diet"
 msgstr "மற்றும் உணவுக் கட்டுப்பாடு இல்லாமல்"
 
-#: clinic\models.py:360
+#: clinic\models.py:363
 msgid "Answer"
 msgstr "பதில்"
 
@@ -1356,7 +1356,7 @@ msgstr ""
 msgid "Approve & publish"
 msgstr "ஒப்புதல் அளித்து வெளியிடு"
 
-#: clinic\models.py:438
+#: clinic\models.py:441
 msgid "Approved"
 msgstr "அங்கீகரிக்கப்பட்டது"
 
@@ -1390,7 +1390,7 @@ msgstr "கட்டுரை உள்ளடக்கம்"
 msgid "Article Title"
 msgstr "கட்டுரைத் தலைப்பு"
 
-#: templates\public\footer.html:50
+#: templates\public\footer.html:51
 msgid "Arumbakkam, Chennai"
 msgstr "அரும்பாக்கம், சென்னை"
 
@@ -1463,7 +1463,7 @@ msgstr "உடன் வந்தவர் பெயர்"
 msgid "Attender Phone"
 msgstr "உடன் வந்தவர் தொலைபேசி"
 
-#: clinic\models.py:804
+#: clinic\models.py:807
 msgid "Audit Log"
 msgstr "தணிக்கைப் பதிவு"
 
@@ -1471,7 +1471,7 @@ msgstr "தணிக்கைப் பதிவு"
 msgid "Audit Log Notification"
 msgstr "தணிக்கைப் பதிவு அறிவிப்பு"
 
-#: clinic\models.py:805
+#: clinic\models.py:808
 msgid "Audit Logs"
 msgstr "தணிக்கைப் பதிவுகள்"
 
@@ -1491,7 +1491,7 @@ msgstr "காது அக்குபஞ்சர், உச்சந்தல
 msgid "Author"
 msgstr "ஆசிரியர்"
 
-#: clinic\models.py:442
+#: clinic\models.py:445
 msgid "Author agreed to publication"
 msgstr "வெளியிட எழுதியவர் ஒப்புக்கொண்டார்"
 
@@ -1525,12 +1525,12 @@ msgstr "வழங்காவிட்டால் தானாக உருவ�
 msgid "Auto-translate missing into %(name)s"
 msgstr "விடுபட்டவற்றை %(name)s மொழிக்குத் தானாக மொழிபெயர்"
 
-#: clinic\models.py:821 templates\clinic\admin\translations.html:73
+#: clinic\models.py:824 templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 msgid "Auto-translated"
 msgstr "தானியங்கு மொழிபெயர்ப்பு"
 
-#: clinic\models.py:508
+#: clinic\models.py:511
 msgid "Automatic"
 msgstr "தானியங்கி"
 
@@ -1668,7 +1668,7 @@ msgstr "நிலுவைத் தொகை"
 msgid "BAMS, MD (Acupuncture), etc."
 msgstr "BAMS, MD (Acupuncture), etc."
 
-#: clinic\models.py:140
+#: clinic\models.py:143
 msgid "Bank Name"
 msgstr "வங்கிப் பெயர்"
 
@@ -1752,7 +1752,7 @@ msgstr "பில்லிங் & வரி அமைப்பு"
 msgid "Billing & tax information updated."
 msgstr "பில்லிங் & வரி தகவல் புதுப்பிக்கப்பட்டது."
 
-#: clinic\models.py:232
+#: clinic\models.py:235
 #: clinic\templates\clinic\admin\practitioner_form.html:133
 msgid "Bio"
 msgstr "சுயசரிதை"
@@ -2012,7 +2012,7 @@ msgstr ""
 msgid "Capacity must be at least 1."
 msgstr "கொள்ளளவு குறைந்தது 1 ஆக இருக்க வேண்டும்."
 
-#: clinic\models.py:664
+#: clinic\models.py:667
 msgid "Caption"
 msgstr "விளக்கம்"
 
@@ -2053,7 +2053,7 @@ msgstr "அட்டை எண்"
 msgid "Card language"
 msgstr "அட்டை மொழி"
 
-#: clinic\models.py:524 templates\clinic\admin\video_form.html:89
+#: clinic\models.py:527 templates\clinic\admin\video_form.html:89
 msgid "Card layout"
 msgstr "அட்டை வடிவமைப்பு"
 
@@ -2133,7 +2133,7 @@ msgstr "தொலைபேசி எண்ணை மாற்று"
 msgid "Change the time"
 msgstr "நேரத்தை மாற்று"
 
-#: clinic\models.py:771
+#: clinic\models.py:774
 msgid "Changes"
 msgstr "மாற்றங்கள்"
 
@@ -2170,7 +2170,7 @@ msgstr "வழி"
 msgid "Check your email"
 msgstr "உங்கள் மின்னஞ்சலைப் பாருங்கள்"
 
-#: clinic\models.py:367
+#: clinic\models.py:370
 msgid "Checked by"
 msgstr "சரிபார்த்தவர்"
 
@@ -2233,7 +2233,7 @@ msgstr ""
 msgid "Choose a PDF file."
 msgstr "ஒரு PDF கோப்பைத் தேர்ந்தெடுக்கவும்."
 
-#: clinic\models.py:686
+#: clinic\models.py:689
 msgid "Choose a photo."
 msgstr "ஒரு புகைப்படத்தைத் தேர்ந்தெடுக்கவும்."
 
@@ -2277,7 +2277,7 @@ msgstr ""
 "ஒரே நேரத்தில் 30 புகைப்படங்கள் வரை தேர்ந்தெடுக்கலாம். பின்னர் ஒவ்வொன்றையும் "
 "திருத்தி விளக்கம் சேர்க்கலாம் அல்லது சிறப்பிக்கலாம்."
 
-#: clinic\templates\clinic\admin\clinic_setup.html:1075
+#: clinic\templates\clinic\admin\clinic_setup.html:1078
 msgid "Choose..."
 msgstr "தேர்ந்தெடு..."
 
@@ -2335,7 +2335,7 @@ msgstr "வடிகட்டிகளை அழி"
 msgid "Clear ✕"
 msgstr "அழி ✕"
 
-#: clinic\models.py:399 courses\models.py:66 events\models.py:45
+#: clinic\models.py:402 courses\models.py:66 events\models.py:45
 #: idcards\render.py:251
 msgid "Clinic"
 msgstr "கிளினிக்"
@@ -2344,7 +2344,7 @@ msgstr "கிளினிக்"
 msgid "Clinic Admin"
 msgstr "கிளினிக் நிர்வாகி"
 
-#: clinic\templates\clinic\admin\clinic_setup.html:1016
+#: clinic\templates\clinic\admin\clinic_setup.html:1019
 msgid "Clinic details in other languages"
 msgstr "பிற மொழிகளில் கிளினிக் விவரங்கள்"
 
@@ -2364,7 +2364,7 @@ msgstr "கிளினிக் பெயர்"
 msgid "Clinic Name *"
 msgstr "கிளினிக் பெயர் *"
 
-#: clinic\models.py:156
+#: clinic\models.py:159
 msgid "Clinic Profile"
 msgstr "கிளினிக் சுயவிவரம்"
 
@@ -2372,11 +2372,11 @@ msgstr "கிளினிக் சுயவிவரம்"
 msgid "Clinic Profile Settings"
 msgstr "கிளினிக் சுயவிவர அமைப்புகள்"
 
-#: clinic\models.py:157
+#: clinic\models.py:160
 msgid "Clinic Profiles"
 msgstr "கிளினிக் சுயவிவரங்கள்"
 
-#: clinic\models.py:425
+#: clinic\models.py:428
 msgid "Clinic reply"
 msgstr "கிளினிக் பதில்"
 
@@ -2438,15 +2438,15 @@ msgid "Clinical Session Note #%(session_number)s"
 msgstr "மருத்துவ அமர்வுக் குறிப்பு #%(session_number)s"
 
 #: templates\appointments\calendar.html:575 templates\clinic\gallery.html:87
-#: templates\components\confirm_modal.html:10 templates\public_base.html:57
+#: templates\components\confirm_modal.html:10 templates\public_base.html:63
 msgid "Close"
 msgstr "மூடு"
 
-#: templates\public\header.html:54
+#: templates\public\header.html:56
 msgid "Close menu"
 msgstr "மெனுவை மூடு"
 
-#: templates\appointments\availability.html:46
+#: clinic\hours.py:56 templates\appointments\availability.html:46
 #: templates\events\event_feedback_admin.html:15
 msgid "Closed"
 msgstr "மூடப்பட்டது"
@@ -2463,7 +2463,7 @@ msgstr "பெற்றவர்:"
 msgid "Collections so far"
 msgstr "இதுவரை வசூலானது"
 
-#: clinic\models.py:332
+#: clinic\models.py:335
 msgid ""
 "Comma-separated extra words that should match this problem, e.g. \"disc, "
 "herniated\"."
@@ -2471,7 +2471,7 @@ msgstr ""
 "இந்தப் பிரச்சினையுடன் பொருந்த வேண்டிய கூடுதல் சொற்கள், காற்புள்ளியால் "
 "பிரிக்கவும், எ.கா. \"disc, herniated\"."
 
-#: clinic\models.py:514
+#: clinic\models.py:517
 msgid "Comma-separated; imported from YouTube."
 msgstr ""
 "காற்புள்ளியால் பிரிக்கவும்; YouTube-இலிருந்து இறக்குமதி செய்யப்பட்டது."
@@ -2491,7 +2491,7 @@ msgstr "அட்டையைக் காட்டுபவரின் பெ�
 msgid "Complete"
 msgstr "நிறைவு"
 
-#: clinic\models.py:784
+#: clinic\models.py:787
 msgid "Complete serialized JSON representation of the object before deletion"
 msgstr "நீக்குவதற்கு முன் பொருளின் முழுமையான JSON வடிவம்"
 
@@ -2546,7 +2546,7 @@ msgstr "முன்பதிவை உறுதிசெய்"
 msgid "Confirm new password"
 msgstr "புதிய கடவுச்சொல்லை உறுதிப்படுத்து"
 
-#: clinic\models.py:652
+#: clinic\models.py:655
 msgid "Confirm the permission is on file before publishing."
 msgstr "வெளியிடும் முன் அனுமதி பதிவில் உள்ளதை உறுதிப்படுத்தவும்."
 
@@ -2578,11 +2578,11 @@ msgstr "ஒப்புதல்"
 msgid "Consent and publication"
 msgstr "ஒப்புதல் மற்றும் வெளியீடு"
 
-#: clinic\models.py:519 templates\clinic\admin\video_form.html:41
+#: clinic\models.py:522 templates\clinic\admin\video_form.html:41
 msgid "Consent date"
 msgstr "ஒப்புதல் தேதி"
 
-#: clinic\models.py:507
+#: clinic\models.py:510
 msgid "Consent on file"
 msgstr "ஒப்புதல் பதிவில் உள்ளது"
 
@@ -2605,7 +2605,7 @@ msgstr "ஆலோசனை மருத்துவர்:"
 
 #: templates\courses\student_list.html:29
 #: templates\events\partials\event_registrations_partial.html:10
-#: templates\public\header.html:35 templates\public\header.html:65
+#: templates\public\header.html:37 templates\public\header.html:67
 msgid "Contact"
 msgstr "தொடர்பு"
 
@@ -2783,7 +2783,7 @@ msgstr "பாடநெறிப் பதிவு"
 msgid "Course Registrations"
 msgstr "பாடநெறிப் பதிவுகள்"
 
-#: clinic\models.py:390 payments\models.py:43
+#: clinic\models.py:393 payments\models.py:43
 msgid "Course Student"
 msgstr "பாடநெறி மாணவர்"
 
@@ -2814,7 +2814,7 @@ msgstr "அட்டைப் படம்"
 msgid "Cover image"
 msgstr "அட்டைப் படம்"
 
-#: clinic\models.py:732 clinic\templates\clinic\admin\activity_log.html:21
+#: clinic\models.py:735 clinic\templates\clinic\admin\activity_log.html:21
 #: clinic\templates\clinic\admin\activity_log.html:79
 msgid "Create"
 msgstr "உருவாக்கு"
@@ -3015,7 +3015,7 @@ msgstr "முடக்கப்பட்டது"
 msgid "Dear %(name)s,"
 msgstr "அன்புள்ள %(name)s,"
 
-#: clinic\models.py:136 clinic\templates\clinic\admin\clinic_setup.html:328
+#: clinic\models.py:139 clinic\templates\clinic\admin\clinic_setup.html:328
 msgid "Default Tax %"
 msgstr "இயல்புநிலை வரி %"
 
@@ -3024,7 +3024,7 @@ msgid "Define the core name and public summary of your course."
 msgstr ""
 "உங்கள் பாடநெறியின் முக்கியப் பெயரையும் பொதுச் சுருக்கத்தையும் வரையறுக்கவும்."
 
-#: accounts\templates\accounts\admin\users_list.html:83 clinic\models.py:734
+#: accounts\templates\accounts\admin\users_list.html:83 clinic\models.py:737
 #: clinic\templates\clinic\admin\activity_log.html:23
 #: clinic\templates\clinic\admin\activity_log.html:87
 msgid "Delete"
@@ -3136,7 +3136,7 @@ msgstr "அனுப்புதல் இன்னும் தோல்வி�
 msgid "Department"
 msgstr "துறை"
 
-#: clinic\templates\clinic\admin\clinic_setup.html:1063
+#: clinic\templates\clinic\admin\clinic_setup.html:1066
 msgid "Describe your service..."
 msgstr "உங்கள் சேவையை விவரிக்கவும்..."
 
@@ -3154,7 +3154,7 @@ msgstr "சேவை விளக்கம்"
 msgid "Designation"
 msgstr "பதவி"
 
-#: clinic\models.py:404 templates\clinic\admin\testimonial_form.html:29
+#: clinic\models.py:407 templates\clinic\admin\testimonial_form.html:29
 msgid "Designation / Location"
 msgstr "பதவி / இடம்"
 
@@ -3167,7 +3167,7 @@ msgstr "பதவி / தொழில்"
 msgid "Designation is required for owners and staff."
 msgstr "உரிமையாளர்கள் மற்றும் பணியாளர்களுக்குப் பதவி அவசியம்."
 
-#: clinic\models.py:241
+#: clinic\models.py:244
 msgid "Designation Tag"
 msgstr "பதவிக் குறிச்சொல்"
 
@@ -3262,15 +3262,15 @@ msgid "Disable Feedback Form"
 msgstr "கருத்துப் படிவத்தை முடக்கு"
 
 #: notifications\templates\notifications\_list.html:24 templates\base.html:85
-#: templates\base.html:103 templates\public_base.html:97
+#: templates\base.html:103 templates\public_base.html:103
 msgid "Dismiss"
 msgstr "மூடு"
 
-#: clinic\models.py:432 templates\clinic\admin\testimonial_form.html:114
+#: clinic\models.py:435 templates\clinic\admin\testimonial_form.html:114
 msgid "Display Order"
 msgstr "காட்சி வரிசை"
 
-#: clinic\models.py:363 clinic\models.py:638 clinic\models.py:672
+#: clinic\models.py:366 clinic\models.py:641 clinic\models.py:675
 #: patients\models.py:160
 msgid "Display order"
 msgstr "காட்சி வரிசை"
@@ -3421,11 +3421,11 @@ msgstr "கால அளவு:"
 msgid "e.g. \"2025 Batch\", \"Batch 3 — June 2024\""
 msgstr "எ.கா., \"2025 தொகுதி\", \"தொகுதி 3 — ஜூன் 2024\""
 
-#: clinic\models.py:631
+#: clinic\models.py:634
 msgid "e.g. \"Actor\", \"Cricketer\"."
 msgstr "எ.கா. \"நடிகர்\", \"கிரிக்கெட் வீரர்\"."
 
-#: clinic\models.py:518
+#: clinic\models.py:521
 msgid ""
 "e.g. \"Signed media consent form, file 2026/14\". Never upload the form "
 "itself here."
@@ -3475,7 +3475,7 @@ msgstr "எ.கா., நாள்பட்ட முதுகு வலியை
 msgid "e.g. Lower Back Pain 2026"
 msgstr "எ.கா., கீழ் முதுகு வலி 2026"
 
-#: clinic\models.py:755
+#: clinic\models.py:758
 msgid "e.g. Patient, Payment, Session, Course, Event, Appointment"
 msgstr "எ.கா., நோயாளி, கட்டணம், அமர்வு, பாடநெறி, நிகழ்வு, சந்திப்பு"
 
@@ -3617,7 +3617,7 @@ msgstr "திருத்து: %(title)s"
 msgid "Edited"
 msgstr "திருத்தப்பட்டது"
 
-#: clinic\models.py:821
+#: clinic\models.py:824
 msgid "Edited by staff"
 msgstr "ஊழியரால் திருத்தப்பட்டது"
 
@@ -3855,7 +3855,7 @@ msgstr "சரியான தொகுப்பு விலையை உள்
 msgid "Enter a valid refund amount."
 msgstr "சரியான பணத் திருப்பத் தொகையை உள்ளிடவும்."
 
-#: clinic\models.py:550 clinic\models.py:691
+#: clinic\models.py:553 clinic\models.py:694
 msgid "Enter a YouTube, YouTube Shorts or Instagram reel link."
 msgstr "YouTube, YouTube Shorts அல்லது Instagram reel இணைப்பை உள்ளிடவும்."
 
@@ -4004,7 +4004,7 @@ msgstr "நிகழ்வு \"%(title)s\" நீக்கப்பட்டத
 msgid "Event \"%(title)s\" saved as a draft. Publish it when you are ready."
 msgstr "நிகழ்வு \"%(title)s\" வரைவாகச் சேமிக்கப்பட்டது. தயாரானதும் வெளியிடுங்கள்."
 
-#: clinic\models.py:389
+#: clinic\models.py:392
 msgid "Event Attendee"
 msgstr "நிகழ்வு பங்கேற்பாளர்"
 
@@ -4046,8 +4046,8 @@ msgstr "நிகழ்வு நிலை"
 msgid "Event updated: %(event)s"
 msgstr "நிகழ்வு புதுப்பிப்பு: %(event)s"
 
-#: events\models.py:139 templates\public\footer.html:37
-#: templates\public\header.html:32 templates\public\header.html:61
+#: events\models.py:139 templates\public\footer.html:38
+#: templates\public\header.html:34 templates\public\header.html:63
 msgid "Events"
 msgstr "நிகழ்வுகள்"
 
@@ -4175,7 +4175,7 @@ msgstr "காலாவதியாகும் தேதி"
 msgid "Expiry cannot be before the issue date."
 msgstr "காலாவதி தேதி வழங்கிய தேதிக்கு முன் இருக்கக் கூடாது."
 
-#: templates\public\footer.html:33
+#: templates\public\footer.html:34
 msgid "Explore"
 msgstr "ஆராயுங்கள்"
 
@@ -4187,11 +4187,11 @@ msgstr "ஏற்றுமதி"
 msgid "Export Courses"
 msgstr "பாடநெறிகளை ஏற்றுமதி செய்"
 
-#: clinic\templates\clinic\admin\clinic_setup.html:961
+#: clinic\templates\clinic\admin\clinic_setup.html:964
 msgid "Facebook Profile URL"
 msgstr "Facebook சுயவிவர URL"
 
-#: clinic\models.py:247
+#: clinic\models.py:250
 #: clinic\templates\clinic\admin\practitioner_form.html:108
 msgid "Facebook URL"
 msgstr "Facebook URL"
@@ -4224,24 +4224,24 @@ msgstr "PIN ஐ அனுப்ப முடியவில்லை. மின�
 msgid "Failed Verification Attempts"
 msgstr "தோல்வியடைந்த சரிபார்ப்பு முயற்சிகள்"
 
-#: clinic\models.py:373
+#: clinic\models.py:376
 msgid "FAQ"
 msgstr "கேள்வி-பதில்"
 
-#: clinic\models.py:374 templates\clinic\admin\faqs.html:3
+#: clinic\models.py:377 templates\clinic\admin\faqs.html:3
 msgid "FAQs"
 msgstr "கேள்வி-பதில்கள்"
 
-#: clinic\models.py:669 templates\clinic\admin\gallery.html:29
+#: clinic\models.py:672 templates\clinic\admin\gallery.html:29
 #: templates\clinic\gallery.html:34
 msgid "Featured"
 msgstr "சிறப்பு"
 
-#: clinic\models.py:670
+#: clinic\models.py:673
 msgid "Featured label"
 msgstr "சிறப்பு லேபிள்"
 
-#: clinic\models.py:644 templates\clinic\partials\featured_patients.html:15
+#: clinic\models.py:647 templates\clinic\partials\featured_patients.html:15
 msgid "Featured patient"
 msgstr "சிறப்பு நோயாளி"
 
@@ -4257,7 +4257,7 @@ msgstr "சிறப்பு நோயாளி நீக்கப்பட்�
 msgid "Featured patient saved."
 msgstr "சிறப்பு நோயாளி சேமிக்கப்பட்டார்."
 
-#: clinic\models.py:645 templates\clinic\admin\featured.html:3
+#: clinic\models.py:648 templates\clinic\admin\featured.html:3
 #: templates\clinic\admin\featured.html:4
 #: templates\clinic\admin\featured_form.html:5
 msgid "Featured patients"
@@ -4286,7 +4286,7 @@ msgstr "கட்டணம் புதுப்பிக்கப்பட்�
 #: templates\clinic\testimonials_public.html:13
 #: templates\courses\batch_list.html:77
 #: templates\events\partials\event_list_partial.html:79
-#: templates\public_base.html:72
+#: templates\public_base.html:78
 msgid "Feedback"
 msgstr "கருத்துகள்"
 
@@ -4385,7 +4385,7 @@ msgstr "கட்டணங்கள் திருப்பித் தரப�
 msgid "Fees paid"
 msgstr "செலுத்திய கட்டணம்"
 
-#: accounts\models.py:353 clinic\models.py:191
+#: accounts\models.py:353 clinic\models.py:194
 #: clinic\templates\clinic\admin\practitioner_form.html:39
 #: courses\models.py:210
 msgid "Female"
@@ -4538,7 +4538,7 @@ msgstr ""
 "குறிப்பாகப் பெயர்களுக்கு, ANTHROPIC_API_KEY அல்லது GOOGLE_TRANSLATE_API_KEY "
 "அமைக்கவும்."
 
-#: clinic\models.py:429
+#: clinic\models.py:432
 msgid "Free text shown on the card, e.g. \"2 months ago\"."
 msgstr "அட்டையில் காட்டப்படும் உரை, எ.கா. \"2 மாதங்களுக்கு முன்\"."
 
@@ -4585,7 +4585,7 @@ msgstr "முழு விளக்கம்"
 msgid "Full Mobility"
 msgstr "முழு இயக்கத்திறன்"
 
-#: clinic\models.py:195 courses\models.py:179 courses\models.py:214
+#: clinic\models.py:198 courses\models.py:179 courses\models.py:214
 #: events\models.py:247
 msgid "Full Name"
 msgstr "முழுப் பெயர்"
@@ -4632,13 +4632,13 @@ msgstr "முழுப் பாடத்திட்டம் / தொகு�
 msgid "Fully Paid"
 msgstr "முழுமையாகச் செலுத்தப்பட்டது"
 
-#: clinic\models.py:679 templates\clinic\admin\gallery.html:3
+#: clinic\models.py:682 templates\clinic\admin\gallery.html:3
 #: templates\clinic\admin\gallery.html:4
 #: templates\clinic\admin\gallery_form.html:5
 msgid "Gallery"
 msgstr "கேலரி"
 
-#: clinic\models.py:678
+#: clinic\models.py:681
 msgid "Gallery item"
 msgstr "கேலரி உருப்படி"
 
@@ -4727,11 +4727,11 @@ msgstr "Google Maps ஒருங்கிணைப்பு"
 msgid "Google Maps integration and social profile links."
 msgstr "Google Maps ஒருங்கிணைப்பும் சமூக சுயவிவர இணைப்புகளும்."
 
-#: clinic\models.py:386
+#: clinic\models.py:389
 msgid "Google Review"
 msgstr "Google மதிப்பாய்வு"
 
-#: clinic\models.py:53 clinic\templates\clinic\admin\clinic_setup.html:997
+#: clinic\models.py:53 clinic\templates\clinic\admin\clinic_setup.html:1000
 msgid "Google review link"
 msgstr "Google விமர்சன இணைப்பு"
 
@@ -4740,7 +4740,7 @@ msgstr "Google விமர்சன இணைப்பு"
 msgid "GST (%(tax_percent)s%% %(get_tax_type_display)s)"
 msgstr "GST (%(tax_percent)s%% %(get_tax_type_display)s)"
 
-#: clinic\models.py:128
+#: clinic\models.py:131
 msgid "GSTIN"
 msgstr "GSTIN"
 
@@ -4815,15 +4815,15 @@ msgstr "வணக்கம், %(name)s"
 msgid "Hello, %(v_0)s! 👋"
 msgstr "வணக்கம், %(v_0)s! 👋"
 
-#: clinic\models.py:314
+#: clinic\models.py:317
 msgid "Hero Carousel Image"
 msgstr "முகப்புச் சுழல்படம்"
 
-#: clinic\models.py:315 clinic\templates\clinic\admin\clinic_setup.html:460
+#: clinic\models.py:318 clinic\templates\clinic\admin\clinic_setup.html:460
 msgid "Hero Carousel Images"
 msgstr "முகப்புச் சுழல்படங்கள்"
 
-#: clinic\models.py:79 clinic\models.py:308
+#: clinic\models.py:79 clinic\models.py:311
 msgid "Hero Image"
 msgstr "முகப்புப் படம்"
 
@@ -4961,7 +4961,7 @@ msgstr "பாடநெறி எப்படி இருந்தது?"
 msgid "How your treatment works"
 msgstr "உங்கள் சிகிச்சை எப்படி நடக்கிறது"
 
-#: clinic\models.py:766
+#: clinic\models.py:769
 msgid "Human-readable string of the affected record"
 msgstr "பாதிக்கப்பட்ட பதிவின் படிக்கக்கூடிய விளக்கம்"
 
@@ -4987,7 +4987,7 @@ msgstr ""
 "primary-700 underline\">விதிமுறைகளையும் நிபந்தனைகளையும்</a> ஏற்கிறேன். "
 "கட்டணங்கள் திருப்பித் தரப்படாது."
 
-#: clinic\models.py:294
+#: clinic\models.py:297
 msgid "Icon Name"
 msgstr "ஐகான் பெயர்"
 
@@ -5105,7 +5105,7 @@ msgstr ""
 "மாற்றியமைக்க அல்லது ரத்து செய்ய வேண்டுமெனில், குறைந்தது இவ்வளவு முன்பே "
 "தெரிவிக்கவும்:"
 
-#: clinic\models.py:146
+#: clinic\models.py:149
 msgid "IFSC Code"
 msgstr "IFSC குறியீடு"
 
@@ -5146,7 +5146,7 @@ msgstr "தாக்கப் புள்ளிவிவரம் 2"
 msgid "Important Reminders"
 msgstr "முக்கிய நினைவூட்டல்கள்"
 
-#: clinic\templates\clinic\admin\clinic_setup.html:1003
+#: clinic\templates\clinic\admin\clinic_setup.html:1006
 msgid ""
 "In Google Business Profile choose “Ask for reviews” and paste the link. Used"
 " by the review buttons and the review-request email."
@@ -5206,11 +5206,11 @@ msgstr "முதல் மற்றும் சமீபத்திய அம
 msgid "Initial vs. Latest session pain levels"
 msgstr "முதல் மற்றும் சமீபத்திய அமர்வு வலி நிலைகள்"
 
-#: clinic\templates\clinic\admin\clinic_setup.html:971
+#: clinic\templates\clinic\admin\clinic_setup.html:974
 msgid "Instagram Profile URL"
 msgstr "Instagram சுயவிவர URL"
 
-#: clinic\models.py:246
+#: clinic\models.py:249
 #: clinic\templates\clinic\admin\practitioner_form.html:98
 msgid "Instagram URL"
 msgstr "Instagram URL"
@@ -5223,7 +5223,7 @@ msgstr "காப்பீடு"
 msgid "Interested in the next batch"
 msgstr "அடுத்த தொகுப்பில் ஆர்வம்"
 
-#: clinic\models.py:387
+#: clinic\models.py:390
 msgid "Internal / Direct"
 msgstr "உள் / நேரடி"
 
@@ -5323,7 +5323,7 @@ msgstr "விலைப்பட்டியல் #%(receipt_number)s — Spina
 msgid "Invoice %(invoice)s"
 msgstr "விலைப்பட்டியல் %(invoice)s"
 
-#: clinic\models.py:795 clinic\templates\clinic\admin\activity_log.html:66
+#: clinic\models.py:798 clinic\templates\clinic\admin\activity_log.html:66
 msgid "IP Address"
 msgstr "IP முகவரி"
 
@@ -5331,7 +5331,7 @@ msgstr "IP முகவரி"
 msgid "Is Active"
 msgstr "செயலில் உள்ளது"
 
-#: clinic\models.py:235
+#: clinic\models.py:238
 msgid "Is Chief Doctor"
 msgstr "தலைமை மருத்துவர்"
 
@@ -5416,7 +5416,7 @@ msgstr "காத்திருப்புப் பட்டியலில�
 msgid "Joined"
 msgstr "சேர்ந்தது"
 
-#: clinic\models.py:274
+#: clinic\models.py:277
 msgid "Joined date cannot be in the future."
 msgstr "சேர்ந்த தேதி எதிர்காலத்தில் இருக்கக்கூடாது."
 
@@ -5436,11 +5436,11 @@ msgstr "ஆன்லைனில் இணைதல்"
 msgid "JPEG, PNG or WebP, up to 5 MB."
 msgstr "JPEG, PNG அல்லது WebP, அதிகபட்சம் 5 MB."
 
-#: clinic\models.py:778
+#: clinic\models.py:781
 msgid "JSON of actual database field changes for programmatic reverting"
 msgstr "நிரல்வழி மீட்டமைப்புக்கான உண்மையான தரவுத்தளப் புல மாற்றங்களின் JSON"
 
-#: clinic\models.py:772
+#: clinic\models.py:775
 msgid "JSON of changed fields (human-readable): {\"field\": {\"old\": \"...\", \"new\": \"...\"}}"
 msgstr ""
 "மாற்றப்பட்ட புலங்களின் JSON (படிக்கக்கூடியது): {\"field\": {\"old\": "
@@ -5491,7 +5491,7 @@ msgstr ""
 msgid "Key Learning Outcomes (One per line) *"
 msgstr "முக்கியக் கற்றல் விளைவுகள் (ஒரு வரிக்கு ஒன்று) *"
 
-#: clinic\models.py:630
+#: clinic\models.py:633
 msgid "Known as"
 msgstr "அறியப்படுவது"
 
@@ -5500,7 +5500,7 @@ msgstr "அறியப்படுவது"
 msgid "Label"
 msgstr "லேபிள்"
 
-#: accounts\templates\accounts\admin\user_form.html:82 clinic\models.py:511
+#: accounts\templates\accounts\admin\user_form.html:82 clinic\models.py:514
 #: events\models.py:102 templates\clinic\admin\video_form.html:24
 msgid "Language"
 msgstr "மொழி"
@@ -5751,7 +5751,7 @@ msgstr ""
 "இயந்திர மொழிபெயர்ப்பு அணைக்கப்பட்டுள்ளது; மொழிபெயர்ப்புகளை நீங்களே தட்டச்சு "
 "செய்யுங்கள்."
 
-#: templates\public\header.html:28 templates\public\header.html:56
+#: templates\public\header.html:30 templates\public\header.html:58
 msgid "Main"
 msgstr "முதன்மை"
 
@@ -5779,7 +5779,7 @@ msgstr "முதன்மைத் தலைப்பு"
 msgid "Malayalam"
 msgstr "மலையாளம்"
 
-#: accounts\models.py:353 clinic\models.py:191
+#: accounts\models.py:353 clinic\models.py:194
 #: clinic\templates\clinic\admin\practitioner_form.html:38
 #: courses\models.py:210
 msgid "Male"
@@ -5832,6 +5832,10 @@ msgstr "உங்கள் சந்திப்பை நிர்வகிக�
 #: templates\clinic\admin\blog_form.html:107
 msgid "Manual Author Name"
 msgstr "ஆசிரியர் பெயர் (கைமுறை)"
+
+#: clinic\models.py:94 clinic\templates\clinic\admin\clinic_setup.html:949
+msgid "Map link"
+msgstr "வரைபட இணைப்பு"
 
 #: templates\clinic\home.html:273
 msgid "Map to the clinic"
@@ -5939,7 +5943,7 @@ msgstr "சந்திப்புக் கடவுக்குறியீ�
 msgid "Meeting provider"
 msgstr "சந்திப்பு வழங்குநர்"
 
-#: templates\public\header.html:49 templates\public\header.html:53
+#: templates\public\header.html:51 templates\public\header.html:55
 msgid "Menu"
 msgstr "மெனு"
 
@@ -6024,7 +6028,7 @@ msgstr "முறை"
 msgid "Model %(model_name)s not found."
 msgstr "மாதிரி %(model_name)s கிடைக்கவில்லை."
 
-#: clinic\models.py:754
+#: clinic\models.py:757
 msgid "Model / Module"
 msgstr "மாதிரி / தொகுதி"
 
@@ -6112,7 +6116,7 @@ msgstr "என் ஆரோக்கிய இணையதளம் — SpinalCu
 msgid "My ID card"
 msgstr "என் அடையாள அட்டை"
 
-#: clinic\models.py:629 courses\models.py:305 events\models.py:293
+#: clinic\models.py:632 courses\models.py:305 events\models.py:293
 #: templates\events\event_feedback_admin.html:55
 msgid "Name"
 msgstr "பெயர்"
@@ -6662,7 +6666,7 @@ msgstr ""
 "வெளியிடப்படவில்லை: எழுதியவர் ஒப்புக்கொள்ளவில்லை, அல்லது மதிப்புரை திரும்பப் "
 "பெறப்பட்டது அல்லது நிராகரிக்கப்பட்டது."
 
-#: clinic\models.py:507
+#: clinic\models.py:510
 msgid "Not recorded"
 msgstr "பதிவு செய்யப்படவில்லை"
 
@@ -6968,7 +6972,12 @@ msgstr ""
 msgid "Open Google reviews"
 msgstr "Google விமர்சனங்களைத் திற"
 
-#: templates\public\header.html:41
+#: templates\clinic\home.html:269 templates\public\footer.html:22
+#: templates\public\header.html:8
+msgid "Open in Maps"
+msgstr "வரைபடத்தில் திற"
+
+#: templates\public\header.html:43
 msgid "Open menu"
 msgstr "மெனுவைத் திற"
 
@@ -6991,7 +7000,7 @@ msgstr ""
 "\n"
 "நீங்கள் கேட்காவிட்டால், இந்த மின்னஞ்சலைப் புறக்கணிக்கவும்."
 
-#: templates\clinic\home.html:270 templates\public\footer.html:28
+#: templates\clinic\home.html:270 templates\public\footer.html:29
 msgid "Opening hours"
 msgstr "திறந்திருக்கும் நேரம்"
 
@@ -7008,7 +7017,7 @@ msgstr ""
 "ஆகியவற்றுடன் முன்புறத்தை மட்டும் காட்டும்; தொடர்பு விவரங்கள் ஒருபோதும் "
 "இடம்பெறாது."
 
-#: clinic\models.py:634
+#: clinic\models.py:637
 msgid "Optional, factual and brief. No treatment claims."
 msgstr ""
 "விருப்பத்தேர்வு, உண்மையானதும் சுருக்கமானதும். சிகிச்சை குறித்த கூற்றுகள் "
@@ -7026,7 +7035,7 @@ msgstr ""
 msgid "Or use a frame from the video"
 msgstr "அல்லது காணொளியிலிருந்து ஒரு ஃப்ரேமைப் பயன்படுத்தவும்"
 
-#: clinic\models.py:668
+#: clinic\models.py:671
 msgid "or YouTube / Instagram link"
 msgstr "அல்லது YouTube / Instagram இணைப்பு"
 
@@ -7047,7 +7056,7 @@ msgstr "நிறுவனம் / கிளினிக் (விருப்�
 msgid "Organizer"
 msgstr "ஒருங்கிணைப்பாளர்"
 
-#: accounts\models.py:353 appointments\models.py:94 clinic\models.py:191
+#: accounts\models.py:353 appointments\models.py:94 clinic\models.py:194
 #: clinic\templates\clinic\admin\practitioner_form.html:40
 msgid "Other"
 msgstr "மற்றவை"
@@ -7076,7 +7085,7 @@ msgstr ""
 
 #: templates\clinic\home.html:113
 #: templates\clinic\practitioner_portfolio.html:13
-#: templates\public\header.html:30 templates\public\header.html:59
+#: templates\public\header.html:32 templates\public\header.html:61
 msgid "Our doctor"
 msgstr "எங்கள் மருத்துவர்"
 
@@ -7306,7 +7315,7 @@ msgstr "நோயாளி %(name)s வெற்றிகரமாகப் ப�
 msgid "Patient - SpinalCure"
 msgstr "நோயாளி - SpinalCure"
 
-#: clinic\models.py:401
+#: clinic\models.py:404
 msgid "Patient / Client Name"
 msgstr "நோயாளி / வாடிக்கையாளர் பெயர்"
 
@@ -7319,7 +7328,7 @@ msgstr "நோயாளி / வாடிக்கையாளர் பெய�
 msgid "Patient Card - %(name)s - SpinalCure"
 msgstr "நோயாளி அட்டை - %(name)s - SpinalCure"
 
-#: clinic\models.py:516 templates\clinic\admin\video_form.html:39
+#: clinic\models.py:519 templates\clinic\admin\video_form.html:39
 #: templates\clinic\admin\videos.html:42 templates\clinic\admin\videos.html:58
 msgid "Patient consent"
 msgstr "நோயாளியின் ஒப்புதல்"
@@ -7360,7 +7369,7 @@ msgstr "நோயாளி உள்நுழைவு — SpinalCure"
 msgid "Patient Name"
 msgstr "நோயாளி பெயர்"
 
-#: clinic\models.py:492
+#: clinic\models.py:495
 msgid "Patient name"
 msgstr "நோயாளியின் பெயர்"
 
@@ -7433,7 +7442,7 @@ msgstr "நோயாளி அனுபவம்"
 msgid "Patient story video"
 msgstr "நோயாளி அனுபவக் காணொளி"
 
-#: templates\public_base.html:55 templates\public_base.html:60
+#: templates\public_base.html:61 templates\public_base.html:66
 msgid "Patient video"
 msgstr "நோயாளி வீடியோ"
 
@@ -7647,7 +7656,7 @@ msgstr "நிலுவையில்"
 msgid "Pending Dues"
 msgstr "நிலுவையில் உள்ள தொகை"
 
-#: clinic\models.py:438
+#: clinic\models.py:441
 msgid "Pending review"
 msgstr "மதிப்பாய்வுக்குக் காத்திருக்கிறது"
 
@@ -7668,7 +7677,7 @@ msgstr "அனுமதி மறுக்கப்பட்டது."
 msgid "Permission not recorded"
 msgstr "அனுமதி பதிவு செய்யப்படவில்லை"
 
-#: clinic\models.py:636
+#: clinic\models.py:639
 msgid "Permission to feature is on file"
 msgstr "சிறப்பிக்க அனுமதி பதிவில் உள்ளது"
 
@@ -7719,12 +7728,12 @@ msgstr "தொலைபேசி எண்கள் *"
 msgid "Phone: %(phone)s | Email: %(email)s"
 msgstr "தொலைபேசி: %(phone)s | மின்னஞ்சல்: %(email)s"
 
-#: accounts\templates\accounts\admin\user_form.html:110 clinic\models.py:409
-#: clinic\models.py:632 clinic\models.py:660
+#: accounts\templates\accounts\admin\user_form.html:110 clinic\models.py:412
+#: clinic\models.py:635 clinic\models.py:663
 msgid "Photo"
 msgstr "புகைப்படம்"
 
-#: clinic\models.py:665
+#: clinic\models.py:668
 msgid "Photo / cover image"
 msgstr "புகைப்படம் / அட்டைப் படம்"
 
@@ -7790,7 +7799,7 @@ msgstr "திட்டமிடப்பட்டது"
 msgid "Platform"
 msgstr "தளம்"
 
-#: clinic\models.py:509
+#: clinic\models.py:512
 msgid "Platform thumbnail"
 msgstr "தளத்தின் சிறுபடம்"
 
@@ -7909,7 +7918,7 @@ msgstr "முதலில் கிளினிக் சுயவிவரத�
 msgid "Please wait…"
 msgstr "காத்திருக்கவும்…"
 
-#: clinic\models.py:428
+#: clinic\models.py:431
 msgid "Posted"
 msgstr "பதிவிட்டது"
 
@@ -7929,7 +7938,7 @@ msgstr ""
 "ஆலோசனைகள்."
 
 #: accounts\templates\accounts\admin\user_form.html:125
-#: appointments\models.py:211 clinic\models.py:259 patients\models.py:337
+#: appointments\models.py:211 clinic\models.py:262 patients\models.py:337
 msgid "Practitioner"
 msgstr "மருத்துவர்"
 
@@ -7964,7 +7973,7 @@ msgstr "பயிற்சியாளர் சுயவிவரம்"
 msgid "Practitioner — SpinalCure"
 msgstr "மருத்துவர் — SpinalCure"
 
-#: clinic\models.py:260
+#: clinic\models.py:263
 msgid "Practitioners"
 msgstr "மருத்துவர்கள்"
 
@@ -8092,7 +8101,7 @@ msgstr ""
 "தனிப்பட்டது: நிகழ்வுக்குச் சற்று முன் உறுதிசெய்யப்பட்ட பதிவாளர்களுக்கு "
 "மட்டும் காட்டப்படும்."
 
-#: clinic\models.py:328 clinic\models.py:362
+#: clinic\models.py:331 clinic\models.py:365
 #: templates\clinic\admin\faqs.html:16 templates\clinic\admin\problems.html:13
 msgid "Problem"
 msgstr "பிரச்சினை"
@@ -8102,12 +8111,12 @@ msgstr "பிரச்சினை"
 msgid "Problem \"%(name)s\" added."
 msgstr "பிரச்சினை \"%(name)s\" சேர்க்கப்பட்டது."
 
-#: clinic\models.py:340 templates\clinic\admin\problems.html:4
+#: clinic\models.py:343 templates\clinic\admin\problems.html:4
 #: templates\ui\sidebar.html:32
 msgid "Problem Categories"
 msgstr "பிரச்சினை வகைகள்"
 
-#: clinic\models.py:339
+#: clinic\models.py:342
 msgid "Problem Category"
 msgstr "பிரச்சினை வகை"
 
@@ -8115,7 +8124,7 @@ msgstr "பிரச்சினை வகை"
 msgid "Problem deleted."
 msgstr "பிரச்சினை நீக்கப்பட்டது."
 
-#: clinic\models.py:423 clinic\models.py:498
+#: clinic\models.py:426 clinic\models.py:501
 #: templates\clinic\admin\testimonial_form.html:79
 #: templates\clinic\admin\video_form.html:22
 msgid "Problem treated"
@@ -8223,7 +8232,7 @@ msgstr "உடனே வெளியிடு"
 msgid "Publish now (only if consent is on file)"
 msgstr "இப்போதே வெளியிடு (ஒப்புதல் பதிவில் இருந்தால் மட்டும்)"
 
-#: clinic\models.py:366
+#: clinic\models.py:369
 msgid "Publish only after the doctor has checked the answer."
 msgstr "மருத்துவர் பதிலைச் சரிபார்த்த பிறகே வெளியிடுங்கள்."
 
@@ -8247,8 +8256,8 @@ msgstr "இணையதளத்தில் வெளியிடு"
 msgid "Publish to website (doctor's page and Patient Stories)"
 msgstr "இணையதளத்தில் வெளியிடு (மருத்துவர் பக்கம் மற்றும் நோயாளி அனுபவங்கள்)"
 
-#: clinic\blog_models.py:32 clinic\models.py:365 clinic\models.py:431
-#: clinic\models.py:639
+#: clinic\blog_models.py:32 clinic\models.py:368 clinic\models.py:434
+#: clinic\models.py:642
 msgid "Published"
 msgstr "வெளியிடப்பட்டது"
 
@@ -8272,13 +8281,13 @@ msgstr "இணையதளத்தில் வெளியிடப்பட�
 msgid "Published — click to hide"
 msgstr "வெளியிடப்பட்டது — மறைக்க கிளிக் செய்யவும்"
 
-#: accounts\templates\accounts\admin\user_form.html:131 clinic\models.py:226
+#: accounts\templates\accounts\admin\user_form.html:131 clinic\models.py:229
 #: clinic\templates\clinic\admin\practitioner_form.html:127
 #: templates\clinic\home.html:116
 msgid "Qualifications"
 msgstr "தகுதிகள்"
 
-#: clinic\models.py:359 templates\clinic\admin\faqs.html:16
+#: clinic\models.py:362 templates\clinic\admin\faqs.html:16
 msgid "Question"
 msgstr "கேள்வி"
 
@@ -8299,7 +8308,7 @@ msgstr "கேள்வி சேமிக்கப்பட்டது."
 msgid "Questions"
 msgstr "கேள்விகள்"
 
-#: templates\public\footer.html:40 templates\public\header.html:64
+#: templates\public\footer.html:41 templates\public\header.html:66
 #: templates\ui\sidebar.html:59
 msgid "Questions & answers"
 msgstr "கேள்விகளும் பதில்களும்"
@@ -8316,7 +8325,7 @@ msgstr "விரைவு செயல்கள்"
 msgid "Quick add photos"
 msgstr "புகைப்படங்களை விரைவாகச் சேர்"
 
-#: clinic\models.py:414 courses\models.py:306 events\models.py:296
+#: clinic\models.py:417 courses\models.py:306 events\models.py:296
 #: patients\models.py:342
 msgid "Rating"
 msgstr "மதிப்பீடு"
@@ -8325,7 +8334,7 @@ msgstr "மதிப்பீடு"
 msgid "Rating *"
 msgstr "மதிப்பீடு *"
 
-#: clinic\models.py:777
+#: clinic\models.py:780
 msgid "Raw Changes"
 msgstr "மூல மாற்றங்கள்"
 
@@ -8481,7 +8490,7 @@ msgstr "பதிவு"
 msgid "Record Collection"
 msgstr "வசூலைப் பதிவு செய்"
 
-#: clinic\models.py:765
+#: clinic\models.py:768
 msgid "Record Description"
 msgstr "பதிவு விளக்கம்"
 
@@ -8489,7 +8498,7 @@ msgstr "பதிவு விளக்கம்"
 msgid "Record Expense"
 msgstr "செலவைப் பதிவு செய்"
 
-#: clinic\models.py:760
+#: clinic\models.py:763
 msgid "Record ID"
 msgstr "பதிவு ஐடி"
 
@@ -8725,7 +8734,7 @@ msgstr "அட்டையை மீண்டும் வழங்கு"
 msgid "Reject"
 msgstr "நிராகரி"
 
-#: clinic\models.py:438
+#: clinic\models.py:441
 msgid "Rejected"
 msgstr "நிராகரிக்கப்பட்டது"
 
@@ -8893,7 +8902,7 @@ msgstr "இன்றைய வருவாய்"
 msgid "Revert"
 msgstr "மீட்டமை"
 
-#: clinic\models.py:789 clinic\templates\clinic\admin\activity_log.html:108
+#: clinic\models.py:792 clinic\templates\clinic\admin\activity_log.html:108
 msgid "Reverted"
 msgstr "மீட்டமைக்கப்பட்டது"
 
@@ -8932,7 +8941,7 @@ msgstr "மதிப்புரை புதுப்பிக்கப்ப�
 msgid "Review us on Google"
 msgstr "Google-இல் எங்களை மதிப்பிடுங்கள்"
 
-#: clinic\models.py:821 templates\clinic\admin\translations.html:73
+#: clinic\models.py:824 templates\clinic\admin\translations.html:73
 #: templates\clinic\partials\translation_panel.html:35
 msgid "Reviewed"
 msgstr "சரிபார்க்கப்பட்டது"
@@ -9138,7 +9147,7 @@ msgstr "நிகழ்வுகளைத் தேடு…"
 msgid "Search for patients..."
 msgstr "நோயாளிகளைத் தேடு..."
 
-#: clinic\models.py:331 templates\clinic\admin\problems.html:15
+#: clinic\models.py:334 templates\clinic\admin\problems.html:15
 msgid "Search keywords"
 msgstr "தேடல் சொற்கள்"
 
@@ -9285,7 +9294,7 @@ msgid "Select Gender"
 msgstr "பாலினத்தைத் தேர்ந்தெடு"
 
 #: clinic\templates\clinic\admin\clinic_setup.html:870
-#: clinic\templates\clinic\admin\clinic_setup.html:1070
+#: clinic\templates\clinic\admin\clinic_setup.html:1073
 msgid "Select Icon"
 msgstr "ஐகானைத் தேர்ந்தெடு"
 
@@ -9360,16 +9369,16 @@ msgstr ""
 msgid "SEO: AUTO"
 msgstr "SEO: தானியங்கி"
 
-#: clinic\models.py:299
+#: clinic\models.py:302
 msgid "Service"
 msgstr "சேவை"
 
-#: clinic\models.py:293 templates\payments\payment_form.html:244
+#: clinic\models.py:296 templates\payments\payment_form.html:244
 msgid "Service Description"
 msgstr "சேவை விளக்கம்"
 
 #: clinic\templates\clinic\admin\clinic_setup.html:860
-#: clinic\templates\clinic\admin\clinic_setup.html:1060
+#: clinic\templates\clinic\admin\clinic_setup.html:1063
 msgid "Service Name"
 msgstr "சேவைப் பெயர்"
 
@@ -9377,7 +9386,7 @@ msgstr "சேவைப் பெயர்"
 msgid "Service short description..."
 msgstr "சேவையின் சுருக்க விளக்கம்..."
 
-#: clinic\models.py:292
+#: clinic\models.py:295
 msgid "Service Title"
 msgstr "சேவைத் தலைப்பு"
 
@@ -9385,11 +9394,11 @@ msgstr "சேவைத் தலைப்பு"
 msgid "Service:"
 msgstr "சேவை:"
 
-#: clinic\models.py:300 clinic\templates\clinic\admin\clinic_setup.html:89
+#: clinic\models.py:303 clinic\templates\clinic\admin\clinic_setup.html:89
 msgid "Services"
 msgstr "சேவைகள்"
 
-#: clinic\models.py:110
+#: clinic\models.py:113
 msgid "Services Description"
 msgstr "சேவைகள் விளக்கம்"
 
@@ -9401,11 +9410,11 @@ msgstr "சேவைகள் தலைப்பு"
 msgid "Services header updated."
 msgstr "சேவைகள் தலைப்பு புதுப்பிக்கப்பட்டது."
 
-#: clinic\models.py:108
+#: clinic\models.py:111
 msgid "Services Label"
 msgstr "சேவைகள் லேபிள்"
 
-#: clinic\models.py:109
+#: clinic\models.py:112
 msgid "Services Title"
 msgstr "சேவைகள் தலைப்பு"
 
@@ -9564,7 +9573,7 @@ msgstr "ஷிப்ட் சேமிக்கப்பட்டது."
 msgid "Short Description"
 msgstr "குறுகிய விளக்கம்"
 
-#: clinic\models.py:500
+#: clinic\models.py:503
 msgid "Short description"
 msgstr "சுருக்க விளக்கம்"
 
@@ -9577,7 +9586,7 @@ msgstr "சுருக்க விளக்கம் (விருப்பம
 msgid "Short description (searchable)"
 msgstr "சுருக்க விளக்கம் (தேடக்கூடியது)"
 
-#: clinic\models.py:633
+#: clinic\models.py:636
 msgid "Short note"
 msgstr "சிறு குறிப்பு"
 
@@ -9690,7 +9699,7 @@ msgstr "கடைசி 5 அமர்வுகள் காட்டப்ப�
 msgid "Shown in Google search results (max 160 chars)."
 msgstr "Google தேடல் முடிவுகளில் காட்டப்படும் (அதிகபட்சம் 160 எழுத்துகள்)."
 
-#: clinic\models.py:671
+#: clinic\models.py:674
 msgid "Shown on the spotlight, e.g. \"Featured patient\"."
 msgstr "சிறப்புப் பகுதியில் காட்டப்படும், எ.கா. \"சிறப்பு நோயாளி\"."
 
@@ -9701,6 +9710,11 @@ msgid ""
 msgstr ""
 "எங்கள் குழு படித்த பிறகு, அதே வலி உள்ள மற்றவர்களுக்கு உதவ இந்த இணையதளத்தில் "
 "காட்டப்படும்."
+
+#: clinic\models.py:93
+msgid "Shown only while no weekly hours are set under Availability."
+msgstr ""
+"கிடைக்கும் நேரத்தில் வார நேரங்கள் அமைக்கப்படாதபோது மட்டும் காட்டப்படும்."
 
 #: templates\patients\partials\tcm_diagnosis_display.html:174
 #: templates\patients\partials\tcm_diagnosis_form.html:212
@@ -9739,7 +9753,7 @@ msgstr "அமர்வுகள்"
 msgid "Skills"
 msgstr "திறன்கள்"
 
-#: templates\base.html:51 templates\public_base.html:36
+#: templates\base.html:51 templates\public_base.html:42
 msgid "Skip to content"
 msgstr "உள்ளடக்கத்திற்குச் செல்"
 
@@ -9775,7 +9789,7 @@ msgstr "இந்தக் கிளினிக்கிற்கு SMS மற
 msgid "SMS notifications (opt-in)"
 msgstr "SMS அறிவிப்புகள் (விருப்பப்பட்டால்)"
 
-#: clinic\models.py:783
+#: clinic\models.py:786
 msgid "Snapshot"
 msgstr "ஸ்னாப்ஷாட்"
 
@@ -9791,7 +9805,7 @@ msgstr "சமூகம் & வரைபடம்"
 msgid "Social Connections & Map"
 msgstr "சமூக இணைப்புகள் & வரைபடம்"
 
-#: clinic\models.py:391
+#: clinic\models.py:394
 msgid "Social Media"
 msgstr "சமூக ஊடகம்"
 
@@ -9803,12 +9817,12 @@ msgstr ""
 "நாங்கள் மேம்படுத்த வேண்டியது ஏதேனும் உள்ளதா? “தனிப்பட்ட கருத்து” என்பதைத் "
 "தேர்ந்தெடுங்கள்: எங்கள் குழு மட்டுமே படிக்கும்."
 
-#: clinic\models.py:419 templates\clinic\admin\testimonial_form.html:105
+#: clinic\models.py:422 templates\clinic\admin\testimonial_form.html:105
 #: templates\clinic\admin\testimonials_list.html:46
 msgid "Source"
 msgstr "மூலம்"
 
-#: clinic\models.py:426
+#: clinic\models.py:429
 msgid "Source link"
 msgstr "மூல இணைப்பு"
 
@@ -9821,7 +9835,7 @@ msgstr "மூல இணைப்பு (விருப்பத்தேர்
 msgid "SP"
 msgstr "SP"
 
-#: clinic\models.py:439 templates\clinic\admin\testimonials_list.html:58
+#: clinic\models.py:442 templates\clinic\admin\testimonials_list.html:58
 msgid "Spam"
 msgstr "ஸ்பேம்"
 
@@ -9833,7 +9847,7 @@ msgstr "நிபுணர்"
 msgid "Specialists"
 msgstr "நிபுணர்கள்"
 
-#: accounts\templates\accounts\admin\user_form.html:129 clinic\models.py:222
+#: accounts\templates\accounts\admin\user_form.html:129 clinic\models.py:225
 #: clinic\templates\clinic\admin\practitioner_form.html:120
 msgid "Specialization"
 msgstr "சிறப்புத் துறை"
@@ -9884,7 +9898,7 @@ msgstr "பணியாளர் மேலாண்மை"
 msgid "Staff Member"
 msgstr "பணியாளர்"
 
-#: templates\accounts\login.html:8 templates\public\footer.html:54
+#: templates\accounts\login.html:8 templates\public\footer.html:55
 msgid "Staff sign in"
 msgstr "பணியாளர் உள்நுழைவு"
 
@@ -9934,19 +9948,19 @@ msgstr "தொடக்கம் %(d)s"
 msgid "Starts in"
 msgstr "தொடங்க இன்னும்"
 
-#: clinic\models.py:100
+#: clinic\models.py:103
 msgid "Stat 1 Label"
 msgstr "புள்ளிவிவரம் 1 லேபிள்"
 
-#: clinic\models.py:99
+#: clinic\models.py:102
 msgid "Stat 1 Number"
 msgstr "புள்ளிவிவரம் 1 எண்"
 
-#: clinic\models.py:102
+#: clinic\models.py:105
 msgid "Stat 2 Label"
 msgstr "புள்ளிவிவரம் 2 லேபிள்"
 
-#: clinic\models.py:101
+#: clinic\models.py:104
 msgid "Stat 2 Number"
 msgstr "புள்ளிவிவரம் 2 எண்"
 
@@ -10004,7 +10018,7 @@ msgid "Student Registrations"
 msgstr "மாணவர் பதிவுகள்"
 
 #: templates\courses\student_signin.html:3
-#: templates\courses\student_signin.html:7 templates\public\footer.html:53
+#: templates\courses\student_signin.html:7 templates\public\footer.html:54
 msgid "Student sign in"
 msgstr "மாணவர் உள்நுழைவு"
 
@@ -10115,7 +10129,7 @@ msgstr "குறிச்சொல் பெயர்"
 msgid "Tagline"
 msgstr "முழக்கம்"
 
-#: clinic\blog_models.py:70 clinic\models.py:513
+#: clinic\blog_models.py:70 clinic\models.py:516
 #: templates\clinic\admin\blog_form.html:118
 #: templates\clinic\admin\blog_list.html:31
 msgid "Tags"
@@ -10157,15 +10171,15 @@ msgstr "TCM நோயறிதல்"
 msgid "Team Accounts"
 msgstr "குழு கணக்குகள்"
 
-#: clinic\models.py:117
+#: clinic\models.py:120
 msgid "Team Description"
 msgstr "குழு விளக்கம்"
 
-#: clinic\models.py:115
+#: clinic\models.py:118
 msgid "Team Label"
 msgstr "குழு லேபிள்"
 
-#: clinic\models.py:116
+#: clinic\models.py:119
 msgid "Team Title"
 msgstr "குழுத் தலைப்பு"
 
@@ -10205,12 +10219,12 @@ msgid "Terminated"
 msgstr "பணிநீக்கம்"
 
 #: templates\clinic\course_detail.html:75
-#: templates\clinic\event_detail.html:42 templates\public\footer.html:52
+#: templates\clinic\event_detail.html:42 templates\public\footer.html:53
 msgid "Terms"
 msgstr "விதிமுறைகள்"
 
 #: templates\clinic\terms.html:3 templates\clinic\terms.html:10
-#: templates\public\footer.html:42
+#: templates\public\footer.html:43
 msgid "Terms and conditions"
 msgstr "விதிமுறைகளும் நிபந்தனைகளும்"
 
@@ -10222,7 +10236,7 @@ msgstr ""
 "அரும்பாக்கம், சென்னை Spinal Cure-இல் சந்திப்புகள், பாடநெறிகள், நிகழ்வுகள், "
 "கட்டணங்கள் மற்றும் திருப்பித் தருதலுக்கான விதிமுறைகள்."
 
-#: clinic\models.py:449
+#: clinic\models.py:452
 msgid "Testimonial"
 msgstr "சான்று"
 
@@ -10241,7 +10255,7 @@ msgstr "%(patient_name)s இன் சான்று சேர்க்கப�
 msgid "Testimonial from %(patient_name)s updated."
 msgstr "%(patient_name)s இன் சான்று புதுப்பிக்கப்பட்டது."
 
-#: clinic\models.py:416
+#: clinic\models.py:419
 msgid "Testimonial Text"
 msgstr "சான்று உரை"
 
@@ -10249,11 +10263,11 @@ msgstr "சான்று உரை"
 msgid "Testimonial Text *"
 msgstr "சான்று உரை *"
 
-#: clinic\models.py:528
+#: clinic\models.py:531
 msgid "Testimonial Video"
 msgstr "சான்று வீடியோ"
 
-#: clinic\models.py:529
+#: clinic\models.py:532
 msgid "Testimonial Videos"
 msgstr "சான்று வீடியோக்கள்"
 
@@ -10261,17 +10275,17 @@ msgstr "சான்று வீடியோக்கள்"
 msgid "Testimonial — SpinalCure Admin"
 msgstr "சான்று — SpinalCure நிர்வாகம்"
 
-#: clinic\models.py:450 templates\analytics\dashboard.html:142
+#: clinic\models.py:453 templates\analytics\dashboard.html:142
 #: templates\clinic\admin\testimonials_list.html:3
 #: templates\clinic\admin\testimonials_list.html:4
 msgid "Testimonials"
 msgstr "சான்றுகள்"
 
-#: clinic\models.py:120
+#: clinic\models.py:123
 msgid "Testimonials Label"
 msgstr "சான்றுகள் லேபிள்"
 
-#: clinic\models.py:121
+#: clinic\models.py:124
 msgid "Testimonials Title"
 msgstr "சான்றுகள் தலைப்பு"
 
@@ -10684,7 +10698,7 @@ msgstr "இந்த மாணவர் ஏற்கனவே தங்கள்
 msgid "This student has no confirmed place."
 msgstr "இந்த மாணவருக்கு உறுதிசெய்யப்பட்ட இடம் இல்லை."
 
-#: clinic\models.py:520 templates\clinic\admin\video_form.html:48
+#: clinic\models.py:523 templates\clinic\admin\video_form.html:48
 #: templates\clinic\admin\video_form.html:104
 msgid "Thumbnail"
 msgstr "சிறுபடம்"
@@ -10693,7 +10707,7 @@ msgstr "சிறுபடம்"
 msgid "Thursday"
 msgstr "வியாழன்"
 
-#: clinic\models.py:637
+#: clinic\models.py:640
 msgid ""
 "Tick only when the patient (or their team) has agreed in writing to be named"
 " on the website."
@@ -10734,7 +10748,7 @@ msgstr ""
 "மேலே உள்ள நேரங்கள் இந்த நேர மண்டலத்தில் உள்ளன; பார்வையாளர்களுக்கு ஒவ்வொரு "
 "நேரத்துடனும் இது காட்டப்படும்."
 
-#: clinic\models.py:800 clinic\templates\clinic\admin\activity_log.html:61
+#: clinic\models.py:803 clinic\templates\clinic\admin\activity_log.html:61
 #: templates\emails\audit_log_notification.html:30
 msgid "Timestamp"
 msgstr "நேரமுத்திரை"
@@ -10747,7 +10761,7 @@ msgstr "OTP செல்லாததாகும் நேரம்"
 msgid "Timing & Duration"
 msgstr "நேரம் & கால அளவு"
 
-#: clinic\blog_models.py:36 clinic\models.py:491 clinic\models.py:663
+#: clinic\blog_models.py:36 clinic\models.py:494 clinic\models.py:666
 #: courses\models.py:27
 msgid "Title"
 msgstr "தலைப்பு"
@@ -10776,7 +10790,7 @@ msgstr "தலைப்பும் உள்ளடக்கமும் அவ�
 msgid "Title for these photos (optional)"
 msgstr "இந்தப் புகைப்படங்களுக்கான தலைப்பு (விருப்பத்தேர்வு)"
 
-#: clinic\models.py:201
+#: clinic\models.py:204
 msgid "Title/Designation"
 msgstr "தலைப்பு/பதவி"
 
@@ -10896,7 +10910,7 @@ msgstr "பயிற்சிப் பாடநெறிகள்"
 msgid "Transaction or cheque number"
 msgstr "பரிவர்த்தனை அல்லது காசோலை எண்"
 
-#: clinic\models.py:512 templates\clinic\admin\video_form.html:28
+#: clinic\models.py:515 templates\clinic\admin\video_form.html:28
 msgid "Transcript"
 msgstr "எழுத்துப்படி"
 
@@ -10999,8 +11013,8 @@ msgstr "சிகிச்சை முன்னேற்றம்"
 msgid "Treatment sessions"
 msgstr "சிகிச்சை அமர்வுகள்"
 
-#: templates\public\footer.html:35 templates\public\header.html:29
-#: templates\public\header.html:58
+#: templates\public\footer.html:36 templates\public\header.html:31
+#: templates\public\header.html:60
 msgid "Treatments"
 msgstr "சிகிச்சைகள்"
 
@@ -11050,16 +11064,16 @@ msgstr "பகிர்வை இயக்கு"
 msgid "TW"
 msgstr "TW"
 
-#: clinic\templates\clinic\admin\clinic_setup.html:981
+#: clinic\templates\clinic\admin\clinic_setup.html:984
 msgid "Twitter / X Profile URL"
 msgstr "Twitter / X சுயவிவர URL"
 
-#: clinic\models.py:245
+#: clinic\models.py:248
 #: clinic\templates\clinic\admin\practitioner_form.html:103
 msgid "Twitter URL"
 msgstr "Twitter URL"
 
-#: clinic\models.py:662 events\models.py:59
+#: clinic\models.py:665 events\models.py:59
 #: idcards\templates\idcards\dashboard.html:19
 #: idcards\templates\idcards\detail.html:22
 msgid "Type"
@@ -11148,7 +11162,7 @@ msgstr "வரவிருப்பவை"
 msgid "Upcoming Appointments"
 msgstr "வரவிருக்கும் சந்திப்புகள்"
 
-#: clinic\models.py:733 clinic\templates\clinic\admin\activity_log.html:22
+#: clinic\models.py:736 clinic\templates\clinic\admin\activity_log.html:22
 #: clinic\templates\clinic\admin\activity_log.html:83
 msgid "Update"
 msgstr "புதுப்பி"
@@ -11217,7 +11231,7 @@ msgstr "பயனரைப் புதுப்பி"
 msgid "UPI"
 msgstr "UPI"
 
-#: clinic\models.py:152
+#: clinic\models.py:155
 msgid "UPI ID"
 msgstr "UPI ID"
 
@@ -11245,7 +11259,7 @@ msgstr ""
 "PDF, Word, PowerPoint, Excel, CSV, உரை அல்லது வீடியோ (MP4, WebM, MOV) "
 "கோப்பைப் பதிவேற்றவும்."
 
-#: clinic\models.py:689
+#: clinic\models.py:692
 msgid "Upload a video or paste a YouTube / Instagram link."
 msgstr "வீடியோவைப் பதிவேற்றவும் அல்லது YouTube / Instagram இணைப்பை ஒட்டவும்."
 
@@ -11288,7 +11302,7 @@ msgstr ""
 "ஃப்ரேமைப் பயன்படுத்தவும்; பிறகு படத்தில் கிளிக் செய்து மையப் புள்ளியை "
 "அமைக்கவும் — ஒவ்வொரு வெட்டிலும் அந்தப் பகுதி தெரியும்படி வைக்கப்படும்."
 
-#: clinic\models.py:509
+#: clinic\models.py:512
 msgid "Uploaded image"
 msgstr "பதிவேற்றிய படம்"
 
@@ -11317,7 +11331,7 @@ msgid "Used"
 msgstr "பயன்படுத்தப்பட்டது"
 
 #: accounts\models.py:77 accounts\models.py:118
-#: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:743
+#: accounts\templates\accounts\admin\users_list.html:22 clinic\models.py:746
 msgid "User"
 msgstr "பயனர்"
 
@@ -11350,7 +11364,7 @@ msgstr "பயனர்: %(username)s"
 msgid "Username *"
 msgstr "பயனர் பெயர் *"
 
-#: clinic\models.py:475
+#: clinic\models.py:478
 msgid "Username, or \"author\" / \"system\"."
 msgstr "பயனர் பெயர், அல்லது \"author\" / \"system\"."
 
@@ -11444,7 +11458,7 @@ msgstr "இந்த அடையாள அட்டையைச் சரிப
 msgid "via %(get_payment_mode_display)s"
 msgstr "%(get_payment_mode_display)s மூலம்"
 
-#: clinic\models.py:660 courses\models.py:400
+#: clinic\models.py:663 courses\models.py:400
 #: templates\clinic\admin\gallery.html:30
 #: templates\clinic\admin\videos.html:67
 msgid "Video"
@@ -11460,7 +11474,7 @@ msgstr "காணொளி \"%(title)s\" சேர்க்கப்பட்ட
 msgid "Video \"%(title)s\" saved."
 msgstr "\"%(title)s\" காணொளி சேமிக்கப்பட்டது."
 
-#: clinic\models.py:493 templates\clinic\admin\video_form.html:18
+#: clinic\models.py:496 templates\clinic\admin\video_form.html:18
 msgid "Video / Reel / Short link"
 msgstr "வீடியோ / Reel / Short இணைப்பு"
 
@@ -11468,19 +11482,19 @@ msgstr "வீடியோ / Reel / Short இணைப்பு"
 msgid "Video deleted."
 msgstr "காணொளி நீக்கப்பட்டது."
 
-#: clinic\models.py:667
+#: clinic\models.py:670
 msgid "Video file"
 msgstr "வீடியோ கோப்பு"
 
-#: clinic\models.py:510
+#: clinic\models.py:513
 msgid "Video frame 1"
 msgstr "காணொளி ஃப்ரேம் 1"
 
-#: clinic\models.py:510
+#: clinic\models.py:513
 msgid "Video frame 2"
 msgstr "காணொளி ஃப்ரேம் 2"
 
-#: clinic\models.py:510
+#: clinic\models.py:513
 msgid "Video frame 3"
 msgstr "காணொளி ஃப்ரேம் 3"
 
@@ -11550,7 +11564,7 @@ msgstr "தெரியும்"
 msgid "Visible on the public portfolio when checked"
 msgstr "தேர்வு செய்தால் பொது போர்ட்ஃபோலியோவில் தெரியும்"
 
-#: templates\clinic\home.html:265 templates\public\footer.html:19
+#: templates\clinic\home.html:265 templates\public\footer.html:20
 msgid "Visit us"
 msgstr "எங்களை வந்து சந்தியுங்கள்"
 
@@ -11593,7 +11607,7 @@ msgstr "காத்திருப்பில்"
 msgid "Waitlisted: %(event)s"
 msgstr "காத்திருப்புப் பட்டியலில்: %(event)s"
 
-#: clinic\models.py:388
+#: clinic\models.py:391
 msgid "Walk-in Patient"
 msgstr "நேரடியாக வந்த நோயாளி"
 
@@ -11708,7 +11722,7 @@ msgstr "இணையவழிக் கருத்தரங்கு"
 msgid "Website"
 msgstr "இணையதளம்"
 
-#: clinic\models.py:437
+#: clinic\models.py:440
 msgid "Website form"
 msgstr "இணையதளப் படிவம்"
 
@@ -11867,15 +11881,23 @@ msgstr ""
 msgid "Where"
 msgstr "எங்கே"
 
-#: clinic\models.py:517 templates\clinic\admin\video_form.html:42
+#: clinic\models.py:520 templates\clinic\admin\video_form.html:42
 msgid "Where consent is recorded"
 msgstr "ஒப்புதல் எங்கு பதிவு செய்யப்பட்டுள்ளது"
+
+#: clinic\models.py:95 clinic\templates\clinic\admin\clinic_setup.html:951
+msgid ""
+"Where the address link opens. Leave empty to use the Google Maps listing "
+"from the embed, or a search for the address."
+msgstr ""
+"முகவரி இணைப்பு திறக்கும் இடம். காலியாக விட்டால் உட்பொதிவில் உள்ள Google Maps"
+" பட்டியல் அல்லது முகவரித் தேடல் பயன்படுத்தப்படும்."
 
 #: idcards\models.py:38
 msgid "Where the QR on the back leads. Defaults to the clinic website."
 msgstr "பின்புற QR எங்கே கொண்டு செல்லும். இயல்பாக கிளினிக் இணையதளம்."
 
-#: clinic\models.py:790
+#: clinic\models.py:793
 msgid "Whether this action has been reverted"
 msgstr "இந்தச் செயல் மீட்டமைக்கப்பட்டதா"
 
@@ -11913,11 +11935,11 @@ msgstr "எனது மதிப்புரையைத் திரும்�
 msgid "Withdraw your review"
 msgstr "உங்கள் மதிப்புரையைத் திரும்பப் பெறுங்கள்"
 
-#: clinic\models.py:507 clinic\stories.py:118
+#: clinic\models.py:510 clinic\stories.py:118
 msgid "Withdrawn"
 msgstr "திரும்பப் பெறப்பட்டது"
 
-#: clinic\models.py:439
+#: clinic\models.py:442
 msgid "Withdrawn by author"
 msgstr "எழுதியவரால் திரும்பப் பெறப்பட்டது"
 
@@ -11997,11 +12019,11 @@ msgstr "Y+ Ya-"
 msgid "Y- Ya+"
 msgstr "Y- Ya+"
 
-#: clinic\models.py:183
+#: clinic\models.py:186
 msgid "Year cannot be in the future."
 msgstr "ஆண்டு எதிர்காலத்தில் இருக்கக்கூடாது."
 
-#: clinic\models.py:230
+#: clinic\models.py:233
 #: clinic\templates\clinic\admin\practitioner_form.html:44
 msgid "Years of Experience"
 msgstr "அனுபவ ஆண்டுகள்"
@@ -12385,7 +12407,7 @@ msgstr ""
 msgid "Your workspace"
 msgstr "உங்கள் பணியிடம்"
 
-#: clinic\templates\clinic\admin\clinic_setup.html:991
+#: clinic\templates\clinic\admin\clinic_setup.html:994
 msgid "YouTube Channel URL"
 msgstr "YouTube சேனல் URL"
 
@@ -12402,7 +12424,7 @@ msgstr "YouTube ஒத்திசைக்கப்பட்டது: %(n)s �
 msgid "YouTube synced: nothing new."
 msgstr "YouTube ஒத்திசைக்கப்பட்டது: புதியது எதுவுமில்லை."
 
-#: clinic\models.py:244
+#: clinic\models.py:247
 #: clinic\templates\clinic\admin\practitioner_form.html:93
 msgid "YouTube URL"
 msgstr "YouTube URL"

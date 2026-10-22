@@ -89,7 +89,10 @@ class ClinicProfile(models.Model):
         help_text='Short description to display in the footer above social links.'
     )
     
-    working_hours = models.TextField(blank=True, verbose_name=_('Working Hours'))
+    working_hours = models.TextField(blank=True, verbose_name=_('Working Hours'),
+                                     help_text=_('Shown only while no weekly hours are set under Availability.'))
+    map_link = models.URLField(max_length=500, blank=True, verbose_name=_('Map link'),
+                               help_text=_('Where the address link opens. Leave empty to use the Google Maps listing from the embed, or a search for the address.'))
     established_year = models.PositiveIntegerField(blank=True, null=True)
     registration_number = models.CharField(max_length=100, blank=True)
 

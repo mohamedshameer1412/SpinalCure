@@ -12,13 +12,14 @@
                 {% if clinic.instagram %}<a href="{{ clinic.instagram }}" target="_blank" rel="noopener" class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-primary-600" aria-label="Instagram"><i class="bi bi-instagram"></i></a>{% endif %}
                 {% if clinic.youtube %}<a href="{{ clinic.youtube }}" target="_blank" rel="noopener" class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-primary-600" aria-label="YouTube"><i class="bi bi-youtube"></i></a>{% endif %}
                 {% if clinic.facebook %}<a href="{{ clinic.facebook }}" target="_blank" rel="noopener" class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-primary-600" aria-label="Facebook"><i class="bi bi-facebook"></i></a>{% endif %}
+                {% if clinic.twitter %}<a href="{{ clinic.twitter }}" target="_blank" rel="noopener" class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-primary-600" aria-label="X (Twitter)"><i class="bi bi-twitter-x"></i></a>{% endif %}
             </div>
         </div>
 
         <div class="lg:col-span-3">
             <h2 class="text-sm font-semibold text-white">{% translate "Visit us" %}</h2>
             <ul class="mt-4 space-y-3 text-sm">
-                {% if clinic.address %}<li class="flex gap-2.5"><i class="bi bi-geo-alt mt-0.5 text-primary-400" aria-hidden="true"></i><span>{{ clinic|tx:"address" }}</span></li>{% endif %}
+                {% if clinic.address %}<li class="flex gap-2.5"><i class="bi bi-geo-alt mt-0.5 text-primary-400" aria-hidden="true"></i><a href="{{ clinic_map_url }}" target="_blank" rel="noopener" title="{% translate 'Open in Maps' %}" class="text-slate-300 no-underline hover:text-white">{{ clinic|tx:"address" }}</a></li>{% endif %}
                 {% for p in clinic.phone_list %}<li class="flex gap-2.5"><i class="bi bi-telephone mt-0.5 text-primary-400" aria-hidden="true"></i><a href="tel:{{ p|cut:' ' }}" class="text-slate-300 no-underline hover:text-white" dir="ltr">{{ p }}</a></li>{% endfor %}
                 {% if clinic.email %}<li class="flex gap-2.5"><i class="bi bi-envelope mt-0.5 text-primary-400" aria-hidden="true"></i><a href="mailto:{{ clinic.email }}" class="break-all text-slate-300 no-underline hover:text-white">{{ clinic.email }}</a></li>{% endif %}
             </ul>
@@ -26,7 +27,7 @@
 
         <div class="lg:col-span-3">
             <h2 class="text-sm font-semibold text-white">{% translate "Opening hours" %}</h2>
-            <p class="mt-4 whitespace-pre-line text-sm leading-relaxed text-slate-400">{{ clinic|tx:"working_hours" }}</p>
+            <p class="mt-4 whitespace-pre-line text-sm leading-relaxed text-slate-400">{{ clinic_hours_text }}</p>
         </div>
 
         <div class="lg:col-span-2">

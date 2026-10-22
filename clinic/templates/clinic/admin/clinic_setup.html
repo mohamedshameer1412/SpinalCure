@@ -946,6 +946,9 @@
                             placeholder="Paste embed <iframe> code URL here...">{{ clinic.map_iframe_url|default:'' }}</textarea>
 
                         <p class="text-[10px] text-gray-400">{% trans "Provide the `src` attribute from the Google Maps Share > Embed iframe code." %}</p>
+                        <label class="label block" for="map_link">{% trans "Map link" %}</label>
+                        <input type="url" id="map_link" name="map_link" value="{{ clinic.map_link|default:'' }}" class="w-full" placeholder="https://maps.app.goo.gl/…">
+                        <p class="text-[10px] text-gray-400">{% trans "Where the address link opens. Leave empty to use the Google Maps listing from the embed, or a search for the address." %}</p>
 
                     </div>
 

@@ -1,3 +1,6 @@
+from django.utils.functional import SimpleLazyObject
+
+from clinic import hours
 from clinic.models import ClinicProfile
 
 def clinic_info(request):
@@ -29,4 +32,6 @@ def clinic_info(request):
         'clinic': clinic,
         'clinic_info': clinic,
         'clinic_logo_url': clinic_logo_url,
+        'clinic_hours_text': SimpleLazyObject(lambda: hours.opening_hours(clinic)),
+        'clinic_map_url': SimpleLazyObject(lambda: hours.map_url(clinic)),
     }

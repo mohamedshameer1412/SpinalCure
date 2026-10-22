@@ -258,7 +258,7 @@ def clinic_ld(clinic):
         'name': clinic.name, 'description': clinic.tagline, 'url': absolute(reverse('clinic_portfolio')),
         'logo': _img(clinic.logo), 'image': _img(clinic.hero_image) or _img(clinic.logo),
         'telephone': (clinic.phone_list[0] if clinic.phone_list else ''), 'email': clinic.email,
-        'address': _postal_address(clinic), 'geo': geo, 'hasMap': map_url,
+        'address': _postal_address(clinic), 'geo': geo, 'hasMap': clinic.map_link or map_url,
         'openingHoursSpecification': _opening_hours(), 'areaServed': {'@type': 'City', 'name': 'Chennai'},
         'medicalSpecialty': 'Acupuncture',
         'foundingDate': str(clinic.established_year or ''),

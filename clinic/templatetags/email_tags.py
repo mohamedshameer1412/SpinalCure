@@ -1,4 +1,5 @@
 from django import template
+from clinic import hours
 from django.conf import settings
 
 register = template.Library()
@@ -25,7 +26,7 @@ def email_brand():
         'phones': clinic.phone_list if clinic else [],
         'email': clinic.email if clinic else '',
         'address': clinic.address if clinic else '',
-        'hours': clinic.working_hours if clinic else '',
+        'hours': hours.opening_hours(clinic) if clinic else '',
         'instagram': clinic.instagram if clinic else '',
         'youtube': clinic.youtube if clinic else '',
     }
