@@ -70,8 +70,19 @@ for f in src.rglob('*') if src.exists() else []:
             copied += 1
 print(f'{copied} files copied (existing files are never overwritten)')
 
+psrc, pdst = ROOT / 'deploy' / 'private_media', Path(settings.PRIVATE_MEDIA_ROOT)
+p_copied = 0
+for f in psrc.rglob('*') if psrc.exists() else []:
+    if f.is_file():
+        target = pdst / f.relative_to(psrc)
+        if not target.exists():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(f, target)
+            p_copied += 1
+print(f'{p_copied} private staff photos copied to {pdst}')
+
 # Uploads must never run as code or be listed. php_flag would break PHP-FPM hosts, so handlers are removed instead.
-(dst / '.htaccess').write_text('''# Written by deploy/setup_server.py: uploaded files are data only.
+(dst / '.htaccess').write_text(r'''# Written by deploy/setup_server.py: uploaded files are data only.
 Options -Indexes -ExecCGI
 RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phar .pl .py .cgi .sh .asp .aspx .jsp
 RemoveType .php .phtml .php3 .php4 .php5 .php7 .php8 .phar .pl .py .cgi .sh .asp .aspx .jsp

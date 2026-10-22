@@ -2201,6 +2201,10 @@ msgstr "तिथि और समय चुनें।"
 msgid "Choose a date to see the free times."
 msgstr "खाली समय देखने के लिए एक तारीख़ चुनें।"
 
+#: clinic\faq_views.py:51
+msgid "Choose a doctor or type a name"
+msgstr "डॉक्टर चुनें या नाम लिखें"
+
 #: appointments\schedule_views.py:111
 msgid "Choose a morning or an evening session, or switch the day off."
 msgstr "सुबह या शाम का सत्र चुनें, या उस दिन को बंद करें।"
@@ -3820,7 +3824,7 @@ msgstr ""
 msgid "Enter the amount received."
 msgstr "प्राप्त राशि दर्ज करें।"
 
-#: clinic\faq_views.py:50
+#: clinic\faq_views.py:56
 msgid "Enter who checked this answer before publishing it."
 msgstr "प्रकाशित करने से पहले बताएँ कि यह उत्तर किसने जाँचा।"
 
@@ -8147,15 +8151,15 @@ msgstr "योग्यताएँ"
 msgid "Question"
 msgstr "प्रश्न"
 
-#: clinic\faq_views.py:59
+#: clinic\faq_views.py:65
 msgid "Question added."
 msgstr "प्रश्न जोड़ा गया।"
 
-#: clinic\faq_views.py:81
+#: clinic\faq_views.py:87
 msgid "Question deleted."
 msgstr "प्रश्न हटाया गया।"
 
-#: clinic\faq_views.py:72
+#: clinic\faq_views.py:78
 msgid "Question saved."
 msgstr "प्रश्न सहेजा गया।"
 
@@ -9730,7 +9734,7 @@ msgstr "कर्मचारी प्रबंधन"
 msgid "Staff Member"
 msgstr "कर्मचारी"
 
-#: templates\accounts\login.html:8 templates\public\footer.html:53
+#: templates\accounts\login.html:8 templates\public\footer.html:54
 msgid "Staff sign in"
 msgstr "कर्मचारी साइन इन"
 
@@ -9850,7 +9854,7 @@ msgid "Student Registrations"
 msgstr "छात्र पंजीकरण"
 
 #: templates\courses\student_signin.html:3
-#: templates\courses\student_signin.html:7 templates\public\footer.html:52
+#: templates\courses\student_signin.html:7 templates\public\footer.html:53
 msgid "Student sign in"
 msgstr "छात्र साइन इन"
 
@@ -10048,7 +10052,7 @@ msgid "Terminated"
 msgstr "सेवा समाप्त"
 
 #: templates\clinic\course_detail.html:75
-#: templates\clinic\event_detail.html:42 templates\public\footer.html:51
+#: templates\clinic\event_detail.html:42 templates\public\footer.html:52
 msgid "Terms"
 msgstr "शर्तें"
 

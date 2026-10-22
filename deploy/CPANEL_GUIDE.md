@@ -96,7 +96,7 @@ Write down the full database name, the full username and the password. You need 
 | `STATIC_ROOT` | `/home/CPANELUSER/spinalcure/staticfiles` |
 | `SECURE_SSL_REDIRECT` | `False` for now (step 9 turns it on) |
 | `EMAIL_HOST`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `DEFAULT_FROM_EMAIL` | a mailbox from **cPanel → Email Accounts** (create e.g. `noreply@yourdomain.com`; **Connect Devices** shows the server name and port 465) |
-| `ADMIN_EMAIL`, `ADMIN_PASSWORD` | the login for the first admin account |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD` | leave empty: your existing accounts are imported with their current passwords (see step 6). Fill them in only if you want a brand-new admin instead. |
 
 3. **Leave `SECRET_KEY` and `FERNET_KEYS` exactly as they are.** They were generated just for this site.
 4. **Save a copy of the whole `.env` file somewhere safe outside the server**, for example a password manager. Patient names are encrypted with `FERNET_KEYS`; if that key is lost, nobody can ever read them again.
@@ -118,13 +118,13 @@ It prints these steps, each ending without an error:
 3. **Creating / updating database tables:** about 100 lines of "Applying …".
 4. **Collecting static files**
 5. **Copying website images:** `910 files copied`.
-6. **Loading website content:** `Installed 447 object(s)`. These are the clinic details, doctor, schedule, 84 Google reviews, videos, gallery, courses, events, FAQs and translations.
-7. **First admin account:** `Admin created: …`
+6. **Loading your data:** `Installed 537 object(s)`. This is the clinic profile, practitioners, **your staff accounts with the same sign-in details**, staff profiles and ID cards, ID-card branding, doctor availability and booking rules, plus the website content (Google reviews, videos, gallery, FAQs, translations).
+7. **First admin account:** `An admin already exists: skipped.` (your imported accounts). If it says to set `ADMIN_EMAIL`, the data file was missing.
 
 Then:
 
 1. Go back to **Setup Python App** and click **Restart** on the app.
-2. **Delete the `ADMIN_PASSWORD` line from `.env`.** The account already exists.
+2. Make sure `ADMIN_PASSWORD` is **not** in `.env`.
 
 ---
 
@@ -132,11 +132,13 @@ Then:
 
 1. Open `http://yourdomain.com` and check that the home page loads with images, in English.
 2. Use the language switcher to change to தமிழ் and check that it switches.
-3. Sign in at `http://yourdomain.com/en/accounts/login/` with `ADMIN_EMAIL` and the password you chose.
+3. Sign in at `http://yourdomain.com/en/accounts/login/` with the same email and password you use locally. **Change that password now** (profile menu → Settings), because it was typed on a development machine.
 4. Go to **Clinic Setup** and check the phone numbers, address and Google review link.
 5. Go to **Team Accounts** and create the staff accounts (doctor, receptionist…). Each person gets their own login.
 
-The dummy patients, payments and demo staff from development are **not** included. The site starts clean, with only the real website content.
+**Not included:** patients, payments and reports, expenses, appointments, courses, batches, students and events. The site starts clean; add those on the live site.
+
+`deploy/content.json` contains your password hashes. Keep the zip private and delete `deploy/content.json` from the server after setup if you like (the data is already in the database).
 
 ---
 

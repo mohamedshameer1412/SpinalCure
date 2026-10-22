@@ -132,3 +132,13 @@ def test_appointment_list_survives_an_appointment_without_a_patient(owner, doc):
     r = owner.get(reverse('appointment_list'))
     assert r.status_code == 200
     assert 'Patient record not found' in r.content.decode()
+
+
+def test_faq_checked_by_suggests_practitioners_and_accepts_a_typed_name(owner, doc):
+    from clinic.faq_views import FAQForm
+    form = FAQForm()
+    options = [v for v, _l in form.fields['reviewed_by'].widget.choices]
+    assert 'Dr Rao' in options and form.fields['reviewed_by'].widget.attrs['data-create']
+    typed = FAQForm({'question': 'Q?', 'answer': 'A', 'order': 0, 'reviewed_by': 'Dr. Someone Else', 'is_published': 'on'})
+    assert typed.is_valid(), typed.errors
+    assert not FAQForm({'question': 'Q?', 'answer': 'A', 'order': 0, 'reviewed_by': '', 'is_published': 'on'}).is_valid()

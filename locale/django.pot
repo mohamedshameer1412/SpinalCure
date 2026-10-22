@@ -2136,6 +2136,10 @@ msgstr ""
 msgid "Choose a date to see the free times."
 msgstr ""
 
+#: clinic\faq_views.py:51
+msgid "Choose a doctor or type a name"
+msgstr ""
+
 #: appointments\schedule_views.py:111
 msgid "Choose a morning or an evening session, or switch the day off."
 msgstr ""
@@ -3721,7 +3725,7 @@ msgstr ""
 msgid "Enter the amount received."
 msgstr ""
 
-#: clinic\faq_views.py:50
+#: clinic\faq_views.py:56
 msgid "Enter who checked this answer before publishing it."
 msgstr ""
 
@@ -7933,15 +7937,15 @@ msgstr ""
 msgid "Question"
 msgstr ""
 
-#: clinic\faq_views.py:59
+#: clinic\faq_views.py:65
 msgid "Question added."
 msgstr ""
 
-#: clinic\faq_views.py:81
+#: clinic\faq_views.py:87
 msgid "Question deleted."
 msgstr ""
 
-#: clinic\faq_views.py:72
+#: clinic\faq_views.py:78
 msgid "Question saved."
 msgstr ""
 
@@ -9484,7 +9488,7 @@ msgstr ""
 msgid "Staff Member"
 msgstr ""
 
-#: templates\accounts\login.html:8 templates\public\footer.html:53
+#: templates\accounts\login.html:8 templates\public\footer.html:54
 msgid "Staff sign in"
 msgstr ""
 
@@ -9604,7 +9608,7 @@ msgid "Student Registrations"
 msgstr ""
 
 #: templates\courses\student_signin.html:3
-#: templates\courses\student_signin.html:7 templates\public\footer.html:52
+#: templates\courses\student_signin.html:7 templates\public\footer.html:53
 msgid "Student sign in"
 msgstr ""
 
@@ -9800,7 +9804,7 @@ msgid "Terminated"
 msgstr ""
 
 #: templates\clinic\course_detail.html:75
-#: templates\clinic\event_detail.html:42 templates\public\footer.html:51
+#: templates\clinic\event_detail.html:42 templates\public\footer.html:52
 msgid "Terms"
 msgstr ""
 

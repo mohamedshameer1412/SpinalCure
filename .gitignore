@@ -95,3 +95,4 @@ deploy/media/
 deploy/content.json
 dist/
 private_media/
+deploy/private_media/

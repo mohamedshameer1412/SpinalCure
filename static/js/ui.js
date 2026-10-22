@@ -116,16 +116,19 @@
     var empty = el.querySelector('option[value=""]');
     var count = el.options.length;
     var ts = new TomSelect(el, {
-      create: false,
+      create: el.hasAttribute('data-create'),            // suggestions plus free typing (e.g. "Checked by")
+      createOnBlur: el.hasAttribute('data-create'),
+      addPrecedence: el.hasAttribute('data-create'),     // the typed name is offered first, so Enter keeps what was typed
       allowEmptyOption: !!empty,
       maxOptions: 500,
-      controlInput: count > 8 ? undefined : null,
+      plugins: el.hasAttribute('data-create') ? ['dropdown_input'] : [],
+      controlInput: el.hasAttribute('data-create') ? '<input type="text" autocomplete="off" size="1" />' : (count > 8 ? undefined : null),
       placeholder: el.getAttribute('data-placeholder') || (empty && empty.textContent.trim()) || root.dataset.tsPlaceholder || '',
       // staff lists are alphabetical unless marked; public lists keep the order they were written in
       sortField: staff && !el.classList.contains('no-sort') && el.name !== 'category' && !el.hasAttribute('data-keep-order')
         ? { field: 'text', direction: 'asc' } : null,
       render: { no_results: function () { return '<div class="no-results">' + (root.dataset.tsNoResults || 'No results') + '</div>'; } },
-      onInitialize: function () { this.wrapper.classList.toggle('ts-compact', count <= 8); },
+      onInitialize: function () { this.wrapper.classList.toggle('ts-compact', count <= 8 && !el.hasAttribute('data-create')); },
     });
     // keep onchange="this.form.submit()" and Alpine x-model working
     ts.on('change', function () { el.dispatchEvent(new Event('change', { bubbles: true })); el.dispatchEvent(new Event('input', { bubbles: true })); });

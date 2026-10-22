@@ -45,14 +45,16 @@
         </div>
     </div>
     <div class="border-t border-white/10">
-        <div class="container-site flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-5 text-xs text-slate-500">
-            <p class="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <div class="container-site flex flex-col items-center gap-y-2 py-5 text-center text-xs text-slate-500">
+            <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
                 <span>© {% now "Y" %} {{ clinic|tx:"name"|default:"Spinal Cure" }}, {% translate "Arumbakkam, Chennai" %}. {% translate "All rights reserved." %}</span>
-                <a href="{% url 'clinic_terms' %}" class="text-slate-500 no-underline hover:text-slate-300">{% translate "Terms" %}</a>
-                <a href="{% url 'student_signin' %}" class="text-slate-500 no-underline hover:text-slate-300">{% translate "Student sign in" %}</a> <span aria-hidden="true">·</span>
-                <a href="{% url 'login' %}" class="text-slate-500 no-underline hover:text-slate-300">{% translate "Staff sign in" %}</a>
+                <span class="flex items-center gap-x-3">
+                    <a href="{% url 'clinic_terms' %}" class="text-slate-500 no-underline hover:text-slate-300">{% translate "Terms" %}</a><span aria-hidden="true">·</span>
+                    <a href="{% url 'student_signin' %}" class="text-slate-500 no-underline hover:text-slate-300">{% translate "Student sign in" %}</a><span aria-hidden="true">·</span>
+                    <a href="{% url 'login' %}" class="text-slate-500 no-underline hover:text-slate-300">{% translate "Staff sign in" %}</a>
+                </span>
             </p>
-            {% include "components/credits.html" with on_dark=True %}
+            <div class="[&>p]:justify-center">{% include "components/credits.html" with on_dark=True %}</div>
         </div>
     </div>
 </footer>

@@ -2212,6 +2212,10 @@ msgstr "തീയതിയും സമയവും തിരഞ്ഞെടു�
 msgid "Choose a date to see the free times."
 msgstr "ഒഴിവുള്ള സമയങ്ങൾ കാണാൻ ഒരു തീയതി തിരഞ്ഞെടുക്കുക."
 
+#: clinic\faq_views.py:51
+msgid "Choose a doctor or type a name"
+msgstr "ഡോക്ടറെ തിരഞ്ഞെടുക്കുക അല്ലെങ്കിൽ പേര് ടൈപ്പ് ചെയ്യുക"
+
 #: appointments\schedule_views.py:111
 msgid "Choose a morning or an evening session, or switch the day off."
 msgstr ""
@@ -3845,7 +3849,7 @@ msgstr ""
 msgid "Enter the amount received."
 msgstr "ലഭിച്ച തുക നൽകുക."
 
-#: clinic\faq_views.py:50
+#: clinic\faq_views.py:56
 msgid "Enter who checked this answer before publishing it."
 msgstr "പ്രസിദ്ധീകരിക്കുന്നതിന് മുമ്പ് ഈ ഉത്തരം ആരാണ് പരിശോധിച്ചതെന്ന് നൽകുക."
 
@@ -8214,15 +8218,15 @@ msgstr "യോഗ്യതകൾ"
 msgid "Question"
 msgstr "ചോദ്യം"
 
-#: clinic\faq_views.py:59
+#: clinic\faq_views.py:65
 msgid "Question added."
 msgstr "ചോദ്യം ചേർത്തു."
 
-#: clinic\faq_views.py:81
+#: clinic\faq_views.py:87
 msgid "Question deleted."
 msgstr "ചോദ്യം ഇല്ലാതാക്കി."
 
-#: clinic\faq_views.py:72
+#: clinic\faq_views.py:78
 msgid "Question saved."
 msgstr "ചോദ്യം സേവ് ചെയ്തു."
 
@@ -9802,7 +9806,7 @@ msgstr "സ്റ്റാഫ് മാനേജ്മെന്റ്"
 msgid "Staff Member"
 msgstr "സ്റ്റാഫ് അംഗം"
 
-#: templates\accounts\login.html:8 templates\public\footer.html:53
+#: templates\accounts\login.html:8 templates\public\footer.html:54
 msgid "Staff sign in"
 msgstr "സ്റ്റാഫ് സൈൻ ഇൻ"
 
@@ -9922,7 +9926,7 @@ msgid "Student Registrations"
 msgstr "വിദ്യാർത്ഥി രജിസ്ട്രേഷനുകൾ"
 
 #: templates\courses\student_signin.html:3
-#: templates\courses\student_signin.html:7 templates\public\footer.html:52
+#: templates\courses\student_signin.html:7 templates\public\footer.html:53
 msgid "Student sign in"
 msgstr "വിദ്യാർത്ഥി സൈൻ ഇൻ"
 
@@ -10120,7 +10124,7 @@ msgid "Terminated"
 msgstr "പിരിച്ചുവിട്ടു"
 
 #: templates\clinic\course_detail.html:75
-#: templates\clinic\event_detail.html:42 templates\public\footer.html:51
+#: templates\clinic\event_detail.html:42 templates\public\footer.html:52
 msgid "Terms"
 msgstr "നിബന്ധനകൾ"
 

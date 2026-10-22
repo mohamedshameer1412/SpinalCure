@@ -2220,6 +2220,10 @@ msgstr "தேதியையும் நேரத்தையும் தே�
 msgid "Choose a date to see the free times."
 msgstr "காலியான நேரங்களைப் பார்க்க ஒரு தேதியைத் தேர்ந்தெடுக்கவும்."
 
+#: clinic\faq_views.py:51
+msgid "Choose a doctor or type a name"
+msgstr "மருத்துவரைத் தேர்ந்தெடுக்கவும் அல்லது பெயரை உள்ளிடவும்"
+
 #: appointments\schedule_views.py:111
 msgid "Choose a morning or an evening session, or switch the day off."
 msgstr ""
@@ -3869,7 +3873,7 @@ msgstr ""
 msgid "Enter the amount received."
 msgstr "பெறப்பட்ட தொகையை உள்ளிடவும்."
 
-#: clinic\faq_views.py:50
+#: clinic\faq_views.py:56
 msgid "Enter who checked this answer before publishing it."
 msgstr "வெளியிடும் முன் இந்தப் பதிலைச் சரிபார்த்தவர் யார் என்பதை உள்ளிடவும்."
 
@@ -8274,15 +8278,15 @@ msgstr "தகுதிகள்"
 msgid "Question"
 msgstr "கேள்வி"
 
-#: clinic\faq_views.py:59
+#: clinic\faq_views.py:65
 msgid "Question added."
 msgstr "கேள்வி சேர்க்கப்பட்டது."
 
-#: clinic\faq_views.py:81
+#: clinic\faq_views.py:87
 msgid "Question deleted."
 msgstr "கேள்வி நீக்கப்பட்டது."
 
-#: clinic\faq_views.py:72
+#: clinic\faq_views.py:78
 msgid "Question saved."
 msgstr "கேள்வி சேமிக்கப்பட்டது."
 
@@ -9876,7 +9880,7 @@ msgstr "பணியாளர் மேலாண்மை"
 msgid "Staff Member"
 msgstr "பணியாளர்"
 
-#: templates\accounts\login.html:8 templates\public\footer.html:53
+#: templates\accounts\login.html:8 templates\public\footer.html:54
 msgid "Staff sign in"
 msgstr "பணியாளர் உள்நுழைவு"
 
@@ -9996,7 +10000,7 @@ msgid "Student Registrations"
 msgstr "மாணவர் பதிவுகள்"
 
 #: templates\courses\student_signin.html:3
-#: templates\courses\student_signin.html:7 templates\public\footer.html:52
+#: templates\courses\student_signin.html:7 templates\public\footer.html:53
 msgid "Student sign in"
 msgstr "மாணவர் உள்நுழைவு"
 
@@ -10197,7 +10201,7 @@ msgid "Terminated"
 msgstr "பணிநீக்கம்"
 
 #: templates\clinic\course_detail.html:75
-#: templates\clinic\event_detail.html:42 templates\public\footer.html:51
+#: templates\clinic\event_detail.html:42 templates\public\footer.html:52
 msgid "Terms"
 msgstr "விதிமுறைகள்"
 

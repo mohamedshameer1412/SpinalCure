@@ -2200,6 +2200,10 @@ msgstr "తేదీ మరియు సమయం ఎంచుకోండి."
 msgid "Choose a date to see the free times."
 msgstr "ఖాళీ సమయాలు చూడడానికి ఒక తేదీని ఎంచుకోండి."
 
+#: clinic\faq_views.py:51
+msgid "Choose a doctor or type a name"
+msgstr "డాక్టర్‌ను ఎంచుకోండి లేదా పేరు టైప్ చేయండి"
+
 #: appointments\schedule_views.py:111
 msgid "Choose a morning or an evening session, or switch the day off."
 msgstr "ఉదయం లేదా సాయంత్రం సెషన్ ఎంచుకోండి, లేదా ఆ రోజును ఆఫ్ చేయండి."
@@ -3827,7 +3831,7 @@ msgstr ""
 msgid "Enter the amount received."
 msgstr "అందిన మొత్తాన్ని నమోదు చేయండి."
 
-#: clinic\faq_views.py:50
+#: clinic\faq_views.py:56
 msgid "Enter who checked this answer before publishing it."
 msgstr "ప్రచురించే ముందు ఈ సమాధానాన్ని ఎవరు తనిఖీ చేశారో ఇవ్వండి."
 
@@ -8178,15 +8182,15 @@ msgstr "అర్హతలు"
 msgid "Question"
 msgstr "ప్రశ్న"
 
-#: clinic\faq_views.py:59
+#: clinic\faq_views.py:65
 msgid "Question added."
 msgstr "ప్రశ్న జోడించబడింది."
 
-#: clinic\faq_views.py:81
+#: clinic\faq_views.py:87
 msgid "Question deleted."
 msgstr "ప్రశ్న తొలగించబడింది."
 
-#: clinic\faq_views.py:72
+#: clinic\faq_views.py:78
 msgid "Question saved."
 msgstr "ప్రశ్న సేవ్ చేయబడింది."
 
@@ -9759,7 +9763,7 @@ msgstr "సిబ్బంది నిర్వహణ"
 msgid "Staff Member"
 msgstr "సిబ్బంది సభ్యుడు"
 
-#: templates\accounts\login.html:8 templates\public\footer.html:53
+#: templates\accounts\login.html:8 templates\public\footer.html:54
 msgid "Staff sign in"
 msgstr "సిబ్బంది సైన్ ఇన్"
 
@@ -9879,7 +9883,7 @@ msgid "Student Registrations"
 msgstr "విద్యార్థి నమోదులు"
 
 #: templates\courses\student_signin.html:3
-#: templates\courses\student_signin.html:7 templates\public\footer.html:52
+#: templates\courses\student_signin.html:7 templates\public\footer.html:53
 msgid "Student sign in"
 msgstr "విద్యార్థి సైన్ ఇన్"
 
@@ -10077,7 +10081,7 @@ msgid "Terminated"
 msgstr "తొలగించబడ్డారు"
 
 #: templates\clinic\course_detail.html:75
-#: templates\clinic\event_detail.html:42 templates\public\footer.html:51
+#: templates\clinic\event_detail.html:42 templates\public\footer.html:52
 msgid "Terms"
 msgstr "నిబంధనలు"
 

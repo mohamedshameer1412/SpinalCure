@@ -6,7 +6,7 @@ from django.utils.translation import gettext, gettext_lazy as _
 from django.views.decorators.http import require_POST
 
 from spinalcure.decorators import superadmin_required
-from .models import FAQ, ProblemCategory
+from .models import FAQ, Practitioner, ProblemCategory
 
 
 def faq_page(request):
@@ -43,6 +43,12 @@ class FAQForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['problem'].queryset = ProblemCategory.objects.filter(is_active=True)
         self.fields['problem'].empty_label = gettext('General')
+        # suggestions from the practitioner list; anything else can still be typed
+        names = [p.name for p in Practitioner.objects.filter(is_active=True).order_by('-is_chief', 'name')]
+        current = (self.instance.reviewed_by or '').strip()
+        choices = [('', '')] + [(n, n) for n in names] + ([(current, current)] if current and current not in names else [])
+        self.fields['reviewed_by'].widget = forms.Select(choices=choices, attrs={
+            'data-create': '1', 'data-keep-order': '1', 'data-placeholder': gettext('Choose a doctor or type a name')})
 
     def clean(self):
         data = super().clean()

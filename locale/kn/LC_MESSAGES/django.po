@@ -2199,6 +2199,10 @@ msgstr "ದಿನಾಂಕ ಮತ್ತು ಸಮಯ ಆಯ್ಕೆಮಾಡಿ
 msgid "Choose a date to see the free times."
 msgstr "ಖಾಲಿ ಸಮಯಗಳನ್ನು ನೋಡಲು ದಿನಾಂಕ ಆಯ್ಕೆಮಾಡಿ."
 
+#: clinic\faq_views.py:51
+msgid "Choose a doctor or type a name"
+msgstr "ವೈದ್ಯರನ್ನು ಆಯ್ಕೆಮಾಡಿ ಅಥವಾ ಹೆಸರನ್ನು ಟೈಪ್ ಮಾಡಿ"
+
 #: appointments\schedule_views.py:111
 msgid "Choose a morning or an evening session, or switch the day off."
 msgstr "ಬೆಳಿಗ್ಗೆ ಅಥವಾ ಸಂಜೆಯ ಅವಧಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ, ಅಥವಾ ಆ ದಿನವನ್ನು ಆಫ್ ಮಾಡಿ."
@@ -3819,7 +3823,7 @@ msgstr ""
 msgid "Enter the amount received."
 msgstr "ಸ್ವೀಕರಿಸಿದ ಮೊತ್ತವನ್ನು ನಮೂದಿಸಿ."
 
-#: clinic\faq_views.py:50
+#: clinic\faq_views.py:56
 msgid "Enter who checked this answer before publishing it."
 msgstr "ಪ್ರಕಟಿಸುವ ಮೊದಲು ಈ ಉತ್ತರವನ್ನು ಯಾರು ಪರಿಶೀಲಿಸಿದರು ಎಂದು ನಮೂದಿಸಿ."
 
@@ -8165,15 +8169,15 @@ msgstr "ಅರ್ಹತೆಗಳು"
 msgid "Question"
 msgstr "ಪ್ರಶ್ನೆ"
 
-#: clinic\faq_views.py:59
+#: clinic\faq_views.py:65
 msgid "Question added."
 msgstr "ಪ್ರಶ್ನೆ ಸೇರಿಸಲಾಗಿದೆ."
 
-#: clinic\faq_views.py:81
+#: clinic\faq_views.py:87
 msgid "Question deleted."
 msgstr "ಪ್ರಶ್ನೆ ಅಳಿಸಲಾಗಿದೆ."
 
-#: clinic\faq_views.py:72
+#: clinic\faq_views.py:78
 msgid "Question saved."
 msgstr "ಪ್ರಶ್ನೆ ಉಳಿಸಲಾಗಿದೆ."
 
@@ -9750,7 +9754,7 @@ msgstr "ಸಿಬ್ಬಂದಿ ನಿರ್ವಹಣೆ"
 msgid "Staff Member"
 msgstr "ಸಿಬ್ಬಂದಿ ಸದಸ್ಯ"
 
-#: templates\accounts\login.html:8 templates\public\footer.html:53
+#: templates\accounts\login.html:8 templates\public\footer.html:54
 msgid "Staff sign in"
 msgstr "ಸಿಬ್ಬಂದಿ ಸೈನ್ ಇನ್"
 
@@ -9870,7 +9874,7 @@ msgid "Student Registrations"
 msgstr "ವಿದ್ಯಾರ್ಥಿ ನೋಂದಣಿಗಳು"
 
 #: templates\courses\student_signin.html:3
-#: templates\courses\student_signin.html:7 templates\public\footer.html:52
+#: templates\courses\student_signin.html:7 templates\public\footer.html:53
 msgid "Student sign in"
 msgstr "ವಿದ್ಯಾರ್ಥಿ ಸೈನ್ ಇನ್"
 
@@ -10069,7 +10073,7 @@ msgid "Terminated"
 msgstr "ವಜಾಗೊಳಿಸಲಾಗಿದೆ"
 
 #: templates\clinic\course_detail.html:75
-#: templates\clinic\event_detail.html:42 templates\public\footer.html:51
+#: templates\clinic\event_detail.html:42 templates\public\footer.html:52
 msgid "Terms"
 msgstr "ನಿಯಮಗಳು"
 
