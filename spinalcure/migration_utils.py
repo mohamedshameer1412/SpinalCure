@@ -25,10 +25,26 @@ def mysql_ddl_or_schema_editor(app_label, model_name, create_sql, drop_sql):
                     return False
         return True
 
+    def with_parent_collation(connection, statement):
+        """A foreign key needs the same character set AND collation on both sides. The hand-written DDL says
+        `DEFAULT CHARSET=utf8mb4` and so gets that charset's default collation, which differs from the database's
+        (utf8mb4_unicode_ci on a database set up by deploy/setup_server.py): MySQL then refuses the key with errno 150.
+        Copy the collation of the table being referenced instead."""
+        with connection.cursor() as cur:
+            for table in referenced:
+                cur.execute("SELECT table_collation FROM information_schema.tables "
+                            "WHERE table_schema = DATABASE() AND table_name = %s", [table])
+                row = cur.fetchone()
+                if row and row[0]:
+                    collation = row[0]
+                    charset = collation.split('_')[0]
+                    return re.sub(r'DEFAULT CHARSET=\w+(\s+COLLATE=\w+)?', f'DEFAULT CHARSET={charset} COLLATE={collation}', statement)
+        return statement
+
     def forwards(apps, schema_editor):
         if schema_editor.connection.vendor == 'mysql' and legacy_char32_keys(schema_editor.connection):
             for statement in statements:
-                schema_editor.execute(statement)
+                schema_editor.execute(with_parent_collation(schema_editor.connection, statement))
         else:
             schema_editor.create_model(apps.get_model(app_label, model_name))
 
